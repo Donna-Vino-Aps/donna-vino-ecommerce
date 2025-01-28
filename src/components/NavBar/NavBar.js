@@ -17,7 +17,7 @@ const Navbar = () => {
   const navLinks = [
     { id: "home", href: "/", label: translations["navbar.home"] },
     {
-      id: "values",
+      id: "our-values",
       href: "/our-values",
       label: translations["navbar.values"],
     },

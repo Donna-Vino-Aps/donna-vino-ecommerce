@@ -1,6 +1,6 @@
 import React from "react";
 import { render, screen, fireEvent } from "@testing-library/react";
-import Navbar from "../../components/NavBar/NavBar";
+import Navbar from "@/components/Navbar/Navbar";
 import { LanguageProvider } from "../../context/LanguageContext";
 
 describe("Navbar component", () => {
