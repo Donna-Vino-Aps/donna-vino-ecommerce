@@ -1,7 +1,7 @@
 import React from "react";
 import { render, screen, fireEvent } from "@testing-library/react";
-import Navbar from "@/components/Navbar/Navbar";
-import { LanguageProvider } from "@/app/context/LanguageContext";
+import Navbar from "../../components/NavBar/NavBar";
+import { LanguageProvider } from "../../context/LanguageContext";
 
 describe("Navbar component", () => {
   test("should render the Navbar component correctly", () => {

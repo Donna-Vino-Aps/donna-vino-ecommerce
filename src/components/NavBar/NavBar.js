@@ -3,7 +3,7 @@ import Link from "next/link";
 import React, { useState } from "react";
 import LanguageSwitch from "./LanguageSwitch";
 import SideBar from "../Sidebar/Sidebar";
-import { useLanguage } from "@/app/context/LanguageContext";
+import { useLanguage } from "../../context/LanguageContext";
 
 const Navbar = () => {
   const { translations } = useLanguage();

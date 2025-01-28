@@ -2,8 +2,8 @@ import React from "react";
 import { render, screen, fireEvent } from "@testing-library/react";
 import enTranslations from "../../translations/en.json";
 import dkTranslations from "../../translations/dk.json";
-import { LanguageProvider, useLanguage } from "@/app/context/LanguageContext";
-import LanguageSwitch from "@/components/Navbar/LanguageSwitch";
+import { LanguageProvider, useLanguage } from "../../context/LanguageContext";
+import LanguageSwitch from "../../components/NavBar/LanguageSwitch";
 
 beforeEach(() => {
   localStorage.clear();

@@ -1,6 +1,6 @@
 "use client";
 
-import { useLanguage } from "@/app/context/LanguageContext";
+import { useLanguage } from "../../context/LanguageContext";
 import React, { useEffect } from "react";
 
 function LanguageSwitch() {

@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import "./globals.css";
 import Footer from "../components/Footer/Footer.js";
 import Navbar from "../components/Navbar/Navbar.js";
-import { LanguageProvider } from "./context/LanguageContext";
+import { LanguageProvider } from "../context/LanguageContext";
 // import { logInfo } from "@/utils/logging";
 
 const RootLayout = ({ children }) => {
