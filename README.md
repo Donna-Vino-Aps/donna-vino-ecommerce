@@ -1,36 +1,126 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# 🍇 Donna Vino E-Commerce - Frontend
 
-## Getting Started
+Welcome to the official repository for **Donna Vino E-Commerce**. This project is dedicated to developing the frontend of our online wine store, providing users with a seamless shopping experience.
 
-First, run the development server:
+Deployed Version:
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+TBD
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+---
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+## ✨ Project Overview
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+At **Donna Vino**, we aim to redefine how people explore and enjoy wine. Through this platform, users will be able to:
 
-## Learn More
+- Purchase hand-picked premium wines through a seamless **eCommerce experience**.
+- Browse and filter wines based on different categories and preferences.
+- Enjoy a modern, responsive, and user-friendly shopping interface.
 
-To learn more about Next.js, take a look at the following resources:
+This repository contains the frontend codebase, including:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- UI/UX implementation
+- API integration with the backend
+- Deployment setup
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+---
 
-## Deploy on Vercel
+## 🛠️ Tech Stack
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- **Next.js**
+- **React**
+- **JavaScript**
+- **Tailwind CSS**
+- **Jest**
+- **Cypress**
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+---
+
+## 🚀 Setup Instructions
+
+To get started locally:
+
+1. **Clone this repository**:
+
+   ```bash
+   git clone https://github.com/Donna-Vino-Aps/donna-vino-ecommerce.git
+   ```
+
+2. **Install dependencies**:
+
+   ```bash
+   npm install
+   ```
+
+3. **Run the development server**:
+
+   ```bash
+   npm run dev
+   ```
+
+   This command starts the development server, allowing you to view your project locally.
+
+4. **Run code-style checks: ESLint and Prettier**:
+
+   ```bash
+   npm run code-style-check
+   ```
+
+   Use this command to analyze your code for potential issues and enforce coding standards.
+
+5. **Run autofix to fix any issues with code-style**:
+
+   ```bash
+   npm run autofix
+   ```
+
+   Use this command to fix any issues with code-style checks. Proper code-style is mandatory so that the commit passes the checks.
+
+6. **Run all Jest unit tests**:
+
+   ```bash
+   npm test
+   ```
+
+   This command runs all tests in watch mode.
+
+7. **Run a specific test**:
+
+   To run a specific test, use:
+
+   ```bash
+   npm test -- <test-name>
+   ```
+
+   Replace `<test-name>` with the name of the test file or test suite you want to execute.
+
+8. **Run Cypress tests**:
+
+   ```bash
+   npx cypress open
+   ```
+
+   This opens the Cypress test runner, allowing you to execute and debug end-to-end tests.
+
+---
+
+## Workflow
+
+1. **Update main**: Always make sure your `main` branch is up to date with the latest changes.
+2. **Create a new branch**: For each feature, create a new branch from `main`.
+3. **Work on your feature**: Commit your changes to the new branch.
+4. **Create a pull request to main**: Once the feature is ready, open a PR to `main` for review and testing.
+5. **Review-App Deployment**:
+   - Each pull request will first run code-style checks, and only if they pass will it trigger the creation of a corresponding review app deployment, accessible from the pull request page.
+   - Both the developer and the reviewer are responsible for **ensuring the review app deployment is working correctly before merging into `main`.**
+6. **Update production from main**: The `production` branch will be updated only with tested code from `main` for an extra layer of security.
+
+---
+
+## 🛡️ Git Hooks with Husky
+
+We use **Husky** to ensure code quality and consistency:
+
+- Before every commit, **Prettier** and **ESLint** are run automatically to format and lint the code.
+- Before every push, all tests are executed to verify that the code is ready for a pull request.
+
+These automated checks help maintain a high-quality codebase and reduce potential errors in production.
