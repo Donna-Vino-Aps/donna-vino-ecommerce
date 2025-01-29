@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import "./globals.css";
 import Footer from "../components/Footer/Footer.js";
-import Navbar from "../components/Navbar/Navbar.js";
+import Navbar from "../components/NavBar/NavBar.js";
 import { LanguageProvider } from "../context/LanguageContext";
 // import { logInfo } from "@/utils/logging";
 

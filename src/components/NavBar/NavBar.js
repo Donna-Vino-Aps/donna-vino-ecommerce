@@ -1,8 +1,8 @@
 "use client";
 import Link from "next/link";
 import React, { useState } from "react";
-import LanguageSwitch from "./LanguageSwitch";
-import SideBar from "../Sidebar/Sidebar";
+import LanguageSwitch from "../NavBar/LanguageSwitch";
+import SideBar from "../SideBar/SideBar";
 import { useLanguage } from "../../context/LanguageContext";
 
 const Navbar = () => {
