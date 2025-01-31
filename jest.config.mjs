@@ -8,6 +8,7 @@ export default {
   transformIgnorePatterns: ["/node_modules/(?!some-esm-library)"],
   moduleNameMapper: {
     "^@/(.*)$": "<rootDir>/src/$1",
+    "\\.(css|scss|sass)$": "identity-obj-proxy",
   },
   setupFilesAfterEnv: ["<rootDir>/setupTests.js"],
   collectCoverageFrom: ["src/**/*.{js,jsx,ts,tsx}"],
