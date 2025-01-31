@@ -6,7 +6,6 @@ import "react-datepicker/dist/react-datepicker.css";
 
 const SignUpForm = () => {
   const [dateOfBirth, setDateOfBirth] = useState(null);
-  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -51,7 +50,6 @@ const SignUpForm = () => {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
-        name,
         email,
         password,
         dateOfBirth,
@@ -66,23 +64,6 @@ const SignUpForm = () => {
           Sign Up
         </h2>
         <form onSubmit={handleSignUp} className="signup-form">
-          <div className="mb-4">
-            <label
-              className="block text-sm font-medium text-gray-600"
-              htmlFor="name"
-            >
-              Name
-            </label>
-            <input
-              id="name"
-              type="text"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-              className="w-full px-4 py-2 mt-1 border rounded-lg focus:ring focus:ring-blue-300 focus:outline-none"
-              placeholder="Enter your name"
-            />
-          </div>
-
           <div className="mb-4">
             <label
               className="block text-sm font-medium text-gray-600"
