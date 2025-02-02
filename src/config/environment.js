@@ -1,15 +1,9 @@
-import { logInfo } from "@/utils/logging";
+import { API_URL_PRODUCTION, API_URL_DEVELOPMENT, WEB_CLIENT_ID } from "@env";
+import { logInfo } from "../../util/logging";
 
-// Determine the base API URL based on the environment
-const isProduction = process.env.NODE_ENV === "production";
+export const baseApiUrl = API_URL_PRODUCTION;
+// export const baseApiUrl = API_URL_DEVELOPMENT;
 
-// If it is production, we take the production URL, otherwise we take the development URL
-export const baseApiUrl = isProduction
-  ? process.env.NEXT_PUBLIC_API_URL_PRODUCTION ||
-    "https://backend-donna-vino-c5c2e1c03c18.herokuapp.com"
-  : process.env.NEXT_PUBLIC_API_URL_DEVELOPMENT || "http://localhost:3000";
+export const webClientId = WEB_CLIENT_ID;
 
-// Log the baseApiUrl for debugging purposes
-if (process.env.NODE_ENV === "development") {
-  logInfo("Using API URL: ", baseApiUrl);
-}
+// logInfo(`Server url: ${baseApiUrl}`);

@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import useFetch from "../../hooks/api/useFetch.js";
 import DatePicker from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css";
+// import "react-datepicker/dist/react-datepicker.css";
 // import { useLanguage } from "../../context/LanguageContext";
 
-const SignUpForm = () => {
+const SignUpScreen = () => {
   const [dateOfBirth, setDateOfBirth] = useState(null);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -190,4 +190,4 @@ const SignUpForm = () => {
   );
 };
 
-export default SignUpForm;
+export default SignUpScreen;
