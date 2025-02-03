@@ -10,12 +10,11 @@ import { CredentialsContext } from "../../context/credentialsContext";
 import useFetch from "../../hooks/api/useFetch";
 
 // Redux
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { setActiveScreen } from "../../actions/counterActions";
 import { useRouter } from "next/router";
 
 const SignupScreen = () => {
-  const [hidePassword, setHidePassword] = useState(true);
   const [dateOfBirth, setDateOfBirth] = useState(new Date(2000, 0, 1));
   const [msg, setMsg] = useState("");
   const [success, setSuccessStatus] = useState("");
@@ -25,8 +24,6 @@ const SignupScreen = () => {
 
   // Redux state and actions
   const dispatch = useDispatch();
-  const activeScreen = useSelector((state) => state.activeScreen.activeScreen);
-
   const router = useRouter();
 
   const handleMessage = ({ successStatus, msg }) => {
@@ -37,7 +34,7 @@ const SignupScreen = () => {
   const onReceived = (response) => {
     const { success, msg, user } = response;
     if (success) {
-      saveLoginCredentials(user, { successStatus: true, msg });
+      saveLoginCredentials(user);
       dispatch(setActiveScreen("LinkVerificationScreen"));
       router.push("/link-verification");
     } else {
@@ -57,7 +54,7 @@ const SignupScreen = () => {
     }
   }, [error]);
 
-  const handleSignup = (values, setSubmitting) => {
+  const handleSignup = (values) => {
     setMsg("");
     setSuccessStatus("");
 
@@ -74,23 +71,21 @@ const SignupScreen = () => {
     });
   };
 
-  const saveLoginCredentials = (user, msg, successStatus) => {
-    localStorage
-      .setItem("userCredentials", JSON.stringify(user))
-      .then(() => {
-        handleMessage({
-          successStatus: true,
-          msg: "User credentials saved successfully",
-        });
-        setStoredCredentials(user);
-      })
-      .catch((error) => {
-        console.error(error);
-        handleMessage({
-          successStatus: false,
-          msg: "Failed to save user credentials",
-        });
+  const saveLoginCredentials = (user) => {
+    try {
+      localStorage.setItem("userCredentials", JSON.stringify(user));
+      handleMessage({
+        successStatus: true,
+        msg: "User credentials saved successfully",
       });
+      setStoredCredentials(user);
+    } catch (error) {
+      console.error(error);
+      handleMessage({
+        successStatus: false,
+        msg: "Failed to save user credentials",
+      });
+    }
   };
 
   return (
@@ -114,11 +109,11 @@ const SignupScreen = () => {
               : "";
 
             if (
-              values.name === "" ||
-              values.email === "" ||
-              values.dateOfBirth === "" ||
-              values.password === "" ||
-              values.confirmPassword === ""
+              !values.name ||
+              !values.email ||
+              !values.dateOfBirth ||
+              !values.password ||
+              !values.confirmPassword
             ) {
               handleMessage({ msg: "Please fill all the fields" });
               setSubmitting(false);
@@ -127,15 +122,12 @@ const SignupScreen = () => {
               setSubmitting(false);
             } else {
               setSubmitting(true);
-              handleSignup(
-                {
-                  name: values.name,
-                  email: values.email,
-                  password: values.password,
-                  dateOfBirth: dateOfBirthString,
-                },
-                setSubmitting,
-              );
+              handleSignup({
+                name: values.name,
+                email: values.email,
+                password: values.password,
+                dateOfBirth: dateOfBirthString,
+              });
             }
           }}
         >
