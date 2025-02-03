@@ -2,7 +2,7 @@ import React, { useState, useContext, useEffect } from "react";
 import { Formik } from "formik";
 import { CredentialsContext } from "../../context/credentialsContext";
 import useFetch from "../../hooks/api/useFetch";
-import { logError } from "../../utils/logging";
+import { logError, logInfo } from "../../utils/logging";
 import Button from "../Button/Button";
 import { useLanguage } from "@/context/LanguageContext";
 import DatePicker from "react-datepicker";
@@ -41,9 +41,9 @@ const SignUpScreen = () => {
 
   const handleSignup = (values) => {
     setMsg("");
-    // Usamos la función formatDate para formatear la fecha
     const formattedBirthdate = formatDate(birthdate);
 
+    logInfo("sign up");
     performFetch({
       method: "POST",
       data: { user: { ...values, birthdate: formattedBirthdate } },
@@ -146,7 +146,7 @@ const SignUpScreen = () => {
                   onChange={(date) => setBirthdate(date)}
                   className="w-full p-3 border border-tertiary1-darker rounded-lg bg-white focus:outline-none focus:ring-2 focus:ring-primary-light"
                   placeholderText="Select your birthdate"
-                  dateFormat="EEE MMM dd yyyy" // Formato esperado
+                  dateFormat="EEE MMM dd yyyy"
                   isClearable
                 />
               </div>
@@ -155,6 +155,7 @@ const SignUpScreen = () => {
                 {msg && <p className="text-red-500 text-xs">{msg}</p>}
                 <Button
                   text={translations["signUp.button"]}
+                  onClick={handleSignup}
                   icon=""
                   variant="red"
                   ariaLabel="Sign-up button"
