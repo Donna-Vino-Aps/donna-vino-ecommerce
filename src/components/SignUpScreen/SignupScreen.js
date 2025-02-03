@@ -17,7 +17,6 @@ import { useRouter } from "next/router";
 const SignupScreen = () => {
   const [dateOfBirth, setDateOfBirth] = useState(new Date(2000, 0, 1));
   const [msg, setMsg] = useState("");
-  const [success, setSuccessStatus] = useState("");
 
   // credentials
   const { setStoredCredentials } = useContext(CredentialsContext);

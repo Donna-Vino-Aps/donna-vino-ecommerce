@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import PropTypes from "prop-types";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { AiOutlineCalendar } from "react-icons/ai";
@@ -16,8 +16,11 @@ const TextInputSignupScreen = ({
   touched,
   ...textInputProps
 }) => {
+  const hasError = touched[name] && errors[name]; // Error logic
+
   return (
     <div className="relative mb-6">
+      {/* Icon */}
       <div className="absolute left-4 top-1/2 transform -translate-y-1/2">
         {icon === "calendar" ? (
           <AiOutlineCalendar size={22} color="gray" />
@@ -26,16 +29,16 @@ const TextInputSignupScreen = ({
         )}
       </div>
 
+      {/* Label */}
       <label className="block text-sm font-semibold text-gray-600 mb-2">
         {label}
       </label>
 
+      {/* Input or Button for Date Picker */}
       {!isDate ? (
         <input
           name={name}
-          className={`w-full pl-12 pr-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 ${
-            touched[name] && errors[name] ? "border-red-500" : "border-gray-300"
-          } transition duration-200 ease-in-out`}
+          className={`w-full pl-12 pr-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 ${hasError ? "border-red-500" : "border-gray-300"} transition duration-200 ease-in-out`}
           {...textInputProps}
         />
       ) : (
@@ -47,6 +50,7 @@ const TextInputSignupScreen = ({
         </button>
       )}
 
+      {/* Show Password Toggle */}
       {isPassword && (
         <div
           className="absolute right-4 top-1/2 transform -translate-y-1/2 cursor-pointer"
@@ -60,28 +64,25 @@ const TextInputSignupScreen = ({
         </div>
       )}
 
-      {touched[name] && errors[name] && (
-        <p className="text-red-500 text-xs mt-1">{errors[name]}</p>
-      )}
+      {/* Error Message */}
+      {hasError && <p className="text-red-500 text-xs mt-1">{errors[name]}</p>}
     </div>
   );
 };
 
-// Validación de las props con PropTypes
 TextInputSignupScreen.propTypes = {
-  label: PropTypes.string.isRequired, // La etiqueta debe ser un string
-  icon: PropTypes.string, // El icono puede ser un string (si se pasa un icono)
-  isPassword: PropTypes.bool, // isPassword es un booleano
-  hidePassword: PropTypes.bool, // hidePassword es un booleano
-  setHidePassword: PropTypes.func, // setHidePassword debe ser una función
-  isDate: PropTypes.bool, // isDate es un booleano
-  showDatePicker: PropTypes.func, // showDatePicker debe ser una función
-  name: PropTypes.string.isRequired, // name debe ser un string
-  errors: PropTypes.object.isRequired, // errors debe ser un objeto
-  touched: PropTypes.object.isRequired, // touched debe ser un objeto
+  label: PropTypes.string.isRequired,
+  icon: PropTypes.string,
+  isPassword: PropTypes.bool,
+  hidePassword: PropTypes.bool,
+  setHidePassword: PropTypes.func,
+  isDate: PropTypes.bool,
+  showDatePicker: PropTypes.func,
+  name: PropTypes.string.isRequired,
+  errors: PropTypes.object.isRequired,
+  touched: PropTypes.object.isRequired,
 };
 
-// Propiedades opcionales con valores por defecto
 TextInputSignupScreen.defaultProps = {
   icon: "",
   isPassword: false,
