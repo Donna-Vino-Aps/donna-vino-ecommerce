@@ -11,8 +11,8 @@ import "react-datepicker/dist/react-datepicker.css";
 
 const SignUpScreen = () => {
   const { translations } = useLanguage();
-  const [msg, setMsg] = useState("");
   const { setStoredCredentials } = useContext(CredentialsContext);
+  const [msg, setMsg] = useState("");
   const [birthdate, setBirthdate] = useState(null);
 
   const handleMessage = (msg) => setMsg(msg);
@@ -155,7 +155,7 @@ const SignUpScreen = () => {
                 {msg && <p className="text-red-500 text-xs">{msg}</p>}
                 <Button
                   text={translations["signUp.button"]}
-                  onClick={handleSignup}
+                  onClick={handleSubmit}
                   icon=""
                   variant="red"
                   ariaLabel="Sign-up button"
