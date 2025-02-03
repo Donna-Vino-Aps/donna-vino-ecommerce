@@ -2,15 +2,11 @@ import React, { useState, useContext, useEffect } from "react";
 import { Formik } from "formik";
 import { CredentialsContext } from "../../context/credentialsContext";
 import useFetch from "../../hooks/api/useFetch";
-import { useDispatch } from "react-redux";
-import { setActiveScreen } from "../../actions/counterActions";
-import { useRouter } from "next/router";
+import { logError } from "@/utils/logging";
 
 const SignUpScreen = () => {
   const [msg, setMsg] = useState("");
   const { setStoredCredentials } = useContext(CredentialsContext);
-  const dispatch = useDispatch();
-  const router = useRouter();
 
   const handleMessage = (msg) => setMsg(msg);
 
@@ -46,16 +42,16 @@ const SignUpScreen = () => {
       localStorage.setItem("userCredentials", JSON.stringify(user));
       setStoredCredentials(user);
     } catch (error) {
-      console.error(error);
+      logError(error);
       handleMessage("Failed to save user credentials");
     }
   };
 
   return (
-    <div className="flex flex-col min-h-screen bg-white">
+    <div className="flex flex-col min-h-screen bg-primary-light">
       <main className="flex-grow p-8 max-w-lg mx-auto">
-        <h2 className="text-2xl font-semibold mb-6 text-center">
-          Account Sign Up
+        <h2 className="text-displayMedium md:text-displayLarge font-barlow text-tertiary1-darker mb-6 text-center">
+          Sign Up
         </h2>
         <Formik
           initialValues={{
@@ -89,7 +85,7 @@ const SignUpScreen = () => {
             values,
             isSubmitting,
           }) => (
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={handleSubmit} className="space-y-4">
               <input
                 type="text"
                 placeholder="Your Name"
@@ -97,7 +93,7 @@ const SignUpScreen = () => {
                 onChange={handleChange}
                 onBlur={handleBlur}
                 value={values.name}
-                className="w-full p-2 border rounded-lg mb-4"
+                className="w-full p-3 border border-tertiary1-darker rounded-lg bg-white focus:outline-none focus:ring-2 focus:ring-primary-light"
               />
 
               <input
@@ -107,7 +103,7 @@ const SignUpScreen = () => {
                 onChange={handleChange}
                 onBlur={handleBlur}
                 value={values.email}
-                className="w-full p-2 border rounded-lg mb-4"
+                className="w-full p-3 border border-tertiary1-darker rounded-lg bg-white focus:outline-none focus:ring-2 focus:ring-primary-light"
               />
 
               <input
@@ -117,7 +113,7 @@ const SignUpScreen = () => {
                 onChange={handleChange}
                 onBlur={handleBlur}
                 value={values.password}
-                className="w-full p-2 border rounded-lg mb-4"
+                className="w-full p-3 border border-tertiary1-darker rounded-lg bg-white focus:outline-none focus:ring-2 focus:ring-primary-light"
               />
 
               <input
@@ -127,7 +123,7 @@ const SignUpScreen = () => {
                 onChange={handleChange}
                 onBlur={handleBlur}
                 value={values.confirmPassword}
-                className="w-full p-2 border rounded-lg mb-4"
+                className="w-full p-3 border border-tertiary1-darker rounded-lg bg-white focus:outline-none focus:ring-2 focus:ring-primary-light"
               />
 
               <div className="mt-4">
@@ -135,7 +131,7 @@ const SignUpScreen = () => {
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className="w-full py-2 bg-blue-500 text-white rounded-lg"
+                  className="w-full py-3 bg-red text-white rounded-lg hover:bg-redLine focus:outline-none focus:ring-2 focus:ring-redLine"
                 >
                   Sign Up
                 </button>
@@ -147,7 +143,7 @@ const SignUpScreen = () => {
         <div className="mt-6 text-center">
           <p>
             Already have an account?{" "}
-            <a href="/login" className="text-blue-500">
+            <a href="/login" className="text-primary-light">
               Login
             </a>
           </p>
