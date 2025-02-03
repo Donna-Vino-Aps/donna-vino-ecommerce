@@ -6,7 +6,7 @@ import { useDispatch } from "react-redux";
 import { setActiveScreen } from "../../actions/counterActions";
 import { useRouter } from "next/router";
 
-const SignupScreen = () => {
+const SignUpScreen = () => {
   const [msg, setMsg] = useState("");
   const { setStoredCredentials } = useContext(CredentialsContext);
   const dispatch = useDispatch();
@@ -160,4 +160,4 @@ const SignupScreen = () => {
   );
 };
 
-export default SignupScreen;
+export default SignUpScreen;
