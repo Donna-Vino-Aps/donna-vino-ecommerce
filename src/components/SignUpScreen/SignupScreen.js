@@ -2,17 +2,18 @@ import React, { useState, useContext, useEffect } from "react";
 import { Formik } from "formik";
 import { CredentialsContext } from "../../context/credentialsContext";
 import useFetch from "../../hooks/api/useFetch";
-import { logError } from "@/utils/logging";
+import { logError } from "../../utils/logging";
 import Button from "../Button/Button";
 import { useLanguage } from "@/context/LanguageContext";
 import DatePicker from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css"; // Importa los estilos de DatePicker
+import { formatDate } from "../../utils/dateUtils";
+import "react-datepicker/dist/react-datepicker.css";
 
 const SignUpScreen = () => {
   const { translations } = useLanguage();
   const [msg, setMsg] = useState("");
   const { setStoredCredentials } = useContext(CredentialsContext);
-  const [birthdate, setBirthdate] = useState(null); // Estado para manejar la fecha seleccionada
+  const [birthdate, setBirthdate] = useState(null);
 
   const handleMessage = (msg) => setMsg(msg);
 
@@ -40,7 +41,13 @@ const SignUpScreen = () => {
 
   const handleSignup = (values) => {
     setMsg("");
-    performFetch({ method: "POST", data: { user: { ...values, birthdate } } }); // Asegúrate de enviar la fecha en la solicitud
+    // Usamos la función formatDate para formatear la fecha
+    const formattedBirthdate = formatDate(birthdate);
+
+    performFetch({
+      method: "POST",
+      data: { user: { ...values, birthdate: formattedBirthdate } },
+    });
   };
 
   const saveLoginCredentials = (user) => {
@@ -139,7 +146,7 @@ const SignUpScreen = () => {
                   onChange={(date) => setBirthdate(date)}
                   className="w-full p-3 border border-tertiary1-darker rounded-lg bg-white focus:outline-none focus:ring-2 focus:ring-primary-light"
                   placeholderText="Select your birthdate"
-                  dateFormat="MMMM d, yyyy"
+                  dateFormat="EEE MMM dd yyyy" // Formato esperado
                   isClearable
                 />
               </div>
