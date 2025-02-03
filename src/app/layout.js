@@ -6,7 +6,8 @@ import Footer from "../components/Footer/Footer.js";
 import Navbar from "../components/NavBar/NavBar.js";
 import { LanguageProvider } from "../context/LanguageContext";
 import { CredentialsContext } from "../context/credentialsContext";
-import { logError } from "@/utils/logging";
+import { logError, logInfo } from "@/utils/logging";
+import { baseApiUrl } from "@/config/environment";
 
 const RootLayout = ({ children }) => {
   const [storedCredentials, setStoredCredentials] = useState(null);
