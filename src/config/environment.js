@@ -1,4 +1,10 @@
 import { API_URL_PRODUCTION, API_URL_DEVELOPMENT } from "@env";
+import { logInfo } from "@/utils/logging";
 
-export const baseApiUrl = API_URL_PRODUCTION;
-// export const baseApiUrl = API_URL_DEVELOPMENT;
+const isProduction = process.env.NODE_ENV === "production";
+
+export const baseApiUrl = isProduction
+  ? API_URL_PRODUCTION
+  : API_URL_DEVELOPMENT;
+
+logInfo(`Server url: ${baseApiUrl}`);
