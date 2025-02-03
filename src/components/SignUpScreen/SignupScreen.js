@@ -3,10 +3,16 @@ import { Formik } from "formik";
 import { CredentialsContext } from "../../context/credentialsContext";
 import useFetch from "../../hooks/api/useFetch";
 import { logError } from "@/utils/logging";
+import Button from "../Button/Button";
+import { useLanguage } from "@/context/LanguageContext";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css"; // Importa los estilos de DatePicker
 
 const SignUpScreen = () => {
+  const { translations } = useLanguage();
   const [msg, setMsg] = useState("");
   const { setStoredCredentials } = useContext(CredentialsContext);
+  const [birthdate, setBirthdate] = useState(null); // Estado para manejar la fecha seleccionada
 
   const handleMessage = (msg) => setMsg(msg);
 
@@ -34,7 +40,7 @@ const SignUpScreen = () => {
 
   const handleSignup = (values) => {
     setMsg("");
-    performFetch({ method: "POST", data: { user: values } });
+    performFetch({ method: "POST", data: { user: { ...values, birthdate } } }); // Asegúrate de enviar la fecha en la solicitud
   };
 
   const saveLoginCredentials = (user) => {
@@ -65,7 +71,8 @@ const SignUpScreen = () => {
               !values.name ||
               !values.email ||
               !values.password ||
-              !values.confirmPassword
+              !values.confirmPassword ||
+              !birthdate
             ) {
               handleMessage("Please fill all the fields");
               setSubmitting(false);
@@ -126,8 +133,26 @@ const SignUpScreen = () => {
                 className="w-full p-3 border border-tertiary1-darker rounded-lg bg-white focus:outline-none focus:ring-2 focus:ring-primary-light"
               />
 
+              <div className="w-full">
+                <DatePicker
+                  selected={birthdate}
+                  onChange={(date) => setBirthdate(date)}
+                  className="w-full p-3 border border-tertiary1-darker rounded-lg bg-white focus:outline-none focus:ring-2 focus:ring-primary-light"
+                  placeholderText="Select your birthdate"
+                  dateFormat="MMMM d, yyyy"
+                  isClearable
+                />
+              </div>
+
               <div className="mt-4">
                 {msg && <p className="text-red-500 text-xs">{msg}</p>}
+                <Button
+                  text={translations["signUp.button"]}
+                  icon=""
+                  variant="red"
+                  ariaLabel="Sign-up button"
+                  testId="sign-up-button"
+                />
                 <button
                   type="submit"
                   disabled={isSubmitting}
@@ -149,9 +174,6 @@ const SignUpScreen = () => {
           </p>
         </div>
       </main>
-      <footer className="bg-gray-800 text-white p-4 text-center mt-auto">
-        <p>&copy; 2025 Your Company</p>
-      </footer>
     </div>
   );
 };
