@@ -1,193 +1,241 @@
-import React, { useState } from "react";
-import useFetch from "../../hooks/api/useFetch.js";
+import React, { useState, useContext, useEffect } from "react";
 import DatePicker from "react-datepicker";
-// import "react-datepicker/dist/react-datepicker.css";
-// import { useLanguage } from "../../context/LanguageContext";
+import { Formik } from "formik";
+import "react-datepicker/dist/react-datepicker.css";
 
-const SignUpScreen = () => {
-  const [dateOfBirth, setDateOfBirth] = useState(null);
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
-  const years = Array.from(
-    { length: new Date().getFullYear() - 1920 + 1 },
-    (_, i) => 1920 + i,
-  );
-  const months = [
-    "January",
-    "February",
-    "March",
-    "April",
-    "May",
-    "June",
-    "July",
-    "August",
-    "September",
-    "October",
-    "November",
-    "December",
-  ];
+import TextInputSignupScreen from "../../components/TextInputSignupScreen/TextInputSignupScreen";
 
-  const onReceived = (data) => {
-    if (data.success) {
-      logInfo("Signup successful:", data);
+// Context and hooks
+import { CredentialsContext } from "../../context/credentialsContext";
+import useFetch from "../../hooks/api/useFetch";
+
+// Redux
+import { useDispatch, useSelector } from "react-redux";
+import { setActiveScreen } from "../../actions/counterActions";
+import { useRouter } from "next/router";
+
+const SignupScreen = () => {
+  const [hidePassword, setHidePassword] = useState(true);
+  const [dateOfBirth, setDateOfBirth] = useState(new Date(2000, 0, 1));
+  const [msg, setMsg] = useState("");
+  const [success, setSuccessStatus] = useState("");
+
+  // credentials
+  const { setStoredCredentials } = useContext(CredentialsContext);
+
+  // Redux state and actions
+  const dispatch = useDispatch();
+  const activeScreen = useSelector((state) => state.activeScreen.activeScreen);
+
+  const router = useRouter();
+
+  const handleMessage = ({ successStatus, msg }) => {
+    setSuccessStatus(successStatus);
+    setMsg(msg);
+  };
+
+  const onReceived = (response) => {
+    const { success, msg, user } = response;
+    if (success) {
+      saveLoginCredentials(user, { successStatus: true, msg });
+      dispatch(setActiveScreen("LinkVerificationScreen"));
+      router.push("/link-verification");
     } else {
-      console.error("Signup failed:", data);
+      handleMessage({ successStatus: false, msg });
     }
   };
 
-  // Fetch API for login request
   const { performFetch, isLoading, error } = useFetch(
-    "/auth/sign-up",
+    `/auth/sign-up`,
     onReceived,
   );
 
-  // Handle form submission
-  const handleSignUp = (e) => {
-    e.preventDefault(); // Prevent default form reload
+  useEffect(() => {
+    if (error) {
+      const errorMessage = error.message || "An unexpected error occurred.";
+      handleMessage({ successStatus: false, msg: errorMessage });
+    }
+  }, [error]);
+
+  const handleSignup = (values, setSubmitting) => {
+    setMsg("");
+    setSuccessStatus("");
+
+    const credentials = {
+      name: values.name,
+      email: values.email,
+      password: values.password,
+      dateOfBirth: values.dateOfBirth,
+    };
 
     performFetch({
       method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        email,
-        password,
-        dateOfBirth,
-      }),
+      data: { user: credentials },
     });
   };
 
+  const saveLoginCredentials = (user, msg, successStatus) => {
+    localStorage
+      .setItem("userCredentials", JSON.stringify(user))
+      .then(() => {
+        handleMessage({
+          successStatus: true,
+          msg: "User credentials saved successfully",
+        });
+        setStoredCredentials(user);
+      })
+      .catch((error) => {
+        console.error(error);
+        handleMessage({
+          successStatus: false,
+          msg: "Failed to save user credentials",
+        });
+      });
+  };
+
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gray-100">
-      <div className="w-full max-w-sm bg-white p-6 rounded-lg shadow-md">
-        <h2 className="text-2xl font-semibold text-center text-gray-700 mb-4">
-          Sign Up
+    <div className="flex flex-col min-h-screen bg-white">
+      <main className="flex-grow p-8 max-w-lg mx-auto">
+        <h2 className="text-2xl font-semibold mb-6 text-center">
+          Account Sign Up
         </h2>
-        <form onSubmit={handleSignUp} className="signup-form">
-          <div className="mb-4">
-            <label
-              className="block text-sm font-medium text-gray-600"
-              htmlFor="email"
-            >
-              Email
-            </label>
-            <input
-              id="email"
-              type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              className="w-full px-4 py-2 mt-1 border rounded-lg focus:ring focus:ring-blue-300 focus:outline-none"
-              placeholder="Enter your email"
-            />
-          </div>
+        <Formik
+          initialValues={{
+            name: "",
+            email: "",
+            dateOfBirth: "",
+            password: "",
+            confirmPassword: "",
+          }}
+          onSubmit={(values, { setSubmitting }) => {
+            values = { ...values, dateOfBirth: dateOfBirth };
+            const dateOfBirthString = values.dateOfBirth
+              ? values.dateOfBirth.toDateString()
+              : "";
 
-          <div className="mb-4">
-            <label
-              className="block text-sm font-medium text-gray-600"
-              htmlFor="password"
-            >
-              Password
-            </label>
-            <input
-              id="password"
-              type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              className="w-full px-4 py-2 mt-1 border rounded-lg focus:ring focus:ring-blue-300 focus:outline-none"
-              placeholder="Enter your password"
-            />
-          </div>
-
-          <div className="mb-4">
-            <label
-              className="block text-sm font-medium text-gray-600"
-              htmlFor="confirmPassword"
-            >
-              Password Check
-            </label>
-            <input
-              id="confirmPassword"
-              type="password"
-              value={confirmPassword}
-              onChange={(e) => setConfirmPassword(e.target.value)}
-              className="w-full px-4 py-2 mt-1 border rounded-lg focus:ring focus:ring-blue-300 focus:outline-none"
-              placeholder="Confirm your password"
-            />
-          </div>
-
-          <div className="mb-4">
-            <label
-              className="block text-sm font-medium text-gray-600"
-              htmlFor="dateofbirth"
-            >
-              Date of birth
-            </label>
-            <div className="relative w-full">
-              <DatePicker
-                id="dateofbirth"
-                selected={dateOfBirth}
-                onChange={(date) => setDateOfBirth(date)}
-                placeholderText="Date of Birth"
-                className="w-full px-4 py-2 mt-1 border rounded-lg focus:ring focus:ring-blue-300"
-                renderCustomHeader={({ date, changeYear, changeMonth }) => (
-                  <div
-                    style={{
-                      margin: 10,
-                      display: "flex",
-                      justifyContent: "center",
-                    }}
-                  >
-                    <select
-                      value={date.getFullYear()}
-                      onChange={({ target: { value } }) => changeYear(value)}
-                    >
-                      {years.map((option) => (
-                        <option key={option} value={option}>
-                          {option}
-                        </option>
-                      ))}
-                    </select>
-
-                    <select
-                      value={months[date.getMonth()]}
-                      onChange={({ target: { value } }) =>
-                        changeMonth(months.indexOf(value))
-                      }
-                    >
-                      {months.map((option) => (
-                        <option key={option} value={option}>
-                          {option}
-                        </option>
-                      ))}
-                    </select>
-                  </div>
-                )}
+            if (
+              values.name === "" ||
+              values.email === "" ||
+              values.dateOfBirth === "" ||
+              values.password === "" ||
+              values.confirmPassword === ""
+            ) {
+              handleMessage({ msg: "Please fill all the fields" });
+              setSubmitting(false);
+            } else if (values.password !== values.confirmPassword) {
+              handleMessage({ msg: "Passwords do not match" });
+              setSubmitting(false);
+            } else {
+              setSubmitting(true);
+              handleSignup(
+                {
+                  name: values.name,
+                  email: values.email,
+                  password: values.password,
+                  dateOfBirth: dateOfBirthString,
+                },
+                setSubmitting,
+              );
+            }
+          }}
+        >
+          {({
+            handleChange,
+            handleBlur,
+            handleSubmit,
+            values,
+            isSubmitting,
+            errors,
+            touched,
+          }) => (
+            <form onSubmit={handleSubmit}>
+              <TextInputSignupScreen
+                label="Name"
+                placeholder="Your Name"
+                onChange={handleChange("name")}
+                onBlur={handleBlur("name")}
+                value={values.name}
+                name="name"
+                errors={errors}
+                touched={touched}
               />
-            </div>
-          </div>
 
-          <button
-            type="submit"
-            className="w-full bg-secondary-normal text-white py-2 rounded-lg hover:bg-secondary-hover_normal transition"
-            disabled={isLoading}
-          >
-            {isLoading ? "Signing Up..." : "Sign Up"}
-          </button>
+              <TextInputSignupScreen
+                label="Email Address"
+                placeholder="your.email@example.com"
+                onChange={handleChange("email")}
+                onBlur={handleBlur("email")}
+                value={values.email}
+                name="email"
+                errors={errors}
+                touched={touched}
+                keyboardType="email-address"
+              />
 
-          {/* Error Message */}
-          {error && (
-            <p className="text-red-500 text-center mt-2">
-              {
-                typeof error === "object" && typeof error.message === "string" // Double check type and if it is a string
-                  ? error.message
-                  : error.toString() // Fallback to string conversion
-              }
-            </p>
+              <label className="block text-sm font-semibold text-gray-600 mb-1">
+                Date of Birth
+              </label>
+              <DatePicker
+                selected={dateOfBirth}
+                onChange={setDateOfBirth}
+                dateFormat="MMMM d, yyyy"
+                className="mb-4 p-2 border rounded-lg w-full"
+              />
+
+              <TextInputSignupScreen
+                label="Password"
+                placeholder="********"
+                onChange={handleChange("password")}
+                onBlur={handleBlur("password")}
+                value={values.password}
+                type="password"
+                name="password"
+                errors={errors}
+                touched={touched}
+              />
+
+              <TextInputSignupScreen
+                label="Confirm Password"
+                placeholder="********"
+                onChange={handleChange("confirmPassword")}
+                onBlur={handleBlur("confirmPassword")}
+                value={values.confirmPassword}
+                type="password"
+                name="confirmPassword"
+                errors={errors}
+                touched={touched}
+              />
+
+              <div className="mt-4">
+                {msg && <p className="text-red-500 text-xs">{msg}</p>}
+                <button
+                  type="submit"
+                  disabled={isSubmitting}
+                  className="w-full py-2 bg-blue-500 text-white rounded-lg focus:outline-none"
+                >
+                  Sign Up
+                </button>
+              </div>
+            </form>
           )}
-        </form>
-      </div>
+        </Formik>
+
+        {isLoading && <p className="text-center">Loading...</p>}
+
+        <div className="mt-6 text-center">
+          <p>
+            Already have an account?{" "}
+            <a href="/login" className="text-blue-500">
+              Login
+            </a>
+          </p>
+        </div>
+      </main>
+      <footer className="bg-gray-800 text-white p-4 text-center mt-auto">
+        <p>&copy; 2025 Your Company</p>
+      </footer>
     </div>
   );
 };
 
-export default SignUpScreen;
+export default SignupScreen;
