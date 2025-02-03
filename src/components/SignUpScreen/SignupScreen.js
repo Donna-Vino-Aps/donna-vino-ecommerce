@@ -1,7 +1,7 @@
 import React, { useState, useContext, useEffect } from "react";
-import DatePicker from "react-datepicker";
+// import DatePicker from "react-datepicker";
 import { Formik } from "formik";
-import "react-datepicker/dist/react-datepicker.css";
+// import "react-datepicker/dist/react-datepicker.css";
 
 import TextInputSignupScreen from "../../components/TextInputSignupScreen/TextInputSignupScreen";
 
@@ -166,12 +166,12 @@ const SignupScreen = () => {
               <label className="block text-sm font-semibold text-gray-600 mb-1">
                 Date of Birth
               </label>
-              <DatePicker
+              {/* <DatePicker
                 selected={dateOfBirth}
                 onChange={setDateOfBirth}
                 dateFormat="MMMM d, yyyy"
                 className="mb-4 p-2 border rounded-lg w-full"
-              />
+              /> */}
 
               <TextInputSignupScreen
                 label="Password"
