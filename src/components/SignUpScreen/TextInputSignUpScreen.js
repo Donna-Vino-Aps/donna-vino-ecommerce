@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
 const TextInputSignUpScreen = ({
   type = "text",
@@ -12,15 +14,14 @@ const TextInputSignUpScreen = ({
   icon,
   showPasswordToggle = false,
   isDate = false,
-  showDatePicker,
 }) => {
   const [showPassword, setShowPassword] = useState(false);
 
   return (
     <div className="relative">
-      {icon && (
-        <div className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-600">
-          {icon}
+      {icon && !isDate && (
+        <div className="absolute left-3 top-1/2 transform -translate-y-1/2">
+          {React.cloneElement(icon, { style: { color: "black" } })}
         </div>
       )}
 
@@ -35,13 +36,21 @@ const TextInputSignUpScreen = ({
           className={`w-full p-3 ${icon ? "pl-12" : "pl-3"} border border-tertiary1-darker rounded-lg bg-white focus:outline-none focus:ring-2 focus:ring-primary-light`}
         />
       ) : (
-        <button
-          type="button"
-          onClick={showDatePicker}
-          className="w-full p-3 pl-3 border border-tertiary1-darker rounded-lg bg-white text-left focus:outline-none focus:ring-2 focus:ring-primary-light"
-        >
-          {value || placeholder}
-        </button>
+        <div className="relative">
+          {icon && (
+            <div className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-600">
+              {icon}
+            </div>
+          )}
+          <DatePicker
+            selected={value}
+            onChange={onChange}
+            className="w-full p-3 pl-12 border border-tertiary1-darker rounded-lg bg-white focus:outline-none focus:ring-2 focus:ring-primary-light"
+            placeholderText={placeholder}
+            dateFormat="EEE MMM dd yyyy"
+            isClearable
+          />
+        </div>
       )}
 
       {showPasswordToggle && !isDate && (
@@ -61,13 +70,16 @@ TextInputSignUpScreen.propTypes = {
   type: PropTypes.string,
   name: PropTypes.string.isRequired,
   placeholder: PropTypes.string.isRequired,
-  value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  value: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number,
+    PropTypes.instanceOf(Date),
+  ]),
   onChange: PropTypes.func.isRequired,
   onBlur: PropTypes.func,
   icon: PropTypes.element,
   showPasswordToggle: PropTypes.bool,
   isDate: PropTypes.bool,
-  showDatePicker: PropTypes.func,
 };
 
 TextInputSignUpScreen.defaultProps = {
@@ -76,7 +88,6 @@ TextInputSignUpScreen.defaultProps = {
   icon: null,
   showPasswordToggle: false,
   isDate: false,
-  showDatePicker: () => {},
 };
 
 export default TextInputSignUpScreen;

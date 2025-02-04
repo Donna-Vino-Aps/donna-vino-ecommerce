@@ -5,9 +5,9 @@ import useFetch from "../../hooks/api/useFetch";
 import { logError, logInfo } from "../../utils/logging";
 import Button from "../Button/Button";
 import { useLanguage } from "@/context/LanguageContext";
-import DatePicker from "react-datepicker";
+import TextInputSignUpScreen from "../SignUpScreen/TextInputSignUpScreen";
 import { formatDate } from "../../utils/dateUtils";
-import "react-datepicker/dist/react-datepicker.css";
+import { FaUser, FaEnvelope, FaBirthdayCake, FaLock } from "react-icons/fa";
 
 const SignUpScreen = () => {
   const { translations } = useLanguage();
@@ -16,6 +16,16 @@ const SignUpScreen = () => {
   const [birthdate, setBirthdate] = useState(null);
 
   const handleMessage = (msg) => setMsg(msg);
+
+  const saveLoginCredentials = (user) => {
+    try {
+      localStorage.setItem("userCredentials", JSON.stringify(user));
+      setStoredCredentials(user);
+    } catch (error) {
+      logError(error);
+      handleMessage("Failed to save user credentials");
+    }
+  };
 
   const onReceived = (response) => {
     const { success, msg, user } = response;
@@ -48,16 +58,6 @@ const SignUpScreen = () => {
       method: "POST",
       data: { user: { ...values, birthdate: formattedBirthdate } },
     });
-  };
-
-  const saveLoginCredentials = (user) => {
-    try {
-      localStorage.setItem("userCredentials", JSON.stringify(user));
-      setStoredCredentials(user);
-    } catch (error) {
-      logError(error);
-      handleMessage("Failed to save user credentials");
-    }
   };
 
   return (
@@ -100,87 +100,72 @@ const SignUpScreen = () => {
             isSubmitting,
           }) => (
             <form onSubmit={handleSubmit} className="space-y-4">
-              <input
+              <TextInputSignUpScreen
                 type="text"
-                placeholder="Your Name"
                 name="name"
-                onChange={handleChange}
-                onBlur={handleBlur}
+                placeholder="Your Name"
                 value={values.name}
-                className="w-full p-3 border border-tertiary1-darker rounded-lg bg-white focus:outline-none focus:ring-2 focus:ring-primary-light"
+                onChange={handleChange}
+                onBlur={handleBlur}
+                icon={<FaUser />}
               />
 
-              <input
+              <TextInputSignUpScreen
                 type="email"
-                placeholder="your.email@example.com"
                 name="email"
-                onChange={handleChange}
-                onBlur={handleBlur}
+                placeholder="your.email@example.com"
                 value={values.email}
-                className="w-full p-3 border border-tertiary1-darker rounded-lg bg-white focus:outline-none focus:ring-2 focus:ring-primary-light"
+                onChange={handleChange}
+                onBlur={handleBlur}
+                icon={<FaEnvelope />}
               />
 
-              <input
+              <TextInputSignUpScreen
+                type="text"
+                name="birthdate"
+                placeholder="Select your birthdate"
+                value={birthdate ? formatDate(birthdate) : ""}
+                onChange={() => {}}
+                isDate={true}
+                showDatePicker={() =>
+                  document.getElementById("datePicker").focus()
+                }
+                icon={<FaBirthdayCake className="text-black" />}
+              />
+
+              <TextInputSignUpScreen
                 type="password"
-                placeholder="Password"
                 name="password"
-                onChange={handleChange}
-                onBlur={handleBlur}
+                placeholder="Password"
                 value={values.password}
-                className="w-full p-3 border border-tertiary1-darker rounded-lg bg-white focus:outline-none focus:ring-2 focus:ring-primary-light"
-              />
-
-              <input
-                type="password"
-                placeholder="Confirm Password"
-                name="confirmPassword"
                 onChange={handleChange}
                 onBlur={handleBlur}
-                value={values.confirmPassword}
-                className="w-full p-3 border border-tertiary1-darker rounded-lg bg-white focus:outline-none focus:ring-2 focus:ring-primary-light"
+                icon={<FaLock />}
+                showPasswordToggle={true}
               />
 
-              <div className="w-full">
-                <DatePicker
-                  selected={birthdate}
-                  onChange={(date) => setBirthdate(date)}
-                  className="w-full p-3 border border-tertiary1-darker rounded-lg bg-white focus:outline-none focus:ring-2 focus:ring-primary-light"
-                  placeholderText="Select your birthdate"
-                  dateFormat="EEE MMM dd yyyy"
-                  isClearable
-                />
-              </div>
+              <TextInputSignUpScreen
+                type="password"
+                name="confirmPassword"
+                placeholder="Confirm Password"
+                value={values.confirmPassword}
+                onChange={handleChange}
+                onBlur={handleBlur}
+                icon={<FaLock />}
+                showPasswordToggle={true}
+              />
 
               <div className="mt-4">
                 {msg && <p className="text-red-500 text-xs">{msg}</p>}
                 <Button
                   text={translations["signUp.button"]}
                   onClick={handleSubmit}
-                  icon=""
                   variant="red"
-                  ariaLabel="Sign-up button"
-                  testId="sign-up-button"
                 />
-                <button
-                  type="submit"
-                  disabled={isSubmitting}
-                  className="w-full py-3 bg-red text-white rounded-lg hover:bg-redLine focus:outline-none focus:ring-2 focus:ring-redLine"
-                >
-                  Sign Up
-                </button>
               </div>
             </form>
           )}
         </Formik>
-        {isLoading && <p className="text-center">Loading...</p>}
-        <div className="mt-6 text-center">
-          <p>
-            Already have an account?{" "}
-            <a href="/login" className="text-primary-light">
-              Login
-            </a>
-          </p>
-        </div>
       </main>
     </div>
   );
