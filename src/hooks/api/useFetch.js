@@ -65,7 +65,7 @@ const useFetch = (
     try {
       const url = `${baseApiUrl}/api${route}`;
       const response = await axios(url, baseOptions);
-
+      logInfo(`Request URL: ${url}`);
       if (!response || !response.data) {
         setError(new Error("Unexpected server error"));
         return;

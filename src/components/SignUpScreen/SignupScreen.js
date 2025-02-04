@@ -1,14 +1,13 @@
 import React, { useState, useContext, useEffect } from "react";
 import { Formik } from "formik";
 import { CredentialsContext } from "../../context/credentialsContext";
+import { useLanguage } from "@/context/LanguageContext";
 import useFetch from "../../hooks/api/useFetch";
 import { logError, logInfo } from "../../utils/logging";
 import Button from "../Button/Button";
-import { useLanguage } from "@/context/LanguageContext";
 import TextInputSignUpScreen from "../SignUpScreen/TextInputSignUpScreen";
 import { FaRegUser } from "react-icons/fa";
-import { MdOutlineEmail } from "react-icons/md";
-import { MdLockOutline } from "react-icons/md";
+import { MdOutlineEmail, MdLockOutline } from "react-icons/md";
 import dayjs from "dayjs";
 
 const SignUpScreen = () => {
@@ -16,7 +15,6 @@ const SignUpScreen = () => {
   const { setStoredCredentials } = useContext(CredentialsContext);
   const [msg, setMsg] = useState("");
   const [birthdate, setBirthdate] = useState(null);
-  const [isLoading, setIsLoading] = useState(false); // Estado para el loading indicator
 
   const handleMessage = (msg) => setMsg(msg);
 
@@ -34,14 +32,15 @@ const SignUpScreen = () => {
     const { success, msg, user } = response;
     if (success) {
       saveLoginCredentials(user);
-      dispatch(setActiveScreen("LinkVerificationScreen"));
-      router.push("/link-verification");
     } else {
       handleMessage(msg);
     }
   };
 
-  const { performFetch, error } = useFetch("/auth/sign-up", onReceived);
+  const { performFetch, isLoading, error } = useFetch(
+    "/auth/sign-up",
+    onReceived,
+  );
 
   useEffect(() => {
     if (error) {
@@ -51,25 +50,21 @@ const SignUpScreen = () => {
 
   const handleSignup = (values) => {
     setMsg("");
-    // Asegúrate de que la fecha esté en el formato adecuado antes de enviarla
     const formattedBirthdate = birthdate
       ? dayjs(birthdate).format("YYYY-MM-DD")
       : null;
 
-    logInfo("sign up");
+    logInfo(formattedBirthdate);
 
-    setIsLoading(true); // Activar el loading indicator
     performFetch({
       method: "POST",
       data: { user: { ...values, birthdate: formattedBirthdate } },
-    }).finally(() => {
-      setIsLoading(false); // Desactivar el loading indicator, siempre se ejecuta
     });
   };
 
   return (
     <div className="flex flex-col min-h-screen bg-primary-light">
-      <main className="flex-grow p-8 max-w-lg mx-auto">
+      <main className="flex-grow p-8 w-full">
         <h2 className="text-displayMedium md:text-displayLarge font-barlow text-tertiary1-darker mb-6 text-center">
           Sign Up
         </h2>
@@ -99,18 +94,12 @@ const SignUpScreen = () => {
             }
           }}
         >
-          {({
-            handleChange,
-            handleBlur,
-            handleSubmit,
-            values,
-            isSubmitting,
-          }) => (
+          {({ handleChange, handleBlur, handleSubmit, values }) => (
             <form onSubmit={handleSubmit} className="space-y-4">
               <TextInputSignUpScreen
                 type="text"
                 name="name"
-                placeholder="Your Name"
+                placeholder="Donna Vino User"
                 value={values.name}
                 onChange={handleChange}
                 onBlur={handleBlur}
@@ -120,7 +109,7 @@ const SignUpScreen = () => {
               <TextInputSignUpScreen
                 type="email"
                 name="email"
-                placeholder="your.email@example.com"
+                placeholder="email@example.com"
                 value={values.email}
                 onChange={handleChange}
                 onBlur={handleBlur}
@@ -170,11 +159,10 @@ const SignUpScreen = () => {
                 />
               </div>
 
-              {/* Indicador de carga */}
+              {/* Loading Indicator */}
               {isLoading && (
                 <div className="flex justify-center items-center mt-4">
-                  <span>Loading...</span>{" "}
-                  {/* Aquí puedes poner un spinner si lo prefieres */}
+                  <div className="w-8 h-8 border-4 border-t-4 border-blue-500 border-solid rounded-full animate-spin"></div>
                 </div>
               )}
             </form>

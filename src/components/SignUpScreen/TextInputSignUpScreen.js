@@ -47,11 +47,10 @@ const TextInputSignUpScreen = ({
           <DatePicker
             value={value ? dayjs(value) : null}
             onChange={(newValue) => onChange(newValue)}
-            renderInput={(params) => <TextField {...params} fullWidth />}
             disableFuture
             inputFormat="MM/dd/yyyy"
             placeholder={placeholder}
-            className={`w-full p-3 ${icon ? "pl-12" : "pl-3"} border border-tertiary1-darker rounded-lg bg-white focus:outline-none focus:ring-2 focus:ring-primary-light`}
+            className="w-full p-3 border border-tertiary1-darker rounded-lg bg-white focus:outline-none focus:ring-2 focus:ring-primary-light"
           />
         </div>
       )}

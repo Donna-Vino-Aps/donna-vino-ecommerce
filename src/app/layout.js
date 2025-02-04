@@ -9,7 +9,6 @@ import { CredentialsContext } from "../context/credentialsContext";
 import { logError } from "@/utils/logging";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 
 const RootLayout = ({ children }) => {
   const [storedCredentials, setStoredCredentials] = useState(null);
@@ -47,7 +46,7 @@ const RootLayout = ({ children }) => {
               >
                 {children}
               </main>
-              <DatePicker />
+
               <Footer />
             </LanguageProvider>
           </CredentialsContext.Provider>
