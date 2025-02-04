@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
-import DatePicker from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css";
+import { DatePicker } from "@mui/x-date-pickers";
+import TextField from "@mui/material/TextField";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import AdapterDateFns from "@mui/x-date-pickers/AdapterDateFns"; // or any other adapter based on your preference
 
 const TextInputSignUpScreen = ({
   type = "text",
@@ -42,14 +44,23 @@ const TextInputSignUpScreen = ({
               {icon}
             </div>
           )}
-          <DatePicker
-            selected={value}
-            onChange={onChange}
-            className="w-full p-3 pl-12 border border-tertiary1-darker rounded-lg bg-white focus:outline-none focus:ring-2 focus:ring-primary-light"
-            placeholderText={placeholder}
-            dateFormat="EEE MMM dd yyyy"
-            isClearable
-          />
+
+          <LocalizationProvider dateAdapter={AdapterDateFns}>
+            <DatePicker
+              value={value}
+              onChange={onChange}
+              renderInput={(params) => (
+                <TextField
+                  {...params}
+                  variant="outlined"
+                  fullWidth
+                  placeholder={placeholder}
+                  className="w-full p-3 pl-12 border border-tertiary1-darker rounded-lg bg-white focus:outline-none focus:ring-2 focus:ring-primary-light"
+                />
+              )}
+              inputFormat="MM/dd/yyyy"
+            />
+          </LocalizationProvider>
         </div>
       )}
 

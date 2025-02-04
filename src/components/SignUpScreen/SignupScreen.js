@@ -7,7 +7,10 @@ import Button from "../Button/Button";
 import { useLanguage } from "@/context/LanguageContext";
 import TextInputSignUpScreen from "../SignUpScreen/TextInputSignUpScreen";
 import { formatDate } from "../../utils/dateUtils";
-import { FaUser, FaEnvelope, FaBirthdayCake, FaLock } from "react-icons/fa";
+import { FaRegUser } from "react-icons/fa";
+import { MdOutlineEmail } from "react-icons/md";
+import { MdLockOutline } from "react-icons/md";
+import { LiaBirthdayCakeSolid } from "react-icons/lia";
 
 const SignUpScreen = () => {
   const { translations } = useLanguage();
@@ -107,7 +110,7 @@ const SignUpScreen = () => {
                 value={values.name}
                 onChange={handleChange}
                 onBlur={handleBlur}
-                icon={<FaUser />}
+                icon={<FaRegUser />}
               />
 
               <TextInputSignUpScreen
@@ -117,7 +120,7 @@ const SignUpScreen = () => {
                 value={values.email}
                 onChange={handleChange}
                 onBlur={handleBlur}
-                icon={<FaEnvelope />}
+                icon={<MdOutlineEmail />}
               />
 
               <TextInputSignUpScreen
@@ -130,7 +133,6 @@ const SignUpScreen = () => {
                 showDatePicker={() =>
                   document.getElementById("datePicker").focus()
                 }
-                icon={<FaBirthdayCake className="text-black" />}
               />
 
               <TextInputSignUpScreen
@@ -140,7 +142,7 @@ const SignUpScreen = () => {
                 value={values.password}
                 onChange={handleChange}
                 onBlur={handleBlur}
-                icon={<FaLock />}
+                icon={<MdLockOutline />}
                 showPasswordToggle={true}
               />
 
@@ -151,7 +153,7 @@ const SignUpScreen = () => {
                 value={values.confirmPassword}
                 onChange={handleChange}
                 onBlur={handleBlur}
-                icon={<FaLock />}
+                icon={<MdLockOutline />}
                 showPasswordToggle={true}
               />
 
