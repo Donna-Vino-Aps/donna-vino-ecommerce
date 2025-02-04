@@ -1,10 +1,9 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
-import { DatePicker } from "@mui/x-date-pickers";
-import TextField from "@mui/material/TextField";
-import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-import AdapterDateFns from "@mui/x-date-pickers/AdapterDateFns"; // or any other adapter based on your preference
+import { DatePicker } from "@mui/x-date-pickers/DatePicker";
+import { TextField } from "@mui/material";
+import dayjs from "dayjs";
 
 const TextInputSignUpScreen = ({
   type = "text",
@@ -45,22 +44,15 @@ const TextInputSignUpScreen = ({
             </div>
           )}
 
-          <LocalizationProvider dateAdapter={AdapterDateFns}>
-            <DatePicker
-              value={value}
-              onChange={onChange}
-              renderInput={(params) => (
-                <TextField
-                  {...params}
-                  variant="outlined"
-                  fullWidth
-                  placeholder={placeholder}
-                  className="w-full p-3 pl-12 border border-tertiary1-darker rounded-lg bg-white focus:outline-none focus:ring-2 focus:ring-primary-light"
-                />
-              )}
-              inputFormat="MM/dd/yyyy"
-            />
-          </LocalizationProvider>
+          <DatePicker
+            value={value ? dayjs(value) : null}
+            onChange={(newValue) => onChange(newValue)}
+            renderInput={(params) => <TextField {...params} fullWidth />}
+            disableFuture
+            inputFormat="MM/dd/yyyy"
+            placeholder={placeholder}
+            className={`w-full p-3 ${icon ? "pl-12" : "pl-3"} border border-tertiary1-darker rounded-lg bg-white focus:outline-none focus:ring-2 focus:ring-primary-light`}
+          />
         </div>
       )}
 

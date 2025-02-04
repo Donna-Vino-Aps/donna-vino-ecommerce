@@ -6,17 +6,17 @@ import { logError, logInfo } from "../../utils/logging";
 import Button from "../Button/Button";
 import { useLanguage } from "@/context/LanguageContext";
 import TextInputSignUpScreen from "../SignUpScreen/TextInputSignUpScreen";
-import { formatDate } from "../../utils/dateUtils";
 import { FaRegUser } from "react-icons/fa";
 import { MdOutlineEmail } from "react-icons/md";
 import { MdLockOutline } from "react-icons/md";
-import { LiaBirthdayCakeSolid } from "react-icons/lia";
+import dayjs from "dayjs";
 
 const SignUpScreen = () => {
   const { translations } = useLanguage();
   const { setStoredCredentials } = useContext(CredentialsContext);
   const [msg, setMsg] = useState("");
   const [birthdate, setBirthdate] = useState(null);
+  const [isLoading, setIsLoading] = useState(false); // Estado para el loading indicator
 
   const handleMessage = (msg) => setMsg(msg);
 
@@ -41,10 +41,7 @@ const SignUpScreen = () => {
     }
   };
 
-  const { performFetch, isLoading, error } = useFetch(
-    "/auth/sign-up",
-    onReceived,
-  );
+  const { performFetch, error } = useFetch("/auth/sign-up", onReceived);
 
   useEffect(() => {
     if (error) {
@@ -54,12 +51,19 @@ const SignUpScreen = () => {
 
   const handleSignup = (values) => {
     setMsg("");
-    const formattedBirthdate = formatDate(birthdate);
+    // Asegúrate de que la fecha esté en el formato adecuado antes de enviarla
+    const formattedBirthdate = birthdate
+      ? dayjs(birthdate).format("YYYY-MM-DD")
+      : null;
 
     logInfo("sign up");
+
+    setIsLoading(true); // Activar el loading indicator
     performFetch({
       method: "POST",
       data: { user: { ...values, birthdate: formattedBirthdate } },
+    }).finally(() => {
+      setIsLoading(false); // Desactivar el loading indicator, siempre se ejecuta
     });
   };
 
@@ -127,8 +131,8 @@ const SignUpScreen = () => {
                 type="text"
                 name="birthdate"
                 placeholder="Select your birthdate"
-                value={birthdate ? formatDate(birthdate) : ""}
-                onChange={() => {}}
+                value={birthdate ? dayjs(birthdate) : null}
+                onChange={(newValue) => setBirthdate(newValue)}
                 isDate={true}
                 showDatePicker={() =>
                   document.getElementById("datePicker").focus()
@@ -165,6 +169,14 @@ const SignUpScreen = () => {
                   variant="red"
                 />
               </div>
+
+              {/* Indicador de carga */}
+              {isLoading && (
+                <div className="flex justify-center items-center mt-4">
+                  <span>Loading...</span>{" "}
+                  {/* Aquí puedes poner un spinner si lo prefieres */}
+                </div>
+              )}
             </form>
           )}
         </Formik>
