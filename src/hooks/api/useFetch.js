@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import axios from "axios";
-import { baseApiUrl } from "@/config/environment";
-import { logInfo } from "@/utils/logging";
+import { baseApiUrl } from "../../config/environment";
+import { logInfo } from "../../utils/logging";
 
 const useFetch = (
   initialRoute,
@@ -50,9 +50,22 @@ const useFetch = (
       return;
     }
 
+    let token = null;
+    try {
+      token = await localStorage.getItem("userCredentials");
+    } catch (error) {
+      logError("Failed to retrieve token", error);
+    }
+
+    const headers = {
+      "Content-Type": "application/json",
+      ...(token ? { Authorization: `Bearer ${token}` } : {}),
+      ...customHeaders,
+    };
+
     const baseOptions = {
       method: method, // Allow other HTTP methods (GET, POST, PUT, DELETE)
-      headers: { "Content-Type": "application/json", ...customHeaders },
+      headers: headers,
       withCredentials: true,
       cancelToken: new axios.CancelToken((cancel) => {
         // Use the route as a unique identifier
@@ -65,6 +78,7 @@ const useFetch = (
     try {
       const url = `${baseApiUrl}/api${route}`;
       const response = await axios(url, baseOptions);
+      logInfo(`Request URL: ${url}`);
 
       if (!response || !response.data) {
         setError(new Error("Unexpected server error"));

@@ -8,6 +8,7 @@ jest.mock("axios");
 describe("useFetch Hook", () => {
   beforeEach(() => {
     jest.clearAllMocks();
+    localStorage.clear();
   });
 
   afterEach(() => {
@@ -34,13 +35,10 @@ describe("useFetch Hook", () => {
     it("should handle GET request", async () => {
       const mockResponse = { data: { id: 123 }, success: true };
       axios.mockResolvedValueOnce({ data: mockResponse });
-
       const { result } = renderHook(() => useFetch("/test-route", "GET"));
-
       await act(async () => {
         await result.current.performFetch();
       });
-
       expect(result.current.data).toEqual(mockResponse);
       expect(result.current.isLoading).toBe(false);
       expect(result.current.error).toBeNull();
@@ -49,16 +47,13 @@ describe("useFetch Hook", () => {
     it("should handle POST request", async () => {
       const mockResponse = { data: { id: 123 }, success: true };
       axios.mockResolvedValueOnce({ data: mockResponse });
-
       const onReceived = jest.fn();
       const { result } = renderHook(() =>
         useFetch("/test-route", "POST", { id: 123 }, {}, onReceived),
       );
-
       await act(async () => {
         await result.current.performFetch();
       });
-
       expect(result.current.data).toEqual(mockResponse);
       expect(onReceived).toHaveBeenCalledWith(mockResponse);
       expect(result.current.isLoading).toBe(false);
@@ -68,16 +63,13 @@ describe("useFetch Hook", () => {
     it("should handle PUT request", async () => {
       const mockResponse = { data: { id: 123, updated: true }, success: true };
       axios.mockResolvedValueOnce({ data: mockResponse });
-
       const onReceived = jest.fn();
       const { result } = renderHook(() =>
         useFetch("/test-route", "PUT", { id: 123 }, {}, onReceived),
       );
-
       await act(async () => {
         await result.current.performFetch();
       });
-
       expect(result.current.data).toEqual(mockResponse);
       expect(onReceived).toHaveBeenCalledWith(mockResponse);
       expect(result.current.isLoading).toBe(false);
@@ -87,16 +79,13 @@ describe("useFetch Hook", () => {
     it("should handle DELETE request", async () => {
       const mockResponse = { data: { id: 123, deleted: true }, success: true };
       axios.mockResolvedValueOnce({ data: mockResponse });
-
       const onReceived = jest.fn();
       const { result } = renderHook(() =>
         useFetch("/test-route", "DELETE", null, {}, onReceived),
       );
-
       await act(async () => {
         await result.current.performFetch();
       });
-
       expect(result.current.data).toEqual(mockResponse);
       expect(onReceived).toHaveBeenCalledWith(mockResponse);
       expect(result.current.isLoading).toBe(false);
@@ -106,30 +95,77 @@ describe("useFetch Hook", () => {
     it("should handle null body gracefully", async () => {
       const mockResponse = { data: { id: 123 }, success: true };
       axios.mockResolvedValueOnce({ data: mockResponse });
-
       const { result } = renderHook(() => useFetch("/test-route", "POST"));
-
       await act(async () => {
         await result.current.performFetch();
       });
-
       expect(result.current.data).toEqual(mockResponse);
       expect(result.current.isLoading).toBe(false);
       expect(result.current.error).toBeNull();
     });
   });
 
+  it("should add Authorization header with token if present in localStorage", async () => {
+    const mockToken = "mocked-token";
+    localStorage.setItem("userCredentials", mockToken);
+
+    const onReceived = jest.fn();
+
+    const { result } = renderHook(() => useFetch("/test-route", onReceived));
+
+    axios.mockResolvedValueOnce({
+      data: { success: true, msg: "Success" },
+    });
+
+    await act(async () => {
+      await result.current.performFetch();
+    });
+
+    const axiosCall = axios.mock.calls[0][1];
+
+    expect(axiosCall).toEqual(
+      expect.objectContaining({
+        headers: expect.objectContaining({
+          Authorization: `Bearer ${mockToken}`,
+        }),
+      }),
+    );
+  });
+
+  it("should not add Authorization header if no token is present in localStorage", async () => {
+    localStorage.removeItem("userCredentials");
+
+    const onReceived = jest.fn();
+
+    const { result } = renderHook(() => useFetch("/test-route", onReceived));
+
+    axios.mockResolvedValueOnce({
+      data: { success: true, msg: "Success" },
+    });
+
+    await act(async () => {
+      await result.current.performFetch();
+    });
+
+    const axiosCall = axios.mock.calls[0][1];
+
+    expect(axiosCall).toEqual(
+      expect.objectContaining({
+        headers: expect.not.objectContaining({
+          Authorization: expect.any(String),
+        }),
+      }),
+    );
+  });
+
   // Tests for errors and edge cases
   describe("Error handling", () => {
     it("should handle failed GET request", async () => {
       axios.mockRejectedValueOnce(new Error("Network Error"));
-
       const { result } = renderHook(() => useFetch("/test-route", "GET"));
-
       await act(async () => {
         await result.current.performFetch();
       });
-
       await waitFor(() => {
         expect(result.current.isLoading).toBe(false);
         expect(result.current.error).toBeInstanceOf(Error);
@@ -139,24 +175,19 @@ describe("useFetch Hook", () => {
 
     it("should handle invalid URL", async () => {
       const { result } = renderHook(() => useFetch("invalid-url", "GET"));
-
       await act(async () => {
         await result.current.performFetch();
       });
-
       expect(result.current.error).toBeInstanceOf(Error);
       expect(result.current.error.message).toBe("Invalid URL");
     });
 
     it("should handle empty response", async () => {
       axios.mockResolvedValueOnce({ data: {} });
-
       const { result } = renderHook(() => useFetch("/test-route", "GET"));
-
       await act(async () => {
         await result.current.performFetch();
       });
-
       expect(result.current.error).toBeInstanceOf(Error);
       expect(result.current.error.message).toBe("Empty response from server");
     });
@@ -166,13 +197,10 @@ describe("useFetch Hook", () => {
         response: { data: { msg: "Internal server error." } },
       };
       axios.mockRejectedValueOnce(mockErrorResponse);
-
       const { result } = renderHook(() => useFetch("/test-route", "GET"));
-
       await act(async () => {
         await result.current.performFetch();
       });
-
       expect(result.current.error).toBeInstanceOf(Error);
       expect(result.current.error.message).toBe("Internal server error.");
     });
@@ -247,6 +275,92 @@ describe("useFetch Hook", () => {
       });
 
       expect(result.current.isLoading).toBe(false);
+    });
+  });
+
+  describe("useFetch Hook - onReceived callback", () => {
+    it("should call onReceived when request is successful", async () => {
+      const mockResponse = { data: { id: 123, success: true }, success: true };
+      const onReceived = jest.fn();
+      axios.mockResolvedValueOnce({ data: mockResponse });
+
+      // Render the hook with the `onReceived` callback
+      const { result } = renderHook(() =>
+        useFetch("/test-route", "POST", { id: 123 }, {}, onReceived),
+      );
+
+      // Perform the fetch request
+      await act(async () => {
+        await result.current.performFetch();
+      });
+
+      // Assert that onReceived was called with the correct response data
+      expect(onReceived).toHaveBeenCalledWith(mockResponse);
+      expect(result.current.data).toEqual(mockResponse);
+      expect(result.current.isLoading).toBe(false);
+      expect(result.current.error).toBeNull();
+    });
+
+    it("should not call onReceived when request fails", async () => {
+      // Mock an error response
+      const mockError = new Error("Network Error");
+      axios.mockRejectedValueOnce(mockError);
+
+      const onReceived = jest.fn();
+      const { result } = renderHook(() =>
+        useFetch("/test-route", "POST", { id: 123 }, {}, onReceived),
+      );
+
+      await act(async () => {
+        await result.current.performFetch();
+      });
+
+      // Assert that onReceived was not called on error
+      expect(onReceived).not.toHaveBeenCalled();
+      expect(result.current.isLoading).toBe(false);
+      expect(result.current.error).toBeInstanceOf(Error);
+      expect(result.current.error.message).toBe("Network Error");
+    });
+
+    it("should call onReceived when the response contains success: true", async () => {
+      const mockResponse = { data: { id: 123, success: true }, success: true };
+      const onReceived = jest.fn();
+      axios.mockResolvedValueOnce({ data: mockResponse });
+
+      const { result } = renderHook(() =>
+        useFetch("/test-route", "POST", { id: 123 }, {}, onReceived),
+      );
+
+      await act(async () => {
+        await result.current.performFetch();
+      });
+
+      // Assert that onReceived was called with the correct response
+      expect(onReceived).toHaveBeenCalledWith(mockResponse);
+      expect(result.current.data).toEqual(mockResponse);
+    });
+
+    it("should not call onReceived when the response contains success: false", async () => {
+      const mockResponse = {
+        data: { success: false, msg: "User already exists" },
+      };
+      const onReceived = jest.fn();
+      axios.mockResolvedValueOnce(mockResponse);
+
+      const { result } = renderHook(() =>
+        useFetch("/test-route", "POST", { id: 123 }, {}, onReceived),
+      );
+
+      await act(async () => {
+        await result.current.performFetch();
+      });
+
+      // Assert that onReceived was not called when the response is unsuccessful
+      expect(onReceived).not.toHaveBeenCalled();
+
+      // Check that the error message is set correctly based on response data
+      expect(result.current.error).toBeInstanceOf(Error);
+      expect(result.current.error.message).toBe(mockResponse.data.msg);
     });
   });
 });

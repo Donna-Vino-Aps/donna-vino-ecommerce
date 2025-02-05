@@ -4,13 +4,16 @@ import "@testing-library/jest-dom";
 import Home from "../../app/page";
 import { LanguageProvider } from "../../context/LanguageContext";
 import enTranslations from "../../translations/en.json";
+import { LocalizationProvider } from "@mui/x-date-pickers";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 
 describe("Home Page", () => {
-  // Mock the screen size adjustment for small screens
   const renderWithLanguage = (translations = enTranslations) => {
     return render(
       <LanguageProvider value={translations}>
-        <Home />
+        <LocalizationProvider dateAdapter={AdapterDayjs}>
+          <Home />
+        </LocalizationProvider>
       </LanguageProvider>,
     );
   };
@@ -20,7 +23,6 @@ describe("Home Page", () => {
   });
 
   it("should render the home page content", () => {
-    // Check that the main container is rendered
     const mainContainer = screen.getByTestId("home-container");
     expect(mainContainer).toBeInTheDocument();
   });

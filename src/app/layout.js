@@ -1,26 +1,58 @@
-import React from "react";
+"use client";
+import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import "./globals.css";
 import Footer from "../components/Footer/Footer.js";
 import Navbar from "../components/NavBar/NavBar.js";
 import { LanguageProvider } from "../context/LanguageContext";
-// import { logInfo } from "@/utils/logging";
+import { CredentialsContext } from "../context/credentialsContext";
+import { logError } from "@/utils/logging";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 
 const RootLayout = ({ children }) => {
+  const [storedCredentials, setStoredCredentials] = useState(null);
+
+  const checkLoginCredentials = async () => {
+    try {
+      const result = localStorage.getItem("donna-vino-e-commerce");
+      if (result !== null) {
+        setStoredCredentials(JSON.parse(result));
+      } else {
+        setStoredCredentials(null);
+      }
+    } catch (error) {
+      logError("Error retrieving stored credentials:", error);
+    }
+  };
+
+  useEffect(() => {
+    checkLoginCredentials();
+  }, []);
+
   return (
-    <html lang="en">
-      <LanguageProvider>
+    <LocalizationProvider dateAdapter={AdapterDayjs}>
+      <html lang="en">
         <body className="flex flex-col min-h-screen w-full font-barlow bg-white text-foreground-normal">
-          <Navbar />
+          <CredentialsContext.Provider
+            value={{ storedCredentials, setStoredCredentials }}
+          >
+            <LanguageProvider>
+              <Navbar />
+              <main
+                className="flex-grow"
+                role="main"
+                data-testid="main-content"
+              >
+                {children}
+              </main>
 
-          <main className="flex-grow" role="main" data-testid="main-content">
-            {children}
-          </main>
-
-          <Footer />
+              <Footer />
+            </LanguageProvider>
+          </CredentialsContext.Provider>
         </body>
-      </LanguageProvider>
-    </html>
+      </html>
+    </LocalizationProvider>
   );
 };
 
