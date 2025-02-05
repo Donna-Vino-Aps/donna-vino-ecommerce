@@ -34,7 +34,6 @@ const useFetch = (
   const cancelTokens = useRef({});
 
   const performFetch = async (options = {}, newUrl) => {
-    logInfo("Lanzo respuesta cuando se llama a perfomrfetch");
     if (newUrl) {
       cancelFetch(newUrl); // Cancel the previous request if URL changes
       setRoute(newUrl);
@@ -67,8 +66,6 @@ const useFetch = (
       const url = `${baseApiUrl}/api${route}`;
       const response = await axios(url, baseOptions);
       logInfo(`Request URL: ${url}`);
-      logInfo("ESTA PARTE NO LANZA RESPUESTA cuando se esperar a axios");
-      logInfo(response);
 
       if (!response || !response.data) {
         setError(new Error("Unexpected server error"));
@@ -80,31 +77,27 @@ const useFetch = (
         return;
       }
 
-      const { success, msg, message, error: serverError } = response.data;
-
+      const { success, msg, message, data } = response.data;
+      const { error: serverError } = data;
       logInfo(`Response Data: ${JSON.stringify(response.data, null, 2)}`);
-      logInfo(
-        "esta parte no manda respuesta tampoco cuando se recibe el error",
-      );
-      logInfo(`${response}`);
-      logInfo(`${response.data}`);
+
       if (success) {
         setData(response.data);
+        logInfo("Success received hook:", response.data);
         onReceived(response.data); // Pass data to the onReceived callback
       } else {
         const errorMsg =
           serverError || msg || message || "Unexpected server error";
+        logInfo(`Error message to set:", ${errorMsg}`);
         setError(new Error(errorMsg));
       }
     } catch (error) {
-      logInfo("Error atrapado por Axios:", error);
       if (axios.isCancel(error)) {
         setError(new Error("Fetch was canceled"));
       } else {
         const errorMsg =
           error.response?.data?.msg || error.message || "Unexpected error";
         setError(new Error(errorMsg));
-        logInfo(`Error de la respuesta:, ${errorMsg}`);
       }
     } finally {
       setIsLoading(false);

@@ -22,12 +22,15 @@ const SignUpScreen = () => {
     useContext(CredentialsContext);
 
   const onReceived = (response) => {
-    const { success, msg, user } = response;
+    logInfo("Response received", response);
+    const { success, msg, user } = response.data;
     if (success) {
+      logInfo("Success message:", msg);
       saveLoginCredentials(user, { successStatus: true, msg });
+      handleMessage({ successStatus: true, msg: msg });
     } else {
       logInfo(msg);
-      handleMessage({ successStatus: false, msg });
+      handleMessage({ successStatus: false, msg: msg });
     }
   };
 
@@ -38,6 +41,7 @@ const SignUpScreen = () => {
 
   // Handle errors from API calls
   useEffect(() => {
+    logInfo("hola yo si aparezco");
     if (error) {
       const errorMessage = error.message || "An unexpected error occurred.";
       handleMessage({
@@ -55,14 +59,13 @@ const SignUpScreen = () => {
       ? dayjs(values.birthdate).format("YYYY-MM-DD")
       : null;
 
-    logInfo(`Formatted Birthdate: ${formattedBirthdate}`);
-
     const credentials = {
       name: values.name,
       email: values.email,
       password: values.password,
       dateOfBirth: formattedBirthdate,
     };
+    logInfo("Sending request to server with credentials:", credentials);
 
     performFetch({
       method: "POST",
@@ -75,7 +78,7 @@ const SignUpScreen = () => {
     setMsg(msg);
   };
 
-  const saveLoginCredentials = (user, msg, successStatus) => {
+  const saveLoginCredentials = (user) => {
     try {
       localStorage.setItem("userCredentials", JSON.stringify(user));
       handleMessage({
@@ -114,14 +117,20 @@ const SignUpScreen = () => {
               !values.password ||
               !values.confirmPassword
             ) {
-              handleMessage("Please fill all the fields");
+              handleMessage({
+                successStatus: false,
+                msg: "Please fill all the fields",
+              });
               setSubmitting(false);
             } else if (values.password !== values.confirmPassword) {
-              handleMessage("Passwords do not match");
+              handleMessage({
+                successStatus: false,
+                msg: "Passwords do not match",
+              });
               setSubmitting(false);
             } else {
               setSubmitting(true);
-              handleSignup(values);
+              handleSignup(values, setSubmitting);
             }
           }}
         >
@@ -191,7 +200,13 @@ const SignUpScreen = () => {
               />
 
               <div className="mt-4">
-                {msg && <p className="text-red-500 text-xs">{msg}</p>}
+                <div className="flex justify-center pb-4">
+                  <p
+                    className={`text-xs ${success ? "text-green-500" : "text-red-500"}`}
+                  >
+                    {msg}
+                  </p>
+                </div>
                 <Button
                   text={translations["signUp.button"]}
                   onClick={handleSubmit}
