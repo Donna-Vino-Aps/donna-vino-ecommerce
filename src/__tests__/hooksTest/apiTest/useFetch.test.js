@@ -42,6 +42,7 @@ describe("useFetch Hook", () => {
       expect(result.current.isLoading).toBe(false);
       expect(result.current.error).toBeNull();
     });
+
     it("should handle POST request", async () => {
       const mockResponse = { data: { id: 123 }, success: true };
       axios.mockResolvedValueOnce({ data: mockResponse });
@@ -57,6 +58,7 @@ describe("useFetch Hook", () => {
       expect(result.current.isLoading).toBe(false);
       expect(result.current.error).toBeNull();
     });
+
     it("should handle PUT request", async () => {
       const mockResponse = { data: { id: 123, updated: true }, success: true };
       axios.mockResolvedValueOnce({ data: mockResponse });
@@ -72,6 +74,7 @@ describe("useFetch Hook", () => {
       expect(result.current.isLoading).toBe(false);
       expect(result.current.error).toBeNull();
     });
+
     it("should handle DELETE request", async () => {
       const mockResponse = { data: { id: 123, deleted: true }, success: true };
       axios.mockResolvedValueOnce({ data: mockResponse });
@@ -87,6 +90,7 @@ describe("useFetch Hook", () => {
       expect(result.current.isLoading).toBe(false);
       expect(result.current.error).toBeNull();
     });
+
     it("should handle null body gracefully", async () => {
       const mockResponse = { data: { id: 123 }, success: true };
       axios.mockResolvedValueOnce({ data: mockResponse });
@@ -99,6 +103,7 @@ describe("useFetch Hook", () => {
       expect(result.current.error).toBeNull();
     });
   });
+
   // Tests for errors and edge cases
   describe("Error handling", () => {
     it("should handle failed GET request", async () => {
@@ -113,6 +118,7 @@ describe("useFetch Hook", () => {
         expect(result.current.error.message).toBe("Network Error");
       });
     });
+
     it("should handle invalid URL", async () => {
       const { result } = renderHook(() => useFetch("invalid-url", "GET"));
       await act(async () => {
@@ -121,6 +127,7 @@ describe("useFetch Hook", () => {
       expect(result.current.error).toBeInstanceOf(Error);
       expect(result.current.error.message).toBe("Invalid URL");
     });
+
     it("should handle empty response", async () => {
       axios.mockResolvedValueOnce({ data: {} });
       const { result } = renderHook(() => useFetch("/test-route", "GET"));
@@ -130,6 +137,7 @@ describe("useFetch Hook", () => {
       expect(result.current.error).toBeInstanceOf(Error);
       expect(result.current.error.message).toBe("Empty response from server");
     });
+
     it("should handle generic server error", async () => {
       const mockErrorResponse = {
         response: { data: { msg: "Internal server error." } },
@@ -280,10 +288,10 @@ describe("useFetch Hook", () => {
 
     it("should not call onReceived when the response contains success: false", async () => {
       const mockResponse = {
-        data: { error: "Something went wrong", success: false },
+        data: { success: false, msg: "User already exists" },
       };
       const onReceived = jest.fn();
-      axios.mockResolvedValueOnce({ data: mockResponse });
+      axios.mockResolvedValueOnce(mockResponse);
 
       const { result } = renderHook(() =>
         useFetch("/test-route", "POST", { id: 123 }, {}, onReceived),
@@ -298,7 +306,7 @@ describe("useFetch Hook", () => {
 
       // Check that the error message is set correctly based on response data
       expect(result.current.error).toBeInstanceOf(Error);
-      expect(result.current.error.message).toBe(mockResponse.data.error);
+      expect(result.current.error.message).toBe(mockResponse.data.msg);
     });
   });
 });

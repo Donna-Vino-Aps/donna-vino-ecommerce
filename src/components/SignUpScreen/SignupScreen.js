@@ -23,7 +23,10 @@ const SignUpScreen = () => {
 
   const onReceived = (response) => {
     logInfo("Response received", response);
-    const { success, msg, user } = response.data;
+
+    const responseData = response.data || response;
+    const { success, msg, user } = responseData;
+
     if (success) {
       logInfo("Success message:", msg);
       saveLoginCredentials(user, { successStatus: true, msg });
@@ -41,7 +44,6 @@ const SignUpScreen = () => {
 
   // Handle errors from API calls
   useEffect(() => {
-    logInfo("hola yo si aparezco");
     if (error) {
       const errorMessage = error.message || "An unexpected error occurred.";
       handleMessage({
@@ -65,7 +67,6 @@ const SignUpScreen = () => {
       password: values.password,
       dateOfBirth: formattedBirthdate,
     };
-    logInfo("Sending request to server with credentials:", credentials);
 
     performFetch({
       method: "POST",
