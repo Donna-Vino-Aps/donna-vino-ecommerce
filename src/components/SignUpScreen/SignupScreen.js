@@ -39,6 +39,9 @@ const SignUpScreen = () => {
 
   const { performFetch, isLoading, error } = useFetch(
     "/auth/sign-up",
+    "POST",
+    {},
+    {},
     onReceived,
   );
 

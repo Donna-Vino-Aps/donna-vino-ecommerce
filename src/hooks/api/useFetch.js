@@ -1,15 +1,26 @@
 import { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import { baseApiUrl } from "../../config/environment";
-import { logInfo, logError } from "../../utils/logging";
+import { logInfo } from "../../utils/logging";
 
-const useFetch = (initialRoute, onReceived) => {
+const useFetch = (
+  initialRoute,
+  method = "GET",
+  body = null,
+  customHeaders = {},
+  onReceived = () => {},
+) => {
+  // Validate initial inputs to avoid confusion with server routing
   if (!initialRoute || initialRoute.includes("api/")) {
-    throw new Error("Invalid route provided");
+    throw new Error(
+      "Invalid route provided. Routes cannot include 'api/' as part of the endpoint, to avoid conflicts and confusion in server routing.",
+    );
   }
+
   if (typeof initialRoute !== "string") {
     throw new Error("useFetch: route must be a string");
   }
+
   if (typeof onReceived !== "function") {
     throw new Error("useFetch: onReceived must be a function");
   }
@@ -18,17 +29,21 @@ const useFetch = (initialRoute, onReceived) => {
   const [isLoading, setIsLoading] = useState(false);
   const [route, setRoute] = useState(initialRoute);
   const [data, setData] = useState(null);
-  const cancelTokenRef = useRef(null);
+
+  // Store multiple cancel tokens
+  const cancelTokens = useRef({});
 
   const performFetch = async (options = {}, newUrl) => {
     if (newUrl) {
-      cancelFetch();
+      cancelFetch(newUrl); // Cancel the previous request if URL changes
       setRoute(newUrl);
     }
+
     setError(null);
     setData(null);
     setIsLoading(true);
 
+    // Validate the route format
     if (!route || !/^\/[a-zA-Z0-9/_-]*(\?[a-zA-Z0-9=&]*)?$/.test(route)) {
       setError(new Error("Invalid URL"));
       setIsLoading(false);
@@ -37,70 +52,87 @@ const useFetch = (initialRoute, onReceived) => {
 
     let token = null;
     try {
-      token = localStorage.getItem("zenTimerToken");
+      token = await localStorage.getItem("zenTimerToken");
     } catch (error) {
       logError("Failed to retrieve token", error);
     }
 
+    const headers = {
+      "Content-Type": "application/json",
+      ...(token ? { Authorization: `Bearer ${token}` } : {}),
+      ...customHeaders,
+    };
+
     const baseOptions = {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        ...(token ? { Authorization: `Bearer ${token}` } : {}),
-      },
+      method: method, // Allow other HTTP methods (GET, POST, PUT, DELETE)
+      headers: headers,
       withCredentials: true,
       cancelToken: new axios.CancelToken((cancel) => {
-        cancelTokenRef.current = cancel;
+        // Use the route as a unique identifier
+        cancelTokens.current[route] = cancel;
       }),
-      ...options,
+      ...(body && { data: body }), // Attach the body for POST, PUT, etc.
+      ...options, // Allow additional custom options
     };
 
     try {
       const url = `${baseApiUrl}/api${route}`;
+      const response = await axios(url, baseOptions);
       logInfo(`Request URL: ${url}`);
 
-      const response = await axios(url, baseOptions);
-
-      if (!response?.data) {
-        throw new Error("Unexpected server error");
+      if (!response || !response.data) {
+        setError(new Error("Unexpected server error"));
+        return;
       }
+
+      if (Object.keys(response.data).length === 0) {
+        setError(new Error("Empty response from server"));
+        return;
+      }
+
+      const { success, msg, message, error: serverError } = response.data;
 
       logInfo(`Response Data: ${JSON.stringify(response.data, null, 2)}`);
 
-      if (response.data.success) {
+      if (success) {
         setData(response.data);
-        onReceived(response.data);
+        logInfo("Success received hook:", response.data);
+        onReceived(response.data); // Pass data to the onReceived callback
       } else {
-        throw new Error(
-          response.data.error ||
-            response.data.msg ||
-            response.data.message ||
-            "Unexpected server error",
-        );
+        const errorMsg =
+          serverError || msg || message || "Unexpected server error";
+        logInfo(`Error message to set:", ${errorMsg}`);
+        setError(new Error(errorMsg));
       }
     } catch (error) {
       if (axios.isCancel(error)) {
         setError(new Error("Fetch was canceled"));
       } else {
-        setError(
-          new Error(
-            error.response?.data?.msg || error.message || "Unexpected error",
-          ),
-        );
+        const errorMsg =
+          error.response?.data?.msg || error.message || "Unexpected error";
+        setError(new Error(errorMsg));
       }
     } finally {
       setIsLoading(false);
     }
   };
 
-  const cancelFetch = () => {
-    if (cancelTokenRef.current) {
-      cancelTokenRef.current();
+  // Cancel a specific request based on its URL
+  const cancelFetch = (url) => {
+    if (cancelTokens.current[url]) {
+      cancelTokens.current[url]("Fetch was canceled");
+      delete cancelTokens.current[url]; // Clean up after canceling
     }
   };
 
   useEffect(() => {
-    return cancelFetch;
+    return () => {
+      // Clean up any remaining cancel tokens when the component unmounts
+      Object.values(cancelTokens.current).forEach((cancel) =>
+        cancel("Fetch was canceled"),
+      );
+      cancelTokens.current = {}; // Clear the tokens
+    };
   }, []);
 
   return {
