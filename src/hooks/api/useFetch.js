@@ -96,12 +96,10 @@ const useFetch = (
 
       if (success) {
         setData(response.data);
-        logInfo("Success received hook:", response.data);
         onReceived(response.data); // Pass data to the onReceived callback
       } else {
         const errorMsg =
           serverError || msg || message || "Unexpected server error";
-        logInfo(`Error message to set:", ${errorMsg}`);
         setError(new Error(errorMsg));
       }
     } catch (error) {

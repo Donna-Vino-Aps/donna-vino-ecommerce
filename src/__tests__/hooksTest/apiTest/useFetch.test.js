@@ -110,18 +110,14 @@ describe("useFetch Hook", () => {
     });
   });
 
-  // token in localStorage
   it("should add Authorization header with token if present in localStorage", async () => {
-    // Configurar el token en localStorage
     const mockToken = "mocked-token";
-    localStorage.setItem("userCredentials", mockToken); // Usamos 'userCredentials' aquí según tu código
+    localStorage.setItem("userCredentials", mockToken);
 
     const onReceived = jest.fn();
 
-    // Ejecutar el hook
     const { result } = renderHook(() => useFetch("/test-route", onReceived));
 
-    // Simular la respuesta de axios
     axios.mockResolvedValueOnce({
       data: { success: true, msg: "Success" },
     });

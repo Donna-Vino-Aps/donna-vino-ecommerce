@@ -17,19 +17,16 @@ const SignUpScreen = () => {
   const [msg, setMsg] = useState("");
   const [success, setSuccessStatus] = useState("");
 
-  // Context;
+  // Context
   const { storedCredentials, setStoredCredentials } =
     useContext(CredentialsContext);
 
   const onReceived = (response) => {
-    logInfo("Response received", response);
-
     const responseData = response.data || response;
     const { success, msg, user } = responseData;
 
     if (success) {
-      logInfo("Success message:", msg);
-      saveLoginCredentials(user, { successStatus: true, msg });
+      saveLoginCredentials(user);
       handleMessage({ successStatus: true, msg: msg });
     } else {
       logInfo(msg);
@@ -45,7 +42,6 @@ const SignUpScreen = () => {
     onReceived,
   );
 
-  // Handle errors from API calls
   useEffect(() => {
     if (error) {
       const errorMessage = error.message || "An unexpected error occurred.";
@@ -90,6 +86,8 @@ const SignUpScreen = () => {
         msg: "User credentials saved successfully",
       });
       setStoredCredentials(user);
+      const storedUser = localStorage.getItem("userCredentials");
+      logInfo(`User found in localStorage: ${storedUser}`);
     } catch (error) {
       logError(error);
       handleMessage({
@@ -102,7 +100,10 @@ const SignUpScreen = () => {
   return (
     <div className="flex flex-col min-h-screen bg-primary-light">
       <main className="flex-grow p-8 w-full">
-        <h2 className="text-displayMedium md:text-displayLarge font-barlow text-tertiary1-darker mb-6 text-center">
+        <h2
+          className="text-displayMedium md:text-displayLarge font-barlow text-tertiary1-darker mb-6 text-center"
+          aria-label="Sign Up"
+        >
           Sign Up
         </h2>
         <Formik
@@ -154,6 +155,8 @@ const SignUpScreen = () => {
                 onChange={handleChange}
                 onBlur={handleBlur}
                 icon={<FaRegUser />}
+                data-testid="input-name"
+                aria-label="Name"
               />
 
               <TextInputSignUpScreen
@@ -164,6 +167,8 @@ const SignUpScreen = () => {
                 onChange={handleChange}
                 onBlur={handleBlur}
                 icon={<MdOutlineEmail />}
+                data-testid="input-email"
+                aria-label="Email"
               />
 
               <TextInputSignUpScreen
@@ -179,6 +184,8 @@ const SignUpScreen = () => {
                 showDatePicker={() =>
                   document.getElementById("datePicker").focus()
                 }
+                data-testid="input-birthdate"
+                aria-label="Birthdate"
               />
 
               <TextInputSignUpScreen
@@ -190,6 +197,8 @@ const SignUpScreen = () => {
                 onBlur={handleBlur}
                 icon={<MdLockOutline />}
                 showPasswordToggle={true}
+                data-testid="input-password"
+                aria-label="Password"
               />
 
               <TextInputSignUpScreen
@@ -201,12 +210,16 @@ const SignUpScreen = () => {
                 onBlur={handleBlur}
                 icon={<MdLockOutline />}
                 showPasswordToggle={true}
+                data-testid="input-confirm-password"
+                aria-label="Confirm Password"
               />
 
               <div className="mt-4">
                 <div className="flex justify-center pb-4">
                   <p
                     className={`text-xs ${success ? "text-green-500" : "text-red-500"}`}
+                    aria-live="polite"
+                    data-testid="message-status"
                   >
                     {msg}
                   </p>
@@ -215,13 +228,15 @@ const SignUpScreen = () => {
                   text={translations["signUp.button"]}
                   onClick={handleSubmit}
                   variant="red"
+                  data-testid="submit-button"
+                  aria-label="Submit Sign Up"
                 />
               </div>
 
               {/* Loading Indicator */}
               {isLoading && (
                 <div className="flex justify-center items-center mt-4">
-                  <div className="w-8 h-8 border-4 border-t-4 border-blue-500 border-solid rounded-full animate-spin"></div>
+                  <div className="w-8 h-8 border-4 border-t-4 border-blue-500 border-solid rounded-full animate-spin" />
                 </div>
               )}
             </form>
