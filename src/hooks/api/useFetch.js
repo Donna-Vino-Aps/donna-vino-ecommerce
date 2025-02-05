@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import axios from "axios";
-import { baseApiUrl } from "@/config/environment";
-import { logInfo } from "@/utils/logging";
+import { baseApiUrl } from "../../config/environment";
+import { logInfo } from "../../utils/logging";
 
 const useFetch = (
   initialRoute,
@@ -34,6 +34,7 @@ const useFetch = (
   const cancelTokens = useRef({});
 
   const performFetch = async (options = {}, newUrl) => {
+    logInfo("Lanzo respuesta cuando se llama a perfomrfetch");
     if (newUrl) {
       cancelFetch(newUrl); // Cancel the previous request if URL changes
       setRoute(newUrl);
@@ -66,6 +67,9 @@ const useFetch = (
       const url = `${baseApiUrl}/api${route}`;
       const response = await axios(url, baseOptions);
       logInfo(`Request URL: ${url}`);
+      logInfo("ESTA PARTE NO LANZA RESPUESTA cuando se esperar a axios");
+      logInfo(response);
+
       if (!response || !response.data) {
         setError(new Error("Unexpected server error"));
         return;
@@ -79,7 +83,11 @@ const useFetch = (
       const { success, msg, message, error: serverError } = response.data;
 
       logInfo(`Response Data: ${JSON.stringify(response.data, null, 2)}`);
-
+      logInfo(
+        "esta parte no manda respuesta tampoco cuando se recibe el error",
+      );
+      logInfo(`${response}`);
+      logInfo(`${response.data}`);
       if (success) {
         setData(response.data);
         onReceived(response.data); // Pass data to the onReceived callback
@@ -89,12 +97,14 @@ const useFetch = (
         setError(new Error(errorMsg));
       }
     } catch (error) {
+      logInfo("Error atrapado por Axios:", error);
       if (axios.isCancel(error)) {
         setError(new Error("Fetch was canceled"));
       } else {
         const errorMsg =
           error.response?.data?.msg || error.message || "Unexpected error";
         setError(new Error(errorMsg));
+        logInfo(`Error de la respuesta:, ${errorMsg}`);
       }
     } finally {
       setIsLoading(false);

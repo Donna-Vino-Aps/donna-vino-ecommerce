@@ -8,32 +8,26 @@ import Button from "../Button/Button";
 import TextInputSignUpScreen from "../SignUpScreen/TextInputSignUpScreen";
 import { FaRegUser } from "react-icons/fa";
 import { MdOutlineEmail, MdLockOutline } from "react-icons/md";
-import dayjs from "dayjs";
+// import dayjs from "dayjs";
 
 const SignUpScreen = () => {
   const { translations } = useLanguage();
-  const { setStoredCredentials } = useContext(CredentialsContext);
+  const [userBirthDay, setUserBirthDay] = useState();
+
   const [msg, setMsg] = useState("");
-  const [birthdate, setBirthdate] = useState(null);
+  const [success, setSuccessStatus] = useState("");
 
-  const handleMessage = (msg) => setMsg(msg);
-
-  const saveLoginCredentials = (user) => {
-    try {
-      localStorage.setItem("userCredentials", JSON.stringify(user));
-      setStoredCredentials(user);
-    } catch (error) {
-      logError(error);
-      handleMessage("Failed to save user credentials");
-    }
-  };
+  // Context;
+  const { storedCredentials, setStoredCredentials } =
+    useContext(CredentialsContext);
 
   const onReceived = (response) => {
     const { success, msg, user } = response;
     if (success) {
-      saveLoginCredentials(user);
+      saveLoginCredentials(user, { successStatus: true, msg });
     } else {
-      handleMessage(msg);
+      logInfo(msg);
+      handleMessage({ successStatus: false, msg });
     }
   };
 
@@ -42,24 +36,54 @@ const SignUpScreen = () => {
     onReceived,
   );
 
+  // Handle errors from API calls
   useEffect(() => {
     if (error) {
-      handleMessage(error.message || "An unexpected error occurred.");
+      const errorMessage = error.message || "An unexpected error occurred.";
+      handleMessage({
+        successStatus: false,
+        msg: errorMessage,
+      });
     }
   }, [error]);
 
-  const handleSignup = (values) => {
+  const handleSignup = (values, setSubmitting) => {
     setMsg("");
-    const formattedBirthdate = birthdate
-      ? dayjs(birthdate).format("YYYY-MM-DD")
-      : null;
+    setSuccessStatus("");
 
-    logInfo(formattedBirthdate);
+    const credentials = {
+      name: values.name,
+      email: values.email,
+      password: values.password,
+      dateOfBirth: values.birthdate,
+    };
 
     performFetch({
       method: "POST",
-      data: { user: { ...values, birthdate: formattedBirthdate } },
-    });
+      data: { user: credentials },
+    }).finally(() => setSubmitting(false));
+  };
+
+  const handleMessage = ({ successStatus, msg }) => {
+    setSuccessStatus(successStatus);
+    setMsg(msg);
+  };
+
+  const saveLoginCredentials = (user, msg, successStatus) => {
+    try {
+      localStorage.setItem("userCredentials", JSON.stringify(user));
+      handleMessage({
+        successStatus: true,
+        msg: "User credentials saved successfully",
+      });
+      setStoredCredentials(user);
+    } catch (error) {
+      logError(error);
+      handleMessage({
+        successStatus: false,
+        msg: "Failed to save user credentials",
+      });
+    }
   };
 
   return (
@@ -72,6 +96,7 @@ const SignUpScreen = () => {
           initialValues={{
             name: "",
             email: "",
+            birthdate: "",
             password: "",
             confirmPassword: "",
           }}
@@ -79,9 +104,9 @@ const SignUpScreen = () => {
             if (
               !values.name ||
               !values.email ||
+              !values.birthdate ||
               !values.password ||
-              !values.confirmPassword ||
-              !birthdate
+              !values.confirmPassword
             ) {
               handleMessage("Please fill all the fields");
               setSubmitting(false);
@@ -94,7 +119,13 @@ const SignUpScreen = () => {
             }
           }}
         >
-          {({ handleChange, handleBlur, handleSubmit, values }) => (
+          {({
+            handleChange,
+            handleBlur,
+            handleSubmit,
+            values,
+            setFieldValue,
+          }) => (
             <form onSubmit={handleSubmit} className="space-y-4">
               <TextInputSignUpScreen
                 type="text"
@@ -120,8 +151,11 @@ const SignUpScreen = () => {
                 type="text"
                 name="birthdate"
                 placeholder="Select your birthdate"
-                value={birthdate ? dayjs(birthdate) : null}
-                onChange={(newValue) => setBirthdate(newValue)}
+                value={values.birthdate || userBirthDay}
+                onChange={(newValue) => {
+                  setFieldValue("birthdate", newValue);
+                  setUserBirthDay(newValue);
+                }}
                 isDate={true}
                 showDatePicker={() =>
                   document.getElementById("datePicker").focus()
