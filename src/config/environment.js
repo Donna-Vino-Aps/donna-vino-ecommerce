@@ -1,4 +1,4 @@
-import { API_URL_HEROKU } from "@env";
+// import { API_URL_HEROKU } from "@env";
 import { API_URL_LOCAL } from "@env";
 import { logInfo } from "@/utils/logging";
 

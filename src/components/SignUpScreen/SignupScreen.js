@@ -8,7 +8,7 @@ import Button from "../Button/Button";
 import TextInputSignUpScreen from "../SignUpScreen/TextInputSignUpScreen";
 import { FaRegUser } from "react-icons/fa";
 import { MdOutlineEmail, MdLockOutline } from "react-icons/md";
-// import dayjs from "dayjs";
+import dayjs from "dayjs";
 
 const SignUpScreen = () => {
   const { translations } = useLanguage();
@@ -51,11 +51,17 @@ const SignUpScreen = () => {
     setMsg("");
     setSuccessStatus("");
 
+    const formattedBirthdate = values.birthdate
+      ? dayjs(values.birthdate).format("YYYY-MM-DD")
+      : null;
+
+    logInfo(`Formatted Birthdate: ${formattedBirthdate}`);
+
     const credentials = {
       name: values.name,
       email: values.email,
       password: values.password,
-      dateOfBirth: values.birthdate,
+      dateOfBirth: formattedBirthdate,
     };
 
     performFetch({
