@@ -1,14 +1,9 @@
 import { renderHook, act, waitFor } from "@testing-library/react";
 import axios from "axios";
 import useFetch from "../../../hooks/api/useFetch";
-import { logError, logInfo } from "../../../utils/logging";
 
 // Mock axios
 jest.mock("axios");
-jest.mock("../../../utils/logging", () => ({
-  logError: jest.fn(),
-  logInfo: jest.fn(),
-}));
 
 describe("useFetch Hook", () => {
   beforeEach(() => {

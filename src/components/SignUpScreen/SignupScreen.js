@@ -18,8 +18,7 @@ const SignUpScreen = () => {
   const [success, setSuccessStatus] = useState("");
 
   // Context
-  const { storedCredentials, setStoredCredentials } =
-    useContext(CredentialsContext);
+  const { setStoredCredentials } = useContext(CredentialsContext);
 
   const onReceived = (response) => {
     const responseData = response.data || response;
