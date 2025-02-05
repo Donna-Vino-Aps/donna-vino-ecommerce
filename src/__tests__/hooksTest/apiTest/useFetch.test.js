@@ -1,13 +1,19 @@
 import { renderHook, act, waitFor } from "@testing-library/react";
 import axios from "axios";
 import useFetch from "../../../hooks/api/useFetch";
+import { logError, logInfo } from "../../../utils/logging";
 
 // Mock axios
 jest.mock("axios");
+jest.mock("../../../utils/logging", () => ({
+  logError: jest.fn(),
+  logInfo: jest.fn(),
+}));
 
 describe("useFetch Hook", () => {
   beforeEach(() => {
     jest.clearAllMocks();
+    localStorage.clear();
   });
 
   afterEach(() => {
@@ -102,6 +108,63 @@ describe("useFetch Hook", () => {
       expect(result.current.isLoading).toBe(false);
       expect(result.current.error).toBeNull();
     });
+  });
+
+  // token in localStorage
+  it("should add Authorization header with token if present in localStorage", async () => {
+    // Configurar el token en localStorage
+    const mockToken = "mocked-token";
+    localStorage.setItem("userCredentials", mockToken); // Usamos 'userCredentials' aquí según tu código
+
+    const onReceived = jest.fn();
+
+    // Ejecutar el hook
+    const { result } = renderHook(() => useFetch("/test-route", onReceived));
+
+    // Simular la respuesta de axios
+    axios.mockResolvedValueOnce({
+      data: { success: true, msg: "Success" },
+    });
+
+    await act(async () => {
+      await result.current.performFetch();
+    });
+
+    const axiosCall = axios.mock.calls[0][1];
+
+    expect(axiosCall).toEqual(
+      expect.objectContaining({
+        headers: expect.objectContaining({
+          Authorization: `Bearer ${mockToken}`,
+        }),
+      }),
+    );
+  });
+
+  it("should not add Authorization header if no token is present in localStorage", async () => {
+    localStorage.removeItem("userCredentials");
+
+    const onReceived = jest.fn();
+
+    const { result } = renderHook(() => useFetch("/test-route", onReceived));
+
+    axios.mockResolvedValueOnce({
+      data: { success: true, msg: "Success" },
+    });
+
+    await act(async () => {
+      await result.current.performFetch();
+    });
+
+    const axiosCall = axios.mock.calls[0][1];
+
+    expect(axiosCall).toEqual(
+      expect.objectContaining({
+        headers: expect.not.objectContaining({
+          Authorization: expect.any(String),
+        }),
+      }),
+    );
   });
 
   // Tests for errors and edge cases

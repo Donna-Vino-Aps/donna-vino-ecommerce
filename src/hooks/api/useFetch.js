@@ -52,7 +52,7 @@ const useFetch = (
 
     let token = null;
     try {
-      token = await localStorage.getItem("zenTimerToken");
+      token = await localStorage.getItem("userCredentials");
     } catch (error) {
       logError("Failed to retrieve token", error);
     }
