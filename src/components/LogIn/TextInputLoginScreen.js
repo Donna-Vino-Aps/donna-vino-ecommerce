@@ -20,41 +20,36 @@ const TextInputLoginScreen = ({
         </div>
       )}
 
-      {name === "password" ? (
-        <div className="relative">
-          <input
-            type={showPassword ? "text" : "password"}
-            name={name}
-            placeholder={placeholder}
-            value={value}
-            onChange={onChange}
-            onBlur={onBlur}
-            aria-label={placeholder || `Enter your ${name}`}
-            data-testid={`input-${name}`}
-            className={`w-full p-3 ${icon ? "pl-12" : "pl-3"} border border-tertiary1-darker rounded-lg bg-white focus:outline-none focus:ring-2 focus:ring-primary-light`}
-          />
-          <button
-            type="button"
-            onClick={() => setShowPassword(!showPassword)}
-            aria-label={showPassword ? "Hide password" : "Show password"}
-            data-testid="toggle-password-visibility"
-            className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-600"
-          >
-            {showPassword ? <FaEyeSlash /> : <FaEye />}
-          </button>
-        </div>
-      ) : (
-        <input
-          type="email"
-          name={name}
-          placeholder={placeholder}
-          value={value}
-          onChange={onChange}
-          onBlur={onBlur}
-          aria-label={placeholder || `Enter your ${name}`}
-          data-testid={`input-${name}`}
-          className={`w-full p-3 ${icon ? "pl-12" : "pl-3"} border border-tertiary1-darker rounded-lg bg-white focus:outline-none focus:ring-2 focus:ring-primary-light`}
-        />
+      {/* Check if name is password, if so render password input */}
+      <input
+        type={
+          name === "password" && showPassword
+            ? "text"
+            : name === "password"
+              ? "password"
+              : "text"
+        } // Handle password visibility toggle
+        name={name}
+        placeholder={placeholder}
+        value={value}
+        onChange={onChange}
+        onBlur={onBlur}
+        aria-label={placeholder || `Enter your ${name}`}
+        data-testid={`input-${name}`}
+        className={`w-full p-3 ${icon ? "pl-12" : "pl-3"} border border-tertiary1-darker rounded-lg bg-white focus:outline-none focus:ring-2 focus:ring-primary-light`}
+      />
+
+      {/* Show/Hide password button */}
+      {name === "password" && (
+        <button
+          type="button"
+          onClick={() => setShowPassword(!showPassword)}
+          aria-label={showPassword ? "Hide password" : "Show password"}
+          data-testid="toggle-password-visibility"
+          className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-600"
+        >
+          {showPassword ? <FaEyeSlash /> : <FaEye />}
+        </button>
       )}
     </div>
   );
