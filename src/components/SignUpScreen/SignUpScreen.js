@@ -161,7 +161,7 @@ const SignUpScreen = () => {
               <TextInputSignUpScreen
                 type="email"
                 name="email"
-                placeholder="email@example.com"
+                placeholder="Email"
                 value={values.email}
                 onChange={handleChange}
                 onBlur={handleBlur}
