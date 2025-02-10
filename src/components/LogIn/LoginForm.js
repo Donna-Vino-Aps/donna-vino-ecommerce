@@ -28,7 +28,7 @@ const LoginForm = () => {
   );
 
   return (
-    <div className="flex flex-col h-full">
+    <div className="flex flex-col h-full" data-testid="login-container">
       <main className="w-full h-full flex flex-col justify-center items-center">
         <Formik
           initialValues={{ email: "", password: "" }}
@@ -60,7 +60,7 @@ const LoginForm = () => {
                 onChange={handleChange}
                 onBlur={handleBlur}
                 icon={<MdLockOutline />}
-                data-testid="input-password"
+                data-testid="login-input-password"
                 aria-label="Password"
               />
 

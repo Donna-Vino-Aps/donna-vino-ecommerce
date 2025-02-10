@@ -9,6 +9,7 @@ const TextInputLoginScreen = ({
   onChange,
   onBlur,
   icon,
+  dataTestId,
 }) => {
   const [showPassword, setShowPassword] = useState(false);
 
@@ -35,7 +36,7 @@ const TextInputLoginScreen = ({
         onChange={onChange}
         onBlur={onBlur}
         aria-label={placeholder || `Enter your ${name}`}
-        data-testid={`input-${name}`}
+        data-testid={dataTestId}
         className={`w-full p-3 ${icon ? "pl-12" : "pl-3"} border border-tertiary1-darker rounded-lg bg-white focus:outline-none focus:ring-2 focus:ring-primary-light`}
       />
 
@@ -58,6 +59,7 @@ const TextInputLoginScreen = ({
 TextInputLoginScreen.propTypes = {
   name: PropTypes.string.isRequired,
   placeholder: PropTypes.string.isRequired,
+  dataTestId: PropTypes.string.isRequired,
   value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   onChange: PropTypes.func.isRequired,
   onBlur: PropTypes.func,
