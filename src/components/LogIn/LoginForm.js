@@ -11,7 +11,7 @@ const LoginForm = () => {
 
   return (
     <div className="flex flex-col h-full">
-      <main className="p-8 w-full h-full flex flex-col justify-center items-center">
+      <main className="w-full h-full flex flex-col justify-center items-center">
         {/* <h2
           className="text-displayMedium md:text-displayLarge font-barlow text-tertiary1-darker mb-6 text-center"
           aria-label="Log In"
@@ -35,7 +35,7 @@ const LoginForm = () => {
             >
               <TextInputLoginScreen
                 name="email"
-                placeholder="Email"
+                placeholder={translations["logIn.mail"]}
                 value={values.email}
                 onChange={handleChange}
                 onBlur={handleBlur}
@@ -46,7 +46,7 @@ const LoginForm = () => {
 
               <TextInputLoginScreen
                 name="password"
-                placeholder="Password"
+                placeholder={translations["logIn.password"]}
                 value={values.password}
                 onChange={handleChange}
                 onBlur={handleBlur}
@@ -56,8 +56,8 @@ const LoginForm = () => {
               />
 
               <Button
-                text={translations["signUp.button"]}
-                variant="red"
+                text={translations["logIn.button"]}
+                variant="redWide"
                 data-testid="login-button"
                 aria-label="Submit Log In"
                 type="submit"
