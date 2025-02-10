@@ -1,31 +1,40 @@
-import React from "react";
+import React, { useState } from "react";
 import TextInputLoginScreen from "./TextInputLoginScreen";
 import { Formik, Form } from "formik";
 import { MdOutlineEmail, MdLockOutline } from "react-icons/md"; // Import your icons here
 import Button from "../Button/Button.js";
 import { logInfo } from "@/utils/logging";
 import { useLanguage } from "@/context/LanguageContext";
+import useFetch from "@/hooks/useFetch";
 
 const LoginForm = () => {
   const { translations } = useLanguage();
+  const [errorMessage, setErrorMessage] = useState("");
+
+  const { performFetch } = useFetch(
+    "/auth/login",
+    "POST",
+    null,
+    {},
+    (response) => {
+      if (response.success) {
+        // Handle successful login (e.g., redirect, store token, etc.)
+        logInfo("Login successful:", response);
+        setErrorMessage(""); // Clear error on success
+      } else {
+        setErrorMessage(response.message || "Login failed");
+      }
+    },
+  );
 
   return (
     <div className="flex flex-col h-full">
       <main className="w-full h-full flex flex-col justify-center items-center">
-        {/* <h2
-          className="text-displayMedium md:text-displayLarge font-barlow text-tertiary1-darker mb-6 text-center"
-          aria-label="Log In"
-        >
-          Log In
-        </h2> */}
         <Formik
-          initialValues={{
-            name: "",
-            email: "",
-          }}
+          initialValues={{ email: "", password: "" }}
           onSubmit={(values) => {
-            // Handle login logic here (e.g., API request)
-            logInfo("Form Submitted:", values);
+            // Call performFetch with user input
+            performFetch({ body: values });
           }}
         >
           {({ handleChange, handleBlur, values, handleSubmit }) => (
@@ -54,6 +63,8 @@ const LoginForm = () => {
                 data-testid="input-password"
                 aria-label="Password"
               />
+
+              {errorMessage && <p className="text-red-500">{errorMessage}</p>}
 
               <Button
                 text={translations["logIn.button"]}
