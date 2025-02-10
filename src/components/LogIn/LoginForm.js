@@ -10,8 +10,8 @@ const LoginForm = () => {
   const { translations } = useLanguage();
 
   return (
-    <div className="flex flex-col">
-      <main className="flex-grow p-8 w-full">
+    <div className="flex flex-col h-full">
+      <main className="p-8 w-full h-full flex flex-col justify-center items-center">
         {/* <h2
           className="text-displayMedium md:text-displayLarge font-barlow text-tertiary1-darker mb-6 text-center"
           aria-label="Log In"
@@ -31,7 +31,7 @@ const LoginForm = () => {
           {({ handleChange, handleBlur, values, handleSubmit }) => (
             <Form
               onSubmit={handleSubmit}
-              className="max-w-lg mx-auto space-y-6 flex flex-col items-center"
+              className="w-full h-full space-y-5 flex flex-col items-center justify-center"
             >
               <TextInputLoginScreen
                 name="email"
