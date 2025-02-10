@@ -5,6 +5,7 @@
   "engines": {
     "node": "20.x"
   },
+  "sideEffects": false,
   "scripts": {
     "dev": "next dev",
     "build": "next build",
