@@ -23,7 +23,7 @@ describe("Home Page", () => {
   });
 
   it("should render the home page content", () => {
-    const mainContainer = screen.getByTestId("home-container");
+    const mainContainer = screen.queryByTestId("home-container");
     expect(mainContainer).toBeInTheDocument();
   });
 });

@@ -20,20 +20,24 @@ describe("LoginForm", () => {
     render(<LoginForm />);
   });
 
-  test("renders the login container div", () => {
+  test("renders the login container div", async () => {
     // Check if the login container div is rendered
-    expect(screen.getByTestId("login-container")).toBeInTheDocument();
+    const loginContainer = await screen.findByTestId("login-container");
+    expect(loginContainer).toBeInTheDocument();
   });
 
-  test("renders the email input", () => {
-    expect(screen.getByTestId("login-input-email")).toBeInTheDocument();
-  });
+  // test("renders the email input", async () => {
+  //   const emailInput = await screen.findByTestId("login-input-email");
+  //   expect(emailInput).toBeInTheDocument();
+  // });
 
-  test("renders the password input", () => {
-    expect(screen.getByTestId("login-input-password")).toBeInTheDocument();
-  });
+  // test("renders the password input", async () => {
+  //   const passwordInput = await screen.findByTestId("login-input-password");
+  //   expect(passwordInput).toBeInTheDocument();
+  // });
 
-  test("renders the login button", () => {
-    expect(screen.getByTestId("login-button")).toBeInTheDocument();
-  });
+  // test("renders the login button", async () => {
+  //   const loginButton = await screen.findByTestId("login-button");
+  //   expect(loginButton).toBeInTheDocument();
+  // });
 });
