@@ -5,7 +5,7 @@ import { MdOutlineEmail, MdLockOutline } from "react-icons/md"; // Import your i
 import Button from "../Button/Button.js";
 import { logInfo } from "@/utils/logging";
 import { useLanguage } from "@/context/LanguageContext";
-import useFetch from "@/hooks/useFetch";
+import useFetch from "@/hooks/api/useFetch.js";
 
 const LoginForm = () => {
   const { translations } = useLanguage();
