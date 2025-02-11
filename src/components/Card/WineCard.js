@@ -6,9 +6,13 @@ const WineCard = ({ title, imageUrl, price, reviewsCount }) => {
   //   const { translations } = useLanguage();
 
   return (
-    <article className="w-[23.125rem] h-[32rem] bg-white mt-12 ml-4 rounded-lg shadow-lg hover:opacity-[0.96] hover:shadow-xl transition-shadow duration-300">
+    <article className="w-[23.125rem] h-[32rem] bg-white mt-12 ml-4 mr-4 rounded-lg shadow-lg opacity-95 hover:opacity-100 hover:shadow-xl transition-shadow duration-300">
       <figure className="mt-4 mb-6 overflow-hidden rounded-t-lg">
-        <img src={imageUrl} alt={title} className="h-[24rem] " />
+        <img
+          src={imageUrl}
+          alt={title}
+          className="h-[24rem] w-full object-cover"
+        />
       </figure>
       <div className="flex justify-between items-center font-barlow">
         <div className="flex flex-col">
@@ -33,6 +37,6 @@ export default WineCard;
 WineCard.propTypes = {
   title: PropTypes.string.isRequired,
   imageUrl: PropTypes.string.isRequired,
-  price: PropTypes.string.isRequired,
-  reviewsCount: PropTypes.string.isRequired,
+  price: PropTypes.number.isRequired,
+  reviewsCount: PropTypes.number.isRequired,
 };
