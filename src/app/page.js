@@ -18,7 +18,6 @@ export default function Home() {
           reviewsCount="14"
         />
         <LoginScreen />
-
         <SignUpScreen />
       </main>
     </div>
