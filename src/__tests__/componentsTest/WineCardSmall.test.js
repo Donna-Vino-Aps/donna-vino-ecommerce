@@ -11,7 +11,7 @@ describe("WineCardSmall Component", () => {
 
   test("renders WineCardSmall with title, price, and image", () => {
     render(<WineCardSmall {...mockProps} />);
-    
+
     expect(screen.getByTestId("wine-title")).toHaveTextContent(mockProps.title);
     expect(screen.getByTestId("wine-price")).toHaveTextContent(mockProps.price);
     expect(screen.getByTestId("wine-image")).toBeInTheDocument();

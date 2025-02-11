@@ -1,5 +1,5 @@
 import React from "react";
-
+import PropTypes from "prop-types";
 const WineCardSmall = ({
   title = "Product Name",
   price = "Kr.0.00",
@@ -9,24 +9,24 @@ const WineCardSmall = ({
     {
       icon: "/icons/card/cart.svg",
       tooltip: "Add To Cart",
-      onClick: () => console.log("Add to cart clicked"),
+      onClick: () => console.warn("Add to cart clicked"),
     },
     {
       icon: "/icons/card/eye-alt.svg",
       tooltip: "Quick View",
-      onClick: () => console.log("Quick view clicked"),
+      onClick: () => console.warn("Quick view clicked"),
     },
     {
       icon: "/icons/card/heart.svg",
       tooltip: "Add to Favorites",
-      onClick: () => console.log("Favorite clicked"),
+      onClick: () => console.warn("Favorite clicked"),
     },
   ],
 }) => {
   return (
     <div
       data-testid="wine-card"
-      className="group relative max-w-xs cursor-pointer bg-white shadow-xl rounded-lg overflow-hidden transition-transform duration-300 hover:scale-105 w-[16.875rem]" 
+      className="group relative max-w-xs cursor-pointer bg-white shadow-xl rounded-lg overflow-hidden transition-transform duration-300 hover:scale-105 w-[16.875rem]"
     >
       <div className="relative">
         <img
@@ -50,7 +50,7 @@ const WineCardSmall = ({
 
       <div
         data-testid="wine-buttons"
-        className="absolute bottom-[5.9375rem] left-1/2 flex gap-3 -translate-x-1/2 opacity-0 transition-opacity group-hover:opacity-100 w-[8.75rem] h-[5.375rem]" 
+        className="absolute bottom-[5.9375rem] left-1/2 flex gap-3 -translate-x-1/2 opacity-0 transition-opacity group-hover:opacity-100 w-[8.75rem] h-[5.375rem]"
       >
         {buttons.map((button, index) => (
           <div key={index} className="relative">
@@ -79,7 +79,7 @@ const WineCardSmall = ({
         ))}
       </div>
 
-      <div className="flex justify-center items-center w-full mt-13 pb-[1.25rem]"> 
+      <div className="flex justify-center items-center w-full mt-13 pb-[1.25rem]">
         <div className="p-4 flex flex-col items-center text-center w-[13.25rem] h-[4.4375rem]">
           <h3
             data-testid="wine-title"
@@ -97,6 +97,20 @@ const WineCardSmall = ({
       </div>
     </div>
   );
+};
+
+WineCardSmall.propTypes = {
+  title: PropTypes.string.isRequired,
+  price: PropTypes.string.isRequired,
+  imageUrl: PropTypes.string.isRequired,
+  isNew: PropTypes.bool,
+  buttons: PropTypes.arrayOf(
+    PropTypes.shape({
+      icon: PropTypes.string.isRequired,
+      tooltip: PropTypes.string.isRequired,
+      onClick: PropTypes.func.isRequired,
+    }),
+  ),
 };
 
 export default WineCardSmall;
