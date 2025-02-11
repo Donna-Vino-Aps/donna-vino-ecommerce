@@ -4,13 +4,15 @@ import React from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import Image from "next/image";
+
 const Breadcrumb = () => {
   const pathname = usePathname();
   const pathParts = pathname.split("/").filter((part) => part !== "");
 
   const breadcrumbs = [
     { label: "Home", href: "/" },
-    { label: "Home", href: "/" },
+    { label: "Wines", href: "/home/wines" },
+    { label: "Red Wines", href: "/home/wines/red-wines" },
     ...pathParts.map((part, index) => {
       const href = `/${pathParts.slice(0, index + 1).join("/")}`;
       const label = part.replace(/-/g, " ");
