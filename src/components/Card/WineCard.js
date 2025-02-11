@@ -1,5 +1,6 @@
 import React from "react";
-import { useLanguage } from "@/context/LanguageContext";
+import PropTypes from "prop-types";
+// import { useLanguage } from "@/context/LanguageContext";
 
 const WineCard = ({ title, imageUrl, price, reviewsCount }) => {
   //   const { translations } = useLanguage();
@@ -9,8 +10,8 @@ const WineCard = ({ title, imageUrl, price, reviewsCount }) => {
       <figure>
         <img src={imageUrl} />
       </figure>
-      <div className="font-barlow">
-        <div>
+      <div className="flex flex-row space-between font-barlow">
+        <div className="flex flex-column">
           <h4 className="text-headlineMedium font-regular">{title}</h4>
           <p className="text-labelXLarge font-semibold">${price}</p>
         </div>
@@ -26,3 +27,10 @@ const WineCard = ({ title, imageUrl, price, reviewsCount }) => {
 };
 
 export default WineCard;
+
+WineCard.propTypes = {
+  title: PropTypes.string.isRequired,
+  imageUrl: PropTypes.string.isRequired,
+  price: PropTypes.string.isRequired,
+  reviewsCount: PropTypes.string.isRequired,
+};
