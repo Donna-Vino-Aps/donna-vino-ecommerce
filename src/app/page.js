@@ -3,6 +3,7 @@ import React from "react";
 import SignUpScreen from "../components/SignUpScreen/SignUpScreen";
 import LoginScreen from "@/components/LogIn/LogInScreen";
 import TastingSession from "@/components/TastingSession/TastingSession";
+import WineCardSmall from "@/components/Card/WineCardSmall";
 import WineCard from "@/components/Card/WineCard";
 
 export default function Home() {
@@ -21,6 +22,7 @@ export default function Home() {
         />
         <LoginScreen />
         <SignUpScreen />
+        <WineCardSmall />
       </main>
     </div>
   );
