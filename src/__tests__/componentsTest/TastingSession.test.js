@@ -4,16 +4,14 @@ import "@testing-library/jest-dom";
 import TastingSession from "@/components/TastingSession/TastingSession";
 
 jest.mock("@/context/LanguageContext", () => {
-  // Import PropTypes inside the mock to ensure it's in scope
   const PropTypes = require("prop-types");
 
   const mockProvider = ({ children }) => (
     <div data-testid="language-context">{children}</div>
   );
 
-  // Define propTypes inside the mock function
   mockProvider.propTypes = {
-    children: PropTypes.node.isRequired, // Ensures children are passed
+    children: PropTypes.node.isRequired,
   };
 
   return {
@@ -32,7 +30,6 @@ jest.mock("@/context/LanguageContext", () => {
   };
 });
 
-// Mock Button component
 jest.mock("@/components/Button/Button", () =>
   jest.fn(({ text }) => <button>{text}</button>),
 );
