@@ -2,6 +2,7 @@
 import React from "react";
 import SignUpScreen from "../components/SignUpScreen/SignUpScreen";
 import LoginScreen from "@/components/LogIn/LogInScreen";
+import WineCardSmall from "@/components/Card/WineCardSmall";
 
 export default function Home() {
   return (
@@ -12,6 +13,7 @@ export default function Home() {
       >
         <LoginScreen />
         <SignUpScreen />
+        <WineCardSmall />
       </main>
     </div>
   );

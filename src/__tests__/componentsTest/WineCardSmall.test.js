@@ -5,7 +5,7 @@ import WineCardSmall from "@/components/Card/WineCardSmall";
 describe("WineCardSmall Component", () => {
   const mockProps = {
     title: "Château Margaux",
-    price: "$150",
+    price: 0.0,
     imageUrl: "/images/exampleImageWine.png",
   };
 
@@ -15,5 +15,10 @@ describe("WineCardSmall Component", () => {
     expect(screen.getByTestId("wine-title")).toHaveTextContent(mockProps.title);
     expect(screen.getByTestId("wine-price")).toHaveTextContent(mockProps.price);
     expect(screen.getByTestId("wine-image")).toBeInTheDocument();
+  });
+
+  test("renders 'New' badge when isNew is true", () => {
+    render(<WineCardSmall {...mockProps} isNew={true} />);
+    expect(screen.getByText("New")).toBeInTheDocument();
   });
 });
