@@ -9,10 +9,14 @@ const Navbar = () => {
   const { translations } = useLanguage();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [activeLink, setActiveLink] = useState("/");
+  const [winesDropdownOpen, setWinesDropdownOpen] = useState(false);
+  const [grapesDropdownOpen, setGrapesDropdownOpen] = useState(false);
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
+  const toggleWinesDropdown = () => setWinesDropdownOpen(!winesDropdownOpen);
+  const toggleGrapesDropdown = () => setGrapesDropdownOpen(!grapesDropdownOpen);
 
   const navLinks = [
     { id: "home", href: "/", label: translations["navbar.home"] },
