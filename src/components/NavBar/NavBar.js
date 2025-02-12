@@ -17,12 +17,16 @@ const Navbar = () => {
   const navLinks = [
     { id: "home", href: "/", label: translations["navbar.home"] },
     {
-      id: "our-values",
-      href: "/our-values",
-      label: translations["navbar.values"],
+      id: "wines",
+      href: "/wines",
+      label: translations["navbar.wines"],
     },
-    { id: "our-team", href: "/our-team", label: translations["navbar.team"] },
-    { id: "contact", href: "/contact", label: translations["navbar.contact"] },
+    { id: "offers", href: "/offers", label: translations["navbar.offers"] },
+    {
+      id: "grapeszones",
+      href: "/grapes-zones",
+      label: translations["navbar.grapes"],
+    },
   ];
 
   const handleClick = (href) => {

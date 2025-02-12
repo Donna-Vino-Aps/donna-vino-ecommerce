@@ -1,9 +1,9 @@
 {
   "footer": "Tak fordi du besøgte!",
   "navbar.home": "Hjem",
-  "navbar.values": "Vores Værdier",
-  "navbar.team": "Vores Team",
-  "navbar.contact": "Kontakte",
+  "navbar.wines": "Vine",
+  "navbar.offers": "Tilbud",
+  "navbar.grapes": "Druer & Zoner",
   "signUp.button": "Tilmeld Dig",
   "logIn.button": "Logge Ind",
   "logIn.mail": "E-mail",
