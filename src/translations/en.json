@@ -1,9 +1,9 @@
 {
   "footer": "Thank you for visiting!",
   "navbar.home": "Home",
-  "navbar.values": "Our Values",
-  "navbar.team": "Our Team",
-  "navbar.contact": "Contact",
+  "navbar.wines": "Wines",
+  "navbar.offers": "Offers",
+  "navbar.grapes": "Grapes & Zones",
   "signUp.button": "Sign Up",
   "logIn.button": "Log In",
   "logIn.mail": "Email",
