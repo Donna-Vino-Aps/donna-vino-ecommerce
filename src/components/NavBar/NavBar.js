@@ -12,24 +12,36 @@ const Navbar = () => {
   const [winesDropdownOpen, setWinesDropdownOpen] = useState(false);
   const [grapesDropdownOpen, setGrapesDropdownOpen] = useState(false);
 
-  const toggleMenu = () => {
-    setIsMenuOpen(!isMenuOpen);
-  };
+  const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
   const toggleWinesDropdown = () => setWinesDropdownOpen(!winesDropdownOpen);
   const toggleGrapesDropdown = () => setGrapesDropdownOpen(!grapesDropdownOpen);
 
   const navLinks = [
-    { id: "home", href: "/", label: translations["navbar.home"] },
+    {
+      id: "home",
+      href: "/",
+      label: translations["navbar.home"],
+      dropdown: false,
+    },
     {
       id: "wines",
       href: "/wines",
       label: translations["navbar.wines"],
+      dropdown: true,
+      sublinks: ["Red", "White", "Rosé"],
     },
-    { id: "offers", href: "/offers", label: translations["navbar.offers"] },
+    {
+      id: "offers",
+      href: "/offers",
+      label: translations["navbar.offers"],
+      dropdown: false,
+    },
     {
       id: "grapeszones",
       href: "/grapes-zones",
       label: translations["navbar.grapes"],
+      dropdown: true,
+      sublinks: ["Malbec", "Pinot Noir", "Chardonnay"],
     },
   ];
 
@@ -60,6 +72,7 @@ const Navbar = () => {
           <img src="/icons/menu.svg" alt="" />
         </button>
       </div>
+
       <div
         id="desktop-menu"
         role="menu"
@@ -68,24 +81,73 @@ const Navbar = () => {
         }`}
       >
         {navLinks.map((link) => (
-          <Link
-            key={link.label}
-            href={link.href}
-            className={`rounded-md px-3 py-2 text-titleMedium ${
-              activeLink === link.href
-                ? "text-tertiary1-gray"
-                : "text-tertiary2-active_dark"
-            }`}
-            onClick={() => handleClick(link.href)}
-            data-testid={`nav-link-${link.id}`}
-          >
-            {link.label}
-          </Link>
+          <div key={link.id} className="relative">
+            {link.dropdown ? (
+              <button
+                onClick={() =>
+                  link.id === "wines"
+                    ? toggleWinesDropdown()
+                    : toggleGrapesDropdown()
+                }
+                className="flex items-center rounded-md px-3 py-2 text-titleMedium text-tertiary2-active_dark"
+              >
+                {link.label}
+                <img
+                  src="/icons/chevron-down.svg"
+                  alt="Chevron Down"
+                  className={`ml-2 transition-transform ${
+                    (link.id === "wines" && winesDropdownOpen) ||
+                    (link.id === "grapeszones" && grapesDropdownOpen)
+                      ? "rotate-180"
+                      : "rotate-0"
+                  }`}
+                />
+              </button>
+            ) : (
+              <Link
+                href={link.href}
+                className={`rounded-md px-3 py-2 text-titleMedium ${
+                  activeLink === link.href
+                    ? "text-tertiary1-gray"
+                    : "text-tertiary2-active_dark"
+                }`}
+                onClick={() => handleClick(link.href)}
+                data-testid={`nav-link-${link.id}`}
+              >
+                {link.label}
+              </Link>
+            )}
+
+            {/* Dropdown menu */}
+            {link.dropdown && (
+              <div
+                className={`absolute left-0 mt-2 w-40 bg-white shadow-md rounded-md ${
+                  (link.id === "wines" && winesDropdownOpen) ||
+                  (link.id === "grapeszones" && grapesDropdownOpen)
+                    ? "block"
+                    : "hidden"
+                }`}
+              >
+                {link.sublinks.map((sublink) => (
+                  <Link
+                    key={sublink}
+                    href={link.href} // Initially set to go to the href of the overarching Link (like Wines)
+                    // href={`${link.href}/${sublink.toLowerCase()}`}  Or something similar can be used in future implementations
+                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-200"
+                  >
+                    {sublink}
+                  </Link>
+                ))}
+              </div>
+            )}
+          </div>
         ))}
       </div>
+
       <div className="hidden sm:block w-[5.12rem] h-[2.87rem]">
         <LanguageSwitch />
       </div>
+
       <SideBar
         id="mobile-menu"
         isMenuOpen={isMenuOpen}
