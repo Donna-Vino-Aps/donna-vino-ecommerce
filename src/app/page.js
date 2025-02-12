@@ -14,8 +14,8 @@ export default function Home() {
         <WineCard
           title="Primitivo Susumani"
           imageUrl="/images/primitivo-susmani.jpg"
-          price="39.00"
-          reviewsCount="14"
+          price={39.0}
+          reviewsCount={14}
         />
         <LoginScreen />
         <SignUpScreen />
