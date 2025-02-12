@@ -23,9 +23,9 @@ const TastingSession = () => {
       <figure className="hidden md:flex md:w-[50%]">
         <img src="/images/dv-tasting.png" />
       </figure>
-      <div className="flex flex-col justify-center align-center items-center md:items-start font-barlow font-regular mx-20 md:mx-8 md:w-[50%]">
+      <div className="flex flex-col justify-center align-center items-center md:items-start font-barlow font-regular px-20 md:px-6 lg:px-10 xl:px-14 md:w-[50%]">
         <div>
-          <p className="titleMedium md:text-titleMedium xl:text-titleLarge text-primary-dark">
+          <p className="text-titleSmall md:text-titleMedium xl:text-titleLarge text-primary-dark">
             {translations["tasting.subheading"]}🍷✨
           </p>
         </div>
@@ -53,7 +53,6 @@ const TastingSession = () => {
               src="/icons/Prev.svg"
               alt="Previous arrow"
               data-testid="icon-previous-arrow"
-              loading="lazy"
               role="presentation"
             ></img>
           </button>
@@ -67,7 +66,6 @@ const TastingSession = () => {
               src="/icons/Next.svg"
               alt="Next arrow"
               data-testid="icon-next-arrow"
-              loading="lazy"
               role="presentation"
             ></img>
           </button>
