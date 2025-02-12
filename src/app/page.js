@@ -2,6 +2,7 @@
 import React from "react";
 import SignUpScreen from "../components/SignUpScreen/SignUpScreen";
 import LoginScreen from "@/components/LogIn/LogInScreen";
+import TastingSession from "@/components/TastingSession/TastingSession";
 import WineCardSmall from "@/components/Card/WineCardSmall";
 import WineCard from "@/components/Card/WineCard";
 
@@ -12,6 +13,7 @@ export default function Home() {
         className="flex flex-col gap-4 w-full bg-primary-light"
         data-testid="main-heading"
       >
+        <TastingSession />
         <WineCard
           title="Primitivo Susumani"
           imageUrl="/images/primitivo-susmani.jpg"
