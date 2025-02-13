@@ -5,6 +5,12 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import Image from "next/image";
 
+const BREADCRUMB_MAP = {
+  wines: "Wines",
+  offers: "Offers",
+  "grapes-zones": "Grapes & Zones",
+};
+
 const Breadcrumb = () => {
   const pathname = usePathname();
   if (pathname === "/") {
@@ -18,16 +24,8 @@ const Breadcrumb = () => {
 
   pathParts.forEach((part, index) => {
     const href = `/${pathParts.slice(0, index + 1).join("/")}`;
-    let label = part.replace(/-/g, " ");
-
-    if (label === "wines") {
-      label = "Wines";
-    } else if (label === "grapes zones") {
-      label = "Grapes & Zones";
-    } else if (label === "offers") {
-      label = "Offers";
-    }
-
+    const mappedLabel = BREADCRUMB_MAP[part];
+    const label = mappedLabel || part.replace(/-/g, " ");
     breadcrumbs.push({ label, href, icon: "/icons/arrow-right.svg" });
   });
 
