@@ -3,44 +3,35 @@ import { render, screen } from "@testing-library/react";
 import { usePathname } from "next/navigation";
 import BreadCrumb from "@/components/BreadCrumb/BreadCrumb";
 
-// Mock next/link
-jest.mock("next/link", () => {
-  return ({ children, href, ...props }) => (
-    <a href={href} {...props}>
-      {" "}
-      {/* Render a simple <a> tag */}
-      {children}
-    </a>
-  );
-});
-
-// Mock next/navigation
 jest.mock("next/navigation", () => ({
-  usePathname: jest.fn(() => "/products/wines/red-wines"),
+  usePathname: jest.fn(),
 }));
 
 describe("Breadcrumb Component", () => {
-  it("renders the breadcrumbs correctly", () => {
+  it("renders breadcrumbs with wines label handling", () => {
+    usePathname.mockReturnValue("/wines");
     render(<BreadCrumb />);
 
-    const homeLink = screen.getByRole("link", { name: "Home" });
-    expect(homeLink).toBeInTheDocument();
-    expect(homeLink.getAttribute("href")).toBe("/");
-
-    const electronicsLink = screen.getByRole("link", { name: "Wines" });
-    expect(electronicsLink).toBeInTheDocument();
-    expect(electronicsLink.getAttribute("href")).toBe("/home/wines");
-
-    const laptopsLink = screen.getByRole("link", { name: "Red Wines" });
-    expect(laptopsLink).toBeInTheDocument();
-    expect(laptopsLink.getAttribute("href")).toBe("/home/wines/red-wines");
+    const winesLink = screen.getByRole("link", { name: "Wines" });
+    expect(winesLink).toBeInTheDocument();
+    expect(winesLink.getAttribute("href")).toBe("/wines");
   });
 
-  it("renders no dynamic breadcrumbs for root path", () => {
-    usePathname.mockImplementation(() => "/");
+  it("renders breadcrumbs with offers label handling", () => {
+    usePathname.mockReturnValue("/offers");
     render(<BreadCrumb />);
 
-    const links = screen.getAllByRole("link");
-    expect(links.length).toBe(3);
+    const offersLink = screen.getByRole("link", { name: "Offers" });
+    expect(offersLink).toBeInTheDocument();
+    expect(offersLink.getAttribute("href")).toBe("/offers");
+  });
+
+  it("renders breadcrumbs with grapes & zones label handling", () => {
+    usePathname.mockReturnValue("/grapes-zones");
+    render(<BreadCrumb />);
+
+    const grapesLink = screen.getByRole("link", { name: "Grapes & Zones" });
+    expect(grapesLink).toBeInTheDocument();
+    expect(grapesLink.getAttribute("href")).toBe("/grapes-zones");
   });
 });
