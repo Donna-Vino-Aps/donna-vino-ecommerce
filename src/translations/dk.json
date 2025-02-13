@@ -1,9 +1,9 @@
 {
   "footer": "Tak fordi du besøgte!",
   "navbar.home": "Hjem",
-  "navbar.values": "Vores Værdier",
-  "navbar.team": "Vores Team",
-  "navbar.contact": "Kontakte",
+  "navbar.wines": "Vine",
+  "navbar.offers": "Tilbud",
+  "navbar.grapes": "Druer & Zoner",
   "signUp.button": "Tilmeld Dig",
   "logIn.button": "Logge Ind",
   "logIn.mail": "E-mail",
@@ -11,5 +11,9 @@
   "footer.values": "Vores Værdier",
   "footer.team": "Vores Team",
   "footer.contact": "Kontakte",
-  "footer.follow": "Følg Os Videre"
+  "footer.follow": "Følg Os Videre",
+  "tasting.subheading": "Reserver din plads i dag til vores arrangementer!",
+  "tasting.heading": "Book din plads til vores næste smagssession",
+  "tasting.paragraph": "Slut dig til os for en førsteklasses vinsmagning, hvor du vil udforske håndplukkede fine vine, lære af eksperter og opdage nye smagsvarianter. Perfekt til vinelskere og entusiaster, der ønsker at uddybe deres viden. Book din plads nu og nyd en uforglemmelig rejse gennem smag og tradition!",
+  "tasting.button": "Book en smagsprøve"
 }
