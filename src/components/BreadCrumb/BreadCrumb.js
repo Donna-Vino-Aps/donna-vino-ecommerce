@@ -7,18 +7,29 @@ import Image from "next/image";
 
 const Breadcrumb = () => {
   const pathname = usePathname();
+  if (pathname === "/") {
+    return null;
+  }
   const pathParts = pathname.split("/").filter((part) => part !== "");
 
-  const breadcrumbs = [
-    { label: "Home", href: "/" },
-    { label: "Wines", href: "/home/wines" },
-    { label: "Red Wines", href: "/home/wines/red-wines" },
-    ...pathParts.map((part, index) => {
-      const href = `/${pathParts.slice(0, index + 1).join("/")}`;
-      const label = part.replace(/-/g, " ");
-      return { label, href, icon: "/icons/arrow-right.svg" };
-    }),
-  ];
+  const breadcrumbs = [];
+
+  breadcrumbs.push({ label: "Home", href: "/" });
+
+  pathParts.forEach((part, index) => {
+    const href = `/${pathParts.slice(0, index + 1).join("/")}`;
+    let label = part.replace(/-/g, " ");
+
+    if (label === "wines") {
+      label = "Wines";
+    } else if (label === "grapes zones") {
+      label = "Grapes & Zones";
+    } else if (label === "offers") {
+      label = "Offers";
+    }
+
+    breadcrumbs.push({ label, href, icon: "/icons/arrow-right.svg" });
+  });
 
   return (
     <div className="py-10 bg-white dark:bg-dark">
@@ -32,22 +43,18 @@ const Breadcrumb = () => {
                     href={breadcrumb.href}
                     className="text-base font-medium hover:text-primary dark:hover:text-primary text-primary-normal dark:text-white flex items-center"
                   >
-                    {" "}
                     {breadcrumb.icon && (
-                      <span className="mr-2">{breadcrumb.icon}</span>
-                    )}{" "}
+                      <span className="px-3">
+                        <Image
+                          src={breadcrumb.icon}
+                          alt=""
+                          width={18}
+                          height={18}
+                        />
+                      </span>
+                    )}
                     {breadcrumb.label}
                   </Link>
-                  {index < breadcrumbs.length - 1 && (
-                    <span className="px-3 text-primary-normal">
-                      <Image
-                        src="/icons/arrow-right.svg"
-                        alt=""
-                        width={18}
-                        height={18}
-                      />{" "}
-                    </span>
-                  )}
                 </li>
               ))}
             </ul>
