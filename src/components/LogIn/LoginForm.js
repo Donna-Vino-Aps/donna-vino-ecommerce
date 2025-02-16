@@ -4,7 +4,7 @@ import { CredentialsContext } from "../../context/credentialsContext";
 import { useLanguage } from "@/context/LanguageContext";
 import useFetch from "@/hooks/api/useFetch.js";
 import { Formik, Form } from "formik";
-import { MdOutlineEmail, MdLockOutline } from "react-icons/md"; // Import your icons here
+import { MdOutlineEmail, MdLockOutline } from "react-icons/md";
 import Button from "../Button/Button.js";
 import { logInfo } from "@/utils/logging";
 
@@ -13,7 +13,6 @@ const LoginForm = () => {
   const [msg, setMsg] = useState("");
   const [success, setSuccessStatus] = useState("");
 
-  // Context
   const { setStoredCredentials } = useContext(CredentialsContext);
 
   const onReceived = (response) => {
@@ -30,7 +29,7 @@ const LoginForm = () => {
   };
 
   const { performFetch, isLoading, error } = useFetch(
-    "/auth/sign-up",
+    "/auth/log-in",
     "POST",
     {},
     {},
@@ -39,10 +38,9 @@ const LoginForm = () => {
 
   useEffect(() => {
     if (error) {
-      const errorMessage = error.message || "An unexpected error occurred.";
       handleMessage({
         successStatus: false,
-        msg: errorMessage,
+        msg: error.message || "An unexpected error occurred.",
       });
     }
   }, [error]);
@@ -62,17 +60,6 @@ const LoginForm = () => {
     }).finally(() => setSubmitting(false));
   };
 
-  useEffect(() => {
-    if (error) {
-      const errorMessage = error.message || "An unexpected error occurred.";
-      handleMessage({
-        successStatus: false,
-        msg: errorMessage,
-      });
-    }
-  }, [error]);
-
-  // Update message box based on success or error
   const handleMessage = ({ successStatus, msg }) => {
     setSuccessStatus(successStatus);
     setMsg(msg);
@@ -86,8 +73,9 @@ const LoginForm = () => {
         msg: "User credentials saved successfully",
       });
       setStoredCredentials(user);
-      const storedUser = localStorage.getItem("userCredentials");
-      logInfo(`User found in localStorage: ${storedUser}`);
+      logInfo(
+        `User found in localStorage: ${localStorage.getItem("userCredentials")}`,
+      );
     } catch (error) {
       logError(error);
       handleMessage({
@@ -101,21 +89,12 @@ const LoginForm = () => {
     <div className="flex flex-col h-full" data-testid="login-container">
       <main className="w-full h-full flex flex-col justify-center items-center">
         <Formik
-          initialValues={{
-            email: "",
-            password: "",
-          }}
+          initialValues={{ email: "", password: "" }}
           onSubmit={(values, { setSubmitting }) => {
             if (!values.email || !values.password) {
               handleMessage({
                 successStatus: false,
                 msg: "Please fill all the fields",
-              });
-              setSubmitting(false);
-            } else if (values.password !== values.confirmPassword) {
-              handleMessage({
-                successStatus: false,
-                msg: "Passwords do not match",
               });
               setSubmitting(false);
             } else {
@@ -128,6 +107,7 @@ const LoginForm = () => {
             <Form
               onSubmit={handleSubmit}
               className="w-full h-full space-y-5 flex flex-col items-center justify-center"
+              data-testid="login-form"
             >
               <TextInputLoginScreen
                 name="email"
@@ -136,8 +116,7 @@ const LoginForm = () => {
                 onChange={handleChange}
                 onBlur={handleBlur}
                 icon={<MdOutlineEmail />}
-                data-testid="login-input-email"
-                aria-label="Email"
+                dataTestId="login-input-email"
               />
 
               <TextInputLoginScreen
@@ -147,11 +126,10 @@ const LoginForm = () => {
                 onChange={handleChange}
                 onBlur={handleBlur}
                 icon={<MdLockOutline />}
-                data-testid="login-input-password"
-                aria-label="Password"
+                dataTestId="login-input-password"
               />
 
-              {msg}
+              <div data-testid="login-message">{msg}</div>
 
               <Button
                 text={translations["logIn.button"]}
@@ -159,6 +137,7 @@ const LoginForm = () => {
                 data-testid="login-button"
                 aria-label="Submit Log In"
                 type="submit"
+                disabled={isLoading}
               />
             </Form>
           )}

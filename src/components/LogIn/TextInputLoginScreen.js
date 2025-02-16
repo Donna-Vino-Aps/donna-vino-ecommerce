@@ -9,19 +9,21 @@ const TextInputLoginScreen = ({
   onChange,
   onBlur,
   icon,
-  dataTestId,
+  dataTestId, // Prop que se pasa, ahora correctamente utilizada
 }) => {
   const [showPassword, setShowPassword] = useState(false);
 
   return (
     <div className="relative" data-testid={`input-container-${name}`}>
       {icon && (
-        <div className="absolute left-3 top-1/2 transform -translate-y-1/2">
+        <div
+          className="absolute left-3 top-1/2 transform -translate-y-1/2"
+          data-testid={`icon-${name}`}
+        >
           {React.cloneElement(icon, { style: { color: "black" } })}
         </div>
       )}
 
-      {/* Check if name is password, if so render password input */}
       <input
         type={
           name === "password" && showPassword
@@ -29,24 +31,25 @@ const TextInputLoginScreen = ({
             : name === "password"
               ? "password"
               : "text"
-        } // Handle password visibility toggle
+        }
         name={name}
         placeholder={placeholder}
         value={value}
         onChange={onChange}
         onBlur={onBlur}
         aria-label={placeholder || `Enter your ${name}`}
-        data-testid={dataTestId}
+        data-testid={dataTestId || `input-${name}`} // Uso correcto del dataTestId
         className={`w-full p-3 ${icon ? "pl-12" : "pl-3"} border border-tertiary1-darker rounded-lg bg-white focus:outline-none focus:ring-2 focus:ring-primary-light`}
       />
 
-      {/* Show/Hide password button */}
       {name === "password" && (
         <button
           type="button"
           onClick={() => setShowPassword(!showPassword)}
           aria-label={showPassword ? "Hide password" : "Show password"}
-          data-testid="toggle-password-visibility"
+          data-testid={
+            dataTestId ? `${dataTestId}-toggle` : `toggle-password-${name}`
+          }
           className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-600"
         >
           {showPassword ? <FaEyeSlash /> : <FaEye />}
@@ -59,7 +62,7 @@ const TextInputLoginScreen = ({
 TextInputLoginScreen.propTypes = {
   name: PropTypes.string.isRequired,
   placeholder: PropTypes.string.isRequired,
-  dataTestId: PropTypes.string.isRequired,
+  dataTestId: PropTypes.string, // Prop ahora se usa correctamente
   value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   onChange: PropTypes.func.isRequired,
   onBlur: PropTypes.func,
@@ -69,6 +72,7 @@ TextInputLoginScreen.propTypes = {
 TextInputLoginScreen.defaultProps = {
   onBlur: () => {},
   icon: null,
+  dataTestId: "", // Valor por defecto para evitar undefined
 };
 
 export default TextInputLoginScreen;
