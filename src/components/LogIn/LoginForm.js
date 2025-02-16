@@ -15,6 +15,54 @@ const LoginForm = () => {
 
   const { setStoredCredentials } = useContext(CredentialsContext);
 
+  const onReceived = (response) => {
+    const responseData = response.data || response;
+    const { success, msg, user } = responseData;
+
+    if (success) {
+      saveLoginCredentials(user);
+      handleMessage({ successStatus: true, msg: msg });
+    } else {
+      logInfo(msg);
+      handleMessage({ successStatus: false, msg: msg });
+    }
+  };
+
+  const { performFetch, isLoading, error } = useFetch(
+    "/auth/log-in",
+    "POST",
+    {},
+    {},
+    onReceived,
+  );
+
+  useEffect(() => {
+    if (error) {
+      const errorMessage = error.message || "An unexpected error occurred.";
+      handleMessage({
+        successStatus: false,
+        msg: errorMessage,
+      });
+    }
+  }, [error]);
+
+  const handleLogin = (values, setSubmitting) => {
+    setMsg("");
+    setSuccessStatus(null);
+
+    logInfo("Login button clicked");
+
+    const credentials = {
+      email: values.email,
+      password: values.password,
+    };
+
+    performFetch({
+      method: "POST",
+      data: { user: credentials },
+    }).finally(() => setSubmitting(false));
+  };
+
   const handleMessage = ({ successStatus, msg }) => {
     setSuccessStatus(successStatus);
     setMsg(msg);
@@ -36,66 +84,16 @@ const LoginForm = () => {
     }
   };
 
-  const onReceived = (response) => {
-    const { success, msg, user } = response.data || response;
-
-    if (success) {
-      saveLoginCredentials(user);
-    }
-
-    logInfo(msg);
-    handleMessage({ successStatus: success, msg });
-  };
-
-  const { performFetch, isLoading, error } = useFetch(
-    "/auth/log-in",
-    "POST",
-    {},
-    {},
-    onReceived,
-  );
-
-  useEffect(() => {
-    if (error) {
-      handleMessage({
-        successStatus: false,
-        msg: error.message || "An unexpected error occurred.",
-      });
-    }
-  }, [error]);
-
-  const handleLogin = (values, setSubmitting) => {
-    setMsg("");
-    setSuccessStatus(null);
-
-    performFetch({
-      method: "POST",
-      data: { user: { email: values.email, password: values.password } },
-    }).finally(() => setSubmitting(false));
-  };
-
   return (
     <div className="flex flex-col h-full" data-testid="login-container">
       <main className="w-full h-full flex flex-col justify-center items-center">
         <Formik
           initialValues={{ email: "", password: "" }}
-          validate={(values) => {
-            const errors = {};
-
-            if (!values.email) {
-              errors.email = "Email is required";
-            }
-            if (!values.password) {
-              errors.password = "Password is required";
-            }
-
-            return errors;
-          }}
           onSubmit={(values, { setSubmitting }) => {
             if (!values.email || !values.password) {
               handleMessage({
                 successStatus: false,
-                msg: "Please fill in both email and password.",
+                msg: "Please fill all the fields",
               });
               setSubmitting(false);
             } else {
@@ -107,10 +105,9 @@ const LoginForm = () => {
           {({
             handleChange,
             handleBlur,
-            values,
             handleSubmit,
-            touched,
-            isSubmitting,
+            values,
+            setFieldValue,
           }) => (
             <Form
               onSubmit={handleSubmit}
@@ -140,24 +137,25 @@ const LoginForm = () => {
                 aria-label="Password"
               />
 
-              {/* Display error message only if user has clicked login and has errors */}
-              {(touched.email || touched.password) && msg && (
-                <div
-                  data-testid="login-message"
-                  className={success ? "text-green-600" : "text-red-600"}
+              <div
+                className="flex justify-center pb-4"
+                data-testid="login-message"
+              >
+                <p
+                  className={`text-xs ${success ? "text-green-500" : "text-red-500"}`}
+                  aria-live="polite"
+                  data-testid="message-status"
                 >
                   {msg}
-                </div>
-              )}
+                </p>
+              </div>
 
               <Button
                 text={translations["logIn.button"]}
+                onClick={handleSubmit}
                 variant="redWide"
                 data-testid="login-button"
                 aria-label="Submit Log In"
-                type="submit"
-                disabled={isSubmitting || isLoading}
-                onClick={handleSubmit}
               />
 
               {/* Loading Indicator */}
