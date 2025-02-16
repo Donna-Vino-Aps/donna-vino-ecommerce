@@ -15,21 +15,57 @@ const LoginForm = () => {
   // Context
   const { setStoredCredentials } = useContext(CredentialsContext);
 
-  const { performFetch } = useFetch(
-    "/auth/login",
+  const onReceived = (response) => {
+    const responseData = response.data || response;
+    const { success, msg, user } = responseData;
+
+    if (success) {
+      saveLoginCredentials(user);
+      handleMessage({ successStatus: true, msg: msg });
+    } else {
+      logInfo(msg);
+      handleMessage({ successStatus: false, msg: msg });
+    }
+  };
+
+  const { performFetch, isLoading, error } = useFetch(
+    "/auth/sign-up",
     "POST",
-    null,
     {},
-    (response) => {
-      if (response.success) {
-        // Handle successful login (e.g., redirect, store token, etc.)
-        logInfo("Login successful:", response);
-        setErrorMessage(""); // Clear error on success
-      } else {
-        setErrorMessage(response.message || "Login failed");
-      }
-    },
+    {},
+    onReceived,
   );
+
+  const handleLogin = (values, setSubmitting) => {
+    setMsg("");
+    setSuccessStatus("");
+
+    const formattedBirthdate = values.birthdate
+      ? dayjs(values.birthdate).format("YYYY-MM-DD")
+      : null;
+
+    const credentials = {
+      name: values.name,
+      email: values.email,
+      password: values.password,
+      dateOfBirth: formattedBirthdate,
+    };
+
+    performFetch({
+      method: "POST",
+      data: { user: credentials },
+    }).finally(() => setSubmitting(false));
+  };
+
+  useEffect(() => {
+    if (error) {
+      const errorMessage = error.message || "An unexpected error occurred.";
+      handleMessage({
+        successStatus: false,
+        msg: errorMessage,
+      });
+    }
+  }, [error]);
 
   const saveLoginCredentials = (user) => {
     try {
