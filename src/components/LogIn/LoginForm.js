@@ -6,26 +6,45 @@ import useFetch from "@/hooks/api/useFetch.js";
 import { Formik, Form } from "formik";
 import { MdOutlineEmail, MdLockOutline } from "react-icons/md";
 import Button from "../Button/Button.js";
-import { logInfo } from "@/utils/logging";
+import { logInfo, logError } from "@/utils/logging";
 
 const LoginForm = () => {
   const { translations } = useLanguage();
   const [msg, setMsg] = useState("");
-  const [success, setSuccessStatus] = useState("");
+  const [success, setSuccessStatus] = useState(null);
 
   const { setStoredCredentials } = useContext(CredentialsContext);
 
+  const handleMessage = ({ successStatus, msg }) => {
+    setSuccessStatus(successStatus);
+    setMsg(msg);
+  };
+
+  const saveLoginCredentials = (user) => {
+    try {
+      localStorage.setItem("userCredentials", JSON.stringify(user));
+      setStoredCredentials(user);
+      logInfo(
+        `User saved in localStorage: ${localStorage.getItem("userCredentials")}`,
+      );
+    } catch (error) {
+      logError(error);
+      handleMessage({
+        successStatus: false,
+        msg: "Failed to save user credentials",
+      });
+    }
+  };
+
   const onReceived = (response) => {
-    const responseData = response.data || response;
-    const { success, msg, user } = responseData;
+    const { success, msg, user } = response.data || response;
 
     if (success) {
       saveLoginCredentials(user);
-      handleMessage({ successStatus: true, msg: msg });
-    } else {
-      logInfo(msg);
-      handleMessage({ successStatus: false, msg: msg });
     }
+
+    logInfo(msg);
+    handleMessage({ successStatus: success, msg });
   };
 
   const { performFetch, isLoading, error } = useFetch(
@@ -47,42 +66,12 @@ const LoginForm = () => {
 
   const handleLogin = (values, setSubmitting) => {
     setMsg("");
-    setSuccessStatus("");
-
-    const credentials = {
-      email: values.email,
-      password: values.password,
-    };
+    setSuccessStatus(null);
 
     performFetch({
       method: "POST",
-      data: { user: credentials },
+      data: { user: { email: values.email, password: values.password } },
     }).finally(() => setSubmitting(false));
-  };
-
-  const handleMessage = ({ successStatus, msg }) => {
-    setSuccessStatus(successStatus);
-    setMsg(msg);
-  };
-
-  const saveLoginCredentials = (user) => {
-    try {
-      localStorage.setItem("userCredentials", JSON.stringify(user));
-      handleMessage({
-        successStatus: true,
-        msg: "User credentials saved successfully",
-      });
-      setStoredCredentials(user);
-      logInfo(
-        `User found in localStorage: ${localStorage.getItem("userCredentials")}`,
-      );
-    } catch (error) {
-      logError(error);
-      handleMessage({
-        successStatus: false,
-        msg: "Failed to save user credentials",
-      });
-    }
   };
 
   return (
@@ -90,11 +79,23 @@ const LoginForm = () => {
       <main className="w-full h-full flex flex-col justify-center items-center">
         <Formik
           initialValues={{ email: "", password: "" }}
+          validate={(values) => {
+            const errors = {};
+
+            if (!values.email) {
+              errors.email = "Email is required";
+            }
+            if (!values.password) {
+              errors.password = "Password is required";
+            }
+
+            return errors;
+          }}
           onSubmit={(values, { setSubmitting }) => {
             if (!values.email || !values.password) {
               handleMessage({
                 successStatus: false,
-                msg: "Please fill all the fields",
+                msg: "Please fill in both email and password.",
               });
               setSubmitting(false);
             } else {
@@ -103,7 +104,15 @@ const LoginForm = () => {
             }
           }}
         >
-          {({ handleChange, handleBlur, values, handleSubmit }) => (
+          {({
+            handleChange,
+            handleBlur,
+            values,
+            handleSubmit,
+            errors,
+            touched,
+            isSubmitting,
+          }) => (
             <Form
               onSubmit={handleSubmit}
               className="w-full h-full space-y-5 flex flex-col items-center justify-center"
@@ -129,7 +138,15 @@ const LoginForm = () => {
                 dataTestId="login-input-password"
               />
 
-              <div data-testid="login-message">{msg}</div>
+              {/* Display error message only if user has clicked login and has errors */}
+              {(touched.email || touched.password) && msg && (
+                <div
+                  data-testid="login-message"
+                  className={success ? "text-green-600" : "text-red-600"}
+                >
+                  {msg}
+                </div>
+              )}
 
               <Button
                 text={translations["logIn.button"]}
@@ -137,8 +154,16 @@ const LoginForm = () => {
                 data-testid="login-button"
                 aria-label="Submit Log In"
                 type="submit"
-                disabled={isLoading}
+                disabled={isSubmitting || isLoading}
+                onClick={handleSubmit}
               />
+
+              {/* Loading Indicator */}
+              {isLoading && (
+                <div className="flex justify-center items-center mt-4">
+                  <div className="w-8 h-8 border-4 border-t-4 border-blue-500 border-solid rounded-full animate-spin" />
+                </div>
+              )}
             </Form>
           )}
         </Formik>
