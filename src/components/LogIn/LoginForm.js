@@ -109,7 +109,6 @@ const LoginForm = () => {
             handleBlur,
             values,
             handleSubmit,
-            errors,
             touched,
             isSubmitting,
           }) => (
@@ -129,13 +128,16 @@ const LoginForm = () => {
               />
 
               <TextInputLoginScreen
+                type="password"
                 name="password"
                 placeholder={translations["logIn.password"]}
                 value={values.password}
                 onChange={handleChange}
                 onBlur={handleBlur}
                 icon={<MdLockOutline />}
-                dataTestId="login-input-password"
+                showPasswordToggle={true}
+                data-testid="login-input-password"
+                aria-label="Password"
               />
 
               {/* Display error message only if user has clicked login and has errors */}

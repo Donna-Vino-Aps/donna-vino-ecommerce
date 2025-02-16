@@ -4,7 +4,7 @@ import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import dayjs from "dayjs";
 
-const TextInputLoginScreen = ({
+const TextInputSignUpScreen = ({
   type = "text",
   name,
   placeholder,
@@ -14,31 +14,27 @@ const TextInputLoginScreen = ({
   icon,
   showPasswordToggle = false,
   isDate = false,
-  dataTestId,
 }) => {
   const [showPassword, setShowPassword] = useState(false);
 
   return (
     <div className="relative" data-testid={`input-container-${name}`}>
       {icon && !isDate && (
-        <div
-          className="absolute left-3 top-1/2 transform -translate-y-1/2"
-          data-testid={`icon-${name}`}
-        >
+        <div className="absolute left-3 top-1/2 transform -translate-y-1/2">
           {React.cloneElement(icon, { style: { color: "black" } })}
         </div>
       )}
 
       {!isDate ? (
         <input
-          type={showPasswordToggle && showPassword ? "text" : type}
+          type={showPasswordToggle && showPassword ? "text" : "password"} // Aquí cambiamos el tipo según el estado de showPassword
           name={name}
           placeholder={placeholder}
           value={value}
           onChange={onChange}
           onBlur={onBlur}
           aria-label={placeholder || `Enter your ${name}`}
-          data-testid={dataTestId || `input-${name}`}
+          data-testid={`input-${name}`}
           className={`w-full p-3 ${icon ? "pl-12" : "pl-3"} border border-tertiary1-darker rounded-lg bg-white focus:outline-none focus:ring-2 focus:ring-primary-light`}
         />
       ) : (
@@ -56,7 +52,7 @@ const TextInputLoginScreen = ({
             inputFormat="MM/dd/yyyy"
             placeholder={placeholder}
             aria-label={placeholder || `Select your ${name}`}
-            data-testid={dataTestId || `datepicker-${name}`}
+            data-testid={`datepicker-${name}`}
             className="w-full p-3 border border-tertiary1-darker rounded-lg bg-white focus:outline-none focus:ring-2 focus:ring-primary-light"
           />
         </div>
@@ -67,7 +63,7 @@ const TextInputLoginScreen = ({
           type="button"
           onClick={() => setShowPassword(!showPassword)}
           aria-label={showPassword ? "Hide password" : "Show password"}
-          data-testid={`${dataTestId ? dataTestId : ""}-toggle`}
+          data-testid="toggle-password-visibility"
           className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-600"
         >
           {showPassword ? <FaEyeSlash /> : <FaEye />}
@@ -77,7 +73,7 @@ const TextInputLoginScreen = ({
   );
 };
 
-TextInputLoginScreen.propTypes = {
+TextInputSignUpScreen.propTypes = {
   type: PropTypes.string,
   name: PropTypes.string.isRequired,
   placeholder: PropTypes.string.isRequired,
@@ -91,16 +87,14 @@ TextInputLoginScreen.propTypes = {
   icon: PropTypes.element,
   showPasswordToggle: PropTypes.bool,
   isDate: PropTypes.bool,
-  dataTestId: PropTypes.string,
 };
 
-TextInputLoginScreen.defaultProps = {
+TextInputSignUpScreen.defaultProps = {
   type: "text",
   onBlur: () => {},
   icon: null,
   showPasswordToggle: false,
   isDate: false,
-  dataTestId: "",
 };
 
-export default TextInputLoginScreen;
+export default TextInputSignUpScreen;
