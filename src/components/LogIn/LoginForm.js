@@ -102,13 +102,7 @@ const LoginForm = () => {
             }
           }}
         >
-          {({
-            handleChange,
-            handleBlur,
-            handleSubmit,
-            values,
-            setFieldValue,
-          }) => (
+          {({ handleChange, handleBlur, handleSubmit, values }) => (
             <Form
               onSubmit={handleSubmit}
               className="w-full h-full space-y-5 flex flex-col items-center justify-center"
