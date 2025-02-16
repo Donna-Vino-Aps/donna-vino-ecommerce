@@ -10,7 +10,8 @@ import { logInfo } from "@/utils/logging";
 
 const LoginForm = () => {
   const { translations } = useLanguage();
-  const [errorMessage, setErrorMessage] = useState("");
+  const [msg, setMsg] = useState("");
+  const [success, setSuccessStatus] = useState("");
 
   // Context
   const { setStoredCredentials } = useContext(CredentialsContext);
@@ -36,19 +37,23 @@ const LoginForm = () => {
     onReceived,
   );
 
+  useEffect(() => {
+    if (error) {
+      const errorMessage = error.message || "An unexpected error occurred.";
+      handleMessage({
+        successStatus: false,
+        msg: errorMessage,
+      });
+    }
+  }, [error]);
+
   const handleLogin = (values, setSubmitting) => {
     setMsg("");
     setSuccessStatus("");
 
-    const formattedBirthdate = values.birthdate
-      ? dayjs(values.birthdate).format("YYYY-MM-DD")
-      : null;
-
     const credentials = {
-      name: values.name,
       email: values.email,
       password: values.password,
-      dateOfBirth: formattedBirthdate,
     };
 
     performFetch({
@@ -66,6 +71,12 @@ const LoginForm = () => {
       });
     }
   }, [error]);
+
+  // Update message box based on success or error
+  const handleMessage = ({ successStatus, msg }) => {
+    setSuccessStatus(successStatus);
+    setMsg(msg);
+  };
 
   const saveLoginCredentials = (user) => {
     try {
@@ -90,10 +101,27 @@ const LoginForm = () => {
     <div className="flex flex-col h-full" data-testid="login-container">
       <main className="w-full h-full flex flex-col justify-center items-center">
         <Formik
-          initialValues={{ email: "", password: "" }}
-          onSubmit={(values) => {
-            // Call performFetch with user input
-            performFetch({ body: values });
+          initialValues={{
+            email: "",
+            password: "",
+          }}
+          onSubmit={(values, { setSubmitting }) => {
+            if (!values.email || !values.password) {
+              handleMessage({
+                successStatus: false,
+                msg: "Please fill all the fields",
+              });
+              setSubmitting(false);
+            } else if (values.password !== values.confirmPassword) {
+              handleMessage({
+                successStatus: false,
+                msg: "Passwords do not match",
+              });
+              setSubmitting(false);
+            } else {
+              setSubmitting(true);
+              handleLogin(values, setSubmitting);
+            }
           }}
         >
           {({ handleChange, handleBlur, values, handleSubmit }) => (
@@ -123,7 +151,7 @@ const LoginForm = () => {
                 aria-label="Password"
               />
 
-              {errorMessage && <p className="text-red-500">{errorMessage}</p>}
+              {msg}
 
               <Button
                 text={translations["logIn.button"]}
