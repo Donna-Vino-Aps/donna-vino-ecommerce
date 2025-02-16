@@ -50,8 +50,6 @@ const LoginForm = () => {
     setMsg("");
     setSuccessStatus(null);
 
-    logInfo("Login button clicked");
-
     const credentials = {
       email: values.email,
       password: values.password,
