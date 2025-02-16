@@ -1,11 +1,11 @@
 import React, { useState, useContext, useEffect } from "react";
-import TextInputLoginScreen from "./TextInputLoginScreen";
+import { Formik, Form } from "formik";
 import { CredentialsContext } from "../../context/credentialsContext";
 import { useLanguage } from "@/context/LanguageContext";
 import useFetch from "@/hooks/api/useFetch.js";
-import { Formik, Form } from "formik";
 import { MdOutlineEmail, MdLockOutline } from "react-icons/md";
 import Button from "../Button/Button.js";
+import TextInputLoginScreen from "../SignUpScreen/TextInputSignUpScreen";
 import { logInfo, logError } from "@/utils/logging";
 
 const LoginForm = () => {
