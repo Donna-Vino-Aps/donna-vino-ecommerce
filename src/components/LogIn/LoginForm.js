@@ -1,15 +1,19 @@
-import React, { useState } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import TextInputLoginScreen from "./TextInputLoginScreen";
+import { CredentialsContext } from "../../context/credentialsContext";
+import { useLanguage } from "@/context/LanguageContext";
+import useFetch from "@/hooks/api/useFetch.js";
 import { Formik, Form } from "formik";
 import { MdOutlineEmail, MdLockOutline } from "react-icons/md"; // Import your icons here
 import Button from "../Button/Button.js";
 import { logInfo } from "@/utils/logging";
-import { useLanguage } from "@/context/LanguageContext";
-import useFetch from "@/hooks/api/useFetch.js";
 
 const LoginForm = () => {
   const { translations } = useLanguage();
   const [errorMessage, setErrorMessage] = useState("");
+
+  // Context
+  const { setStoredCredentials } = useContext(CredentialsContext);
 
   const { performFetch } = useFetch(
     "/auth/login",
@@ -26,6 +30,25 @@ const LoginForm = () => {
       }
     },
   );
+
+  const saveLoginCredentials = (user) => {
+    try {
+      localStorage.setItem("userCredentials", JSON.stringify(user));
+      handleMessage({
+        successStatus: true,
+        msg: "User credentials saved successfully",
+      });
+      setStoredCredentials(user);
+      const storedUser = localStorage.getItem("userCredentials");
+      logInfo(`User found in localStorage: ${storedUser}`);
+    } catch (error) {
+      logError(error);
+      handleMessage({
+        successStatus: false,
+        msg: "Failed to save user credentials",
+      });
+    }
+  };
 
   return (
     <div className="flex flex-col h-full" data-testid="login-container">
