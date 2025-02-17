@@ -14,7 +14,7 @@ const VARIANT_CLASSES = {
   redWide:
     "bg-primary-normal hover:bg-primary-hover_normal text-primary-light w-full",
   lightRedWide:
-    "bg-primary-normal opacity-55 hover:opacity-65 text-primary-light w-full",
+    "bg-primary-normal opacity-100 bg-opacity-55 hover:opacity-65 text-primary-darker w-full",
   redLine:
     "bg-transparent border-2 hover:bg-primary-hover border-primary-active_normal text-primary-active_normal w-full sm:w-[10.8rem]",
   darkGreen:

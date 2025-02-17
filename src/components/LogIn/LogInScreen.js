@@ -1,8 +1,6 @@
 import React from "react";
 import { useLanguage } from "@/context/LanguageContext";
 import LoginForm from "./LoginForm";
-import Link from "next/link";
-import Button from "../Button/Button";
 
 const LoginScreen = () => {
   const { translations } = useLanguage();

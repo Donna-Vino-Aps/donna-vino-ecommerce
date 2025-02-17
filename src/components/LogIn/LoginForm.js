@@ -159,7 +159,7 @@ const LoginForm = () => {
                 text={translations["logIn.signin-google"]}
                 onClick={handleSubmit}
                 variant="lightRedWide"
-                icon="/icons/google-gray.svg"
+                icon="/icons/google-darkred.svg"
                 data-testid="login-button"
                 aria-label="Submit Log In"
                 className="space-y-1"
