@@ -1,3 +1,5 @@
+"use client";
+
 import React, { useState, useContext, useEffect } from "react";
 import { Formik, Form } from "formik";
 import { CredentialsContext } from "../../context/credentialsContext";

@@ -6,6 +6,11 @@ import { LanguageProvider } from "../../context/LanguageContext";
 import enTranslations from "../../translations/en.json";
 import { LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import { useRouter } from "next/navigation";
+
+jest.mock("next/navigation", () => ({
+  useRouter: jest.fn(),
+}));
 
 describe("Home Page", () => {
   const renderWithLanguage = (translations = enTranslations) => {
@@ -19,6 +24,11 @@ describe("Home Page", () => {
   };
 
   beforeEach(() => {
+    useRouter.mockReturnValue({
+      push: jest.fn(),
+      pathname: "/",
+    });
+
     renderWithLanguage();
   });
 
