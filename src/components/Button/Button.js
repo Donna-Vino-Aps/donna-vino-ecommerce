@@ -13,6 +13,8 @@ const VARIANT_CLASSES = {
     "bg-primary-normal hover:bg-primary-hover_normal text-primary-light w-[15.4rem]",
   redWide:
     "bg-primary-normal hover:bg-primary-hover_normal text-primary-light w-full",
+  lightRedWide:
+    "bg-primary-normal opacity-55 hover:opacity-65 text-primary-light w-full",
   redLine:
     "bg-transparent border-2 hover:bg-primary-hover border-primary-active_normal text-primary-active_normal w-full sm:w-[10.8rem]",
   darkGreen:
@@ -24,6 +26,7 @@ const VARIANT_CLASSES = {
   redSubmit:
     "bg-primary-normal hover:bg-primary-hover_normal text-white rounded-lg w-full sm:w-[10.8rem]",
   gray: "bg-tertiary1-normal hover:bg-tertiary1-dark text-tertiary1-light w-full sm:w-[10.8rem]",
+  yellow: "bg-[#F59E0B] opacity-85 hover:opacity-100 text-primary-light w-full",
 };
 
 const Button = ({

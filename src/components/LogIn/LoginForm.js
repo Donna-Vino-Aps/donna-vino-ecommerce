@@ -5,6 +5,7 @@ import { useLanguage } from "@/context/LanguageContext";
 import useFetch from "@/hooks/api/useFetch.js";
 import { MdOutlineEmail, MdLockOutline } from "react-icons/md";
 import Button from "../Button/Button.js";
+import Link from "next/link";
 import TextInputLoginScreen from "../SignUpScreen/TextInputSignUpScreen";
 import { logInfo, logError } from "@/utils/logging";
 
@@ -103,11 +104,11 @@ const LoginForm = () => {
           {({ handleChange, handleBlur, handleSubmit, values }) => (
             <Form
               onSubmit={handleSubmit}
-              className="max-w-[25rem] h-auto space-y-2 flex flex-col items-center justify-center"
+              className="max-w-[25rem] h-auto space-y-3 flex flex-col items-center justify-center"
               data-testid="login-form"
             >
-              <div className="space-y-2 mb-1">
-                <label className="text-labelLarge text-tertiary1-normal font-[medium] font-[barlow] self-start">
+              <div className="space-y-1 mb-1">
+                <label className="text-labelLarge text-tertiary1-normal font-medium font-barlow self-start">
                   {translations["logIn.label-mail"]}
                 </label>
                 <TextInputLoginScreen
@@ -120,7 +121,7 @@ const LoginForm = () => {
                   dataTestId="login-input-email"
                 />
               </div>
-              <div className="space-y-2">
+              <div className="space-y-1">
                 <label className="text-labelLarge text-tertiary1-normal font-barlow font-medium self-start">
                   {translations["logIn.label-password"]}
                 </label>
@@ -146,7 +147,6 @@ const LoginForm = () => {
                   {msg}
                 </p>
               </div>
-
               <Button
                 text={translations["logIn.button"]}
                 onClick={handleSubmit}
@@ -155,6 +155,33 @@ const LoginForm = () => {
                 aria-label="Submit Log In"
               />
 
+              <Button
+                text={translations["logIn.signin-google"]}
+                onClick={handleSubmit}
+                variant="lightRedWide"
+                icon="/icons/google-gray.svg"
+                data-testid="login-button"
+                aria-label="Submit Log In"
+                className="space-y-1"
+              />
+              <div className="flex mt-4 space-x-1 items-center text-labelMedium relative bottom-1">
+                <p>{translations["logIn.forgot"]}</p>
+                <Link
+                  href="/forgotpassword"
+                  data-testid="forget-password-link"
+                  aria-label="Forgot Password"
+                  className="text-left font-semibold font-barlow"
+                >
+                  {translations["logIn.forgot-link"]}
+                </Link>
+              </div>
+              <Button
+                text={translations["logIn.signup-button"]}
+                variant="greenSubmit"
+                data-testid="login-button"
+                aria-label="Submit Log In"
+                type="submit"
+              />
               {/* Loading Indicator */}
               {isLoading && (
                 <div className="flex justify-center items-center mt-4">
