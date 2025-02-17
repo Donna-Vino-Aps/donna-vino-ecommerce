@@ -3,6 +3,7 @@ import { Formik, Form } from "formik";
 import { CredentialsContext } from "../../context/credentialsContext";
 import { useLanguage } from "@/context/LanguageContext";
 import useFetch from "@/hooks/api/useFetch.js";
+import { useRouter } from "next/navigation";
 import { MdOutlineEmail, MdLockOutline } from "react-icons/md";
 import Button from "../Button/Button.js";
 import Link from "next/link";
@@ -11,6 +12,7 @@ import { logInfo, logError } from "@/utils/logging";
 
 const LoginForm = () => {
   const { translations } = useLanguage();
+  const router = useRouter();
   const [msg, setMsg] = useState("");
   const [success, setSuccessStatus] = useState(null);
 
@@ -181,6 +183,7 @@ const LoginForm = () => {
                 data-testid="login-button"
                 aria-label="Submit Log In"
                 type="submit"
+                onClick={() => router.push("/signup")}
               />
               {/* Loading Indicator */}
               {isLoading && (
