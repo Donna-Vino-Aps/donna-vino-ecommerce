@@ -84,7 +84,7 @@ const LoginForm = () => {
 
   return (
     <div className="flex flex-col h-full" data-testid="login-container">
-      <main className="w-full h-full flex flex-col justify-center items-center">
+      <main className="w-full flex flex-col justify-center items-center">
         <Formik
           initialValues={{ email: "", password: "" }}
           onSubmit={(values, { setSubmitting }) => {
@@ -103,36 +103,41 @@ const LoginForm = () => {
           {({ handleChange, handleBlur, handleSubmit, values }) => (
             <Form
               onSubmit={handleSubmit}
-              className="w-full h-full space-y-5 flex flex-col items-center justify-center"
+              className="w-full h-auto space-y-2 flex flex-col items-center justify-center"
               data-testid="login-form"
             >
-              <TextInputLoginScreen
-                name="email"
-                placeholder={translations["logIn.mail"]}
-                value={values.email}
-                onChange={handleChange}
-                onBlur={handleBlur}
-                icon={<MdOutlineEmail />}
-                dataTestId="login-input-email"
-              />
-
-              <TextInputLoginScreen
-                type="password"
-                name="password"
-                placeholder={translations["logIn.password"]}
-                value={values.password}
-                onChange={handleChange}
-                onBlur={handleBlur}
-                icon={<MdLockOutline />}
-                showPasswordToggle={true}
-                data-testid="login-input-password"
-                aria-label="Password"
-              />
-
-              <div
-                className="flex justify-center pb-4"
-                data-testid="login-message"
-              >
+              <div className="space-y-2 mb-1">
+                <label className="text-labelLarge text-tertiary1-normal font-barlow font-medium self-start">
+                  {translations["logIn.label-mail"]}
+                </label>
+                <TextInputLoginScreen
+                  name="email"
+                  placeholder={translations["logIn.mail"]}
+                  value={values.email}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  icon={<MdOutlineEmail />}
+                  dataTestId="login-input-email"
+                />
+              </div>
+              <div className="space-y-2">
+                <label className="text-labelLarge text-tertiary1-normal font-barlow font-medium self-start">
+                  {translations["logIn.label-password"]}
+                </label>
+                <TextInputLoginScreen
+                  type="password"
+                  name="password"
+                  placeholder={translations["logIn.password"]}
+                  value={values.password}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  icon={<MdLockOutline />}
+                  showPasswordToggle={true}
+                  data-testid="login-input-password"
+                  aria-label="Password"
+                />
+              </div>
+              <div className="flex justify-center" data-testid="login-message">
                 <p
                   className={`text-xs ${success ? "text-green-500" : "text-red-500"}`}
                   aria-live="polite"
