@@ -1,15 +1,20 @@
+"use client";
+
 import React, { useState, useContext, useEffect } from "react";
 import { Formik, Form } from "formik";
 import { CredentialsContext } from "../../context/credentialsContext";
 import { useLanguage } from "@/context/LanguageContext";
 import useFetch from "@/hooks/api/useFetch.js";
+import { useRouter } from "next/navigation";
 import { MdOutlineEmail, MdLockOutline } from "react-icons/md";
 import Button from "../Button/Button.js";
+import Link from "next/link";
 import TextInputLoginScreen from "../SignUpScreen/TextInputSignUpScreen";
 import { logInfo, logError } from "@/utils/logging";
 
 const LoginForm = () => {
   const { translations } = useLanguage();
+  const router = useRouter();
   const [msg, setMsg] = useState("");
   const [success, setSuccessStatus] = useState(null);
 
@@ -84,7 +89,7 @@ const LoginForm = () => {
 
   return (
     <div className="flex flex-col h-full" data-testid="login-container">
-      <main className="w-full h-full flex flex-col justify-center items-center">
+      <main className="w-full flex flex-col justify-center items-center">
         <Formik
           initialValues={{ email: "", password: "" }}
           onSubmit={(values, { setSubmitting }) => {
@@ -103,36 +108,41 @@ const LoginForm = () => {
           {({ handleChange, handleBlur, handleSubmit, values }) => (
             <Form
               onSubmit={handleSubmit}
-              className="w-full h-full space-y-5 flex flex-col items-center justify-center"
+              className="max-w-[25rem] h-auto space-y-3 flex flex-col items-center justify-center"
               data-testid="login-form"
             >
-              <TextInputLoginScreen
-                name="email"
-                placeholder={translations["logIn.mail"]}
-                value={values.email}
-                onChange={handleChange}
-                onBlur={handleBlur}
-                icon={<MdOutlineEmail />}
-                dataTestId="login-input-email"
-              />
-
-              <TextInputLoginScreen
-                type="password"
-                name="password"
-                placeholder={translations["logIn.password"]}
-                value={values.password}
-                onChange={handleChange}
-                onBlur={handleBlur}
-                icon={<MdLockOutline />}
-                showPasswordToggle={true}
-                data-testid="login-input-password"
-                aria-label="Password"
-              />
-
-              <div
-                className="flex justify-center pb-4"
-                data-testid="login-message"
-              >
+              <div className="space-y-1 mb-1">
+                <label className="text-labelLarge text-tertiary1-normal font-medium font-barlow self-start">
+                  {translations["logIn.label-mail"]}
+                </label>
+                <TextInputLoginScreen
+                  name="email"
+                  placeholder={translations["logIn.placeholder-mail"]}
+                  value={values.email}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  icon={<MdOutlineEmail />}
+                  dataTestId="login-input-email"
+                />
+              </div>
+              <div className="space-y-1">
+                <label className="text-labelLarge text-tertiary1-normal font-barlow font-medium self-start">
+                  {translations["logIn.label-password"]}
+                </label>
+                <TextInputLoginScreen
+                  type="password"
+                  name="password"
+                  placeholder={translations["logIn.placeholder-password"]}
+                  value={values.password}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  icon={<MdLockOutline />}
+                  showPasswordToggle={true}
+                  data-testid="login-input-password"
+                  aria-label="Password"
+                />
+              </div>
+              <div className="flex justify-center" data-testid="login-message">
                 <p
                   className={`text-xs ${success ? "text-green-500" : "text-red-500"}`}
                   aria-live="polite"
@@ -141,7 +151,6 @@ const LoginForm = () => {
                   {msg}
                 </p>
               </div>
-
               <Button
                 text={translations["logIn.button"]}
                 onClick={handleSubmit}
@@ -150,6 +159,34 @@ const LoginForm = () => {
                 aria-label="Submit Log In"
               />
 
+              <Button
+                text={translations["logIn.signin-google"]}
+                onClick={handleSubmit}
+                variant="lightRedWide"
+                icon="/icons/google-darkred.svg"
+                data-testid="login-button"
+                aria-label="Submit Log In"
+                className="space-y-1"
+              />
+              <div className="flex mt-4 space-x-1 items-center text-labelMedium relative bottom-1">
+                <p>{translations["logIn.forgot"]}</p>
+                <Link
+                  href="/forgotpassword"
+                  data-testid="forget-password-link"
+                  aria-label="Forgot Password"
+                  className="text-left font-semibold font-barlow"
+                >
+                  {translations["logIn.forgot-link"]}
+                </Link>
+              </div>
+              <Button
+                text={translations["logIn.signup-button"]}
+                variant="greenSubmit"
+                data-testid="login-button"
+                aria-label="Submit Log In"
+                type="submit"
+                onClick={() => router.push("/signup")}
+              />
               {/* Loading Indicator */}
               {isLoading && (
                 <div className="flex justify-center items-center mt-4">
