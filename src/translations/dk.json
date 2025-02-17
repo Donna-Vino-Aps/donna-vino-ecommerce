@@ -6,6 +6,8 @@
   "navbar.grapes": "Druer & Zoner",
   "signUp.button": "Tilmeld Dig",
   "logIn.button": "Logge Ind",
+  "logIn.label-mail": "E-mail Adresse",
+  "logIn.label-password": "Din Adgangskode",
   "logIn.mail": "E-mail",
   "logIn.password": "Adgangskode",
   "logIn.forgot": "Glemt adgangskode?",

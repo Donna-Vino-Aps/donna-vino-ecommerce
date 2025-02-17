@@ -6,6 +6,8 @@
   "navbar.grapes": "Grapes & Zones",
   "signUp.button": "Sign Up",
   "logIn.button": "Log In",
+  "logIn.label-mail": "Email Address",
+  "logIn.label-password": "Your Password",
   "logIn.mail": "Email",
   "logIn.password": "Password",
   "logIn.forgot": "Forgot Password?",
