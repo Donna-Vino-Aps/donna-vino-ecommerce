@@ -4,7 +4,7 @@ import React from "react";
 import PropTypes from "prop-types";
 
 const BASE_BUTTON_CLASSES = `
-  flex justify-center items-center h-[3rem] rounded-[0.3rem] bodyLarge
+  flex justify-center items-center h-[2.875rem] rounded-[0.3rem] bodyLarge
 `;
 
 const VARIANT_CLASSES = {
