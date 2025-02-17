@@ -3,6 +3,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/navigation";
+import "../../styles/slider/buttons.css";
 
 import WineCardSmall from "@/components/Card/WineCardSmall";
 
@@ -67,6 +68,7 @@ const TopWinesSection = () => {
         </p>
       </div>
 
+      {/* Slider */}
       <div className="relative w-full max-w-7xl mx-auto px-4 md:h-[660px] h-auto overflow-visible">
         <Swiper
           slidesPerView={1}
@@ -98,27 +100,10 @@ const TopWinesSection = () => {
             </SwiperSlide>
           ))}
         </Swiper>
+
         <button
-          className="
-            prev-btn
-            absolute
-            left-2
-            top-1/2
-            -translate-y-1/2
-            z-50
-            w-10
-            h-10
-            md:w-12
-            md:h-12
-            p-2
-            md:p-3
-            rounded-full
-            bg-primary-normal
-            shadow-lg
-            hover:bg-primary-dark
-            transition-all
-            duration-300
-          "
+          aria-label="Previous Slide"
+          className="prev-btn nav-button nav-button-prev"
         >
           <img
             src="/icons/slider/arrow-left.svg"
@@ -127,26 +112,8 @@ const TopWinesSection = () => {
           />
         </button>
         <button
-          className="
-            next-btn
-            absolute
-            right-2
-            top-1/2
-            -translate-y-1/2
-            z-50
-            w-10
-            h-10
-            md:w-12
-            md:h-12
-            p-2
-            md:p-3
-            rounded-full
-            bg-primary-normal
-            shadow-lg
-            hover:bg-primary-dark
-            transition-all
-            duration-300
-          "
+          aria-label="Next Slide"
+          className="next-btn nav-button nav-button-next"
         >
           <img
             src="/icons/slider/arrow-right.svg"
