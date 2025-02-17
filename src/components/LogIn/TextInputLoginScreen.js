@@ -3,13 +3,14 @@ import PropTypes from "prop-types";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 const TextInputLoginScreen = ({
+  type = "text",
   name,
   placeholder,
   value,
   onChange,
   onBlur,
   icon,
-  dataTestId,
+  showPasswordToggle = false,
 }) => {
   const [showPassword, setShowPassword] = useState(false);
 
@@ -21,27 +22,19 @@ const TextInputLoginScreen = ({
         </div>
       )}
 
-      {/* Check if name is password, if so render password input */}
       <input
-        type={
-          name === "password" && showPassword
-            ? "text"
-            : name === "password"
-              ? "password"
-              : "text"
-        } // Handle password visibility toggle
+        type={showPasswordToggle && showPassword ? "text" : type}
         name={name}
         placeholder={placeholder}
         value={value}
         onChange={onChange}
         onBlur={onBlur}
         aria-label={placeholder || `Enter your ${name}`}
-        data-testid={dataTestId}
+        data-testid={`input-${name}`}
         className={`w-full p-3 ${icon ? "pl-12" : "pl-3"} border border-tertiary1-darker rounded-lg bg-white focus:outline-none focus:ring-2 focus:ring-primary-light`}
       />
 
-      {/* Show/Hide password button */}
-      {name === "password" && (
+      {showPasswordToggle && (
         <button
           type="button"
           onClick={() => setShowPassword(!showPassword)}
@@ -57,18 +50,21 @@ const TextInputLoginScreen = ({
 };
 
 TextInputLoginScreen.propTypes = {
+  type: PropTypes.string,
   name: PropTypes.string.isRequired,
   placeholder: PropTypes.string.isRequired,
-  dataTestId: PropTypes.string.isRequired,
   value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   onChange: PropTypes.func.isRequired,
   onBlur: PropTypes.func,
   icon: PropTypes.element,
+  showPasswordToggle: PropTypes.bool,
 };
 
 TextInputLoginScreen.defaultProps = {
+  type: "text",
   onBlur: () => {},
   icon: null,
+  showPasswordToggle: false,
 };
 
 export default TextInputLoginScreen;

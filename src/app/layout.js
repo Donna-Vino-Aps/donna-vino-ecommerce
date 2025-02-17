@@ -10,6 +10,8 @@ import { logError } from "@/utils/logging";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 
+import Breadcrumb from "@/components/BreadCrumb/BreadCrumb";
+
 const RootLayout = ({ children }) => {
   const [storedCredentials, setStoredCredentials] = useState(null);
 
@@ -39,6 +41,7 @@ const RootLayout = ({ children }) => {
           >
             <LanguageProvider>
               <Navbar />
+              <Breadcrumb />
               <main
                 className="flex-grow"
                 role="main"
