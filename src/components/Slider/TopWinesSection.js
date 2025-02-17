@@ -56,19 +56,18 @@ const TopWinesSection = () => {
   return (
     <section className="py-20 bg-primary-light text-center relative pb-24 w-full">
       <div className="mb-[-60px]">
-        <h3 className="text-sm text-primary-normal uppercase tracking-wid">
-          Most Popular Products
+        <h3 className="text-titleMedium font-semibold text-primary-normal">
+          MOST POPULAR PRODUCTS
         </h3>
-        <h2 className="font-regular text-tertiary1-dark text-[57px]">
+        <h2 className="font-regular text-tertiary1-dark text-displayLarge">
           Top Wines
         </h2>
-        <p className="text-base text-gray-700 mt-2">
+        <p className="text-bodyLarge font-regular text-tertiary1-dark mt-2">
           Our Exclusive Selection of Finest Wines, Handpicked for You <br />
           Discover our wine selection
         </p>
       </div>
 
-      {/* Slider */}
       <div className="relative w-full max-w-7xl mx-auto px-4 md:h-[660px] h-auto overflow-visible">
         <Swiper
           slidesPerView={1}
@@ -103,7 +102,7 @@ const TopWinesSection = () => {
 
         <button
           aria-label="Previous Slide"
-          className="prev-btn nav-button nav-button-prev"
+          className="prev-btn nav-button nav-button-prev bg-primary-normal hover:bg-primary-dark"
         >
           <img
             src="/icons/slider/arrow-left.svg"
@@ -113,7 +112,7 @@ const TopWinesSection = () => {
         </button>
         <button
           aria-label="Next Slide"
-          className="next-btn nav-button nav-button-next"
+          className="next-btn nav-button nav-button-next bg-primary-normal hover:bg-primary-dark"
         >
           <img
             src="/icons/slider/arrow-right.svg"
