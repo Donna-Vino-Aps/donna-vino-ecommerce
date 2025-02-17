@@ -3,6 +3,7 @@ import TextInputLoginScreen from "./TextInputLoginScreen";
 import { Formik, Form } from "formik";
 import { MdOutlineEmail, MdLockOutline } from "react-icons/md"; // Import your icons here
 import Button from "../Button/Button.js";
+import Link from "next/link";
 import { logInfo } from "@/utils/logging";
 import { useLanguage } from "@/context/LanguageContext";
 import useFetch from "@/hooks/api/useFetch.js";
@@ -76,6 +77,26 @@ const LoginForm = () => {
             </Form>
           )}
         </Formik>
+        <div className="text-left">
+          <Link
+            href="/forgotpassword"
+            data-testid="forget-password-link"
+            aria-label="Forgot Password"
+            className="text-left"
+          >
+            {translations["logIn.forgot"]}
+          </Link>
+          <h3 className="text-headlineMedium text-tertiary1-normal mt-4">
+            {translations["logIn.no-account"]}
+          </h3>
+          <Button
+            text={translations["logIn.signup-button"]}
+            variant="greenSubmit"
+            data-testid="login-button"
+            aria-label="Submit Log In"
+            type="submit"
+          />
+        </div>
       </main>
     </div>
   );

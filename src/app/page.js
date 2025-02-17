@@ -13,6 +13,7 @@ export default function Home() {
         className="flex flex-col gap-4 w-full bg-primary-light"
         data-testid="main-heading"
       >
+        <LoginScreen />
         <TastingSession />
         <WineCard
           title="Primitivo Susumani"
@@ -20,7 +21,7 @@ export default function Home() {
           price={39.0}
           reviewsCount={14}
         />
-        <LoginScreen />
+
         <SignUpScreen />
         <WineCardSmall />
       </main>
