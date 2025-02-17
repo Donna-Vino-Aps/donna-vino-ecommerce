@@ -2,10 +2,16 @@ import React from "react";
 import { render, screen } from "@testing-library/react";
 import LoginForm from "@/components/LogIn/LoginForm.js";
 import { useLanguage } from "@/context/LanguageContext";
+import { useRouter } from "next/navigation";
 
 // Mock useLanguage to avoid translation errors
 jest.mock("@/context/LanguageContext", () => ({
   useLanguage: jest.fn(),
+}));
+
+// Mock useRouter
+jest.mock("next/navigation", () => ({
+  useRouter: jest.fn(),
 }));
 
 describe("LoginForm", () => {
@@ -16,6 +22,10 @@ describe("LoginForm", () => {
         "logIn.password": "Password",
         "logIn.button": "Log In",
       },
+    });
+
+    useRouter.mockReturnValue({
+      push: jest.fn(), // Mock navigation function
     });
     render(<LoginForm />);
   });

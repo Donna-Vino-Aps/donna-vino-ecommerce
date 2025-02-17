@@ -1,6 +1,5 @@
 "use client";
 import React from "react";
-import SignUpScreen from "../components/SignUpScreen/SignUpScreen";
 import LoginScreen from "@/components/LogIn/LogInScreen";
 import TastingSession from "@/components/TastingSession/TastingSession";
 import WineCard from "@/components/Card/WineCard";
@@ -14,6 +13,7 @@ export default function Home() {
         data-testid="main-heading"
       >
         <TastingSession />
+        <LoginScreen />
         <WineCard
           title="Primitivo Susumani"
           imageUrl="/images/primitivo-susmani.jpg"
