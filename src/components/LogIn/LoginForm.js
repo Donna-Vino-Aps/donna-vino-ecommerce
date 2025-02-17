@@ -41,8 +41,11 @@ const LoginForm = () => {
           {({ handleChange, handleBlur, values, handleSubmit }) => (
             <Form
               onSubmit={handleSubmit}
-              className="w-full h-full space-y-5 flex flex-col items-center justify-center"
+              className="w-full h-full space-y-2 flex flex-col items-center justify-center"
             >
+              <label className="text-labelLarge text-tertiary1-normal font-barlow font-medium self-start">
+                {translations["logIn.label-mail"]}
+              </label>
               <TextInputLoginScreen
                 name="email"
                 placeholder={translations["logIn.mail"]}
@@ -53,7 +56,9 @@ const LoginForm = () => {
                 data-testid="login-input-email"
                 aria-label="Email"
               />
-
+              <label className="text-labelLarge text-tertiary1-normal font-barlow font-medium self-start">
+                {translations["logIn.label-password"]}
+              </label>
               <TextInputLoginScreen
                 name="password"
                 placeholder={translations["logIn.password"]}
