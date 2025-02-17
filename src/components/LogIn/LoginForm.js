@@ -103,16 +103,16 @@ const LoginForm = () => {
           {({ handleChange, handleBlur, handleSubmit, values }) => (
             <Form
               onSubmit={handleSubmit}
-              className="w-full h-auto space-y-2 flex flex-col items-center justify-center"
+              className="max-w-[25rem] h-auto space-y-2 flex flex-col items-center justify-center"
               data-testid="login-form"
             >
               <div className="space-y-2 mb-1">
-                <label className="text-labelLarge text-tertiary1-normal font-barlow font-medium self-start">
+                <label className="text-labelLarge text-tertiary1-normal font-[medium] font-[barlow] self-start">
                   {translations["logIn.label-mail"]}
                 </label>
                 <TextInputLoginScreen
                   name="email"
-                  placeholder={translations["logIn.mail"]}
+                  placeholder={translations["logIn.placeholder-mail"]}
                   value={values.email}
                   onChange={handleChange}
                   onBlur={handleBlur}
@@ -127,7 +127,7 @@ const LoginForm = () => {
                 <TextInputLoginScreen
                   type="password"
                   name="password"
-                  placeholder={translations["logIn.password"]}
+                  placeholder={translations["logIn.placeholder-password"]}
                   value={values.password}
                   onChange={handleChange}
                   onBlur={handleBlur}

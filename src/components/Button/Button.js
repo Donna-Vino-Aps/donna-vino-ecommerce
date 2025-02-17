@@ -20,7 +20,7 @@ const VARIANT_CLASSES = {
   grayGreen:
     "bg-secondary-light hover:bg-secondary-hover text-secondary-darker w-full sm:w-[10.8rem]",
   greenSubmit:
-    "w-full bg-[#183F27] hover:bg-[#153823] text-white font-barlow font-semibold py-3",
+    "w-full bg-[#183F27] hover:bg-[#153823] text-white font-barlow font-semibold py-3]",
   redSubmit:
     "bg-primary-normal hover:bg-primary-hover_normal text-white rounded-lg w-full sm:w-[10.8rem]",
   gray: "bg-tertiary1-normal hover:bg-tertiary1-dark text-tertiary1-light w-full sm:w-[10.8rem]",
