@@ -29,19 +29,18 @@ const WineCardSmall = ({
       data-testid="wine-card"
       className="group relative flex justify-center items-center min-h-[550px] w-[320px]"
     >
-      <div className="relative w-[270px] min-h-[411px] cursor-pointer bg-white shadow-xl rounded-lg overflow-visible transition-transform duration-300 hover:scale-105 flex flex-col mt-5 mb-5">
+      <div className="relative w-[270px] min-h-[411px] cursor-pointer bg-tertiary2-light shadow-xl rounded-lg overflow-visible transition-transform duration-300 hover:scale-105 flex flex-col mt-5 mb-5">
         {isNew && (
-          <span className="absolute top-3 right-3 flex items-center gap-1 rounded bg-primary-normal px-2 py-1 text-xs text-white font-medium z-20">
+          <span className="absolute top-3 right-3 flex items-center gap-1 rounded bg-primary-normal px-2 py-1 text-bodyMedium text-tertiary2-light font-medium z-20">
             New
             <img
               src="/icons/card/star-fill.svg"
-              className="w-3 h-3 text-white"
+              className="w-3 h-3 text-tertiary2-light"
               alt="New Badge"
             />
           </span>
         )}
 
-        {/* CONTENIDO */}
         <div className="relative w-full h-[270px] flex flex-col justify-center items-center mt-5">
           <img
             src={imageUrl}
@@ -63,16 +62,16 @@ const WineCardSmall = ({
                   >
                     <img
                       src={button.icon}
-                      className="w-6 h-6 text-black transition-all duration-300 group-hover/button:brightness-0 group-hover/button:invert"
+                      className="w-6 h-6 text-tertiary1-darker transition-all duration-300 group-hover/button:brightness-0 group-hover/button:invert"
                       alt={button.tooltip}
                     />
                   </button>
                   <div
-                    className="absolute -top-8 left-1/2 w-max -translate-x-1/2 invisible bg-white text-black text-xs whitespace-nowrap px-3 py-1 rounded-md shadow-md transition-opacity duration-300 delay-200 group-hover/button:visible group-hover/button:opacity-100"
+                    className="absolute -top-8 left-1/2 w-max -translate-x-1/2 invisible bg-tertiary2-light text-tertiary1-darker whitespace-nowrap px-3 py-1 rounded-md shadow-md transition-opacity duration-300 delay-200 group-hover/button:visible group-hover/button:opacity-100"
                     data-testid={`tooltip-${index}`}
                   >
                     {button.tooltip}
-                    <div className="absolute left-1/2 -bottom-1 w-2 h-2 -translate-x-1/2 rotate-45 bg-white"></div>
+                    <div className="absolute left-1/2 -bottom-1 w-2 h-2 -translate-x-1/2 rotate-45 bg-tertiary2-light"></div>
                   </div>
                 </div>
               </div>
@@ -80,18 +79,17 @@ const WineCardSmall = ({
           </div>
         </div>
 
-        {/* TEXT CONTAINER */}
         <div className="flex flex-col justify-center items-center w-full pb-[1.25rem] flex-grow">
           <div className="p-4 flex flex-col items-center text-center w-full min-h-[71px]">
             <h3
               data-testid="wine-title"
-              className="text-headlineLarge font-regular text-tertiary1-dark text-center break-words"
+              className="text-headlineSmall font-regular text-tertiary1-normal text-center break-words"
             >
               {title}
             </h3>
             <p
               data-testid="wine-price"
-              className="text-xl font-regular text-gray-900 mt-2"
+              className="text-tertiary1-normal text-bodyLarge mt-2 font-medium"
             >
               Kr. {price.toFixed(2)}
             </p>

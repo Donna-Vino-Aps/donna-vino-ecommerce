@@ -9,43 +9,43 @@ import WineCardSmall from "@/components/Card/WineCardSmall";
 
 const wineData = [
   {
-    title: "1",
+    title: "Muga Reserva",
     price: 130.0,
     imageUrl: "/images/exampleImageWine.png",
     isNew: true,
   },
   {
-    title: "2",
+    title: "Barolo Terlo",
     price: 121.0,
     imageUrl: "/images/exampleImageWine.png",
     isNew: true,
   },
   {
-    title: "3",
+    title: "Pinot Noir",
     price: 180.0,
     imageUrl: "/images/exampleImageWine.png",
     isNew: false,
   },
   {
-    title: "4",
+    title: "Vega Cicilia",
     price: 210.0,
     imageUrl: "/images/exampleImageWine.png",
     isNew: false,
   },
   {
-    title: "5",
+    title: "Saviognese Merlot",
+    price: 210.0,
+    imageUrl: "/images/exampleImageWine.png",
+    isNew: true,
+  },
+  {
+    title: "Pinot Grigio",
     price: 210.0,
     imageUrl: "/images/exampleImageWine.png",
     isNew: false,
   },
   {
-    title: "6",
-    price: 210.0,
-    imageUrl: "/images/exampleImageWine.png",
-    isNew: false,
-  },
-  {
-    title: "7",
+    title: "Marques de Murrieta",
     price: 210.0,
     imageUrl: "/images/exampleImageWine.png",
     isNew: false,
