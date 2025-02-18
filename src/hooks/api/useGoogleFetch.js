@@ -1,7 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import { baseApiUrl } from "../../../src/config/environment";
-import { Platform } from "react-native";
 import { logInfo, logError } from "../../../src/utils/logging";
 
 // Custom hook to fetch user data from Google
@@ -14,17 +13,6 @@ const useGoogleFetch = (onReceived) => {
   const [isLoading, setIsLoading] = useState(false);
   const [data, setData] = useState(null);
   const cancelTokenRef = useRef(null); // Store cancel token
-
-  // Gets the current platform (iOS, Android, or Web)
-  const getPlatform = () => {
-    if (Platform.OS === "ios") {
-      return "iOS";
-    } else if (Platform.OS === "android") {
-      return "Android";
-    } else {
-      return "Web";
-    }
-  };
 
   // Performs the Google fetch operation
   const performGoogleFetch = async (authentication) => {
@@ -53,7 +41,6 @@ const useGoogleFetch = (onReceived) => {
         name,
         picture,
         token: authentication.idToken || "",
-        platform: getPlatform(),
       };
 
       // Authenticate user with backend
