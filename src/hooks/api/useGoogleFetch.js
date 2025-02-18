@@ -55,7 +55,7 @@ const useGoogleFetch = (onReceived) => {
         },
       );
 
-      const { success, msg, user, error: serverError } = serverResponse.data;
+      const { success, msg, error: serverError } = serverResponse.data;
 
       logInfo(`serverResponse: ${JSON.stringify(serverResponse.data)}`);
 
