@@ -1,4 +1,4 @@
-import { renderHook, act, waitFor } from "@testing-library/react";
+import { renderHook, act } from "@testing-library/react";
 import axios from "axios";
 import useGoogleFetch from "../../../hooks/api/useGoogleFetch";
 
@@ -32,9 +32,7 @@ describe("useGoogleFetch Hook", () => {
     axios.get.mockImplementationOnce(() => Promise.reject(mockErrorResponse));
 
     const onReceived = jest.fn();
-    const { result, waitForNextUpdate } = renderHook(() =>
-      useGoogleFetch(onReceived),
-    );
+    const { result } = renderHook(() => useGoogleFetch(onReceived));
 
     await act(async () => {
       await result.current.performGoogleFetch({ accessToken: "invalid" });
@@ -60,9 +58,7 @@ describe("useGoogleFetch Hook", () => {
     );
 
     const onReceived = jest.fn();
-    const { result, waitForNextUpdate } = renderHook(() =>
-      useGoogleFetch(onReceived),
-    );
+    const { result } = renderHook(() => useGoogleFetch(onReceived));
 
     await act(async () => {
       await result.current.performGoogleFetch({ accessToken: "valid" });
@@ -94,9 +90,7 @@ describe("useGoogleFetch Hook", () => {
     );
 
     const onReceived = jest.fn();
-    const { result, waitForNextUpdate } = renderHook(() =>
-      useGoogleFetch(onReceived),
-    );
+    const { result } = renderHook(() => useGoogleFetch(onReceived));
 
     await act(async () => {
       await result.current.performGoogleFetch({ accessToken: "valid" });

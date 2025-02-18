@@ -17,6 +17,7 @@ jobs:
     env:
       API_URL_LOCAL: ${{ secrets.API_URL_LOCAL }}
       API_URL_HEROKU: ${{ secrets.API_URL_HEROKU }}
+      GOOGLE_CLIENT_ID_WEB: ${{secrets.GOOGLE_CLIENT_ID_WEB}}
 
     steps:
       # 1. Checkout the code
