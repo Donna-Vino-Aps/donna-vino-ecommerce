@@ -1,9 +1,10 @@
 "use client";
 import React from "react";
-import LoginScreen from "@/components/LogIn/LogInScreen";
+import LogInScreen from "@/components/LogIn/LogInScreen";
 import TastingSession from "@/components/TastingSession/TastingSession";
 import WineCardSmall from "@/components/Card/WineCardSmall";
 import WineCard from "@/components/Card/WineCard";
+import ServicesBanner from "@/components/ServicesBanner/ServicesBanner";
 
 export default function Home() {
   return (
@@ -13,7 +14,8 @@ export default function Home() {
         data-testid="main-heading"
       >
         <TastingSession />
-        <LoginScreen />
+        <ServicesBanner />
+        <LogInScreen />
         <WineCard
           title="Primitivo Susumani"
           imageUrl="/images/primitivo-susmani.jpg"
