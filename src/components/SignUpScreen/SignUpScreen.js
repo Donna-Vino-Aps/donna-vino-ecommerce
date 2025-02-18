@@ -97,8 +97,8 @@ const SignUpScreen = () => {
   };
 
   return (
-    <div className="flex flex-col min-h-screen bg-primary-light">
-      <main className="flex-grow p-8 w-full">
+    <div className="flex flex-col min-h-screen bg-primary-light sm:bg-dots-lg sm:bg-dots-size-lg bg-dots-sm bg-dots-size-sm">
+      <main className="flex flex-col items-center justify-center flex-grow p-8 w-full max-h-[61rem]">
         <h2
           className="text-displayMedium md:text-displayLarge font-barlow text-tertiary1-darker mb-6 text-center"
           aria-label="Sign Up"
@@ -145,7 +145,10 @@ const SignUpScreen = () => {
             values,
             setFieldValue,
           }) => (
-            <form onSubmit={handleSubmit} className="space-y-4">
+            <form
+              onSubmit={handleSubmit}
+              className="space-y-4 bg-tertiary2-light p-6 rounded-lg max-w-[47.75rem]"
+            >
               <TextInputSignUpScreen
                 type="text"
                 name="name"
