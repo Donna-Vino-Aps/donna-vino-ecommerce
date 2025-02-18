@@ -28,6 +28,7 @@
     "@emotion/styled": "^11.14.0",
     "@mui/material": "^6.4.2",
     "@mui/x-date-pickers": "^7.25.0",
+    "@react-oauth/google": "^0.12.1",
     "autoprefixer": "^10.4.20",
     "axios": "^1.7.9",
     "date-fns": "^4.1.0",

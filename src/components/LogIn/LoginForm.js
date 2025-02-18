@@ -10,13 +10,16 @@ import { MdOutlineEmail, MdLockOutline } from "react-icons/md";
 import Button from "../Button/Button.js";
 import Link from "next/link";
 import TextInputLoginScreen from "../SignUpScreen/TextInputSignUpScreen";
-import { logInfo, logError } from "@/utils/logging";
+import { logInfo, logError } from "../../utils/logging";
+
+import { googleClientId } from "../../config/environment";
 
 const LoginForm = () => {
   const { translations } = useLanguage();
   const router = useRouter();
   const [msg, setMsg] = useState("");
   const [success, setSuccessStatus] = useState(null);
+  const [googleSubmitting, setGoogleSubmitting] = useState(false);
 
   const { setStoredCredentials } = useContext(CredentialsContext);
 
