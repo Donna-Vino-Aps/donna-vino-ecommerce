@@ -99,151 +99,267 @@ const SignUpScreen = () => {
   return (
     <div className="flex flex-col min-h-screen bg-primary-light sm:bg-dots-lg sm:bg-dots-size-lg bg-dots-sm bg-dots-size-sm">
       <main className="flex flex-col items-center justify-center flex-grow p-8 w-full max-h-[61rem]">
-        <h2
-          className="text-displayMedium md:text-displayLarge font-barlow text-tertiary1-darker mb-6 text-center"
-          aria-label="Sign Up"
-        >
-          Sign Up
-        </h2>
-        <Formik
-          initialValues={{
-            name: "",
-            email: "",
-            birthdate: "",
-            password: "",
-            confirmPassword: "",
-          }}
-          onSubmit={(values, { setSubmitting }) => {
-            if (
-              !values.name ||
-              !values.email ||
-              !values.birthdate ||
-              !values.password ||
-              !values.confirmPassword
-            ) {
-              handleMessage({
-                successStatus: false,
-                msg: "Please fill all the fields",
-              });
-              setSubmitting(false);
-            } else if (values.password !== values.confirmPassword) {
-              handleMessage({
-                successStatus: false,
-                msg: "Passwords do not match",
-              });
-              setSubmitting(false);
-            } else {
-              setSubmitting(true);
-              handleSignup(values, setSubmitting);
-            }
-          }}
-        >
-          {({
-            handleChange,
-            handleBlur,
-            handleSubmit,
-            values,
-            setFieldValue,
-          }) => (
-            <form
-              onSubmit={handleSubmit}
-              className="space-y-4 bg-tertiary2-light p-6 rounded-lg max-w-[47.75rem]"
-            >
-              <TextInputSignUpScreen
-                type="text"
-                name="name"
-                placeholder="Donna Vino User"
-                value={values.name}
-                onChange={handleChange}
-                onBlur={handleBlur}
-                icon={<FaRegUser />}
-                data-testid="input-name"
-                aria-label="Name"
-              />
-
-              <TextInputSignUpScreen
-                type="email"
-                name="email"
-                placeholder="Email"
-                value={values.email}
-                onChange={handleChange}
-                onBlur={handleBlur}
-                icon={<MdOutlineEmail />}
-                data-testid="input-email"
-                aria-label="Email"
-              />
-
-              <TextInputSignUpScreen
-                type="text"
-                name="birthdate"
-                placeholder="Select your birthdate"
-                value={values.birthdate || userBirthDay}
-                onChange={(newValue) => {
-                  setFieldValue("birthdate", newValue);
-                  setUserBirthDay(newValue);
-                }}
-                isDate={true}
-                showDatePicker={() =>
-                  document.getElementById("datePicker").focus()
-                }
-                data-testid="input-birthdate"
-                aria-label="Birthdate"
-              />
-
-              <TextInputSignUpScreen
-                type="password"
-                name="password"
-                placeholder="Password"
-                value={values.password}
-                onChange={handleChange}
-                onBlur={handleBlur}
-                icon={<MdLockOutline />}
-                showPasswordToggle={true}
-                data-testid="input-password"
-                aria-label="Password"
-              />
-
-              <TextInputSignUpScreen
-                type="password"
-                name="confirmPassword"
-                placeholder="Confirm Password"
-                value={values.confirmPassword}
-                onChange={handleChange}
-                onBlur={handleBlur}
-                icon={<MdLockOutline />}
-                showPasswordToggle={true}
-                data-testid="input-confirm-password"
-                aria-label="Confirm Password"
-              />
-
-              <div className="mt-4">
-                <div className="flex justify-center pb-4">
-                  <p
-                    className={`text-xs ${success ? "text-green-500" : "text-red-500"}`}
-                    aria-live="polite"
-                    data-testid="message-status"
-                  >
-                    {msg}
-                  </p>
+        <div className="bg-tertiary2-light mt-24 mb-24 items-center justify-center rounded-2xl shadow-lg p-8 max-w-[47.75rem] w-full">
+          <img
+            src="/images/donna-vino-logo-transparent.png"
+            alt="Donna Vino logo"
+            className="w-[6.25rem] h-[4.31rem] mx-auto my-2"
+          />
+          <h2
+            className="text-displayMedium md:text-displayLarge font-barlow text-tertiary1-darker mb-6 text-center"
+            aria-label="Sign Up"
+          >
+            Join Donna Vino
+          </h2>
+          <p className="text-bodyLarge text-tertiary2-darker text-center -mt-3">
+            Create a profile for your future orders to have all your information
+            saved and ready for use. Registering on our Donna Vino website is
+            quick and easy, allowing you to streamline your shopping experience
+            and enjoy a faster checkout every time.
+          </p>
+          <Formik
+            initialValues={{
+              name: "",
+              email: "",
+              birthdate: "",
+              password: "",
+              confirmPassword: "",
+            }}
+            onSubmit={(values, { setSubmitting }) => {
+              if (
+                !values.name ||
+                !values.email ||
+                !values.birthdate ||
+                !values.password ||
+                !values.confirmPassword
+              ) {
+                handleMessage({
+                  successStatus: false,
+                  msg: "Please fill all the fields",
+                });
+                setSubmitting(false);
+              } else if (values.password !== values.confirmPassword) {
+                handleMessage({
+                  successStatus: false,
+                  msg: "Passwords do not match",
+                });
+                setSubmitting(false);
+              } else {
+                setSubmitting(true);
+                handleSignup(values, setSubmitting);
+              }
+            }}
+          >
+            {({
+              handleChange,
+              handleBlur,
+              handleSubmit,
+              values,
+              setFieldValue,
+            }) => (
+              <form
+                onSubmit={handleSubmit}
+                className="flex flex-col space-y-4 bg-tertiary2-light p-6"
+              >
+                <h4 className="text-headlineSmall">Personal Details</h4>
+                <div className="flex flex-row space-x-6 items-center justify-center">
+                  <div className="flex flex-col space-y-2">
+                    <TextInputSignUpScreen
+                      type="text"
+                      name="firstname"
+                      placeholder="First name*"
+                      value={values.firstName}
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+                      icon={<FaRegUser />}
+                      data-testid="input-first-name"
+                      aria-label="First Name"
+                    />
+                    <TextInputSignUpScreen
+                      type="email"
+                      name="email"
+                      placeholder="Email*"
+                      value={values.email}
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+                      icon={<MdOutlineEmail />}
+                      data-testid="input-email"
+                      aria-label="Email"
+                    />
+                    <TextInputSignUpScreen
+                      type="password"
+                      name="password"
+                      placeholder="Password*"
+                      value={values.password}
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+                      icon={<MdLockOutline />}
+                      showPasswordToggle={true}
+                      data-testid="input-password"
+                      aria-label="Password"
+                    />
+                  </div>
+                  <div className="flex flex-col space-y-2">
+                    <TextInputSignUpScreen
+                      type="text"
+                      name="lastname"
+                      placeholder="Last name*"
+                      value={values.lastName}
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+                      icon={<FaRegUser />}
+                      data-testid="input-last-name"
+                      aria-label="Last Name"
+                    />
+                    <TextInputSignUpScreen
+                      type="email"
+                      name="email"
+                      placeholder="Confirm Email*"
+                      value={values.confirmEmail}
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+                      icon={<MdOutlineEmail />}
+                      data-testid="input-confirm-email"
+                      aria-label="Confirm Email"
+                    />
+                    <TextInputSignUpScreen
+                      type="password"
+                      name="confirmPassword"
+                      placeholder="Confirm Password*"
+                      value={values.confirmPassword}
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+                      icon={<MdLockOutline />}
+                      showPasswordToggle={true}
+                      data-testid="input-confirm-password"
+                      aria-label="Confirm Password"
+                    />
+                  </div>
                 </div>
-                <Button
-                  text={translations["signUp.button"]}
-                  onClick={handleSubmit}
-                  variant="red"
-                  data-testid="submit-button"
-                  aria-label="Submit Sign Up"
+                <h4 className="text-headlineSmall">Date of Birth</h4>
+                <TextInputSignUpScreen
+                  type="text"
+                  name="birthdate"
+                  placeholder="Select your birthdate"
+                  value={values.birthdate || userBirthDay}
+                  onChange={(newValue) => {
+                    setFieldValue("birthdate", newValue);
+                    setUserBirthDay(newValue);
+                  }}
+                  isDate={true}
+                  showDatePicker={() =>
+                    document.getElementById("datePicker").focus()
+                  }
+                  data-testid="input-birthdate"
+                  aria-label="Birthdate"
                 />
-              </div>
 
-              {/* Loading Indicator */}
-              {isLoading && (
-                <div className="flex justify-center items-center mt-4">
-                  <div className="w-8 h-8 border-4 border-t-4 border-blue-500 border-solid rounded-full animate-spin" />
+                <h4 className="text-headlineSmall">Shipping Details</h4>
+
+                <div className="flex flex-row space-x-4 items-center justify-center">
+                  <div className="flex flex-col space-y-2">
+                    <TextInputSignUpScreen
+                      type="text"
+                      name="adress-line1"
+                      placeholder="Address*"
+                      value={values.addressLine1}
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+                      icon={<FaRegUser />}
+                      data-testid="input-adress-line1"
+                      aria-label="Address Line 1"
+                    />
+                    <TextInputSignUpScreen
+                      type="text"
+                      name="country"
+                      placeholder="Country"
+                      value={values.city}
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+                      icon={<FaRegUser />}
+                      data-testid="input-country"
+                      aria-label="Country"
+                    />
+                    <TextInputSignUpScreen
+                      type="number"
+                      name="postcode"
+                      placeholder="Postcode / ZIP*"
+                      value={values.city}
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+                      icon={<FaRegUser />}
+                      data-testid="input-zip"
+                      aria-label="Postcode"
+                    />
+                  </div>
+                  <div className="flex flex-col space-y-2">
+                    <TextInputSignUpScreen
+                      type="text"
+                      name="adress-line2"
+                      placeholder="Address line 2"
+                      value={values.addressLine1}
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+                      icon={<FaRegUser />}
+                      data-testid="input-adress-line2"
+                      aria-label="Address Line 2"
+                    />
+                    <TextInputSignUpScreen
+                      type="text"
+                      name="adress-line1"
+                      placeholder="City / Town*"
+                      value={values.city}
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+                      icon={<FaRegUser />}
+                      data-testid="input-city"
+                      aria-label="City/Town"
+                    />
+                    <TextInputSignUpScreen
+                      type="tel"
+                      name="telephone"
+                      placeholder="Phone*"
+                      value={values.city}
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+                      icon={<FaRegUser />}
+                      data-testid="input-telephone"
+                      aria-label="Phone Number"
+                    />
+                  </div>
                 </div>
-              )}
-            </form>
-          )}
-        </Formik>
+                <p>
+                  I accept <u>Terms of use</u> and <u>Privacy Policy</u>
+                </p>
+                <div className="mt-4 flex justify-center">
+                  <div className="flex justify-center pb-4">
+                    <p
+                      className={`text-xs ${success ? "text-green-500" : "text-red-500"}`}
+                      aria-live="polite"
+                      data-testid="message-status"
+                    >
+                      {msg}
+                    </p>
+                  </div>
+                  <Button
+                    text={translations["signUp.button"]}
+                    onClick={handleSubmit}
+                    variant="red"
+                    data-testid="submit-button"
+                    aria-label="Submit Sign Up"
+                  />
+                </div>
+
+                {/* Loading Indicator */}
+                {isLoading && (
+                  <div className="flex justify-center items-center mt-4">
+                    <div className="w-8 h-8 border-4 border-t-4 border-blue-500 border-solid rounded-full animate-spin" />
+                  </div>
+                )}
+              </form>
+            )}
+          </Formik>
+        </div>
       </main>
     </div>
   );
