@@ -9,11 +9,19 @@ import { CredentialsContext } from "../context/credentialsContext";
 import { logError } from "@/utils/logging";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import { GoogleOAuthProvider } from "@react-oauth/google";
+import { googleClientId } from "../config/environment";
 
 import Breadcrumb from "@/components/BreadCrumb/BreadCrumb";
 
 const RootLayout = ({ children }) => {
   const [storedCredentials, setStoredCredentials] = useState(null);
+
+  const clientId = googleClientId;
+
+  if (!clientId) {
+    console.error("Google Client ID is missing or invalid.");
+  }
 
   const checkLoginCredentials = async () => {
     try {
@@ -33,29 +41,31 @@ const RootLayout = ({ children }) => {
   }, []);
 
   return (
-    <LocalizationProvider dateAdapter={AdapterDayjs}>
-      <html lang="en">
-        <body className="flex flex-col min-h-screen w-full font-barlow bg-white text-foreground-normal">
-          <CredentialsContext.Provider
-            value={{ storedCredentials, setStoredCredentials }}
-          >
-            <LanguageProvider>
-              <Navbar />
-              <Breadcrumb />
-              <main
-                className="flex-grow"
-                role="main"
-                data-testid="main-content"
-              >
-                {children}
-              </main>
+    <GoogleOAuthProvider clientId={clientId}>
+      <LocalizationProvider dateAdapter={AdapterDayjs}>
+        <html lang="en">
+          <body className="flex flex-col min-h-screen w-full font-barlow bg-white text-foreground-normal">
+            <CredentialsContext.Provider
+              value={{ storedCredentials, setStoredCredentials }}
+            >
+              <LanguageProvider>
+                <Navbar />
+                <Breadcrumb />
+                <main
+                  className="flex-grow"
+                  role="main"
+                  data-testid="main-content"
+                >
+                  {children}
+                </main>
 
-              <Footer />
-            </LanguageProvider>
-          </CredentialsContext.Provider>
-        </body>
-      </html>
-    </LocalizationProvider>
+                <Footer />
+              </LanguageProvider>
+            </CredentialsContext.Provider>
+          </body>
+        </html>
+      </LocalizationProvider>
+    </GoogleOAuthProvider>
   );
 };
 

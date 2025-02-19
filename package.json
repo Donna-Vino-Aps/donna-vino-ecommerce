@@ -1,5 +1,5 @@
 {
-  "name": "donna-vino-ecommerce",
+  "name": "donna-vino-e-commerce",
   "version": "0.1.0",
   "private": true,
   "engines": {
@@ -35,6 +35,7 @@
     "dayjs": "^1.11.13",
     "formik": "^2.4.6",
     "next": "^15.1.2",
+    "next-auth": "^4.24.11",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-dotenv": "^0.1.3",

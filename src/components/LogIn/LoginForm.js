@@ -11,17 +11,23 @@ import Button from "../Button/Button.js";
 import Link from "next/link";
 import TextInputLoginScreen from "../SignUpScreen/TextInputSignUpScreen";
 import { logInfo, logError } from "../../utils/logging";
-
-import { googleClientId } from "../../config/environment";
+import { googleClientId } from "@/config/environment";
+import { signIn, useSession } from "next-auth/react";
 
 const LoginForm = () => {
+  const { data: session, status } = useSession();
   const { translations } = useLanguage();
   const router = useRouter();
   const [msg, setMsg] = useState("");
   const [success, setSuccessStatus] = useState(null);
-  const [googleSubmitting, setGoogleSubmitting] = useState(false);
 
   const { setStoredCredentials } = useContext(CredentialsContext);
+
+  useEffect(() => {
+    if (status === "authenticated") {
+      router.push("/");
+    }
+  }, [status, router]);
 
   const onReceived = (response) => {
     const responseData = response.data || response;
@@ -74,9 +80,33 @@ const LoginForm = () => {
     setMsg(msg);
   };
 
-  const saveLoginCredentials = (user) => {
+  const handleGoogleSignIn = async () => {
     try {
-      localStorage.setItem("userCredentials", JSON.stringify(user));
+      await signIn("google");
+    } catch (error) {
+      logError("Google Sign-In error:", error);
+      handleMessage({
+        successStatus: false,
+        msg: "Failed to sign in with Google",
+      });
+    }
+  };
+
+  const saveLoginCredentials = async (
+    user,
+    token = null,
+    msg = "",
+    successStatus = true,
+  ) => {
+    try {
+      await localStorage.setItem("userCredentials", JSON.stringify(user));
+      if (token) {
+        await locaStorage.setItem("userCredentialsToken", token);
+      }
+      handleMessage({
+        successStatus: successStatus,
+        msg: msg || "User credentials saved successfully",
+      });
       setStoredCredentials(user);
       logInfo(
         `User saved in localStorage: ${localStorage.getItem("userCredentials")}`,
@@ -87,6 +117,7 @@ const LoginForm = () => {
         successStatus: false,
         msg: "Failed to save user credentials",
       });
+    } finally {
     }
   };
 
@@ -164,11 +195,11 @@ const LoginForm = () => {
 
               <Button
                 text={translations["logIn.signin-google"]}
-                onClick={handleSubmit}
+                onClick={handleGoogleSignIn}
                 variant="lightRedWide"
                 icon="/icons/google-darkred.svg"
-                data-testid="login-button"
-                aria-label="Submit Log In"
+                data-testid="login-google-button"
+                aria-label="Google Sign In"
                 className="space-y-1"
               />
               <div className="flex mt-4 space-x-1 items-center text-labelMedium relative bottom-1">
@@ -191,7 +222,7 @@ const LoginForm = () => {
                 onClick={() => router.push("/signup")}
               />
               {/* Loading Indicator */}
-              {isLoading && (
+              {(isLoading || googleLoading) && (
                 <div className="flex justify-center items-center mt-4">
                   <div className="w-8 h-8 border-4 border-t-4 border-blue-500 border-solid rounded-full animate-spin" />
                 </div>
