@@ -11,11 +11,10 @@ import Button from "../Button/Button.js";
 import Link from "next/link";
 import TextInputLoginScreen from "../SignUpScreen/TextInputSignUpScreen";
 import { logInfo, logError } from "../../utils/logging";
-import { googleClientId } from "@/config/environment";
 import { signIn, useSession } from "next-auth/react";
 
 const LoginForm = () => {
-  const { data: session, status } = useSession();
+  const { data: status } = useSession();
   const { translations } = useLanguage();
   const router = useRouter();
   const [msg, setMsg] = useState("");
@@ -82,7 +81,19 @@ const LoginForm = () => {
 
   const handleGoogleSignIn = async () => {
     try {
-      await signIn("google");
+      const response = await signIn("google", { callbackUrl: "/" });
+      if (response?.error) {
+        logError("Google Sign-In error:", response.error);
+        handleMessage({
+          successStatus: false,
+          msg: "Failed to sign in with Google",
+        });
+        return;
+      }
+
+      const user = response?.user;
+
+      await saveLoginCredentials(user);
     } catch (error) {
       logError("Google Sign-In error:", error);
       handleMessage({
