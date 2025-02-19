@@ -81,7 +81,7 @@ const LoginForm = () => {
 
   const handleGoogleSignIn = async () => {
     try {
-      const response = await signIn("google", { callbackUrl: "/" });
+      const response = await signIn("google", { redirect: false });
       if (response?.error) {
         logError("Google Sign-In error:", response.error);
         handleMessage({
@@ -93,7 +93,14 @@ const LoginForm = () => {
 
       const user = response?.user;
 
+      logInfo(`Google Sign-In successful: ${JSON.stringify(user)}`);
+      handleMessage({
+        successStatus: true,
+        msg: "Successfully signed in with Google",
+      });
       await saveLoginCredentials(user);
+
+      window.location.href = response.url;
     } catch (error) {
       logError("Google Sign-In error:", error);
       handleMessage({
