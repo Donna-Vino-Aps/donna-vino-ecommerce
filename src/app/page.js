@@ -5,6 +5,7 @@ import TastingSession from "@/components/TastingSession/TastingSession";
 import WineCard from "@/components/Card/WineCard";
 import TopWinesSection from "@/components/Slider/TopWinesSection";
 import SignUpScreen from "@/components/SignUpScreen/SignUpScreen";
+import LogoutButton from "@/components/Button/Logout";
 export default function Home() {
   return (
     <div className="flex w-[100%]" data-testid="home-container">
@@ -23,6 +24,7 @@ export default function Home() {
         <LoginScreen />
         <SignUpScreen />
         <TopWinesSection />
+        <LogoutButton />
       </main>
     </div>
   );
