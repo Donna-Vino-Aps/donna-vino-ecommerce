@@ -11,7 +11,7 @@ import Button from "../Button/Button.js";
 import Link from "next/link";
 import TextInputLoginScreen from "../SignUpScreen/TextInputSignUpScreen";
 import { logInfo, logError } from "../../utils/logging";
-import { signIn, useSession } from "next-auth/react";
+// import { signIn, useSession } from "next-auth/react";
 
 const LoginForm = () => {
   const { data: status } = useSession();
@@ -81,7 +81,7 @@ const LoginForm = () => {
 
   const handleGoogleSignIn = async () => {
     try {
-      const response = await signIn("google", { redirect: false });
+      // const response = await signIn("google", { redirect: false });
       if (response?.error) {
         logError("Google Sign-In error:", response.error);
         handleMessage({
