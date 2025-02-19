@@ -9,19 +9,11 @@ import { CredentialsContext } from "../context/credentialsContext";
 import { logError } from "@/utils/logging";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-import { GoogleOAuthProvider } from "@react-oauth/google";
-import { googleClientId } from "../config/environment";
-
+import { SessionProvider } from "next-auth/react";
 import Breadcrumb from "@/components/BreadCrumb/BreadCrumb";
 
 const RootLayout = ({ children }) => {
   const [storedCredentials, setStoredCredentials] = useState(null);
-
-  const clientId = googleClientId;
-
-  if (!clientId) {
-    console.error("Google Client ID is missing or invalid.");
-  }
 
   const checkLoginCredentials = async () => {
     try {
@@ -41,7 +33,7 @@ const RootLayout = ({ children }) => {
   }, []);
 
   return (
-    <GoogleOAuthProvider clientId={clientId}>
+    <SessionProvider>
       <LocalizationProvider dateAdapter={AdapterDayjs}>
         <html lang="en">
           <body className="flex flex-col min-h-screen w-full font-barlow bg-white text-foreground-normal">
@@ -65,7 +57,7 @@ const RootLayout = ({ children }) => {
           </body>
         </html>
       </LocalizationProvider>
-    </GoogleOAuthProvider>
+    </SessionProvider>
   );
 };
 
