@@ -11,10 +11,9 @@ import Button from "../Button/Button.js";
 import Link from "next/link";
 import TextInputLoginScreen from "../SignUpScreen/TextInputSignUpScreen";
 import { logInfo, logError } from "../../utils/logging";
-// import { signIn, useSession } from "next-auth/react";
+import { auth, signIn, signOut } from "../../auth";
 
 const LoginForm = () => {
-  const { data: status } = useSession();
   const { translations } = useLanguage();
   const router = useRouter();
   const [msg, setMsg] = useState("");
@@ -22,11 +21,11 @@ const LoginForm = () => {
 
   const { setStoredCredentials } = useContext(CredentialsContext);
 
-  useEffect(() => {
-    if (status === "authenticated") {
-      router.push("/");
-    }
-  }, [status, router]);
+  // useEffect(() => {
+  //   if (status === "authenticated") {
+  //     router.push("/");
+  //   }
+  // }, [status, router]);
 
   const onReceived = (response) => {
     const responseData = response.data || response;
@@ -80,8 +79,9 @@ const LoginForm = () => {
   };
 
   const handleGoogleSignIn = async () => {
+    logInfo("hola");
     try {
-      // const response = await signIn("google", { redirect: false });
+      const response = await signIn("google", { redirect: false });
       if (response?.error) {
         logError("Google Sign-In error:", response.error);
         handleMessage({
@@ -90,7 +90,8 @@ const LoginForm = () => {
         });
         return;
       }
-
+      const session = await auth();
+      logInfo(`Google session: ${JSON.stringify(session)}`);
       const user = response?.user;
 
       logInfo(`Google Sign-In successful: ${JSON.stringify(user)}`);
@@ -119,7 +120,7 @@ const LoginForm = () => {
     try {
       await localStorage.setItem("userCredentials", JSON.stringify(user));
       if (token) {
-        await locaStorage.setItem("userCredentialsToken", token);
+        await localStorage.setItem("userCredentialsToken", token);
       }
       handleMessage({
         successStatus: successStatus,
