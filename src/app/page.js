@@ -12,8 +12,9 @@ export default function Home() {
         className="flex flex-col gap-4 w-full bg-primary-light"
         data-testid="main-heading"
       >
-        <TastingSession />
         <LoginScreen />
+        <TastingSession />
+
         <WineCard
           title="Primitivo Susumani"
           imageUrl="/images/primitivo-susmani.jpg"

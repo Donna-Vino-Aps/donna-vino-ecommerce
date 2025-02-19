@@ -89,7 +89,10 @@ const LoginForm = () => {
 
   return (
     <div className="flex flex-col h-full" data-testid="login-container">
-      <main className="w-full flex flex-col justify-center items-center">
+      <main className="w-[25rem] md:w-[20rem] lg:w-[25rem] flex flex-col justify-center items-center ">
+        <h2 className="mb-4 mt-2 text-headlineMedium self-start text-tertiary1-normal relative top-1">
+          {translations["logIn.button"]}
+        </h2>
         <Formik
           initialValues={{ email: "", password: "" }}
           onSubmit={(values, { setSubmitting }) => {
@@ -108,10 +111,10 @@ const LoginForm = () => {
           {({ handleChange, handleBlur, handleSubmit, values }) => (
             <Form
               onSubmit={handleSubmit}
-              className="max-w-[25rem] h-auto space-y-3 flex flex-col items-center justify-center"
+              className="w-full h-auto space-y-2 flex flex-col items-center justify-center"
               data-testid="login-form"
             >
-              <div className="space-y-1 mb-1">
+              <div className="space-y-2 mb-1 w-[25rem] md:w-[20rem] lg:w-[25rem]">
                 <label className="text-labelLarge text-tertiary1-normal font-medium font-barlow self-start">
                   {translations["logIn.label-mail"]}
                 </label>
@@ -125,7 +128,7 @@ const LoginForm = () => {
                   dataTestId="login-input-email"
                 />
               </div>
-              <div className="space-y-1">
+              <div className="space-y-1 w-[25rem] md:w-[20rem] lg:w-[25rem]">
                 <label className="text-labelLarge text-tertiary1-normal font-barlow font-medium self-start">
                   {translations["logIn.label-password"]}
                 </label>
@@ -151,42 +154,48 @@ const LoginForm = () => {
                   {msg}
                 </p>
               </div>
-              <Button
-                text={translations["logIn.button"]}
-                onClick={handleSubmit}
-                variant="redWide"
-                data-testid="login-button"
-                aria-label="Submit Log In"
-              />
+              <div className="w-[25rem] md:w-[20rem] lg:w-[25rem] flex flex-col space-y-4">
+                <Button
+                  text={translations["logIn.button"]}
+                  onClick={handleSubmit}
+                  variant="redWide"
+                  data-testid="login-button"
+                  aria-label="Submit Log In"
+                />
 
-              <Button
-                text={translations["logIn.signin-google"]}
-                onClick={handleSubmit}
-                variant="lightRedWide"
-                icon="/icons/google-darkred.svg"
-                data-testid="login-button"
-                aria-label="Submit Log In"
-                className="space-y-1"
-              />
-              <div className="flex mt-4 space-x-1 items-center text-labelMedium relative bottom-1">
-                <p>{translations["logIn.forgot"]}</p>
+                <Button
+                  text={translations["logIn.signin-google"]}
+                  onClick={handleSubmit}
+                  variant="lightRedWide"
+                  icon="/icons/google-darkred.svg"
+                  data-testid="login-button"
+                  aria-label="Submit Log In"
+                  className="space-y-1"
+                />
+              </div>
+              <div className="flex mt-4 space-x-1 items-center text-titleMedium font-barlow relative">
                 <Link
                   href="/forgotpassword"
                   data-testid="forget-password-link"
                   aria-label="Forgot Password"
-                  className="text-left font-semibold font-barlow"
+                  className="text-left font-medium"
                 >
                   {translations["logIn.forgot-link"]}
                 </Link>
               </div>
-              <Button
-                text={translations["logIn.signup-button"]}
-                variant="greenSubmit"
-                data-testid="login-button"
-                aria-label="Submit Log In"
-                type="submit"
-                onClick={() => router.push("/signup")}
-              />
+              <div className="relative bottom-5 w-[25rem] md:w-[20rem] lg:w-[25rem]">
+                <h2 className="mb-4 mt-6 text-headlineMedium self-start text-tertiary1-normal">
+                  {translations["logIn.no-account"]}
+                </h2>
+                <Button
+                  text={translations["logIn.signup-button"]}
+                  variant="greenSubmit"
+                  data-testid="login-button"
+                  aria-label="Submit Log In"
+                  type="submit"
+                  onClick={() => router.push("/signup")}
+                />
+              </div>
               {/* Loading Indicator */}
               {isLoading && (
                 <div className="flex justify-center items-center mt-4">
