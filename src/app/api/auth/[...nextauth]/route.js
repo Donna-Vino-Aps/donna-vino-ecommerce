@@ -14,42 +14,17 @@ export const authOptions = {
       try {
         logInfo("Attempting to sign in with Google", { user, account });
 
-        const res = await fetch(
-          `${process.env.NEXT_PUBLIC_API_URL}/api/auth/sign-in-with-google`,
-          {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-              email: user.email,
-              name: user.name,
-              picture: user.image,
-              token: account.id_token,
-            }),
-          },
-        );
-
-        const data = await res.json();
-
-        if (!res.ok || !data.success) {
-          logError("Error registering user:", data);
-          return false;
-        }
-
-        logInfo("User successfully signed in through Google", {
-          user: data.user,
-        });
+        logInfo("User successfully signed in through Google", { user });
         return true;
       } catch (error) {
-        logError("Error in signIn callback:", error);
+        logError("Error in signIn callback:", error.message);
         return false;
       }
     },
     async jwt({ token, account, user }) {
       if (account) {
         token.accessToken = account.access_token;
-        token.id = user.id;
+        token.id = user?.id;
         logInfo("JWT token updated", { token });
       }
       return token;
