@@ -53,7 +53,7 @@ const TextInputSignUpScreen = ({
             placeholder={placeholder}
             aria-label={placeholder || `Select your ${name}`}
             data-testid={`datepicker-${name}`}
-            className="w-full p-3 border border-tertiary1-darker rounded-lg bg-white max-w-[52%] relative right-[11px] bottom-1 focus:outline-none focus:ring-2 focus:ring-primary-light"
+            className="w-full p-3 border border-tertiary1-darker rounded-lg bg-white max-w-[100%] md:max-w-[52%] relative right-[11px] bottom-1 focus:outline-none focus:ring-2 focus:ring-primary-light"
           />
         </div>
       )}

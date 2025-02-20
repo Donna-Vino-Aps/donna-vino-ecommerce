@@ -107,7 +107,7 @@ const SignUpScreen = () => {
             className="w-[6.25rem] h-[4.31rem] mx-auto my-2"
           />
           <h2
-            className="text-displayMedium md:text-displayLarge font-barlow text-tertiary1-darker mb-6 text-center"
+            className="text-displaySmall md:text-displayLarge font-barlow text-tertiary1-darker mb-6 text-center"
             aria-label="Sign Up"
           >
             Join Donna Vino
@@ -163,8 +163,8 @@ const SignUpScreen = () => {
                 className="flex flex-col space-y-4 bg-tertiary2-light p-6"
               >
                 <h4 className="text-headlineSmall mb-2">Personal Details</h4>
-                <div className="flex flex-row space-x-6 items-start justify-center">
-                  <div className="flex flex-col space-y-2 w-[50%]">
+                <div className="flex space-x-6 flex-col md:flex-row md:items-start justify-center">
+                  <div className="flex flex-col space-y-2 pr-[1.5rem] md:pr-0 md:w-[50%]">
                     <TextInputSignUpScreen
                       type="text"
                       name="firstname"
@@ -200,7 +200,7 @@ const SignUpScreen = () => {
                       aria-label="Password"
                     />
                   </div>
-                  <div className="flex flex-col space-y-2 w-[50%]">
+                  <div className="flex flex-col space-y-2 md:w-[50%] relative top-2 right-6 md:top-0 md:right-0">
                     <TextInputSignUpScreen
                       type="text"
                       name="lastname"
@@ -237,37 +237,43 @@ const SignUpScreen = () => {
                     />
                   </div>
                 </div>
-                <div className="inline-flex">
-                  <h4 className="text-headlineSmall mt-2">Date of birth</h4>
-                  <img
-                    src="/icons/date-of-birth.svg"
-                    alt="date of birth info-popup"
-                    className="ml-2 relative top-[6px] cursor-pointer"
+                <div className="relative items-center md:bottom-1 justify-between">
+                  <label
+                    className="text-tertiary2-darker text-labelXLarge"
+                    htmlFor="birthdate"
+                  >
+                    Date of birth
+                  </label>
+                  <TextInputSignUpScreen
+                    type="text"
+                    name="birthdate"
+                    id="birthdate"
+                    placeholder="Select your birthdate"
+                    value={values.birthdate || userBirthDay}
+                    onChange={(newValue) => {
+                      setFieldValue("birthdate", newValue);
+                      setUserBirthDay(newValue);
+                    }}
+                    isDate={true}
+                    showDatePicker={() =>
+                      document.getElementById("datePicker").focus()
+                    }
+                    data-testid="input-birthdate"
+                    aria-label="Birthdate"
                   />
                 </div>
-                <TextInputSignUpScreen
-                  type="text"
-                  name="birthdate"
-                  placeholder="Select your birthdate"
-                  value={values.birthdate || userBirthDay}
-                  onChange={(newValue) => {
-                    setFieldValue("birthdate", newValue);
-                    setUserBirthDay(newValue);
-                  }}
-                  isDate={true}
-                  showDatePicker={() =>
-                    document.getElementById("datePicker").focus()
-                  }
-                  data-testid="input-birthdate"
-                  aria-label="Birthdate"
-                />
 
-                <div className="inline-flex relative bottom-1 left-1">
-                  <input type="checkbox" className="w-[1.25rem] mr-1" />
+                <div className="inline-flex relative bottom-2 left-1 text-bodySmall sm:text-bodyMedium md:text-bodyLarge ">
+                  <input type="checkbox" className="w-[1.25rem] mr-1 mb-1 " />
                   <p>I accept &nbsp;</p>
                   <u>Terms of use </u>
                   <p>&nbsp; and &nbsp;</p>
                   <u>Privacy Policy</u>
+                  <img
+                    src="/icons/date-of-birth.svg"
+                    alt="date of birth info-popup"
+                    className="ml-2 hidden md:flex relative w-[1.875rem] bottom-[4.2rem] right-[2rem] md:bottom-[4.5rem] md:left-[1.25rem] cursor-pointer"
+                  />
                 </div>
                 <div className="mt-4 flex justify-center">
                   <div className="flex justify-center pb-4">
