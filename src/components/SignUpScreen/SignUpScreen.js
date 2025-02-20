@@ -112,7 +112,7 @@ const SignUpScreen = () => {
           >
             Join Donna Vino
           </h2>
-          <p className="text-bodyLarge text-tertiary2-darker text-center -mt-3">
+          <p className="text-bodyMedium md:text-bodyLarge text-tertiary2-darker text-center -mt-3">
             Create a profile for your future orders to have all your information
             saved and ready for use. Registering on our Donna Vino website is
             quick and easy, allowing you to streamline your shopping experience
@@ -272,7 +272,7 @@ const SignUpScreen = () => {
                   <img
                     src="/icons/date-of-birth.svg"
                     alt="date of birth info-popup"
-                    className="ml-2 hidden md:flex relative w-[1.875rem] bottom-[4.2rem] right-[2rem] md:bottom-[4.5rem] md:left-[1.25rem] cursor-pointer"
+                    className="ml-2 hidden md:flex relative w-[1.875rem] bottom-[4.2rem] md:bottom-[4.5rem] md:right-[0.25rem] cursor-pointer"
                   />
                 </div>
                 <div className="mt-4 flex justify-center">
