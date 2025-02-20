@@ -98,12 +98,6 @@ const LoginForm = () => {
     }
   };
 
-  const handleGoogleSuccess = (user) => {
-    saveLoginCredentials(user, user.token, "Google login successful");
-    // Si quieres redirigir después del login de Google, puedes hacerlo aquí:
-    // router.push("/dashboard");
-  };
-
   return (
     <div className="flex flex-col h-full" data-testid="login-container">
       <main className="w-full flex flex-col justify-center items-center">
@@ -176,7 +170,7 @@ const LoginForm = () => {
                 aria-label="Submit Log In"
               />
 
-              <GoogleAuth onGoogleSuccess={handleGoogleSuccess} />
+              <GoogleAuth />
 
               <div className="flex mt-4 space-x-1 items-center text-labelMedium relative bottom-1">
                 <p>{translations["logIn.forgot"]}</p>

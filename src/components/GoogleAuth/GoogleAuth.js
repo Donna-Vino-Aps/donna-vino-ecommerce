@@ -1,18 +1,21 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { useGoogleLogin } from "@react-oauth/google";
 import axios from "axios";
 import { baseApiUrl } from "@/config/environment";
 import { logInfo, logError } from "../../utils/logging";
 import Button from "../Button/Button";
 import { useLanguage } from "@/context/LanguageContext";
+import { CredentialsContext } from "@/context/credentialsContext";
 
-const GoogleAuth = ({ children }) => {
+const GoogleAuth = () => {
   const clientId = process.env.GOOGLE_CLIENT_ID;
   const { translations } = useLanguage();
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
+
+  const { setStoredCredentials } = useContext(CredentialsContext);
 
   const login = useGoogleLogin({
     onSuccess: async (response) => {
@@ -22,8 +25,6 @@ const GoogleAuth = ({ children }) => {
         logError("No access_token found in Google login response.");
         return;
       }
-
-      // logInfo(`Google Login Success: ${JSON.stringify(accessToken)}`);
 
       setIsLoading(true);
 
@@ -52,6 +53,11 @@ const GoogleAuth = ({ children }) => {
 
         if (serverResponse.data.success) {
           logInfo("Backend authenticated successfully:", serverResponse.data);
+          saveLoginCredentials(
+            userData,
+            accessToken,
+            "Google login successful",
+          );
         } else {
           throw new Error(
             serverResponse.data.msg || "Backend authentication failed",
@@ -70,10 +76,19 @@ const GoogleAuth = ({ children }) => {
     clientId,
   });
 
+  const saveLoginCredentials = async (user, token, msg) => {
+    try {
+      await localStorage.setItem("userCredentials", JSON.stringify(user));
+      await localStorage.setItem("userCredentialsToken", token);
+      setStoredCredentials(user);
+      logInfo("User saved in localStorage");
+    } catch (error) {
+      logError("Error saving user credentials", error);
+    }
+  };
+
   return (
     <div className="w-full">
-      {children}
-
       <Button
         text={translations["logIn.signin-google"]}
         onClick={() => login()}
@@ -83,7 +98,8 @@ const GoogleAuth = ({ children }) => {
         aria-label="Google Sign In"
         className="space-y-1"
       />
-      {isLoading && <div>Loading...</div>}
+
+      {isLoading && <div className="text-center">Loading...</div>}
       {error && <div style={{ color: "red" }}>{error}</div>}
     </div>
   );

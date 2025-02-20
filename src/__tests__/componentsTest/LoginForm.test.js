@@ -3,6 +3,7 @@ import { render, screen } from "@testing-library/react";
 import LoginForm from "@/components/LogIn/LoginForm.js";
 import { useLanguage } from "@/context/LanguageContext";
 import { useRouter } from "next/navigation";
+import { GoogleOAuthProvider } from "@react-oauth/google";
 
 // Mock useLanguage to avoid translation errors
 jest.mock("@/context/LanguageContext", () => ({
@@ -27,11 +28,15 @@ describe("LoginForm", () => {
     useRouter.mockReturnValue({
       push: jest.fn(), // Mock navigation function
     });
-    render(<LoginForm />);
+
+    render(
+      <GoogleOAuthProvider>
+        <LoginForm />
+      </GoogleOAuthProvider>,
+    );
   });
 
   test("renders the login container div", async () => {
-    // Check if the login container div is rendered
     const loginContainer = await screen.findByTestId("login-container");
     expect(loginContainer).toBeInTheDocument();
   });
