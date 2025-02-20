@@ -18,6 +18,7 @@ export const useLogoutUser = () => {
     } finally {
       // Clear stored credentials (as saved in the login)
       localStorage.removeItem("userCredentials");
+      localStorage.removeItem("userCredentialsToken");
       sessionStorage.clear();
       // Redirect to login page using Next.js router
       router.push("/");

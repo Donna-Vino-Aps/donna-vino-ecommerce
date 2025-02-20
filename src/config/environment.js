@@ -1,7 +1,7 @@
 import { API_URL_HEROKU } from "@env";
 import { logInfo } from "@/utils/logging";
 
-export const baseApiUrl = API_URL_HEROKU;
+export const baseApiUrl = API_URL_HEROKU.replace(/\/$/, "");
 
 //Logout-endpoint
 export const LOGOUT_ENDPOINT = `${baseApiUrl}/api/user/log-out`;
