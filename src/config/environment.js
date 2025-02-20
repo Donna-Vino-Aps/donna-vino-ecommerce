@@ -1,7 +1,7 @@
 import { API_URL_LOCAL } from "@env";
 import { logInfo } from "@/utils/logging";
 
-export const baseApiUrl = API_URL_LOCAL.replace(/\/$/, "");
+export const baseApiUrl = API_URL_LOCAL;
 
 //Logout-endpoint
 export const LOGOUT_ENDPOINT = `${baseApiUrl}/api/user/log-out`;
