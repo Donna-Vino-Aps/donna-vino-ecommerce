@@ -1,5 +1,3 @@
-"use client";
-
 import React, { useState, useContext, useEffect } from "react";
 import { Formik, Form } from "formik";
 import { CredentialsContext } from "../../context/credentialsContext";
@@ -10,7 +8,8 @@ import { MdOutlineEmail, MdLockOutline } from "react-icons/md";
 import Button from "../Button/Button.js";
 import Link from "next/link";
 import TextInputLoginScreen from "../SignUpScreen/TextInputSignUpScreen";
-import { logInfo, logError } from "@/utils/logging";
+import { logInfo, logError } from "../../utils/logging";
+import GoogleAuth from "../GoogleAuth/GoogleAuth";
 
 const LoginForm = () => {
   const { translations } = useLanguage();
@@ -71,9 +70,21 @@ const LoginForm = () => {
     setMsg(msg);
   };
 
-  const saveLoginCredentials = (user) => {
+  const saveLoginCredentials = async (
+    user,
+    token = null,
+    msg = "",
+    successStatus = true,
+  ) => {
     try {
-      localStorage.setItem("userCredentials", JSON.stringify(user));
+      await localStorage.setItem("userCredentials", JSON.stringify(user));
+      if (token) {
+        await localStorage.setItem("userCredentialsToken", token);
+      }
+      handleMessage({
+        successStatus: successStatus,
+        msg: msg || "User credentials saved successfully",
+      });
       setStoredCredentials(user);
       logInfo(
         `User saved in localStorage: ${localStorage.getItem("userCredentials")}`,
@@ -162,18 +173,11 @@ const LoginForm = () => {
                   data-testid="login-button"
                   aria-label="Submit Log In"
                 />
-
-                <Button
-                  text={translations["logIn.signin-google"]}
-                  onClick={handleSubmit}
-                  variant="lightRedWide"
-                  icon="/icons/google-darkred.svg"
-                  data-testid="login-button"
-                  aria-label="Submit Log In"
-                  className="space-y-1"
-                />
               </div>
-              <div className="flex mt-4 space-x-1 items-center text-titleMedium font-barlow relative">
+              <GoogleAuth />
+
+              <div className="flex mt-4 space-x-1 items-center text-labelMedium relative bottom-1">
+                <p>{translations["logIn.forgot"]}</p>
                 <Link
                   href="/forgotpassword"
                   data-testid="forget-password-link"

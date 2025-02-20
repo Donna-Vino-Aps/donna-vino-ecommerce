@@ -1,5 +1,5 @@
 {
-  "name": "donna-vino-ecommerce",
+  "name": "donna-vino-e-commerce",
   "version": "0.1.0",
   "private": true,
   "engines": {
@@ -28,12 +28,15 @@
     "@emotion/styled": "^11.14.0",
     "@mui/material": "^6.4.2",
     "@mui/x-date-pickers": "^7.25.0",
+    "@react-oauth/google": "^0.12.1",
     "autoprefixer": "^10.4.20",
     "axios": "^1.7.9",
     "date-fns": "^4.1.0",
     "dayjs": "^1.11.13",
     "formik": "^2.4.6",
-    "next": "^15.1.2",
+    "jwt-decode": "^4.0.0",
+    "next": "^15.1.7",
+    "next-auth": "^4.24.11",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-dotenv": "^0.1.3",
