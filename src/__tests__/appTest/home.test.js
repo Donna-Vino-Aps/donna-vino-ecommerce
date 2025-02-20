@@ -7,6 +7,7 @@ import enTranslations from "../../translations/en.json";
 import { LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { useRouter } from "next/navigation";
+import { GoogleOAuthProvider } from "@react-oauth/google";
 
 jest.mock("next/navigation", () => ({
   useRouter: jest.fn(),
@@ -15,11 +16,14 @@ jest.mock("next/navigation", () => ({
 describe("Home Page", () => {
   const renderWithLanguage = (translations = enTranslations) => {
     return render(
-      <LanguageProvider value={translations}>
-        <LocalizationProvider dateAdapter={AdapterDayjs}>
-          <Home />
-        </LocalizationProvider>
-      </LanguageProvider>,
+      <GoogleOAuthProvider>
+        <LanguageProvider value={translations}>
+          <LocalizationProvider dateAdapter={AdapterDayjs}>
+            <Home />
+          </LocalizationProvider>
+        </LanguageProvider>
+        ,
+      </GoogleOAuthProvider>,
     );
   };
 
