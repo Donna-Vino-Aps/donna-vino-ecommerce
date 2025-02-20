@@ -17,7 +17,7 @@
   "logIn.placeholder-mail": "Insert your email",
   "logIn.placeholder-password": "Insert your password",
   "logIn.forgot": "Did you forget your password?",
-  "logIn.forgot-link": "Recover",
+  "logIn.forgot-link": "Forget Password?",
   "logIn.no-account": "Don't have an account?",
   "logIn.no-account-link": "Sign Up",
   "logIn.signup-button": "Sign Up",
