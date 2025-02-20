@@ -82,7 +82,7 @@ const GoogleAuth = () => {
     clientId,
   });
 
-  const saveLoginCredentials = async (user, token, msg) => {
+  const saveLoginCredentials = async (user, token) => {
     try {
       await localStorage.setItem("userCredentials", JSON.stringify(user));
       await localStorage.setItem("userCredentialsToken", token);
