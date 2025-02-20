@@ -1,9 +1,8 @@
 import React from "react";
 import { render, screen, fireEvent, waitFor } from "@testing-library/react";
 import LogoutButton from "@/components/Button/Logout";
-import { useRouter } from "next/navigation";
 
-// Mock Next.js router and its push method
+// Create a mock for router.push
 const mockPush = jest.fn();
 jest.mock("next/navigation", () => ({
   useRouter: () => ({
@@ -11,10 +10,15 @@ jest.mock("next/navigation", () => ({
   }),
 }));
 
-// Mock the logoutUser function
-import { logoutUser } from "@/services/authService";
+// Create a mock for the logout hook that simulates the router push call.
+const mockLogout = jest.fn(async () => {
+  // Simulate the redirect inside the hook.
+  mockPush("/");
+});
+
+// Mock the useLogoutUser hook to return our mockLogout function.
 jest.mock("@/services/authService", () => ({
-  logoutUser: jest.fn().mockResolvedValue(),
+  useLogoutUser: () => mockLogout,
 }));
 
 describe("LogoutButton Component", () => {
@@ -26,7 +30,6 @@ describe("LogoutButton Component", () => {
   });
 
   afterEach(() => {
-    // Clean up localStorage and mocks
     localStorage.removeItem("userCredentials");
     jest.clearAllMocks();
   });
@@ -48,9 +51,8 @@ describe("LogoutButton Component", () => {
     render(<LogoutButton />);
     const button = screen.getByRole("button", { name: /logout/i });
     fireEvent.click(button);
-
     await waitFor(() => {
-      expect(logoutUser).toHaveBeenCalled();
+      expect(mockLogout).toHaveBeenCalled();
       expect(mockPush).toHaveBeenCalledWith("/");
     });
   });

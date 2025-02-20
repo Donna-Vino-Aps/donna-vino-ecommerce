@@ -27,7 +27,7 @@ const LoginForm = () => {
     if (success) {
       saveLoginCredentials(user);
       handleMessage({ successStatus: true, msg: msg });
-      window.location.reload();
+      router.push("/");
     } else {
       logInfo(msg);
       handleMessage({ successStatus: false, msg: msg });
