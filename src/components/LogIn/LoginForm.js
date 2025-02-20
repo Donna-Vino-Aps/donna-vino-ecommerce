@@ -70,54 +70,6 @@ const LoginForm = () => {
     setMsg(msg);
   };
 
-  // const handleGoogleSignIn = async (response) => {
-  //   logInfo("Iniciando autenticación con Google");
-
-  //   if (response?.credential) {
-  //     try {
-  //       // Usamos el token del login de Google y lo pasamos a NextAuth
-  //       const res = await signIn("google", {
-  //         redirect: false,
-  //         credential: response.credential,
-  //       });
-
-  //       if (res?.error) {
-  //         logError("Google Sign-In error:", res.error);
-  //         handleMessage({
-  //           successStatus: false,
-  //           msg: "Failed to sign in with Google",
-  //         });
-  //         return;
-  //       }
-
-  //       const user = res?.user;
-  //       if (!user) {
-  //         logError("No user found in the response");
-  //         handleMessage({
-  //           successStatus: false,
-  //           msg: "Failed to authenticate user with Google",
-  //         });
-  //         return;
-  //       }
-
-  //       logInfo(`Google Sign-In successful: ${JSON.stringify(user)}`);
-  //       handleMessage({
-  //         successStatus: true,
-  //         msg: "Successfully signed in with Google",
-  //       });
-
-  //       await saveLoginCredentials(user);
-  //       router.push("/");
-  //     } catch (error) {
-  //       logError("Google Sign-In error:", error);
-  //       handleMessage({
-  //         successStatus: false,
-  //         msg: "Failed to sign in with Google",
-  //       });
-  //     }
-  //   }
-  // };
-
   const saveLoginCredentials = async (
     user,
     token = null,
