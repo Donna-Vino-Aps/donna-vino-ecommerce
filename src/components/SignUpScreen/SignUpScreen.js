@@ -110,13 +110,10 @@ const SignUpScreen = () => {
             className="text-displaySmall md:text-displayLarge font-barlow text-tertiary1-darker mb-6 text-center"
             aria-label="Sign Up"
           >
-            Join Donna Vino
+            {translations["signUp.heading"]}
           </h2>
           <p className="text-bodyMedium md:text-bodyLarge text-tertiary2-darker text-center -mt-3">
-            Create a profile for your future orders to have all your information
-            saved and ready for use. Registering on our Donna Vino website is
-            quick and easy, allowing you to streamline your shopping experience
-            and enjoy a faster checkout every time.
+            {translations["signUp.paragraph"]}
           </p>
           <Formik
             initialValues={{
@@ -162,7 +159,9 @@ const SignUpScreen = () => {
                 onSubmit={handleSubmit}
                 className="flex flex-col space-y-4 bg-tertiary2-light p-6"
               >
-                <h4 className="text-headlineSmall mb-2">Personal Details</h4>
+                <h4 className="text-headlineSmall mb-2">
+                  {translations["signUp.personal"]}
+                </h4>
                 <div className="flex space-x-6 flex-col md:flex-row md:items-start justify-center">
                   <div className="flex flex-col space-y-2 pr-[1.5rem] md:pr-0 md:w-[50%]">
                     <TextInputSignUpScreen
@@ -242,7 +241,7 @@ const SignUpScreen = () => {
                     className="text-tertiary2-darker text-labelXLarge"
                     htmlFor="birthdate"
                   >
-                    Date of birth
+                    {translations["signUp.label-birthdate"]}
                   </label>
                   <TextInputSignUpScreen
                     type="text"
