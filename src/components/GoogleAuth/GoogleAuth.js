@@ -14,6 +14,7 @@ const GoogleAuth = () => {
   const { translations } = useLanguage();
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
+  const [successMessage, setSuccessMessage] = useState(null);
 
   const { setStoredCredentials } = useContext(CredentialsContext);
 
@@ -27,6 +28,10 @@ const GoogleAuth = () => {
       }
 
       setIsLoading(true);
+
+      // Clear previous messages when a new attempt starts
+      setError(null);
+      setSuccessMessage(null);
 
       try {
         const userProfileResponse = await axios.get(
@@ -58,6 +63,7 @@ const GoogleAuth = () => {
             accessToken,
             "Google login successful",
           );
+          setSuccessMessage("Google login successful!");
         } else {
           throw new Error(
             serverResponse.data.msg || "Backend authentication failed",
@@ -88,7 +94,7 @@ const GoogleAuth = () => {
   };
 
   return (
-    <div className="w-full">
+    <div className="w-full flex flex-col items-center justify-center space-y-4">
       <Button
         text={translations["logIn.signin-google"]}
         onClick={() => login()}
@@ -100,7 +106,10 @@ const GoogleAuth = () => {
       />
 
       {isLoading && <div className="text-center">Loading...</div>}
-      {error && <div style={{ color: "red" }}>{error}</div>}
+      {error && <div className="text-center text-red-500">{error}</div>}
+      {successMessage && (
+        <div className="text-center text-green-500">{successMessage}</div>
+      )}
     </div>
   );
 };
