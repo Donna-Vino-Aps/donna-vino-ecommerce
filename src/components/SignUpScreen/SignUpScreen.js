@@ -161,9 +161,9 @@ const SignUpScreen = () => {
                 onSubmit={handleSubmit}
                 className="flex flex-col space-y-4 bg-tertiary2-light p-6"
               >
-                <h4 className="text-headlineSmall">Personal Details</h4>
-                <div className="flex flex-row space-x-6 items-center justify-center">
-                  <div className="flex flex-col space-y-2">
+                <h4 className="text-headlineSmall mb-2">Personal Details</h4>
+                <div className="flex flex-row space-x-6 items-start justify-center">
+                  <div className="flex flex-col space-y-2 w-[50%]">
                     <TextInputSignUpScreen
                       type="text"
                       name="firstname"
@@ -198,8 +198,24 @@ const SignUpScreen = () => {
                       data-testid="input-password"
                       aria-label="Password"
                     />
+                    <TextInputSignUpScreen
+                      type="text"
+                      name="birthdate"
+                      placeholder="Select your birthdate"
+                      value={values.birthdate || userBirthDay}
+                      onChange={(newValue) => {
+                        setFieldValue("birthdate", newValue);
+                        setUserBirthDay(newValue);
+                      }}
+                      isDate={true}
+                      showDatePicker={() =>
+                        document.getElementById("datePicker").focus()
+                      }
+                      data-testid="input-birthdate"
+                      aria-label="Birthdate"
+                    />
                   </div>
-                  <div className="flex flex-col space-y-2">
+                  <div className="flex flex-col space-y-2 w-[50%]">
                     <TextInputSignUpScreen
                       type="text"
                       name="lastname"
@@ -236,101 +252,12 @@ const SignUpScreen = () => {
                     />
                   </div>
                 </div>
-                <h4 className="text-headlineSmall">Date of Birth</h4>
-                <TextInputSignUpScreen
-                  type="text"
-                  name="birthdate"
-                  placeholder="Select your birthdate"
-                  value={values.birthdate || userBirthDay}
-                  onChange={(newValue) => {
-                    setFieldValue("birthdate", newValue);
-                    setUserBirthDay(newValue);
-                  }}
-                  isDate={true}
-                  showDatePicker={() =>
-                    document.getElementById("datePicker").focus()
-                  }
-                  data-testid="input-birthdate"
-                  aria-label="Birthdate"
-                />
-
-                <h4 className="text-headlineSmall">Shipping Details</h4>
-
-                <div className="flex flex-row space-x-4 items-center justify-center">
-                  <div className="flex flex-col space-y-2">
-                    <TextInputSignUpScreen
-                      type="text"
-                      name="adress-line1"
-                      placeholder="Address*"
-                      value={values.addressLine1}
-                      onChange={handleChange}
-                      onBlur={handleBlur}
-                      icon={<FaRegUser />}
-                      data-testid="input-adress-line1"
-                      aria-label="Address Line 1"
-                    />
-                    <TextInputSignUpScreen
-                      type="text"
-                      name="country"
-                      placeholder="Country"
-                      value={values.city}
-                      onChange={handleChange}
-                      onBlur={handleBlur}
-                      icon={<FaRegUser />}
-                      data-testid="input-country"
-                      aria-label="Country"
-                    />
-                    <TextInputSignUpScreen
-                      type="number"
-                      name="postcode"
-                      placeholder="Postcode / ZIP*"
-                      value={values.city}
-                      onChange={handleChange}
-                      onBlur={handleBlur}
-                      icon={<FaRegUser />}
-                      data-testid="input-zip"
-                      aria-label="Postcode"
-                    />
-                  </div>
-                  <div className="flex flex-col space-y-2">
-                    <TextInputSignUpScreen
-                      type="text"
-                      name="adress-line2"
-                      placeholder="Address line 2"
-                      value={values.addressLine1}
-                      onChange={handleChange}
-                      onBlur={handleBlur}
-                      icon={<FaRegUser />}
-                      data-testid="input-adress-line2"
-                      aria-label="Address Line 2"
-                    />
-                    <TextInputSignUpScreen
-                      type="text"
-                      name="adress-line1"
-                      placeholder="City / Town*"
-                      value={values.city}
-                      onChange={handleChange}
-                      onBlur={handleBlur}
-                      icon={<FaRegUser />}
-                      data-testid="input-city"
-                      aria-label="City/Town"
-                    />
-                    <TextInputSignUpScreen
-                      type="tel"
-                      name="telephone"
-                      placeholder="Phone*"
-                      value={values.city}
-                      onChange={handleChange}
-                      onBlur={handleBlur}
-                      icon={<FaRegUser />}
-                      data-testid="input-telephone"
-                      aria-label="Phone Number"
-                    />
-                  </div>
+                <div className="inline-block">
+                  <p>I accept</p>
+                  <Link>Terms of use</Link>
+                  <p>and</p>
+                  <u>Privacy Policy</u>
                 </div>
-                <p>
-                  I accept <u>Terms of use</u> and <u>Privacy Policy</u>
-                </p>
                 <div className="mt-4 flex justify-center">
                   <div className="flex justify-center pb-4">
                     <p
@@ -342,7 +269,7 @@ const SignUpScreen = () => {
                     </p>
                   </div>
                   <Button
-                    text={translations["signUp.button"]}
+                    text={translations["signUp.create-button"]}
                     onClick={handleSubmit}
                     variant="red"
                     data-testid="submit-button"
