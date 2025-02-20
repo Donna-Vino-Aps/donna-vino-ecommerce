@@ -5,6 +5,7 @@ import { useLanguage } from "@/context/LanguageContext";
 import useFetch from "../../hooks/api/useFetch";
 import { logError, logInfo } from "../../utils/logging";
 import Button from "../Button/Button";
+// import Link from "next/link";
 import TextInputSignUpScreen from "../SignUpScreen/TextInputSignUpScreen";
 import { FaRegUser } from "react-icons/fa";
 import { MdOutlineEmail, MdLockOutline } from "react-icons/md";
@@ -198,22 +199,6 @@ const SignUpScreen = () => {
                       data-testid="input-password"
                       aria-label="Password"
                     />
-                    <TextInputSignUpScreen
-                      type="text"
-                      name="birthdate"
-                      placeholder="Select your birthdate"
-                      value={values.birthdate || userBirthDay}
-                      onChange={(newValue) => {
-                        setFieldValue("birthdate", newValue);
-                        setUserBirthDay(newValue);
-                      }}
-                      isDate={true}
-                      showDatePicker={() =>
-                        document.getElementById("datePicker").focus()
-                      }
-                      data-testid="input-birthdate"
-                      aria-label="Birthdate"
-                    />
                   </div>
                   <div className="flex flex-col space-y-2 w-[50%]">
                     <TextInputSignUpScreen
@@ -252,10 +237,36 @@ const SignUpScreen = () => {
                     />
                   </div>
                 </div>
-                <div className="inline-block">
-                  <p>I accept</p>
-                  <Link>Terms of use</Link>
-                  <p>and</p>
+                <div className="inline-flex">
+                  <h4 className="text-headlineSmall mt-2">Date of birth</h4>
+                  <img
+                    src="/icons/date-of-birth.svg"
+                    alt="date of birth info-popup"
+                    className="ml-2 relative top-[6px] cursor-pointer"
+                  />
+                </div>
+                <TextInputSignUpScreen
+                  type="text"
+                  name="birthdate"
+                  placeholder="Select your birthdate"
+                  value={values.birthdate || userBirthDay}
+                  onChange={(newValue) => {
+                    setFieldValue("birthdate", newValue);
+                    setUserBirthDay(newValue);
+                  }}
+                  isDate={true}
+                  showDatePicker={() =>
+                    document.getElementById("datePicker").focus()
+                  }
+                  data-testid="input-birthdate"
+                  aria-label="Birthdate"
+                />
+
+                <div className="inline-flex relative bottom-1 left-1">
+                  <input type="checkbox" className="w-[1.25rem] mr-1" />
+                  <p>I accept &nbsp;</p>
+                  <u>Terms of use </u>
+                  <p>&nbsp; and &nbsp;</p>
                   <u>Privacy Policy</u>
                 </div>
                 <div className="mt-4 flex justify-center">
@@ -268,13 +279,15 @@ const SignUpScreen = () => {
                       {msg}
                     </p>
                   </div>
-                  <Button
-                    text={translations["signUp.create-button"]}
-                    onClick={handleSubmit}
-                    variant="red"
-                    data-testid="submit-button"
-                    aria-label="Submit Sign Up"
-                  />
+                  <div className="w-full mt-2">
+                    <Button
+                      text={translations["signUp.create-button"]}
+                      onClick={handleSubmit}
+                      variant="redWide"
+                      data-testid="submit-button"
+                      aria-label="Submit Sign Up"
+                    />
+                  </div>
                 </div>
 
                 {/* Loading Indicator */}
