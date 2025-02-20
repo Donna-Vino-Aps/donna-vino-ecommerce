@@ -1,80 +1,91 @@
 "use client";
 
-import React from "react";
-import { useState } from "react";
+import React, { useState } from "react";
+import { useGoogleLogin } from "@react-oauth/google";
 import axios from "axios";
 import { baseApiUrl } from "@/config/environment";
-import { GoogleOAuthProvider } from "@react-oauth/google";
-import { GoogleLogin } from "@react-oauth/google";
 import { logInfo, logError } from "../../utils/logging";
-import { jwtDecode } from "jwt-decode";
+import Button from "../Button/Button";
+import { useLanguage } from "@/context/LanguageContext";
 
 const GoogleAuth = ({ children }) => {
   const clientId = process.env.GOOGLE_CLIENT_ID;
+  const { translations } = useLanguage();
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
 
-  const handleSuccess = async (response) => {
-    const credential = response.credential;
-    const idToken = response.credential;
+  const login = useGoogleLogin({
+    onSuccess: async (response) => {
+      const accessToken = response?.access_token;
 
-    logInfo(`Google Login Success:", ${JSON.stringify(credential)}`);
-    logInfo(`idToken:", ${JSON.stringify(idToken)}`);
-    setIsLoading(true);
-
-    try {
-      // Decode the token to get user data
-      const decoded = jwtDecode(credential);
-      logInfo(`Decoded JWT, ${JSON.stringify(decoded)}`);
-
-      // Prepare user data
-      const userData = {
-        email: decoded.email,
-        name: decoded.name,
-        picture: decoded.picture,
-        token: idToken,
-      };
-
-      // Authenticate user with backend
-      const serverResponse = await axios.post(
-        `${baseApiUrl}/api/auth/sign-in-with-google`,
-        userData,
-        { withCredentials: true },
-      );
-
-      if (serverResponse.data.success) {
-        logInfo("Backend authenticated successfully:", serverResponse.data);
-        // Do something with server response, e.g., set user data in context
-      } else {
-        throw new Error(
-          serverResponse.data.msg || "Backend authentication failed",
-        );
+      if (!accessToken) {
+        logError("No access_token found in Google login response.");
+        return;
       }
-    } catch (error) {
-      setError(error.message);
-      logError("Google sign-in failed:", error);
-    } finally {
-      setIsLoading(false);
-    }
-  };
 
-  const handleError = (error) => {
-    logInfo("Google Login Error:", error);
-  };
+      // logInfo(`Google Login Success: ${JSON.stringify(accessToken)}`);
+
+      setIsLoading(true);
+
+      try {
+        const userProfileResponse = await axios.get(
+          `https://www.googleapis.com/oauth2/v3/userinfo?access_token=${accessToken}`,
+        );
+
+        const { email, name, picture } = userProfileResponse.data;
+        logInfo(
+          `User profile data: ${JSON.stringify(userProfileResponse.data)}`,
+        );
+
+        const userData = {
+          email,
+          name,
+          picture,
+          token: accessToken,
+        };
+
+        const serverResponse = await axios.post(
+          `${baseApiUrl}/api/auth/sign-in-with-google`,
+          userData,
+          { withCredentials: true },
+        );
+
+        if (serverResponse.data.success) {
+          logInfo("Backend authenticated successfully:", serverResponse.data);
+        } else {
+          throw new Error(
+            serverResponse.data.msg || "Backend authentication failed",
+          );
+        }
+      } catch (error) {
+        setError(error.message);
+        logError("Google sign-in failed:", error);
+      } finally {
+        setIsLoading(false);
+      }
+    },
+    onError: (error) => {
+      logInfo("Google Login Error:", error);
+    },
+    clientId,
+  });
 
   return (
-    <GoogleOAuthProvider clientId={clientId}>
-      <div>
-        {children}
+    <div className="w-full">
+      {children}
 
-        <GoogleLogin
-          onSuccess={handleSuccess}
-          onError={handleError}
-          useOneTap
-          theme="outline"
-        />
-      </div>
-    </GoogleOAuthProvider>
+      <Button
+        text={translations["logIn.signin-google"]}
+        onClick={() => login()}
+        variant="lightRedWide"
+        icon="/icons/google-darkred.svg"
+        data-testid="login-google-button"
+        aria-label="Google Sign In"
+        className="space-y-1"
+      />
+      {isLoading && <div>Loading...</div>}
+      {error && <div style={{ color: "red" }}>{error}</div>}
+    </div>
   );
 };
 
