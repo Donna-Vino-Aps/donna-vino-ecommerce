@@ -19,8 +19,36 @@ const TastingSession = () => {
   //   };
 
   return (
-    <section className="relative flex flex-col-reverse md:w-full md:flex-row justify-between bg-white min-h-[36rem] space-y-2">
-      <div className="relative justify-center self-start w-full md:w-1/2 h-full">
+    <section className="relative flex flex-col-reverse md:w-full md:flex-row justify-between bg-white min-h-[36rem]">
+      <div className="md:hidden flex mx-auto my-3">
+        <button
+          // onClick={handlePrevious}
+          className="md:w-[2rem] md:h-[2rem] lg:w-[2.25rem] lg:h-[2.25rem] xl:w-[2.625rem] xl:h-[2.625rem] rounded-full flex items-center justify-center active:bg-primary-hover_normal mr-[8px]"
+          aria-label="Previous image"
+          data-testid="carousel-previous-button"
+        >
+          <img
+            src="/icons/Prev.svg"
+            alt="Previous arrow"
+            data-testid="icon-previous-arrow"
+            role="presentation"
+          ></img>
+        </button>
+        <button
+          // onClick={handleNext}
+          className="md:w-[2rem] md:h-[2rem] lg:w-[2.25rem] lg:h-[2.25rem] xl:w-[2.625rem] xl:h-[2.625rem] rounded-full flex items-center justify-center active:bg-primary-hover_normal ml-[8px]"
+          aria-label="Next image"
+          data-testid="carousel-next-button"
+        >
+          <img
+            src="/icons/Next.svg"
+            alt="Next arrow"
+            data-testid="icon-next-arrow"
+            role="presentation"
+          ></img>
+        </button>
+      </div>
+      <div className="relative justify-center self-start w-full md:w-1/2 min-h-[22.75rem] md:h-full">
         <video
           className="absolute inset-0 rounded-t-[6rem] md:rounded-t-[0rem] md:rounded-tr-[8rem] md:rounded-br-xl object-cover w-full h-full"
           autoPlay
@@ -32,7 +60,7 @@ const TastingSession = () => {
           data-testid="hero-video"
         >
           <source
-            src="https://res.cloudinary.com/dxnptdhrp/video/upload/v1735508300/sgx733bdfjq7rvcv9x7p.mp4"
+            src="https://res.cloudinary.com/dxnptdhrp/video/upload/f_auto:video,q_auto/kort_video_loop_hil7qq"
             type="video/mp4"
           />
           Your browser does not support the video tag.
@@ -47,7 +75,7 @@ const TastingSession = () => {
         <h2 className="text-headlineSmall text-center md:text-left md:text-headlineLarge lg:text-displaySmall xl:text-displayMedium text-tertiary1-dark my-1 md:my-2 mr-8">
           {translations["tasting.heading"]}
         </h2>
-        <p className="text-center md:text-start text-bodySmall md:text-bodyMedium xl:text-bodyLarge md:mt-3 mb-3 md:mb-5 xl:mb-10 mr-10">
+        <p className="text-center md:text-start text-bodySmall md:text-bodyMedium xl:text-bodyLarge md:mt-3 mb-4 md:mb-5 xl:mb-10 mr-10">
           {translations["tasting.paragraph"]}
         </p>
         <Button
@@ -57,7 +85,7 @@ const TastingSession = () => {
           ariaLabel="Book tasting session"
           testId="book-tasting-button"
         ></Button>
-        <div className="hidden md:flex absolute md:bottom-8 md:right-8 lg:bottom-10 lg:right-10 xl:bottom-14 xl:right-12">
+        <div className="hidden md:flex mt-4 md:absolute md:bottom-8 md:right-8 lg:bottom-10 lg:right-10 xl:bottom-14 xl:right-12">
           <button
             // onClick={handlePrevious}
             className="md:w-[2rem] md:h-[2rem] lg:w-[2.25rem] lg:h-[2.25rem] xl:w-[2.625rem] xl:h-[2.625rem] rounded-full flex items-center justify-center active:bg-primary-hover_normal mr-[8px]"
