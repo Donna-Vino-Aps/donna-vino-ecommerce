@@ -19,13 +19,28 @@ const TastingSession = () => {
   //   };
 
   return (
-    <section className="relative flex flex-row bg-white pb-4 md:pb-0">
-      <figure className="hidden md:flex md:w-[50%]">
-        <img src="/images/dv-tasting.png" />
-      </figure>
-      <div className="flex flex-col justify-center align-center items-center md:items-start font-barlow font-regular px-20 md:px-6 lg:px-10 xl:px-14 md:w-[50%]">
+    <section className="relative flex flex-col-reverse md:w-full md:flex-row justify-between bg-white min-h-[36rem] space-y-2">
+      <div className="relative justify-center self-start w-full md:w-1/2 h-full">
+        <video
+          className="absolute inset-0 rounded-t-[6rem] md:rounded-t-[0rem] md:rounded-tr-[8rem] md:rounded-br-xl object-cover w-full h-full"
+          autoPlay
+          loop
+          muted
+          role="region"
+          aria-label="Background video for TastingSession Section"
+          aria-hidden="true"
+          data-testid="hero-video"
+        >
+          <source
+            src="https://res.cloudinary.com/dxnptdhrp/video/upload/v1735508300/sgx733bdfjq7rvcv9x7p.mp4"
+            type="video/mp4"
+          />
+          Your browser does not support the video tag.
+        </video>
+      </div>
+      <div className="flex flex-col justify-center align-center items-center md:items-start font-barlow font-regular px-10 sm:px-20 md:px-6 lg:px-10 xl:px-14 min-h-[20rem] md:max-w-[50%]">
         <div>
-          <p className="text-titleSmall md:text-titleMedium xl:text-titleLarge text-primary-dark">
+          <p className=" sm:text-titleSmall md:text-titleMedium xl:text-titleLarge text-primary-dark">
             {translations["tasting.subheading"]}🍷✨
           </p>
         </div>
