@@ -4,7 +4,7 @@ import { useLogoutUser } from "@/services/authService";
 
 const LogoutButton = () => {
   // Get logoutUser from our custom hook
-  const logoutUser = useLogoutUser();
+  const { logoutUser } = useLogoutUser();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   useEffect(() => {

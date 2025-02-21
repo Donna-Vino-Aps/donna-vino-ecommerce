@@ -3,22 +3,36 @@ import useFetch from "@/hooks/api/useFetch";
 
 export const useLogoutUser = () => {
   const router = useRouter();
-  const { performFetch } = useFetch("/user/log-out", "POST");
+
+  // Handle the response from the logout API.
+  const onReceived = (response) => {
+    console.log("Logout response:", response);
+  };
+
+  // Initialize useFetch with the onReceived callback.
+  const { performFetch, error, isLoading } = useFetch(
+    "/user/log-out",
+    "POST",
+    null,
+    {},
+    onReceived
+  );
 
   const logoutUser = async () => {
     try {
-      await performFetch();
-    } catch (error) {
-      console.error("Logout error:", error);
+      // Make the logout API call.
+      await performFetch({ method: "POST" });
+    } catch (err) {
+      console.error("Logout error:", err);
     } finally {
-      // Clear stored credentials (as saved in the login)
+      // Clear stored credentials regardless of the API response.
       localStorage.removeItem("userCredentials");
       localStorage.removeItem("userCredentialsToken");
       sessionStorage.clear();
-      // Redirect to login page using Next.js router
+      // Redirect the user to the login page.
       router.push("/");
     }
   };
 
-  return logoutUser;
+  return { logoutUser, error, isLoading };
 };
