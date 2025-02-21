@@ -1,12 +1,13 @@
 import { useRouter } from "next/navigation";
 import useFetch from "@/hooks/api/useFetch";
+import { logInfo } from "@/utils/logging";
 
 export const useLogoutUser = () => {
   const router = useRouter();
 
   // Handle the response from the logout API.
   const onReceived = (response) => {
-    console.log("Logout response:", response);
+    logInfo("Logout response:", response);
   };
 
   // Initialize useFetch with the onReceived callback.
@@ -15,7 +16,7 @@ export const useLogoutUser = () => {
     "POST",
     null,
     {},
-    onReceived
+    onReceived,
   );
 
   const logoutUser = async () => {
