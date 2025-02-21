@@ -22,7 +22,7 @@ export const useLogoutUser = () => {
   const logoutUser = async () => {
     try {
       // Make the logout API call.
-      await performFetch({ method: "POST" });
+      await performFetch();
     } catch (err) {
       console.error("Logout error:", err);
     } finally {
