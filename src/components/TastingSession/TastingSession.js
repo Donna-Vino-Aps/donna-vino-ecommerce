@@ -90,12 +90,12 @@ const TastingSession = () => {
             // onClick={handlePrevious}
             className="md:w-[2rem] md:h-[2rem] lg:w-[2.25rem] lg:h-[2.25rem] xl:w-[2.625rem] xl:h-[2.625rem] rounded-full flex items-center justify-center active:bg-primary-hover_normal mr-[8px]"
             aria-label="Previous image"
-            data-testid="carousel-previous-button"
+            data-testid="carousel-previous-button-large"
           >
             <img
               src="/icons/Prev.svg"
               alt="Previous arrow"
-              data-testid="icon-previous-arrow"
+              data-testid="icon-previous-arrow-large"
               role="presentation"
             ></img>
           </button>
@@ -103,12 +103,12 @@ const TastingSession = () => {
             // onClick={handleNext}
             className="md:w-[2rem] md:h-[2rem] lg:w-[2.25rem] lg:h-[2.25rem] xl:w-[2.625rem] xl:h-[2.625rem] rounded-full flex items-center justify-center active:bg-primary-hover_normal ml-[8px]"
             aria-label="Next image"
-            data-testid="carousel-next-button"
+            data-testid="carousel-next-button-large"
           >
             <img
               src="/icons/Next.svg"
               alt="Next arrow"
-              data-testid="icon-next-arrow"
+              data-testid="icon-next-arrow-large"
               role="presentation"
             ></img>
           </button>

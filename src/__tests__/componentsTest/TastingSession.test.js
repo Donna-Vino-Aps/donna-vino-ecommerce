@@ -53,9 +53,13 @@ describe("TastingSession Component", () => {
   test("renders the previous and next buttons", () => {
     render(<TastingSession />);
 
-    expect(screen.getByTestId("carousel-previous-button")).toBeInTheDocument();
-    expect(screen.getByTestId("carousel-next-button")).toBeInTheDocument();
-    expect(screen.getByTestId("icon-previous-arrow")).toBeInTheDocument();
-    expect(screen.getByTestId("icon-next-arrow")).toBeInTheDocument();
+    expect(
+      screen.getByTestId("carousel-previous-button-large"),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByTestId("carousel-next-button-large"),
+    ).toBeInTheDocument();
+    expect(screen.getByTestId("icon-previous-arrow-large")).toBeInTheDocument();
+    expect(screen.getByTestId("icon-next-arrow-large")).toBeInTheDocument();
   });
 });
