@@ -1,18 +1,13 @@
-import { LOGOUT_ENDPOINT } from "@/config/environment";
 import { useRouter } from "next/navigation";
+import useFetch from "@/hooks/api/useFetch";
 
 export const useLogoutUser = () => {
   const router = useRouter();
+  const { performFetch } = useFetch("/user/log-out", "POST");
 
   const logoutUser = async () => {
     try {
-      const response = await fetch(LOGOUT_ENDPOINT, {
-        method: "POST",
-        credentials: "include",
-      });
-      if (!response.ok) {
-        throw new Error("Error logging out");
-      }
+      await performFetch();
     } catch (error) {
       console.error("Logout error:", error);
     } finally {
