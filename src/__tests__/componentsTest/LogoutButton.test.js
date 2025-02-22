@@ -18,7 +18,7 @@ const mockLogout = jest.fn(async () => {
 
 // Mock the useLogoutUser hook to return our mockLogout function.
 jest.mock("@/services/authService", () => ({
-  useLogoutUser: () => mockLogout,
+  useLogoutUser: () => ({ logoutUser: mockLogout }),
 }));
 
 describe("LogoutButton Component", () => {
