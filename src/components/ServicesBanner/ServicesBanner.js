@@ -7,7 +7,10 @@ const ServicesBanner = () => {
   const router = useRouter();
   const { translations } = useLanguage();
   return (
-    <div className="flex flex-col gap-y-8 py-24 items-center justify-center w-full md:h-[20rem] bg-white">
+    <div
+      className="servicesBanner flex flex-col gap-y-8 py-24 items-center justify-center w-full md:h-[20rem]"
+      style={{ backgroundColor: "rgba(253, 232, 233, 0.3)" }}
+    >
       <h1 className="text-headlineLarge mx-24 sm:mx-16 md:mx-0 text-center md:text-start md:text-titleLarge lg:text-headlineMedium xl:text-displaySmall text-normal text-tertiary1-darker font-roboto">
         {translations["services.heading"]}
       </h1>
