@@ -285,13 +285,12 @@ const SignUpScreen = () => {
                     />
                   </div>
                 </div>
-
-                <div className="flex flex-col space-y-3 text-gray-800">
+                <div className="flex flex-col space-y-3 text-tertiary1-darker text-bodyLarge">
                   {/* Terms of Use Checkbox */}
-                  <label className="flex items-center space-x-2 text-sm md:text-base cursor-pointer">
+                  <label className="flex items-center space-x-3 cursor-pointer">
                     <input
                       type="checkbox"
-                      className="w-5 h-5 accent-gray-700 cursor-pointer"
+                      className="w-6 h-6 border-2 border-secondary-active rounded-md bg-white text-secondary-active focus:ring-2 focus:ring-secondary-hover checked:bg-secondary-active checked:border-secondary-dark transition-all duration-200"
                     />
                     <span
                       dangerouslySetInnerHTML={{
@@ -305,9 +304,12 @@ const SignUpScreen = () => {
                             `<strong>${translations["signUp.privacy"]}</strong>`,
                           ),
                       }}
+                      className="text-bodyLarge text-secondary-dark"
                     />
                   </label>
-                  <label className="flex items-center space-x-2 text-sm md:text-base cursor-pointer">
+
+                  {/* Subscribe to Newsletter Checkbox */}
+                  <label className="flex items-center space-x-3 cursor-pointer">
                     <input
                       type="checkbox"
                       name="subscribeToNewsletter"
@@ -318,11 +320,14 @@ const SignUpScreen = () => {
                           !values.subscribeToNewsletter,
                         )
                       }
-                      className="w-5 h-5 accent-gray-700 cursor-pointer"
+                      className="w-6 h-6 border-2 border-secondary-active rounded-md bg-white text-secondary-active focus:ring-2 focus:ring-secondary-hover checked:bg-secondary-active checked:border-secondary-dark transition-all duration-200"
                     />
-                    <span>{translations["signUp.updates"]}</span>
+                    <span className="text-bodyLarge text-secondary-dark">
+                      {translations["signUp.updates"]}
+                    </span>
                   </label>
                 </div>
+
                 <div className="mt-4 flex justify-center">
                   <div className="flex justify-center pb-4">
                     <p
