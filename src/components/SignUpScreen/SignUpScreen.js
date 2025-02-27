@@ -61,8 +61,6 @@ const SignUpScreen = () => {
       : null;
 
     const credentials = {
-      // You might want to combine first and last name into "name" if that's what your backend expects,
-      // or send them separately. Here we assume you want to send them separately.
       firstName: values.firstName,
       lastName: values.lastName,
       email: values.email,
