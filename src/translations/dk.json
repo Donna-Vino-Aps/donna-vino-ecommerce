@@ -16,7 +16,7 @@
   "logIn.label-password": "Din Adgangskode",
   "logIn.placeholder-mail": "Indtast din e-mail",
   "logIn.placeholder-password": "Indtast din adgangskode",
-  "logIn.forgot": "Har du glemt adgangskode?",
+  "logIn.forgot-sentence": "Har du glemt adgangskode?",
   "logIn.forgot-link": "Glemt Adgangskode",
   "logIn.no-account": "Har du ikke en konto?",
   "logIn.no-account-link": "Opret her",
