@@ -36,5 +36,14 @@
   "signUp.acceptTerms": "Jeg accepterer {terms} og {privacy}.",
   "signUp.terms": "Brugsbetingelser",
   "signUp.privacy": "Privatlivspolitik",
-  "signUp.updates": "Jeg vil gerne modtage opdateringer og tilbud."
+  "signUp.updates": "Jeg vil gerne modtage opdateringer og tilbud.",
+
+  "forgotPassword.heading": "Har du glemt din adgangskode?",
+  "forgotPassword.paragraph": "Ingen bekymringer! Indtast den e-mailadresse, du brugte til registrering, så sender vi dig et midlertidigt link til at nulstille din adgangskode.",
+  "forgotPassword.button": "Send nulstillingslink",
+  "forgotPassword.input": "Indsæt din e-mail",
+  "forgotPassword.success-heading": "Færdig! Tjek din indbakke",
+  "forgotPassword.success-text1": "Du vil snart modtage et link på",
+  "forgotPassword.success-text2": "til at nulstille din adgangskode.",
+  "forgotPassword.resend": "Modtog du ikke e-mailen?"
 }

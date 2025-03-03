@@ -36,5 +36,14 @@
   "signUp.acceptTerms": "I accept {terms} and {privacy}.",
   "signUp.terms": "Terms of Use",
   "signUp.privacy": "Privacy Policy",
-  "signUp.updates": "I want to receive updates and offers."
+  "signUp.updates": "I want to receive updates and offers.",
+
+  "forgotPassword.heading": "Forgot your password?",
+  "forgotPassword.paragraph": "No worries! Enter the email address used for registration, and we'll send you a temporary link to reset your password.",
+  "forgotPassword.button": "Send reset link",
+  "forgotPassword.input": "Insert your email",
+  "forgotPassword.success-heading": "Done! Check your inbox",
+  "forgotPassword.success-text1": "You will soon receive a link at",
+  "forgotPassword.success-text2": "to reset your password.",
+  "forgotPassword.resend": "Didn't receive the email?"
 }
