@@ -8,7 +8,7 @@ const UserDropdown = () => {
       {/* User Icon Button */}
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="cursor-pointer hidden lg:block"
+        className="cursor-pointer hidden lg:block hover:opacity-85"
       >
         <img src="/icons/user-alt.svg" alt="User icon" />
       </button>

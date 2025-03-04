@@ -6,7 +6,7 @@ const SearchButton = () => {
       <img
         src="/icons/search-alt.svg"
         alt="Search icon"
-        className="cursor-pointer"
+        className="cursor-pointer hover:opacity-85"
       />
     </div>
   );

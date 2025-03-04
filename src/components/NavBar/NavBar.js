@@ -142,7 +142,7 @@ const Navbar = () => {
       </div>
 
       <div className="flex justify-end w-full items-center gap-5">
-        <div className="flex gap-2 lg:gap-5 items-center md:mr-6 relative bottom-[2px]">
+        <div className="flex gap-3 lg:gap-5 items-center md:mr-6 relative bottom-[2px]">
           <SearchButton />
           <UserDropdown />
           <ShoppingCart />
@@ -153,6 +153,7 @@ const Navbar = () => {
               aria-controls="mobile-menu"
               aria-label={isMenuOpen ? "Close menu" : "Open menu"}
               data-testid="menu-toggle"
+              className="hover:opacity-85"
             >
               <img src="/icons/menu.svg" alt="" />
             </button>
