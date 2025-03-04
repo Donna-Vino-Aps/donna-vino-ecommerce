@@ -4,6 +4,9 @@ import React, { useState } from "react";
 import LanguageSwitch from "../NavBar/LanguageSwitch";
 import SideBar from "../SideBar/SideBar";
 import { useLanguage } from "../../context/LanguageContext";
+import SearchButton from "./SearchButton";
+import UserDropdown from "./UserDropdown";
+import ShoppingCart from "./ShoppingCart";
 
 const Navbar = () => {
   const { translations } = useLanguage();
@@ -142,6 +145,12 @@ const Navbar = () => {
             )}
           </div>
         ))}
+      </div>
+
+      <div className="flex gap-5 items-center justify-end">
+        <SearchButton />
+        <UserDropdown />
+        <ShoppingCart />
       </div>
 
       <div className="hidden sm:block w-[5.12rem] h-[2.87rem]">
