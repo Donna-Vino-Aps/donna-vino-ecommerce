@@ -147,7 +147,7 @@ const Navbar = () => {
         ))}
       </div>
 
-      <div className="flex gap-5 items-center justify-end">
+      <div className="flex gap-2 md:gap-5 items-center justify-end">
         <SearchButton />
         <UserDropdown />
         <ShoppingCart />
