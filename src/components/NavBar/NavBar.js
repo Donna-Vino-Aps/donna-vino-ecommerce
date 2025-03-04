@@ -66,7 +66,7 @@ const Navbar = () => {
         <img
           src="/images/donna-vino-logo-transparent.png"
           alt="Donna Vino logo"
-          className="w-[6.25rem] h-[4.31rem] lg:w-[7.75rem] lg:h-[5.37rem]"
+          className="w-[6.25rem] h-[4.31rem] md:w-[7.75rem] md:h-[5.37rem]"
         />
       </Link>
 
