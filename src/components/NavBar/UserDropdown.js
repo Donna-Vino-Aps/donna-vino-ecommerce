@@ -8,6 +8,10 @@ const UserDropdown = () => {
   const { storedCredentials, setStoredCredentials } =
     useContext(CredentialsContext);
   const isAuthenticated = Boolean(storedCredentials?.user);
+
+  // const isAuthenticated = true;
+  // switch to this code to check the conditional rendering
+
   const dropdownRef = useRef(null);
   const buttonRef = useRef(null);
 
