@@ -45,5 +45,6 @@
   "forgotPassword.success-heading": "Færdig! Tjek din indbakke",
   "forgotPassword.success-text1": "Du vil snart modtage et link på",
   "forgotPassword.success-text2": "til at nulstille din adgangskode.",
-  "forgotPassword.resend": "Modtog du ikke e-mailen?"
+  "forgotPassword.resend": "Modtog du ikke e-mailen?",
+  "button.go-back": "Tilbage"
 }

@@ -45,5 +45,6 @@
   "forgotPassword.success-heading": "Done! Check your inbox",
   "forgotPassword.success-text1": "You will soon receive a link at",
   "forgotPassword.success-text2": "to reset your password.",
-  "forgotPassword.resend": "Didn't receive the email?"
+  "forgotPassword.resend": "Didn't receive the email?",
+  "button.go-back": "Go back"
 }

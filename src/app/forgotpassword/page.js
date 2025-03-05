@@ -11,14 +11,23 @@ const ForgotPassword = () => {
         alt="Background Vector"
         className="absolute top-0 left-0 w-full h-full object-cover"
       />
-      <div className="relative bg-white p-6 rounded-2xl shadow-lg w-96 text-center">
-        <button className="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition">
-          Go Back
-        </button>
+      <div className="relative bg-white pt-10 pr-20 pb-10 pl-20 rounded-2xl shadow-lg w-[560px]  text-center">
+        <section className="mb-8 sm:!w-[133px]">
+          <Button
+            text={translations["button.go-back"]}
+            icon="/icons/arrow-left.svg"
+            variant="redLine"
+            ariaLabel="Go back"
+            testId="go-back-button"
+            onClick={() => {
+              history.go(-1);
+            }}
+          />
+        </section>
         <h1 className="text-headlineLarge text-left mb-4">
           {translations["forgotPassword.heading"]}
         </h1>
-        <p className="text-left mb-4">
+        <p className="text-left mb-4 w-[400px]">
           {" "}
           {translations["forgotPassword.paragraph"]}
         </p>
@@ -26,7 +35,7 @@ const ForgotPassword = () => {
         <input
           type="email"
           placeholder={translations["forgotPassword.input"]}
-          className="w-full p-2 mt-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+          className="w-full p-2 mb-4 mt-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
         />
         <div className="w-full mt-2 mb-4">
           <Button
