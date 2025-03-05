@@ -178,7 +178,6 @@ const LoginForm = () => {
               <GoogleAuth />
 
               <div className="flex mt-4 space-x-1 items-center text-labelMedium relative bottom-1">
-                <p>{translations["logIn.forgot"]}</p>
                 <Link
                   href="/forgotpassword"
                   data-testid="forget-password-link"
