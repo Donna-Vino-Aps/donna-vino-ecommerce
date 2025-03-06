@@ -15,10 +15,10 @@ const UserDropdown = () => {
     useContext(CredentialsContext);
 
   // This line checks if the user is logged in or not
-  const isAuthenticated = Boolean(storedCredentials?.user);
+  // const isAuthenticated = Boolean(storedCredentials?.user);
 
-  // Switch to this code to check the conditional rendering
-  // const isAuthenticated = true;
+  // This code says that the user is authenticated
+  const isAuthenticated = true;
 
   const dropdownRef = useRef(null);
   const buttonRef = useRef(null);
