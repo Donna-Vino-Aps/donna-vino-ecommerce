@@ -1,15 +1,17 @@
 import React, { useState, useEffect, useRef, useContext } from "react";
 import Link from "next/link";
 import axios from "axios";
+import { useLanguage } from "../../context/LanguageContext";
 import { CredentialsContext } from "../../context/credentialsContext";
 
 const UserDropdown = () => {
+  const { translations } = useLanguage();
   const [isOpen, setIsOpen] = useState(false);
   const { storedCredentials, setStoredCredentials } =
     useContext(CredentialsContext);
-  const isAuthenticated = Boolean(storedCredentials?.user);
+  // const isAuthenticated = Boolean(storedCredentials?.user);
 
-  // const isAuthenticated = true;
+  const isAuthenticated = true;
   // switch to this code to check the conditional rendering
 
   const dropdownRef = useRef(null);
@@ -84,7 +86,9 @@ const UserDropdown = () => {
                 alt="wine glass icon"
                 className="relative bottom-[1px]"
               ></img>
-              <Link href="/my-wines">My wines</Link>
+              <Link href="/my-wines">
+                {translations["user-dropdown.wines"]}
+              </Link>
             </li>
             <li className="flex gap-1 my-4 text-bodyMedium">
               <img
@@ -92,7 +96,7 @@ const UserDropdown = () => {
                 alt="wine glass icon"
                 className="relative bottom-[1px]"
               ></img>
-              <Link href="/orders">Orders</Link>
+              <Link href="/orders">{translations["user-dropdown.orders"]}</Link>
             </li>
             <li className="flex gap-1 my-4 text-bodyMedium">
               <img
@@ -100,7 +104,9 @@ const UserDropdown = () => {
                 alt="wine glass icon"
                 className="relative bottom-[1px]"
               ></img>
-              <Link href="/account">Account</Link>
+              <Link href="/account">
+                {translations["user-dropdown.account"]}
+              </Link>
             </li>
             <li className="flex gap-1 mt-4 mb-2 text-bodyMedium">
               <img
@@ -108,7 +114,9 @@ const UserDropdown = () => {
                 alt="wine glass icon"
                 className="relative bottom-[1px]"
               ></img>
-              <Link href="/settings">Settings</Link>
+              <Link href="/settings">
+                {translations["user-dropdown.settings"]}
+              </Link>
             </li>
             <hr className="border-[0.5px] min-w-[7.5rem] border-tertiary1-active"></hr>
             <li
@@ -120,7 +128,9 @@ const UserDropdown = () => {
                 alt="wine glass icon"
                 className="relative bottom-[1px]"
               ></img>
-              <button role="button">Log out</button>
+              <button role="button">
+                {translations["user-dropdown.logout"]}
+              </button>
             </li>
           </ul>
         </div>

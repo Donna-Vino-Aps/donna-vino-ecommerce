@@ -36,5 +36,10 @@
   "signUp.acceptTerms": "Jeg accepterer {terms} og {privacy}.",
   "signUp.terms": "Brugsbetingelser",
   "signUp.privacy": "Privatlivspolitik",
-  "signUp.updates": "Jeg vil gerne modtage opdateringer og tilbud."
+  "signUp.updates": "Jeg vil gerne modtage opdateringer og tilbud.",
+  "user-dropdown.wines": "Mine vine",
+  "user-dropdown.orders": "Ordrer",
+  "user-dropdown.account": "Konto",
+  "user-dropdown.settings": "Indstillinger",
+  "user-dropdown.logout": "Log ud"
 }

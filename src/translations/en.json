@@ -36,5 +36,10 @@
   "signUp.acceptTerms": "I accept {terms} and {privacy}.",
   "signUp.terms": "Terms of Use",
   "signUp.privacy": "Privacy Policy",
-  "signUp.updates": "I want to receive updates and offers."
+  "signUp.updates": "I want to receive updates and offers.",
+  "user-dropdown.wines": "My wines",
+  "user-dropdown.orders": "Orders",
+  "user-dropdown.account": "Account",
+  "user-dropdown.settings": "Settings",
+  "user-dropdown.logout": "Log out"
 }
