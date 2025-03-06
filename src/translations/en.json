@@ -16,8 +16,8 @@
   "logIn.label-password": "Your Password",
   "logIn.placeholder-mail": "Insert your email",
   "logIn.placeholder-password": "Insert your password",
-  "logIn.forgot": "Did you forget your password?",
-  "logIn.forgot-link": "Forget Password?",
+  "logIn.forgot-sentence": "Did you forget your password?",
+  "logIn.forgot-link": "Forgot Password?",
   "logIn.no-account": "Don't have an account?",
   "logIn.no-account-link": "Sign Up",
   "logIn.signup-button": "Sign Up",
@@ -41,5 +41,14 @@
   "user-dropdown.orders": "Orders",
   "user-dropdown.account": "Account",
   "user-dropdown.settings": "Settings",
-  "user-dropdown.logout": "Log out"
+  "user-dropdown.logout": "Log out",
+  "forgotPassword.heading": "Forgot your password?",
+  "forgotPassword.paragraph": "No worries! Enter the email address used for registration, and we'll send you a temporary link to reset your password.",
+  "forgotPassword.button": "Send reset link",
+  "forgotPassword.input": "Insert your email",
+  "forgotPassword.success-heading": "Done! Check your inbox",
+  "forgotPassword.success-text1": "You will soon receive a link at",
+  "forgotPassword.success-text2": "to reset your password.",
+  "forgotPassword.resend": "Didn't receive the email?",
+  "button.go-back": "Go back"
 }

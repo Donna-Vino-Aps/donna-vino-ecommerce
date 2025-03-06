@@ -177,12 +177,12 @@ const LoginForm = () => {
               </div>
               <GoogleAuth />
 
-              <div className="flex mt-4 space-x-1 items-center text-labelMedium relative bottom-1">
+              <div className="flex mt-4 space-x-1 items-center text-labelMedium relative bottom-1 p-2">
                 <Link
                   href="/forgotpassword"
                   data-testid="forget-password-link"
                   aria-label="Forgot Password"
-                  className="text-left font-medium"
+                  className="text-left font-medium hover:underline hover:font-semibold"
                 >
                   {translations["logIn.forgot-link"]}
                 </Link>
