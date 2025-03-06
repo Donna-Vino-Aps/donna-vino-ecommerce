@@ -1,10 +1,14 @@
+"use client";
+
 import React, { useState, useEffect, useRef, useContext } from "react";
+import { useRouter } from "next/navigation";
 import Link from "next/link";
 import axios from "axios";
 import { useLanguage } from "../../context/LanguageContext";
 import { CredentialsContext } from "../../context/credentialsContext";
 
 const UserDropdown = () => {
+  const router = useRouter();
   const { translations } = useLanguage();
   const [isOpen, setIsOpen] = useState(false);
   const { storedCredentials, setStoredCredentials } =
@@ -27,7 +31,7 @@ const UserDropdown = () => {
     try {
       await axios.post("/api/auth/logout", {}, { withCredentials: true });
       setStoredCredentials(null);
-      window.location.href = "/"; // Redirect to start page
+      router.push("/"); // Redirect to start page
     } catch (error) {
       console.error("Logout failed:", error);
     }
@@ -59,7 +63,7 @@ const UserDropdown = () => {
     if (isAuthenticated) {
       toggleDropdown();
     } else {
-      window.location.href = "/login"; // Redirect to login page
+      router.push("/login"); // Redirect to login page
     }
   };
 
