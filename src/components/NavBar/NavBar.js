@@ -73,7 +73,7 @@ const Navbar = () => {
       <div
         id="desktop-menu"
         role="menu"
-        className={`hidden w-full lg:flex flex-grow justify-center items-center lg:space-x-4 ${
+        className={`hidden w-full lg:flex absolute justify-center items-center lg:space-x-4 ${
           isMenuOpen ? "block" : "hidden"
         }`}
       >
