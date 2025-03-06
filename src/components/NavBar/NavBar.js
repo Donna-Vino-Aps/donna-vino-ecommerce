@@ -4,6 +4,9 @@ import React, { useState } from "react";
 import LanguageSwitch from "../NavBar/LanguageSwitch";
 import SideBar from "../SideBar/SideBar";
 import { useLanguage } from "../../context/LanguageContext";
+import SearchButton from "./SearchButton";
+import UserDropdown from "./UserDropdown";
+import ShoppingCart from "./ShoppingCart";
 
 const Navbar = () => {
   const { translations } = useLanguage();
@@ -51,32 +54,26 @@ const Navbar = () => {
 
   return (
     <nav
-      className="flex flex-col-1 w-full h-[7.18rem] md:h-[14.37rem] justify-between items-center px-8 py-6 gap-2 z-50"
+      className="flex w-full h-[7.18rem] md:h-[14.37rem] items-center justify-between px-8 py-6 gap-2 z-50"
       aria-label="Main Navigation"
     >
-      <Link href="/" data-testid="navbar-brand" aria-label="Go to home">
+      <Link
+        href="/"
+        data-testid="navbar-brand"
+        aria-label="Go to home"
+        className="flex-shrink-0"
+      >
         <img
           src="/images/donna-vino-logo-transparent.png"
           alt="Donna Vino logo"
           className="w-[6.25rem] h-[4.31rem] md:w-[7.75rem] md:h-[5.37rem]"
         />
       </Link>
-      <div className="sm:hidden w-[1.5rem] h-[1.5rem]">
-        <button
-          onClick={toggleMenu}
-          aria-expanded={isMenuOpen}
-          aria-controls="mobile-menu"
-          aria-label={isMenuOpen ? "Close menu" : "Open menu"}
-          data-testid="menu-toggle"
-        >
-          <img src="/icons/menu.svg" alt="" />
-        </button>
-      </div>
 
       <div
         id="desktop-menu"
         role="menu"
-        className={`sm:flex sm:items-center md:space-x-4 ${
+        className={`hidden w-full lg:flex absolute justify-center items-center lg:space-x-4 ${
           isMenuOpen ? "block" : "hidden"
         }`}
       >
@@ -144,16 +141,36 @@ const Navbar = () => {
         ))}
       </div>
 
-      <div className="hidden sm:block w-[5.12rem] h-[2.87rem]">
-        <LanguageSwitch />
-      </div>
+      <div className="flex justify-end w-full items-center gap-5">
+        <div className="flex gap-3 lg:gap-5 items-center md:mr-6 relative bottom-[2px]">
+          <SearchButton />
+          <UserDropdown />
+          <ShoppingCart />
+          <div className="lg:hidden w-[1.5rem] h-[1.5rem] ml-2 relative top-[1px]">
+            <button
+              onClick={toggleMenu}
+              aria-expanded={isMenuOpen}
+              aria-controls="mobile-menu"
+              aria-label={isMenuOpen ? "Close menu" : "Open menu"}
+              data-testid="menu-toggle"
+              className="hover:opacity-85"
+            >
+              <img src="/icons/menu.svg" alt="" />
+            </button>
+          </div>
+        </div>
 
-      <SideBar
-        id="mobile-menu"
-        isMenuOpen={isMenuOpen}
-        toggleMenu={toggleMenu}
-        navLinks={navLinks}
-      />
+        <div className="hidden lg:block w-[5.12rem] h-[2.87rem]">
+          <LanguageSwitch />
+        </div>
+
+        <SideBar
+          id="mobile-menu"
+          isMenuOpen={isMenuOpen}
+          toggleMenu={toggleMenu}
+          navLinks={navLinks}
+        />
+      </div>
     </nav>
   );
 };

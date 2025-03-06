@@ -37,7 +37,11 @@
   "signUp.terms": "Brugsbetingelser",
   "signUp.privacy": "Privatlivspolitik",
   "signUp.updates": "Jeg vil gerne modtage opdateringer og tilbud.",
-
+  "user-dropdown.wines": "Mine vine",
+  "user-dropdown.orders": "Ordrer",
+  "user-dropdown.account": "Konto",
+  "user-dropdown.settings": "Indstillinger",
+  "user-dropdown.logout": "Log ud",
   "forgotPassword.heading": "Har du glemt din adgangskode?",
   "forgotPassword.paragraph": "Ingen bekymringer! Indtast den e-mailadresse, du brugte til registrering, så sender vi dig et midlertidigt link til at nulstille din adgangskode.",
   "forgotPassword.button": "Send nulstillingslink",

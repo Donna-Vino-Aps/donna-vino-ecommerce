@@ -60,7 +60,7 @@ const TastingSession = () => {
           data-testid="hero-video"
         >
           <source
-            src="https://res.cloudinary.com/dxnptdhrp/video/upload/f_auto:video,q_auto/kort_video_loop_hil7qq"
+            src="https://res.cloudinary.com/db3h63tns/video/upload/v1741092198/e-commerce-hero-section_egcjvf.mp4"
             type="video/mp4"
           />
           Your browser does not support the video tag.
