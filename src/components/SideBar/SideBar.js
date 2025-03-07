@@ -9,7 +9,7 @@ const SideBar = ({ isMenuOpen, toggleMenu, navLinks }) => {
 
   return (
     <div
-      className={`fixed right-0 top-0 w-full h-full sm:hidden z-40 ${
+      className={`fixed right-0 top-0 w-full h-full lg:hidden z-40 ${
         isMenuOpen ? "translate-x-0" : "translate-x-full"
       }`}
       data-testid="side-bar"
@@ -44,20 +44,22 @@ const SideBar = ({ isMenuOpen, toggleMenu, navLinks }) => {
           <h2 id="menu-heading" className="sr-only">
             Mobile navigation menu
           </h2>
-          <h2
-            className="text-labelXLarge font-semibold"
-            data-testid="menu-heading"
-          >
-            Menu
-          </h2>
+          <hr className="border-t-slate-300 relative top-6" />
           <nav role="navigation">
-            <ul className="flex flex-col">
+            <ul className="flex flex-col ml-12">
               {navLinks.map((link) => (
-                <li key={link.id}>
+                <li
+                  key={link.id}
+                  className={`flex items-center ${link.iconSize === "large" ? "gap-2" : "gap-3"}`}
+                >
+                  <img
+                    className={`align-middle inline-block text-right ${link.iconSize === "large" ? "h-[1.5rem] w-[1.5rem]" : "h-[1.25rem] w-[1.25rem]"}`}
+                    src={link.icon}
+                  ></img>
                   <Link
                     href={link.href}
                     onClick={toggleMenu}
-                    className="block py-2 text-bodyLarge text-tertiary1"
+                    className="block py-2 text-titleMedium text-tertiary1"
                   >
                     {link.label}
                   </Link>
@@ -65,7 +67,7 @@ const SideBar = ({ isMenuOpen, toggleMenu, navLinks }) => {
               ))}
             </ul>
           </nav>
-          <hr className="border-t-slate-300" />
+          <hr className="border-t-slate-300 relative bottom-4" />
         </div>
 
         <div className="w-[5.12rem] h-[2.87rem]">
