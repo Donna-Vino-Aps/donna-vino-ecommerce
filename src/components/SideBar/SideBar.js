@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import PropTypes from "prop-types";
 import Link from "next/link";
 import LanguageSwitch from "../NavBar/LanguageSwitch";
@@ -6,6 +6,14 @@ import { useLanguage } from "../../context/LanguageContext";
 
 const SideBar = ({ isMenuOpen, toggleMenu, navLinks }) => {
   const { translations } = useLanguage();
+  const [winesDropdownOpen, setWinesDropdownOpen] = useState(false);
+  const [grapesDropdownOpen, setGrapesDropdownOpen] = useState(false);
+  const [accountDropdownOpen, setAccountDropdownOpen] = useState(false);
+
+  const toggleWinesDropdown = () => setWinesDropdownOpen(!winesDropdownOpen);
+  const toggleGrapesDropdown = () => setGrapesDropdownOpen(!grapesDropdownOpen);
+  const toggleAccountDropdown = () =>
+    setAccountDropdownOpen(!accountDropdownOpen);
 
   return (
     <div
@@ -23,7 +31,7 @@ const SideBar = ({ isMenuOpen, toggleMenu, navLinks }) => {
             <img
               src="/images/donna-vino-logo-transparent.png"
               alt="Donna Vino's logo"
-              className="w-[7.65rem] h-[5.37rem]"
+              className="w-[6.25rem] h-[4.316rem] relative bottom-2"
             />
           </a>
           <button
@@ -46,23 +54,79 @@ const SideBar = ({ isMenuOpen, toggleMenu, navLinks }) => {
           </h2>
           <hr className="border-t-slate-300 relative top-6" />
           <nav role="navigation">
-            <ul className="flex flex-col ml-12">
+            <ul className="flex flex-col ml-4">
               {navLinks.map((link) => (
-                <li
-                  key={link.id}
-                  className={`flex items-center ${link.iconSize === "large" ? "gap-2" : "gap-3"}`}
-                >
+                <li key={link.id} className={`flex relative gap-5`}>
                   <img
-                    className={`align-middle inline-block text-right ${link.iconSize === "large" ? "h-[1.5rem] w-[1.5rem]" : "h-[1.25rem] w-[1.25rem]"}`}
+                    className="align-middle inline-block text-right h-[1.25rem] w-[1.25rem] relative top-[10px] left-[6px]"
                     src={link.icon}
                   ></img>
-                  <Link
-                    href={link.href}
-                    onClick={toggleMenu}
-                    className="block py-2 text-titleMedium text-tertiary1"
-                  >
-                    {link.label}
-                  </Link>
+
+                  {/* Render dropdown if dropdown is set to true, otherwise render a link */}
+                  <div className="flex flex-col w-full">
+                    {link.dropdown ? (
+                      <button
+                        onClick={() => {
+                          if (link.id === "wines") toggleWinesDropdown();
+                          else if (link.id === "grapeszones")
+                            toggleGrapesDropdown();
+                          else if (link.id === "account")
+                            toggleAccountDropdown();
+                        }}
+                        className="flex items-center relative right-3 rounded-md px-3 py-2 text-titleMedium text-tertiary1"
+                      >
+                        {link.label}
+                        <img
+                          src="/icons/chevron-down.svg"
+                          alt="Chevron Down"
+                          className={`ml-2 relative top-[2px] right-1 transition-transform ${
+                            (link.id === "wines" && winesDropdownOpen) ||
+                            (link.id === "grapeszones" && grapesDropdownOpen) ||
+                            (link.id === "account" && accountDropdownOpen)
+                              ? "rotate-180"
+                              : "rotate-0"
+                          }`}
+                        />
+                      </button>
+                    ) : (
+                      <Link
+                        href={link.href}
+                        onClick={toggleMenu}
+                        className="block py-2 text-titleMedium text-tertiary1"
+                      >
+                        {link.label}
+                      </Link>
+                    )}
+
+                    {/* Dropdown menu */}
+                    {link.dropdown && (
+                      <div
+                        className={` w-full bg-white ${
+                          (link.id === "wines" && winesDropdownOpen) ||
+                          (link.id === "grapeszones" && grapesDropdownOpen) ||
+                          (link.id === "account" && accountDropdownOpen)
+                            ? "flex flex-col relative right-4"
+                            : "hidden"
+                        }`}
+                      >
+                        {link.sublinks.map((sublink, index) => (
+                          <div key={`${link.id}-${index}`}>
+                            <Link
+                              key={sublink}
+                              href={link.href} // Initially set to go to the href of the overarching Link (like Wines)
+                              // href={`${link.href}/${sublink.toLowerCase()}`}  Or something similar can be used in future implementations
+                              className="block px-4 py-2 text-titleMedium text-tertiary1"
+                            >
+                              {sublink}
+                            </Link>
+                            {index !== link.sublinks.length - 1 && (
+                              <hr className="border-secondary-hover border-[1.5px] w-[90%] relative left-4 mt-3 mb-1" />
+                            )}
+                          </div>
+                        ))}
+                      </div>
+                    )}
+                  </div>
                 </li>
               ))}
             </ul>
@@ -70,7 +134,8 @@ const SideBar = ({ isMenuOpen, toggleMenu, navLinks }) => {
           <hr className="border-t-slate-300 relative bottom-4" />
         </div>
 
-        <div className="w-[5.12rem] h-[2.87rem]">
+        <div className="w-[10.12rem] h-[4.87rem]">
+          <p className="text-labelXLarge font-semibold mb-5">Select Language</p>
           <LanguageSwitch />
         </div>
 

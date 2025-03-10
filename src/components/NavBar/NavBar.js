@@ -62,9 +62,9 @@ const Navbar = () => {
       href: "/wines",
       label: translations["navbar.wines"],
       icon: "/icons/wine-glass-1.svg",
-      iconSize: "large",
+      iconSize: "small",
       dropdown: true,
-      sublinks: ["Red", "White", "Rosé"],
+      sublinks: ["Red Wines", "White Wines", "Rosé Wines"],
     },
     {
       id: "offers",
@@ -79,9 +79,18 @@ const Navbar = () => {
       href: "/grapes-zones",
       label: translations["navbar.grapes"],
       icon: "/icons/grape-full.svg",
-      iconSize: "large",
+      iconSize: "small",
       dropdown: true,
-      sublinks: ["Malbec", "Pinot Noir", "Chardonnay"],
+      sublinks: ["Grapes", "Regions"],
+    },
+    {
+      id: "account",
+      href: "/account",
+      label: translations["navbar.account"],
+      icon: "/icons/user-alt-2.svg",
+      iconSize: "small",
+      dropdown: true,
+      sublinks: ["My wines", "Orders", "Profile", "Settings"],
     },
   ];
 
