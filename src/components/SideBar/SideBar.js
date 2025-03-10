@@ -15,6 +15,17 @@ const SideBar = ({ isMenuOpen, toggleMenu, navLinks }) => {
   const toggleAccountDropdown = () =>
     setAccountDropdownOpen(!accountDropdownOpen);
 
+  // Handle logout
+  const handleLogout = async () => {
+    try {
+      await axios.post("/api/auth/logout", {}, { withCredentials: true });
+      setStoredCredentials(null);
+      router.push("/"); // Redirect to start page
+    } catch (error) {
+      console.error("Logout failed:", error);
+    }
+  };
+
   return (
     <div
       className={`fixed right-0 top-0 w-full h-full lg:hidden z-40 ${
@@ -105,7 +116,7 @@ const SideBar = ({ isMenuOpen, toggleMenu, navLinks }) => {
                           (link.id === "wines" && winesDropdownOpen) ||
                           (link.id === "grapeszones" && grapesDropdownOpen) ||
                           (link.id === "account" && accountDropdownOpen)
-                            ? "flex flex-col relative right-4"
+                            ? "flex flex-col relative right-4 my-1"
                             : "hidden"
                         }`}
                       >
@@ -115,13 +126,33 @@ const SideBar = ({ isMenuOpen, toggleMenu, navLinks }) => {
                               key={sublink}
                               href={link.href} // Initially set to go to the href of the overarching Link (like Wines)
                               // href={`${link.href}/${sublink.toLowerCase()}`}  Or something similar can be used in future implementations
-                              className="block px-4 py-2 text-titleMedium text-tertiary1"
+                              className={`block px-4 text-titleMedium text-tertiary1 ${link.id === "account" ? "py-3" : "py-2"}`}
                             >
                               {sublink}
                             </Link>
-                            {index !== link.sublinks.length - 1 && (
-                              <hr className="border-secondary-hover border-[1.5px] w-[90%] relative left-4 mt-3 mb-1" />
-                            )}
+                            {link.id !== "account" &&
+                              index !== link.sublinks.length - 1 && (
+                                <hr className="border-secondary-hover border-[1.25px] w-[95%] relative left-4 mt-3 mb-1" />
+                              )}
+                            {link.id === "account" &&
+                              index === link.sublinks.length - 1 && (
+                                <div>
+                                  <hr className="border-secondary-hover border-[1.25px] w-[95%] relative left-4 mt-3 mb-1" />
+                                  <div
+                                    className="flex gap-2 mt-5 mb-1 relative left-4 text-bodyMedium text-tertiary1"
+                                    onClick={handleLogout}
+                                  >
+                                    <button role="button">
+                                      {translations["user-dropdown.logout"]}
+                                    </button>
+                                    <img
+                                      src="/icons/log out.svg"
+                                      alt="log out icon"
+                                      className="relative"
+                                    ></img>
+                                  </div>
+                                </div>
+                              )}
                           </div>
                         ))}
                       </div>
@@ -134,12 +165,14 @@ const SideBar = ({ isMenuOpen, toggleMenu, navLinks }) => {
           <hr className="border-t-slate-300 relative bottom-4" />
         </div>
 
-        <div className="w-[10.12rem] h-[4.87rem]">
-          <p className="text-labelXLarge font-semibold mb-5">Select Language</p>
+        <div className="w-[10.12rem] h-[4.87rem] flex flex-col items-start">
+          <p className="text-labelXLarge font-semibold mb-6">
+            {translations["footer.language"]}
+          </p>
           <LanguageSwitch />
         </div>
 
-        <div className="flex flex-col gap-6">
+        <div className="flex flex-col gap-8 relative bottom-4">
           <h3 className="text-labelXLarge font-semibold">
             {translations["footer.follow"]}
           </h3>
