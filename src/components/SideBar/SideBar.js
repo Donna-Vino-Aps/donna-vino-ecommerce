@@ -39,13 +39,23 @@ const SideBar = ({ isMenuOpen, toggleMenu, navLinks }) => {
     >
       <div className="flex flex-col h-full gap-16 p-8 bg-white">
         <div className="flex justify-between items-center">
-          <a href="/">
-            <img
-              src="/images/donna-vino-logo-transparent.png"
-              alt="Donna Vino's logo"
-              className="w-[6.25rem] h-[4.316rem] relative bottom-2"
-            />
-          </a>
+          <div className="flex relative top-8 left-1 gap-4">
+            <a href="/" className="">
+              <img
+                src="/images/courtney-cook-unsplash.jpg"
+                alt="User Profile Picture"
+                className="w-18 h-18"
+              />
+              <img
+                src="/icons/Edit profile pic.svg"
+                className="relative bottom-4 left-12"
+              />
+            </a>
+            <div className="mt-2">
+              <p className="text-headlineSmall text-tertiary1-darker">Admin</p>
+              <p className="text-bodyLarge">admin@donnavino.dk</p>
+            </div>
+          </div>
           <button
             role="button"
             className="self-start"
@@ -66,7 +76,7 @@ const SideBar = ({ isMenuOpen, toggleMenu, navLinks }) => {
           </h2>
           <hr className="border-t-slate-300 relative top-6" />
           <nav role="navigation">
-            <ul className="flex flex-col ml-4">
+            <ul className="flex flex-col ml-2">
               {navLinks.map((link) => (
                 <li key={link.id} className={`flex relative gap-5`}>
                   <img
@@ -166,14 +176,14 @@ const SideBar = ({ isMenuOpen, toggleMenu, navLinks }) => {
           <hr className="border-t-slate-300 relative bottom-4" />
         </div>
 
-        <div className="w-[10.12rem] h-[4.87rem] flex flex-col items-start">
+        <div className="w-[10.12rem] h-[4.87rem] flex flex-col items-start relative bottom-6">
           <p className="text-labelXLarge font-semibold mb-6">
             {translations["footer.language"]}
           </p>
           <LanguageSwitch />
         </div>
 
-        <div className="flex flex-col gap-8 relative bottom-4">
+        <div className="flex flex-col gap-8 relative bottom-10">
           <h3 className="text-labelXLarge font-semibold">
             {translations["footer.follow"]}
           </h3>
