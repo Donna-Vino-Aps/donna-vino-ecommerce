@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
 import Link from "next/link";
+import axios from "axios";
 import LanguageSwitch from "../NavBar/LanguageSwitch";
 import { useLanguage } from "../../context/LanguageContext";
 
