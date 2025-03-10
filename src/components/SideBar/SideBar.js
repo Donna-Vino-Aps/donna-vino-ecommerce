@@ -37,7 +37,7 @@ const SideBar = ({ isMenuOpen, toggleMenu, navLinks }) => {
       aria-labelledby="menu-heading"
       inert={!isMenuOpen}
     >
-      <div className="flex flex-col h-full gap-16 p-8 bg-white">
+      <div className="flex flex-col h-full gap-8 p-8 bg-white">
         <div className="flex justify-between items-center">
           <div className="flex relative top-8 left-1 gap-4">
             <a href="/" className="">
@@ -48,12 +48,14 @@ const SideBar = ({ isMenuOpen, toggleMenu, navLinks }) => {
               />
               <img
                 src="/icons/Edit profile pic.svg"
-                className="relative bottom-4 left-12"
+                className="relative bottom-6 left-12"
               />
             </a>
-            <div className="mt-2">
+            <div className="mt-3">
               <p className="text-headlineSmall text-tertiary1-darker">Admin</p>
-              <p className="text-bodyLarge">admin@donnavino.dk</p>
+              <p className="text-bodyLarge text-[#637381]">
+                admin@donnavino.dk
+              </p>
             </div>
           </div>
           <button
@@ -176,14 +178,14 @@ const SideBar = ({ isMenuOpen, toggleMenu, navLinks }) => {
           <hr className="border-t-slate-300 relative bottom-4" />
         </div>
 
-        <div className="w-[10.12rem] h-[4.87rem] flex flex-col items-start relative bottom-6">
+        <div className="w-[10.12rem] h-[4.87rem] flex flex-col items-start relative bottom-4">
           <p className="text-labelXLarge font-semibold mb-6">
             {translations["footer.language"]}
           </p>
           <LanguageSwitch />
         </div>
 
-        <div className="flex flex-col gap-8 relative bottom-10">
+        <div className="flex flex-col gap-8 relative bottom-2">
           <h3 className="text-labelXLarge font-semibold">
             {translations["footer.follow"]}
           </h3>
