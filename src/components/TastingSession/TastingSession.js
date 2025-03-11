@@ -48,7 +48,9 @@ const TastingSession = () => {
   };
 
   return (
-    <section className="relative flex flex-col-reverse md:w-full md:flex-row justify-between bg-white min-h-[36rem]">
+    <section
+      className={`relative flex flex-col-reverse md:w-full ${currentImageIndex === 0 ? "md:flex-row" : "md:flex-row-reverse"} justify-between bg-white min-h-[36rem]`}
+    >
       <div className="md:hidden flex mx-auto my-3">
         <button
           onClick={handlePrevious}
@@ -96,7 +98,7 @@ const TastingSession = () => {
           <img
             src={images[currentImageIndex]}
             alt="Tasting session slide"
-            className="absolute inset-0 rounded-t-[6rem] md:rounded-t-[0rem] md:rounded-tr-[8rem] md:rounded-br-xl object-cover w-full h-full"
+            className={`absolute inset-0 rounded-t-[6rem] md:rounded-t-[0rem] ${currentImageIndex === 0 ? "md:rounded-tr-[8rem] md:rounded-br-xl" : "md:rounded-tl-[8rem] md:rounded-bl-xl"} object-cover w-full h-full`}
             data-testid="hero-image"
           />
         )}
@@ -120,7 +122,9 @@ const TastingSession = () => {
           aria-label="Book a tasting session"
           data-testid="book-tasting-button"
         ></Button>
-        <div className="hidden md:flex mt-4 md:absolute md:bottom-8 md:right-8 lg:bottom-10 lg:right-10 xl:bottom-14 xl:right-12">
+        <div
+          className={`hidden md:flex mt-4 md:absolute md:bottom-8 lg:bottom-10 xl:bottom-14 ${currentImageIndex === 0 ? "md:right-8 lg:right-10 xl:right-12" : "md:left-[37.5%]"}`}
+        >
           <button
             onClick={handlePrevious}
             className="md:w-[2rem] md:h-[2rem] lg:w-[2.25rem] lg:h-[2.25rem] xl:w-[2.625rem] xl:h-[2.625rem] rounded-full flex items-center justify-center active:bg-primary-hover_normal mr-[8px]"
