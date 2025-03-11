@@ -95,7 +95,7 @@ const TastingSession = () => {
           <img
             src={images[currentImageIndex]}
             alt="Tasting session slide"
-            className={`absolute inset-0 md:rounded-t-[0rem] ${currentImageIndex === 0 ? "md:rounded-tr-[8rem] md:rounded-br-xl" : "md:rounded-tl-[8rem] md:rounded-bl-xl"} object-cover w-full h-full`}
+            className={`absolute inset-0 rounded-tl-[0rem] !rounded-tl-[0rem] ${currentImageIndex === 0 ? "md:rounded-tr-[8rem] md:rounded-br-xl" : "md:rounded-tl-[8rem] !md:rounded-tl-[8rem] md:rounded-bl-xl"} object-cover w-full h-full`}
             data-testid="hero-image"
           />
         )}
