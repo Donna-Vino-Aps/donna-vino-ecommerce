@@ -30,7 +30,7 @@ const UserDropdown = () => {
     if (savedCredentials) {
       setStoredCredentials(JSON.parse(savedCredentials));
     }
-  }, []);
+  }, [setStoredCredentials]);
 
   // Step 4: Save credentials to localStorage whenever they change
   useEffect(() => {

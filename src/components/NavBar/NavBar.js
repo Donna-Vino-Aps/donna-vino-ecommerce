@@ -1,14 +1,25 @@
 "use client";
 import Link from "next/link";
-import React, { useState } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import LanguageSwitch from "../NavBar/LanguageSwitch";
 import SideBar from "../SideBar/SideBar";
 import { useLanguage } from "../../context/LanguageContext";
+import { CredentialsContext } from "../../context/credentialsContext";
 import SearchButton from "./SearchButton";
 import UserDropdown from "./UserDropdown";
 import ShoppingCart from "./ShoppingCart";
 
 const Navbar = () => {
+  const { storedCredentials } = useContext(CredentialsContext);
+  const [dropdownKey, setDropdownKey] = useState(0);
+
+  // Update key when storedCredentials change
+  useEffect(() => {
+    if (storedCredentials) {
+      setDropdownKey((prevKey) => prevKey + 1);
+    }
+  }, [storedCredentials]);
+
   const { translations } = useLanguage();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [activeLink, setActiveLink] = useState("/");
@@ -144,7 +155,7 @@ const Navbar = () => {
       <div className="flex justify-end w-full items-center gap-5">
         <div className="flex gap-3 lg:gap-5 items-center md:mr-6 relative bottom-[2px]">
           <SearchButton />
-          <UserDropdown />
+          <UserDropdown key={dropdownKey} />
           <ShoppingCart />
           <div className="lg:hidden w-[1.5rem] h-[1.5rem] ml-2 relative top-[1px]">
             <button
