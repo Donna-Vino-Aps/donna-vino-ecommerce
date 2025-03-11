@@ -6,6 +6,7 @@ import Link from "next/link";
 import axios from "axios";
 import { useLanguage } from "../../context/LanguageContext";
 import { CredentialsContext } from "../../context/credentialsContext";
+import { logInfo } from "@/utils/logging";
 
 const UserDropdown = () => {
   const router = useRouter();
@@ -15,13 +16,34 @@ const UserDropdown = () => {
     useContext(CredentialsContext);
 
   // This line checks if the user is logged in or not
-  // const isAuthenticated = Boolean(storedCredentials?.user);
+  const isAuthenticated = Boolean(storedCredentials?.user);
 
   // This code says that the user is authenticated
-  const isAuthenticated = true;
+  // const isAuthenticated = true;
 
   const dropdownRef = useRef(null);
   const buttonRef = useRef(null);
+
+  // Step 4: Load stored credentials from localStorage on mount
+  useEffect(() => {
+    const savedCredentials = localStorage.getItem("credentials");
+    if (savedCredentials) {
+      setStoredCredentials(JSON.parse(savedCredentials));
+    }
+  }, []);
+
+  // Step 4: Save credentials to localStorage whenever they change
+  useEffect(() => {
+    if (storedCredentials) {
+      localStorage.setItem("credentials", JSON.stringify(storedCredentials));
+    } else {
+      localStorage.removeItem("credentials");
+    }
+  }, [storedCredentials]);
+
+  useEffect(() => {
+    logInfo("Stored Credentials:", storedCredentials);
+  }, [storedCredentials]);
 
   // Toggle dropdown visibility
   const toggleDropdown = () => setIsOpen(!isOpen);
@@ -31,6 +53,7 @@ const UserDropdown = () => {
     try {
       await axios.post("/api/auth/logout", {}, { withCredentials: true });
       setStoredCredentials(null);
+      localStorage.removeItem("credentials");
       router.push("/"); // Redirect to start page
     } catch (error) {
       console.error("Logout failed:", error);
