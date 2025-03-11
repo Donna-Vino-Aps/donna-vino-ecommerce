@@ -24,8 +24,8 @@ const TastingSession = () => {
 
   const buttonIcons = [
     "/icons/calender-alt-1.svg",
-    "/icons/calender-alt-1.svg",
-    "/icons/calender-alt-1.svg",
+    "/icons/envelope-alt.svg",
+    "/icons/wine-glass-white.svg",
   ];
 
   const images = [
@@ -78,19 +78,28 @@ const TastingSession = () => {
         </button>
       </div>
       <div className="relative justify-center self-start w-full md:w-1/2 min-h-[22.75rem] md:h-full">
-        <video
-          className="absolute inset-0 rounded-t-[6rem] md:rounded-t-[0rem] md:rounded-tr-[8rem] md:rounded-br-xl object-cover w-full h-full"
-          autoPlay
-          loop
-          muted
-          role="region"
-          aria-label="Background video for TastingSession Section"
-          aria-hidden="true"
-          data-testid="hero-video"
-        >
-          <source src={[images[currentImageIndex]]} type="video/mp4" />
-          Your browser does not support the video tag.
-        </video>
+        {currentImageIndex === 0 ? (
+          <video
+            className="absolute inset-0 rounded-t-[6rem] md:rounded-t-[0rem] md:rounded-tr-[8rem] md:rounded-br-xl object-cover w-full h-full"
+            autoPlay
+            loop
+            muted
+            role="region"
+            aria-label="Background video for TastingSession Section"
+            aria-hidden="true"
+            data-testid="hero-video"
+          >
+            <source src={[images[currentImageIndex]]} type="video/mp4" />
+            Your browser does not support the video tag.
+          </video>
+        ) : (
+          <img
+            src={images[currentImageIndex]}
+            alt="Tasting session slide"
+            className="absolute inset-0 rounded-t-[6rem] md:rounded-t-[0rem] md:rounded-tr-[8rem] md:rounded-br-xl object-cover w-full h-full"
+            data-testid="hero-image"
+          />
+        )}
       </div>
       <div className="flex flex-col justify-center align-center items-center md:items-start font-barlow font-regular px-10 sm:px-20 md:px-6 lg:px-10 xl:px-14 min-h-[20rem] md:max-w-[50%]">
         <div>
@@ -108,8 +117,8 @@ const TastingSession = () => {
           text={translations[buttons[currentImageIndex]]}
           icon={buttonIcons[currentImageIndex]}
           variant="redFullText"
-          ariaLabel="Book tasting session"
-          testId="book-tasting-button"
+          aria-label="Book a tasting session"
+          data-testid="book-tasting-button"
         ></Button>
         <div className="hidden md:flex mt-4 md:absolute md:bottom-8 md:right-8 lg:bottom-10 lg:right-10 xl:bottom-14 xl:right-12">
           <button
