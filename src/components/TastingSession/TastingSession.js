@@ -47,42 +47,39 @@ const TastingSession = () => {
     );
   };
 
+  const handleDotClick = (index) => {
+    setCurrentImageIndex(index); // updates the slider to the clicked dot
+  };
+
   return (
     <section
       className={`relative flex flex-col-reverse md:w-full ${currentImageIndex === 0 ? "md:flex-row" : "md:flex-row-reverse"} justify-between bg-white min-h-[36rem]`}
     >
-      <div className="md:hidden flex mx-auto my-3">
-        <button
-          onClick={handlePrevious}
-          className="md:w-[2rem] md:h-[2rem] lg:w-[2.25rem] lg:h-[2.25rem] xl:w-[2.625rem] xl:h-[2.625rem] rounded-full flex items-center justify-center active:bg-primary-hover_normal mr-[8px]"
-          aria-label="Previous image"
-          data-testid="carousel-previous-button"
-        >
-          <img
-            src="/icons/Prev.svg"
-            alt="Previous arrow"
-            data-testid="icon-previous-arrow"
-            role="presentation"
-          ></img>
-        </button>
-        <button
-          onClick={handleNext}
-          className="md:w-[2rem] md:h-[2rem] lg:w-[2.25rem] lg:h-[2.25rem] xl:w-[2.625rem] xl:h-[2.625rem] rounded-full flex items-center justify-center active:bg-primary-hover_normal ml-[8px]"
-          aria-label="Next image"
-          data-testid="carousel-next-button"
-        >
-          <img
-            src="/icons/Next.svg"
-            alt="Next arrow"
-            data-testid="icon-next-arrow"
-            role="presentation"
-          ></img>
-        </button>
+      <div className="md:hidden flex mx-auto my-3 relative top-2">
+        {Array.from({ length: images.length }).map((_, index) => (
+          <button
+            key={index}
+            onClick={() => handleDotClick(index)}
+            className="w-[10px] h-[10px] rounded-full mx-1"
+            aria-label={`Image ${index + 1}`}
+            data-testid={`carousel-dot-${index}`}
+          >
+            <img
+              src={
+                index === currentImageIndex
+                  ? "/icons/dot-active.svg"
+                  : "/icons/dot-passive.svg"
+              }
+              alt={`Dot ${index + 1}`}
+              className="w-full h-full"
+            />
+          </button>
+        ))}
       </div>
       <div className="relative justify-center self-start w-full md:w-1/2 min-h-[22.75rem] md:h-full">
         {currentImageIndex === 0 ? (
           <video
-            className="absolute inset-0 rounded-t-[6rem] md:rounded-t-[0rem] md:rounded-tr-[8rem] md:rounded-br-xl object-cover w-full h-full"
+            className="absolute inset-0 md:rounded-t-[0rem] md:rounded-tr-[8rem] md:rounded-br-xl object-cover w-full h-full"
             autoPlay
             loop
             muted
@@ -98,7 +95,7 @@ const TastingSession = () => {
           <img
             src={images[currentImageIndex]}
             alt="Tasting session slide"
-            className={`absolute inset-0 rounded-t-[6rem] md:rounded-t-[0rem] ${currentImageIndex === 0 ? "md:rounded-tr-[8rem] md:rounded-br-xl" : "md:rounded-tl-[8rem] md:rounded-bl-xl"} object-cover w-full h-full`}
+            className={`absolute inset-0 md:rounded-t-[0rem] ${currentImageIndex === 0 ? "md:rounded-tr-[8rem] md:rounded-br-xl" : "md:rounded-tl-[8rem] md:rounded-bl-xl"} object-cover w-full h-full`}
             data-testid="hero-image"
           />
         )}
