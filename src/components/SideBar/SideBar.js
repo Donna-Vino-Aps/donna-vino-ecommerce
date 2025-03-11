@@ -7,14 +7,20 @@ import { useLanguage } from "../../context/LanguageContext";
 
 const SideBar = ({ isMenuOpen, toggleMenu, navLinks }) => {
   const { translations } = useLanguage();
-  const [winesDropdownOpen, setWinesDropdownOpen] = useState(false);
-  const [grapesDropdownOpen, setGrapesDropdownOpen] = useState(false);
-  const [accountDropdownOpen, setAccountDropdownOpen] = useState(false);
+  const [openDropdowns, setOpenDropdowns] = useState({
+    wines: false,
+    grapeszones: false,
+    account: false,
+  });
 
-  const toggleWinesDropdown = () => setWinesDropdownOpen(!winesDropdownOpen);
-  const toggleGrapesDropdown = () => setGrapesDropdownOpen(!grapesDropdownOpen);
-  const toggleAccountDropdown = () =>
-    setAccountDropdownOpen(!accountDropdownOpen);
+  const toggleDropdown = (id) => {
+    setOpenDropdowns((prev) => ({
+      ...prev,
+      [id]: !prev[id],
+    }));
+  };
+
+  const isDropdownOpen = (id) => openDropdowns[id] ?? false;
 
   // Handle logout
   const handleLogout = async () => {
@@ -90,13 +96,7 @@ const SideBar = ({ isMenuOpen, toggleMenu, navLinks }) => {
                   <div className="flex flex-col w-full">
                     {link.dropdown ? (
                       <button
-                        onClick={() => {
-                          if (link.id === "wines") toggleWinesDropdown();
-                          else if (link.id === "grapeszones")
-                            toggleGrapesDropdown();
-                          else if (link.id === "account")
-                            toggleAccountDropdown();
-                        }}
+                        onClick={() => toggleDropdown(link.id)}
                         className="flex items-center relative right-3 rounded-md px-3 py-2 text-titleMedium text-tertiary1"
                       >
                         {link.label}
@@ -104,11 +104,7 @@ const SideBar = ({ isMenuOpen, toggleMenu, navLinks }) => {
                           src="/icons/chevron-down.svg"
                           alt="Chevron Down"
                           className={`ml-2 relative top-[2px] right-1 transition-transform ${
-                            (link.id === "wines" && winesDropdownOpen) ||
-                            (link.id === "grapeszones" && grapesDropdownOpen) ||
-                            (link.id === "account" && accountDropdownOpen)
-                              ? "rotate-180"
-                              : "rotate-0"
+                            isDropdownOpen(link.id) ? "rotate-180" : "rotate-0"
                           }`}
                         />
                       </button>
@@ -126,9 +122,7 @@ const SideBar = ({ isMenuOpen, toggleMenu, navLinks }) => {
                     {link.dropdown && (
                       <div
                         className={` w-full bg-white ${
-                          (link.id === "wines" && winesDropdownOpen) ||
-                          (link.id === "grapeszones" && grapesDropdownOpen) ||
-                          (link.id === "account" && accountDropdownOpen)
+                          isDropdownOpen(link.id)
                             ? "flex flex-col relative right-4 my-1"
                             : "hidden"
                         }`}
