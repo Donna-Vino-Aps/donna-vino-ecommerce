@@ -42,9 +42,9 @@
   "forgotPassword.paragraph": "No worries! Enter the email address used for registration, and we'll send you a temporary link to reset your password.",
   "forgotPassword.button": "Send reset link",
   "forgotPassword.input": "Insert your email",
-  "forgotPassword.success-heading": "Done! Check your inbox",
-  "forgotPassword.success-text1": "You will soon receive a link at",
-  "forgotPassword.success-text2": "to reset your password.",
-  "forgotPassword.resend": "Didn't receive the email?",
+  "checkInbox.success-heading": "Done! Check your inbox",
+  "checkInbox.success-text1": "You will soon receive a link at",
+  "checkInbox.success-text2": "to reset your password.",
+  "checkInbox.resend": "Didn't receive the email?",
   "button.go-back": "Go back"
 }

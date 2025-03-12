@@ -42,9 +42,9 @@
   "forgotPassword.paragraph": "Ingen bekymringer! Indtast den e-mailadresse, du brugte til registrering, så sender vi dig et midlertidigt link til at nulstille din adgangskode.",
   "forgotPassword.button": "Send nulstillingslink",
   "forgotPassword.input": "Indsæt din e-mail",
-  "forgotPassword.success-heading": "Færdig! Tjek din indbakke",
-  "forgotPassword.success-text1": "Du vil snart modtage et link på",
-  "forgotPassword.success-text2": "til at nulstille din adgangskode.",
-  "forgotPassword.resend": "Modtog du ikke e-mailen?",
+  "checkInbox.success-heading": "Færdig! Tjek din indbakke",
+  "checkInbox.success-text1": "Du vil snart modtage et link på",
+  "checkInbox.success-text2": "til at nulstille din adgangskode.",
+  "checkInbox.resend": "Modtog du ikke e-mailen?",
   "button.go-back": "Tilbage"
 }
