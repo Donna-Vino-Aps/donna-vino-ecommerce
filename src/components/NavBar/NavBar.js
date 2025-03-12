@@ -48,6 +48,52 @@ const Navbar = () => {
     },
   ];
 
+  const navLinksSidebar = [
+    {
+      id: "home",
+      href: "/",
+      label: translations["navbar.home"],
+      icon: "/icons/home.svg",
+      iconSize: "small",
+      dropdown: false,
+    },
+    {
+      id: "wines",
+      href: "/wines",
+      label: translations["navbar.wines"],
+      icon: "/icons/wine-glass-1.svg",
+      iconSize: "small",
+      dropdown: true,
+      sublinks: ["Red Wines", "White Wines", "Rosé Wines"],
+    },
+    {
+      id: "offers",
+      href: "/offers",
+      label: translations["navbar.offers"],
+      icon: "/icons/offer.svg",
+      iconSize: "small",
+      dropdown: false,
+    },
+    {
+      id: "grapeszones",
+      href: "/grapes-zones",
+      label: translations["navbar.grapes"],
+      icon: "/icons/grape-full.svg",
+      iconSize: "small",
+      dropdown: true,
+      sublinks: ["Grapes", "Regions"],
+    },
+    {
+      id: "account",
+      href: "/account",
+      label: translations["navbar.account"],
+      icon: "/icons/user-alt-2.svg",
+      iconSize: "small",
+      dropdown: true,
+      sublinks: ["My wines", "Orders", "Profile", "Settings"],
+    },
+  ];
+
   const handleClick = (href) => {
     setActiveLink(href);
   };
@@ -168,7 +214,7 @@ const Navbar = () => {
           id="mobile-menu"
           isMenuOpen={isMenuOpen}
           toggleMenu={toggleMenu}
-          navLinks={navLinks}
+          navLinks={navLinksSidebar}
         />
       </div>
     </nav>
