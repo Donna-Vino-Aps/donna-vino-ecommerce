@@ -1,7 +1,7 @@
 import React from "react";
 import { render, screen } from "@testing-library/react";
 import "@testing-library/jest-dom";
-import TastingSession from "@/components/TastingSession/TastingSession";
+import HeroSlider from "@/components/HeroSlider/HeroSlider";
 
 beforeAll(() => {
   global.innerWidth = 1024;
@@ -37,9 +37,9 @@ jest.mock("@/components/Button/Button", () =>
   jest.fn((props) => <button {...props}>{props.text}</button>),
 );
 
-describe("TastingSession Component", () => {
+describe("HeroSlider Component", () => {
   test("renders the component correctly", () => {
-    render(<TastingSession />);
+    render(<HeroSlider />);
 
     expect(screen.getByText(/Events/)).toBeInTheDocument();
     expect(
@@ -54,7 +54,7 @@ describe("TastingSession Component", () => {
   });
 
   test("renders the previous and next buttons", () => {
-    render(<TastingSession />);
+    render(<HeroSlider />);
 
     expect(
       screen.getByTestId("carousel-previous-button-large"),
