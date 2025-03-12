@@ -1,18 +1,19 @@
 "use client";
 
-import React, { useState, useEffect, useRef, useContext } from "react";
+import React, { useState, useEffect, useRef } from "react";
+// import React, { useState, useEffect, useRef, useContext } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import axios from "axios";
 import { useLanguage } from "../../context/LanguageContext";
-import { CredentialsContext } from "../../context/credentialsContext";
+// import { CredentialsContext } from "../../context/credentialsContext";
 
 const UserDropdown = () => {
   const router = useRouter();
   const { translations } = useLanguage();
   const [isOpen, setIsOpen] = useState(false);
-  const { storedCredentials, setStoredCredentials } =
-    useContext(CredentialsContext);
+  // const { storedCredentials, setStoredCredentials } =
+  //   useContext(CredentialsContext);
 
   // This line checks if the user is logged in or not
   // const isAuthenticated = Boolean(storedCredentials?.user);
