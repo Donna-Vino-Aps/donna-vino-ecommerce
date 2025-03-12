@@ -1,5 +1,6 @@
 "use client";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import React, { useState } from "react";
 import LanguageSwitch from "../NavBar/LanguageSwitch";
 import SideBar from "../SideBar/SideBar";
@@ -10,14 +11,36 @@ import ShoppingCart from "./ShoppingCart";
 
 const Navbar = () => {
   const { translations } = useLanguage();
+  const pathname = usePathname();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [activeLink, setActiveLink] = useState("/");
-  const [winesDropdownOpen, setWinesDropdownOpen] = useState(false);
-  const [grapesDropdownOpen, setGrapesDropdownOpen] = useState(false);
+  const [openDropdowns, setOpenDropdowns] = useState({
+    wines: false,
+    grapeszones: false,
+  });
+
+  const toggleDropdown = (id) => {
+    setOpenDropdowns((prev) => {
+      // If the clicked dropdown is already open, close it
+      if (prev[id]) {
+        return { ...prev, [id]: false };
+      }
+
+      // Otherwise, close all other dropdowns and open the clicked one
+      return { [id]: true };
+    });
+  };
+
+  const isDropdownOpen = (id) => openDropdowns[id] ?? false;
 
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
-  const toggleWinesDropdown = () => setWinesDropdownOpen(!winesDropdownOpen);
-  const toggleGrapesDropdown = () => setGrapesDropdownOpen(!grapesDropdownOpen);
+
+  const isActive = (href, sublinks = []) =>
+    pathname === href ||
+    sublinks.some((sublink) => pathname.startsWith(sublink));
+
+  // const handleClick = (href) => {
+  //   setActiveLink(href);
+  // };
 
   const navLinks = [
     {
@@ -31,7 +54,22 @@ const Navbar = () => {
       href: "/wines",
       label: translations["navbar.wines"],
       dropdown: true,
-      sublinks: ["Red", "White", "Rosé"],
+      subHeadingsIta: ["Vini Rossi", "Vini Bianchi", "Vini Rosati"],
+      subHeadingsLang: [
+        "navbar.wines.subh1",
+        "navbar.wines.subh2",
+        "navbar.wines.subh3",
+      ],
+      sublinks: [
+        [
+          "Chianti",
+          "Barolo",
+          "Brunello di Montalcino",
+          "Montepulciano d'Abruzzo",
+        ],
+        ["Prosecco", "Pinot Grigio"],
+        ["Chiaretto", "Cerasuolo d'Abruzzo"],
+      ],
     },
     {
       id: "offers",
@@ -44,7 +82,25 @@ const Navbar = () => {
       href: "/grapes-zones",
       label: translations["navbar.grapes"],
       dropdown: true,
-      sublinks: ["Malbec", "Pinot Noir", "Chardonnay"],
+      subHeadings: ["navbar.grapes.sh1", "navbar.grapes.sh2"],
+      sublinks: [
+        [
+          "Montepulciano",
+          "Sangiovese",
+          "Nebbiolo",
+          "Corvina",
+          "Trebbiano",
+          "Vermentino",
+        ],
+        [
+          "Tuscany",
+          "Piedmont",
+          "Sicily",
+          "Emilia-Romagna",
+          "Lombardy",
+          "Puglia",
+        ],
+      ],
     },
   ];
 
@@ -54,7 +110,6 @@ const Navbar = () => {
       href: "/",
       label: translations["navbar.home"],
       icon: "/icons/home.svg",
-      iconSize: "small",
       dropdown: false,
     },
     {
@@ -62,7 +117,6 @@ const Navbar = () => {
       href: "/wines",
       label: translations["navbar.wines"],
       icon: "/icons/wine-glass-1.svg",
-      iconSize: "small",
       dropdown: true,
       sublinks: ["Red Wines", "White Wines", "Rosé Wines"],
     },
@@ -71,7 +125,6 @@ const Navbar = () => {
       href: "/offers",
       label: translations["navbar.offers"],
       icon: "/icons/offer.svg",
-      iconSize: "small",
       dropdown: false,
     },
     {
@@ -79,7 +132,6 @@ const Navbar = () => {
       href: "/grapes-zones",
       label: translations["navbar.grapes"],
       icon: "/icons/grape-full.svg",
-      iconSize: "small",
       dropdown: true,
       sublinks: ["Grapes", "Regions"],
     },
@@ -88,15 +140,10 @@ const Navbar = () => {
       href: "/account",
       label: translations["navbar.account"],
       icon: "/icons/user-alt-2.svg",
-      iconSize: "small",
       dropdown: true,
       sublinks: ["My wines", "Orders", "Profile", "Settings"],
     },
   ];
-
-  const handleClick = (href) => {
-    setActiveLink(href);
-  };
 
   return (
     <nav
@@ -127,22 +174,19 @@ const Navbar = () => {
           <div key={link.id} className="relative">
             {link.dropdown ? (
               <button
-                onClick={() =>
-                  link.id === "wines"
-                    ? toggleWinesDropdown()
-                    : toggleGrapesDropdown()
-                }
-                className="flex items-center rounded-md px-3 py-2 text-titleMedium text-tertiary2-active_dark"
+                onClick={() => toggleDropdown(link.id)}
+                className={`flex items-center rounded-md px-3 py-2 text-titleMedium ${
+                  isActive(link.href, link.sublinks)
+                    ? "text-tertiary1-gray"
+                    : "text-tertiary2-active_dark"
+                }`}
               >
                 {link.label}
                 <img
                   src="/icons/chevron-down.svg"
                   alt="Chevron Down"
                   className={`ml-2 transition-transform ${
-                    (link.id === "wines" && winesDropdownOpen) ||
-                    (link.id === "grapeszones" && grapesDropdownOpen)
-                      ? "rotate-180"
-                      : "rotate-0"
+                    isDropdownOpen(link.id) ? "rotate-180" : "rotate-0"
                   }`}
                 />
               </button>
@@ -150,7 +194,7 @@ const Navbar = () => {
               <Link
                 href={link.href}
                 className={`rounded-md px-3 py-2 text-titleMedium ${
-                  activeLink === link.href
+                  pathname === link.href
                     ? "text-tertiary1-gray"
                     : "text-tertiary2-active_dark"
                 }`}
@@ -165,10 +209,7 @@ const Navbar = () => {
             {link.dropdown && (
               <div
                 className={`absolute left-0 mt-2 w-40 bg-white shadow-md rounded-md ${
-                  (link.id === "wines" && winesDropdownOpen) ||
-                  (link.id === "grapeszones" && grapesDropdownOpen)
-                    ? "block"
-                    : "hidden"
+                  isDropdownOpen(link.id) ? "block" : "hidden"
                 }`}
               >
                 {link.sublinks.map((sublink) => (
