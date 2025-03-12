@@ -38,9 +38,13 @@ const Navbar = () => {
     pathname === href ||
     sublinks.some((sublink) => pathname.startsWith(sublink));
 
-  // const handleClick = (href) => {
-  //   setActiveLink(href);
-  // };
+  const chunkSublinks = (array, size) => {
+    const result = [];
+    for (let i = 0; i < array.length; i += size) {
+      result.push(array.slice(i, i + size));
+    }
+    return result;
+  };
 
   const navLinks = [
     {
@@ -55,7 +59,7 @@ const Navbar = () => {
       label: translations["navbar.wines"],
       dropdown: true,
       subHeadingsIta: ["Vini Rossi", "Vini Bianchi", "Vini Rosati"],
-      subHeadingsLang: [
+      subHeadings: [
         "navbar.wines.subh1",
         "navbar.wines.subh2",
         "navbar.wines.subh3",
@@ -78,7 +82,7 @@ const Navbar = () => {
       dropdown: false,
     },
     {
-      id: "grapeszones",
+      id: "grapes",
       href: "/grapes-zones",
       label: translations["navbar.grapes"],
       dropdown: true,
@@ -179,7 +183,8 @@ const Navbar = () => {
                   isActive(link.href, link.sublinks)
                     ? "text-tertiary1-gray"
                     : "text-tertiary2-active_dark"
-                }`}
+                }
+                ${isDropdownOpen(link.id) ? "bg-primary-light" : "bg-white"}`}
               >
                 {link.label}
                 <img
@@ -204,26 +209,82 @@ const Navbar = () => {
                 {link.label}
               </Link>
             )}
-
             {/* Dropdown menu */}
-            {link.dropdown && (
-              <div
-                className={`absolute left-0 mt-2 w-40 bg-white shadow-md rounded-md ${
-                  isDropdownOpen(link.id) ? "block" : "hidden"
-                }`}
-              >
-                {link.sublinks.map((sublink) => (
-                  <Link
-                    key={sublink}
-                    href={link.href} // Initially set to go to the href of the overarching Link (like Wines)
-                    // href={`${link.href}/${sublink.toLowerCase()}`}  Or something similar can be used in future implementations
-                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-200"
-                  >
-                    {sublink}
-                  </Link>
-                ))}
-              </div>
-            )}
+            {link.dropdown ? (
+              link.id === "wines" ? (
+                <div
+                  className={`absolute left-[20%] mt-2 w-[40.313rem] h-[14rem] bg-white shadow-md rounded-md ${
+                    isDropdownOpen(link.id)
+                      ? "flex flex-row space-x-6"
+                      : "hidden"
+                  }`}
+                >
+                  {/* Content for "wines" dropdown */}
+                  {link.subHeadingsIta.map((heading, index) => (
+                    <div key={index} className="space-y-2 relative left-6">
+                      <h3 className="text-titleMedium font-medium text-black relative left-4">
+                        {heading} |{" "}
+                        <span className="font-light italic">
+                          {translations[link.subHeadings[index]]}
+                        </span>
+                      </h3>
+                      <hr className="border-secondary-hover border-[1.25px] w-[80%] relative left-4 mt-3 mb-1" />
+                      <ul className="space-y-1">
+                        {link.sublinks[index].map((sublink) => (
+                          <li key={sublink}>
+                            <Link
+                              href={link.href}
+                              className="block px-4 py-2 text-sm text-gray-700 hover:bg-primary-light"
+                            >
+                              {sublink}
+                            </Link>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  ))}
+                </div>
+              ) : link.id === "grapes" ? (
+                <div
+                  className={`absolute left-[25%] mt-2 w-[33.813rem] h-[12.5rem] bg-white shadow-md rounded-md ${
+                    isDropdownOpen(link.id)
+                      ? "flex flex-row space-x-2"
+                      : "hidden"
+                  }`}
+                >
+                  {/* Content for "grapes" dropdown */}
+                  {link.subHeadings.map((heading, index) => (
+                    <div key={index} className="space-y-2 pt-2">
+                      <h3 className="text-titleMedium font-medium text-black relative left-4">
+                        {translations[heading]}
+                      </h3>
+                      <hr className="border-secondary-hover border-[1.25px] w-[80%] relative left-4 mt-3 mb-1" />
+                      <ul className="grid grid-cols-3 gap-16">
+                        {chunkSublinks(link.sublinks[index], 3).map(
+                          (chunk, chunkIndex) => (
+                            <div
+                              key={chunkIndex}
+                              className="flex flex-col space-y-1 min-w-44"
+                            >
+                              {chunk.map((sublink, sublinkIndex) => (
+                                <li key={sublinkIndex} className="">
+                                  <Link
+                                    href={link.href}
+                                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-primary-light"
+                                  >
+                                    {sublink}
+                                  </Link>
+                                </li>
+                              ))}
+                            </div>
+                          ),
+                        )}
+                      </ul>
+                    </div>
+                  ))}
+                </div>
+              ) : null
+            ) : null}
           </div>
         ))}
       </div>
