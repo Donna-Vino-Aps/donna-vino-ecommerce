@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Button from "../Button/Button";
 import { useLanguage } from "@/context/LanguageContext";
 
-const TastingSession = () => {
+const HeroSlider = () => {
   const { translations } = useLanguage();
 
   // Storing the different texts and images used in the slider
@@ -53,9 +53,9 @@ const TastingSession = () => {
 
   return (
     <section
-      className={`relative flex flex-col-reverse md:w-full ${currentImageIndex === 0 ? "md:flex-row" : "md:flex-row-reverse"} justify-between bg-white min-h-[36rem]`}
+      className={`relative flex flex-col-reverse md:w-full ${currentImageIndex === 0 ? "md:flex-row" : "md:flex-row-reverse"} justify-between bg-white min-h-[48rem]`}
     >
-      <div className="md:hidden flex mx-auto my-3 relative top-2">
+      <div className="md:hidden flex mx-auto my-3 relative top-3">
         {Array.from({ length: images.length }).map((_, index) => (
           <button
             key={index}
@@ -79,7 +79,7 @@ const TastingSession = () => {
       <div className="relative justify-center self-start w-full md:w-1/2 min-h-[22.75rem] md:h-full">
         {currentImageIndex === 0 ? (
           <video
-            className="absolute inset-0 md:rounded-t-[0rem] md:rounded-tr-[8rem] md:rounded-br-xl object-cover w-full h-full"
+            className="absolute inset-0 mt-6 md:mt-0 md:rounded-t-[0rem] md:rounded-tr-[8rem] md:rounded-br-xl object-cover w-full h-full"
             autoPlay
             loop
             muted
@@ -95,21 +95,21 @@ const TastingSession = () => {
           <img
             src={images[currentImageIndex]}
             alt="Tasting session slide"
-            className={`absolute inset-0 rounded-tl-[0rem] !rounded-tl-[0rem] ${currentImageIndex === 0 ? "md:rounded-tr-[8rem] md:rounded-br-xl" : "md:rounded-tl-[8rem] !md:rounded-tl-[8rem] md:rounded-bl-xl"} object-cover w-full h-full`}
+            className={`absolute inset-0 mt-6 md:mt-0 rounded-tl-[0rem] !rounded-tl-[0rem] ${currentImageIndex === 0 ? "md:rounded-tr-[8rem] md:rounded-br-xl" : "md:rounded-tl-[8rem] !md:rounded-tl-[8rem] md:rounded-bl-xl"} object-cover w-full h-full`}
             data-testid="hero-image"
           />
         )}
       </div>
-      <div className="flex flex-col justify-center align-center items-center md:items-start font-barlow font-regular px-10 sm:px-20 md:px-6 lg:px-10 xl:px-14 min-h-[20rem] md:max-w-[50%]">
+      <div className="flex flex-col justify-center align-start items-start md:items-start font-barlow font-regular px-12 sm:px-20 md:px-6 lg:px-10 xl:px-14 min-h-[20rem] md:max-w-[50%]">
         <div>
-          <p className=" sm:text-titleSmall md:text-titleMedium xl:text-titleLarge text-primary-dark">
+          <p className="text-left sm:text-titleSmall md:text-titleMedium xl:text-titleLarge text-primary-normal">
             {translations[subheadings[currentImageIndex]]}
           </p>
         </div>
-        <h2 className="text-headlineSmall text-center md:text-left md:text-headlineLarge lg:text-displaySmall xl:text-displayMedium text-tertiary1-dark my-1 md:my-2 mr-8">
+        <h2 className="text-displayMedium text-left md:text-left md:text-headlineLarge lg:text-displaySmall xl:text-displayMedium text-tertiary1-dark my-2 md:my-2 mr-8">
           {translations[headings[currentImageIndex]]}
         </h2>
-        <p className="text-center md:text-start text-bodySmall md:text-bodyMedium xl:text-bodyLarge md:mt-3 mb-4 md:mb-5 xl:mb-10 mr-10">
+        <p className="text-start md:text-start text-bodyMedium md:text-bodyMedium xl:text-bodyLarge mt-2 mb-7 sm:mt-2 sm:mb-7 md:mt-2 mb-4 md:mb-5 xl:mb-10 mr-10">
           {translations[paragraphs[currentImageIndex]]}
         </p>
         <Button
@@ -118,6 +118,7 @@ const TastingSession = () => {
           variant="redFullText"
           aria-label="Book a tasting session"
           data-testid="book-tasting-button"
+          className=""
         ></Button>
         <div
           className={`hidden md:flex mt-4 md:absolute md:bottom-8 lg:bottom-10 xl:bottom-14 ${currentImageIndex === 0 ? "md:right-8 lg:right-10 xl:right-12" : "md:left-[37.5%]"}`}
@@ -154,4 +155,4 @@ const TastingSession = () => {
   );
 };
 
-export default TastingSession;
+export default HeroSlider;
