@@ -1,7 +1,11 @@
 import React from "react";
 import { render, screen } from "@testing-library/react";
 import "@testing-library/jest-dom";
-import TastingSession from "@/components/TastingSession/TastingSession";
+import HeroSlider from "@/components/HeroSlider/HeroSlider";
+
+beforeAll(() => {
+  global.innerWidth = 1024;
+});
 
 jest.mock("@/context/LanguageContext", () => {
   const PropTypes = require("prop-types");
@@ -20,38 +24,37 @@ jest.mock("@/context/LanguageContext", () => {
     },
     useLanguage: () => ({
       translations: {
-        "tasting.subheading": "Wine Tasting Experience",
-        "tasting.heading": "Discover the Art of Wine Tasting",
-        "tasting.paragraph":
-          "Join us for a unique tasting experience where you can enjoy premium wines.",
-        "tasting.button": "Book Now",
+        "tasting.subheading1": "Events",
+        "tasting.heading1": "Book your seat at our next tasting session",
+        "tasting.paragraph1": "Join us for a premium wine tasting experience",
+        "tasting.button1": "Book a tasting session",
       },
     }),
   };
 });
 
 jest.mock("@/components/Button/Button", () =>
-  jest.fn(({ text }) => <button>{text}</button>),
+  jest.fn((props) => <button {...props}>{props.text}</button>),
 );
 
-describe("TastingSession Component", () => {
+describe("HeroSlider Component", () => {
   test("renders the component correctly", () => {
-    render(<TastingSession />);
+    render(<HeroSlider />);
 
-    expect(screen.getByText(/Wine Tasting Experience/)).toBeInTheDocument();
+    expect(screen.getByText(/Events/)).toBeInTheDocument();
     expect(
-      screen.getByText(/Discover the Art of Wine Tasting/),
+      screen.getByText(/Book your seat at our next tasting session/),
     ).toBeInTheDocument();
     expect(
-      screen.getByText(/Join us for a unique tasting experience/),
+      screen.getByText(/Join us for a premium wine tasting experience/),
     ).toBeInTheDocument();
     expect(
-      screen.getByRole("button", { name: /Book Now/i }),
+      screen.getByRole("button", { name: /Book a tasting session/i }),
     ).toBeInTheDocument();
   });
 
   test("renders the previous and next buttons", () => {
-    render(<TastingSession />);
+    render(<HeroSlider />);
 
     expect(
       screen.getByTestId("carousel-previous-button-large"),
