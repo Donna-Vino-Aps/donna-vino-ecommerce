@@ -55,7 +55,7 @@ const HeroSlider = () => {
     <section
       className={`relative flex flex-col-reverse md:w-full ${currentImageIndex === 0 ? "md:flex-row" : "md:flex-row-reverse"} justify-between bg-white min-h-[48rem]`}
     >
-      <div className="md:hidden flex mx-auto my-3 relative top-3">
+      <div className="md:hidden flex mx-auto my-3 mt-6 relative top-3">
         {Array.from({ length: images.length }).map((_, index) => (
           <button
             key={index}
