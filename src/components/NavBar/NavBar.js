@@ -213,7 +213,7 @@ const Navbar = () => {
             {link.dropdown ? (
               link.id === "wines" ? (
                 <div
-                  className={`absolute left-[20%] mt-2 w-[40.313rem] h-[14rem] bg-white shadow-md rounded-md ${
+                  className={`absolute top-[6rem] left-1/2 transform -translate-x-1/2 mt-2 w-[40.313rem] h-[14rem] bg-white shadow-2xl rounded-lg ${
                     isDropdownOpen(link.id)
                       ? "flex flex-row space-x-6"
                       : "hidden"
@@ -221,20 +221,23 @@ const Navbar = () => {
                 >
                   {/* Content for "wines" dropdown */}
                   {link.subHeadingsIta.map((heading, index) => (
-                    <div key={index} className="space-y-2 relative left-6">
-                      <h3 className="text-titleMedium font-medium text-black relative left-4">
-                        {heading} |{" "}
+                    <div
+                      key={index}
+                      className="space-y-2 relative left-5 top-3"
+                    >
+                      <h3 className="text-titleMedium text-black relative left-4">
+                        <span className="font-semibold">{heading}</span> |{" "}
                         <span className="font-light italic">
                           {translations[link.subHeadings[index]]}
                         </span>
                       </h3>
-                      <hr className="border-secondary-hover border-[1.25px] w-[80%] relative left-4 mt-3 mb-1" />
+                      <hr className="border-secondary-darker border-t-[0.25px] w-[95%] min-w-[11rem] relative left-4 mt-3 mb-1" />
                       <ul className="space-y-1">
                         {link.sublinks[index].map((sublink) => (
                           <li key={sublink}>
                             <Link
                               href={link.href}
-                              className="block px-4 py-2 text-sm text-gray-700 hover:bg-primary-light"
+                              className="inline-block px-4 py-2 text-sm text-gray-700 hover:bg-primary-light hover:rounded-lg"
                             >
                               {sublink}
                             </Link>
@@ -246,7 +249,7 @@ const Navbar = () => {
                 </div>
               ) : link.id === "grapes" ? (
                 <div
-                  className={`absolute left-[25%] mt-2 w-[33.813rem] h-[12.5rem] bg-white shadow-md rounded-md ${
+                  className={`absolute top-[6rem] left-1/2 transform -translate-x-1/2 mt-2 w-[33.813rem] h-[12.5rem] bg-white shadow-2xl rounded-lg ${
                     isDropdownOpen(link.id)
                       ? "flex flex-row space-x-2"
                       : "hidden"
@@ -254,11 +257,14 @@ const Navbar = () => {
                 >
                   {/* Content for "grapes" dropdown */}
                   {link.subHeadings.map((heading, index) => (
-                    <div key={index} className="space-y-2 pt-2">
-                      <h3 className="text-titleMedium font-medium text-black relative left-4">
+                    <div
+                      key={index}
+                      className="space-y-2 relative left-3 top-3"
+                    >
+                      <h3 className="text-titleMedium font-semibold text-black relative left-4">
                         {translations[heading]}
                       </h3>
-                      <hr className="border-secondary-hover border-[1.25px] w-[80%] relative left-4 mt-3 mb-1" />
+                      <hr className="border-secondary-darker border-t-[0.25px] w-[85%] min-w-[11rem] relative left-2 mt-3 mb-1" />
                       <ul className="grid grid-cols-3 gap-16">
                         {chunkSublinks(link.sublinks[index], 3).map(
                           (chunk, chunkIndex) => (
@@ -270,7 +276,7 @@ const Navbar = () => {
                                 <li key={sublinkIndex} className="">
                                   <Link
                                     href={link.href}
-                                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-primary-light"
+                                    className="inline-block px-4 py-2 text-sm text-gray-700 hover:bg-primary-light hover:rounded-lg"
                                   >
                                     {sublink}
                                   </Link>
