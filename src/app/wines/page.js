@@ -1,13 +1,12 @@
 "use client";
 
-import CalendarTest from "@/components/Calendar/CalendarTest";
+import CalendarFrame from "@/components/Calendar/CalendarFrame";
 import React from "react";
 
 const Wines = () => {
   return (
     <div>
-      <h1 className="text-headlineLarge text-center">Wines</h1>
-      <CalendarTest />
+      <CalendarFrame />
     </div>
   );
 };

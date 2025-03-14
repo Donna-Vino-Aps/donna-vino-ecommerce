@@ -15,7 +15,7 @@ const CalendarItem = ({
   variant = "none",
   onClick,
 }) => {
-  const isFull = seatsAvailable === 0;
+  const isFull = seatsAvailable === 0 && seatsTotal > 0;
   const percentageAvailable = (seatsAvailable / seatsTotal) * 100;
 
   // Get today's date
@@ -28,14 +28,16 @@ const CalendarItem = ({
   let bgColor;
   if (isFull) {
     bgColor = "bg-[#FF3B30] text-tertiary1-light"; // Red if full
-  } else if (isToday) {
-    bgColor = "bg-primary-active text-tertiary1-light"; // light pink if today
-  } else if (percentageAvailable <= 30) {
+  } else if (percentageAvailable > 50 && seatsTotal !== 0) {
+    bgColor = "bg-[#34C759] text-tertiary1-light"; // Green if many seats available
+  } else if (percentageAvailable <= 50 && seatsTotal !== 0) {
     bgColor = "bg-[#ff9500] text-tertiary1-light"; // Yellow if limited
+  } else if (isToday && percentageAvailable !== null) {
+    bgColor = "bg-primary-active text-tertiary1-light"; // light pink if today
   } else if (seatsTotal === 0) {
     bgColor = "bg-[#ffffff]"; // White if there is no event on this day
   } else {
-    bgColor = "bg-[#34C759] text-tertiary1-light"; // Green if many seats available
+    bgColor = "bg-[#ffffff]"; // White if nothing else matches
   }
 
   const calendarItemClass = `
@@ -52,11 +54,18 @@ const CalendarItem = ({
         className={`${calendarItemClass} 
         ${variant === "limited" && percentageAvailable > 50 ? "opacity-85" : "opacity-100"}`}
       >
-        <p className="absolute top-3 left-3">{dayOfMonth}</p>
-        <div className="absolute bottom-2 right-6">
-          {icon && <img src={icon} alt="attendants icon" className="w-4 h-4" />}
-          <p className="text-white">{`Seats: ${seatsAvailable}`}</p>
-        </div>
+        <p className="absolute top-5 left-4">{dayOfMonth}</p>
+        {(seatsAvailable > 0 && seatsTotal === 0) ||
+        (isToday && icon) ? null : (
+          <div className="flex gap-[6px] absolute bottom-2 right-6">
+            <img
+              src={icon}
+              alt="attendants icon"
+              className="w-6 h-6 relative bottom-1"
+            />
+            <p className="text-white">{`Seats: ${seatsAvailable}`}</p>
+          </div>
+        )}
       </div>
     </article>
   );
