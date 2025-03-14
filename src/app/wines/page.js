@@ -1,12 +1,11 @@
 "use client";
 
-import CalendarFrame from "@/components/Calendar/CalendarFrame";
 import React from "react";
 
 const Wines = () => {
   return (
     <div>
-      <CalendarFrame />
+      <h1 className="text-displayLarge text-center">Wines</h1>
     </div>
   );
 };
