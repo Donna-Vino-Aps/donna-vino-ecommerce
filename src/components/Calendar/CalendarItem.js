@@ -10,11 +10,12 @@ const BASE_CALENDARITEM_CLASSES = `
 const CalendarItem = ({
   dayOfMonth,
   icon,
-  seatsAvailable = 0,
+  seatsTaken = 0,
   seatsTotal = 0,
   variant = "none",
   onClick,
 }) => {
+  const seatsAvailable = seatsTotal - seatsTaken;
   const isFull = seatsAvailable === 0 && seatsTotal > 0;
   const percentageAvailable = (seatsAvailable / seatsTotal) * 100;
 
@@ -74,7 +75,7 @@ const CalendarItem = ({
 CalendarItem.propTypes = {
   dayOfMonth: PropTypes.number.isRequired,
   icon: PropTypes.string,
-  seatsAvailable: PropTypes.number.isRequired,
+  seatsTaken: PropTypes.number.isRequired,
   seatsTotal: PropTypes.number.isRequired,
   variant: PropTypes.oneOf(["none", "today", "open", "limited", "full"]),
   onClick: PropTypes.func,

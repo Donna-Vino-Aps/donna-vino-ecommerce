@@ -3,7 +3,7 @@ import CalendarItem from "./CalendarItem";
 
 const Calendar = () => {
   const daysOfTheMonth = Array.from({ length: 28 }, (_, i) => i + 1);
-  const randomSeatsAvailable = daysOfTheMonth.map(() =>
+  const randomSeatsTaken = daysOfTheMonth.map(() =>
     Math.floor(Math.random() * 20),
   );
   const randomSeatsTotal = [
@@ -27,7 +27,7 @@ const Calendar = () => {
           key={day}
           dayOfMonth={day}
           icon="./icons/users-2.svg"
-          seatsAvailable={randomSeatsAvailable[day - 1]}
+          seatsTaken={randomSeatsTaken[day - 1]}
           seatsTotal={randomSeatsTotal[day - 1]}
         />
       ))}

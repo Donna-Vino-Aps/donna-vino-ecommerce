@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import Calendar from "./Calendar";
 import CalendarMonthPicker from "./CalendarMonthPicker";
+import DateSelector from "./DateSelector";
+import ColorInfo from "./ColorInfo";
 
 const CalendarFrame = () => {
   const [currentMonth, setCurrentMonth] = useState(null);
@@ -15,9 +17,11 @@ const CalendarFrame = () => {
   }
 
   return (
-    <div className="mb-12">
+    <div className="mb-12 flex flex-col items-center">
+      <DateSelector />
       <CalendarMonthPicker monthOfYear={currentMonth} />
       <Calendar />
+      <ColorInfo />
     </div>
   );
 };
