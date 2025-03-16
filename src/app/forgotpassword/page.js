@@ -3,6 +3,7 @@ import React from "react";
 import Button from "@/components/Button/Button";
 import { useLanguage } from "@/context/LanguageContext";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 const ForgotPassword = () => {
   const { translations } = useLanguage();
   const router = useRouter();
@@ -40,7 +41,7 @@ const ForgotPassword = () => {
           className="w-full p-2 mb-4 mt-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
         />
         <div className="w-full mt-2 mb-4">
-          <Link href="/checkInbox">
+          <Link href="/check-in-box">
             <Button
               text={translations["forgotPassword.button"]}
               variant="redWide"

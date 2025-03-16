@@ -52,5 +52,6 @@
   "checkInbox.success-text1": "You will soon receive a link at",
   "checkInbox.success-text2": "to reset your password.",
   "checkInbox.resend": "Didn't receive the email?",
+  "checkInbox.resend2": "Resend",
   "button.go-back": "Go back"
 }
