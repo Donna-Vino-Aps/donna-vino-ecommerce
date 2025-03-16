@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
 import LoginScreen from "@/components/LogIn/LogInScreen";
-import TastingSession from "@/components/TastingSession/TastingSession";
+import TastingSession from "@/components/HeroSlider/HeroSlider";
 import TopWinesSection from "@/components/Slider/TopWinesSection";
 import LogoutButton from "@/components/Button/Logout";
 import ServicesBanner from "@/components/ServicesBanner/ServicesBanner";
