@@ -19,36 +19,7 @@ const Navbar = () => {
   const toggleWinesDropdown = () => setWinesDropdownOpen(!winesDropdownOpen);
   const toggleGrapesDropdown = () => setGrapesDropdownOpen(!grapesDropdownOpen);
 
-  // const navLinks = [
-  //   {
-  //     id: "home",
-  //     href: "/",
-  //     label: translations["navbar.home"],
-  //     dropdown: false,
-  //   },
-  //   {
-  //     id: "wines",
-  //     href: "/wines",
-  //     label: translations["navbar.wines"],
-  //     dropdown: true,
-  //     sublinks: ["Red", "White", "Rosé"],
-  //   },
-  //   {
-  //     id: "offers",
-  //     href: "/offers",
-  //     label: translations["navbar.offers"],
-  //     dropdown: false,
-  //   },
-  //   {
-  //     id: "grapeszones",
-  //     href: "/grapes-zones",
-  //     label: translations["navbar.grapes"],
-  //     dropdown: true,
-  //     sublinks: ["Malbec", "Pinot Noir", "Chardonnay"],
-  //   },
-  // ];
-
-  const navLinksFirstLaunch = [
+  const navLinks = [
     {
       id: "home",
       href: "/",
@@ -56,10 +27,24 @@ const Navbar = () => {
       dropdown: false,
     },
     {
-      id: "events",
-      href: "/events",
-      label: "Events & Wine Tasting",
+      id: "wines",
+      href: "/wines",
+      label: translations["navbar.wines"],
+      dropdown: true,
+      sublinks: ["Red", "White", "Rosé"],
+    },
+    {
+      id: "offers",
+      href: "/offers",
+      label: translations["navbar.offers"],
       dropdown: false,
+    },
+    {
+      id: "grapeszones",
+      href: "/grapes-zones",
+      label: translations["navbar.grapes"],
+      dropdown: true,
+      sublinks: ["Malbec", "Pinot Noir", "Chardonnay"],
     },
   ];
 
@@ -138,7 +123,7 @@ const Navbar = () => {
           isMenuOpen ? "block" : "hidden"
         }`}
       >
-        {navLinksFirstLaunch.map((link) => (
+        {navLinks.map((link) => (
           <div key={link.id} className="relative">
             {link.dropdown ? (
               <button
