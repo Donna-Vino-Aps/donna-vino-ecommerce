@@ -14,6 +14,7 @@ const CalendarItem = ({
   seatsTotal = 0,
   variant = "none",
   onClick,
+  isOtherMonth,
 }) => {
   const seatsAvailable = seatsTotal - seatsTaken;
   const isFull = seatsAvailable === 0 && seatsTotal > 0;
@@ -27,7 +28,9 @@ const CalendarItem = ({
   const isToday = dayOfMonth === todayDayOfMonth;
 
   let bgColor;
-  if (isFull) {
+  if (isOtherMonth) {
+    bgColor = "bg-[#ffffff] text-tertiary1-active";
+  } else if (isFull) {
     bgColor = "bg-[#FF3B30] text-tertiary1-light"; // Red if full
   } else if (percentageAvailable > 50 && seatsTotal !== 0) {
     bgColor = "bg-[#34C759] text-tertiary1-light"; // Green if many seats available
@@ -79,6 +82,7 @@ CalendarItem.propTypes = {
   seatsTotal: PropTypes.number.isRequired,
   variant: PropTypes.oneOf(["none", "today", "open", "limited", "full"]),
   onClick: PropTypes.func,
+  isOtherMonth: PropTypes.bool,
 };
 
 export default CalendarItem;
