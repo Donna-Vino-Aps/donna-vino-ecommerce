@@ -35,18 +35,20 @@ const CalendarMonthPicker = ({ currentMonth, currentYear, onMonthChange }) => {
 
   return (
     <div className="flex justify-between items-center mx-auto bg-primary-normal w-full h-[5rem] max-w-[calc(7*12.5rem-2px)] rounded-t-[1rem] text-headlineMedium text-center text-tertiary2-light">
-      <button onClick={handlePreviousMonth} aria-label="Previous Month">
-        <img
-          src="/icons/arrow-left-small.svg"
-          className="relative top-[2px] left-16"
-        />
+      <button
+        onClick={handlePreviousMonth}
+        aria-label="Previous Month"
+        className="relative top-[2px] left-16"
+      >
+        <img src="/icons/arrow-left-small.svg" />
       </button>
       {months[currentMonth - 1]} {currentYear}
-      <button onClick={handleNextMonth} aria-label="Next Month">
-        <img
-          src="/icons/arrow-right-small.svg"
-          className="relative top-[2px] right-16"
-        />
+      <button
+        onClick={handleNextMonth}
+        aria-label="Next Month"
+        className="relative top-[2px] right-16"
+      >
+        <img src="/icons/arrow-right-small.svg" />
       </button>
     </div>
   );
