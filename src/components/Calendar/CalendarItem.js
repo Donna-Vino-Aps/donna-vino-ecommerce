@@ -4,7 +4,7 @@ import React from "react";
 import PropTypes from "prop-types";
 
 const BASE_CALENDARITEM_CLASSES = `
-   h-[7.84rem] w-[12.5rem] text-labelXLarge font-semibold rounded-tl-[16px] rounded-bl-[62.5px]
+   h-[7.9rem] w-[12.45rem] text-labelXLarge font-semibold rounded-tl-[16px] rounded-bl-[62.5px]
 `;
 
 const CalendarItem = ({
@@ -56,7 +56,7 @@ const CalendarItem = ({
 
   return (
     <article
-      className={`relative h-[7.938rem] w-[12.5rem] bg-white border-tertiary1-light border-[0.9px] ${isFull ? "hover:cursor-not-allowed" : "hover:cursor-pointer"}`}
+      className={`relative h-[7.938rem] w-[12.5rem] bg-white border-tertiary1-light border-t-[1px] border-x ${isFull ? "hover:cursor-not-allowed" : "hover:cursor-pointer"}`}
       onClick={onClick}
     >
       <div

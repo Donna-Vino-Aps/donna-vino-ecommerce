@@ -92,7 +92,7 @@ const Calendar = ({ currentYear, currentMonth }) => {
     "flex bg-primary-normal h-16 justify-center items-center text-titleLarge text-tertiary2-light";
 
   return (
-    <section className="grid grid-cols-7 grid-row-5 gap-0 justify-center w-full max-w-[calc(7*12.5rem)] mx-auto border-tertiary1-light border-[1px]">
+    <section className="grid grid-cols-7 grid-row-5 gap-0 justify-center w-full max-w-[calc(7*12.5rem)] mx-auto border-b-tertiary1-light border-[1px]">
       <div className={weekdayStyle}>Monday</div>
       <div className={weekdayStyle}>Tuesday</div>
       <div className={weekdayStyle}>Wednesday</div>
