@@ -82,7 +82,7 @@ const Calendar = ({ currentYear, currentMonth }) => {
   // );
 
   const randomSeatsTotal = [
-    0, 0, 0, 0, 0, 20, 20, 0, 0, 20, 0, 0, 0, 0, 20, 0, 0, 0, 20, 20, 0, 0, 0,
+    0, 0, 0, 0, 0, 20, 20, 0, 0, 20, 0, 0, 0, 0, 20, 0, 20, 20, 20, 20, 0, 0, 0,
     0, 20, 20, 0, 0, 0, 0, 20,
   ];
 
@@ -108,6 +108,7 @@ const Calendar = ({ currentYear, currentMonth }) => {
           seatsTaken={day ? Math.floor(Math.random() * 20) : 0} // Set `0` if `null`
           seatsTotal={day ? randomSeatsTotal[day.dayOfMonth - 1] : 0} // Avoid index errors
           isOtherMonth={day.isOtherMonth}
+          currentMonth={currentMonth}
         />
       ))}
     </section>
