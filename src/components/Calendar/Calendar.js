@@ -105,7 +105,7 @@ const Calendar = ({ currentYear, currentMonth }) => {
           key={index}
           dayOfMonth={day.dayOfMonth}
           icon="./icons/users-2.svg"
-          seatsTaken={day ? Math.floor(Math.random() * 20) : 0} // Set `0` if `null`
+          seatsTaken={day ? Math.floor(Math.random() * 20 + 1) : 0} // Set `0` if `null`
           seatsTotal={day ? randomSeatsTotal[day.dayOfMonth - 1] : 0} // Avoid index errors
           isOtherMonth={day.isOtherMonth}
           currentMonth={currentMonth}
