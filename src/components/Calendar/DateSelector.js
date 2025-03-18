@@ -1,12 +1,20 @@
 import React, { useState } from "react";
-
+import PropTypes from "prop-types";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import PickerWithButtonField from "./PickerWithButtonField";
 
-const DateSelector = () => {
+const DateSelector = ({ currentMonth, currentYear, onMonthChange }) => {
   const [value, setValue] = useState(null);
   const [open, setOpen] = useState(false);
+
+  const handleDateChange = (newDate) => {
+    setValue(newDate);
+
+    const newMonth = newDate ? newDate.month() + 1 : currentMonth; // Get the month (1-12)
+    const newYear = newDate ? newDate.year() : currentYear; // Get the year
+    onMonthChange(newMonth, newYear); // Update the parent with the new month and year
+  };
 
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>
@@ -20,7 +28,7 @@ const DateSelector = () => {
           </p>
           <PickerWithButtonField
             value={value}
-            onChange={(newValue) => setValue(newValue)}
+            onChange={handleDateChange}
             open={open}
             setOpen={setOpen}
           />
@@ -28,6 +36,12 @@ const DateSelector = () => {
       </section>
     </LocalizationProvider>
   );
+};
+
+DateSelector.propTypes = {
+  currentMonth: PropTypes.number.isRequired,
+  currentYear: PropTypes.number.isRequired,
+  onMonthChange: PropTypes.func.isRequired,
 };
 
 export default DateSelector;

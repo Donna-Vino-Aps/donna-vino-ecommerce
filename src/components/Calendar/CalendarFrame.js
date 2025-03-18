@@ -26,7 +26,11 @@ const CalendarFrame = () => {
 
   return (
     <div className="mb-12 flex flex-col items-center">
-      <DateSelector />
+      <DateSelector
+        currentMonth={currentMonth}
+        currentYear={currentYear}
+        onMonthChange={handleMonthChange}
+      />
       <CalendarMonthPicker
         currentMonth={currentMonth}
         currentYear={currentYear}
