@@ -2,6 +2,7 @@
 
 import React from "react";
 import PropTypes from "prop-types";
+import { useLanguage } from "@/context/LanguageContext";
 
 const BASE_CALENDARITEM_CLASSES = `
    h-[7.9rem] w-[12.45rem] text-labelXLarge font-semibold rounded-tl-[16px] rounded-bl-[62.5px]
@@ -17,6 +18,7 @@ const CalendarItem = ({
   isOtherMonth,
   currentMonth,
 }) => {
+  const { translations } = useLanguage();
   const seatsAvailable = seatsTotal - seatsTaken;
   const isFull = seatsAvailable === 0 && seatsTotal > 0;
   const percentageAvailable = (seatsAvailable / seatsTotal) * 100;
@@ -71,7 +73,7 @@ const CalendarItem = ({
               alt="attendants icon"
               className="w-6 h-6 relative bottom-1"
             />
-            <p className="text-white">{`Seats: ${seatsAvailable}`}</p>
+            <p className="text-white">{`${translations["calendar.seats"]}: ${seatsAvailable}`}</p>
           </div>
         )}
       </div>

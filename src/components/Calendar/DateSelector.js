@@ -3,8 +3,10 @@ import PropTypes from "prop-types";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import PickerWithButtonField from "./PickerWithButtonField";
+import { useLanguage } from "@/context/LanguageContext";
 
 const DateSelector = ({ currentMonth, currentYear, onMonthChange }) => {
+  const { translations } = useLanguage();
   const [value, setValue] = useState(null);
   const [open, setOpen] = useState(false);
 
@@ -24,7 +26,7 @@ const DateSelector = ({ currentMonth, currentYear, onMonthChange }) => {
             className="text-headlineSmall text-tertiary1-darker"
             onClick={() => setOpen(true)}
           >
-            Select date
+            {translations["calendar.select-date"]}
           </p>
           <PickerWithButtonField
             value={value}

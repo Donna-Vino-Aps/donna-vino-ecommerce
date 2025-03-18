@@ -1,20 +1,22 @@
 import React from "react";
 import PropTypes from "prop-types";
+import { useLanguage } from "@/context/LanguageContext";
 
 const CalendarMonthPicker = ({ currentMonth, currentYear, onMonthChange }) => {
+  const { translations } = useLanguage();
   const months = [
-    "January",
-    "February",
-    "March",
-    "April",
-    "May",
-    "June",
-    "July",
-    "August",
-    "September",
-    "October",
-    "November",
-    "December",
+    translations["calendar.month.1"],
+    translations["calendar.month.2"],
+    translations["calendar.month.3"],
+    translations["calendar.month.4"],
+    translations["calendar.month.5"],
+    translations["calendar.month.6"],
+    translations["calendar.month.7"],
+    translations["calendar.month.8"],
+    translations["calendar.month.9"],
+    translations["calendar.month.10"],
+    translations["calendar.month.11"],
+    translations["calendar.month.12"],
   ];
 
   const handlePreviousMonth = () => {

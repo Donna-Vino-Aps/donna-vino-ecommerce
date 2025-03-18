@@ -1,8 +1,10 @@
 import React from "react";
 import PropTypes from "prop-types";
 import CalendarItem from "./CalendarItem";
+import { useLanguage } from "@/context/LanguageContext";
 
 const Calendar = ({ currentYear, currentMonth }) => {
+  const { translations } = useLanguage();
   const generateCalendarDays = (month, year) => {
     function daysInMonth(month, year) {
       return new Date(year, month, 0).getDate();
@@ -93,13 +95,13 @@ const Calendar = ({ currentYear, currentMonth }) => {
 
   return (
     <section className="grid grid-cols-7 grid-row-5 gap-0 justify-center w-full max-w-[calc(7*12.5rem)] mx-auto border-b-tertiary1-light border-[1px]">
-      <div className={weekdayStyle}>Monday</div>
-      <div className={weekdayStyle}>Tuesday</div>
-      <div className={weekdayStyle}>Wednesday</div>
-      <div className={weekdayStyle}>Thursday</div>
-      <div className={weekdayStyle}>Friday</div>
-      <div className={weekdayStyle}>Saturday</div>
-      <div className={weekdayStyle}>Sunday</div>
+      <div className={weekdayStyle}>{translations["calendar.weekday.1"]}</div>
+      <div className={weekdayStyle}>{translations["calendar.weekday.2"]}</div>
+      <div className={weekdayStyle}>{translations["calendar.weekday.3"]}</div>
+      <div className={weekdayStyle}>{translations["calendar.weekday.4"]}</div>
+      <div className={weekdayStyle}>{translations["calendar.weekday.5"]}</div>
+      <div className={weekdayStyle}>{translations["calendar.weekday.6"]}</div>
+      <div className={weekdayStyle}>{translations["calendar.weekday.7"]}</div>
       {calendarDaysCurrentMonth.map((day, index) => (
         <CalendarItem
           key={index}
