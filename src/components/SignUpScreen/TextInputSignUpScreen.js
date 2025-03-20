@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
-import { FaEye, FaEyeSlash } from "react-icons/fa";
+import { FaEye, FaEyeSlash, FaCalendarAlt } from "react-icons/fa";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import dayjs from "dayjs";
 
@@ -36,11 +36,74 @@ const TextInputSignUpScreen = ({
             value={value ? dayjs(value) : null}
             onChange={(newValue) => onChange(newValue)}
             disableFuture
-            inputFormat="MM/dd/yyyy"
-            placeholder={placeholder}
+            format="DD/MM/YYYY"
             aria-label={placeholder || `Select your ${name}`}
             data-testid={`datepicker-${name}`}
-            className="w-full p-3 border border-tertiary1-darker rounded-lg bg-white max-w-[100%] md:max-w-[52%] relative right-[11px] bottom-1 focus:outline-none focus:ring-2 focus:ring-primary-light"
+            slots={{
+              openPickerIcon: () => <FaCalendarAlt size={16} color="#BFBEBE" />,
+            }}
+            slotProps={{
+              textField: {
+                placeholder,
+                fullWidth: true,
+                size: "medium",
+                variant: "outlined",
+                InputLabelProps: {
+                  shrink: false,
+                },
+                sx: {
+                  "& .MuiOutlinedInput-root": {
+                    "& fieldset": {
+                      borderColor: "#C1C1C1",
+                      borderRadius: "0.5rem",
+                    },
+
+                    "&.Mui-focused fieldset": {
+                      borderColor: "#C1C1C1",
+                      boxShadow: "0 0 0 1px #BFBEBE",
+                      borderWidth: "1px",
+                    },
+                    "& .MuiOutlinedInput-input": {
+                      padding: "0.75rem 1rem 0.75rem 1.25rem",
+                      fontFamily: "inherit",
+                      fontSize: "16px",
+                      color: "#101010",
+                    },
+                  },
+                  "& .MuiInputBase-input::placeholder": {
+                    opacity: 0.45,
+                    color: "#101010",
+                    fontFamily: "inherit",
+                    fontSize: "16px",
+                  },
+                  "& .MuiInputLabel-root": {
+                    display: "none",
+                  },
+                },
+              },
+              popper: {
+                sx: {
+                  "& .MuiPaper-root": {
+                    borderRadius: "0.5rem",
+                    boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",
+                  },
+                  "& .MuiPickersDay-root.Mui-selected": {
+                    color: "#101010",
+                    backgroundColor: "#F9B9BB",
+                    "&:hover": {
+                      backgroundColor: "#F9B9BB",
+                    },
+                    "&:focus": {
+                      backgroundColor: "#F9B9BB",
+                    },
+                  },
+                  "& .MuiPickersDay-root.Mui-focused": {
+                    backgroundColor: "transparent",
+                    border: "1px solid #F9B9BB",
+                  },
+                },
+              },
+            }}
           />
         </div>
       )}
