@@ -10,6 +10,7 @@ import Link from "next/link";
 import TextInputLoginScreen from "../SignUpScreen/TextInputSignUpScreen";
 import { logInfo, logError } from "../../utils/logging";
 import GoogleAuth from "../GoogleAuth/GoogleAuth";
+import { mapBackendMessage } from "@/services/messageMap";
 
 const LoginForm = () => {
   const { translations } = useLanguage();
@@ -67,8 +68,9 @@ const LoginForm = () => {
   };
 
   const handleMessage = ({ successStatus, msg }) => {
+    const friendlyMsg = mapBackendMessage(msg);
     setSuccessStatus(successStatus);
-    setMsg(msg);
+    setMsg(friendlyMsg);
   };
 
   const saveLoginCredentials = async (
