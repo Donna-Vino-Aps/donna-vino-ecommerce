@@ -99,8 +99,8 @@ const SignUpScreen = () => {
   };
 
   return (
-    <div className="flex flex-col min-h-screen bg-primary-light sm:bg-dots-lg sm:bg-dots-size-lg bg-dots-sm bg-dots-size-sm">
-      <main className="flex flex-col items-center justify-center flex-grow p-8 w-full max-h-[61rem]">
+    <section className="bg-primary-light sm:bg-dots-lg sm:bg-dots-size-lg bg-dots-sm bg-dots-size-sm">
+      <div className="flex flex-col items-center justify-center flex-grow p-2 w-full">
         <div className="bg-tertiary2-light mt-24 mb-24 items-center justify-center rounded-2xl shadow-lg p-8 max-w-[47.75rem] w-full">
           <img
             src="/images/donna-vino-logo-transparent.png"
@@ -167,107 +167,98 @@ const SignUpScreen = () => {
               values,
               setFieldValue,
             }) => (
-              <form
-                onSubmit={handleSubmit}
-                className="flex flex-col space-y-4 bg-tertiary2-light"
-              >
-                <h4 className="text-headlineMedium">
+              <form onSubmit={handleSubmit}>
+                <h3 className="text-headlineMedium mb-6">
                   {translations["signUp.personal"]}
-                </h4>
-                <div className="flex space-x-6 flex-col md:flex-row md:items-start justify-center">
-                  <div className="flex flex-col space-y-6 pr-[1.5rem] md:pr-0 md:w-[50%]">
-                    <TextInputSignUpScreen
-                      type="text"
-                      name="firstName"
-                      placeholder="First name*"
-                      value={values.firstName}
-                      onChange={handleChange}
-                      onBlur={handleBlur}
-                      data-testid="input-first-name"
-                      aria-label="First Name"
-                    />
-                    <TextInputSignUpScreen
-                      type="email"
-                      name="email"
-                      placeholder="Email*"
-                      value={values.email}
-                      onChange={handleChange}
-                      onBlur={handleBlur}
-                      data-testid="input-email"
-                      aria-label="Email"
-                    />
-                    <TextInputSignUpScreen
-                      type="password"
-                      name="password"
-                      placeholder="Password*"
-                      value={values.password}
-                      onChange={handleChange}
-                      onBlur={handleBlur}
-                      showPasswordToggle={true}
-                      data-testid="input-password"
-                      aria-label="Password"
-                    />
-                  </div>
-                  <div className="flex flex-col space-y-6 md:w-[50%] relative top-2 right-6 md:top-0 md:right-0">
-                    <TextInputSignUpScreen
-                      type="text"
-                      name="lastName"
-                      placeholder="Last name*"
-                      value={values.lastName}
-                      onChange={handleChange}
-                      onBlur={handleBlur}
-                      data-testid="input-last-name"
-                      aria-label="Last Name"
-                    />
-                    <TextInputSignUpScreen
-                      type="email"
-                      name="confirmEmail"
-                      placeholder="Confirm Email*"
-                      value={values.confirmEmail}
-                      onChange={handleChange}
-                      onBlur={handleBlur}
-                      data-testid="input-confirm-email"
-                      aria-label="Confirm Email"
-                    />
-                    <TextInputSignUpScreen
-                      type="password"
-                      name="confirmPassword"
-                      placeholder="Confirm Password*"
-                      value={values.confirmPassword}
-                      onChange={handleChange}
-                      onBlur={handleBlur}
-                      showPasswordToggle={true}
-                      data-testid="input-confirm-password"
-                      aria-label="Confirm Password"
-                    />
-                  </div>
-                </div>
-                <div className="relative flex items-center justify-between">
-                  <div className="relative w-full flex items-center">
-                    <label
-                      className="text-tertiary2-darker text-labelXLarge"
-                      htmlFor="birthdate"
-                    >
-                      {translations["signUp.label-birthdate"]}
-                    </label>
-                    <TextInputSignUpScreen
-                      type="text"
-                      name="birthdate"
-                      id="birthdate"
-                      placeholder="Select your birthdate"
-                      value={values.birthdate || userBirthDay}
-                      onChange={(newValue) => {
-                        setFieldValue("birthdate", newValue);
-                        setUserBirthDay(newValue);
-                      }}
-                      isDate={true}
-                      showDatePicker={() =>
-                        document.getElementById("datePicker").focus()
-                      }
-                      data-testid="input-birthdate"
-                      aria-label="Birthdate"
-                      className="w-full pr-10" // Adds spacing to prevent overlap
-                    />
+                </h3>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 mb-8">
+                  <TextInputSignUpScreen
+                    type="text"
+                    name="firstName"
+                    placeholder="First name*"
+                    value={values.firstName}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    data-testid="input-first-name"
+                    aria-label="First Name"
+                  />
+
+                  <TextInputSignUpScreen
+                    type="text"
+                    name="lastName"
+                    placeholder="Last name*"
+                    value={values.lastName}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    data-testid="input-last-name"
+                    aria-label="Last Name"
+                  />
+
+                  <TextInputSignUpScreen
+                    type="email"
+                    name="email"
+                    placeholder="Email*"
+                    value={values.email}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    data-testid="input-email"
+                    aria-label="Email"
+                  />
+
+                  <TextInputSignUpScreen
+                    type="email"
+                    name="confirmEmail"
+                    placeholder="Confirm Email*"
+                    value={values.confirmEmail}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    data-testid="input-confirm-email"
+                    aria-label="Confirm Email"
+                  />
+
+                  <TextInputSignUpScreen
+                    type="password"
+                    name="password"
+                    placeholder="Password*"
+                    value={values.password}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    showPasswordToggle={true}
+                    data-testid="input-password"
+                    aria-label="Password"
+                  />
+
+                  <TextInputSignUpScreen
+                    type="password"
+                    name="confirmPassword"
+                    placeholder="Confirm Password*"
+                    value={values.confirmPassword}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    showPasswordToggle={true}
+                    data-testid="input-confirm-password"
+                    aria-label="Confirm Password"
+                  />
+
+                  <TextInputSignUpScreen
+                    type="text"
+                    name="birthdate"
+                    id="birthdate"
+                    placeholder="Date of birth*"
+                    value={values.birthdate || userBirthDay}
+                    onChange={(newValue) => {
+                      setFieldValue("birthdate", newValue);
+                      setUserBirthDay(newValue);
+                    }}
+                    isDate={true}
+                    showDatePicker={() =>
+                      document.getElementById("datePicker").focus()
+                    }
+                    data-testid="input-birthdate"
+                    aria-label="Birthdate"
+                  />
+                  <div className="relative">
                     <img
                       src="/icons/date-of-birth.svg"
                       alt="date of birth info-popup"
@@ -275,6 +266,7 @@ const SignUpScreen = () => {
                     />
                   </div>
                 </div>
+
                 <div className="flex flex-col space-y-3 text-tertiary1-darker text-bodyLarge">
                   {/* Terms of Use Checkbox */}
                   <label className="flex items-center space-x-3 cursor-pointer">
@@ -348,8 +340,8 @@ const SignUpScreen = () => {
             )}
           </Formik>
         </div>
-      </main>
-    </div>
+      </div>
+    </section>
   );
 };
 
