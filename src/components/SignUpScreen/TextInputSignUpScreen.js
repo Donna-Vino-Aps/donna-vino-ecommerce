@@ -11,7 +11,6 @@ const TextInputSignUpScreen = ({
   value,
   onChange,
   onBlur,
-  icon,
   showPasswordToggle = false,
   isDate = false,
 }) => {
@@ -19,12 +18,6 @@ const TextInputSignUpScreen = ({
 
   return (
     <div className="relative" data-testid={`input-container-${name}`}>
-      {icon && !isDate && (
-        <div className="absolute left-3 top-1/2 transform -translate-y-1/2">
-          {React.cloneElement(icon, { style: { color: "black" } })}
-        </div>
-      )}
-
       {!isDate ? (
         <input
           type={showPasswordToggle && showPassword ? "text" : type}
@@ -39,12 +32,6 @@ const TextInputSignUpScreen = ({
         />
       ) : (
         <div className="relative">
-          {icon && (
-            <div className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-600">
-              {icon}
-            </div>
-          )}
-
           <DatePicker
             value={value ? dayjs(value) : null}
             onChange={(newValue) => onChange(newValue)}
