@@ -22,12 +22,12 @@ const CheckInbox = () => {
           />
         </section>
         <h1 className="text-headlineLarge text-left mb-4">
-          {translations["checkInbox.success-heading"]}
+          {translations["forgotPassword.success-heading"]}
         </h1>
         <p className="text-left mb-4 w-[400px]">
-          {translations["checkInbox.success-text1"]}{" "}
+          {translations["forgotPassword.success-text1"]}{" "}
           {<span className="font-semibold">demo@demo.com</span>}{" "}
-          {translations["checkInbox.success-text2"]}
+          {translations["forgotPassword.success-text2"]}
         </p>
 
         <div className="w-full mt-2 mb-4">
@@ -39,10 +39,10 @@ const CheckInbox = () => {
           />
         </div>
         <div className="text-left">
-          {translations["checkInbox.resend"]}{" "}
+          {translations["forgotPassword.resend"]}{" "}
           {
             <Link href="" className="underline font-semibold">
-              {translations["checkInbox.resend2"]}
+              {translations["forgotPassword.resend2"]}
             </Link>
           }
         </div>

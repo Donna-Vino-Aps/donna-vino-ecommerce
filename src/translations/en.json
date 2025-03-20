@@ -66,6 +66,7 @@
   "forgotPassword.success-text1": "You will soon receive a link at",
   "forgotPassword.success-text2": "to reset your password.",
   "forgotPassword.resend": "Didn't receive the email?",
+  "forgotPassword.resend2": "Resend",
   "button.go-back": "Go back",
   "calendar.select-date": "Select date",
   "calendar.month.1": "January",

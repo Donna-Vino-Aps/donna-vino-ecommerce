@@ -2,11 +2,11 @@
 import React from "react";
 import Button from "@/components/Button/Button";
 import { useLanguage } from "@/context/LanguageContext";
-import { useRouter } from "next/navigation";
+
 import Link from "next/link";
 const ForgotPassword = () => {
   const { translations } = useLanguage();
-  const router = useRouter();
+
   return (
     <div className="relative flex justify-center items-center h-screen bg-[#FDE8E9]">
       <img
