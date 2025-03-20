@@ -28,7 +28,7 @@ const TextInputSignUpScreen = ({
           onBlur={onBlur}
           aria-label={placeholder || `Enter your ${name}`}
           data-testid={`input-${name}`}
-          className={`w-full p-3 ${icon ? "pl-12" : "pl-5"} border border-tertiary2-active_normal rounded-lg bg-white focus:outline-none focus:ring-2 focus:ring-primary-light`}
+          className="w-full py-3 px-5 border border-tertiary2-active_normal rounded-lg bg-white text-tertiary1-darker focus:outline-none focus:ring-1 focus:ring-tertiary1-active"
         />
       ) : (
         <div className="relative">
@@ -114,9 +114,13 @@ const TextInputSignUpScreen = ({
           onClick={() => setShowPassword(!showPassword)}
           aria-label={showPassword ? "Hide password" : "Show password"}
           data-testid="toggle-password-visibility"
-          className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-600"
+          className="absolute right-3 top-1/2 transform -translate-y-1/2"
         >
-          {showPassword ? <FaEyeSlash /> : <FaEye />}
+          {showPassword ? (
+            <FaEyeSlash color="#BFBEBE" />
+          ) : (
+            <FaEye color="#BFBEBE" />
+          )}
         </button>
       )}
     </div>
