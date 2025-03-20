@@ -102,9 +102,11 @@ const LoginForm = () => {
   return (
     <div className="flex flex-col h-full" data-testid="login-container">
       <main className="md:w-[18rem] lg:w-[25rem] flex flex-col justify-center items-center">
-        <h2 className="mb-1 mt-1 text-headlineMedium self-start text-tertiary1-normal relative top-1">
-          {translations["logIn.button"]}
-        </h2>
+        <div className=" w-[17.5rem] md:w-[18rem] lg:w-[25rem] flex justify-start items-start">
+          <h2 className="mb-4 text-headlineMedium text-tertiary1-normal">
+            {translations["logIn.button"]}
+          </h2>
+        </div>
         <Formik
           initialValues={{ email: "", password: "" }}
           onSubmit={(values, { setSubmitting }) => {
