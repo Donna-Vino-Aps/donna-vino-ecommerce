@@ -258,12 +258,19 @@ const SignUpScreen = () => {
                     data-testid="input-birthdate"
                     aria-label="Birthdate"
                   />
-                  <div className="relative">
+
+                  <div className="relative group flex items-center justify-start">
                     <img
                       src="/icons/date-of-birth.svg"
                       alt="date of birth info-popup"
-                      className="absolute right-3 w-[1.875rem] cursor-pointer hidden md:block" // Positions next to input
+                      className="cursor-pointer md:block relative z-20"
                     />
+                    <div className="absolute z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-200 left-0 top-0 flex items-center">
+                      <div className="bg-primary-hover text-tertiary1-darker font-medium p-2 pl-12 rounded-full text-labelSmall sm:max-w-[18rem] h-[45px] flex items-center">
+                        Why we ask? As we sell alcoholic beverages, you must be
+                        +18 to purchase
+                      </div>
+                    </div>
                   </div>
                 </div>
 
