@@ -67,13 +67,13 @@ const CalendarItem = ({
       >
         <p className="absolute top-5 left-4">{dayOfMonth}</p>
         {seatsAvailable > 0 && seatsTotal === 0 ? null : (
-          <div className="flex gap-[6px] absolute bottom-2 right-6">
+          <div className="flex gap-[6px] absolute bottom-2 right-20 md:flex-col lg:flex-row md:right-12 lg:right-14 xl:right-6">
             <img
               src={icon}
               alt="attendants icon"
               className="w-6 h-6 relative bottom-1"
             />
-            <p className="text-white">{`${translations["calendar.seats"]}: ${seatsAvailable}`}</p>
+            <p className="text-white text-labelMedium md:text-labelMedium lg:text-labelLarge xl:text-labelXLarge">{`${translations["calendar.seats"]}: ${seatsAvailable}`}</p>
           </div>
         )}
       </div>
