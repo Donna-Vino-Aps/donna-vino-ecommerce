@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useContext } from "react";
+import React, { useContext } from "react";
 import { useGoogleLogin } from "@react-oauth/google";
 import axios from "axios";
 import { baseApiUrl } from "@/config/environment";
@@ -8,30 +8,29 @@ import { logInfo, logError } from "../../utils/logging";
 import Button from "../Button/Button";
 import { useLanguage } from "@/context/LanguageContext";
 import { CredentialsContext } from "@/context/credentialsContext";
+import PropTypes from "prop-types"; // Import PropTypes
 
-const GoogleAuth = () => {
+const GoogleAuth = ({ setMsg, setSuccess, setLoading }) => {
+  // Receive setMsg, setSuccess, and setLoading as props
   const clientId = process.env.GOOGLE_CLIENT_ID;
   const { translations } = useLanguage();
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState(null);
-  const [successMessage, setSuccessMessage] = useState(null);
-
   const { setStoredCredentials } = useContext(CredentialsContext);
 
   const login = useGoogleLogin({
     onSuccess: async (response) => {
       const accessToken = response?.access_token;
-
       if (!accessToken) {
         logError("No access_token found in Google login response.");
+        setMsg("No access token found");
+        setSuccess(false);
         return;
       }
 
-      setIsLoading(true);
-
-      // Clear previous messages when a new attempt starts
-      setError(null);
-      setSuccessMessage(null);
+      // Activate global loading
+      setLoading(true);
+      // Clear previous messages
+      setMsg("");
+      setSuccess(null);
 
       try {
         const userProfileResponse = await axios.get(
@@ -43,12 +42,7 @@ const GoogleAuth = () => {
           `User profile data: ${JSON.stringify(userProfileResponse.data)}`,
         );
 
-        const userData = {
-          email,
-          name,
-          picture,
-          token: accessToken,
-        };
+        const userData = { email, name, picture, token: accessToken };
 
         const serverResponse = await axios.post(
           `${baseApiUrl}/api/auth/sign-in-with-google`,
@@ -58,26 +52,27 @@ const GoogleAuth = () => {
 
         if (serverResponse.data.success) {
           logInfo("Backend authenticated successfully:", serverResponse.data);
-          saveLoginCredentials(
-            userData,
-            accessToken,
-            "Google login successful",
-          );
-          setSuccessMessage("Google login successful!");
+          await saveLoginCredentials(userData, accessToken);
+          setMsg("Google login successful!");
+          setSuccess(true);
         } else {
           throw new Error(
             serverResponse.data.msg || "Backend authentication failed",
           );
         }
       } catch (error) {
-        setError(error.message);
+        setMsg(error.message);
+        setSuccess(false);
         logError("Google sign-in failed:", error);
       } finally {
-        setIsLoading(false);
+        // Deactivate global loading
+        setLoading(false);
       }
     },
     onError: (error) => {
       logInfo("Google Login Error:", error);
+      setMsg("Google login error occurred");
+      setSuccess(false);
     },
     clientId,
   });
@@ -90,11 +85,13 @@ const GoogleAuth = () => {
       logInfo("User saved in localStorage");
     } catch (error) {
       logError("Error saving user credentials", error);
+      setMsg("Error saving user credentials");
+      setSuccess(false);
     }
   };
 
   return (
-    <div className="w-full flex flex-col items-center justify-center space-y-4">
+    <div className="w-full flex flex-col items-center justify-center space-y-0">
       <Button
         text={translations["logIn.signin-google"]}
         onClick={() => login()}
@@ -104,14 +101,14 @@ const GoogleAuth = () => {
         aria-label="Google Sign In"
         className="space-y-1"
       />
-
-      {isLoading && <div className="text-center">Loading...</div>}
-      {error && <div className="text-center text-red-500">{error}</div>}
-      {successMessage && (
-        <div className="text-center text-green-500">{successMessage}</div>
-      )}
     </div>
   );
+};
+
+GoogleAuth.propTypes = {
+  setMsg: PropTypes.func.isRequired,
+  setSuccess: PropTypes.func.isRequired,
+  setLoading: PropTypes.func.isRequired,
 };
 
 export default GoogleAuth;
