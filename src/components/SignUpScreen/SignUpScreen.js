@@ -7,8 +7,6 @@ import { logError, logInfo } from "../../utils/logging";
 import Button from "../Button/Button";
 // import Link from "next/link";
 import TextInputSignUpScreen from "../SignUpScreen/TextInputSignUpScreen";
-import { FaRegUser } from "react-icons/fa";
-import { MdOutlineEmail, MdLockOutline } from "react-icons/md";
 import dayjs from "dayjs";
 
 const SignUpScreen = () => {
@@ -110,12 +108,12 @@ const SignUpScreen = () => {
             className="w-[6.25rem] h-[4.31rem] mx-auto my-2"
           />
           <h2
-            className="text-displaySmall md:text-displayLarge font-barlow text-tertiary1-darker mb-6 text-center"
+            className="text-displaySmall md:text-displayMedium font-barlow text-tertiary1-darker mb-6 text-center"
             aria-label="Sign Up"
           >
             {translations["signUp.heading"]}
           </h2>
-          <p className="text-bodyMedium md:text-bodyLarge text-tertiary2-darker text-center -mt-3">
+          <p className="text-bodyMedium md:text-bodyLarge text-tertiary2-darker text-center -mt-3 mb-8">
             {translations["signUp.paragraph"]}
           </p>
           <Formik
@@ -171,13 +169,13 @@ const SignUpScreen = () => {
             }) => (
               <form
                 onSubmit={handleSubmit}
-                className="flex flex-col space-y-4 bg-tertiary2-light p-6"
+                className="flex flex-col space-y-4 bg-tertiary2-light"
               >
-                <h4 className="text-headlineSmall mb-2">
+                <h4 className="text-headlineMedium">
                   {translations["signUp.personal"]}
                 </h4>
                 <div className="flex space-x-6 flex-col md:flex-row md:items-start justify-center">
-                  <div className="flex flex-col space-y-2 pr-[1.5rem] md:pr-0 md:w-[50%]">
+                  <div className="flex flex-col space-y-6 pr-[1.5rem] md:pr-0 md:w-[50%]">
                     <TextInputSignUpScreen
                       type="text"
                       name="firstName"
@@ -185,7 +183,6 @@ const SignUpScreen = () => {
                       value={values.firstName}
                       onChange={handleChange}
                       onBlur={handleBlur}
-                      icon={<FaRegUser />}
                       data-testid="input-first-name"
                       aria-label="First Name"
                     />
@@ -196,7 +193,6 @@ const SignUpScreen = () => {
                       value={values.email}
                       onChange={handleChange}
                       onBlur={handleBlur}
-                      icon={<MdOutlineEmail />}
                       data-testid="input-email"
                       aria-label="Email"
                     />
@@ -207,13 +203,12 @@ const SignUpScreen = () => {
                       value={values.password}
                       onChange={handleChange}
                       onBlur={handleBlur}
-                      icon={<MdLockOutline />}
                       showPasswordToggle={true}
                       data-testid="input-password"
                       aria-label="Password"
                     />
                   </div>
-                  <div className="flex flex-col space-y-2 md:w-[50%] relative top-2 right-6 md:top-0 md:right-0">
+                  <div className="flex flex-col space-y-6 md:w-[50%] relative top-2 right-6 md:top-0 md:right-0">
                     <TextInputSignUpScreen
                       type="text"
                       name="lastName"
@@ -221,7 +216,6 @@ const SignUpScreen = () => {
                       value={values.lastName}
                       onChange={handleChange}
                       onBlur={handleBlur}
-                      icon={<FaRegUser />}
                       data-testid="input-last-name"
                       aria-label="Last Name"
                     />
@@ -232,7 +226,6 @@ const SignUpScreen = () => {
                       value={values.confirmEmail}
                       onChange={handleChange}
                       onBlur={handleBlur}
-                      icon={<MdOutlineEmail />}
                       data-testid="input-confirm-email"
                       aria-label="Confirm Email"
                     />
@@ -243,7 +236,6 @@ const SignUpScreen = () => {
                       value={values.confirmPassword}
                       onChange={handleChange}
                       onBlur={handleBlur}
-                      icon={<MdLockOutline />}
                       showPasswordToggle={true}
                       data-testid="input-confirm-password"
                       aria-label="Confirm Password"
