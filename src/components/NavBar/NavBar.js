@@ -1,5 +1,6 @@
 "use client";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import React, { useState } from "react";
 import LanguageSwitch from "../NavBar/LanguageSwitch";
 import SideBar from "../SideBar/SideBar";
@@ -10,14 +11,40 @@ import ShoppingCart from "./ShoppingCart";
 
 const Navbar = () => {
   const { translations } = useLanguage();
+  const pathname = usePathname();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [activeLink, setActiveLink] = useState("/");
-  const [winesDropdownOpen, setWinesDropdownOpen] = useState(false);
-  const [grapesDropdownOpen, setGrapesDropdownOpen] = useState(false);
+  const [openDropdowns, setOpenDropdowns] = useState({
+    wines: false,
+    grapeszones: false,
+  });
+
+  const toggleDropdown = (id) => {
+    setOpenDropdowns((prev) => {
+      // If the clicked dropdown is already open, close it
+      if (prev[id]) {
+        return { ...prev, [id]: false };
+      }
+
+      // Otherwise, close all other dropdowns and open the clicked one
+      return { [id]: true };
+    });
+  };
+
+  const isDropdownOpen = (id) => openDropdowns[id] ?? false;
 
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
-  const toggleWinesDropdown = () => setWinesDropdownOpen(!winesDropdownOpen);
-  const toggleGrapesDropdown = () => setGrapesDropdownOpen(!grapesDropdownOpen);
+
+  const isActive = (href, sublinks = []) =>
+    pathname === href ||
+    sublinks.some((sublink) => pathname.startsWith(sublink));
+
+  const chunkSublinks = (array, size) => {
+    const result = [];
+    for (let i = 0; i < array.length; i += size) {
+      result.push(array.slice(i, i + size));
+    }
+    return result;
+  };
 
   const navLinks = [
     {
@@ -31,7 +58,22 @@ const Navbar = () => {
       href: "/wines",
       label: translations["navbar.wines"],
       dropdown: true,
-      sublinks: ["Red", "White", "Rosé"],
+      subHeadingsIta: ["Vini Rossi", "Vini Bianchi", "Vini Rosati"],
+      subHeadings: [
+        "navbar.wines.subh1",
+        "navbar.wines.subh2",
+        "navbar.wines.subh3",
+      ],
+      sublinks: [
+        [
+          "Chianti",
+          "Barolo",
+          "Brunello di Montalcino",
+          "Montepulciano d'Abruzzo",
+        ],
+        ["Prosecco", "Pinot Grigio"],
+        ["Chiaretto", "Cerasuolo d'Abruzzo"],
+      ],
     },
     {
       id: "offers",
@@ -40,11 +82,29 @@ const Navbar = () => {
       dropdown: false,
     },
     {
-      id: "grapeszones",
+      id: "grapes",
       href: "/grapes-zones",
       label: translations["navbar.grapes"],
       dropdown: true,
-      sublinks: ["Malbec", "Pinot Noir", "Chardonnay"],
+      subHeadings: ["navbar.grapes.sh1", "navbar.grapes.sh2"],
+      sublinks: [
+        [
+          "Montepulciano",
+          "Sangiovese",
+          "Nebbiolo",
+          "Corvina",
+          "Trebbiano",
+          "Vermentino",
+        ],
+        [
+          "Tuscany",
+          "Piedmont",
+          "Sicily",
+          "Emilia-Romagna",
+          "Lombardy",
+          "Puglia",
+        ],
+      ],
     },
   ];
 
@@ -54,7 +114,6 @@ const Navbar = () => {
       href: "/",
       label: translations["navbar.home"],
       icon: "/icons/home.svg",
-      iconSize: "small",
       dropdown: false,
     },
     {
@@ -62,7 +121,6 @@ const Navbar = () => {
       href: "/wines",
       label: translations["navbar.wines"],
       icon: "/icons/wine-glass-1.svg",
-      iconSize: "small",
       dropdown: true,
       sublinks: ["Red Wines", "White Wines", "Rosé Wines"],
     },
@@ -71,7 +129,6 @@ const Navbar = () => {
       href: "/offers",
       label: translations["navbar.offers"],
       icon: "/icons/offer.svg",
-      iconSize: "small",
       dropdown: false,
     },
     {
@@ -79,7 +136,6 @@ const Navbar = () => {
       href: "/grapes-zones",
       label: translations["navbar.grapes"],
       icon: "/icons/grape-full.svg",
-      iconSize: "small",
       dropdown: true,
       sublinks: ["Grapes", "Regions"],
     },
@@ -88,15 +144,10 @@ const Navbar = () => {
       href: "/account",
       label: translations["navbar.account"],
       icon: "/icons/user-alt-2.svg",
-      iconSize: "small",
       dropdown: true,
       sublinks: ["My wines", "Orders", "Profile", "Settings"],
     },
   ];
-
-  const handleClick = (href) => {
-    setActiveLink(href);
-  };
 
   return (
     <nav
@@ -127,22 +178,20 @@ const Navbar = () => {
           <div key={link.id} className="relative">
             {link.dropdown ? (
               <button
-                onClick={() =>
-                  link.id === "wines"
-                    ? toggleWinesDropdown()
-                    : toggleGrapesDropdown()
+                onClick={() => toggleDropdown(link.id)}
+                className={`flex items-center rounded-md px-3 py-2 text-titleMedium ${
+                  isActive(link.href, link.sublinks)
+                    ? "text-tertiary1-gray"
+                    : "text-tertiary2-active_dark"
                 }
-                className="flex items-center rounded-md px-3 py-2 text-titleMedium text-tertiary2-active_dark"
+                ${isDropdownOpen(link.id) ? "bg-primary-light" : "bg-white"}`}
               >
                 {link.label}
                 <img
                   src="/icons/chevron-down.svg"
                   alt="Chevron Down"
                   className={`ml-2 transition-transform ${
-                    (link.id === "wines" && winesDropdownOpen) ||
-                    (link.id === "grapeszones" && grapesDropdownOpen)
-                      ? "rotate-180"
-                      : "rotate-0"
+                    isDropdownOpen(link.id) ? "rotate-180" : "rotate-0"
                   }`}
                 />
               </button>
@@ -150,7 +199,7 @@ const Navbar = () => {
               <Link
                 href={link.href}
                 className={`rounded-md px-3 py-2 text-titleMedium ${
-                  activeLink === link.href
+                  pathname === link.href
                     ? "text-tertiary1-gray"
                     : "text-tertiary2-active_dark"
                 }`}
@@ -160,29 +209,88 @@ const Navbar = () => {
                 {link.label}
               </Link>
             )}
-
             {/* Dropdown menu */}
-            {link.dropdown && (
-              <div
-                className={`absolute left-0 mt-2 w-40 bg-white shadow-md rounded-md ${
-                  (link.id === "wines" && winesDropdownOpen) ||
-                  (link.id === "grapeszones" && grapesDropdownOpen)
-                    ? "block"
-                    : "hidden"
-                }`}
-              >
-                {link.sublinks.map((sublink) => (
-                  <Link
-                    key={sublink}
-                    href={link.href} // Initially set to go to the href of the overarching Link (like Wines)
-                    // href={`${link.href}/${sublink.toLowerCase()}`}  Or something similar can be used in future implementations
-                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-200"
-                  >
-                    {sublink}
-                  </Link>
-                ))}
-              </div>
-            )}
+            {link.dropdown ? (
+              link.id === "wines" ? (
+                <div
+                  className={`absolute top-[6rem] left-1/2 transform -translate-x-1/2 mt-2 w-[40.313rem] h-[14rem] bg-white shadow-2xl rounded-lg ${
+                    isDropdownOpen(link.id)
+                      ? "flex flex-row space-x-6"
+                      : "hidden"
+                  }`}
+                >
+                  {/* Content for "wines" dropdown */}
+                  {link.subHeadingsIta.map((heading, index) => (
+                    <div
+                      key={index}
+                      className="space-y-2 relative left-5 top-3"
+                    >
+                      <h3 className="text-titleMedium text-black relative left-4">
+                        <span className="font-semibold">{heading}</span> |{" "}
+                        <span className="font-light italic">
+                          {translations[link.subHeadings[index]]}
+                        </span>
+                      </h3>
+                      <hr className="border-secondary-darker border-t-[0.25px] w-[95%] min-w-[11rem] relative left-4 mt-3 mb-1" />
+                      <ul className="space-y-1">
+                        {link.sublinks[index].map((sublink) => (
+                          <li key={sublink}>
+                            <Link
+                              href={link.href}
+                              className="inline-block px-4 py-2 text-sm text-gray-700 hover:bg-primary-light hover:rounded-lg"
+                            >
+                              {sublink}
+                            </Link>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  ))}
+                </div>
+              ) : link.id === "grapes" ? (
+                <div
+                  className={`absolute top-[6rem] left-1/2 transform -translate-x-1/2 mt-2 w-[33.813rem] h-[12.5rem] bg-white shadow-2xl rounded-lg ${
+                    isDropdownOpen(link.id)
+                      ? "flex flex-row space-x-2"
+                      : "hidden"
+                  }`}
+                >
+                  {/* Content for "grapes" dropdown */}
+                  {link.subHeadings.map((heading, index) => (
+                    <div
+                      key={index}
+                      className="space-y-2 relative left-3 top-3"
+                    >
+                      <h3 className="text-titleMedium font-semibold text-black relative left-4">
+                        {translations[heading]}
+                      </h3>
+                      <hr className="border-secondary-darker border-t-[0.25px] w-[85%] min-w-[11rem] relative left-2 mt-3 mb-1" />
+                      <ul className="grid grid-cols-3 gap-16">
+                        {chunkSublinks(link.sublinks[index], 3).map(
+                          (chunk, chunkIndex) => (
+                            <div
+                              key={chunkIndex}
+                              className="flex flex-col space-y-1 min-w-44"
+                            >
+                              {chunk.map((sublink, sublinkIndex) => (
+                                <li key={sublinkIndex} className="">
+                                  <Link
+                                    href={link.href}
+                                    className="inline-block px-4 py-2 text-sm text-gray-700 hover:bg-primary-light hover:rounded-lg"
+                                  >
+                                    {sublink}
+                                  </Link>
+                                </li>
+                              ))}
+                            </div>
+                          ),
+                        )}
+                      </ul>
+                    </div>
+                  ))}
+                </div>
+              ) : null
+            ) : null}
           </div>
         ))}
       </div>
