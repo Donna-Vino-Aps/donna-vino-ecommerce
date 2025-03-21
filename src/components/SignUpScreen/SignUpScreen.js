@@ -249,13 +249,13 @@ const SignUpScreen = () => {
                   />
 
                   <div className="relative group inline-block align-top">
-                    <img
-                      src="/icons/date-of-birth.svg"
-                      alt="date of birth info-popup"
-                      className="cursor-pointer md:block relative z-20"
-                    />
-                    <div className="absolute z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-200 left-0 top-0 flex items-center">
-                      <div className="bg-primary-hover text-tertiary1-darker font-medium p-2 pl-12 rounded-full text-labelSmall sm:min-w-[18rem] h-[45px] flex items-center">
+                    <div className="w-[30px] h-[30px] z-20 rounded-full bg-primary-light flex items-center justify-center group-hover:w-[45px] group-hover:h-[45px] transition-all duration-200 cursor-pointer">
+                      <span className="z-30 text-tertiary1-darker text-labelXLarge group-hover:text-titleLarge">
+                        ?
+                      </span>
+                    </div>
+                    <div className="absolute z-10 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-opacity duration-200 left-0 top-0">
+                      <div className="bg-primary-hover text-tertiary1-darker font-medium p-2 pl-12 rounded-full text-labelSmall sm:min-w-[18rem] h-[45px]">
                         {translations["signUp.ageTooltip"]}
                       </div>
                     </div>
