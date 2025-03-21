@@ -164,7 +164,6 @@ TextInputSignUpScreen.propTypes = {
   ]),
   onChange: PropTypes.func.isRequired,
   onBlur: PropTypes.func,
-  icon: PropTypes.element,
   showPasswordToggle: PropTypes.bool,
   isDate: PropTypes.bool,
 };
@@ -172,7 +171,6 @@ TextInputSignUpScreen.propTypes = {
 TextInputSignUpScreen.defaultProps = {
   type: "text",
   onBlur: () => {},
-  icon: null,
   showPasswordToggle: false,
   isDate: false,
 };
