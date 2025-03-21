@@ -320,26 +320,29 @@ const SignUpScreen = () => {
                   </label>
                 </div>
 
-                <div className="mt-4 flex justify-center">
-                  <div className="flex justify-center pb-4">
+                <div className="w-full mt-4">
+                  <Button
+                    text={translations["signUp.create-button"]}
+                    onClick={handleSubmit}
+                    variant="redWide"
+                    data-testid="submit-button"
+                    aria-label="Submit Sign Up"
+                  />
+                </div>
+
+                {/* Error Message */}
+                {!success && msg && (
+                  <div className="flex justify-center mt-3">
                     <p
-                      className={`text-xs ${success ? "text-green-500" : "text-red-500"}`}
+                      className="text-xs text-red-500"
                       aria-live="polite"
                       data-testid="message-status"
                     >
                       {msg}
                     </p>
                   </div>
-                  <div className="w-full mt-2">
-                    <Button
-                      text={translations["signUp.create-button"]}
-                      onClick={handleSubmit}
-                      variant="redWide"
-                      data-testid="submit-button"
-                      aria-label="Submit Sign Up"
-                    />
-                  </div>
-                </div>
+                )}
+
                 {/* Loading Indicator */}
                 {isLoading && (
                   <div className="flex justify-center items-center mt-4">
