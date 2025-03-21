@@ -13,6 +13,7 @@ const TextInputSignUpScreen = ({
   onBlur,
   showPasswordToggle = false,
   isDate = false,
+  error,
 }) => {
   const [showPassword, setShowPassword] = useState(false);
   const labelId = `${name}-label`;
@@ -37,18 +38,27 @@ const TextInputSignUpScreen = ({
       </label>
 
       {!isDate ? (
-        <input
-          type={showPasswordToggle && showPassword ? "text" : type}
-          name={name}
-          id={name}
-          placeholder={placeholder}
-          value={value}
-          onChange={onChange}
-          onBlur={onBlur}
-          aria-labelledby={labelId}
-          data-testid={`input-${name}`}
-          className="w-full py-3 px-5 border border-tertiary2-active_normal rounded-lg bg-white text-tertiary1-darker focus:outline-none focus:ring-1 focus:ring-tertiary1-active"
-        />
+        <>
+          <input
+            type={showPasswordToggle && showPassword ? "text" : type}
+            name={name}
+            id={name}
+            placeholder={placeholder}
+            value={value}
+            onChange={onChange}
+            onBlur={onBlur}
+            aria-labelledby={labelId}
+            data-testid={`input-${name}`}
+            className={`w-full py-3 px-5 border ${
+              error
+                ? "border-primary-normal focus:ring-primary-hover"
+                : "border-tertiary2-active_normal focus:ring-tertiary1-active"
+            } rounded-lg bg-white text-tertiary1-darker focus:outline-none focus:ring-1`}
+          />
+          {error && (
+            <div className="text-xs text-primary-normal mt-1">{error}</div>
+          )}
+        </>
       ) : (
         <div className="relative">
           <DatePicker
@@ -80,13 +90,15 @@ const TextInputSignUpScreen = ({
                 sx: {
                   "& .MuiOutlinedInput-root": {
                     "& fieldset": {
-                      borderColor: "#C1C1C1",
+                      borderColor: error ? "#ED1C24" : "#C1C1C1",
                       borderRadius: "0.5rem",
                     },
 
                     "&.Mui-focused fieldset": {
-                      borderColor: "#C1C1C1",
-                      boxShadow: "0 0 0 1px #BFBEBE",
+                      borderColor: error ? "#ED1C24" : "#C1C1C1",
+                      boxShadow: error
+                        ? "0 0 0 1px #FCA5A5"
+                        : "0 0 0 1px #BFBEBE",
                       borderWidth: "1px",
                     },
                     "& .MuiOutlinedInput-input": {
@@ -131,6 +143,9 @@ const TextInputSignUpScreen = ({
               },
             }}
           />
+          {error && (
+            <div className="text-xs text-primary-normal mt-1">{error}</div>
+          )}
         </div>
       )}
 
@@ -166,6 +181,7 @@ TextInputSignUpScreen.propTypes = {
   onBlur: PropTypes.func,
   showPasswordToggle: PropTypes.bool,
   isDate: PropTypes.bool,
+  error: PropTypes.string,
 };
 
 TextInputSignUpScreen.defaultProps = {
@@ -173,6 +189,7 @@ TextInputSignUpScreen.defaultProps = {
   onBlur: () => {},
   showPasswordToggle: false,
   isDate: false,
+  error: null,
 };
 
 export default TextInputSignUpScreen;
