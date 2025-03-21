@@ -18,7 +18,6 @@ const TextInputSignUpScreen = ({
   const [showPassword, setShowPassword] = useState(false);
   const labelId = `${name}-label`;
 
-  // Using proper labels that are visually hidden but available to screen readers
   const visuallyHiddenLabelStyle = {
     border: 0,
     clip: "rect(0 0 0 0)",
@@ -32,35 +31,52 @@ const TextInputSignUpScreen = ({
   };
 
   return (
-    <div className="relative" data-testid={`input-container-${name}`}>
+    <div data-testid={`input-container-${name}`}>
       <label htmlFor={name} id={labelId} style={visuallyHiddenLabelStyle}>
         {placeholder || `Enter your ${name}`}
       </label>
 
       {!isDate ? (
-        <>
-          <input
-            type={showPasswordToggle && showPassword ? "text" : type}
-            name={name}
-            id={name}
-            placeholder={placeholder}
-            value={value}
-            onChange={onChange}
-            onBlur={onBlur}
-            aria-labelledby={labelId}
-            data-testid={`input-${name}`}
-            className={`w-full py-3 px-5 border ${
-              error
-                ? "border-primary-normal focus:ring-primary-hover"
-                : "border-tertiary2-active_normal focus:ring-tertiary1-active"
-            } rounded-lg bg-white text-tertiary1-darker focus:outline-none focus:ring-1`}
-          />
+        <div>
+          <div className="relative">
+            <input
+              type={showPasswordToggle && showPassword ? "text" : type}
+              name={name}
+              id={name}
+              placeholder={placeholder}
+              value={value}
+              onChange={onChange}
+              onBlur={onBlur}
+              aria-labelledby={labelId}
+              data-testid={`input-${name}`}
+              className={`w-full py-3 px-5 border ${
+                error
+                  ? "border-primary-normal focus:ring-primary-hover"
+                  : "border-tertiary2-active_normal focus:ring-tertiary1-active"
+              } rounded-lg bg-white text-tertiary1-darker focus:outline-none focus:ring-1 ${showPasswordToggle ? "pr-10" : ""}`}
+            />
+            {showPasswordToggle && (
+              <button
+                type="button"
+                onClick={() => setShowPassword(!showPassword)}
+                aria-label={showPassword ? "Hide password" : "Show password"}
+                data-testid="toggle-password-visibility"
+                className="absolute right-3 top-1/2 transform -translate-y-1/2"
+              >
+                {showPassword ? (
+                  <FaEyeSlash color="#BFBEBE" />
+                ) : (
+                  <FaEye color="#BFBEBE" />
+                )}
+              </button>
+            )}
+          </div>
           {error && (
             <div className="text-xs text-primary-normal mt-1">{error}</div>
           )}
-        </>
+        </div>
       ) : (
-        <div className="relative">
+        <div>
           <DatePicker
             value={value ? dayjs(value) : null}
             onChange={(newValue) => onChange(newValue)}
@@ -147,22 +163,6 @@ const TextInputSignUpScreen = ({
             <div className="text-xs text-primary-normal mt-1">{error}</div>
           )}
         </div>
-      )}
-
-      {showPasswordToggle && !isDate && (
-        <button
-          type="button"
-          onClick={() => setShowPassword(!showPassword)}
-          aria-label={showPassword ? "Hide password" : "Show password"}
-          data-testid="toggle-password-visibility"
-          className="absolute right-3 top-1/2 transform -translate-y-1/2"
-        >
-          {showPassword ? (
-            <FaEyeSlash color="#BFBEBE" />
-          ) : (
-            <FaEye color="#BFBEBE" />
-          )}
-        </button>
       )}
     </div>
   );
