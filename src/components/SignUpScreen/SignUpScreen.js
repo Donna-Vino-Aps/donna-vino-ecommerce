@@ -101,7 +101,7 @@ const SignUpScreen = () => {
   return (
     <section className="bg-primary-light sm:bg-dots-lg sm:bg-dots-size-lg bg-dots-sm bg-dots-size-sm">
       <div className="flex flex-col items-center justify-center flex-grow p-2 w-full">
-        <div className="bg-tertiary2-light mt-24 mb-24 items-center justify-center rounded-2xl shadow-lg p-8 max-w-[47.75rem] w-full">
+        <div className="bg-tertiary2-light my-8 sm:my-20 items-center justify-center rounded-2xl shadow-lg p-8 max-w-[47.75rem] w-full">
           <img
             src="/images/donna-vino-logo-transparent.png"
             alt="Donna Vino logo"
