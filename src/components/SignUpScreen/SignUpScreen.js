@@ -249,8 +249,8 @@ const SignUpScreen = () => {
                   />
 
                   <div className="relative group inline-block align-top">
-                    <div className="w-[30px] h-[30px] z-20 rounded-full bg-primary-light flex items-center justify-center group-hover:w-[45px] group-hover:h-[45px] transition-all duration-200 cursor-pointer">
-                      <span className="z-30 text-tertiary1-darker text-labelXLarge group-hover:text-titleLarge">
+                    <div className="relative w-[30px] h-[30px] z-30 rounded-full bg-primary-light flex items-center justify-center group-hover:w-[45px] group-hover:h-[45px] transition-all duration-200 cursor-pointer">
+                      <span className="z-40 text-tertiary1-darker text-labelXLarge group-hover:text-titleLarge">
                         ?
                       </span>
                     </div>
