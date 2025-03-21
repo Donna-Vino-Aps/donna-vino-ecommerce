@@ -8,6 +8,7 @@ import Button from "../Button/Button";
 // import Link from "next/link";
 import TextInputSignUpScreen from "../SignUpScreen/TextInputSignUpScreen";
 import dayjs from "dayjs";
+import { createSignUpSchema } from "@/validation/signUpSchema";
 
 const SignUpScreen = () => {
   const { translations } = useLanguage();
@@ -15,6 +16,8 @@ const SignUpScreen = () => {
 
   const [msg, setMsg] = useState("");
   const [success, setSuccessStatus] = useState("");
+
+  const validationSchema = createSignUpSchema(translations);
 
   // Context
   const { setStoredCredentials } = useContext(CredentialsContext);
@@ -125,39 +128,12 @@ const SignUpScreen = () => {
               birthdate: "",
               password: "",
               confirmPassword: "",
-              subscribeToNewsletter: false, // Added missing field for newsletter subscription
+              subscribeToNewsletter: false,
+              acceptTerms: false,
             }}
+            validationSchema={validationSchema}
             onSubmit={(values, { setSubmitting }) => {
-              if (
-                !values.firstName ||
-                !values.lastName ||
-                !values.email ||
-                !values.confirmEmail ||
-                !values.birthdate ||
-                !values.password ||
-                !values.confirmPassword
-              ) {
-                handleMessage({
-                  successStatus: false,
-                  msg: "Please fill all the fields",
-                });
-                setSubmitting(false);
-              } else if (values.email !== values.confirmEmail) {
-                handleMessage({
-                  successStatus: false,
-                  msg: "Emails do not match",
-                });
-                setSubmitting(false);
-              } else if (values.password !== values.confirmPassword) {
-                handleMessage({
-                  successStatus: false,
-                  msg: "Passwords do not match",
-                });
-                setSubmitting(false);
-              } else {
-                setSubmitting(true);
-                handleSignup(values, setSubmitting);
-              }
+              handleSignup(values, setSubmitting);
             }}
           >
             {({
@@ -166,6 +142,8 @@ const SignUpScreen = () => {
               handleSubmit,
               values,
               setFieldValue,
+              errors,
+              touched,
             }) => (
               <form onSubmit={handleSubmit}>
                 <h3 className="text-headlineMedium mb-6">
@@ -182,6 +160,7 @@ const SignUpScreen = () => {
                     onBlur={handleBlur}
                     data-testid="input-first-name"
                     aria-label="First Name"
+                    error={touched.firstName && errors.firstName}
                   />
 
                   <TextInputSignUpScreen
@@ -193,6 +172,7 @@ const SignUpScreen = () => {
                     onBlur={handleBlur}
                     data-testid="input-last-name"
                     aria-label="Last Name"
+                    error={touched.lastName && errors.lastName}
                   />
 
                   <TextInputSignUpScreen
@@ -204,6 +184,7 @@ const SignUpScreen = () => {
                     onBlur={handleBlur}
                     data-testid="input-email"
                     aria-label="Email"
+                    error={touched.email && errors.email}
                   />
 
                   <TextInputSignUpScreen
@@ -217,6 +198,7 @@ const SignUpScreen = () => {
                     onBlur={handleBlur}
                     data-testid="input-confirm-email"
                     aria-label="Confirm Email"
+                    error={touched.confirmEmail && errors.confirmEmail}
                   />
 
                   <TextInputSignUpScreen
@@ -229,6 +211,7 @@ const SignUpScreen = () => {
                     showPasswordToggle={true}
                     data-testid="input-password"
                     aria-label="Password"
+                    error={touched.password && errors.password}
                   />
 
                   <TextInputSignUpScreen
@@ -243,6 +226,7 @@ const SignUpScreen = () => {
                     showPasswordToggle={true}
                     data-testid="input-confirm-password"
                     aria-label="Confirm Password"
+                    error={touched.confirmPassword && errors.confirmPassword}
                   />
 
                   <TextInputSignUpScreen
@@ -261,6 +245,7 @@ const SignUpScreen = () => {
                     }
                     data-testid="input-birthdate"
                     aria-label="Birthdate"
+                    error={touched.birthdate && errors.birthdate}
                   />
 
                   <div className="relative group flex items-center justify-start">
@@ -282,7 +267,17 @@ const SignUpScreen = () => {
                   <label className="flex items-center space-x-3 cursor-pointer">
                     <input
                       type="checkbox"
-                      className="w-6 h-6 border-2 border-secondary-active rounded-md bg-white text-secondary-active focus:ring-2 focus:ring-secondary-hover checked:bg-secondary-active checked:border-secondary-dark transition-all duration-200"
+                      name="acceptTerms"
+                      checked={values.acceptTerms}
+                      onChange={() =>
+                        setFieldValue("acceptTerms", !values.acceptTerms)
+                      }
+                      onBlur={handleBlur}
+                      className={`w-6 h-6 border-2 ${
+                        touched.acceptTerms && errors.acceptTerms
+                          ? "border-primary-normal ring-1 ring-primary-normal text-primary-normal checked:bg-primary-normal checked:border-primary-active"
+                          : "border-secondary-active text-secondary-active checked:bg-secondary-active checked:border-secondary-dark"
+                      } rounded-md bg-white focus:ring-2 focus:ring-secondary-hover transition-all duration-200`}
                     />
                     <span
                       dangerouslySetInnerHTML={{
@@ -299,6 +294,11 @@ const SignUpScreen = () => {
                       className="text-bodyLarge text-secondary-dark"
                     />
                   </label>
+                  {touched.acceptTerms && errors.acceptTerms && (
+                    <div className="text-xs text-primary-normal">
+                      {errors.acceptTerms}
+                    </div>
+                  )}
 
                   {/* Subscribe to Newsletter Checkbox */}
                   <label className="flex items-center space-x-3 cursor-pointer">
@@ -334,7 +334,7 @@ const SignUpScreen = () => {
                 {!success && msg && (
                   <div className="flex justify-center mt-3">
                     <p
-                      className="text-xs text-red-500"
+                      className="text-xs text-primary-normal"
                       aria-live="polite"
                       data-testid="message-status"
                     >
