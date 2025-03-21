@@ -104,7 +104,7 @@ const SignUpScreen = () => {
   return (
     <section className="bg-primary-light sm:bg-dots-lg sm:bg-dots-size-lg bg-dots-sm bg-dots-size-sm">
       <div className="flex flex-col items-center justify-center flex-grow p-2 w-full">
-        <div className="bg-tertiary2-light my-8 sm:my-20 items-center justify-center rounded-2xl shadow-lg p-8 max-w-[47.75rem] w-full">
+        <div className="bg-tertiary2-light my-8 sm:my-20 items-center justify-center rounded-2xl shadow-lg p-5 sm:p-8 max-w-[47.75rem] w-full">
           <img
             src="/images/donna-vino-logo-transparent.png"
             alt="Donna Vino logo"
@@ -248,7 +248,7 @@ const SignUpScreen = () => {
                     error={touched.birthdate && errors.birthdate}
                   />
 
-                  <div className="relative group flex items-center justify-start">
+                  <div className="relative group inline-block align-top">
                     <img
                       src="/icons/date-of-birth.svg"
                       alt="date of birth info-popup"
@@ -291,7 +291,7 @@ const SignUpScreen = () => {
                             `<strong>${translations["signUp.privacy"]}</strong>`,
                           ),
                       }}
-                      className="text-bodyLarge text-secondary-dark"
+                      className="text-bodyMedium sm:text-bodyLarge text-secondary-dark"
                     />
                   </label>
                   {touched.acceptTerms && errors.acceptTerms && (
@@ -314,7 +314,7 @@ const SignUpScreen = () => {
                       }
                       className="w-6 h-6 border-2 border-secondary-active rounded-md bg-white text-secondary-active focus:ring-2 focus:ring-secondary-hover checked:bg-secondary-active checked:border-secondary-dark transition-all duration-200"
                     />
-                    <span className="text-bodyLarge text-secondary-dark">
+                    <span className="text-bodyMedium sm:text-bodyLarge text-secondary-dark">
                       {translations["signUp.updates"]}
                     </span>
                   </label>
