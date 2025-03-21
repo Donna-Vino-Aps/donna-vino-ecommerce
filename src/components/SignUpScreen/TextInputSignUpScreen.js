@@ -15,18 +15,37 @@ const TextInputSignUpScreen = ({
   isDate = false,
 }) => {
   const [showPassword, setShowPassword] = useState(false);
+  const labelId = `${name}-label`;
+
+  // Using proper labels that are visually hidden but available to screen readers
+  const visuallyHiddenLabelStyle = {
+    border: 0,
+    clip: "rect(0 0 0 0)",
+    height: "1px",
+    margin: "-1px",
+    overflow: "hidden",
+    padding: 0,
+    position: "absolute",
+    width: "1px",
+    whiteSpace: "nowrap",
+  };
 
   return (
     <div className="relative" data-testid={`input-container-${name}`}>
+      <label htmlFor={name} id={labelId} style={visuallyHiddenLabelStyle}>
+        {placeholder || `Enter your ${name}`}
+      </label>
+
       {!isDate ? (
         <input
           type={showPasswordToggle && showPassword ? "text" : type}
           name={name}
+          id={name}
           placeholder={placeholder}
           value={value}
           onChange={onChange}
           onBlur={onBlur}
-          aria-label={placeholder || `Enter your ${name}`}
+          aria-labelledby={labelId}
           data-testid={`input-${name}`}
           className="w-full py-3 px-5 border border-tertiary2-active_normal rounded-lg bg-white text-tertiary1-darker focus:outline-none focus:ring-1 focus:ring-tertiary1-active"
         />
@@ -37,7 +56,10 @@ const TextInputSignUpScreen = ({
             onChange={(newValue) => onChange(newValue)}
             disableFuture
             format="DD/MM/YYYY"
-            aria-label={placeholder || `Select your ${name}`}
+            aria-labelledby={labelId}
+            inputProps={{
+              id: name,
+            }}
             data-testid={`datepicker-${name}`}
             slots={{
               openPickerIcon: () => <FaCalendarAlt size={16} color="#BFBEBE" />,
@@ -48,6 +70,10 @@ const TextInputSignUpScreen = ({
                 fullWidth: true,
                 size: "medium",
                 variant: "outlined",
+                id: name,
+                InputProps: {
+                  id: name,
+                },
                 InputLabelProps: {
                   shrink: false,
                 },
