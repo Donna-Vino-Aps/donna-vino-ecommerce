@@ -9,6 +9,8 @@ const BASE_BUTTON_CLASSES = `
 
 const VARIANT_CLASSES = {
   red: "bg-primary-normal hover:bg-primary-hover_normal text-primary-light w-full sm:w-[10.8rem]",
+  black:
+    "bg-tertiary1-normal hover:bg-tertiary1-hover_normal text-primary-light w-full sm:w-[10.8rem]",
   redFullText:
     "bg-primary-normal hover:bg-primary-hover_normal text-primary-light w-[15.4rem]",
   redWide:
