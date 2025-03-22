@@ -100,5 +100,17 @@
   "calendar.weekday.5": "Friday",
   "calendar.weekday.6": "Saturday",
   "calendar.weekday.7": "Sunday",
-  "calendar.seats": "Seats"
+  "calendar.seats": "Seats",
+  "contactUs.header": "Get in Touch with Us",
+  "contactUs.paragraph": "We’d love to hear from you! If you have any questions,feedback, or need assistance, feel free to reach out. You can use the contact form here, and our team will get back to you as soon as possible.",
+  "contactUs.name": "Your Name",
+  "contactUs.email": "Your Email",
+  "contactUs.phone": "Your Phone",
+  "contactUs.message": "Your Message",
+  "contactUs.send": "Send Message",
+  "contactUs.map-header": "Where can you find us?",
+  "contactUs.our-location": "Our Location",
+  "contactUs.our-address": "Wildersgade, 23 | 1408 København K",
+  "contactUs.our-phone": "Phone Number",
+  "contactUs.our-email": "Email Address"
 }

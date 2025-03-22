@@ -19,7 +19,7 @@ const Footer = () => {
       dataTestId: "our-values",
     },
     {
-      href: "/contact",
+      href: "/contact-us",
       label: translations["footer.contact"],
       dataTestId: "contact",
     },
