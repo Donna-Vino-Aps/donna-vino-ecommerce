@@ -100,5 +100,17 @@
   "calendar.weekday.5": "Fredag",
   "calendar.weekday.6": "Lørdag",
   "calendar.weekday.7": "Søndag",
-  "calendar.seats": "Steder"
+  "calendar.seats": "Steder",
+  "contactUs.header": "Kontakt os",
+  "contactUs.paragraph": "Vi vil meget gerne høre fra dig! Hvis du har spørgsmål, feedback eller brug for hjælp, er du velkommen til at kontakte os. Du kan bruge kontaktformularen her, og vores team vender tilbage til dig hurtigst muligt.",
+  "contactUs.name": "Dit navn",
+  "contactUs.email": "Din e-mail",
+  "contactUs.phone": "Dit telefonnummer",
+  "contactUs.message": "Din besked",
+  "contactUs.send": "Send besked",
+  "contactUs.map-header": "Hvor kan du finde os?",
+  "contactUs.our-location": "Vores beliggenhed",
+  "contactUs.our-address": "Wildersgade 23 | 1408 København K",
+  "contactUs.our-phone": "Telefonnummer",
+  "contactUs.our-email": "E-mailadresse"
 }

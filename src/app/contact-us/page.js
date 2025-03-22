@@ -2,51 +2,50 @@
 import React from "react";
 import Button from "@/components/Button/Button";
 import Image from "next/image";
-
+import { useLanguage } from "@/context/LanguageContext";
 const ContactUs = () => {
+  const { translations } = useLanguage();
   return (
     <div className="relative flex flex-col items-center bg-[#FDE8E9] min-h-screen">
       <div className="w-100  mt-20  ">
         <h1 className=" text-headlineMedium text-primary-normal text-left ml-[145px] h-[56px]">
-          Get in Touch with Us
+          {translations["contactUs.header"]}
         </h1>
 
         <div className="relative bg-white mr-20 mb-10 ml-20 rounded-2xl shadow-lg w-[1170px] h-[608px]">
           <div className="flex justify-between">
             <div className="w-1/2 pt-[30px] pr-[100px] pb-[30px] pl-[70px] ">
               <form className="flex flex-col gap-[16px]">
-                <h4>
-                  We’d love to hear from you! If you have any questions,
-                  feedback, or need assistance, feel free to reach out. You can
-                  use the contact form here, and our team will get back to you
-                  as soon as possible.
-                </h4>
+                <h4>{translations["contactUs.paragraph"]}</h4>
 
                 <input
                   type="text"
                   className="p-2 border border-gray-300 rounded-lg mb-4"
-                  placeholder="Your Name"
+                  placeholder={translations["contactUs.name"]}
                 />
 
                 <input
                   type="email"
                   className="p-2 border border-gray-300 rounded-lg mb-4"
-                  placeholder="Your Email Address"
+                  placeholder={translations["contactUs.email"]}
                 />
 
                 <input
                   type="tel"
                   className="p-2 border border-gray-300 rounded-lg mb-4"
-                  placeholder="Your Phone Number"
+                  placeholder={translations["contactUs.phone"]}
                 />
 
                 <textarea
                   className="p-2 border border-gray-300 rounded-lg mb-4"
                   rows="4"
-                  placeholder="Your Message"
+                  placeholder={translations["contactUs.message"]}
                 ></textarea>
 
-                <Button text="Send Message" variant="greenSubmit" />
+                <Button
+                  text={translations["contactUs.send"]}
+                  variant="greenSubmit"
+                />
               </form>
             </div>
 
@@ -74,7 +73,7 @@ const ContactUs = () => {
             </div>
             <div className="w-1/2 h-[536px] p-[32px] gap-[35px] flex flex-col ">
               <h1 className="text-tertiary1-darker font-light text-displayMedium">
-                Where can you find us?
+                {translations["contactUs.map-header"]}
               </h1>
               <div className=" w-100  gap-[24px] flex flex-col ">
                 <div className="flex gap-[24px]">
@@ -86,10 +85,10 @@ const ContactUs = () => {
                   </div>
                   <div className=" justify-center gap-[10px] flex  flex-col  items-left">
                     <h5 className="text-tertiary1-darker font-semibold ">
-                      Our Location
+                      {translations["contactUs.our-location"]}
                     </h5>
                     <h6 className="text-tertiary1-dark">
-                      Wildersgade, 23 | 1408 København K
+                      {translations["contactUs.our-address"]}
                     </h6>
                   </div>
                 </div>
@@ -104,7 +103,7 @@ const ContactUs = () => {
                     </div>
                     <div className=" justify-center gap-[10px] flex  flex-col  items-left">
                       <h5 className="text-tertiary1-darker font-semibold">
-                        Phone Number
+                        {translations["contactUs.our-phone"]}
                       </h5>
                       <h6 className="text-tertiary1-dark">+45 12 34 56 78</h6>
                     </div>
@@ -121,7 +120,7 @@ const ContactUs = () => {
                     </div>
                     <div className="justify-center gap-[10px] flex  flex-col  items-left">
                       <h5 className="text-tertiary1-darker font-semibold">
-                        Email Address
+                        {translations["contactUs.our-email"]}
                       </h5>
                       <h6 className="text-tertiary1-dark">info@donnavino.dk</h6>
                     </div>
