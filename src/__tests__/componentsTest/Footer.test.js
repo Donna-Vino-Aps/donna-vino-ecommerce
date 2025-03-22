@@ -41,7 +41,7 @@ it("renders all navigation links", () => {
   const links = [
     { id: "our-values", href: "/our-values", label: "Our Values" },
     { id: "our-team", href: "/our-team", label: "Our Team" },
-    { id: "contact", href: "/contact", label: "Contact" },
+    { id: "contact", href: "/contact-us", label: "Contact" },
   ];
 
   links.forEach((link) => {
