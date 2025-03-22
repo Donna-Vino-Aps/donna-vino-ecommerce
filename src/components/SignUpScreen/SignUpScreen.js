@@ -5,13 +5,14 @@ import { useLanguage } from "@/context/LanguageContext";
 import useFetch from "../../hooks/api/useFetch";
 import { logError, logInfo } from "../../utils/logging";
 import Button from "../Button/Button";
-// import Link from "next/link";
 import TextInputSignUpScreen from "../SignUpScreen/TextInputSignUpScreen";
 import dayjs from "dayjs";
 import { createSignUpSchema } from "@/validation/signUpSchema";
+import { useRouter } from "next/navigation";
 
 const SignUpScreen = () => {
   const { translations } = useLanguage();
+  const router = useRouter();
   const [userBirthDay, setUserBirthDay] = useState();
 
   const [msg, setMsg] = useState("");
@@ -29,6 +30,7 @@ const SignUpScreen = () => {
     if (success) {
       saveLoginCredentials(user);
       handleMessage({ successStatus: true, msg: msg });
+      router.push("/signup/welcome");
     } else {
       logInfo(msg);
       handleMessage({ successStatus: false, msg: msg });
@@ -36,7 +38,7 @@ const SignUpScreen = () => {
   };
 
   const { performFetch, isLoading, error } = useFetch(
-    "/auth/sign-up",
+    "/auth/pre-sign-up",
     "POST",
     {},
     {},
@@ -67,9 +69,10 @@ const SignUpScreen = () => {
       email: values.email,
       password: values.password,
       dateOfBirth: formattedBirthdate,
-      // Map the form field "subscribeToNewsletter" to DB field "isSubscribed"
       isSubscribed: values.subscribeToNewsletter,
+      authProvider: "local",
     };
+    logInfo(credentials);
 
     performFetch({
       method: "POST",
@@ -334,7 +337,7 @@ const SignUpScreen = () => {
                 {!success && msg && (
                   <div className="flex justify-center mt-3">
                     <p
-                      className="text-xs text-primary-normal"
+                      className="text-bodySmall sm:text-bodyMedium text-primary-normal text-center"
                       aria-live="polite"
                       data-testid="message-status"
                     >
