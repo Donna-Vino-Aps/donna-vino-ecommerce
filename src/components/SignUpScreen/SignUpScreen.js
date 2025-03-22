@@ -1,9 +1,8 @@
 import React, { useState, useContext, useEffect } from "react";
 import { Formik } from "formik";
-import { CredentialsContext } from "../../context/credentialsContext";
 import { useLanguage } from "@/context/LanguageContext";
 import useFetch from "../../hooks/api/useFetch";
-import { logError, logInfo } from "../../utils/logging";
+import { logError } from "../../utils/logging";
 import Button from "../Button/Button";
 import TextInputSignUpScreen from "../SignUpScreen/TextInputSignUpScreen";
 import dayjs from "dayjs";
@@ -20,19 +19,15 @@ const SignUpScreen = () => {
 
   const validationSchema = createSignUpSchema(translations);
 
-  // Context
-  const { setStoredCredentials } = useContext(CredentialsContext);
-
   const onReceived = (response) => {
     const responseData = response.data || response;
-    const { success, msg, user } = responseData;
+    const { success, msg } = responseData;
 
     if (success) {
-      saveLoginCredentials(user);
       handleMessage({ successStatus: true, msg: msg });
       router.push("/signup/welcome");
     } else {
-      logInfo(msg);
+      logError(`API Error: ${msg}`);
       handleMessage({ successStatus: false, msg: msg });
     }
   };
@@ -72,7 +67,6 @@ const SignUpScreen = () => {
       isSubscribed: values.subscribeToNewsletter,
       authProvider: "local",
     };
-    logInfo(credentials);
 
     performFetch({
       method: "POST",
@@ -83,25 +77,6 @@ const SignUpScreen = () => {
   const handleMessage = ({ successStatus, msg }) => {
     setSuccessStatus(successStatus);
     setMsg(msg);
-  };
-
-  const saveLoginCredentials = (user) => {
-    try {
-      localStorage.setItem("userCredentials", JSON.stringify(user));
-      handleMessage({
-        successStatus: true,
-        msg: "User credentials saved successfully",
-      });
-      setStoredCredentials(user);
-      const storedUser = localStorage.getItem("userCredentials");
-      logInfo(`User found in localStorage: ${storedUser}`);
-    } catch (error) {
-      logError(error);
-      handleMessage({
-        successStatus: false,
-        msg: "Failed to save user credentials",
-      });
-    }
   };
 
   return (
