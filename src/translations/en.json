@@ -105,5 +105,7 @@
   "calendar.weekday.5": "Friday",
   "calendar.weekday.6": "Saturday",
   "calendar.weekday.7": "Sunday",
-  "calendar.seats": "Seats"
+  "calendar.seats": "Seats",
+  "common.loading": "Loading...",
+  "common.submitting": "Submitting..."
 }

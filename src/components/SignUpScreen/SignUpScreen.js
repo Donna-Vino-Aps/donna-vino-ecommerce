@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { Formik } from "formik";
 import { useLanguage } from "@/context/LanguageContext";
 import useFetch from "../../hooks/api/useFetch";
@@ -122,6 +122,7 @@ const SignUpScreen = () => {
               setFieldValue,
               errors,
               touched,
+              isSubmitting,
             }) => (
               <form onSubmit={handleSubmit}>
                 <h3 className="text-headlineMedium mb-6">
@@ -300,9 +301,14 @@ const SignUpScreen = () => {
 
                 <div className="w-full mt-4">
                   <Button
-                    text={translations["signUp.create-button"]}
+                    text={
+                      isSubmitting
+                        ? translations["common.submitting"]
+                        : translations["signUp.create-button"]
+                    }
                     onClick={handleSubmit}
                     variant="redWide"
+                    disabled={isSubmitting}
                     data-testid="submit-button"
                     aria-label="Submit Sign Up"
                   />
@@ -322,7 +328,7 @@ const SignUpScreen = () => {
                 )}
 
                 {/* Loading Indicator */}
-                {isLoading && (
+                {(isSubmitting || isLoading) && (
                   <div className="flex justify-center items-center mt-4">
                     <div className="w-8 h-8 border-t-transparent border-solid animate-spin rounded-full border-primary-normal border-2" />
                   </div>

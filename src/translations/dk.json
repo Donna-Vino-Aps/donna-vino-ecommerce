@@ -105,5 +105,7 @@
   "calendar.weekday.5": "Fredag",
   "calendar.weekday.6": "Lørdag",
   "calendar.weekday.7": "Søndag",
-  "calendar.seats": "Steder"
+  "calendar.seats": "Steder",
+  "common.loading": "Indlæser...",
+  "common.submitting": "Indsender..."
 }
