@@ -3,8 +3,20 @@ import React from "react";
 import Button from "@/components/Button/Button";
 import Image from "next/image";
 import { useLanguage } from "@/context/LanguageContext";
+import axios from "axios";
 const ContactUs = () => {
   const { translations } = useLanguage();
+
+  const handleSubmit = async () => {
+    try {
+      await axios.post("/api/contact-us", {}, { withCredentials: true });
+      setStoredCredentials(null);
+      router.push("/");
+    } catch (error) {
+      console.error("ContactUs failed:", error);
+    }
+  };
+
   return (
     <div className="relative flex flex-col items-center bg-[#FDE8E9] min-h-screen">
       <div className="w-100  mt-20  ">
@@ -45,6 +57,7 @@ const ContactUs = () => {
                 <Button
                   text={translations["contactUs.send"]}
                   variant="greenSubmit"
+                  onClick={handleSubmit}
                 />
               </form>
             </div>
