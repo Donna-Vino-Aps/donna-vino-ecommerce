@@ -96,6 +96,11 @@ export default {
           active_dark: "#6C6C6C",
           darker: "#545454",
         },
+        calendar: {
+          full: "#FF3B30",
+          limited: "#FF9500",
+          open: "#34C759",
+        },
       },
       screens: {
         sm: "640px",

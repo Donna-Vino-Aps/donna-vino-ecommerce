@@ -4,6 +4,19 @@ import CalendarItem from "./CalendarItem";
 import { useLanguage } from "@/context/LanguageContext";
 
 const Calendar = ({ currentYear, currentMonth }) => {
+  const [isMobile, setIsMobile] = React.useState(
+    typeof window !== "undefined" && window.innerWidth < 1024,
+  );
+
+  React.useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 1024);
+    };
+
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
   const { translations } = useLanguage();
   const generateCalendarDays = (month, year) => {
     function daysInMonth(month, year) {
@@ -85,23 +98,23 @@ const Calendar = ({ currentYear, currentMonth }) => {
 
   const randomSeatsTotal = [
     0, 0, 0, 0, 0, 20, 20, 0, 0, 20, 0, 0, 0, 0, 20, 0, 20, 20, 20, 20, 0, 0, 0,
-    0, 20, 20, 0, 0, 0, 0, 20,
+    20, 20, 20, 0, 0, 0, 0, 20,
   ];
 
   randomSeatsTotal.slice(0, calendarDaysCurrentMonth.length);
 
   const weekdayStyle =
-    "flex bg-primary-normal h-16 justify-center items-center text-titleLarge text-tertiary2-light";
+    "flex bg-primary-normal h-11 lg:h-16 justify-center items-center text-labelLarge md:text-titleMedium lg:text-titleLarge text-tertiary2-light";
 
   return (
-    <section className="grid grid-cols-7 grid-row-5 gap-0 justify-center w-full max-w-[calc(7*12.5rem)] mx-auto border-b-tertiary1-light border-[1px]">
-      <div className={weekdayStyle}>{translations["calendar.weekday.1"]}</div>
-      <div className={weekdayStyle}>{translations["calendar.weekday.2"]}</div>
-      <div className={weekdayStyle}>{translations["calendar.weekday.3"]}</div>
-      <div className={weekdayStyle}>{translations["calendar.weekday.4"]}</div>
-      <div className={weekdayStyle}>{translations["calendar.weekday.5"]}</div>
-      <div className={weekdayStyle}>{translations["calendar.weekday.6"]}</div>
-      <div className={weekdayStyle}>{translations["calendar.weekday.7"]}</div>
+    <section className="grid grid-cols-7 grid-row-5 gap-0 justify-center w-full md:max-w-[calc(7*12.5rem-8px)] lg:md:max-w-[calc(7*12.5rem-16px)] mx-auto border-b-tertiary1-light border-[1px]">
+      {[...Array(7)].map((_, i) => (
+        <div key={i} className={weekdayStyle}>
+          {isMobile
+            ? translations[`calendar.weekday.${i + 1}-short`]
+            : translations[`calendar.weekday.${i + 1}`]}
+        </div>
+      ))}
       {calendarDaysCurrentMonth.map((day, index) => (
         <CalendarItem
           key={index}
