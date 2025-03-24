@@ -30,7 +30,7 @@ function ButtonField(props) {
       <img
         src="/icons/calender-alt-1-gray.svg" // Path to your image
         alt="Calendar Icon"
-        className="h-[36px] w-[33px]" // Adjust the size to fit as needed
+        className="h-5 w-5 lg:h-[36px] lg:w-[33px]" // Adjust the size to fit as needed
       />
     </Button>
   );

@@ -36,11 +36,11 @@ const CalendarMonthPicker = ({ currentMonth, currentYear, onMonthChange }) => {
   };
 
   return (
-    <div className="flex justify-between items-center mx-auto bg-primary-normal w-full h-[5rem] max-w-[calc(7*12.5rem-2px)] rounded-t-[1rem] text-headlineMedium text-center text-tertiary2-light">
+    <div className="flex justify-between items-center mx-auto bg-primary-normal w-full h-[3.438rem] lg:h-[5rem] md:max-w-[calc(7*12.5rem-8px)] lg:md:max-w-[calc(7*12.5rem-16px)] rounded-t-[1rem] text-titleLarge lg:text-headlineMedium text-center text-tertiary2-light">
       <button
         onClick={handlePreviousMonth}
         aria-label="Previous Month"
-        className="relative top-[2px] left-16"
+        className="relative top-[2px] left-6 md:left-10 lg:left-16"
       >
         <img src="/icons/arrow-left-small.svg" />
       </button>
@@ -48,7 +48,7 @@ const CalendarMonthPicker = ({ currentMonth, currentYear, onMonthChange }) => {
       <button
         onClick={handleNextMonth}
         aria-label="Next Month"
-        className="relative top-[2px] right-16"
+        className="relative top-[2px] right-6 md:right-10 lg:right-16"
       >
         <img src="/icons/arrow-right-small.svg" />
       </button>

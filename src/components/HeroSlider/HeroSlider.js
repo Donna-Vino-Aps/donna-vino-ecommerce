@@ -34,6 +34,8 @@ const HeroSlider = () => {
     "/images/hero-newsletter.jpg",
   ];
 
+  // const urls = ["/events", "/shop", "/subscribe"];
+
   // Logic for handling use of the prev/next-buttons
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
