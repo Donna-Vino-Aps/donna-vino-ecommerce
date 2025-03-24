@@ -10,7 +10,6 @@
   "navbar.grapes.sh1": "Druer",
   "navbar.grapes.sh2": "Regioner",
   "navbar.account": "Konto",
-  "signUp.button": "Tilmeld Dig",
   "signUp.create-button": "Oprette din konto",
   "signUp.heading": "Slut dig til Donna Vino",
   "signUp.paragraph": "Opret en profil til dine fremtidige ordrer for at have alle dine oplysninger gemt og klar til brug. Registrering på vores Donna Vino-websted er hurtigt og nemt, hvilket giver dig mulighed for at strømline din shoppingoplevelse og nyde en hurtigere betaling hver gang.",
@@ -33,6 +32,11 @@
   "signUp.terms": "Brugsbetingelser",
   "signUp.privacy": "Privatlivspolitik",
   "signUp.updates": "Jeg vil gerne modtage opdateringer og tilbud.",
+  "signUp.welcome.title": "👏 Færdig! Velkommen ombord! 👏",
+  "signUp.welcome.message": "Din e-mail er blevet registreret i vores system. <strong>Tjek venligst din indbakke</strong> for bekræftelses-e-mailen vedrørende din registrering. Når du er bekræftet, vil du få adgang til dit personlige profilpanel, hvor du kan uploade dit profilbillede, opdatere dine oplysninger og udfylde alle de nødvendige detaljer for at strømline dine fremtidige bestillinger og forbedre din shoppingoplevelse.",
+  "signUp.welcome.button": "Tilbage til login-siden",
+  "signUp.welcome.resend": "Modtog du ikke e-mailen?",
+  "signUp.welcome.resend.button": "Send igen",
   "logIn.button": "Logge Ind",
   "logIn.signin-google": "Log ind med Google",
   "logIn.label-mail": "E-mail Adresse",
@@ -107,5 +111,7 @@
   "calendar.weekday.5-short": "Fr",
   "calendar.weekday.6-short": "Lø",
   "calendar.weekday.7-short": "Sø",
-  "calendar.seats": "Steder"
+  "calendar.seats": "Steder",
+  "common.loading": "Indlæser...",
+  "common.submitting": "Indsender..."
 }

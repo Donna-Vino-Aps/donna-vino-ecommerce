@@ -1,17 +1,17 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { Formik } from "formik";
-import { CredentialsContext } from "../../context/credentialsContext";
 import { useLanguage } from "@/context/LanguageContext";
 import useFetch from "../../hooks/api/useFetch";
-import { logError, logInfo } from "../../utils/logging";
+import { logError } from "../../utils/logging";
 import Button from "../Button/Button";
-// import Link from "next/link";
 import TextInputSignUpScreen from "../SignUpScreen/TextInputSignUpScreen";
 import dayjs from "dayjs";
 import { createSignUpSchema } from "@/validation/signUpSchema";
+import { useRouter } from "next/navigation";
 
 const SignUpScreen = () => {
   const { translations } = useLanguage();
+  const router = useRouter();
   const [userBirthDay, setUserBirthDay] = useState();
 
   const [msg, setMsg] = useState("");
@@ -19,24 +19,21 @@ const SignUpScreen = () => {
 
   const validationSchema = createSignUpSchema(translations);
 
-  // Context
-  const { setStoredCredentials } = useContext(CredentialsContext);
-
   const onReceived = (response) => {
     const responseData = response.data || response;
-    const { success, msg, user } = responseData;
+    const { success, msg } = responseData;
 
     if (success) {
-      saveLoginCredentials(user);
       handleMessage({ successStatus: true, msg: msg });
+      router.push("/signup/welcome");
     } else {
-      logInfo(msg);
+      logError(`API Error: ${msg}`);
       handleMessage({ successStatus: false, msg: msg });
     }
   };
 
   const { performFetch, isLoading, error } = useFetch(
-    "/auth/sign-up",
+    "/auth/pre-sign-up",
     "POST",
     {},
     {},
@@ -67,8 +64,8 @@ const SignUpScreen = () => {
       email: values.email,
       password: values.password,
       dateOfBirth: formattedBirthdate,
-      // Map the form field "subscribeToNewsletter" to DB field "isSubscribed"
       isSubscribed: values.subscribeToNewsletter,
+      authProvider: "local",
     };
 
     performFetch({
@@ -80,25 +77,6 @@ const SignUpScreen = () => {
   const handleMessage = ({ successStatus, msg }) => {
     setSuccessStatus(successStatus);
     setMsg(msg);
-  };
-
-  const saveLoginCredentials = (user) => {
-    try {
-      localStorage.setItem("userCredentials", JSON.stringify(user));
-      handleMessage({
-        successStatus: true,
-        msg: "User credentials saved successfully",
-      });
-      setStoredCredentials(user);
-      const storedUser = localStorage.getItem("userCredentials");
-      logInfo(`User found in localStorage: ${storedUser}`);
-    } catch (error) {
-      logError(error);
-      handleMessage({
-        successStatus: false,
-        msg: "Failed to save user credentials",
-      });
-    }
   };
 
   return (
@@ -144,6 +122,7 @@ const SignUpScreen = () => {
               setFieldValue,
               errors,
               touched,
+              isSubmitting,
             }) => (
               <form onSubmit={handleSubmit}>
                 <h3 className="text-headlineMedium mb-6">
@@ -322,9 +301,14 @@ const SignUpScreen = () => {
 
                 <div className="w-full mt-4">
                   <Button
-                    text={translations["signUp.create-button"]}
+                    text={
+                      isSubmitting
+                        ? translations["common.submitting"]
+                        : translations["signUp.create-button"]
+                    }
                     onClick={handleSubmit}
                     variant="redWide"
+                    disabled={isSubmitting}
                     data-testid="submit-button"
                     aria-label="Submit Sign Up"
                   />
@@ -334,7 +318,7 @@ const SignUpScreen = () => {
                 {!success && msg && (
                   <div className="flex justify-center mt-3">
                     <p
-                      className="text-xs text-primary-normal"
+                      className="text-bodySmall sm:text-bodyMedium text-primary-normal text-center"
                       aria-live="polite"
                       data-testid="message-status"
                     >
@@ -344,9 +328,9 @@ const SignUpScreen = () => {
                 )}
 
                 {/* Loading Indicator */}
-                {isLoading && (
+                {(isSubmitting || isLoading) && (
                   <div className="flex justify-center items-center mt-4">
-                    <div className="w-8 h-8 border-4 border-t-4 border-blue-500 border-solid rounded-full animate-spin" />
+                    <div className="w-8 h-8 border-t-transparent border-solid animate-spin rounded-full border-primary-normal border-2" />
                   </div>
                 )}
               </form>
