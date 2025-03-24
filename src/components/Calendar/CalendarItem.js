@@ -37,11 +37,11 @@ const CalendarItem = ({
   if (isOtherMonth) {
     bgColor = "bg-[#ffffff] text-tertiary1-active";
   } else if (isFull) {
-    bgColor = "bg-[#FF3B30] text-tertiary1-light"; // Red if full
+    bgColor = "bg-calendar-full text-tertiary1-light"; // Red if full
   } else if (percentageAvailable > 50 && seatsTotal !== 0) {
-    bgColor = "bg-[#34C759] text-tertiary1-light"; // Green if many seats available
+    bgColor = "bg-calendar-open text-tertiary1-light"; // Green if many seats available
   } else if (percentageAvailable <= 50 && seatsTotal !== 0) {
-    bgColor = "bg-[#ff9500] text-tertiary1-light"; // Yellow if limited
+    bgColor = "bg-calendar-limited text-tertiary1-light"; // Yellow if limited
   } else if (isToday && percentageAvailable !== null) {
     bgColor = "bg-primary-active text-tertiary1-light"; // light pink if today
   } else if (seatsTotal === 0) {
@@ -60,14 +60,14 @@ const CalendarItem = ({
       className={`relative min-w-[2.818rem] min-h-[2.813rem] lg:h-[7.938rem] lg:w-[12.5rem] bg-white 
         ${seatsTotal === 0 ? "hover:cursor-default" : "hover:cursor-pointer"} 
         ${isFull ? "hover:cursor-not-allowed" : "hover:cursor-pointer"} 
-        ${isToday && seatsTotal > 0 && !isOtherMonth ? `border-primary-active border-[2px]` : "border-tertiary1-light border-t-[1px] border-x"}`}
+        ${isToday && seatsTotal > 0 && !isOtherMonth ? `outline-primary-active outline-[2px]` : "border-tertiary1-light border-t-[1px] border-x"}`}
       onClick={onClick}
     >
       <div
         className={`${calendarItemClass} 
         `}
       >
-        <p className="flex justify-center pt-3 md:pt-7 lg:pt-0 lg:h-auto lg:absolute lg:top-5 lg:left-4">
+        <p className="flex justify-center pt-3 md:pt-7 lg:pt-0 lg:h-auto lg:absolute lg:top-5 lg:left-4 text-labelLarge lg:text-labelXLarge">
           {dayOfMonth}
         </p>
         {seatsAvailable > 0 && seatsTotal === 0 ? null : (

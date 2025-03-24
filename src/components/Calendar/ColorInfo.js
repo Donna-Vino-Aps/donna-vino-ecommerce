@@ -14,7 +14,7 @@ const ColorInfo = () => {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
   return (
-    <div className="flex items-center rounded-[0.5rem] bg-tertiary2-normal h-[88px] md:h-10 mt-3">
+    <div className="flex justify-center items-center rounded-[0.5rem] bg-tertiary2-normal h-[88px] md:h-10 mt-3">
       <img
         src={
           isMobile
