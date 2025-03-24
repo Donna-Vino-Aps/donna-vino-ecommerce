@@ -34,6 +34,8 @@ const HeroSlider = () => {
     "/images/hero-newsletter.jpg",
   ];
 
+  const urls = ["/events", "/shop", "/subscribe"];
+
   // Logic for handling use of the prev/next-buttons
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
@@ -115,6 +117,7 @@ const HeroSlider = () => {
         <Button
           text={translations[buttons[currentImageIndex]]}
           icon={buttonIcons[currentImageIndex]}
+          linkUrl={urls[currentImageIndex]}
           variant="redFullText"
           aria-label="Book a tasting session"
           data-testid="book-tasting-button"
