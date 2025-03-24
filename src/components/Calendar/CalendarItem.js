@@ -5,7 +5,7 @@ import PropTypes from "prop-types";
 import { useLanguage } from "@/context/LanguageContext";
 
 const BASE_CALENDARITEM_CLASSES = `
-   min-w-[2.818rem] min-h-[2.813rem] md:min-h-[4.813rem] lg:h-[7.9rem] lg:w-[12.45rem] text-labelXLarge font-semibold rounded-tl-[6px] rounded-bl-[20px] md:rounded-tl-[12px] md:rounded-bl-[40px] lg:rounded-tl-[16px] lg:rounded-bl-[62.5px]
+   min-w-[2.818rem] min-h-[2.813rem] md:min-h-[4.813rem] lg:h-[7.9rem] lg:w-[12.45rem] text-labelXLarge font-semibold
 `;
 
 const CalendarItem = ({
@@ -13,7 +13,6 @@ const CalendarItem = ({
   icon,
   seatsTaken = 0,
   seatsTotal = 0,
-  variant = "none",
   onClick,
   isOtherMonth,
   currentMonth,
@@ -58,12 +57,13 @@ const CalendarItem = ({
 
   return (
     <article
-      className={`relative min-w-[2.818rem] min-h-[2.813rem] lg:h-[7.938rem] lg:w-[12.5rem] bg-white border-tertiary1-light border-t-[1px] border-x ${seatsTotal === 0 ? "hover:cursor-default" : "hover:cursor-pointer"} ${isFull ? "hover:cursor-not-allowed" : "hover:cursor-pointer"}`}
+      className={`relative min-w-[2.818rem] min-h-[2.813rem] lg:h-[7.938rem] lg:w-[12.5rem] bg-white ${seatsTotal === 0 ? "hover:cursor-default" : "hover:cursor-pointer"} ${isFull ? "hover:cursor-not-allowed" : "hover:cursor-pointer"} ${isToday && seatsTotal && !isOtherMonth > 0 ? `border-[#34C759] border-[2px]` : "border-tertiary1-light border-t-[1px] border-x"}`}
       onClick={onClick}
     >
       <div
         className={`${calendarItemClass} 
-        ${variant === "limited" && percentageAvailable > 50 ? "opacity-85" : "opacity-100"}`}
+        ${!isToday ? "rounded-tl-[6px] rounded-bl-[20px] md:rounded-tl-[12px] md:rounded-bl-[40px] lg:rounded-tl-[16px] lg:rounded-bl-[62.5px]" : ""}
+        `}
       >
         <p className="flex justify-center pt-3 md:pt-7 lg:pt-0 lg:h-auto lg:absolute lg:top-5 lg:left-4">
           {dayOfMonth}
@@ -88,7 +88,6 @@ CalendarItem.propTypes = {
   icon: PropTypes.string,
   seatsTaken: PropTypes.number.isRequired,
   seatsTotal: PropTypes.number.isRequired,
-  variant: PropTypes.oneOf(["none", "today", "open", "limited", "full"]),
   onClick: PropTypes.func,
   isOtherMonth: PropTypes.bool,
   currentMonth: PropTypes.number,

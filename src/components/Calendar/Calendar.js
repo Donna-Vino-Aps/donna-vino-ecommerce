@@ -98,7 +98,7 @@ const Calendar = ({ currentYear, currentMonth }) => {
 
   const randomSeatsTotal = [
     0, 0, 0, 0, 0, 20, 20, 0, 0, 20, 0, 0, 0, 0, 20, 0, 20, 20, 20, 20, 0, 0, 0,
-    0, 20, 20, 0, 0, 0, 0, 20,
+    20, 20, 20, 0, 0, 0, 0, 20,
   ];
 
   randomSeatsTotal.slice(0, calendarDaysCurrentMonth.length);

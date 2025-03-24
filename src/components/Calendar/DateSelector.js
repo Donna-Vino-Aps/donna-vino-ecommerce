@@ -23,7 +23,7 @@ const DateSelector = ({ currentMonth, currentYear, onMonthChange }) => {
       <section className="flex justify-center items-center mx-auto bg-primary-light w-full h-[3.125rem] lg:h-[4rem] max-w-[calc(7*12.5rem-2px)] mb-4 rounded-lg">
         <div className="flex justify-between lg:justify-center gap-2 hover:cursor-pointer">
           <p
-            className="text-headlineSmall text-tertiary1-darker ml-6 lg:ml-0"
+            className="text-titleMedium md:text-headlineSmall text-tertiary1-darker ml-6 lg:ml-0"
             onClick={() => setOpen(true)}
           >
             {translations["calendar.select-date"]}
