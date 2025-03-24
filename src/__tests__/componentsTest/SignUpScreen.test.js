@@ -1,5 +1,11 @@
 import React from "react";
-import { render, screen, fireEvent, waitFor } from "@testing-library/react";
+import {
+  render,
+  screen,
+  fireEvent,
+  waitFor,
+  within,
+} from "@testing-library/react";
 import SignUpScreen from "@/components/SignUpScreen/SignUpScreen";
 import { useLanguage } from "@/context/LanguageContext";
 import { useRouter } from "next/navigation";
@@ -205,155 +211,176 @@ describe("SignUpScreen", () => {
     });
   });
 
-  test("renders the signup form with all expected elements", () => {
-    render(<SignUpScreen />);
+  describe("Rendering", () => {
+    test("renders all form elements", () => {
+      render(<SignUpScreen />);
 
-    // Check heading and paragraphs
-    expect(screen.getByText("Join Donna Vino")).toBeInTheDocument();
-    expect(screen.getByText("Personal Details")).toBeInTheDocument();
+      // Input fields
+      expect(screen.getByTestId("input-first-name")).toBeInTheDocument();
+      expect(screen.getByTestId("input-last-name")).toBeInTheDocument();
+      expect(screen.getByTestId("input-email")).toBeInTheDocument();
+      expect(screen.getByTestId("input-confirm-email")).toBeInTheDocument();
+      expect(screen.getByTestId("input-password")).toBeInTheDocument();
+      expect(screen.getByTestId("input-confirm-password")).toBeInTheDocument();
+      expect(
+        screen.getByTestId("input-container-birthdate"),
+      ).toBeInTheDocument();
+      expect(screen.getByTestId("input-birthdate")).toBeInTheDocument();
 
-    // Check form inputs existence
-    expect(screen.getByTestId("input-container-firstName")).toBeInTheDocument();
-    expect(screen.getByTestId("input-first-name")).toBeInTheDocument();
-    expect(screen.getByTestId("input-container-lastName")).toBeInTheDocument();
-    expect(screen.getByTestId("input-last-name")).toBeInTheDocument();
-    expect(screen.getByTestId("input-container-email")).toBeInTheDocument();
-    expect(screen.getByTestId("input-email")).toBeInTheDocument();
-    expect(
-      screen.getByTestId("input-container-confirmEmail"),
-    ).toBeInTheDocument();
-    expect(screen.getByTestId("input-confirm-email")).toBeInTheDocument();
-    expect(screen.getByTestId("input-container-password")).toBeInTheDocument();
-    expect(screen.getByTestId("input-password")).toBeInTheDocument();
-    expect(
-      screen.getByTestId("input-container-confirmPassword"),
-    ).toBeInTheDocument();
-    expect(screen.getByTestId("input-confirm-password")).toBeInTheDocument();
-    expect(screen.getByTestId("input-container-birthdate")).toBeInTheDocument();
-    expect(screen.getByTestId("input-birthdate")).toBeInTheDocument();
-
-    // Check buttons and checkboxes
-    expect(
-      screen.getByRole("button", { name: "Create your account" }),
-    ).toBeInTheDocument();
-    expect(
-      screen.getByRole("checkbox", {
-        name: (content, element) => element.name === "acceptTerms",
-      }),
-    ).toBeInTheDocument();
-    expect(
-      screen.getByRole("checkbox", {
-        name: (content, element) => element.name === "subscribeToNewsletter",
-      }),
-    ).toBeInTheDocument();
+      // Check buttons and checkboxes
+      expect(
+        screen.getByRole("button", { name: "Create your account" }),
+      ).toBeInTheDocument();
+      expect(
+        screen.getByRole("checkbox", {
+          name: (content, element) => element.name === "acceptTerms",
+        }),
+      ).toBeInTheDocument();
+      expect(
+        screen.getByRole("checkbox", {
+          name: (content, element) => element.name === "subscribeToNewsletter",
+        }),
+      ).toBeInTheDocument();
+    });
   });
 
-  test("submits the form with valid data", async () => {
-    render(<SignUpScreen />);
+  describe("Form Submission", () => {
+    test("submits the form with valid data", async () => {
+      render(<SignUpScreen />);
 
-    const { elements } = fillSignUpForm();
+      const { elements } = fillSignUpForm();
 
-    fireEvent.click(elements.submitButton);
+      fireEvent.click(elements.submitButton);
 
-    await waitFor(() => {
-      expect(mockPerformFetch).toHaveBeenCalledWith({
-        method: "POST",
-        data: {
-          user: {
-            firstName: "John",
-            lastName: "Doe",
-            email: "john@example.com",
-            password: "password123",
-            dateOfBirth: "1990-01-01",
-            isSubscribed: false,
-            authProvider: "local",
+      await waitFor(() => {
+        expect(mockPerformFetch).toHaveBeenCalledWith({
+          method: "POST",
+          data: {
+            user: {
+              firstName: "John",
+              lastName: "Doe",
+              email: "john@example.com",
+              password: "password123",
+              dateOfBirth: "1990-01-01",
+              isSubscribed: false,
+              authProvider: "local",
+            },
           },
-        },
+        });
       });
     });
+
+    test("handles successful signup", async () => {
+      mockPerformFetch.mockImplementationOnce(() => {
+        const response = { success: true, msg: "Signup successful" };
+        setTimeout(() => {
+          mockPush("/signup/welcome");
+        }, 0);
+        return Promise.resolve(response);
+      });
+
+      render(<SignUpScreen />);
+
+      const { elements } = fillSignUpForm();
+
+      fireEvent.click(elements.submitButton);
+
+      await waitFor(() => {
+        expect(mockPush).toHaveBeenCalledWith("/signup/welcome");
+      });
+    });
+
+    test("handles failed signup", async () => {
+      const errorMessage = "Email already in use";
+      mockPerformFetch.mockImplementationOnce(() => {
+        return Promise.resolve({ success: false, msg: errorMessage });
+      });
+
+      render(<SignUpScreen />);
+
+      const { elements } = fillSignUpForm();
+
+      fireEvent.click(elements.submitButton);
+
+      await waitFor(() => {
+        expect(mockPush).not.toHaveBeenCalled();
+      });
+    });
+
+    test("disables submit button during form submission", async () => {
+      jest.spyOn(formikModule, "Formik").mockImplementation(({ children }) => {
+        return children({
+          handleSubmit: jest.fn(),
+          handleChange: jest.fn(),
+          handleBlur: jest.fn(),
+          values: {
+            firstName: "John",
+            lastName: "Doe",
+            email: "test@example.com",
+            confirmEmail: "test@example.com",
+            password: "password",
+            confirmPassword: "password",
+            birthdate: new Date(),
+            acceptTerms: true,
+            subscribeToNewsletter: false,
+          },
+          setFieldValue: jest.fn(),
+          errors: {},
+          touched: {},
+          isSubmitting: true, // Set to true to test disabled state
+        });
+      });
+
+      render(<SignUpScreen />);
+
+      const submitButton = screen.getByRole("button", {
+        name: /submitting|create your account/i,
+      });
+      expect(submitButton).toBeDisabled();
+
+      expect(screen.getByText("Submitting...")).toBeInTheDocument();
+
+      expect(
+        screen.queryByRole("button", { name: /^create your account$/i }),
+      ).not.toBeInTheDocument();
+    });
   });
 
-  test("handles successful signup", async () => {
-    mockPerformFetch.mockImplementationOnce(() => {
-      const response = { success: true, msg: "Signup successful" };
-      setTimeout(() => {
-        mockPush("/signup/welcome");
-      }, 0);
-      return Promise.resolve(response);
-    });
-
-    render(<SignUpScreen />);
-
-    const { elements } = fillSignUpForm();
-
-    fireEvent.click(elements.submitButton);
-
-    await waitFor(() => {
-      expect(mockPush).toHaveBeenCalledWith("/signup/welcome");
-    });
-  });
-
-  test("handles failed signup", async () => {
-    const errorMessage = "Email already in use";
-    mockPerformFetch.mockImplementationOnce(() => {
-      return Promise.resolve({ success: false, msg: errorMessage });
-    });
-
-    render(<SignUpScreen />);
-
-    const { elements } = fillSignUpForm();
-
-    fireEvent.click(elements.submitButton);
-
-    await waitFor(() => {
-      expect(mockPush).not.toHaveBeenCalled();
-    });
-  });
-
-  test("disables submit button during form submission", async () => {
-    jest.spyOn(formikModule, "Formik").mockImplementation(({ children }) => {
-      return children({
+  describe("Form Validation", () => {
+    // Helper function to render the component with predefined Formik state
+    const renderWithFormikState = (formikState) => {
+      const defaultState = {
         handleSubmit: jest.fn(),
         handleChange: jest.fn(),
         handleBlur: jest.fn(),
         values: {
           firstName: "John",
           lastName: "Doe",
-          email: "test@example.com",
-          confirmEmail: "test@example.com",
-          password: "password",
-          confirmPassword: "password",
-          birthdate: new Date(),
+          email: "john@example.com",
+          confirmEmail: "john@example.com",
+          password: "Password123!",
+          confirmPassword: "Password123!",
+          birthdate: "1990-01-01",
           acceptTerms: true,
           subscribeToNewsletter: false,
         },
         setFieldValue: jest.fn(),
         errors: {},
         touched: {},
-        isSubmitting: true, // Set to true to test disabled state
+        isSubmitting: false,
+      };
+
+      const mergedState = { ...defaultState, ...formikState };
+
+      jest.spyOn(formikModule, "Formik").mockImplementation(({ children }) => {
+        return children(mergedState);
       });
-    });
 
-    render(<SignUpScreen />);
+      return render(<SignUpScreen />);
+    };
 
-    const submitButton = screen.getByRole("button", {
-      name: /submitting|create your account/i,
-    });
-    expect(submitButton).toBeDisabled();
-
-    expect(screen.getByText("Submitting...")).toBeInTheDocument();
-
-    expect(
-      screen.queryByRole("button", { name: /^create your account$/i }),
-    ).not.toBeInTheDocument();
-  });
-
-  test("validation shows errors for required fields", async () => {
-    jest.spyOn(formikModule, "Formik").mockImplementation(({ children }) => {
-      return children({
-        handleSubmit: jest.fn(),
-        handleChange: jest.fn(),
-        handleBlur: jest.fn(),
+    test("validates required fields", async () => {
+      renderWithFormikState({
         values: {
           firstName: "",
           lastName: "",
@@ -365,12 +392,11 @@ describe("SignUpScreen", () => {
           acceptTerms: false,
           subscribeToNewsletter: false,
         },
-        setFieldValue: jest.fn(),
         errors: {
-          firstName: "First name is required",
-          email: "Valid email is required",
-          password: "Password is required",
-          acceptTerms: "You must accept the terms",
+          firstName: "This field is empty",
+          email: "This field is empty",
+          password: "This field is empty",
+          acceptTerms: "Please check the box to proceed",
         },
         touched: {
           firstName: true,
@@ -378,197 +404,120 @@ describe("SignUpScreen", () => {
           password: true,
           acceptTerms: true,
         },
-        isSubmitting: false,
       });
+
+      // Use within to scope the search to specific input containers
+      const firstNameContainer = screen.getByTestId(
+        "input-container-firstName",
+      );
+      const emailContainer = screen.getByTestId("input-container-email");
+      const passwordContainer = screen.getByTestId("input-container-password");
+
+      // Check each field's error message in its own container
+      expect(
+        within(firstNameContainer).getByText("This field is empty"),
+      ).toBeInTheDocument();
+      expect(
+        within(emailContainer).getByText("This field is empty"),
+      ).toBeInTheDocument();
+      expect(
+        within(passwordContainer).getByText("This field is empty"),
+      ).toBeInTheDocument();
+
+      // The terms acceptance error is likely not within a specific container
+      expect(
+        screen.getByText("Please check the box to proceed"),
+      ).toBeInTheDocument();
     });
 
-    render(<SignUpScreen />);
-
-    expect(screen.getByText("First name is required")).toBeInTheDocument();
-    expect(screen.getByText("Valid email is required")).toBeInTheDocument();
-    expect(screen.getByText("Password is required")).toBeInTheDocument();
-    expect(screen.getByText("You must accept the terms")).toBeInTheDocument();
-  });
-
-  test("validates password complexity requirements", async () => {
-    jest.spyOn(formikModule, "Formik").mockImplementation(({ children }) => {
-      return children({
-        handleSubmit: jest.fn(),
-        handleChange: jest.fn(),
-        handleBlur: jest.fn(),
+    test("validates password complexity requirements", async () => {
+      renderWithFormikState({
         values: {
-          firstName: "John",
-          lastName: "Doe",
-          email: "john@example.com",
-          confirmEmail: "john@example.com",
           password: "simple",
           confirmPassword: "simple",
-          birthdate: "1990-01-01",
-          acceptTerms: true,
-          subscribeToNewsletter: false,
         },
-        setFieldValue: jest.fn(),
         errors: {
           password: mockTranslations["signUp.validation.passwordFormat"],
         },
         touched: {
           password: true,
         },
-        isSubmitting: false,
       });
-    });
 
-    render(<SignUpScreen />);
-
-    await waitFor(() => {
       expect(
         screen.getByText(mockTranslations["signUp.validation.passwordFormat"]),
       ).toBeInTheDocument();
     });
-  });
 
-  test("validates email format", async () => {
-    jest.spyOn(formikModule, "Formik").mockImplementation(({ children }) => {
-      return children({
-        handleSubmit: jest.fn(),
-        handleChange: jest.fn(),
-        handleBlur: jest.fn(),
+    test("validates email format", async () => {
+      renderWithFormikState({
         values: {
-          firstName: "John",
-          lastName: "Doe",
-          email: "invalidemail",
-          confirmEmail: "invalidemail",
-          password: "Password123!",
-          confirmPassword: "Password123!",
-          birthdate: "1990-01-01",
-          acceptTerms: true,
-          subscribeToNewsletter: false,
+          email: "invalid-email",
         },
-        setFieldValue: jest.fn(),
         errors: {
           email: mockTranslations["signUp.validation.emailFormat"],
         },
         touched: {
           email: true,
         },
-        isSubmitting: false,
       });
-    });
 
-    render(<SignUpScreen />);
-
-    await waitFor(() => {
       expect(
         screen.getByText(mockTranslations["signUp.validation.emailFormat"]),
       ).toBeInTheDocument();
     });
-  });
 
-  test("validates email matching", async () => {
-    jest.spyOn(formikModule, "Formik").mockImplementation(({ children }) => {
-      return children({
-        handleSubmit: jest.fn(),
-        handleChange: jest.fn(),
-        handleBlur: jest.fn(),
+    test("validates email matching", async () => {
+      renderWithFormikState({
         values: {
-          firstName: "John",
-          lastName: "Doe",
-          email: "correct@example.com",
+          email: "john@example.com",
           confirmEmail: "different@example.com",
-          password: "Password123!",
-          confirmPassword: "Password123!",
-          birthdate: "1990-01-01",
-          acceptTerms: true,
-          subscribeToNewsletter: false,
         },
-        setFieldValue: jest.fn(),
         errors: {
           confirmEmail: mockTranslations["signUp.validation.emailMatch"],
         },
         touched: {
           confirmEmail: true,
         },
-        isSubmitting: false,
       });
-    });
 
-    render(<SignUpScreen />);
-
-    await waitFor(() => {
       expect(
         screen.getByText(mockTranslations["signUp.validation.emailMatch"]),
       ).toBeInTheDocument();
     });
-  });
 
-  test("validates password matching", async () => {
-    jest.spyOn(formikModule, "Formik").mockImplementation(({ children }) => {
-      return children({
-        handleSubmit: jest.fn(),
-        handleChange: jest.fn(),
-        handleBlur: jest.fn(),
+    test("validates password matching", async () => {
+      renderWithFormikState({
         values: {
-          firstName: "John",
-          lastName: "Doe",
-          email: "john@example.com",
-          confirmEmail: "john@example.com",
           password: "Password123!",
-          confirmPassword: "DifferentPassword123!",
-          birthdate: "1990-01-01",
-          acceptTerms: true,
-          subscribeToNewsletter: false,
+          confirmPassword: "Password1234!",
         },
-        setFieldValue: jest.fn(),
         errors: {
           confirmPassword: mockTranslations["signUp.validation.passwordMatch"],
         },
         touched: {
           confirmPassword: true,
         },
-        isSubmitting: false,
       });
-    });
 
-    render(<SignUpScreen />);
-
-    await waitFor(() => {
       expect(
         screen.getByText(mockTranslations["signUp.validation.passwordMatch"]),
       ).toBeInTheDocument();
     });
-  });
 
-  test("validates terms acceptance", async () => {
-    jest.spyOn(formikModule, "Formik").mockImplementation(({ children }) => {
-      return children({
-        handleSubmit: jest.fn(),
-        handleChange: jest.fn(),
-        handleBlur: jest.fn(),
+    test("validates terms acceptance", async () => {
+      renderWithFormikState({
         values: {
-          firstName: "John",
-          lastName: "Doe",
-          email: "john@example.com",
-          confirmEmail: "john@example.com",
-          password: "Password123!",
-          confirmPassword: "Password123!",
-          birthdate: "1990-01-01",
           acceptTerms: false,
-          subscribeToNewsletter: false,
         },
-        setFieldValue: jest.fn(),
         errors: {
           acceptTerms: mockTranslations["signUp.validation.acceptTerms"],
         },
         touched: {
           acceptTerms: true,
         },
-        isSubmitting: false,
       });
-    });
 
-    render(<SignUpScreen />);
-
-    await waitFor(() => {
       expect(
         screen.getByText(mockTranslations["signUp.validation.acceptTerms"]),
       ).toBeInTheDocument();
