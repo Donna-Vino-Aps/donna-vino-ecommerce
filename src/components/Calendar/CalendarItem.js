@@ -5,7 +5,7 @@ import PropTypes from "prop-types";
 import { useLanguage } from "@/context/LanguageContext";
 
 const BASE_CALENDARITEM_CLASSES = `
-   min-w-[2.818rem] min-h-[2.813rem] md:min-h-[4.813rem] lg:h-[7.9rem] lg:w-[12.45rem] text-labelXLarge font-semibold
+   min-w-[2.818rem] min-h-[2.813rem] md:min-h-[4.813rem] lg:h-[7.9rem] lg:w-[12.45rem] text-labelXLarge font-semibold "rounded-tl-[6px] rounded-bl-[20px] md:rounded-tl-[12px] md:rounded-bl-[40px] lg:rounded-tl-[16px] lg:rounded-bl-[62.5px]"
 `;
 
 const CalendarItem = ({
@@ -38,12 +38,12 @@ const CalendarItem = ({
     bgColor = "bg-[#ffffff] text-tertiary1-active";
   } else if (isFull) {
     bgColor = "bg-[#FF3B30] text-tertiary1-light"; // Red if full
-  } else if (isToday && percentageAvailable !== null) {
-    bgColor = "bg-primary-active text-tertiary1-light"; // light pink if today
   } else if (percentageAvailable > 50 && seatsTotal !== 0) {
     bgColor = "bg-[#34C759] text-tertiary1-light"; // Green if many seats available
   } else if (percentageAvailable <= 50 && seatsTotal !== 0) {
     bgColor = "bg-[#ff9500] text-tertiary1-light"; // Yellow if limited
+  } else if (isToday && percentageAvailable !== null) {
+    bgColor = "bg-primary-active text-tertiary1-light"; // light pink if today
   } else if (seatsTotal === 0) {
     bgColor = "bg-[#ffffff]"; // White if there is no event on this day
   } else {
@@ -57,12 +57,14 @@ const CalendarItem = ({
 
   return (
     <article
-      className={`relative min-w-[2.818rem] min-h-[2.813rem] lg:h-[7.938rem] lg:w-[12.5rem] bg-white ${seatsTotal === 0 ? "hover:cursor-default" : "hover:cursor-pointer"} ${isFull ? "hover:cursor-not-allowed" : "hover:cursor-pointer"} ${isToday && seatsTotal && !isOtherMonth > 0 ? `border-[#34C759] border-[2px]` : "border-tertiary1-light border-t-[1px] border-x"}`}
+      className={`relative min-w-[2.818rem] min-h-[2.813rem] lg:h-[7.938rem] lg:w-[12.5rem] bg-white 
+        ${seatsTotal === 0 ? "hover:cursor-default" : "hover:cursor-pointer"} 
+        ${isFull ? "hover:cursor-not-allowed" : "hover:cursor-pointer"} 
+        ${isToday && seatsTotal > 0 && !isOtherMonth ? `border-primary-active border-[2px]` : "border-tertiary1-light border-t-[1px] border-x"}`}
       onClick={onClick}
     >
       <div
         className={`${calendarItemClass} 
-        ${!isToday ? "rounded-tl-[6px] rounded-bl-[20px] md:rounded-tl-[12px] md:rounded-bl-[40px] lg:rounded-tl-[16px] lg:rounded-bl-[62.5px]" : ""}
         `}
       >
         <p className="flex justify-center pt-3 md:pt-7 lg:pt-0 lg:h-auto lg:absolute lg:top-5 lg:left-4">
