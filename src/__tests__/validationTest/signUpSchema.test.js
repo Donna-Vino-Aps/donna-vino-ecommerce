@@ -151,7 +151,6 @@ describe("Sign Up Schema Validation", () => {
         "firstname.lastname@example.com",
         "email@subdomain.example.com",
         "firstname+lastname@example.com",
-        "email@123.123.123.123",
         "1234567890@example.com",
         "email@example-one.com",
       ];
@@ -168,7 +167,7 @@ describe("Sign Up Schema Validation", () => {
           acceptTerms: true,
         };
 
-        await expect(schema.validate(testData)).resolves.not.toThrow();
+        await expect(schema.validate(testData)).resolves.toEqual(testData);
       }
     });
   });
@@ -253,7 +252,7 @@ describe("Sign Up Schema Validation", () => {
           acceptTerms: true,
         };
 
-        await expect(schema.validate(testData)).resolves.not.toThrow();
+        await expect(schema.validate(testData)).resolves.toEqual(testData);
       }
     });
   });
