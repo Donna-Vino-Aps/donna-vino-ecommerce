@@ -5,7 +5,7 @@ import PropTypes from "prop-types";
 import { useLanguage } from "@/context/LanguageContext";
 
 const BASE_CALENDARITEM_CLASSES = `
-   h-[7.9rem] w-[12.45rem] text-labelXLarge font-semibold rounded-tl-[16px] rounded-bl-[62.5px]
+   min-w-[2.818rem] min-h-[2.813rem] md:min-h-[4.813rem] lg:h-[7.9rem] lg:w-[12.45rem] text-labelXLarge font-semibold rounded-tl-[6px] rounded-bl-[20px] md:rounded-tl-[12px] md:rounded-bl-[40px] lg:rounded-tl-[16px] lg:rounded-bl-[62.5px]
 `;
 
 const CalendarItem = ({
@@ -58,22 +58,24 @@ const CalendarItem = ({
 
   return (
     <article
-      className={`relative h-[7.938rem] w-[12.5rem] bg-white border-tertiary1-light border-t-[1px] border-x ${isFull ? "hover:cursor-not-allowed" : "hover:cursor-pointer"}`}
+      className={`relative min-w-[2.818rem] min-h-[2.813rem] lg:h-[7.938rem] lg:w-[12.5rem] bg-white border-tertiary1-light border-t-[1px] border-x ${isFull ? "hover:cursor-not-allowed" : "hover:cursor-pointer"}`}
       onClick={onClick}
     >
       <div
         className={`${calendarItemClass} 
         ${variant === "limited" && percentageAvailable > 50 ? "opacity-85" : "opacity-100"}`}
       >
-        <p className="absolute top-5 left-4">{dayOfMonth}</p>
+        <p className="flex justify-center pt-3 md:pt-7 lg:pt-0 lg:h-auto lg:absolute lg:top-5 lg:left-4">
+          {dayOfMonth}
+        </p>
         {seatsAvailable > 0 && seatsTotal === 0 ? null : (
-          <div className="flex gap-[6px] absolute bottom-2 right-6">
+          <div className="flex justify-end items-center lg:gap-[4px] xl:gap-[6px] absolute bottom-3 lg:right-14 xl:right-6 hidden lg:flex">
             <img
               src={icon}
               alt="attendants icon"
-              className="w-6 h-6 relative bottom-1"
+              className="object-center lg:w-5 lg:h-5 xl:w-6 xl:h-6 relative bottom-1"
             />
-            <p className="text-white">{`${translations["calendar.seats"]}: ${seatsAvailable}`}</p>
+            <p className="text-white lg:relative lg:bottom-[2px] lg:text-labelLarge xl:text-labelXLarge">{`${translations["calendar.seats"]}: ${seatsAvailable}`}</p>
           </div>
         )}
       </div>
