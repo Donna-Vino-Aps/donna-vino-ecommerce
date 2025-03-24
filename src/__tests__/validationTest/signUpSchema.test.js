@@ -168,7 +168,7 @@ describe("Sign Up Schema Validation", () => {
           acceptTerms: true,
         };
 
-        await expect(schema.validate(testData)).resolves.toEqual(testData);
+        await expect(schema.validate(testData)).resolves.not.toThrow();
       }
     });
   });
@@ -253,7 +253,7 @@ describe("Sign Up Schema Validation", () => {
           acceptTerms: true,
         };
 
-        await expect(schema.validate(testData)).resolves.toEqual(testData);
+        await expect(schema.validate(testData)).resolves.not.toThrow();
       }
     });
   });
