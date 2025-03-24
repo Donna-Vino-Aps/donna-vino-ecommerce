@@ -58,7 +58,7 @@ const CalendarItem = ({
 
   return (
     <article
-      className={`relative min-w-[2.818rem] min-h-[2.813rem] lg:h-[7.938rem] lg:w-[12.5rem] bg-white border-tertiary1-light border-t-[1px] border-x ${isFull ? "hover:cursor-not-allowed" : "hover:cursor-pointer"}`}
+      className={`relative min-w-[2.818rem] min-h-[2.813rem] lg:h-[7.938rem] lg:w-[12.5rem] bg-white border-tertiary1-light border-t-[1px] border-x ${seatsTotal === 0 ? "hover:cursor-default" : "hover:cursor-pointer"} ${isFull ? "hover:cursor-not-allowed" : "hover:cursor-pointer"}`}
       onClick={onClick}
     >
       <div

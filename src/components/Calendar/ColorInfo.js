@@ -2,12 +2,12 @@ import React from "react";
 
 const ColorInfo = () => {
   const [isMobile, setIsMobile] = React.useState(
-    typeof window !== "undefined" && window.innerWidth < 1024,
+    typeof window !== "undefined" && window.innerWidth < 768,
   );
 
   React.useEffect(() => {
     const handleResize = () => {
-      setIsMobile(window.innerWidth < 1024);
+      setIsMobile(window.innerWidth < 768);
     };
 
     window.addEventListener("resize", handleResize);
