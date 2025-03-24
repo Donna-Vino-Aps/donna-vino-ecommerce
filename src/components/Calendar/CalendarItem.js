@@ -71,7 +71,7 @@ const CalendarItem = ({
           {dayOfMonth}
         </p>
         {seatsAvailable > 0 && seatsTotal === 0 ? null : (
-          <div className="flex justify-end items-center lg:gap-[4px] xl:gap-[6px] absolute bottom-3 lg:right-14 xl:right-6 hidden lg:flex">
+          <div className="flex justify-end items-center lg:gap-[4px] xl:gap-[6px] absolute bottom-3 lg:right-14 lg:mr-1 xl:mr-0 xl:right-6 hidden lg:flex">
             <img
               src={icon}
               alt="attendants icon"

@@ -14,14 +14,14 @@ const ColorInfo = () => {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
   return (
-    <div className="flex items-center rounded-[0.5rem] bg-tertiary2-normal h-[88px] lg:h-10 mt-3">
+    <div className="flex items-center rounded-[0.5rem] bg-tertiary2-normal h-[88px] md:h-10 mt-3">
       <img
         src={
           isMobile
             ? "/icons/color-info-calendar-mobile.svg"
             : "/icons/color-info-calendar.svg"
         }
-        className="lg:h-[1rem] w-max-[34rem] mx-8"
+        className="md:h-[1rem] w-max-[34rem] mx-8"
       />
     </div>
   );
