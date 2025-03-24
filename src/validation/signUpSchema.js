@@ -9,7 +9,8 @@ export const createSignUpSchema = (translations) => {
       translations["signUp.validation.required"] || "This field is empty",
     ),
     email: Yup.string()
-      .email(
+      .matches(
+        /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
         translations["signUp.validation.emailFormat"] ||
           "Please enter a valid email address",
       )
