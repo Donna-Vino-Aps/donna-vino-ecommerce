@@ -7,6 +7,9 @@ import { useRouter } from "next/navigation";
 import useFetch from "@/hooks/api/useFetch";
 import { getSessionItem, SESSION_KEYS } from "@/utils/sessionStorage";
 
+const COOLDOWN_SECONDS = 5;
+const MAX_RESEND_ATTEMPTS = 2;
+
 const Welcome = () => {
   const { translations } = useLanguage();
   const router = useRouter();
@@ -15,6 +18,29 @@ const Welcome = () => {
   const [resendMsg, setResendMsg] = useState("");
   const [resendSuccess, setResendSuccess] = useState(null);
   const [showResendMessage, setShowResendMessage] = useState(false);
+  const [cooldownRemaining, setCooldownRemaining] = useState(0);
+  const [resendAttempts, setResendAttempts] = useState(0);
+
+  // Effect to handle the cooldown timer
+  useEffect(() => {
+    let intervalId;
+
+    if (cooldownRemaining > 0) {
+      intervalId = setInterval(() => {
+        setCooldownRemaining((prev) => {
+          if (prev <= 1) {
+            clearInterval(intervalId);
+            return 0;
+          }
+          return prev - 1;
+        });
+      }, 1000);
+    }
+
+    return () => {
+      if (intervalId) clearInterval(intervalId);
+    };
+  }, [cooldownRemaining]);
 
   useEffect(() => {
     const storedEmail = getSessionItem(SESSION_KEYS.PENDING_USER_EMAIL);
@@ -27,9 +53,7 @@ const Welcome = () => {
     if (error) {
       setShowResendMessage(true);
       setResendSuccess(false);
-      setResendMsg(
-        error.message || translations["signUp.welcome.resend.error"],
-      );
+      setResendMsg(translations["signUp.welcome.resend.error"]);
     }
   }, [error, translations]);
 
@@ -38,6 +62,13 @@ const Welcome = () => {
       setShowResendMessage(true);
       setResendSuccess(false);
       setResendMsg(translations["signUp.welcome.resend.noEmail"]);
+      return;
+    }
+
+    if (resendAttempts >= MAX_RESEND_ATTEMPTS) {
+      setShowResendMessage(true);
+      setResendSuccess(false);
+      setResendMsg(translations["signUp.welcome.resend.maxAttempts"]);
       return;
     }
 
@@ -51,16 +82,29 @@ const Welcome = () => {
 
   const onReceived = (response) => {
     const responseData = response.data || response;
-    const { success, msg } = responseData;
+    const { success } = responseData;
 
     setShowResendMessage(true);
 
     if (success) {
       setResendSuccess(true);
-      setResendMsg(msg || translations["signUp.welcome.resend.success"]);
+      setResendMsg(translations["signUp.welcome.resend.success"]);
+
+      const newAttemptCount = resendAttempts + 1;
+      setResendAttempts(newAttemptCount);
+
+      if (newAttemptCount < MAX_RESEND_ATTEMPTS) {
+        setCooldownRemaining(COOLDOWN_SECONDS);
+      } else if (newAttemptCount === MAX_RESEND_ATTEMPTS) {
+        setTimeout(() => {
+          setShowResendMessage(true);
+          setResendSuccess(false);
+          setResendMsg(translations["signUp.welcome.resend.maxAttempts"]);
+        }, 3000);
+      }
     } else {
       setResendSuccess(false);
-      setResendMsg(msg || translations["signUp.welcome.resend.error"]);
+      setResendMsg(translations["signUp.welcome.resend.error"]);
     }
   };
 
@@ -72,10 +116,13 @@ const Welcome = () => {
     onReceived,
   );
 
-  const isResendDisabled = isLoading;
+  const isResendDisabled =
+    isLoading || cooldownRemaining > 0 || resendAttempts >= MAX_RESEND_ATTEMPTS;
 
   const getButtonText = () => {
-    if (isLoading) return translations["common.submitting"];
+    if (isLoading) return translations["signUp.welcome.resend.sending"];
+    if (resendAttempts >= MAX_RESEND_ATTEMPTS)
+      return translations["signUp.welcome.resend.maxReached"];
     return translations["signUp.welcome.resend.button"];
   };
 
@@ -120,7 +167,7 @@ const Welcome = () => {
             <button
               className={`font-semibold underline focus:outline-none inline-block ${
                 isResendDisabled
-                  ? "text-gray-400 cursor-not-allowed"
+                  ? "text-tertiary2-dark cursor-not-allowed"
                   : "hover:text-primary-hover_normal"
               }`}
               onClick={handleResendVerification}
@@ -131,12 +178,18 @@ const Welcome = () => {
               {getButtonText()}
             </button>
 
+            {cooldownRemaining > 0 && (
+              <span className="ml-2 text-bodySmall text-tertiary2-dark">
+                ({cooldownRemaining}s)
+              </span>
+            )}
+
             {showResendMessage && (
               <div className="mt-2">
                 <p
                   className={`text-bodySmall text-center ${
                     resendSuccess
-                      ? "text-secondary-active"
+                      ? "text-secondary-normal"
                       : "text-primary-normal"
                   }`}
                   aria-live="polite"
