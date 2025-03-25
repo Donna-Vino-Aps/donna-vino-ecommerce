@@ -2,6 +2,7 @@
 
 import React from "react";
 import PropTypes from "prop-types";
+import Link from "next/link";
 
 const BASE_BUTTON_CLASSES = `
   flex justify-center items-center h-[2.875rem] rounded-[0.3rem] bodyLarge
@@ -38,6 +39,8 @@ const Button = ({
   ariaLabel,
   testId,
   isLoading = false,
+  linkUrl,
+  linkWidth,
 }) => {
   const buttonClass = `
   ${BASE_BUTTON_CLASSES}
@@ -45,24 +48,38 @@ const Button = ({
   ${disabled || isLoading ? "opacity-50 cursor-not-allowed" : ""}
 `.trim();
 
-  return (
+  const buttonContent = (
     <button
       className={buttonClass}
       onClick={onClick}
       disabled={disabled || isLoading}
       aria-label={ariaLabel}
-      data-testid={testId}
+      data-testid={linkUrl ? undefined : testId}
       type={variant === "submit" ? "submit" : "button"}
     >
       {isLoading ? (
         "Submitting..."
       ) : (
         <>
-          {icon && <img src={icon} alt="Icon" className="mr-2" />}
+          {icon && (
+            <img src={icon} alt="Icon" className="mr-2" loading="lazy" />
+          )}
           {text}
         </>
       )}
     </button>
+  );
+
+  return linkUrl ? (
+    <Link
+      href={linkUrl}
+      data-testid={testId}
+      className={linkWidth || "w-full sm:w-[10.8rem]"}
+    >
+      {buttonContent}
+    </Link>
+  ) : (
+    buttonContent
   );
 };
 
@@ -71,17 +88,24 @@ Button.propTypes = {
   icon: PropTypes.string,
   variant: PropTypes.oneOf([
     "red",
+    "redFullText",
+    "redWide",
+    "lightRedWide",
     "redLine",
     "darkGreen",
     "grayGreen",
+    "greenSubmit",
     "redSubmit",
     "gray",
+    "yellow",
   ]),
   onClick: PropTypes.func,
   disabled: PropTypes.bool,
   ariaLabel: PropTypes.string,
   testId: PropTypes.string,
   isLoading: PropTypes.bool,
+  linkUrl: PropTypes.string,
+  linkWidth: PropTypes.string,
 };
 
 export default Button;
