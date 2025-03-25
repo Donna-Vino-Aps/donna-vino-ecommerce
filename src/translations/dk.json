@@ -83,6 +83,7 @@
   "forgotPassword.success-text1": "Du vil snart modtage et link på",
   "forgotPassword.success-text2": "til at nulstille din adgangskode.",
   "forgotPassword.resend": "Modtog du ikke e-mailen?",
+  "forgotPassword.resend2": "Sende igen",
   "button.go-back": "Tilbage",
   "calendar.select-date": "Vælg dato",
   "calendar.month.1": "Januar",
