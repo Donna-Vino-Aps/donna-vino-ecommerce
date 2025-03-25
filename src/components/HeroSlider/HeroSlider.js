@@ -34,7 +34,7 @@ const HeroSlider = () => {
     "/images/hero-newsletter.jpg",
   ];
 
-  // const urls = ["/events", "/shop", "/subscribe"];
+  const urls = ["/events", "/shop", "/subscribe"];
 
   // Logic for handling use of the prev/next-buttons
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
@@ -120,7 +120,7 @@ const HeroSlider = () => {
           variant="redFullText"
           aria-label="Book a tasting session"
           data-testid="book-tasting-button"
-          className=""
+          linkUrl={urls[currentImageIndex]}
         ></Button>
         <div
           className={`hidden md:flex mt-4 md:absolute md:bottom-8 lg:bottom-10 xl:bottom-14 ${currentImageIndex === 0 ? "md:right-8 lg:right-10 xl:right-12" : "md:left-[37.5%]"}`}
