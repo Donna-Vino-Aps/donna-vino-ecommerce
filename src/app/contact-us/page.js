@@ -4,16 +4,30 @@ import Button from "@/components/Button/Button";
 import Image from "next/image";
 import { useLanguage } from "@/context/LanguageContext";
 import axios from "axios";
+import { logInfo, logError } from "@/utils/logging";
+
 const ContactUs = () => {
   const { translations } = useLanguage();
 
   const handleSubmit = async () => {
     try {
-      await axios.post("/api/contact-us", {}, { withCredentials: true });
-      setStoredCredentials(null);
+      const serverResponse = await axios.post(
+        `${baseApiUrl}/api/contact-us`,
+        {},
+        { withCredentials: true },
+      );
+
       router.push("/");
+
+      if (serverResponse.data.success) {
+        logInfo("Backend responded successfully:", serverResponse.data);
+      } else {
+        throw new Error(
+          serverResponse.data.msg || "Backend couldnt handle the request",
+        );
+      }
     } catch (error) {
-      console.error("ContactUs failed:", error);
+      logError("ContactUs failed:", error);
     }
   };
 
@@ -72,10 +86,10 @@ const ContactUs = () => {
         </div>
       </div>
       {/* Map Section */}
-      <div className="w-full bg-white pt-[80px] pr-[135px] pb-[80px] pl-[135px]">
-        <div className="mt-10 w-[1170px] h-[536px] bg-tertiary1-light rounded-[32px]">
+      <div className="w-full relative flex flex-col items-center  bg-white pt-[80px] pr-[135px] pb-[80px] pl-[135px]">
+        <div className="mt-10    w-[1170px] h-[536px] bg-tertiary1-light rounded-[32px]">
           <div className="flex justify-between">
-            <div className="w-1/2 ">
+            <div className="w-1/2">
               <iframe
                 title="Google Map - Wildersgade 23"
                 className="rounded-tl-[32px] rounded-bl-[32px] w-[570px] h-[536px]"
