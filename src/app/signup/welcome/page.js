@@ -1,13 +1,83 @@
 "use client";
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import Button from "@/components/Button/Button";
 import { useLanguage } from "@/context/LanguageContext";
 import { useRouter } from "next/navigation";
+import useFetch from "@/hooks/api/useFetch";
+import { getSessionItem, SESSION_KEYS } from "@/utils/sessionStorage";
 
 const Welcome = () => {
   const { translations } = useLanguage();
   const router = useRouter();
+
+  const [email, setEmail] = useState("");
+  const [resendMsg, setResendMsg] = useState("");
+  const [resendSuccess, setResendSuccess] = useState(null);
+  const [showResendMessage, setShowResendMessage] = useState(false);
+
+  useEffect(() => {
+    const storedEmail = getSessionItem(SESSION_KEYS.PENDING_USER_EMAIL);
+    if (storedEmail) {
+      setEmail(storedEmail);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (error) {
+      setShowResendMessage(true);
+      setResendSuccess(false);
+      setResendMsg(
+        error.message || translations["signUp.welcome.resend.error"],
+      );
+    }
+  }, [error, translations]);
+
+  const handleResendVerification = () => {
+    if (!email) {
+      setShowResendMessage(true);
+      setResendSuccess(false);
+      setResendMsg(translations["signUp.welcome.resend.noEmail"]);
+      return;
+    }
+
+    setShowResendMessage(false);
+    setResendMsg("");
+    performFetch({
+      method: "GET",
+      params: { email },
+    });
+  };
+
+  const onReceived = (response) => {
+    const responseData = response.data || response;
+    const { success, msg } = responseData;
+
+    setShowResendMessage(true);
+
+    if (success) {
+      setResendSuccess(true);
+      setResendMsg(msg || translations["signUp.welcome.resend.success"]);
+    } else {
+      setResendSuccess(false);
+      setResendMsg(msg || translations["signUp.welcome.resend.error"]);
+    }
+  };
+
+  const { performFetch, isLoading, error } = useFetch(
+    "/auth/resend-verification-email",
+    "GET",
+    {},
+    {},
+    onReceived,
+  );
+
+  const isResendDisabled = isLoading;
+
+  const getButtonText = () => {
+    if (isLoading) return translations["common.submitting"];
+    return translations["signUp.welcome.resend.button"];
+  };
 
   return (
     <section className="my-4 bg-primary-light sm:bg-dots-lg sm:bg-dots-size-lg bg-dots-sm bg-dots-size-sm">
@@ -47,9 +117,35 @@ const Welcome = () => {
             <span className="text-bodyLarge">
               {translations["signUp.welcome.resend"]}{" "}
             </span>
-            <button className="font-semibold underline hover:text-primary-hover_normal focus:outline-none inline-block">
-              {translations["signUp.welcome.resend.button"]}
+            <button
+              className={`font-semibold underline focus:outline-none inline-block ${
+                isResendDisabled
+                  ? "text-gray-400 cursor-not-allowed"
+                  : "hover:text-primary-hover_normal"
+              }`}
+              onClick={handleResendVerification}
+              disabled={isResendDisabled}
+              aria-label={translations["signUp.welcome.resend.button"]}
+              data-testid="resend-button"
+            >
+              {getButtonText()}
             </button>
+
+            {showResendMessage && (
+              <div className="mt-2">
+                <p
+                  className={`text-bodySmall text-center ${
+                    resendSuccess
+                      ? "text-secondary-active"
+                      : "text-primary-normal"
+                  }`}
+                  aria-live="polite"
+                  data-testid="resend-message"
+                >
+                  {resendMsg}
+                </p>
+              </div>
+            )}
           </div>
         </div>
       </div>
