@@ -1,37 +1,38 @@
-# 🍇 Donna Vino E-Commerce - Frontend
 
-Welcome to the official repository for **Donna Vino E-Commerce**. This project is dedicated to developing the frontend of our online wine store, providing users with a seamless shopping experience.
+# 🍇 Donna Vino - Admin Dashboard
+
+Welcome to the official repository for **Donna Vino Admin Dashboard**. This project is dedicated to developing the administrative interface for managing the content and operations of our online wine store, providing administrators with a seamless control experience.
 
 Deployed Version:
 
 TBD
 
----
-
 ## ✨ Project Overview
 
-At **Donna Vino**, we aim to redefine how people explore and enjoy wine. Through this platform, users will be able to:
+At **Donna Vino**, we aim to empower our team to manage the eCommerce platform efficiently. This dashboard allows administrators to:
 
-- Purchase hand-picked premium wines through a seamless **eCommerce experience**.
-- Browse and filter wines based on different categories and preferences.
-- Enjoy a modern, responsive, and user-friendly shopping interface.
+- Control and manage wine products, orders, and customer data.
+- View real-time analytics and performance insights.
+- Maintain a user-friendly interface for store management.
 
-This repository contains the frontend codebase, including:
+This repository contains the codebase for the admin dashboard, including:
 
 - UI/UX implementation
-- API integration with the backend
+- API integration with the backend of the eCommerce platform
 - Deployment setup
 
 ---
 
 ## 🛠️ Tech Stack
 
+The same stack as our **Donna Vino E-Commerce** frontend:
+
 - **Next.js**
 - **React**
-- **JavaScript**
 - **Tailwind CSS**
-- **Jest**
-- **Cypress**
+- **JavaScript**
+- **Jest** (for testing)
+- **Cypress** (for end-to-end testing)
 
 ---
 
@@ -42,7 +43,7 @@ To get started locally:
 1. **Clone this repository**:
 
    ```bash
-   git clone https://github.com/Donna-Vino-Aps/donna-vino-ecommerce.git
+   git clone https://github.com/Donna-Vino-Aps/donna-vino-admin-dashboard.git
    ```
 
 2. **Install dependencies**:
@@ -124,3 +125,5 @@ We use **Husky** to ensure code quality and consistency:
 - Before every push, all tests are executed to verify that the code is ready for a pull request.
 
 These automated checks help maintain a high-quality codebase and reduce potential errors in production.
+
+---
