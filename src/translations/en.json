@@ -38,7 +38,7 @@
   "signUp.welcome.resend": "Didn't receive the email?",
   "signUp.welcome.resend.button": "Resend",
   "signUp.welcome.resend.sending": "Sending...",
-  "signUp.welcome.resend.success": "Verification email has been resent successfully!",
+  "signUp.welcome.resend.success": "Verification email has been resent successfully! If you still don't see the email, please check your spam folder.",
   "signUp.welcome.resend.error": "Failed to resend the verification email. Please try again.",
   "signUp.welcome.resend.noEmail": "No email address found. Please try signing up again.",
   "signUp.welcome.resend.maxAttempts": "Maximum resend attempts reached. Please contact support if you still haven't received the email.",
