@@ -5,6 +5,7 @@ import { useLanguage } from "@/context/LanguageContext";
 import { useRouter } from "next/navigation";
 import useFetch from "@/hooks/api/useFetch";
 import * as sessionStorage from "@/utils/sessionStorage";
+import * as loggingUtils from "@/utils/logging";
 
 // Mock the next/navigation module
 jest.mock("next/navigation", () => ({
@@ -34,6 +35,10 @@ jest.mock("next/image", () => ({
   default: (props) => <img {...props} alt={props.alt || ""} />,
 }));
 
+// Constants matching the Welcome component
+const COOLDOWN_SECONDS = 60;
+const MAX_RESEND_ATTEMPTS = 5;
+
 describe("Welcome Page", () => {
   const mockRouter = { push: jest.fn() };
   const mockPerformFetch = jest.fn();
@@ -46,7 +51,7 @@ describe("Welcome Page", () => {
     "signUp.welcome.resend.button": "Resend",
     "signUp.welcome.resend.sending": "Sending...",
     "signUp.welcome.resend.success":
-      "Verification email has been resent successfully!",
+      "Verification email has been resent successfully! If you still don't see the email, please check your spam folder.",
     "signUp.welcome.resend.error":
       "Failed to resend the verification email. Please try again.",
     "signUp.welcome.resend.noEmail":
@@ -56,7 +61,16 @@ describe("Welcome Page", () => {
     "signUp.welcome.resend.maxReached": "Max attempts reached",
   };
 
-  // Setup before each test
+  beforeAll(() => {
+    jest.spyOn(loggingUtils, "logInfo").mockImplementation(() => {});
+    jest.spyOn(loggingUtils, "logError").mockImplementation(() => {});
+    jest.spyOn(loggingUtils, "logWarning").mockImplementation(() => {});
+  });
+
+  afterAll(() => {
+    jest.restoreAllMocks();
+  });
+
   beforeEach(() => {
     jest.clearAllMocks();
     useRouter.mockReturnValue(mockRouter);
@@ -90,7 +104,11 @@ describe("Welcome Page", () => {
   test("calls resend API with correct email", () => {
     render(<Welcome />);
     const resendButton = screen.getByTestId("resend-button");
-    fireEvent.click(resendButton);
+
+    act(() => {
+      fireEvent.click(resendButton);
+    });
+
     expect(mockPerformFetch).toHaveBeenCalledWith({
       method: "GET",
       params: { email: "test@example.com" },
@@ -102,7 +120,10 @@ describe("Welcome Page", () => {
 
     render(<Welcome />);
     const resendButton = screen.getByTestId("resend-button");
-    fireEvent.click(resendButton);
+
+    act(() => {
+      fireEvent.click(resendButton);
+    });
 
     const messageElement = screen.getByTestId("resend-message");
     expect(messageElement).toHaveTextContent(/No email address found/i);
@@ -111,22 +132,26 @@ describe("Welcome Page", () => {
   test("shows success message after successful resend", async () => {
     let onReceivedCallback;
 
-    useFetch.mockReturnValue({
-      performFetch: jest.fn().mockImplementation(() => {
-        onReceivedCallback = useFetch.mock.calls[0][4];
-        return Promise.resolve({ success: true });
-      }),
-      isLoading: false,
-      error: null,
-    });
+    useFetch.mockImplementation(
+      (endpoint, method, params, parser, onReceived) => {
+        onReceivedCallback = onReceived;
+        return {
+          performFetch: mockPerformFetch,
+          isLoading: false,
+          error: null,
+        };
+      },
+    );
 
     render(<Welcome />);
     const resendButton = screen.getByTestId("resend-button");
 
-    fireEvent.click(resendButton);
+    act(() => {
+      fireEvent.click(resendButton);
+    });
 
     act(() => {
-      onReceivedCallback({ data: { success: true } });
+      onReceivedCallback({ success: true, msg: "Success" });
     });
 
     const messageElement = screen.getByTestId("resend-message");
@@ -150,27 +175,30 @@ describe("Welcome Page", () => {
   test("shows error message on API failure", async () => {
     let onReceivedCallback;
 
-    useFetch.mockReturnValue({
-      performFetch: jest.fn().mockImplementation(() => {
-        onReceivedCallback = useFetch.mock.calls[0][4];
-        return Promise.resolve({ success: false });
-      }),
-      isLoading: false,
-      error: null,
-    });
+    useFetch.mockImplementation(
+      (endpoint, method, params, parser, onReceived) => {
+        onReceivedCallback = onReceived;
+        return {
+          performFetch: mockPerformFetch,
+          isLoading: false,
+          error: null,
+        };
+      },
+    );
 
     render(<Welcome />);
     const resendButton = screen.getByTestId("resend-button");
-    fireEvent.click(resendButton);
 
     act(() => {
-      onReceivedCallback({ data: { success: false } });
+      fireEvent.click(resendButton);
+    });
+
+    act(() => {
+      onReceivedCallback({ success: false, msg: "Failed to resend" });
     });
 
     const messageElement = screen.getByTestId("resend-message");
-    expect(messageElement).toHaveTextContent(
-      /Failed to resend the verification email/i,
-    );
+    expect(messageElement).toHaveTextContent(/Failed to resend/i);
   });
 
   test("shows max attempts message after reaching limit", async () => {
@@ -181,11 +209,8 @@ describe("Welcome Page", () => {
     useFetch.mockImplementation(
       (endpoint, method, params, parser, onReceived) => {
         onReceivedCallback = onReceived;
-
         return {
-          performFetch: jest.fn(() => {
-            return Promise.resolve({ success: true });
-          }),
+          performFetch: mockPerformFetch,
           isLoading: false,
           error: null,
         };
@@ -193,31 +218,30 @@ describe("Welcome Page", () => {
     );
 
     render(<Welcome />);
-
     const resendButton = screen.getByTestId("resend-button");
 
-    fireEvent.click(resendButton);
+    for (let i = 0; i < MAX_RESEND_ATTEMPTS; i++) {
+      act(() => {
+        fireEvent.click(resendButton);
+      });
 
-    act(() => {
-      onReceivedCallback({ data: { success: true } });
-    });
+      act(() => {
+        onReceivedCallback({ success: true, msg: "Success" });
+      });
+
+      if (i < MAX_RESEND_ATTEMPTS - 1) {
+        act(() => {
+          jest.advanceTimersByTime(COOLDOWN_SECONDS * 1000 + 100);
+        });
+      }
+    }
 
     expect(screen.getByTestId("resend-message")).toHaveTextContent(
       /Verification email has been resent successfully!/i,
     );
 
-    fireEvent.click(resendButton);
-
     act(() => {
-      onReceivedCallback({ data: { success: true } });
-    });
-
-    expect(screen.getByTestId("resend-message")).toHaveTextContent(
-      /Verification email has been resent successfully!/i,
-    );
-
-    act(() => {
-      jest.advanceTimersByTime(3000);
+      jest.advanceTimersByTime(3100);
     });
 
     expect(screen.getByTestId("resend-message")).toHaveTextContent(
@@ -232,31 +256,39 @@ describe("Welcome Page", () => {
 
     let onReceivedCallback;
 
-    useFetch.mockReturnValue({
-      performFetch: jest.fn().mockImplementation(() => {
-        onReceivedCallback = useFetch.mock.calls[0][4];
-        return Promise.resolve({ success: true });
-      }),
-      isLoading: false,
-      error: null,
-    });
+    useFetch.mockImplementation(
+      (endpoint, method, params, parser, onReceived) => {
+        onReceivedCallback = onReceived;
+        return {
+          performFetch: mockPerformFetch,
+          isLoading: false,
+          error: null,
+        };
+      },
+    );
 
     render(<Welcome />);
     const resendButton = screen.getByTestId("resend-button");
 
-    fireEvent.click(resendButton);
-
     act(() => {
-      onReceivedCallback({ data: { success: true } });
+      fireEvent.click(resendButton);
     });
 
-    expect(resendButton).toHaveAttribute("disabled");
-
     act(() => {
-      jest.advanceTimersByTime(5000); // 5 seconds
+      onReceivedCallback({ success: true, msg: "Success" });
     });
 
-    expect(resendButton).not.toHaveAttribute("disabled");
+    act(() => {
+      jest.advanceTimersByTime(100);
+    });
+
+    expect(resendButton).toBeDisabled();
+
+    act(() => {
+      jest.advanceTimersByTime(COOLDOWN_SECONDS * 1000 + 100);
+    });
+
+    expect(resendButton).not.toBeDisabled();
 
     jest.useRealTimers();
   });
