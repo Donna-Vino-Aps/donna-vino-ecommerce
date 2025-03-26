@@ -6,9 +6,10 @@ import { useLanguage } from "@/context/LanguageContext";
 import { useRouter } from "next/navigation";
 import useFetch from "@/hooks/api/useFetch";
 import { getSessionItem, SESSION_KEYS } from "@/utils/sessionStorage";
+import { logError, logInfo } from "@/utils/logging";
 
-const COOLDOWN_SECONDS = 5;
-const MAX_RESEND_ATTEMPTS = 2;
+const COOLDOWN_SECONDS = 60;
+const MAX_RESEND_ATTEMPTS = 5;
 
 const Welcome = () => {
   const { translations } = useLanguage();
@@ -20,6 +21,52 @@ const Welcome = () => {
   const [showResendMessage, setShowResendMessage] = useState(false);
   const [cooldownRemaining, setCooldownRemaining] = useState(0);
   const [resendAttempts, setResendAttempts] = useState(0);
+
+  const onReceived = (response) => {
+    const { success, msg } = response;
+    logInfo(`Resend verification response: success=${success}, message=${msg}`);
+
+    if (success) {
+      handleMessage({
+        successStatus: true,
+        msg: translations["signUp.welcome.resend.success"],
+      });
+
+      const newAttemptCount = resendAttempts + 1;
+      setResendAttempts(newAttemptCount);
+
+      if (newAttemptCount < MAX_RESEND_ATTEMPTS) {
+        setCooldownRemaining(COOLDOWN_SECONDS);
+      } else if (newAttemptCount === MAX_RESEND_ATTEMPTS) {
+        setTimeout(() => {
+          handleMessage({
+            successStatus: false,
+            msg: translations["signUp.welcome.resend.maxAttempts"],
+          });
+        }, 3000);
+      }
+    } else {
+      logError(`Resend verification failed: ${msg}`);
+      handleMessage({
+        successStatus: false,
+        msg: msg,
+      });
+    }
+  };
+
+  const { performFetch, isLoading, error } = useFetch(
+    "/auth/resend-verification-email",
+    "GET",
+    {},
+    {},
+    onReceived,
+  );
+
+  const handleMessage = ({ successStatus, msg }) => {
+    setResendSuccess(successStatus);
+    setResendMsg(msg);
+    setShowResendMessage(true);
+  };
 
   // Effect to handle the cooldown timer
   useEffect(() => {
@@ -51,70 +98,40 @@ const Welcome = () => {
 
   useEffect(() => {
     if (error) {
-      setShowResendMessage(true);
-      setResendSuccess(false);
-      setResendMsg(translations["signUp.welcome.resend.error"]);
+      const errorMessage =
+        error.message || translations["signUp.welcome.resend.error"];
+
+      handleMessage({
+        successStatus: false,
+        msg: errorMessage,
+      });
     }
   }, [error, translations]);
 
   const handleResendVerification = () => {
     if (!email) {
-      setShowResendMessage(true);
-      setResendSuccess(false);
-      setResendMsg(translations["signUp.welcome.resend.noEmail"]);
+      handleMessage({
+        successStatus: false,
+        msg: translations["signUp.welcome.resend.noEmail"],
+      });
       return;
     }
 
     if (resendAttempts >= MAX_RESEND_ATTEMPTS) {
-      setShowResendMessage(true);
-      setResendSuccess(false);
-      setResendMsg(translations["signUp.welcome.resend.maxAttempts"]);
+      handleMessage({
+        successStatus: false,
+        msg: translations["signUp.welcome.resend.maxAttempts"],
+      });
       return;
     }
 
     setShowResendMessage(false);
-    setResendMsg("");
+
     performFetch({
       method: "GET",
       params: { email },
     });
   };
-
-  const onReceived = (response) => {
-    const responseData = response.data || response;
-    const { success } = responseData;
-
-    setShowResendMessage(true);
-
-    if (success) {
-      setResendSuccess(true);
-      setResendMsg(translations["signUp.welcome.resend.success"]);
-
-      const newAttemptCount = resendAttempts + 1;
-      setResendAttempts(newAttemptCount);
-
-      if (newAttemptCount < MAX_RESEND_ATTEMPTS) {
-        setCooldownRemaining(COOLDOWN_SECONDS);
-      } else if (newAttemptCount === MAX_RESEND_ATTEMPTS) {
-        setTimeout(() => {
-          setShowResendMessage(true);
-          setResendSuccess(false);
-          setResendMsg(translations["signUp.welcome.resend.maxAttempts"]);
-        }, 3000);
-      }
-    } else {
-      setResendSuccess(false);
-      setResendMsg(translations["signUp.welcome.resend.error"]);
-    }
-  };
-
-  const { performFetch, isLoading, error } = useFetch(
-    "/auth/resend-verification-email",
-    "GET",
-    {},
-    {},
-    onReceived,
-  );
 
   const isResendDisabled =
     isLoading || cooldownRemaining > 0 || resendAttempts >= MAX_RESEND_ATTEMPTS;
