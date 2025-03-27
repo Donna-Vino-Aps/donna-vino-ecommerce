@@ -1,14 +1,24 @@
-import React from "react";
+import React, { useState } from "react";
 import { useLanguage } from "@/context/LanguageContext";
 
 const EventsHeader = () => {
   const { translations } = useLanguage();
-  const infoArticle1 =
-    "relative flex flex-col gap-2 max-w-[18.5rem] max-h-[23.938rem] md:max-w-[27.313rem] md:min-h-[22.063rem] bg-white text-tertiary1-darker space-y-4 p-4 my-12 px-7 mx-4 rounded-2xl border-[2px] border-primary-active";
-  const infoArticle2 =
-    "relative flex flex-col gap-2 max-w-[18.5rem] max-h-[23.938rem] md:min-w-[27.313rem] md:max-w-[27.313rem] md:min-h-[19.563rem] bg-white text-tertiary1-darker space-y-4 p-4 my-12 px-7 mx-4 rounded-2xl border-[2px] border-primary-active";
-  const cardButton =
-    "absolute bottom-6 flex flex-row gap-2 items-center hover:cursor-pointer";
+  const infoArticle =
+    "relative flex flex-col gap-2 max-w-[60%] min-h-[22.938rem] md:min-w-[27.313rem] md:max-w-[27.313rem] md:min-h-[22.063rem] bg-white text-tertiary1-darker space-y-4 p-4 my-12 px-7 mx-4 rounded-2xl border-[2px] border-primary-active";
+
+  const cardButton = "flex flex-row gap-2 items-center hover:cursor-pointer";
+
+  const [currentCardIndex, setCurrentCardIndex] = useState(0);
+
+  const handleNext = () => {
+    setCurrentCardIndex((prevIndex) => (prevIndex + 1) % 3);
+  };
+
+  const handlePrevious = () => {
+    setCurrentCardIndex((prevIndex) =>
+      prevIndex === 0 ? 3 - 1 : prevIndex - 1,
+    );
+  };
 
   return (
     <section className="relative flex flex-col bg-primary-light mb-8 z-10 w-full overflow-hidden">
@@ -44,7 +54,7 @@ const EventsHeader = () => {
           />
         </div>
       </div>
-      <section className="flex flex-col  sm:flex-row z-1">
+      <section className="flex flex-col  sm:flex-row z-[1]">
         <div className="flex flex-col justify-center text-start mb-4 sm:mb-0 px-8 gap-6">
           <h1 className="text-displayMedium mt-8 sm:mt-4 md:mt-0 sm:text-displaySmall lg:text-displayMedium xl:max-w-[85%]">
             {translations["events-header.h1"]}🍷✨
@@ -56,19 +66,25 @@ const EventsHeader = () => {
         <figure className="overflow-hidden sm:min-w-[55%] lg:min-w-[60%]">
           <img
             src="/images/events-header-unsplash.jpg"
-            className="object-cover max-h-[22.5rem] w-full sm:min-w-[54.375rem] sm:max-h-[25.313rem] md:max-h-[29.313rem] sm:rounded-tl-[11.531rem] max-w-full"
+            className="object-cover max-h-[22.5rem] w-full sm:min-w-[54.375rem] sm:max-h-[25.313rem] md:max-h-[29.313rem] sm:rounded-tl-[11.531rem]"
           />
         </figure>
       </section>
-      <section className="flex flex-row justify-center z-1">
-        <article className={infoArticle1}>
-          <h3 className="text-displaySmall md:text-headlineMedium pt-2">
+      <section className="relative flex flex-row justify-center z-[1]">
+        <article
+          className={` ${currentCardIndex === 0 ? "flex" : "hidden"} 
+          lg:flex max-w-[60%] min-h-[22.938rem] ${infoArticle}`}
+        >
+          <h3 className="text-headlineLarge md:text-headlineMedium pt-2">
             1. {translations["events-header.card1-h"]}
           </h3>
           <p className="text-bodyLarge">
             {translations["events-header.card1-p"]}
           </p>
-          <div className={cardButton}>
+          <div
+            className={`lg:hidden absolute bottom-6 ${cardButton}`}
+            onClick={handleNext}
+          >
             <p className="text-tertiary2-darker">
               {translations["events-header.button-next"]}
             </p>
@@ -78,31 +94,46 @@ const EventsHeader = () => {
             />
           </div>
         </article>
-        <article className={infoArticle2}>
-          <h3 className="text-displaySmall md:text-headlineMedium pt-2">
+        <article
+          className={`${currentCardIndex === 1 ? "flex" : "hidden"} 
+          lg:flex max-w-[60%] min-h-[22.938rem] ${infoArticle} `}
+        >
+          <h3 className="text-headlineLarge md:text-headlineMedium pt-2">
             2. {translations["events-header.card2-h"]}
           </h3>
           <p className="text-bodyLarge">
             {translations["events-header.card2-p"]}
           </p>
-          <div className={cardButton}>
-            <p className="text-tertiary2-darker">
-              {translations["events-header.button-next"]}
-            </p>
-            <img
-              className="relative top-[2px]"
-              src="/icons/chevron-right-circle.svg"
-            />
+          <div className="lg:hidden flex justify-between gap-40 absolute bottom-6">
+            <div className={cardButton} onClick={handlePrevious}>
+              <img className="w-4 h-4" src="/icons/chevron-left-circle.svg" />
+              <p className="text-tertiary2-darker">Previous step</p>
+            </div>
+            <div className={`${cardButton}`} onClick={handleNext}>
+              <p className="text-tertiary2-darker">
+                {translations["events-header.button-next"]}
+              </p>
+              <img
+                className="relative top-[2px]"
+                src="/icons/chevron-right-circle.svg"
+              />
+            </div>
           </div>
         </article>
-        <article className={infoArticle2}>
-          <h3 className="text-displaySmall md:text-headlineMedium  pt-2">
+        <article
+          className={` ${currentCardIndex === 2 ? "flex" : "hidden"} 
+          lg:flex max-w-[60%] min-h-[22.938rem] ${infoArticle}`}
+        >
+          <h3 className="text-headlineLarge md:text-headlineMedium  pt-2">
             3. {translations["events-header.card3-h"]}
           </h3>
           <p className="text-bodyLarge">
             {translations["events-header.card3-p"]}
           </p>
-          <div className={cardButton}>
+          <div
+            className={`lg:hidden absolute bottom-6 ${cardButton}`}
+            onClick={handleNext}
+          >
             <p className="text-tertiary2-darker">
               {translations["events-header.button-complete"]}
             </p>
