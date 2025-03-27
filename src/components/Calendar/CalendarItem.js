@@ -45,9 +45,9 @@ const CalendarItem = ({
   } else if (isToday && percentageAvailable !== null) {
     bgColor = "bg-primary-active text-tertiary1-light"; // light pink if today
   } else if (seatsTotal === 0) {
-    bgColor = "bg-[#ffffff]"; // White if there is no event on this day
+    bgColor = "bg-[#ffffff] hover:cursor-default"; // White if there is no event on this day
   } else {
-    bgColor = "bg-[#ffffff]"; // White if nothing else matches
+    bgColor = "bg-[#ffffff] hover:cursor-default"; // White if nothing else matches
   }
 
   const calendarItemClass = `
@@ -58,7 +58,6 @@ const CalendarItem = ({
   return (
     <article
       className={`relative min-w-[2.818rem] min-h-[2.813rem] lg:h-[7.938rem] lg:w-[12.5rem] bg-white border-tertiary1-light border-t-[1px] border-x
-        ${seatsTotal === 0 ? "hover:cursor-default" : "hover:cursor-pointer"} 
         ${isFull ? "hover:cursor-not-allowed" : "hover:cursor-pointer"} 
        `}
       onClick={onClick}

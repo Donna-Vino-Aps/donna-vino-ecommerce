@@ -4,9 +4,9 @@ import { useLanguage } from "@/context/LanguageContext";
 const EventsHeader = () => {
   const { translations } = useLanguage();
   const infoArticle1 =
-    "relative flex flex-col gap-2 min-w-[27.313rem] max-w-[27.313rem] min-h-[22.063rem] bg-white text-tertiary1-darker space-y-4 p-4 my-12 px-7 mx-4 rounded-2xl border-[2px] border-primary-active";
+    "relative flex flex-col gap-2 max-w-[18.5rem] max-h-[23.938rem] md:max-w-[27.313rem] md:min-h-[22.063rem] bg-white text-tertiary1-darker space-y-4 p-4 my-12 px-7 mx-4 rounded-2xl border-[2px] border-primary-active";
   const infoArticle2 =
-    "relative flex flex-col gap-2 min-w-[27.313rem] max-w-[27.313rem] min-h-[19.563rem] bg-white text-tertiary1-darker space-y-4 p-4 my-12 px-7 mx-4 rounded-2xl border-[2px] border-primary-active";
+    "relative flex flex-col gap-2 max-w-[18.5rem] max-h-[23.938rem] md:min-w-[27.313rem] md:max-w-[27.313rem] md:min-h-[19.563rem] bg-white text-tertiary1-darker space-y-4 p-4 my-12 px-7 mx-4 rounded-2xl border-[2px] border-primary-active";
   const cardButton =
     "absolute bottom-6 flex flex-row gap-2 items-center hover:cursor-pointer";
 
@@ -23,7 +23,7 @@ const EventsHeader = () => {
           <img
             src="/design-elements/Dotted Shape.svg"
             alt="dotted shape"
-            className="absolute bottom-[40%] left-[25%] sm:bottom-[300%] sm:left-[385%] w-[3rem] h-[3rem] sm:w-[4.6rem] sm:h-[4.6rem]"
+            className="absolute hidden sm:inline bottom-[40%] left-[25%] sm:bottom-[300%] sm:left-[385%] w-[3rem] h-[3rem] sm:w-[4.6rem] sm:h-[4.6rem]"
             data-testid="dotted-shape-2"
           />
         </div>
@@ -44,25 +44,25 @@ const EventsHeader = () => {
           />
         </div>
       </div>
-      <section className="flex flex-col md:flex-row z-1">
-        <div className="flex flex-col justify-center text-start px-8 gap-6">
-          <h1 className="text-displayMedium xl:max-w-[85%]">
+      <section className="flex flex-col  sm:flex-row z-1">
+        <div className="flex flex-col justify-center text-start mb-4 sm:mb-0 px-8 gap-6">
+          <h1 className="text-displayMedium mt-8 sm:mt-4 md:mt-0 sm:text-displaySmall lg:text-displayMedium xl:max-w-[85%]">
             {translations["events-header.h1"]}🍷✨
           </h1>
-          <p className="text-bodyLarge xl:max-w-[80%]">
+          <p className="text-bodyLarge mb-4 sm:mb-0 max-w-[85%] md:max-w-[80%] xl:max-w-[80%]">
             {translations["events-header.p"]}
           </p>
         </div>
-        <figure className="overflow-hidden">
+        <figure className="overflow-hidden sm:min-w-[55%] lg:min-w-[60%]">
           <img
             src="/images/events-header-unsplash.jpg"
-            className="object-right min-w-[54.375rem] max-h-[29.313rem] md:rounded-tl-[11.531rem] max-w-full"
+            className="object-cover max-h-[22.5rem] w-full sm:min-w-[54.375rem] sm:max-h-[25.313rem] md:max-h-[29.313rem] sm:rounded-tl-[11.531rem] max-w-full"
           />
         </figure>
       </section>
       <section className="flex flex-row justify-center z-1">
         <article className={infoArticle1}>
-          <h3 className="text-headlineSmall pt-2">
+          <h3 className="text-displaySmall md:text-headlineMedium pt-2">
             1. {translations["events-header.card1-h"]}
           </h3>
           <p className="text-bodyLarge">
@@ -79,7 +79,7 @@ const EventsHeader = () => {
           </div>
         </article>
         <article className={infoArticle2}>
-          <h3 className="text-headlineSmall pt-2">
+          <h3 className="text-displaySmall md:text-headlineMedium pt-2">
             2. {translations["events-header.card2-h"]}
           </h3>
           <p className="text-bodyLarge">
@@ -96,7 +96,7 @@ const EventsHeader = () => {
           </div>
         </article>
         <article className={infoArticle2}>
-          <h3 className="text-headlineSmall pt-2">
+          <h3 className="text-displaySmall md:text-headlineMedium  pt-2">
             3. {translations["events-header.card3-h"]}
           </h3>
           <p className="text-bodyLarge">
