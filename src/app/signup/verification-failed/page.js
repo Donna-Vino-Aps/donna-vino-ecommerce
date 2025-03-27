@@ -1,10 +1,10 @@
 "use client";
-import React from "react";
+import React, { Suspense } from "react";
 import Button from "@/components/Button/Button";
 import { useLanguage } from "@/context/LanguageContext";
 import { useRouter, useSearchParams } from "next/navigation";
 
-const VerificationFailed = () => {
+const VerificationFailedContent = () => {
   const { translations } = useLanguage();
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -84,6 +84,24 @@ const VerificationFailed = () => {
         </div>
       </div>
     </section>
+  );
+};
+
+const VerificationFailed = () => {
+  return (
+    <Suspense
+      fallback={
+        <div className="flex justify-center items-center min-h-[50vh]">
+          <div className="text-center p-4">
+            <div className="animate-pulse text-secondary-normal font-medium">
+              Loading...
+            </div>
+          </div>
+        </div>
+      }
+    >
+      <VerificationFailedContent />
+    </Suspense>
   );
 };
 
