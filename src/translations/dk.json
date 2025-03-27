@@ -114,5 +114,15 @@
   "calendar.weekday.7-short": "Sø",
   "calendar.seats": "Steder",
   "common.loading": "Indlæser...",
-  "common.submitting": "Indsender..."
+  "common.submitting": "Indsender...",
+  "events-header.h1": "Sikr din plads til vores kommende arrangementer.",
+  "events-header.p": "Reserver nemt en eller flere pladser til vores kommende begivenheder, med frisklavede italienske retter og vinsmagninger kurateret af vores ekspertteam.",
+  "events-header.button-next": "Næste skridt",
+  "events-header.button-complete": "Din reservation er blevet gennemført.",
+  "events-header.card1-h": "Tjek tilgængelighed i kalenderen",
+  "events-header.card1-p": "Tjek tilgængelighed i kalenderen for at se de kommende begivenhedsdatoer. Kalenderen fremhæver tilgængelighedsstatus med tre farvekoder: Grøn for fuld tilgængelighed, Orange for begrænsede pladser og Rød for udsolgte begivenheder. Du skal blot klikke på din foretrukne dato for at fortsætte med din reservation.",
+  "events-header.card2-h": "Vælg dato og pladser",
+  "events-header.card2-p": "Klik på datoen for at se begivenhedsdetaljer, herunder de udvalgte vine og middagsmenuen. Vælg derefter dine pladser og fortsæt til det sidste trin.",
+  "events-header.card3-h": "Betaling og bekræftelse",
+  "events-header.card3-p": "Når du har valgt en tilgængelig dato, skal du gennemgå menuen og vinene til begivenheden. Du vil derefter blive bedt om at foretage en betaling via MobilePay for at reservere din(e) plads(er). En bekræftelsesmeddelelse vil blive sendt, når din reservation er gennemført."
 }

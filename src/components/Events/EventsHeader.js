@@ -1,8 +1,14 @@
 import React from "react";
+import { useLanguage } from "@/context/LanguageContext";
 
 const EventsHeader = () => {
-  const infoArticle =
-    "flex flex-col gap-2 max-w-[27.313rem] max-h-[19.563rem] bg-white text-tertiary1-darker space-y-3 p-4 my-12 px-4 mx-4 rounded-2xl border-[2px] border-primary-active";
+  const { translations } = useLanguage();
+  const infoArticle1 =
+    "relative flex flex-col gap-2 min-w-[27.313rem] max-w-[27.313rem] min-h-[22.063rem] bg-white text-tertiary1-darker space-y-4 p-4 my-12 px-7 mx-4 rounded-2xl border-[2px] border-primary-active";
+  const infoArticle2 =
+    "relative flex flex-col gap-2 min-w-[27.313rem] max-w-[27.313rem] min-h-[19.563rem] bg-white text-tertiary1-darker space-y-4 p-4 my-12 px-7 mx-4 rounded-2xl border-[2px] border-primary-active";
+  const cardButton =
+    "absolute bottom-6 flex flex-row gap-2 items-center hover:cursor-pointer";
 
   return (
     <section className="relative flex flex-col bg-primary-light mb-8 z-10 w-full overflow-hidden">
@@ -17,7 +23,7 @@ const EventsHeader = () => {
           <img
             src="/design-elements/Dotted Shape.svg"
             alt="dotted shape"
-            className="absolute bottom-[40%] left-[25%] sm:bottom-[262%] sm:left-[385%] w-[3rem] h-[3rem] sm:w-[4.6rem] sm:h-[4.6rem]"
+            className="absolute bottom-[40%] left-[25%] sm:bottom-[300%] sm:left-[385%] w-[3rem] h-[3rem] sm:w-[4.6rem] sm:h-[4.6rem]"
             data-testid="dotted-shape-2"
           />
         </div>
@@ -33,69 +39,72 @@ const EventsHeader = () => {
           <img
             src="/design-elements/Dotted Shape.svg"
             alt="dotted shape"
-            className="absolute bottom-0 right-0 sm:bottom-[262%] sm:left-[350%] w-[3rem] h-[3rem] sm:w-[4.6rem] sm:h-[4.6rem]"
+            className="absolute bottom-0 right-0 sm:bottom-[300%] sm:left-[350%] w-[3rem] h-[3rem] sm:w-[4.6rem] sm:h-[4.6rem]"
             data-testid="dotted-shape-4"
           />
         </div>
       </div>
       <section className="flex flex-col md:flex-row z-1">
-        <div className="flex flex-col justify-center text-start mx-8 gap-6">
-          <h1 className="text-displayMedium xl:max-w-[70%]">
-            Secure your spot for our upcoming events.🍷✨
+        <div className="flex flex-col justify-center text-start px-8 gap-6">
+          <h1 className="text-displayMedium xl:max-w-[85%]">
+            {translations["events-header.h1"]}🍷✨
           </h1>
-          <p className="text-bodyLarge xl:max-w-[70%]">
-            Easily reserve one or more seats for our upcoming events, featuring
-            freshly prepared Italian cuisine and wine tastings curated by our
-            expert team.
+          <p className="text-bodyLarge xl:max-w-[80%]">
+            {translations["events-header.p"]}
           </p>
         </div>
         <figure className="overflow-hidden">
           <img
             src="/images/events-header-unsplash.jpg"
-            className="min-w-[54.375rem] max-h-[29.313rem] md:rounded-tl-[11.531rem] max-w-full"
+            className="object-right min-w-[54.375rem] max-h-[29.313rem] md:rounded-tl-[11.531rem] max-w-full"
           />
         </figure>
       </section>
       <section className="flex flex-row justify-center z-1">
-        <article className={infoArticle}>
-          <h3 className="text-headlineSmall">
-            1. Check availability on the calendar
+        <article className={infoArticle1}>
+          <h3 className="text-headlineSmall pt-2">
+            1. {translations["events-header.card1-h"]}
           </h3>
           <p className="text-bodyLarge">
-            Check availability on the calendar to view the upcoming event dates.
-            The calendar highlights the availability status with three color
-            codes: Green for full availability, Orange for limited seats, and
-            Red for sold-out events. Simply click on your preferred date to
-            proceed with your reservation.
+            {translations["events-header.card1-p"]}
           </p>
-          <div className="flex flex-row gap-2 items-center">
-            <p className="text-tertiary2-darker">Next step</p>
-            <img src="/icons/chevron-right-circle.svg" />
-          </div>
-        </article>
-        <article className={infoArticle}>
-          <h3 className="text-headlineSmall">2. Select date and seats.</h3>
-          <p className="text-bodyLarge">
-            Click on the date to view event details, including the selected
-            wines and dinner menu. Then, choose your seats and proceed to the
-            final step.
-          </p>
-          <div className="flex flex-row gap-2 items-center">
-            <p className="text-tertiary2-darker">Next step</p>
-            <img src="/icons/chevron-right-circle.svg" />
-          </div>
-        </article>
-        <article className={infoArticle}>
-          <h3 className="text-headlineSmall">3. Payment and confirmation</h3>
-          <p className="text-bodyLarge">
-            After selecting an available date, review the menu and wines for the
-            event. You’ll then be prompted to make a payment via MobilePay to
-            reserve your seat(s). A confirmation message will be sent once your
-            reservation is complete.
-          </p>
-          <div className="flex flex-row gap-2 items-center">
+          <div className={cardButton}>
             <p className="text-tertiary2-darker">
-              Your reservation has been successfully completed.
+              {translations["events-header.button-next"]}
+            </p>
+            <img
+              className="relative top-[2px]"
+              src="/icons/chevron-right-circle.svg"
+            />
+          </div>
+        </article>
+        <article className={infoArticle2}>
+          <h3 className="text-headlineSmall pt-2">
+            2. {translations["events-header.card2-h"]}
+          </h3>
+          <p className="text-bodyLarge">
+            {translations["events-header.card2-p"]}
+          </p>
+          <div className={cardButton}>
+            <p className="text-tertiary2-darker">
+              {translations["events-header.button-next"]}
+            </p>
+            <img
+              className="relative top-[2px]"
+              src="/icons/chevron-right-circle.svg"
+            />
+          </div>
+        </article>
+        <article className={infoArticle2}>
+          <h3 className="text-headlineSmall pt-2">
+            3. {translations["events-header.card3-h"]}
+          </h3>
+          <p className="text-bodyLarge">
+            {translations["events-header.card3-p"]}
+          </p>
+          <div className={cardButton}>
+            <p className="text-tertiary2-darker">
+              {translations["events-header.button-complete"]}
             </p>
             <img src="/icons/checkmark-circle.svg" />
           </div>
