@@ -1,12 +1,18 @@
-import React from "react";
+import React, { useState } from "react";
 import PropTypes from "prop-types";
 import CalendarItem from "./CalendarItem";
 import { useLanguage } from "@/context/LanguageContext";
+import EventRegistrationModal from "../EventRegistrationModal/EventRegistrationModal";
 
 const Calendar = ({ currentYear, currentMonth }) => {
   const [isMobile, setIsMobile] = React.useState(
     typeof window !== "undefined" && window.innerWidth < 1024,
   );
+  const [isModalOpen, setIsModalOpen] = useState(true);
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+  };
 
   React.useEffect(() => {
     const handleResize = () => {
@@ -126,6 +132,7 @@ const Calendar = ({ currentYear, currentMonth }) => {
           currentMonth={currentMonth}
         />
       ))}
+      <EventRegistrationModal onClose={handleCloseModal} isOpen={isModalOpen} />
     </section>
   );
 };
