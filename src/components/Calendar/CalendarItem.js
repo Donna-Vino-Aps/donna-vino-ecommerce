@@ -5,7 +5,7 @@ import PropTypes from "prop-types";
 import { useLanguage } from "@/context/LanguageContext";
 
 const BASE_CALENDARITEM_CLASSES = `
-   min-w-[2.818rem] min-h-[2.813rem] md:min-h-[4.813rem] lg:h-[7.9rem] lg:w-[12.45rem] text-labelXLarge font-semibold "rounded-tl-[6px] rounded-bl-[20px] md:rounded-tl-[12px] md:rounded-bl-[40px] lg:rounded-tl-[16px] lg:rounded-bl-[62.5px]"
+   min-w-[2.818rem] min-h-[2.813rem] md:min-h-[4.813rem] lg:h-[4.926rem] lg:w-[6.20rem] text-labelXLarge font-semibold "rounded-tl-[6px] rounded-bl-[20px] md:rounded-tl-[12px] md:rounded-bl-[40px] lg:rounded-tl-[6px] lg:rounded-bl-[24px]"
 `;
 
 const CalendarItem = ({
@@ -57,7 +57,7 @@ const CalendarItem = ({
 
   return (
     <article
-      className={`relative min-w-[2.818rem] min-h-[2.813rem] lg:h-[7.938rem] lg:w-[12.5rem] bg-white border-tertiary1-light border-t-[1px] border-x
+      className={`relative min-w-[2.818rem] min-h-[2.813rem] lg:h-[4.976rem] lg:w-[6.22rem] bg-white border-tertiary1-light border-t-[1px] border-x
         ${isFull ? "hover:cursor-not-allowed" : "hover:cursor-pointer"} 
        `}
       onClick={onClick}
@@ -66,17 +66,17 @@ const CalendarItem = ({
         className={`${calendarItemClass} 
         `}
       >
-        <p className="flex justify-center pt-3 md:pt-7 lg:pt-0 lg:h-auto lg:absolute lg:top-5 lg:left-4 text-labelLarge lg:text-labelXLarge">
+        <p className="flex justify-center pt-3 md:pt-7 md:pt-0 md:h-auto md:absolute md:top-4 md:left-4 text-labelLarge">
           {dayOfMonth}
         </p>
         {seatsAvailable > 0 && seatsTotal === 0 ? null : (
-          <div className="flex justify-end items-center lg:gap-[4px] xl:gap-[6px] absolute bottom-3 lg:right-14 lg:mr-1 xl:mr-0 xl:right-6 hidden lg:flex">
+          <div className="flex justify-end items-center lg:gap-[4px] xl:gap-[2px] absolute bottom-3 md:right-2 hidden md:flex">
             <img
               src={icon}
               alt="attendants icon"
-              className="object-center lg:w-5 lg:h-5 xl:w-6 xl:h-6 relative bottom-1"
+              className="object-center w-4 h-5 relative bottom-[1px]"
             />
-            <p className="text-white lg:relative lg:bottom-[2px] lg:text-labelLarge xl:text-labelXLarge">{`${translations["calendar.seats"]}: ${seatsAvailable}`}</p>
+            <p className="text-white text-labelMedium">{`${translations["calendar.seats"]}: ${seatsAvailable}`}</p>
           </div>
         )}
       </div>
