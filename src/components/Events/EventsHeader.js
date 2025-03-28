@@ -4,7 +4,7 @@ import { useLanguage } from "@/context/LanguageContext";
 const EventsHeader = () => {
   const { translations } = useLanguage();
   const infoArticle =
-    "relative flex flex-col gap-2 max-w-[77.5%] min-h-[22.063rem] max-h-[80%] sm:max-w-[40%] sm:min-w-[20rem] md:max-w[40%] lg:min-w-[25%] lg:max-w-[27.313rem] lg:min-h-[22.063rem] bg-white text-tertiary1-darker space-y-3 lg:space-y-4 p-4 my-12 px-7 lg:mx-3 xl:mx-4 rounded-2xl border-[2px] border-primary-active";
+    "relative flex flex-col gap-2 min-w-[20rem] max-w-[70%] min-h-[23.938rem] sm:max-w-[40%] sm:min-w-[22.375rem] md:max-w[40%] lg:min-w-[22.5%] lg:max-w-[25rem] lg:min-h-[22.063rem] bg-white text-tertiary1-darker space-y-2 lg:space-y-3 xl:space-y-4 p-4 my-12 px-7 md:mx-3 lg:mx-4 rounded-2xl border-[2px] border-primary-active";
 
   const cardButton =
     "flex flex-row gap-2 items-center hover:cursor-pointer min-w-[10rem] whitespace-nowrap";
@@ -57,17 +57,17 @@ const EventsHeader = () => {
       </div>
       <section className="flex flex-col sm:flex-row z-[1]">
         <div className="flex flex-col justify-center text-start mb-4 sm:mb-0 px-8 gap-6">
-          <h1 className="text-displayMedium mt-8 sm:mt-4 md:mt-0 sm:text-displaySmall lg:text-displayMedium xl:max-w-[85%]">
+          <h1 className="text-displayMedium max-w-[80%] sm:max-w-full mt-8 sm:mt-4 md:mt-0 sm:text-displaySmall lg:text-displayMedium xl:max-w-[85%]">
             {translations["events-header.h1"]}🍷✨
           </h1>
-          <p className="text-bodyLarge mb-4 sm:mb-0 max-w-[85%] md:max-w-[80%] xl:max-w-[80%]">
+          <p className="text-bodyLarge mb-4 sm:mb-0 max-w-[95%] sm:max-w-[85%] md:max-w-[80%] xl:max-w-[80%]">
             {translations["events-header.p"]}
           </p>
         </div>
         <figure className="overflow-hidden sm:min-w-[55%] lg:min-w-[60%]">
           <img
             src="/images/events-header-unsplash.jpg"
-            className="object-cover max-h-[22.5rem] w-full sm:min-w-[54.375rem] sm:max-h-[25.313rem] md:max-h-[29.313rem] sm:rounded-tl-[11.531rem]"
+            className="object-cover min-h-[22.5rem] w-full sm:min-w-[54.375rem] sm:min-h sm:max-h-[25.313rem] md:max-h-[29.313rem] sm:rounded-tl-[11.531rem]"
           />
         </figure>
       </section>
@@ -105,18 +105,12 @@ const EventsHeader = () => {
           <p className="text-bodyLarge lg:text-bodyLarge">
             {translations["events-header.card2-p"]}
           </p>
-          <div className="lg:hidden flex w-full items-center">
-            <button
-              className={`${cardButton} absolute left-10 bottom-6`}
-              onClick={handlePrevious}
-            >
+          <div className="absolute bottom-6 lg:hidden flex justify-between w-full items-center">
+            <button className={`${cardButton}`} onClick={handlePrevious}>
               <img className="w-4 h-4" src="/icons/chevron-left-circle.svg" />
               <p className="text-tertiary2-darker">Previous step</p>
             </button>
-            <button
-              className={`${cardButton} absolute right-2 bottom-6`}
-              onClick={handleNext}
-            >
+            <button className={`${cardButton}`} onClick={handleNext}>
               <p className="text-tertiary2-darker">
                 {translations["events-header.button-next"]}
               </p>
@@ -134,7 +128,7 @@ const EventsHeader = () => {
           <h3 className="text-headlineMedium  pt-2">
             3. {translations["events-header.card3-h"]}
           </h3>
-          <p className="text-bodyLarge lg:text-bodyLarge">
+          <p className="text-bodyMedium sm:text-bodyLarge">
             {translations["events-header.card3-p"]}
           </p>
           <button
