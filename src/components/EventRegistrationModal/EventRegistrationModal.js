@@ -23,12 +23,13 @@ function EventRegistrationModal({ isOpen, onClose, eventDetails = {} }) {
   const [seats, setSeats] = useState(1);
   const [agree, setAgree] = useState(false);
 
+  // Convert seatsAvailable (e.g., "20/20") to a number
   const availableSeats =
     typeof seatsAvailable === "string"
       ? parseInt(seatsAvailable.split("/")[0], 10)
       : seatsAvailable;
 
-  // Asignar clases según la cantidad de asientos disponibles
+  // Assign CSS classes based on available seats
   let seatBgClass = "bg-calendar-open";
   let seatTextClass = "text-white";
   if (availableSeats === 0) {
@@ -38,9 +39,90 @@ function EventRegistrationModal({ isOpen, onClose, eventDetails = {} }) {
     seatBgClass = "bg-calendar-limited";
     seatTextClass = "text-white";
   }
-  const handleSubmit = (e) => {
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
+
+    // Calculate total payment cost
+    const paymentCost = Number(pricePerPerson) * Number(seats);
+
+    // Build the user confirmation email payload
+    const userEmailPayload = {
+      to: email,
+      subject: `Reservation Confirmation - Event Date: ${date}`,
+      body: `
+Dear ${firstName} ${lastName},
+
+Thank you for reserving your seats for our upcoming event. We are pleased to confirm your reservation.
+
+Reservation Details:
+- Event Date: ${date}
+- Number of Seats Reserved: ${seats}
+- Total Cost: ${paymentCost} kr
+
+This is a temporary confirmation email with fictitious details.
+We will update this template once the payment integration is finalized.
+
+Thank you for choosing us!
+Best regards,
+The Donna Vino Team
+      `,
+    };
+
+    // Call the email API to send the confirmation email to the user
+    try {
+      const userResponse = await fetch("/api/send-email", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(userEmailPayload),
+      });
+      const userResult = await userResponse.json();
+    } catch (error) {
+      console.error("Error sending user confirmation email:", error);
+    }
+
+    // Update available seats after reservation
+    const updatedAvailableSeats = availableSeats - seats;
+
+    // If the event is fully booked, send a notification email to the company
+    if (updatedAvailableSeats <= 0) {
+      const companyEmailPayload = {
+        to: "info@donnavino.dk",
+        subject: `Event Full Notification - ${title}`,
+        body: `
+Dear Donna Vino Team,
+
+This is an automated notification that the event "${title}" is now fully booked or is scheduled for one day before the event.
+
+Event Details:
+- Event Date: ${date}
+- Location: ${location}
+- Time: ${time}
+- Price per Person: ${pricePerPerson} kr
+- Remaining Seats: ${updatedAvailableSeats}
+
+Please review the event status and take the necessary actions.
+Best regards,
+Your Reservation System
+        `,
+      };
+
+      try {
+        const companyResponse = await fetch("/api/send-email", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(companyEmailPayload),
+        });
+        const companyResult = await companyResponse.json();
+      } catch (error) {
+        console.error("Error sending fully booked email:", error);
+      }
+    }
+
+    alert("Reservation successful, confirmation email sent.");
+    onClose();
   };
+
   if (!isOpen) return null;
 
   return (
@@ -262,7 +344,6 @@ function EventRegistrationModal({ isOpen, onClose, eventDetails = {} }) {
                   >
                     Close
                   </button>
-
                   <button
                     type="submit"
                     className="w-full md:flex-1 bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded font-medium disabled:bg-blue-500 disabled:hover:bg-blue-500 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
@@ -284,6 +365,7 @@ function EventRegistrationModal({ isOpen, onClose, eventDetails = {} }) {
     </div>
   );
 }
+
 EventRegistrationModal.propTypes = {
   isOpen: PropTypes.bool.isRequired,
   onClose: PropTypes.func.isRequired,
