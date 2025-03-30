@@ -99,7 +99,7 @@ const useFetch = (
         onReceived(response.data); // Pass data to the onReceived callback
       } else {
         const errorMsg =
-          serverError || msg || message || "Unexpected server error";
+          msg || message || serverError || "Unexpected server error";
         setError(new Error(errorMsg));
       }
     } catch (error) {
