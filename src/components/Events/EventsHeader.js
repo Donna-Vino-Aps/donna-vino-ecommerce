@@ -4,7 +4,7 @@ import { useLanguage } from "@/context/LanguageContext";
 const EventsHeader = () => {
   const { translations } = useLanguage();
   const infoArticle =
-    "relative flex flex-col gap-2 min-w-[20rem] max-w-[70%] min-h-[20.938rem] sm:max-w-[40%] sm:min-w-[22.375rem] md:max-w[40%] lg:min-w-[22.5%] lg:max-w-[25rem] lg:min-h-[22.063rem] bg-white text-tertiary1-darker space-y-2 lg:space-y-3 xl:space-y-4 p-4 my-12 px-7 md:mx-3 lg:mx-4 rounded-2xl border-[2px] border-primary-active";
+    "relative flex flex-col gap-2 min-w-[20rem] max-w-[70%] min-h-[20.938rem] sm:max-w-[40%] sm:min-w-[22.375rem] md:max-w-[40%] lg:min-w-[22.5%] lg:max-w-[25rem] lg:min-h-[22.063rem] bg-white text-tertiary1-darker space-y-2 lg:space-y-3 xl:space-y-4 p-4 my-12 px-7 md:mx-3 lg:mx-4 rounded-2xl border-[2px] border-primary-active";
 
   const cardButton =
     "flex flex-row gap-2 items-center hover:cursor-pointer min-w-[10rem] whitespace-nowrap";
@@ -69,7 +69,7 @@ const EventsHeader = () => {
         <figure className="overflow-hidden sm:min-w-[55%] lg:min-w-[60%]">
           <img
             src="/images/events-header-unsplash.jpg"
-            className="object-cover min-h-[22.5rem] w-full sm:min-w-[54.375rem] sm:min-h sm:max-h-[25.313rem] md:max-h-[29.313rem] sm:rounded-tl-[11.531rem]"
+            className="object-cover min-h-[22.5rem] w-full sm:min-w-[54.375rem] sm:max-h-[25.313rem] md:max-h-[29.313rem] sm:rounded-tl-[11.531rem]"
             alt="Hands pouring a glass of wine at a wine tasting"
           />
         </figure>
