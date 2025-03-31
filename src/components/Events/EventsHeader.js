@@ -4,20 +4,22 @@ import { useLanguage } from "@/context/LanguageContext";
 const EventsHeader = () => {
   const { translations } = useLanguage();
   const infoArticle =
-    "relative flex flex-col gap-2 min-w-[20rem] max-w-[70%] min-h-[23.938rem] sm:max-w-[40%] sm:min-w-[22.375rem] md:max-w[40%] lg:min-w-[22.5%] lg:max-w-[25rem] lg:min-h-[22.063rem] bg-white text-tertiary1-darker space-y-2 lg:space-y-3 xl:space-y-4 p-4 my-12 px-7 md:mx-3 lg:mx-4 rounded-2xl border-[2px] border-primary-active";
+    "relative flex flex-col gap-2 min-w-[20rem] max-w-[70%] min-h-[20.938rem] sm:max-w-[40%] sm:min-w-[22.375rem] md:max-w[40%] lg:min-w-[22.5%] lg:max-w-[25rem] lg:min-h-[22.063rem] bg-white text-tertiary1-darker space-y-2 lg:space-y-3 xl:space-y-4 p-4 my-12 px-7 md:mx-3 lg:mx-4 rounded-2xl border-[2px] border-primary-active";
 
   const cardButton =
     "flex flex-row gap-2 items-center hover:cursor-pointer min-w-[10rem] whitespace-nowrap";
 
   const [currentCardIndex, setCurrentCardIndex] = useState(0);
 
+  const TOTAL_CARDS = 3;
+
   const handleNext = () => {
-    setCurrentCardIndex((prevIndex) => (prevIndex + 1) % 3);
+    setCurrentCardIndex((prevIndex) => (prevIndex + 1) % TOTAL_CARDS);
   };
 
   const handlePrevious = () => {
     setCurrentCardIndex((prevIndex) =>
-      prevIndex === 0 ? 3 - 1 : prevIndex - 1,
+      prevIndex === 0 ? TOTAL_CARDS - 1 : prevIndex - 1,
     );
   };
 
@@ -26,15 +28,15 @@ const EventsHeader = () => {
       <div className="absolute bottom-0 left-0 sm:right-auto sm:left-0 sm:bottom-0 flex justify-start z-[-1]">
         <div className="relative w-[4.5rem] h-[6.75rem] sm:w-[10.35rem] sm:h-[6.93rem] max-w-[50vw]">
           <img
-            src="/design-elements/Dotted Shape.svg"
+            src="/design-elements/dotted-shape.svg"
             alt="dotted shape"
-            className="absolute bottom-0 left-0 sm:top-auto sm:bottom-0 sm:right-0 w-[3rem] h-[3rem] sm:w-[4.6rem] sm:h-[4.6rem]"
+            className="absolute bottom-0 left-0 sm:top-auto sm:bottom-0 sm:right-0 w-[4.6rem] h-[4.6rem]"
             data-testid="dotted-shape-1"
           />
           <img
-            src="/design-elements/Dotted Shape.svg"
+            src="/design-elements/dotted-shape.svg"
             alt="dotted shape"
-            className="absolute hidden sm:inline bottom-[40%] left-[25%] sm:bottom-[300%] sm:left-[385%] w-[3rem] h-[3rem] sm:w-[4.6rem] sm:h-[4.6rem]"
+            className="absolute hidden sm:inline bottom-[40%] left-[25%] sm:bottom-[300%] sm:left-[385%] w-[4.6rem] h-[4.6rem]"
             data-testid="dotted-shape-2"
           />
         </div>
@@ -42,15 +44,15 @@ const EventsHeader = () => {
       <div className="absolute bottom-0 right-0 sm:right-auto sm:left-[61.5%] sm:bottom-0 flex justify-start z-[-1]">
         <div className="relative w-[4.5rem] h-[6.75rem] sm:w-[10.35rem] sm:h-[6.93rem] max-w-[50vw]">
           <img
-            src="/design-elements/Dotted Shape.svg"
+            src="/design-elements/dotted-shape.svg"
             alt="dotted shape"
-            className="absolute bottom-0 left-0 sm:top-auto sm:bottom-0 sm:left-0 w-[3rem] h-[3rem] sm:w-[4.6rem] sm:h-[4.6rem]"
+            className="absolute bottom-0 left-0 hidden sm:inline sm:top-auto sm:bottom-0 sm:left-0 w-[4.6rem] h-[4.6rem]"
             data-testid="dotted-shape-3"
           />
           <img
-            src="/design-elements/Dotted Shape.svg"
+            src="/design-elements/dotted-shape.svg"
             alt="dotted shape"
-            className="absolute bottom-0 right-0 sm:bottom-[300%] sm:left-[350%] w-[3rem] h-[3rem] sm:w-[4.6rem] sm:h-[4.6rem]"
+            className="absolute bottom-[325%] right-0 sm:bottom-[300%] sm:left-[350%] w-[4.6rem] h-[4.6rem]"
             data-testid="dotted-shape-4"
           />
         </div>
@@ -68,6 +70,7 @@ const EventsHeader = () => {
           <img
             src="/images/events-header-unsplash.jpg"
             className="object-cover min-h-[22.5rem] w-full sm:min-w-[54.375rem] sm:min-h sm:max-h-[25.313rem] md:max-h-[29.313rem] sm:rounded-tl-[11.531rem]"
+            alt="Hands pouring a glass of wine at a wine tasting"
           />
         </figure>
       </section>
@@ -85,6 +88,7 @@ const EventsHeader = () => {
           <button
             className={`lg:hidden absolute bottom-6 ${cardButton}`}
             onClick={handleNext}
+            aria-label={translations["events-header.button-next"]}
           >
             <p className="text-tertiary2-darker">
               {translations["events-header.button-next"]}
@@ -102,15 +106,25 @@ const EventsHeader = () => {
           <h3 className="text-headlineMedium pt-2">
             2. {translations["events-header.card2-h"]}
           </h3>
-          <p className="text-bodyLarge lg:text-bodyLarge">
+          <p className="text-bodyLarge">
             {translations["events-header.card2-p"]}
           </p>
           <div className="absolute bottom-6 lg:hidden flex justify-between w-full items-center">
-            <button className={`${cardButton}`} onClick={handlePrevious}>
+            <button
+              className={`${cardButton}`}
+              onClick={handlePrevious}
+              aria-label={translations["events-header.button-prev"]}
+            >
               <img className="w-4 h-4" src="/icons/chevron-left-circle.svg" />
-              <p className="text-tertiary2-darker">Previous step</p>
+              <p className="text-tertiary2-darker">
+                {translations["events-header.button-prev"]}
+              </p>
             </button>
-            <button className={`${cardButton}`} onClick={handleNext}>
+            <button
+              className={`${cardButton}`}
+              onClick={handleNext}
+              aria-label={translations["events-header.button-next"]}
+            >
               <p className="text-tertiary2-darker">
                 {translations["events-header.button-next"]}
               </p>
@@ -134,6 +148,7 @@ const EventsHeader = () => {
           <button
             className={`lg:hidden absolute bottom-6 ${cardButton}`}
             onClick={handleNext}
+            aria-label={translations["events-header.button-next"]}
           >
             <p className="text-tertiary2-darker">
               {translations["events-header.button-complete"]}

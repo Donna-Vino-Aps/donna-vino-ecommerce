@@ -57,7 +57,7 @@ const CalendarItem = ({
 
   return (
     <article
-      className={`relative min-w-[2.818rem] min-h-[2.813rem] lg:h-[4.976rem] lg:w-[6.22rem] bg-white border-tertiary1-light border-t-[1px] border-x
+      className={`relative min-w-[2.818rem] min-h-[2.813rem] lg:h-[4.976rem] lg:w-[6.22rem] bg-white border-tertiary1-light border-t-[1px] border-r-[1px]
         ${isFull ? "hover:cursor-not-allowed" : "hover:cursor-pointer"} 
        `}
       onClick={onClick}
@@ -66,15 +66,15 @@ const CalendarItem = ({
         className={`${calendarItemClass} 
         `}
       >
-        <p className="flex justify-center pt-3 md:pt-7 md:pt-0 md:h-auto md:absolute md:top-4 md:left-4 text-labelLarge">
+        <p className="flex justify-center pt-3 md:h-auto md:absolute md:left-4 md:pt-4 text-labelLarge">
           {dayOfMonth}
         </p>
         {seatsAvailable > 0 && seatsTotal === 0 ? null : (
-          <div className="flex justify-end items-center lg:gap-[4px] xl:gap-[2px] absolute bottom-3 md:right-2 hidden md:flex">
+          <div className="justify-end items-center md:gap-[4px] absolute bottom-3 md:right-2 hidden md:flex">
             <img
               src={icon}
               alt="attendants icon"
-              className="object-center w-4 h-5 relative bottom-[1px]"
+              className="object-center w-4 h-5"
             />
             <p className="text-white text-labelMedium">{`${translations["calendar.seats"]}: ${seatsAvailable}`}</p>
           </div>

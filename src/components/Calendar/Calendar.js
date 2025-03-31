@@ -107,7 +107,7 @@ const Calendar = ({ currentYear, currentMonth }) => {
     "flex bg-primary-normal h-11 lg:h-16 justify-center items-center text-labelLarge md:text-titleMedium lg:text-labelLarge text-tertiary2-light";
 
   return (
-    <section className="grid grid-cols-7 grid-row-5 gap-0 justify-center w-full md:max-w-[calc(7*6.22rem-8px)] lg:md:max-w-[calc(7*6.22rem-16px)] mx-auto border-b-tertiary1-light border-[1px]">
+    <section className="grid grid-cols-7 grid-row-5 justify-center w-full md:max-w-[calc(7*6.22rem-8px)] lg:md:max-w-[calc(7*6.22rem)] mx-auto border-b-tertiary1-light border-[1px]">
       {[...Array(7)].map((_, i) => (
         <div key={i} className={weekdayStyle}>
           {isMobile
