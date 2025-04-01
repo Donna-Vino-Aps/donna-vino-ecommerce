@@ -191,7 +191,7 @@ const LoginForm = () => {
               </div>
               <div className="flex !mt-1 !mb-1 space-x-1 items-center text-labelMedium relative bottom-1">
                 <Link
-                  href="/forgotpassword"
+                  href="/forgot-password"
                   data-testid="forget-password-link"
                   aria-label="Forgot Password"
                   className="text-left font-medium hover:underline hover:font-semibold"
