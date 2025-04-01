@@ -36,7 +36,7 @@ const CalendarMonthPicker = ({ currentMonth, currentYear, onMonthChange }) => {
   };
 
   return (
-    <div className="flex justify-between items-center mx-auto bg-primary-normal w-full h-[3.438rem] lg:h-[5rem] md:max-w-[calc(7*12.5rem-8px)] lg:md:max-w-[calc(7*12.5rem-16px)] rounded-t-[1rem] text-titleLarge lg:text-headlineMedium text-center text-tertiary2-light">
+    <div className="flex justify-between items-center mx-auto bg-primary-active_normal w-full h-[3.438rem] lg:h-[5rem] md:max-w-[calc(7*6.22rem-10px)] lg:md:max-w-[calc(7*6.22rem-2px)] rounded-t-[1rem] text-titleLarge lg:text-headlineMedium text-center text-tertiary2-light">
       <button
         onClick={handlePreviousMonth}
         aria-label="Previous Month"

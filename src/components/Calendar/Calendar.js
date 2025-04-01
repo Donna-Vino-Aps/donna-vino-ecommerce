@@ -110,10 +110,10 @@ const Calendar = ({ currentYear, currentMonth }) => {
   randomSeatsTotal.slice(0, calendarDaysCurrentMonth.length);
 
   const weekdayStyle =
-    "flex bg-primary-normal h-11 lg:h-16 justify-center items-center text-labelLarge md:text-titleMedium lg:text-titleLarge text-tertiary2-light";
+    "flex bg-primary-normal h-11 lg:h-16 justify-center items-center text-labelLarge md:text-titleMedium lg:text-labelLarge text-tertiary2-light";
 
   return (
-    <section className="grid grid-cols-7 grid-row-5 gap-0 justify-center w-full md:max-w-[calc(7*12.5rem-8px)] lg:md:max-w-[calc(7*12.5rem-16px)] mx-auto border-b-tertiary1-light border-[1px]">
+    <section className="grid grid-cols-7 grid-row-5 justify-center w-full md:max-w-[calc(7*6.22rem-8px)] lg:md:max-w-[calc(7*6.22rem)] mx-auto border-b-tertiary1-light border-[1px]">
       {[...Array(7)].map((_, i) => (
         <div key={i} className={weekdayStyle}>
           {isMobile
@@ -125,6 +125,7 @@ const Calendar = ({ currentYear, currentMonth }) => {
         <CalendarItem
           key={index}
           dayOfMonth={day.dayOfMonth}
+          index={index}
           icon="./icons/users-2.svg"
           seatsTaken={day ? Math.floor(Math.random() * 20 + 1) : 0} // Set `0` if `null`
           seatsTotal={day ? randomSeatsTotal[day.dayOfMonth - 1] : 0} // Avoid index errors
