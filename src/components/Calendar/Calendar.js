@@ -119,6 +119,7 @@ const Calendar = ({ currentYear, currentMonth }) => {
         <CalendarItem
           key={index}
           dayOfMonth={day.dayOfMonth}
+          index={index}
           icon="./icons/users-2.svg"
           seatsTaken={day ? Math.floor(Math.random() * 20 + 1) : 0} // Set `0` if `null`
           seatsTotal={day ? randomSeatsTotal[day.dayOfMonth - 1] : 0} // Avoid index errors

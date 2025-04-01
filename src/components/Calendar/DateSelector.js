@@ -20,7 +20,7 @@ const DateSelector = ({ currentMonth, currentYear, onMonthChange }) => {
 
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>
-      <section className="flex justify-center items-center mx-auto bg-primary-light w-full h-[3.125rem] lg:h-[4rem] max-w-[calc(7*6.22rem-18px)] mb-4 rounded-lg">
+      <section className="flex justify-center items-center mx-auto bg-primary-light w-full h-[3.125rem] lg:h-[4rem] max-w-[calc(7*6.22rem-4px)] mb-4 rounded-lg">
         <div className="flex justify-between lg:justify-center gap-2 hover:cursor-pointer">
           <p
             className="text-titleMedium md:text-headlineSmall text-tertiary1-darker ml-6 lg:ml-0"
