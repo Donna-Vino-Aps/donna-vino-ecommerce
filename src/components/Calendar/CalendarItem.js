@@ -36,7 +36,7 @@ const CalendarItem = ({
 
   let bgColor;
   if (isOtherMonth) {
-    bgColor = "bg-[#ffffff] text-tertiary1-active";
+    bgColor = "bg-[#ffffff] text-tertiary1-active hover:cursor-default";
   } else if (isFull) {
     bgColor = "bg-calendar-full text-tertiary1-light"; // Red if full
   } else if (percentageAvailable > 50 && seatsTotal !== 0) {
@@ -70,7 +70,7 @@ const CalendarItem = ({
         <p className="flex justify-center pt-3 md:h-auto md:absolute md:left-4 md:pt-4 text-labelLarge">
           {dayOfMonth}
         </p>
-        {seatsAvailable >= 0 && seatsTotal !== 0 ? (
+        {seatsAvailable >= 0 && seatsTotal !== 0 && !isOtherMonth ? (
           <div className="justify-end items-center md:gap-[4px] absolute bottom-3 md:right-2 hidden md:flex">
             <img
               src={icon}
