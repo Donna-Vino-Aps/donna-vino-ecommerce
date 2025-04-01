@@ -8,6 +8,7 @@ import TextInputSignUpScreen from "../SignUpScreen/TextInputSignUpScreen";
 import dayjs from "dayjs";
 import { createSignUpSchema } from "@/validation/signUpSchema";
 import { useRouter } from "next/navigation";
+import { setSessionItem, SESSION_KEYS } from "@/utils/sessionStorage";
 
 const SignUpScreen = () => {
   const { translations } = useLanguage();
@@ -25,6 +26,15 @@ const SignUpScreen = () => {
 
     if (success) {
       handleMessage({ successStatus: true, msg: msg });
+
+      // Store email in sessionStorage using the utility function
+      if (responseData.pendingUser?.email) {
+        setSessionItem(
+          SESSION_KEYS.PENDING_USER_EMAIL,
+          responseData.pendingUser.email,
+        );
+      }
+
       router.push("/signup/welcome");
     } else {
       logError(`API Error: ${msg}`);
