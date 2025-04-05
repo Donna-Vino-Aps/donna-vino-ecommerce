@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useEvents } from "@/context/EventsContext";
 import Calendar from "./Calendar";
 import CalendarMonthPicker from "./CalendarMonthPicker";
 import DateSelector from "./DateSelector";
@@ -7,6 +8,7 @@ import ColorInfo from "./ColorInfo";
 const CalendarFrame = () => {
   const [currentMonth, setCurrentMonth] = useState(null);
   const [currentYear, setCurrentYear] = useState(null);
+  const { error } = useEvents();
 
   const handleMonthChange = (newMonth, newYear) => {
     setCurrentMonth(newMonth);
@@ -26,6 +28,11 @@ const CalendarFrame = () => {
 
   return (
     <div className="mb-12 flex flex-col items-center mx-10 md:mx-2 lg:mx-4">
+      {error && (
+        <div className="text-primary-normal text-center">
+          <p>Error loading events: {error}</p>
+        </div>
+      )}
       <DateSelector
         currentMonth={currentMonth}
         currentYear={currentYear}
