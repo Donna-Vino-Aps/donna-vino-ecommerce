@@ -2,14 +2,17 @@
 
 import CalendarFrame from "@/components/Calendar/CalendarFrame";
 import EventsHeader from "@/components/Events/EventsHeader";
+import { EventsProvider } from "@/context/EventsContext";
 import React from "react";
 
 const Events = () => {
   return (
-    <div>
-      <EventsHeader />
-      <CalendarFrame />
-    </div>
+    <EventsProvider>
+      <>
+        <EventsHeader />
+        <CalendarFrame />
+      </>
+    </EventsProvider>
   );
 };
 
