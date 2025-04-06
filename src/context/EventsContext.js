@@ -5,6 +5,7 @@ import {
   getEventsCollection,
   transformShopifyProduct,
 } from "@/lib/shopify/collection-actions";
+import { useLanguage } from "@/context/LanguageContext";
 
 const EventsContext = createContext();
 
@@ -12,6 +13,7 @@ export function EventsProvider({ children }) {
   const [events, setEvents] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
+  const { translations } = useLanguage();
 
   useEffect(() => {
     async function fetchEvents() {
@@ -31,14 +33,17 @@ export function EventsProvider({ children }) {
         setEvents(formattedEvents);
       } catch (err) {
         logError("Error fetching events:", err);
-        setError(err.message);
+        setError(
+          translations["events.error.loading"] ||
+            "Failed to load events. Please try again later.",
+        );
       } finally {
         setIsLoading(false);
       }
     }
 
     fetchEvents();
-  }, []);
+  }, [translations]);
 
   return (
     <EventsContext.Provider value={{ events, isLoading, error }}>
