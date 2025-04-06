@@ -6,7 +6,7 @@ import { useEvents } from "@/context/EventsContext";
 import EventRegistrationModal from "../EventRegistrationModal/EventRegistrationModal";
 
 const Calendar = ({ currentYear, currentMonth }) => {
-  const { events, isLoading } = useEvents();
+  const { events } = useEvents();
 
   const [isMobile, setIsMobile] = React.useState(
     typeof window !== "undefined" && window.innerWidth < 1024,
@@ -124,12 +124,6 @@ const Calendar = ({ currentYear, currentMonth }) => {
 
   return (
     <section className="grid grid-cols-7 grid-row-5 justify-center w-full md:max-w-[calc(7*6.22rem-8px)] lg:md:max-w-[calc(7*6.22rem)] mx-auto border-b-tertiary1-light border-[1px]">
-      {isLoading && (
-        <div className="absolute inset-0 bg-white bg-opacity-70 flex items-center justify-center z-10">
-          <p className="text-primary-normal">Loading events...</p>
-        </div>
-      )}
-
       {[...Array(7)].map((_, i) => (
         <div key={i} className={weekdayStyle}>
           {isMobile
@@ -172,8 +166,6 @@ const Calendar = ({ currentYear, currentMonth }) => {
 Calendar.propTypes = {
   currentMonth: PropTypes.number.isRequired,
   currentYear: PropTypes.number.isRequired,
-  events: PropTypes.array,
-  isLoading: PropTypes.bool,
 };
 
 export default Calendar;

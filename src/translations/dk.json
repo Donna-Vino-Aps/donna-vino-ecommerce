@@ -127,6 +127,8 @@
   "calendar.weekday.6-short": "Lø",
   "calendar.weekday.7-short": "Sø",
   "calendar.seats": "Steder",
+  "calendar.loading": "Indlæser begivenheder...",
+  "events.error.loading": "Kunne ikke indlæse begivenheder. Prøv venligst igen senere.",
   "common.loading": "Indlæser...",
   "common.submitting": "Indsender...",
   "events-header.h1": "Sikr din plads til vores kommende arrangementer.",
@@ -139,6 +141,5 @@
   "events-header.card2-h": "Vælg dato og pladser",
   "events-header.card2-p": "Klik på datoen for at se begivenhedsdetaljer, herunder de udvalgte vine og middagsmenuen. Vælg derefter dine pladser og fortsæt til det sidste trin.",
   "events-header.card3-h": "Betaling og bekræftelse",
-  "events-header.card3-p": "Når du har valgt en tilgængelig dato, skal du gennemgå menuen og vinene til begivenheden. Du vil derefter blive bedt om at foretage en betaling via MobilePay for at reservere din(e) plads(er). En bekræftelses besked vil blive sendt, når din reservation er gennemført.",
-  "events.error.loading": "Kunne ikke indlæse begivenheder. Prøv venligst igen senere."
+  "events-header.card3-p": "Når du har valgt en tilgængelig dato, skal du gennemgå menuen og vinene til begivenheden. Du vil derefter blive bedt om at foretage en betaling via MobilePay for at reservere din(e) plads(er). En bekræftelses besked vil blive sendt, når din reservation er gennemført."
 }
