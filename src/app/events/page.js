@@ -8,10 +8,8 @@ import React from "react";
 const Events = () => {
   return (
     <EventsProvider>
-      <>
-        <EventsHeader />
-        <CalendarFrame />
-      </>
+      <EventsHeader />
+      <CalendarFrame />
     </EventsProvider>
   );
 };
