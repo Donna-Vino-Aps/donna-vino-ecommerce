@@ -1,12 +1,13 @@
 import { shopifyQuery } from "@/utils/shopify";
 import { GET_COLLECTION_BY_HANDLE } from "@/graphql/shopify-queries";
+import { logError } from "@/utils/logging";
 
 export async function getCollectionByHandle(handle) {
   try {
     const response = await shopifyQuery(GET_COLLECTION_BY_HANDLE, { handle });
     return response.collection;
   } catch (error) {
-    console.error(`Error fetching collection ${handle}:`, error);
+    logError(`Error fetching collection ${handle}:`, error);
     return null;
   }
 }
