@@ -8,16 +8,16 @@ const CalendarItem = ({
   dayOfMonth,
   icon,
   index,
-  seatsTaken = 0,
-  seatsTotal = 0,
+  availableSeats = 0,
+  totalInventory = 0,
   onClick,
   isOtherMonth,
   currentMonth,
 }) => {
   const { translations } = useLanguage();
-  const seatsAvailable = seatsTotal - seatsTaken;
-  const isFull = seatsAvailable === 0 && seatsTotal > 0;
-  const percentageAvailable = (seatsAvailable / seatsTotal) * 100;
+  const isFull = availableSeats === 0 && totalInventory > 0;
+  const percentageAvailable =
+    totalInventory > 0 ? (availableSeats / totalInventory) * 100 : 0;
 
   const BASE_CALENDARITEM_CLASSES = `
    min-w-[2.818rem] min-h-[2.813rem] md:min-h-[4.813rem] lg:h-[4.926rem] ${(index + 1) % 7 === 0 ? "lg:w-[6.12rem]" : "lg:w-[6.20rem]"} text-labelXLarge font-semibold "rounded-tl-[6px] rounded-bl-[20px] md:rounded-tl-[12px] md:rounded-bl-[40px] lg:rounded-tl-[6px] lg:rounded-bl-[24px]"
@@ -39,13 +39,13 @@ const CalendarItem = ({
     bgColor = "bg-[#ffffff] text-tertiary1-active hover:cursor-default";
   } else if (isFull) {
     bgColor = "bg-calendar-full text-tertiary1-light"; // Red if full
-  } else if (percentageAvailable > 50 && seatsTotal !== 0) {
+  } else if (percentageAvailable > 50 && totalInventory !== 0) {
     bgColor = "bg-calendar-open text-tertiary1-light"; // Green if many seats available
-  } else if (percentageAvailable <= 50 && seatsTotal !== 0) {
+  } else if (percentageAvailable <= 50 && totalInventory !== 0) {
     bgColor = "bg-calendar-limited text-tertiary1-light"; // Yellow if limited
   } else if (isToday && percentageAvailable !== null) {
     bgColor = "bg-primary-active text-tertiary1-light"; // light pink if today
-  } else if (seatsTotal === 0) {
+  } else if (totalInventory === 0) {
     bgColor = "bg-[#ffffff] hover:cursor-default"; // White if there is no event on this day
   } else {
     bgColor = "bg-[#ffffff] hover:cursor-default"; // White if nothing else matches
@@ -70,14 +70,14 @@ const CalendarItem = ({
         <p className="flex justify-center pt-3 md:h-auto md:absolute md:left-4 md:pt-4 text-labelLarge">
           {dayOfMonth}
         </p>
-        {seatsAvailable >= 0 && seatsTotal !== 0 && !isOtherMonth ? (
+        {availableSeats >= 0 && totalInventory !== 0 && !isOtherMonth ? (
           <div className="justify-end items-center md:gap-[4px] absolute bottom-3 md:right-2 hidden md:flex">
             <img
               src={icon}
               alt="attendants icon"
               className="object-center w-4 h-5"
             />
-            <p className="text-white text-labelMedium">{`${translations["calendar.seats"]}: ${seatsAvailable}`}</p>
+            <p className="text-white text-labelMedium">{`${translations["calendar.seats"]}: ${availableSeats}`}</p>
           </div>
         ) : null}
       </div>
@@ -89,8 +89,8 @@ CalendarItem.propTypes = {
   dayOfMonth: PropTypes.number.isRequired,
   icon: PropTypes.string,
   index: PropTypes.number.isRequired,
-  seatsTaken: PropTypes.number.isRequired,
-  seatsTotal: PropTypes.number.isRequired,
+  availableSeats: PropTypes.number,
+  totalInventory: PropTypes.number,
   onClick: PropTypes.func,
   isOtherMonth: PropTypes.bool,
   currentMonth: PropTypes.number,

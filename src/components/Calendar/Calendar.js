@@ -2,16 +2,26 @@ import React, { useState } from "react";
 import PropTypes from "prop-types";
 import CalendarItem from "./CalendarItem";
 import { useLanguage } from "@/context/LanguageContext";
+import { useEvents } from "@/context/EventsContext";
 import EventRegistrationModal from "../EventRegistrationModal/EventRegistrationModal";
 
 const Calendar = ({ currentYear, currentMonth }) => {
+  const { events } = useEvents();
+
   const [isMobile, setIsMobile] = React.useState(
     typeof window !== "undefined" && window.innerWidth < 1024,
   );
   const [isModalOpen, setIsModalOpen] = useState(true);
+  const [selectedEvent, setSelectedEvent] = useState(null);
 
   const handleCloseModal = () => {
     setIsModalOpen(false);
+    setSelectedEvent(null);
+  };
+
+  const handleOpenModal = (event) => {
+    setSelectedEvent(event);
+    setIsModalOpen(true);
   };
 
   React.useEffect(() => {
@@ -24,6 +34,17 @@ const Calendar = ({ currentYear, currentMonth }) => {
   }, []);
 
   const { translations } = useLanguage();
+
+  // Function to get an event for a specific day
+  const getEventForDay = (day, month, year) => {
+    if (!events || events.length === 0) return [];
+
+    // Format the date to match event.date format (YYYY-MM-DD)
+    const dateStr = `${year}-${String(month).padStart(2, "0")}-${String(day).padStart(2, "0")}`;
+
+    return events.find((event) => event.date === dateStr) || null;
+  };
+
   const generateCalendarDays = (month, year) => {
     function daysInMonth(month, year) {
       return new Date(year, month, 0).getDate();
@@ -98,17 +119,6 @@ const Calendar = ({ currentYear, currentMonth }) => {
     currentYear,
   );
 
-  // const randomSeatsTaken = calendarDaysCurrentMonth.map(() =>
-  //   Math.floor(Math.random() * 20),
-  // );
-
-  const randomSeatsTotal = [
-    0, 0, 0, 0, 0, 20, 20, 0, 0, 20, 0, 0, 0, 0, 20, 0, 20, 20, 20, 20, 0, 0, 0,
-    20, 20, 20, 0, 0, 0, 0, 20,
-  ];
-
-  randomSeatsTotal.slice(0, calendarDaysCurrentMonth.length);
-
   const weekdayStyle =
     "flex bg-primary-normal h-11 lg:h-16 justify-center items-center text-labelLarge md:text-titleMedium lg:text-labelLarge text-tertiary2-light";
 
@@ -121,19 +131,34 @@ const Calendar = ({ currentYear, currentMonth }) => {
             : translations[`calendar.weekday.${i + 1}`]}
         </div>
       ))}
-      {calendarDaysCurrentMonth.map((day, index) => (
-        <CalendarItem
-          key={index}
-          dayOfMonth={day.dayOfMonth}
-          index={index}
-          icon="./icons/users-2.svg"
-          seatsTaken={day ? Math.floor(Math.random() * 20 + 1) : 0} // Set `0` if `null`
-          seatsTotal={day ? randomSeatsTotal[day.dayOfMonth - 1] : 0} // Avoid index errors
-          isOtherMonth={day.isOtherMonth}
-          currentMonth={currentMonth}
+      {calendarDaysCurrentMonth.map((day, index) => {
+        // Get event for this day
+        const event = !day.isOtherMonth
+          ? getEventForDay(day.dayOfMonth, currentMonth, currentYear)
+          : null;
+
+        return (
+          <CalendarItem
+            key={index}
+            dayOfMonth={day.dayOfMonth}
+            index={index}
+            icon="./icons/users-2.svg"
+            availableSeats={event ? event.availableSeats : 0}
+            totalInventory={event ? event.totalInventory : 0}
+            isOtherMonth={day.isOtherMonth}
+            currentMonth={currentMonth}
+            hasEvents={!!event}
+            onClick={() => event && handleOpenModal(event)}
+          />
+        );
+      })}
+      {selectedEvent && (
+        <EventRegistrationModal
+          onClose={handleCloseModal}
+          isOpen={isModalOpen}
+          event={selectedEvent}
         />
-      ))}
-      <EventRegistrationModal onClose={handleCloseModal} isOpen={isModalOpen} />
+      )}
     </section>
   );
 };

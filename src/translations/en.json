@@ -127,6 +127,8 @@
   "calendar.weekday.6-short": "Sat",
   "calendar.weekday.7-short": "Sun",
   "calendar.seats": "Seats",
+  "calendar.loading": "Loading events...",
+  "events.error.loading": "Failed to load events. Please try again later.",
   "common.loading": "Loading...",
   "common.submitting": "Submitting...",
   "events-header.h1": "Secure your spot for our upcoming events",
