@@ -5,12 +5,17 @@ import EventRegistrationModal from "@/components/EventRegistrationModal/EventReg
 describe("EventRegistrationModal", () => {
   const eventDetails = {
     title: "Test Event Title",
-    seatsAvailable: "2/20",
+    availableSeats: 2,
+    totalInventory: 20,
     location: "Test Location",
     date: "April 12, 2025",
-    time: "From 8.00 pm to 11.00 pm",
-    pricePerPerson: 50,
+    timeStart: "2025-04-12T20:00:00.000",
+    timeEnd: "2025-04-12T23:00:00.000",
+    price: 50,
+    currency: "DKK",
     description: "Test event description.",
+    wineDescription: "Test wine description",
+    menuDescription: "Test menu description",
   };
 
   it("does not render if isOpen is false", () => {
@@ -32,11 +37,12 @@ describe("EventRegistrationModal", () => {
         eventDetails={eventDetails}
       />,
     );
-    expect(screen.getByText("Test Event Title")).toBeInTheDocument();
+    // Check for the fixed title instead of the event title
+    expect(screen.getByText("🍷✨Event's details ✨🍷")).toBeInTheDocument();
     expect(screen.getByText("Test Location")).toBeInTheDocument();
     expect(screen.getByText("April 12, 2025")).toBeInTheDocument();
-    expect(screen.getByText("From 8.00 pm to 11.00 pm")).toBeInTheDocument();
-    expect(screen.getByText("From 50 kr. per person")).toBeInTheDocument();
+    expect(screen.getByText("From 8:00 PM to 11:00 PM")).toBeInTheDocument();
+    expect(screen.getByText("From 50 DKK per person")).toBeInTheDocument();
   });
 
   it("calls onClose when Close button is clicked", () => {
@@ -54,7 +60,7 @@ describe("EventRegistrationModal", () => {
   });
 
   it("disables the Pay with MobilePay button when availableSeats is 0", () => {
-    const eventDetailsNoSeats = { ...eventDetails, seatsAvailable: "0/20" };
+    const eventDetailsNoSeats = { ...eventDetails, availableSeats: 0 };
     render(
       <EventRegistrationModal
         isOpen={true}
