@@ -36,6 +36,13 @@ export function transformShopifyProduct(product) {
   // Extract metafield values, providing fallbacks for missing data
   const getMetafieldValue = (metafield) => metafield?.value || null;
 
+  // Convert UTC time strings to local time strings
+  const convertUTCtoLocal = (utcTimeString) => {
+    if (!utcTimeString) return null;
+    const date = new Date(utcTimeString);
+    return date.toISOString().replace("Z", "");
+  };
+
   const transformedProduct = {
     id: product.id,
     title: product.title,
@@ -48,10 +55,12 @@ export function transformShopifyProduct(product) {
     availableSeats: quantityAvailable,
     // Event specific fields
     date: getMetafieldValue(product.date),
-    menu: getMetafieldValue(product.menu),
+    menuDescription: getMetafieldValue(product.menuDescription),
+    wineDescription: getMetafieldValue(product.wineDescription),
     winery: getMetafieldValue(product.winery),
-    timeStart: getMetafieldValue(product.timeStart),
-    timeEnd: getMetafieldValue(product.timeEnd),
+    wine: getMetafieldValue(product.wine),
+    timeStart: convertUTCtoLocal(getMetafieldValue(product.timeStart)),
+    timeEnd: convertUTCtoLocal(getMetafieldValue(product.timeEnd)),
     location: getMetafieldValue(product.location),
   };
 
