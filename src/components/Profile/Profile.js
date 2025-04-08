@@ -119,6 +119,17 @@ const Profile = () => {
                 value={values.country}
                 onChange={handleChange}
                 onBlur={handleBlur}
+                isDropdown={true}
+                options={[
+                  {
+                    label: translations["profile.country.sweden"],
+                    value: "se",
+                  },
+                  {
+                    label: translations["profile.country.denmark"],
+                    value: "dk",
+                  },
+                ]}
                 data-testid="input-country"
                 aria-label="Country"
                 error={touched.country && errors.country}

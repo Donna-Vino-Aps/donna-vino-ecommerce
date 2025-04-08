@@ -148,6 +148,8 @@
   "profile.placeholder.password": "Password",
   "profile.placeholder.address": "Address",
   "profile.placeholder.country": "Country",
+  "profile.country.sweden": "Sweden",
+  "profile.country.denmark": "Denmark",
   "profile.button.edit": "Edit",
   "profile.button.save": "Save"
 }

@@ -14,6 +14,8 @@ const TextInput = ({
   icon,
   showPasswordToggle = false,
   isDate = false,
+  isDropdown = false,
+  options = [],
   error,
   visuallyHiddenLabel = false,
 }) => {
@@ -49,8 +51,8 @@ const TextInput = ({
         {placeholder || `Enter your ${name}`}
       </label>
 
-      {/* Non-date input */}
-      {!isDate ? (
+      {/* Non-date or dropdown input */}
+      {!isDate && !isDropdown ? (
         <div className="relative">
           {icon && (
             <div className="absolute left-3 top-1/2 transform -translate-y-1/2">
@@ -71,8 +73,7 @@ const TextInput = ({
             data-testid={`input-${name}`}
             className={`w-full py-3 px-5 border rounded-lg bg-white text-tertiary1-darker focus:outline-none focus:ring-1
               ${error ? "border-primary-normal focus:ring-primary-hover" : "border-tertiary2-active_normal focus:ring-tertiary1-active"}
-              ${icon ? "pl-12" : ""}
-              ${showPasswordToggle ? "pr-10" : ""}`}
+              ${icon ? "pl-12" : ""} ${showPasswordToggle ? "pr-10" : ""}`}
           />
 
           {/* Password toggle */}
@@ -89,6 +90,33 @@ const TextInput = ({
           )}
 
           {/* Error message */}
+          {error && (
+            <div className="text-xs text-primary-normal mt-1">{error}</div>
+          )}
+        </div>
+      ) : isDropdown ? (
+        // Dropdown input
+        <div className="relative">
+          <select
+            name={name}
+            id={name}
+            value={value}
+            onChange={onChange}
+            onBlur={onBlur}
+            aria-labelledby={labelId}
+            aria-label={visuallyHiddenLabel ? undefined : placeholder}
+            data-testid={`dropdown-${name}`}
+            className={`w-full py-3 px-5 border rounded-lg bg-white text-tertiary1-darker focus:outline-none focus:ring-1
+              ${error ? "border-primary-normal focus:ring-primary-hover" : "border-tertiary2-active_normal focus:ring-tertiary1-active"}`}
+          >
+            {options.map((option, index) => (
+              <option key={index} value={option.value}>
+                {option.label}
+              </option>
+            ))}
+          </select>
+
+          {/* Error message for dropdown */}
           {error && (
             <div className="text-xs text-primary-normal mt-1">{error}</div>
           )}
@@ -195,6 +223,8 @@ TextInput.propTypes = {
   icon: PropTypes.element,
   showPasswordToggle: PropTypes.bool,
   isDate: PropTypes.bool,
+  isDropdown: PropTypes.bool,
+  options: PropTypes.array,
   error: PropTypes.string,
   visuallyHiddenLabel: PropTypes.bool,
 };
@@ -205,6 +235,8 @@ TextInput.defaultProps = {
   icon: null,
   showPasswordToggle: false,
   isDate: false,
+  isDropdown: false,
+  options: [],
   error: null,
   visuallyHiddenLabel: false,
 };
