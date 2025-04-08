@@ -7,7 +7,7 @@ import { useLanguage } from "@/context/LanguageContext";
 const Profile = () => {
   const { translations } = useLanguage();
   return (
-    <div className="flex flex-col bg-white rounded-2xl justify-center items-center p-8 sm:p-10 md:p-12 lg:p-14 lg:max-w-[47.75rem] xl:p-16 shadow-lg my-8">
+    <div className="flex flex-col bg-white rounded-2xl justify-center items-center p-8 sm:p-10 md:p-12 lg:p-14 md:max-w-[47.75rem] xl:p-16 shadow-lg my-8">
       <img
         src="/images/donna-vino-logo-transparent.png"
         alt="Donna Vino logo"
@@ -21,11 +21,11 @@ const Profile = () => {
         />
         <img
           src="/icons/Edit profile pic.svg"
-          className="relative w-6 h-6 bottom-8 left-[6.75rem]"
+          className="relative w-6 h-6 bottom-[2.125rem] left-[6.8rem]"
         />
       </div>
       <h2 className="text-displaySmall">Davide Rossi</h2>
-      <p className="text-labelLarge my-2">Denmark</p>
+      <p className="text-labelLarge mt-2 mb-5 md:mt-4 md:mb-7">Denmark</p>
       <h3 className="text-headlineSmall self-start mb-4">Personal Details</h3>
       <Formik
         initialValues={{
@@ -135,7 +135,7 @@ const Profile = () => {
                 error={touched.country && errors.country}
               />
             </div>
-            <div className="w-full mt-4">
+            <div className="relative top-1 md:top-4 w-full mt-4">
               <Button
                 text={
                   isSubmitting
