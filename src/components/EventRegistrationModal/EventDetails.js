@@ -1,7 +1,8 @@
 import React from "react";
 import PropTypes from "prop-types";
 import InfoCard from "./InfoCard";
-import { format } from "date-fns";
+import { format, parseISO } from "date-fns";
+import { logError } from "@/utils/logging";
 
 function EventDetails({ eventDetails = {} }) {
   const {
@@ -21,13 +22,33 @@ function EventDetails({ eventDetails = {} }) {
     images = [],
   } = eventDetails;
 
-  // Format time for display
   const formatTime = (timeString) => {
     if (!timeString) return "";
-    const date = new Date(timeString);
-    return format(date, "h:mm a");
+
+    try {
+      if (timeString instanceof Date) {
+        return format(timeString, "h:mm a");
+      }
+      return String(timeString);
+    } catch (error) {
+      logError("Error formatting time:", error.message);
+      return String(timeString);
+    }
   };
 
+  const formatDate = (dateString) => {
+    if (!dateString) return "";
+
+    try {
+      const date = parseISO(dateString);
+      return format(date, "MMMM, do, yyyy");
+    } catch (error) {
+      logError("Error formatting date:", error.message);
+      return String(dateString);
+    }
+  };
+
+  const formattedDate = formatDate(date);
   const formattedTimeStart = formatTime(timeStart);
   const formattedTimeEnd = formatTime(timeEnd);
   const time =
@@ -36,7 +57,7 @@ function EventDetails({ eventDetails = {} }) {
       : "";
 
   // Format seats available
-  const seatsAvailable =
+  const seatsInfo =
     availableSeats && totalInventory
       ? `${availableSeats}/${totalInventory}`
       : "";
@@ -63,7 +84,7 @@ function EventDetails({ eventDetails = {} }) {
         <span
           className={`inline-block ${seatBgClass} ${seatTextClass} text-bodySmall px-4 py-1 rounded-full`}
         >
-          Seats available {seatsAvailable}
+          Seats available {seatsInfo}
         </span>
         <div className="flex items-center gap-2 justify-center">
           <img src="/icons/pin.svg" alt="Location icon" className="h-6 w-6" />
@@ -75,7 +96,7 @@ function EventDetails({ eventDetails = {} }) {
             alt="Calendar icon"
             className="h-6 w-6"
           />
-          <p>{date}</p>
+          <p>{formattedDate}</p>
         </div>
         <div className="flex items-center gap-2 justify-center">
           <img
