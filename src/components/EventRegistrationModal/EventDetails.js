@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import InfoCard from "./InfoCard";
 import { format, parseISO } from "date-fns";
-import { logError } from "@/utils/logging";
+import { logError, logInfo } from "@/utils/logging";
 
 function EventDetails({ eventDetails = {} }) {
   const {
@@ -21,6 +21,10 @@ function EventDetails({ eventDetails = {} }) {
     winery = "",
     images = [],
   } = eventDetails;
+
+  const wineImage = images.find((img) => img.url?.includes("wine.jpg")) || {};
+  const dinnerImage =
+    images.find((img) => img.url?.includes("dinner.jpg")) || {};
 
   const formatTime = (timeString) => {
     if (!timeString) return "";
@@ -119,7 +123,8 @@ function EventDetails({ eventDetails = {} }) {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
         <InfoCard
           title="Our Wines"
-          imageUrl="/images/wines.svg"
+          imageUrl={wineImage.url || "/images/wines.svg"}
+          imageAlt={wineImage.altText || "Wine image"}
           description={wineDescription}
           winery={winery}
           wine={wine}
@@ -128,7 +133,8 @@ function EventDetails({ eventDetails = {} }) {
 
         <InfoCard
           title="Our Dinner Menu"
-          imageUrl="/images/dinner.svg"
+          imageUrl={dinnerImage.url || "/images/dinner.svg"}
+          imageAlt={dinnerImage.altText || "Dinner menu image"}
           description={menuDescription}
           bgClass="bg-primary-active"
         />
@@ -157,7 +163,13 @@ EventDetails.propTypes = {
     menuDescription: PropTypes.string,
     wine: PropTypes.string,
     winery: PropTypes.string,
-    images: PropTypes.array,
+    images: PropTypes.arrayOf(
+      PropTypes.shape({
+        id: PropTypes.string,
+        url: PropTypes.string,
+        altText: PropTypes.string,
+      }),
+    ),
   }),
 };
 
