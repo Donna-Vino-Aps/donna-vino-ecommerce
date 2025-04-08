@@ -3,7 +3,8 @@ import PropTypes from "prop-types";
 import EventDetails from "./EventDetails";
 import Registration from "./Registration";
 
-function EventRegistrationModal({ isOpen, onClose, eventDetails = {} }) {
+function EventRegistrationModal({ isOpen, onClose, event = {} }) {
+  const eventDetails = event;
   const modalRef = useRef(null);
 
   useEffect(() => {
@@ -48,7 +49,7 @@ function EventRegistrationModal({ isOpen, onClose, eventDetails = {} }) {
 EventRegistrationModal.propTypes = {
   isOpen: PropTypes.bool.isRequired,
   onClose: PropTypes.func.isRequired,
-  eventDetails: PropTypes.object,
+  event: PropTypes.object,
 };
 
 export default EventRegistrationModal;
