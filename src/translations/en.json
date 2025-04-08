@@ -141,5 +141,13 @@
   "events-header.card2-h": "Select date and seats",
   "events-header.card2-p": "Click on the date to view event details, including the selected wines and dinner menu. Then, choose your seats and proceed to the final step.",
   "events-header.card3-h": "Payment and confirmation",
-  "events-header.card3-p": "After selecting an available date, review the menu and wines for the event. You’ll then be prompted to make a payment via MobilePay to reserve your seat(s). A confirmation message will be sent once your reservation is complete."
+  "events-header.card3-p": "After selecting an available date, review the menu and wines for the event. You’ll then be prompted to make a payment via MobilePay to reserve your seat(s). A confirmation message will be sent once your reservation is complete.",
+  "profile.placeholder.firstName": "First name",
+  "profile.placeholder.lastName": "Last name",
+  "profile.placeholder.email": "Email",
+  "profile.placeholder.password": "Password",
+  "profile.placeholder.address": "Address",
+  "profile.placeholder.country": "Country",
+  "profile.button.edit": "Edit",
+  "profile.button.save": "Save"
 }
