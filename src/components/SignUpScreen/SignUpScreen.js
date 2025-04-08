@@ -4,7 +4,7 @@ import { useLanguage } from "@/context/LanguageContext";
 import useFetch from "../../hooks/api/useFetch";
 import { logError } from "../../utils/logging";
 import Button from "../Button/Button";
-import TextInputSignUpScreen from "../SignUpScreen/TextInputSignUpScreen";
+import TextInput from "../TextInput/TextInput";
 import dayjs from "dayjs";
 import { createSignUpSchema } from "@/validation/signUpSchema";
 import { useRouter } from "next/navigation";
@@ -140,7 +140,7 @@ const SignUpScreen = () => {
                 </h3>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 mb-8">
-                  <TextInputSignUpScreen
+                  <TextInput
                     type="text"
                     name="firstName"
                     placeholder={translations["signUp.placeholder.firstName"]}
@@ -152,7 +152,7 @@ const SignUpScreen = () => {
                     error={touched.firstName && errors.firstName}
                   />
 
-                  <TextInputSignUpScreen
+                  <TextInput
                     type="text"
                     name="lastName"
                     placeholder={translations["signUp.placeholder.lastName"]}
@@ -164,7 +164,7 @@ const SignUpScreen = () => {
                     error={touched.lastName && errors.lastName}
                   />
 
-                  <TextInputSignUpScreen
+                  <TextInput
                     type="email"
                     name="email"
                     placeholder={translations["signUp.placeholder.email"]}
@@ -176,7 +176,7 @@ const SignUpScreen = () => {
                     error={touched.email && errors.email}
                   />
 
-                  <TextInputSignUpScreen
+                  <TextInput
                     type="email"
                     name="confirmEmail"
                     placeholder={
@@ -190,7 +190,7 @@ const SignUpScreen = () => {
                     error={touched.confirmEmail && errors.confirmEmail}
                   />
 
-                  <TextInputSignUpScreen
+                  <TextInput
                     type="password"
                     name="password"
                     placeholder={translations["signUp.placeholder.password"]}
@@ -203,7 +203,7 @@ const SignUpScreen = () => {
                     error={touched.password && errors.password}
                   />
 
-                  <TextInputSignUpScreen
+                  <TextInput
                     type="password"
                     name="confirmPassword"
                     placeholder={
@@ -218,7 +218,7 @@ const SignUpScreen = () => {
                     error={touched.confirmPassword && errors.confirmPassword}
                   />
 
-                  <TextInputSignUpScreen
+                  <TextInput
                     type="text"
                     name="birthdate"
                     id="birthdate"
@@ -237,7 +237,7 @@ const SignUpScreen = () => {
                     error={touched.birthdate && errors.birthdate}
                   />
 
-                  <div className="relative group inline-block align-top">
+                  <div className="relative group inline-block align-top top-7">
                     <div className="relative w-[30px] h-[30px] z-30 rounded-full bg-primary-light flex items-center justify-center group-hover:w-[45px] group-hover:h-[45px] transition-all duration-200 cursor-pointer">
                       <span className="z-40 text-tertiary1-darker text-labelXLarge group-hover:text-titleLarge">
                         ?
