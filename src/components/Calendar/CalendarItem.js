@@ -4,23 +4,24 @@ import React from "react";
 import PropTypes from "prop-types";
 import { useLanguage } from "@/context/LanguageContext";
 
-const BASE_CALENDARITEM_CLASSES = `
-   min-w-[2.818rem] min-h-[2.813rem] md:min-h-[4.813rem] lg:h-[7.9rem] lg:w-[12.45rem] text-labelXLarge font-semibold "rounded-tl-[6px] rounded-bl-[20px] md:rounded-tl-[12px] md:rounded-bl-[40px] lg:rounded-tl-[16px] lg:rounded-bl-[62.5px]"
-`;
-
 const CalendarItem = ({
   dayOfMonth,
   icon,
-  seatsTaken = 0,
-  seatsTotal = 0,
+  index,
+  availableSeats = 0,
+  totalInventory = 0,
   onClick,
   isOtherMonth,
   currentMonth,
 }) => {
   const { translations } = useLanguage();
-  const seatsAvailable = seatsTotal - seatsTaken;
-  const isFull = seatsAvailable === 0 && seatsTotal > 0;
-  const percentageAvailable = (seatsAvailable / seatsTotal) * 100;
+  const isFull = availableSeats === 0 && totalInventory > 0;
+  const percentageAvailable =
+    totalInventory > 0 ? (availableSeats / totalInventory) * 100 : 0;
+
+  const BASE_CALENDARITEM_CLASSES = `
+   min-w-[2.818rem] min-h-[2.813rem] md:min-h-[4.813rem] lg:h-[4.926rem] ${(index + 1) % 7 === 0 ? "lg:w-[6.12rem]" : "lg:w-[6.20rem]"} text-labelXLarge font-semibold "rounded-tl-[6px] rounded-bl-[20px] md:rounded-tl-[12px] md:rounded-bl-[40px] lg:rounded-tl-[6px] lg:rounded-bl-[24px]"
+`;
 
   // Get today's date
   const today = new Date();
@@ -35,19 +36,19 @@ const CalendarItem = ({
 
   let bgColor;
   if (isOtherMonth) {
-    bgColor = "bg-[#ffffff] text-tertiary1-active";
+    bgColor = "bg-[#ffffff] text-tertiary1-active hover:cursor-default";
   } else if (isFull) {
     bgColor = "bg-calendar-full text-tertiary1-light"; // Red if full
-  } else if (percentageAvailable > 50 && seatsTotal !== 0) {
+  } else if (percentageAvailable > 50 && totalInventory !== 0) {
     bgColor = "bg-calendar-open text-tertiary1-light"; // Green if many seats available
-  } else if (percentageAvailable <= 50 && seatsTotal !== 0) {
+  } else if (percentageAvailable <= 50 && totalInventory !== 0) {
     bgColor = "bg-calendar-limited text-tertiary1-light"; // Yellow if limited
   } else if (isToday && percentageAvailable !== null) {
     bgColor = "bg-primary-active text-tertiary1-light"; // light pink if today
-  } else if (seatsTotal === 0) {
-    bgColor = "bg-[#ffffff]"; // White if there is no event on this day
+  } else if (totalInventory === 0) {
+    bgColor = "bg-[#ffffff] hover:cursor-default"; // White if there is no event on this day
   } else {
-    bgColor = "bg-[#ffffff]"; // White if nothing else matches
+    bgColor = "bg-[#ffffff] hover:cursor-default"; // White if nothing else matches
   }
 
   const calendarItemClass = `
@@ -57,8 +58,7 @@ const CalendarItem = ({
 
   return (
     <article
-      className={`relative min-w-[2.818rem] min-h-[2.813rem] lg:h-[7.938rem] lg:w-[12.5rem] bg-white border-tertiary1-light border-t-[1px] border-x
-        ${seatsTotal === 0 ? "hover:cursor-default" : "hover:cursor-pointer"} 
+      className={`relative min-w-[2.818rem] min-h-[2.813rem] lg:h-[4.976rem] lg:w-[6.22rem] bg-white border-tertiary1-light border-t-[1px] border-x-[1px] 
         ${isFull ? "hover:cursor-not-allowed" : "hover:cursor-pointer"} 
        `}
       onClick={onClick}
@@ -67,19 +67,19 @@ const CalendarItem = ({
         className={`${calendarItemClass} 
         `}
       >
-        <p className="flex justify-center pt-3 md:pt-7 lg:pt-0 lg:h-auto lg:absolute lg:top-5 lg:left-4 text-labelLarge lg:text-labelXLarge">
+        <p className="flex justify-center pt-3 md:h-auto md:absolute md:left-4 md:pt-4 text-labelLarge">
           {dayOfMonth}
         </p>
-        {seatsAvailable > 0 && seatsTotal === 0 ? null : (
-          <div className="flex justify-end items-center lg:gap-[4px] xl:gap-[6px] absolute bottom-3 lg:right-14 lg:mr-1 xl:mr-0 xl:right-6 hidden lg:flex">
+        {availableSeats >= 0 && totalInventory !== 0 && !isOtherMonth ? (
+          <div className="justify-end items-center md:gap-[4px] absolute bottom-3 md:right-2 hidden md:flex">
             <img
               src={icon}
               alt="attendants icon"
-              className="object-center lg:w-5 lg:h-5 xl:w-6 xl:h-6 relative bottom-1"
+              className="object-center w-4 h-5"
             />
-            <p className="text-white lg:relative lg:bottom-[2px] lg:text-labelLarge xl:text-labelXLarge">{`${translations["calendar.seats"]}: ${seatsAvailable}`}</p>
+            <p className="text-white text-labelMedium">{`${translations["calendar.seats"]}: ${availableSeats}`}</p>
           </div>
-        )}
+        ) : null}
       </div>
     </article>
   );
@@ -88,8 +88,9 @@ const CalendarItem = ({
 CalendarItem.propTypes = {
   dayOfMonth: PropTypes.number.isRequired,
   icon: PropTypes.string,
-  seatsTaken: PropTypes.number.isRequired,
-  seatsTotal: PropTypes.number.isRequired,
+  index: PropTypes.number.isRequired,
+  availableSeats: PropTypes.number,
+  totalInventory: PropTypes.number,
   onClick: PropTypes.func,
   isOtherMonth: PropTypes.bool,
   currentMonth: PropTypes.number,
