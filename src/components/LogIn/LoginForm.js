@@ -7,7 +7,6 @@ import { useRouter } from "next/navigation";
 import { MdOutlineEmail, MdLockOutline } from "react-icons/md";
 import Button from "../Button/Button.js";
 import Link from "next/link";
-import TextInputLoginScreen from "../SignUpScreen/TextInputSignUpScreen";
 import { logInfo, logError } from "../../utils/logging";
 import GoogleAuth from "../GoogleAuth/GoogleAuth";
 import { mapBackendMessage } from "@/services/messageMap";
@@ -136,32 +135,11 @@ const LoginForm = () => {
                 <label className="text-labelLarge text-tertiary1-normal font-medium font-barlow self-start">
                   {translations["logIn.label-mail"]}
                 </label>
-                <TextInputLoginScreen
-                  name="email"
-                  placeholder={translations["logIn.placeholder-mail"]}
-                  value={values.email}
-                  onChange={handleChange}
-                  onBlur={handleBlur}
-                  icon={<MdOutlineEmail />}
-                  dataTestId="login-input-email"
-                />
               </div>
               <div className="space-y-1 w-[17.5rem] md:w-[18rem] lg:w-[25rem]">
                 <label className="text-labelLarge text-tertiary1-normal font-barlow font-medium self-start">
                   {translations["logIn.label-password"]}
                 </label>
-                <TextInputLoginScreen
-                  type="password"
-                  name="password"
-                  placeholder={translations["logIn.placeholder-password"]}
-                  value={values.password}
-                  onChange={handleChange}
-                  onBlur={handleBlur}
-                  icon={<MdLockOutline />}
-                  showPasswordToggle={true}
-                  data-testid="login-input-password"
-                  aria-label="Password"
-                />
               </div>
               <div className="w-[17.5rem] md:w-[18rem] lg:w-[25rem] flex flex-col space-y-4">
                 <Button

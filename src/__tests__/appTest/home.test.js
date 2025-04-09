@@ -26,6 +26,23 @@ describe("Home Page", () => {
       </GoogleOAuthProvider>,
     );
   };
+  const originalWarn = console.warn;
+
+  beforeAll(() => {
+    console.warn = (...args) => {
+      if (
+        typeof args[0] === "string" &&
+        args[0].includes("Swiper Loop Warning")
+      ) {
+        return;
+      }
+      originalWarn(...args);
+    };
+  });
+
+  afterAll(() => {
+    console.warn = originalWarn;
+  });
 
   beforeEach(() => {
     useRouter.mockReturnValue({

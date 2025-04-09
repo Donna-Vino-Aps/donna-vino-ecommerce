@@ -34,7 +34,7 @@ jest.mock("@/context/LanguageContext", () => {
 });
 
 jest.mock("@/components/Button/Button", () =>
-  jest.fn((props) => <button {...props}>{props.text}</button>),
+  jest.fn(({ linkUrl, ...rest }) => <button {...rest}>{rest.text}</button>),
 );
 
 describe("HeroSlider Component", () => {

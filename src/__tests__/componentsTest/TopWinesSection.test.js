@@ -4,6 +4,24 @@ import "@testing-library/jest-dom";
 import TopWinesSection from "@/components/Slider/TopWinesSection";
 
 describe("TopWinesSection", () => {
+  const originalWarn = console.warn;
+
+  beforeAll(() => {
+    console.warn = (...args) => {
+      if (
+        typeof args[0] === "string" &&
+        args[0].includes("Swiper Loop Warning")
+      ) {
+        return;
+      }
+      originalWarn(...args);
+    };
+  });
+
+  afterAll(() => {
+    console.warn = originalWarn;
+  });
+
   test("renders the title, subtitle, and description", () => {
     render(<TopWinesSection />);
     expect(screen.getByText(/Most Popular Products/i)).toBeInTheDocument();
