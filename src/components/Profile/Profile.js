@@ -144,7 +144,7 @@ const Profile = () => {
                 }
                 onClick={handleSubmit}
                 icon="/icons/pencil.svg"
-                variant="greenSubmit"
+                variant="greenEdit"
                 disabled={isSubmitting}
                 data-testid="edit-button"
                 aria-label="Edit Profile Page"

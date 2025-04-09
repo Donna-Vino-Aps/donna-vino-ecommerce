@@ -106,7 +106,7 @@ const TextInput = ({
             aria-labelledby={labelId}
             aria-label={visuallyHiddenLabel ? undefined : placeholder}
             data-testid={`dropdown-${name}`}
-            className={`w-full py-3 px-5 border rounded-lg bg-white text-tertiary1-darker focus:outline-none focus:ring-1
+            className={`w-full py-[14px] px-5 border rounded-lg bg-white text-tertiary1-darker font-barlow focus:outline-none focus:ring-1
               ${error ? "border-primary-normal focus:ring-primary-hover" : "border-tertiary2-active_normal focus:ring-tertiary1-active"}`}
           >
             {options.map((option, index) => (
