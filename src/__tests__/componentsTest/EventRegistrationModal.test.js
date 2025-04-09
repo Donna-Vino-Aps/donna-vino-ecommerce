@@ -1,68 +1,103 @@
 import React from "react";
 import { render, screen, fireEvent } from "@testing-library/react";
 import EventRegistrationModal from "@/components/EventRegistrationModal/EventRegistrationModal";
+import EventDetails from "@/components/EventRegistrationModal/EventDetails";
+import Registration from "@/components/EventRegistrationModal/Registration";
+
+jest.mock("@/components/EventRegistrationModal/EventDetails", () => {
+  return jest.fn(() => (
+    <div data-testid="event-details-mock">Event Details Component</div>
+  ));
+});
+
+jest.mock("@/components/EventRegistrationModal/Registration", () => {
+  return jest.fn(() => (
+    <div data-testid="registration-mock">Registration Component</div>
+  ));
+});
 
 describe("EventRegistrationModal", () => {
-  const eventDetails = {
-    title: "Test Event Title",
-    seatsAvailable: "2/20",
-    location: "Test Location",
-    date: "April 12, 2025",
-    time: "From 8.00 pm to 11.00 pm",
-    pricePerPerson: 50,
-    description: "Test event description.",
+  const mockEvent = {
+    title: "Test Event",
+    price: 50,
+    currency: "DKK",
+    availableSeats: 5,
   };
 
-  it("does not render if isOpen is false", () => {
+  const mockOnClose = jest.fn();
+
+  beforeEach(() => {
+    jest.clearAllMocks();
+  });
+
+  it("does not render when isOpen is false", () => {
     const { container } = render(
       <EventRegistrationModal
         isOpen={false}
-        onClose={jest.fn()}
-        eventDetails={eventDetails}
+        onClose={mockOnClose}
+        event={mockEvent}
       />,
     );
     expect(container.firstChild).toBeNull();
   });
 
-  it("renders event details when isOpen is true", () => {
+  it("renders when isOpen is true", () => {
     render(
       <EventRegistrationModal
         isOpen={true}
-        onClose={jest.fn()}
-        eventDetails={eventDetails}
+        onClose={mockOnClose}
+        event={mockEvent}
       />,
     );
-    expect(screen.getByText("Test Event Title")).toBeInTheDocument();
-    expect(screen.getByText("Test Location")).toBeInTheDocument();
-    expect(screen.getByText("April 12, 2025")).toBeInTheDocument();
-    expect(screen.getByText("From 8.00 pm to 11.00 pm")).toBeInTheDocument();
-    expect(screen.getByText("From 50 kr. per person")).toBeInTheDocument();
+
+    expect(screen.getByTestId("event-details-mock")).toBeInTheDocument();
+    expect(screen.getByTestId("registration-mock")).toBeInTheDocument();
   });
 
-  it("calls onClose when Close button is clicked", () => {
-    const onCloseMock = jest.fn();
+  it("passes event data to child components", () => {
     render(
       <EventRegistrationModal
         isOpen={true}
-        onClose={onCloseMock}
-        eventDetails={eventDetails}
+        onClose={mockOnClose}
+        event={mockEvent}
       />,
     );
-    const closeButton = screen.getByRole("button", { name: /close/i });
-    fireEvent.click(closeButton);
-    expect(onCloseMock).toHaveBeenCalledTimes(1);
+
+    expect(EventDetails.mock.calls[0][0]).toEqual({
+      eventDetails: mockEvent,
+    });
+
+    expect(Registration.mock.calls[0][0]).toEqual({
+      eventDetails: mockEvent,
+      onClose: mockOnClose,
+    });
   });
 
-  it("disables the Pay with MobilePay button when availableSeats is 0", () => {
-    const eventDetailsNoSeats = { ...eventDetails, seatsAvailable: "0/20" };
+  it("calls onClose when clicking outside the modal", () => {
     render(
       <EventRegistrationModal
         isOpen={true}
-        onClose={jest.fn()}
-        eventDetails={eventDetailsNoSeats}
+        onClose={mockOnClose}
+        event={mockEvent}
       />,
     );
-    const payButton = screen.getByRole("button", { name: /pay with/i });
-    expect(payButton).toBeDisabled();
+    fireEvent.mouseDown(document.body);
+
+    expect(mockOnClose).toHaveBeenCalledTimes(1);
+  });
+
+  it("does not call onClose when clicking inside the modal", () => {
+    render(
+      <EventRegistrationModal
+        isOpen={true}
+        onClose={mockOnClose}
+        event={mockEvent}
+      />,
+    );
+
+    const modalContent = screen.getByTestId("event-details-mock");
+    fireEvent.mouseDown(modalContent);
+
+    expect(mockOnClose).not.toHaveBeenCalled();
   });
 });

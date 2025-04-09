@@ -21,16 +21,22 @@ export const GET_COLLECTION_BY_HANDLE = `
             date: metafield(namespace: "event", key: "date") {
               value
             }
-            menu: metafield(namespace: "event", key: "menu") {
+            menuDescription: metafield(namespace: "event", key: "menuDescription") {
+              value
+            }
+            wineDescription: metafield(namespace: "event", key: "wineDescription") {
               value
             }
             winery: metafield(namespace: "event", key: "winery") {
               value
             }
-            timeStart: metafield(namespace: "event", key: "timeStart") {
+            wine: metafield(namespace: "event", key: "wine") {
               value
             }
-            timeEnd: metafield(namespace: "event", key: "timeEnd") {
+            timeStart: metafield(namespace: "event", key: "timestart") {
+              value
+            }
+            timeEnd: metafield(namespace: "event", key: "timeend") {
               value
             }
             location: metafield(namespace: "event", key: "location") {

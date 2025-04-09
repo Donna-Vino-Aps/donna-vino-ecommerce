@@ -1,6 +1,7 @@
 import { shopifyQuery } from "@/utils/shopify";
 import { GET_COLLECTION_BY_HANDLE } from "@/graphql/shopify-queries";
 import { logError } from "@/utils/logging";
+import { parseISO } from "date-fns";
 
 export async function getCollectionByHandle(handle) {
   try {
@@ -26,7 +27,8 @@ export function transformShopifyProduct(product) {
     })) || [];
 
   // Extract price data
-  const price = product.priceRange?.maxVariantPrice?.amount || null;
+  const priceString = product.priceRange?.maxVariantPrice?.amount || null;
+  const price = priceString ? parseFloat(priceString.replace(",", ".")) : null;
   const currency = product.priceRange?.maxVariantPrice?.currencyCode || "DKK";
 
   // Extract available seats
@@ -35,6 +37,19 @@ export function transformShopifyProduct(product) {
 
   // Extract metafield values, providing fallbacks for missing data
   const getMetafieldValue = (metafield) => metafield?.value || null;
+
+  // Convert UTC time strings to CEST time
+  const adjustTimeZone = (utcTimeString) => {
+    if (!utcTimeString) return null;
+
+    try {
+      const date = parseISO(utcTimeString);
+      return date;
+    } catch (error) {
+      logError("Error handling time:", error);
+      return utcTimeString;
+    }
+  };
 
   const transformedProduct = {
     id: product.id,
@@ -48,10 +63,12 @@ export function transformShopifyProduct(product) {
     availableSeats: quantityAvailable,
     // Event specific fields
     date: getMetafieldValue(product.date),
-    menu: getMetafieldValue(product.menu),
+    menuDescription: getMetafieldValue(product.menuDescription),
+    wineDescription: getMetafieldValue(product.wineDescription),
     winery: getMetafieldValue(product.winery),
-    timeStart: getMetafieldValue(product.timeStart),
-    timeEnd: getMetafieldValue(product.timeEnd),
+    wine: getMetafieldValue(product.wine),
+    timeStart: adjustTimeZone(getMetafieldValue(product.timeStart)),
+    timeEnd: adjustTimeZone(getMetafieldValue(product.timeEnd)),
     location: getMetafieldValue(product.location),
   };
 
