@@ -29,7 +29,7 @@ function EventDetails({ eventDetails = {} }) {
 
     try {
       if (timeString instanceof Date) {
-        return format(timeString, "h:mm a");
+        return format(timeString, "h:mm aaa");
       }
       return String(timeString);
     } catch (error) {
@@ -81,7 +81,7 @@ function EventDetails({ eventDetails = {} }) {
         🍷✨Event's details ✨🍷
       </h2>
 
-      <div className="flex flex-col items-start md:items-center gap-4 mb-6 text-titleMedium text-tertiary2-darker text-center">
+      <div className="flex flex-col items-start md:items-center gap-4 mb-6 text-titleMedium text-tertiary2-darker">
         <span
           className={`inline-block ${seatBgClass} ${seatTextClass} self-center text-labelXLarge font-semibold px-6 py-3 rounded-full`}
         >
