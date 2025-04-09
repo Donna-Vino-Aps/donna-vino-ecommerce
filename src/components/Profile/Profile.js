@@ -7,7 +7,7 @@ import { useLanguage } from "@/context/LanguageContext";
 const Profile = () => {
   const { translations } = useLanguage();
   return (
-    <div className="flex flex-col bg-white rounded-2xl justify-center items-center p-12 md:p-14 lg:p-14 md:max-w-[47.75rem] xl:p-16 shadow-lg my-8">
+    <div className="flex flex-col bg-white rounded-2xl justify-center items-center py-8 px-6 min-w-[22.5rem] md:px-8 md:min-w-[47.75rem] shadow-lg my-8">
       <img
         src="/images/donna-vino-logo-transparent.png"
         alt="Donna Vino logo"
@@ -49,8 +49,8 @@ const Profile = () => {
           touched,
           isSubmitting,
         }) => (
-          <form onSubmit={handleSubmit}>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 mb-8">
+          <form onSubmit={handleSubmit} className="w-full">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-4 mb-8">
               <TextInput
                 type="text"
                 name="firstName"
@@ -143,11 +143,11 @@ const Profile = () => {
                     : translations["profile.button.edit"]
                 }
                 onClick={handleSubmit}
-                icon="/icons/Pencil.svg"
+                icon="/icons/pencil.svg"
                 variant="greenSubmit"
                 disabled={isSubmitting}
-                data-testid="submit-button"
-                aria-label="Submit Sign Up"
+                data-testid="edit-button"
+                aria-label="Edit Profile Page"
               />
             </div>
           </form>
