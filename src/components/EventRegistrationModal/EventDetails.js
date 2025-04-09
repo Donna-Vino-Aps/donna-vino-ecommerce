@@ -17,8 +17,6 @@ function EventDetails({ eventDetails = {} }) {
     description = "",
     wineDescription = "",
     menuDescription = "",
-    wine = "",
-    winery = "",
     images = [],
   } = eventDetails;
 
@@ -126,8 +124,6 @@ function EventDetails({ eventDetails = {} }) {
           imageUrl={wineImage.url || "/images/wines.svg"}
           imageAlt={wineImage.altText || "Wine image"}
           description={wineDescription}
-          winery={winery}
-          wine={wine}
           bgClass="bg-primary-light"
         />
 
