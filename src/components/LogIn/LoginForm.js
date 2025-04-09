@@ -90,7 +90,9 @@ const LoginForm = () => {
       });
       setStoredCredentials(user);
       logInfo(
-        `User saved in localStorage: ${localStorage.getItem("userCredentials")}`,
+        `User saved in localStorage: ${localStorage.getItem(
+          "userCredentials",
+        )}`,
       );
     } catch (error) {
       logError(error);
@@ -182,7 +184,13 @@ const LoginForm = () => {
                 data-testid="login-message"
               >
                 <p
-                  className={`text-labelLarge text-center ${loading ? "text-black" : success ? "text-green-500" : "text-red-500"}`}
+                  className={`text-labelLarge text-center ${
+                    loading
+                      ? "text-black"
+                      : success
+                        ? "text-green-500"
+                        : "text-red-500"
+                  }`}
                   aria-live="polite"
                   data-testid="message-status"
                 >

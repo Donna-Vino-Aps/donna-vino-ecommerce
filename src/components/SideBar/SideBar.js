@@ -133,7 +133,9 @@ const SideBar = ({ isMenuOpen, toggleMenu, navLinks }) => {
                               key={sublink}
                               href={link.href} // Initially set to go to the href of the overarching Link (like Wines)
                               // href={`${link.href}/${sublink.toLowerCase()}`}  Or something similar can be used in future implementations
-                              className={`block px-4 text-titleMedium text-tertiary1 ${link.id === "account" ? "py-3" : "py-2"}`}
+                              className={`block px-4 text-titleMedium text-tertiary1 ${
+                                link.id === "account" ? "py-3" : "py-2"
+                              }`}
                             >
                               {sublink}
                             </Link>

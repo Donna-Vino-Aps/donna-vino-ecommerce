@@ -84,7 +84,9 @@ const UserDropdown = () => {
       {isAuthenticated && isOpen && (
         <div
           ref={dropdownRef}
-          className={`flex absolute right-0 rounded-xl bg-white shadow-lg md:min-w-[10rem] md:min-h-[12.75rem] md:text-tertiary1-dark ${isOpen ? "block" : "hidden"}`}
+          className={`flex absolute right-0 rounded-xl bg-white shadow-lg md:min-w-[10rem] md:min-h-[12.75rem] md:text-tertiary1-dark ${
+            isOpen ? "block" : "hidden"
+          }`}
         >
           <ul className="relative left-6">
             <li className="flex gap-1 my-4 mt-6 text-bodyMedium">

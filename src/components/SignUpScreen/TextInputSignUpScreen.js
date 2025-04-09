@@ -53,7 +53,9 @@ const TextInputSignUpScreen = ({
                 error
                   ? "border-primary-normal focus:ring-primary-hover"
                   : "border-tertiary2-active_normal focus:ring-tertiary1-active"
-              } rounded-lg bg-white text-tertiary1-darker focus:outline-none focus:ring-1 ${showPasswordToggle ? "pr-10" : ""}`}
+              } rounded-lg bg-white text-tertiary1-darker focus:outline-none focus:ring-1 ${
+                showPasswordToggle ? "pr-10" : ""
+              }`}
             />
             {showPasswordToggle && (
               <button

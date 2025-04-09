@@ -31,7 +31,9 @@ const TextInputLoginScreen = ({
         onBlur={onBlur}
         aria-label={placeholder || `Enter your ${name}`}
         data-testid={`input-${name}`}
-        className={`w-full p-3 ${icon ? "pl-12" : "pl-3"} border border-tertiary1-darker rounded-lg bg-white focus:outline-none focus:ring-2 focus:ring-primary-light`}
+        className={`w-full p-3 ${
+          icon ? "pl-12" : "pl-3"
+        } border border-tertiary1-darker rounded-lg bg-white focus:outline-none focus:ring-2 focus:ring-primary-light`}
       />
 
       {showPasswordToggle && (
