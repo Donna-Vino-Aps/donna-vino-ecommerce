@@ -27,7 +27,8 @@ export function transformShopifyProduct(product) {
     })) || [];
 
   // Extract price data
-  const price = product.priceRange?.maxVariantPrice?.amount || null;
+  const priceString = product.priceRange?.maxVariantPrice?.amount || null;
+  const price = priceString ? parseFloat(priceString.replace(",", ".")) : null;
   const currency = product.priceRange?.maxVariantPrice?.currencyCode || "DKK";
 
   // Extract available seats
