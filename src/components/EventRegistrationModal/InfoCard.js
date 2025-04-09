@@ -5,7 +5,9 @@ import ShopifyRichTextRenderer from "../common/ShopifyRichTextRenderer";
 
 function InfoCard({ title, imageUrl, imageAlt = "", description, bgClass }) {
   return (
-    <div className={`${bgClass} shadow-md pb-4 rounded-[2rem]`}>
+    <div
+      className={`${bgClass} shadow-md pb-4 rounded-[2rem] text-tertiary1-darker `}
+    >
       {imageUrl && (
         <div className="relative w-full h-52 mb-8">
           <Image
@@ -19,9 +21,7 @@ function InfoCard({ title, imageUrl, imageAlt = "", description, bgClass }) {
         </div>
       )}
 
-      <h3 className="text-displaySmall text-terniary1-darker font-medium font-barlow mb-6 px-5">
-        {title}
-      </h3>
+      <h3 className="text-displaySmall font-medium mb-6 px-5">{title}</h3>
 
       <div className="mb-8 px-5 text-bodyLarge">
         <ShopifyRichTextRenderer jsonString={description} />

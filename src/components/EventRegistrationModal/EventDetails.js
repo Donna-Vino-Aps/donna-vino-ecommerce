@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import InfoCard from "./InfoCard";
 import { format, parseISO } from "date-fns";
-import { logError, logInfo } from "@/utils/logging";
+import { logError } from "@/utils/logging";
 
 function EventDetails({ eventDetails = {} }) {
   const {
@@ -67,26 +67,25 @@ function EventDetails({ eventDetails = {} }) {
       : "";
 
   // Assign classes based on available seats
-  let seatBgClass = "bg-calendar-open";
-  let seatTextClass = "text-white";
+  let seatBgClass = "bg-calendar-open_light";
+  let seatTextClass = "text-calendar-open_dark";
   if (availableSeats === 0) {
-    seatBgClass = "bg-calendar-full";
-    seatTextClass = "text-white";
+    seatBgClass = "bg-calendar-full_light";
+    seatTextClass = "text-calendar-full";
   } else if (availableSeats < 10) {
-    seatBgClass = "bg-calendar-limited";
-    seatTextClass = "text-white";
+    seatBgClass = "bg-calendar-limited_light";
+    seatTextClass = "text-calendar-limited";
   }
 
   return (
     <>
-      <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-4">
-        <h2 className="w-full text-headlineSmall md:text-headlineMedium font-semibold font-barlow text-center">
-          🍷✨Event's details ✨🍷
-        </h2>
-      </div>
-      <div className="text-bodyMedium text-tertiary1-normal space-y-1 mb-6 text-center">
+      <h2 className="w-full text-headlineSmall md:text-headlineLarge text-center mb-6">
+        🍷✨Event's details ✨🍷
+      </h2>
+
+      <div className="flex flex-col items-start md:items-center gap-4 mb-6 text-titleMedium text-tertiary2-darker text-center">
         <span
-          className={`inline-block ${seatBgClass} ${seatTextClass} text-bodySmall px-4 py-1 rounded-full`}
+          className={`inline-block ${seatBgClass} ${seatTextClass} self-center text-labelXLarge font-semibold px-6 py-3 rounded-full`}
         >
           Seats available {seatsInfo}
         </span>
@@ -117,10 +116,11 @@ function EventDetails({ eventDetails = {} }) {
           </p>
         </div>
       </div>
-      <p className="text-bodyMedium text-tertiary1-normal mb-6">
+
+      <p className="text-bodyMedium text-tertiary2-darker mb-6 text-center">
         {description}
       </p>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
         <InfoCard
           title="Our Wines"
           imageUrl={wineImage.url || "/images/wines.svg"}
@@ -139,11 +139,10 @@ function EventDetails({ eventDetails = {} }) {
           bgClass="bg-primary-active"
         />
       </div>
-      <p className="text-bodySmall text-tertiary1-normal italic mb-6 text-center">
+      <p className="text-bodySmall text-tertiary2-darker italic mb-6 text-center">
         (*) For allergies or special requests, please contact us after
         confirming your reservation.
       </p>
-      <hr className="border-tertiary2-normal mb-6" />
     </>
   );
 }
