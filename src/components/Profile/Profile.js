@@ -1,11 +1,83 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Formik } from "formik";
 import TextInput from "../TextInput/TextInput";
 import Button from "../Button/Button";
 import { useLanguage } from "@/context/LanguageContext";
+import { logInfo, logError } from "@/utils/logging";
 
 const Profile = () => {
   const { translations } = useLanguage();
+  const [initialValues, setInitialValues] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchProfile = async () => {
+      try {
+        const res = await fetch("/api/users/profile", {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        });
+
+        const data = await res.json();
+        if (!res.ok) throw new Error(data.msg || "Failed to fetch profile.");
+
+        setInitialValues({
+          firstName: data.firstName || "",
+          lastName: data.lastName || "",
+          email: data.email || "",
+          password: "", // don't prefill passwords
+          address: data.address || "",
+          country: data.country || "",
+        });
+      } catch (err) {
+        logError("Failed to fetch profile", err.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchProfile();
+  }, []);
+
+  const updateProfile = async (values, setSubmitting) => {
+    try {
+      const res = await fetch("/api/users/profile", {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("token")}`, // adjust if you store token elsewhere
+        },
+        body: JSON.stringify(values),
+      });
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        throw new Error(data.msg || "Failed to update profile.");
+      }
+
+      logInfo("Profile updated!", data);
+      // Optionally show a success message here
+    } catch (error) {
+      logError("Update failed:", error.message);
+      // Optionally show an error message
+    } finally {
+      setSubmitting(false);
+    }
+  };
+
+  if (loading) {
+    return <p className="text-center py-10">Loading profile...</p>;
+  }
+
+  if (!initialValues) {
+    return (
+      <p className="text-center py-10 text-red-500">Failed to load profile.</p>
+    );
+  }
+
   return (
     <div className="flex flex-col bg-white rounded-2xl justify-center items-center py-8 px-6 min-w-[22.5rem] md:px-8 md:min-w-[47.75rem] shadow-lg my-8">
       <img
@@ -28,16 +100,18 @@ const Profile = () => {
       <p className="text-labelLarge mt-2 mb-5 md:mt-4 md:mb-7">Denmark</p>
       <h3 className="text-headlineSmall self-start mb-4">Personal Details</h3>
       <Formik
-        initialValues={{
-          firstName: "Davide",
-          lastName: "Rossi",
-          email: "daviderossi@emailadress.com",
-          password: "password",
-          address: "Kirkesvinget 1, 2610 Rødovre",
-          country: "Denmark",
-        }}
+        initialValues={
+          initialValues || {
+            firstName: "Davide",
+            lastName: "Rossi",
+            email: "daviderossi@emailadress.com",
+            password: "password",
+            address: "Kirkesvinget 1, 2610 Rødovre",
+            country: "Denmark",
+          }
+        }
         onSubmit={(values, { setSubmitting }) => {
-          handleSignup(values, setSubmitting);
+          updateProfile(values, setSubmitting);
         }}
       >
         {({
