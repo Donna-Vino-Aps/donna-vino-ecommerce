@@ -111,7 +111,7 @@ const UserDropdown = () => {
                 alt="wine glass icon"
                 className="relative bottom-[1px]"
               ></img>
-              <Link href="/account">
+              <Link href="/user/profile">
                 {translations["user-dropdown.account"]}
               </Link>
             </li>

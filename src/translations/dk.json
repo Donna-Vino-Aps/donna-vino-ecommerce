@@ -9,7 +9,7 @@
   "navbar.grapes": "Druer & Regioner",
   "navbar.grapes.sh1": "Druer",
   "navbar.grapes.sh2": "Regioner",
-  "navbar.account": "Konto",
+  "navbar.account": "Min konto",
   "signUp.create-button": "Oprette din konto",
   "signUp.heading": "Slut dig til Donna Vino",
   "signUp.paragraph": "Opret en profil til dine fremtidige ordrer for at have alle dine oplysninger gemt og klar til brug. Registrering på vores Donna Vino-websted er hurtigt og nemt, hvilket giver dig mulighed for at strømline din shoppingoplevelse og nyde en hurtigere betaling hver gang.",
@@ -141,5 +141,15 @@
   "events-header.card2-h": "Vælg dato og pladser",
   "events-header.card2-p": "Klik på datoen for at se begivenhedsdetaljer, herunder de udvalgte vine og middagsmenuen. Vælg derefter dine pladser og fortsæt til det sidste trin.",
   "events-header.card3-h": "Betaling og bekræftelse",
-  "events-header.card3-p": "Når du har valgt en tilgængelig dato, skal du gennemgå menuen og vinene til begivenheden. Du vil derefter blive bedt om at foretage en betaling via MobilePay for at reservere din(e) plads(er). En bekræftelses besked vil blive sendt, når din reservation er gennemført."
+  "events-header.card3-p": "Når du har valgt en tilgængelig dato, skal du gennemgå menuen og vinene til begivenheden. Du vil derefter blive bedt om at foretage en betaling via MobilePay for at reservere din(e) plads(er). En bekræftelses besked vil blive sendt, når din reservation er gennemført.",
+  "profile.placeholder.firstName": "Fornavn",
+  "profile.placeholder.lastName": "Efternavn",
+  "profile.placeholder.email": "E-mail",
+  "profile.placeholder.password": "Adgangskode",
+  "profile.placeholder.address": "Addresse",
+  "profile.placeholder.country": "Land",
+  "profile.country.sweden": "Sverige",
+  "profile.country.denmark": "Danmark",
+  "profile.button.edit": "Redigere",
+  "profile.button.save": "Spare"
 }
