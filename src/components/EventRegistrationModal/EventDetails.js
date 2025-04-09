@@ -113,7 +113,7 @@ function EventDetails({ eventDetails = {} }) {
         <div className="flex items-center gap-2 justify-center">
           <img src="/icons/Money.svg" alt="Money icon" className="h-6 w-6" />
           <p>
-            From {price} {currency} per person
+            From {price} {currency === "DKK" ? "kr." : currency} per person
           </p>
         </div>
       </div>
