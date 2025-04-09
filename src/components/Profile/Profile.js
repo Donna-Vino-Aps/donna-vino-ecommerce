@@ -7,7 +7,7 @@ import { useLanguage } from "@/context/LanguageContext";
 const Profile = () => {
   const { translations } = useLanguage();
   return (
-    <div className="flex flex-col bg-white rounded-2xl justify-center items-center p-8 sm:p-10 md:p-12 lg:p-14 md:max-w-[47.75rem] xl:p-16 shadow-lg my-8">
+    <div className="flex flex-col bg-white rounded-2xl justify-center items-center p-12 md:p-14 lg:p-14 md:max-w-[47.75rem] xl:p-16 shadow-lg my-8">
       <img
         src="/images/donna-vino-logo-transparent.png"
         alt="Donna Vino logo"

@@ -141,7 +141,7 @@ const Navbar = () => {
     },
     {
       id: "account",
-      href: "/account",
+      href: "/user/profile",
       label: translations["navbar.account"],
       icon: "/icons/user-alt-2.svg",
       dropdown: true,
