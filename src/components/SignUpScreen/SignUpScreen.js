@@ -4,6 +4,7 @@ import { useLanguage } from "@/context/LanguageContext";
 import useFetch from "../../hooks/api/useFetch";
 import { logError } from "../../utils/logging";
 import Button from "../Button/Button";
+import TextInput from "../TextInput/TextInput";
 import dayjs from "dayjs";
 import { createSignUpSchema } from "@/validation/signUpSchema";
 import { useRouter } from "next/navigation";
@@ -139,7 +140,104 @@ const SignUpScreen = () => {
                 </h3>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 mb-8">
-                  <div className="relative group inline-block align-top">
+                  <TextInput
+                    type="text"
+                    name="firstName"
+                    placeholder={translations["signUp.placeholder.firstName"]}
+                    value={values.firstName}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    data-testid="input-first-name"
+                    aria-label="First Name"
+                    error={touched.firstName && errors.firstName}
+                  />
+
+                  <TextInput
+                    type="text"
+                    name="lastName"
+                    placeholder={translations["signUp.placeholder.lastName"]}
+                    value={values.lastName}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    data-testid="input-last-name"
+                    aria-label="Last Name"
+                    error={touched.lastName && errors.lastName}
+                  />
+
+                  <TextInput
+                    type="email"
+                    name="email"
+                    placeholder={translations["signUp.placeholder.email"]}
+                    value={values.email}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    data-testid="input-email"
+                    aria-label="Email"
+                    error={touched.email && errors.email}
+                  />
+
+                  <TextInput
+                    type="email"
+                    name="confirmEmail"
+                    placeholder={
+                      translations["signUp.placeholder.confirmEmail"]
+                    }
+                    value={values.confirmEmail}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    data-testid="input-confirm-email"
+                    aria-label="Confirm Email"
+                    error={touched.confirmEmail && errors.confirmEmail}
+                  />
+
+                  <TextInput
+                    type="password"
+                    name="password"
+                    placeholder={translations["signUp.placeholder.password"]}
+                    value={values.password}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    showPasswordToggle={true}
+                    data-testid="input-password"
+                    aria-label="Password"
+                    error={touched.password && errors.password}
+                  />
+
+                  <TextInput
+                    type="password"
+                    name="confirmPassword"
+                    placeholder={
+                      translations["signUp.placeholder.confirmPassword"]
+                    }
+                    value={values.confirmPassword}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    showPasswordToggle={true}
+                    data-testid="input-confirm-password"
+                    aria-label="Confirm Password"
+                    error={touched.confirmPassword && errors.confirmPassword}
+                  />
+
+                  <TextInput
+                    type="text"
+                    name="birthdate"
+                    id="birthdate"
+                    placeholder={translations["signUp.placeholder.birthdate"]}
+                    value={values.birthdate || userBirthDay}
+                    onChange={(newValue) => {
+                      setFieldValue("birthdate", newValue);
+                      setUserBirthDay(newValue);
+                    }}
+                    isDate={true}
+                    showDatePicker={() =>
+                      document.getElementById("datePicker").focus()
+                    }
+                    data-testid="input-birthdate"
+                    aria-label="Birthdate"
+                    error={touched.birthdate && errors.birthdate}
+                  />
+
+                  <div className="relative group inline-block align-top top-7">
                     <div className="relative w-[30px] h-[30px] z-30 rounded-full bg-primary-light flex items-center justify-center group-hover:w-[45px] group-hover:h-[45px] transition-all duration-200 cursor-pointer">
                       <span className="z-40 text-tertiary1-darker text-labelXLarge group-hover:text-titleLarge">
                         ?

@@ -4,9 +4,10 @@ import { CredentialsContext } from "../../context/credentialsContext";
 import { useLanguage } from "@/context/LanguageContext";
 import useFetch from "@/hooks/api/useFetch.js";
 import { useRouter } from "next/navigation";
-import { MdOutlineEmail, MdLockOutline } from "react-icons/md";
+// import { MdOutlineEmail, MdLockOutline } from "react-icons/md";
 import Button from "../Button/Button.js";
 import Link from "next/link";
+import TextInput from "../TextInput/TextInput";
 import { logInfo, logError } from "../../utils/logging";
 import GoogleAuth from "../GoogleAuth/GoogleAuth";
 import { mapBackendMessage } from "@/services/messageMap";
@@ -89,9 +90,7 @@ const LoginForm = () => {
       });
       setStoredCredentials(user);
       logInfo(
-        `User saved in localStorage: ${localStorage.getItem(
-          "userCredentials",
-        )}`,
+        `User saved in localStorage: ${localStorage.getItem("userCredentials")}`,
       );
     } catch (error) {
       logError(error);
@@ -132,14 +131,31 @@ const LoginForm = () => {
               data-testid="login-form"
             >
               <div className="space-y-2 mb-1 w-[17.5rem] md:w-[18rem] lg:w-[25rem]">
-                <label className="text-labelLarge text-tertiary1-normal font-medium font-barlow self-start">
-                  {translations["logIn.label-mail"]}
-                </label>
+                <TextInput
+                  name="email"
+                  placeholder=""
+                  value={values.email}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  icon=""
+                  // icon={<MdOutlineEmail />}
+                  dataTestId="login-input-email"
+                />
               </div>
               <div className="space-y-1 w-[17.5rem] md:w-[18rem] lg:w-[25rem]">
-                <label className="text-labelLarge text-tertiary1-normal font-barlow font-medium self-start">
-                  {translations["logIn.label-password"]}
-                </label>
+                <TextInput
+                  type="password"
+                  name="password"
+                  placeholder=""
+                  value={values.password}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  icon=""
+                  // icon={<MdLockOutline />}
+                  showPasswordToggle={true}
+                  data-testid="login-input-password"
+                  aria-label="Password"
+                />
               </div>
               <div className="w-[17.5rem] md:w-[18rem] lg:w-[25rem] flex flex-col space-y-4">
                 <Button
@@ -162,13 +178,7 @@ const LoginForm = () => {
                 data-testid="login-message"
               >
                 <p
-                  className={`text-labelLarge text-center ${
-                    loading
-                      ? "text-black"
-                      : success
-                        ? "text-green-500"
-                        : "text-red-500"
-                  }`}
+                  className={`text-labelLarge text-center ${loading ? "text-black" : success ? "text-green-500" : "text-red-500"}`}
                   aria-live="polite"
                   data-testid="message-status"
                 >
@@ -177,7 +187,7 @@ const LoginForm = () => {
               </div>
               <div className="flex !mt-1 !mb-1 space-x-1 items-center text-labelMedium relative bottom-1">
                 <Link
-                  href="/forgot-password"
+                  href="/forgotpassword"
                   data-testid="forget-password-link"
                   aria-label="Forgot Password"
                   className="text-left font-medium hover:underline hover:font-semibold"
