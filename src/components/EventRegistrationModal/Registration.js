@@ -127,7 +127,11 @@ function Registration({ eventDetails = {}, onClose }) {
             </div>
             <div className="flex items-center">
               <p className="text-bodyMedium font-semibold">
-                {currency} {Number(price) * Number(seats)}
+                {currency === "DKK" ? "Kr." : currency}{" "}
+                {(Number(price) * Number(seats)).toLocaleString("da-DK", {
+                  minimumFractionDigits: 2,
+                  maximumFractionDigits: 2,
+                })}
               </p>
             </div>
           </div>
