@@ -37,5 +37,12 @@ const ResetEmailSent = () => {
     </div>
   );
 };
+const ResetEmailSentWithSuspense = () => {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <ResetEmailSent />
+    </Suspense>
+  );
+};
 
-export default ResetEmailSent;
+export default ResetEmailSentWithSuspense;

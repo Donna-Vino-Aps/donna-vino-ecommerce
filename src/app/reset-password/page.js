@@ -5,7 +5,7 @@ import Button from "@/components/Button/Button";
 import { useLanguage } from "@/context/LanguageContext";
 import useFetch from "@/hooks/api/useFetch";
 
-const ResetPassword = () => {
+const ResetPasswordContent = () => {
   const { translations } = useLanguage();
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -153,6 +153,14 @@ const ResetPassword = () => {
         )}
       </div>
     </div>
+  );
+};
+
+const ResetPassword = () => {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <ResetPasswordContent />
+    </Suspense>
   );
 };
 
