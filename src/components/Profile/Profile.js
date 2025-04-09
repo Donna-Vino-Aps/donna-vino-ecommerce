@@ -135,7 +135,7 @@ const Profile = () => {
                 error={touched.country && errors.country}
               />
             </div>
-            <div className="relative top-1 md:top-4 w-full mt-4">
+            <div className="relative top-1 md:top-2 w-full mt-4">
               <Button
                 text={
                   isSubmitting
