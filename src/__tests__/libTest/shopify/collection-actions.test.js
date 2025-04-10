@@ -217,5 +217,18 @@ describe("Shopify Collection Actions", () => {
 
       expect(result.currency).toBe("DKK");
     });
+
+    it("should handle products with no images", () => {
+      const productWithoutImages = {
+        ...mockProduct,
+        images: {
+          edges: [],
+        },
+      };
+
+      const result = transformShopifyProduct(productWithoutImages);
+
+      expect(result.images).toEqual([]);
+    });
   });
 });
