@@ -230,5 +230,30 @@ describe("Shopify Collection Actions", () => {
 
       expect(result.images).toEqual([]);
     });
+
+    it("should handle products with empty metafields", () => {
+      const productWithEmptyMetafields = {
+        ...mockProduct,
+        date: null,
+        menuDescription: null,
+        wineDescription: null,
+        winery: null,
+        wine: null,
+        timeStart: null,
+        timeEnd: null,
+        location: null,
+      };
+
+      const result = transformShopifyProduct(productWithEmptyMetafields);
+
+      expect(result.date).toBeNull();
+      expect(result.menuDescription).toBeNull();
+      expect(result.wineDescription).toBeNull();
+      expect(result.winery).toBeNull();
+      expect(result.wine).toBeNull();
+      expect(result.timeStart).toBeNull();
+      expect(result.timeEnd).toBeNull();
+      expect(result.location).toBeNull();
+    });
   });
 });
