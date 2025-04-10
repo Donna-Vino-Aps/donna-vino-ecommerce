@@ -60,7 +60,7 @@ function EventDetails({ eventDetails = {} }) {
 
   // Format seats available
   const seatsInfo =
-    availableSeats && totalInventory
+    availableSeats !== undefined && availableSeats !== "" && totalInventory
       ? `${availableSeats}/${totalInventory}`
       : "";
 
