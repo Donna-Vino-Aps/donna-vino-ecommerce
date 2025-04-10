@@ -1,9 +1,11 @@
 import {
   getCollectionByHandle,
   getEventsCollection,
+  transformShopifyProduct,
 } from "@/lib/shopify/collection-actions";
 import { shopifyQuery } from "@/utils/shopify";
 import { logError } from "@/utils/logging";
+import { parseISO } from "date-fns";
 
 // Mock dependencies
 jest.mock("@/utils/shopify", () => ({
@@ -12,6 +14,10 @@ jest.mock("@/utils/shopify", () => ({
 
 jest.mock("@/utils/logging", () => ({
   logError: jest.fn(),
+}));
+
+jest.mock("date-fns", () => ({
+  parseISO: jest.fn((date) => new Date(date)),
 }));
 
 describe("Shopify Collection Actions", () => {
@@ -61,6 +67,83 @@ describe("Shopify Collection Actions", () => {
         handle: "events",
       });
       expect(result).toEqual(mockCollection);
+    });
+  });
+
+  describe("transformShopifyProduct", () => {
+    it("should transform a Shopify product to the expected format", () => {
+      const mockProduct = {
+        id: "gid://shopify/Product/123",
+        title: "Wine Tasting Event",
+        handle: "wine-tasting-event",
+        description: "A wonderful wine tasting event",
+        totalInventory: 20,
+        priceRange: {
+          maxVariantPrice: {
+            amount: "599.00",
+            currencyCode: "DKK",
+          },
+        },
+        images: {
+          edges: [
+            {
+              node: {
+                id: "img1",
+                url: "https://example.com/image1.jpg",
+                altText: "Wine Image",
+              },
+            },
+          ],
+        },
+        availableSeats: {
+          edges: [
+            {
+              node: {
+                quantityAvailable: 15,
+              },
+            },
+          ],
+        },
+        date: { value: "2025-08-15" },
+        menuDescription: { value: "Delicious menu" },
+        wineDescription: { value: "Fine wines" },
+        winery: { value: "Test Winery" },
+        wine: { value: "Test Wine" },
+        timeStart: { value: "2025-08-15T18:00:00Z" },
+        timeEnd: { value: "2025-08-15T21:00:00Z" },
+        location: { value: "Copenhagen" },
+      };
+
+      const result = transformShopifyProduct(mockProduct);
+
+      expect(result).toEqual({
+        id: "gid://shopify/Product/123",
+        title: "Wine Tasting Event",
+        handle: "wine-tasting-event",
+        description: "A wonderful wine tasting event",
+        totalInventory: 20,
+        price: 599,
+        currency: "DKK",
+        images: [
+          {
+            id: "img1",
+            url: "https://example.com/image1.jpg",
+            altText: "Wine Image",
+          },
+        ],
+        availableSeats: 15,
+        date: "2025-08-15",
+        menuDescription: "Delicious menu",
+        wineDescription: "Fine wines",
+        winery: "Test Winery",
+        wine: "Test Wine",
+        timeStart: expect.any(Date),
+        timeEnd: expect.any(Date),
+        location: "Copenhagen",
+      });
+
+      expect(parseISO).toHaveBeenCalledWith("2025-08-15T18:00:00Z");
+      expect(parseISO).toHaveBeenCalledWith("2025-08-15T21:00:00Z");
     });
   });
 });
