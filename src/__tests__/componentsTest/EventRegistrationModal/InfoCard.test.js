@@ -61,4 +61,25 @@ describe("InfoCard Component", () => {
     expect(richTextRenderer).toBeInTheDocument();
     expect(richTextRenderer).toHaveTextContent("Test Description");
   });
+  it("renders without an image when imageUrl is not provided", () => {
+    const propsWithoutImage = {
+      ...defaultProps,
+      imageUrl: undefined,
+    };
+
+    render(<InfoCard {...propsWithoutImage} />);
+
+    // Check if the component renders
+    expect(screen.getByTestId("info-card")).toBeInTheDocument();
+
+    // Check that the image container is not rendered
+    expect(
+      screen.queryByTestId("info-card-image-container"),
+    ).not.toBeInTheDocument();
+    expect(screen.queryByTestId("info-card-image")).not.toBeInTheDocument();
+
+    // Check that title and description are still rendered
+    expect(screen.getByTestId("info-card-title")).toBeInTheDocument();
+    expect(screen.getByTestId("info-card-description")).toBeInTheDocument();
+  });
 });
