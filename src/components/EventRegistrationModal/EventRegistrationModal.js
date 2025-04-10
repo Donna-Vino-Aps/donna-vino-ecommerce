@@ -27,16 +27,24 @@ function EventRegistrationModal({ isOpen, onClose, event = {} }) {
 
   return (
     <div
+      data-testid="event-registration-modal-overlay"
       className="fixed inset-0 z-50 overflow-y-auto bg-black/50"
       role="dialog"
       aria-modal="true"
     >
-      <div className="flex min-h-full items-center justify-center p-4">
+      <div
+        data-testid="event-registration-modal-container"
+        className="flex min-h-full items-center justify-center p-4"
+      >
         <div
+          data-testid="event-registration-modal-content"
           ref={modalRef}
           className="relative w-full max-w-[50rem] bg-white rounded-lg shadow-lg"
         >
-          <div className="p-6 md:p-8">
+          <div
+            data-testid="event-registration-modal-body"
+            className="p-6 md:p-8"
+          >
             <EventDetails eventDetails={eventDetails} />
             <Registration eventDetails={eventDetails} onClose={onClose} />
           </div>
