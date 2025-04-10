@@ -121,4 +121,24 @@ describe("EventsContext", () => {
 
     expect(screen.queryByTestId("event-item")).not.toBeInTheDocument();
   });
+
+  it("should handle API errors", async () => {
+    const error = new Error("API Error");
+    getEventsCollection.mockRejectedValue(error);
+
+    render(
+      <EventsProvider>
+        <TestComponent />
+      </EventsProvider>,
+    );
+
+    await waitFor(() => {
+      expect(screen.queryByTestId("loading")).not.toBeInTheDocument();
+    });
+
+    expect(logError).toHaveBeenCalledWith("Error fetching events:", error);
+    expect(screen.getByTestId("error")).toHaveTextContent(
+      "Failed to load events",
+    );
+  });
 });
