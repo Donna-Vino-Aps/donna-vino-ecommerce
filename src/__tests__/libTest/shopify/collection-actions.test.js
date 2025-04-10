@@ -181,5 +181,25 @@ describe("Shopify Collection Actions", () => {
         location: null,
       });
     });
+
+    it("should handle errors in time parsing", () => {
+      const invalidTimeString = "invalid-time";
+      const mockProduct = {
+        id: "gid://shopify/Product/123",
+        timeStart: { value: invalidTimeString },
+      };
+
+      parseISO.mockImplementation(() => {
+        throw new Error("Invalid time format");
+      });
+
+      const result = transformShopifyProduct(mockProduct);
+
+      expect(result.timeStart).toBe(invalidTimeString);
+      expect(logError).toHaveBeenCalledWith(
+        "Error handling time:",
+        expect.any(Error),
+      );
+    });
   });
 });
