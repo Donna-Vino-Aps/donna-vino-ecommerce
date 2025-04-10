@@ -261,4 +261,31 @@ describe("EventDetails Component", () => {
     const timeElement = screen.getByTestId("event-details-time");
     expect(timeElement).toBeInTheDocument();
   });
+
+  it("handles currency display correctly", () => {
+    const dkkEvent = {
+      ...mockEventDetails,
+      price: 299,
+      currency: "DKK",
+    };
+
+    const { rerender } = render(<EventDetails eventDetails={dkkEvent} />);
+
+    // Should display kr. for DKK
+    expect(screen.getByTestId("event-details-price")).toHaveTextContent(
+      "From 299 kr. per person",
+    );
+
+    const usdEvent = {
+      ...mockEventDetails,
+      price: 49,
+      currency: "USD",
+    };
+
+    rerender(<EventDetails eventDetails={usdEvent} />);
+
+    expect(screen.getByTestId("event-details-price")).toHaveTextContent(
+      "From 49 USD per person",
+    );
+  });
 });
