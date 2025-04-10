@@ -60,7 +60,7 @@ function EventDetails({ eventDetails = {} }) {
 
   // Format seats available
   const seatsInfo =
-    availableSeats && totalInventory
+    availableSeats !== undefined && availableSeats !== "" && totalInventory
       ? `${availableSeats}/${totalInventory}`
       : "";
 
@@ -77,21 +77,34 @@ function EventDetails({ eventDetails = {} }) {
 
   return (
     <>
-      <h2 className="w-full text-headlineSmall md:text-headlineLarge text-center mb-6">
+      <h2
+        data-testid="event-details-title"
+        className="w-full text-headlineSmall md:text-headlineLarge text-center mb-6"
+      >
         🍷✨Event's details ✨🍷
       </h2>
 
-      <div className="flex flex-col items-start md:items-center gap-4 mb-6 text-titleMedium text-tertiary2-darker">
+      <div
+        data-testid="event-details-info"
+        className="flex flex-col items-start md:items-center gap-4 mb-6 text-titleMedium text-tertiary2-darker"
+      >
         <span
+          data-testid="event-details-seats"
           className={`inline-block ${seatBgClass} ${seatTextClass} self-center text-labelXLarge font-semibold px-6 py-3 rounded-full`}
         >
           Seats available {seatsInfo}
         </span>
-        <div className="flex items-center gap-2 justify-center">
+        <div
+          data-testid="event-details-location"
+          className="flex items-center gap-2 justify-center"
+        >
           <img src="/icons/pin.svg" alt="Location icon" className="h-6 w-6" />
           <p>{location}</p>
         </div>
-        <div className="flex items-center gap-2 justify-center">
+        <div
+          data-testid="event-details-date"
+          className="flex items-center gap-2 justify-center"
+        >
           <img
             src="/icons/calendar1.svg"
             alt="Calendar icon"
@@ -99,7 +112,10 @@ function EventDetails({ eventDetails = {} }) {
           />
           <p>{formattedDate}</p>
         </div>
-        <div className="flex items-center gap-2 justify-center">
+        <div
+          data-testid="event-details-time"
+          className="flex items-center gap-2 justify-center"
+        >
           <img
             src="/icons/clock-alt-1.svg"
             alt="Clock icon"
@@ -107,7 +123,10 @@ function EventDetails({ eventDetails = {} }) {
           />
           <p>{time}</p>
         </div>
-        <div className="flex items-center gap-2 justify-center">
+        <div
+          data-testid="event-details-price"
+          className="flex items-center gap-2 justify-center"
+        >
           <img src="/icons/Money.svg" alt="Money icon" className="h-6 w-6" />
           <p>
             From {price} {currency === "DKK" ? "kr." : currency} per person
@@ -115,11 +134,18 @@ function EventDetails({ eventDetails = {} }) {
         </div>
       </div>
 
-      <p className="text-bodyMedium text-tertiary2-darker mb-6 text-center">
+      <p
+        data-testid="event-details-description"
+        className="text-bodyMedium text-tertiary2-darker mb-6 text-center"
+      >
         {description}
       </p>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+      <div
+        data-testid="event-details-cards"
+        className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6"
+      >
         <InfoCard
+          data-testid="event-details-wine-card"
           title="Our Wines"
           imageUrl={wineImage.url || "/images/wines.svg"}
           imageAlt={wineImage.altText || "Wine image"}
@@ -128,6 +154,7 @@ function EventDetails({ eventDetails = {} }) {
         />
 
         <InfoCard
+          data-testid="event-details-menu-card"
           title="Our Dinner Menu"
           imageUrl={dinnerImage.url || "/images/dinner.svg"}
           imageAlt={dinnerImage.altText || "Dinner menu image"}
@@ -135,7 +162,10 @@ function EventDetails({ eventDetails = {} }) {
           bgClass="bg-primary-active"
         />
       </div>
-      <p className="text-bodySmall text-tertiary2-darker italic mb-6 text-center">
+      <p
+        data-testid="event-details-footer"
+        className="text-bodySmall text-tertiary2-darker italic mb-6 text-center"
+      >
         (*) For allergies or special requests, please contact us after
         confirming your reservation.
       </p>

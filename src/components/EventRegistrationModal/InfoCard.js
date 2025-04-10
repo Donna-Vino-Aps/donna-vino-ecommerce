@@ -6,13 +6,18 @@ import ShopifyRichTextRenderer from "../common/ShopifyRichTextRenderer";
 function InfoCard({ title, imageUrl, imageAlt = "", description, bgClass }) {
   return (
     <div
+      data-testid="info-card"
       className={`${bgClass} shadow-md pb-4 rounded-[2rem] text-tertiary1-darker `}
     >
       {imageUrl && (
-        <div className="relative w-full h-52 mb-8">
+        <div
+          data-testid="info-card-image-container"
+          className="relative w-full h-52 mb-8"
+        >
           <Image
+            data-testid="info-card-image"
             src={imageUrl}
-            alt={imageAlt}
+            alt={imageAlt || "Decorative image for " + title}
             fill
             sizes="(max-width: 768px) 100vw, 50vw"
             priority
@@ -21,9 +26,17 @@ function InfoCard({ title, imageUrl, imageAlt = "", description, bgClass }) {
         </div>
       )}
 
-      <h3 className="text-displaySmall font-medium mb-6 px-5">{title}</h3>
+      <h3
+        data-testid="info-card-title"
+        className="text-displaySmall font-medium mb-6 px-5"
+      >
+        {title}
+      </h3>
 
-      <div className="mb-8 px-5 text-bodyLarge">
+      <div
+        data-testid="info-card-description"
+        className="mb-8 px-5 text-bodyLarge"
+      >
         <ShopifyRichTextRenderer jsonString={description} />
       </div>
     </div>
