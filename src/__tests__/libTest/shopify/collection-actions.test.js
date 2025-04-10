@@ -201,5 +201,21 @@ describe("Shopify Collection Actions", () => {
         expect.any(Error),
       );
     });
+
+    it("should default currency to DKK if not provided", () => {
+      const productWithoutCurrency = {
+        ...mockProduct,
+        priceRange: {
+          maxVariantPrice: {
+            amount: "599.00",
+            // Missing currencyCode
+          },
+        },
+      };
+
+      const result = transformShopifyProduct(productWithoutCurrency);
+
+      expect(result.currency).toBe("DKK");
+    });
   });
 });
