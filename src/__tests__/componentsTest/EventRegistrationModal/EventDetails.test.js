@@ -2,7 +2,6 @@
 import React from "react";
 import { render, screen } from "@testing-library/react";
 import EventDetails from "@/components/EventRegistrationModal/EventDetails";
-import { format } from "date-fns";
 import { logError } from "@/utils/logging";
 
 // Mock dependencies
