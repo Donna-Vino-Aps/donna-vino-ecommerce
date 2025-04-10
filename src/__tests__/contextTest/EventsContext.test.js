@@ -105,4 +105,20 @@ describe("EventsContext", () => {
     const eventItems = screen.getAllByTestId("event-item");
     expect(eventItems).toHaveLength(2);
   });
+
+  it("should handle empty events collection", async () => {
+    getEventsCollection.mockResolvedValue({});
+
+    render(
+      <EventsProvider>
+        <TestComponent />
+      </EventsProvider>,
+    );
+
+    await waitFor(() => {
+      expect(screen.queryByTestId("loading")).not.toBeInTheDocument();
+    });
+
+    expect(screen.queryByTestId("event-item")).not.toBeInTheDocument();
+  });
 });
