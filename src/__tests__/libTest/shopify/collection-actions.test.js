@@ -145,5 +145,41 @@ describe("Shopify Collection Actions", () => {
       expect(parseISO).toHaveBeenCalledWith("2025-08-15T18:00:00Z");
       expect(parseISO).toHaveBeenCalledWith("2025-08-15T21:00:00Z");
     });
+
+    it("should handle missing or null values", () => {
+      const mockProduct = {
+        id: "gid://shopify/Product/123",
+        title: "Wine Tasting Event",
+        handle: "wine-tasting-event",
+        description: "A wonderful wine tasting event",
+        // Missing totalInventory
+        // Missing priceRange
+        // Missing images
+        // Missing availableSeats
+        // Missing metafields
+      };
+
+      const result = transformShopifyProduct(mockProduct);
+
+      expect(result).toEqual({
+        id: "gid://shopify/Product/123",
+        title: "Wine Tasting Event",
+        handle: "wine-tasting-event",
+        description: "A wonderful wine tasting event",
+        totalInventory: undefined,
+        price: null,
+        currency: "DKK",
+        images: [],
+        availableSeats: 0,
+        date: null,
+        menuDescription: null,
+        wineDescription: null,
+        winery: null,
+        wine: null,
+        timeStart: null,
+        timeEnd: null,
+        location: null,
+      });
+    });
   });
 });
