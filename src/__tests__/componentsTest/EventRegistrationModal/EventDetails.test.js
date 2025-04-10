@@ -143,4 +143,48 @@ describe("EventDetails Component", () => {
       "For allergies or special requests",
     );
   });
+
+  it("renders with minimal data and default values", () => {
+    render(<EventDetails />);
+
+    // Check heading is still there
+    expect(screen.getByTestId("event-details-title")).toBeInTheDocument();
+
+    // Check seats availability with empty value
+    expect(screen.getByTestId("event-details-seats")).toHaveTextContent(
+      "Seats available",
+    );
+    expect(screen.getByTestId("event-details-seats")).not.toHaveTextContent(
+      /Seats available \d+\/\d+/,
+    );
+
+    // Check location with empty value
+    const locationElement = screen.getByTestId("event-details-location");
+    expect(locationElement.textContent.trim()).toBe("");
+
+    // Check date with empty value
+    const dateElement = screen.getByTestId("event-details-date");
+    expect(dateElement.textContent.trim()).toBe("");
+
+    // Check time with empty value
+    const timeElement = screen.getByTestId("event-details-time");
+    expect(timeElement.textContent.trim()).toBe("");
+
+    // Check price with empty value
+    expect(screen.getByTestId("event-details-price")).toHaveTextContent(
+      "From per person",
+    );
+
+    // InfoCards should still be rendered with default images
+    expect(screen.getByTestId("event-details-wine-card")).toBeInTheDocument();
+    expect(screen.getByTestId("event-details-menu-card")).toBeInTheDocument();
+
+    // Check default image URLs
+    expect(screen.getAllByTestId("info-card-image-url")[0]).toHaveTextContent(
+      "/images/wines.svg",
+    );
+    expect(screen.getAllByTestId("info-card-image-url")[1]).toHaveTextContent(
+      "/images/dinner.svg",
+    );
+  });
 });
