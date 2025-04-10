@@ -1,9 +1,14 @@
 import { getCollectionByHandle } from "@/lib/shopify/collection-actions";
 import { shopifyQuery } from "@/utils/shopify";
+import { logError } from "@/utils/logging";
 
 // Mock dependencies
 jest.mock("@/utils/shopify", () => ({
   shopifyQuery: jest.fn(),
+}));
+
+jest.mock("@/utils/logging", () => ({
+  logError: jest.fn(),
 }));
 
 describe("Shopify Collection Actions", () => {
@@ -26,6 +31,19 @@ describe("Shopify Collection Actions", () => {
         handle: "test-collection",
       });
       expect(result).toEqual(mockCollection);
+    });
+
+    it("should handle errors and return null", async () => {
+      const error = new Error("API Error");
+      shopifyQuery.mockRejectedValue(error);
+
+      const result = await getCollectionByHandle("test-collection");
+
+      expect(logError).toHaveBeenCalledWith(
+        "Error fetching collection test-collection:",
+        error,
+      );
+      expect(result).toBeNull();
     });
   });
 });
