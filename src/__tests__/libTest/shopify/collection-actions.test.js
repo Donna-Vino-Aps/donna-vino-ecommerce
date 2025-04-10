@@ -1,4 +1,7 @@
-import { getCollectionByHandle } from "@/lib/shopify/collection-actions";
+import {
+  getCollectionByHandle,
+  getEventsCollection,
+} from "@/lib/shopify/collection-actions";
 import { shopifyQuery } from "@/utils/shopify";
 import { logError } from "@/utils/logging";
 
@@ -44,6 +47,20 @@ describe("Shopify Collection Actions", () => {
         error,
       );
       expect(result).toBeNull();
+    });
+  });
+
+  describe("getEventsCollection", () => {
+    it("should call getCollectionByHandle with 'events'", async () => {
+      const mockCollection = { title: "Events Collection" };
+      shopifyQuery.mockResolvedValue({ collection: mockCollection });
+
+      const result = await getEventsCollection();
+
+      expect(shopifyQuery).toHaveBeenCalledWith(expect.any(String), {
+        handle: "events",
+      });
+      expect(result).toEqual(mockCollection);
     });
   });
 });
