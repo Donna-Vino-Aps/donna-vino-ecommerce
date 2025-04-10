@@ -61,6 +61,7 @@ describe("InfoCard Component", () => {
     expect(richTextRenderer).toBeInTheDocument();
     expect(richTextRenderer).toHaveTextContent("Test Description");
   });
+
   it("renders without an image when imageUrl is not provided", () => {
     const propsWithoutImage = {
       ...defaultProps,
@@ -81,5 +82,17 @@ describe("InfoCard Component", () => {
     // Check that title and description are still rendered
     expect(screen.getByTestId("info-card-title")).toBeInTheDocument();
     expect(screen.getByTestId("info-card-description")).toBeInTheDocument();
+  });
+
+  it("renders with default imageAlt when not provided", () => {
+    const propsWithoutAlt = {
+      ...defaultProps,
+      imageAlt: undefined,
+    };
+
+    render(<InfoCard {...propsWithoutAlt} />);
+
+    const image = screen.getByTestId("info-card-image");
+    expect(image).toHaveAttribute("alt", "Decorative image for Test Title");
   });
 });

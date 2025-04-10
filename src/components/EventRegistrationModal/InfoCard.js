@@ -17,7 +17,7 @@ function InfoCard({ title, imageUrl, imageAlt = "", description, bgClass }) {
           <Image
             data-testid="info-card-image"
             src={imageUrl}
-            alt={imageAlt}
+            alt={imageAlt || "Decorative image for " + title}
             fill
             sizes="(max-width: 768px) 100vw, 50vw"
             priority
