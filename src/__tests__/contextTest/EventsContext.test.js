@@ -25,6 +25,7 @@ jest.mock("@/context/LanguageContext", () => ({
   useLanguage: jest.fn(),
 }));
 
+// Test component to access context
 const TestComponent = () => {
   const { events, isLoading, error } = useEvents();
 
@@ -43,6 +44,13 @@ const TestComponent = () => {
   );
 };
 
+const renderWithProvider = () =>
+  render(
+    <EventsProvider>
+      <TestComponent />
+    </EventsProvider>,
+  );
+
 describe("EventsContext", () => {
   beforeEach(() => {
     jest.clearAllMocks();
@@ -57,11 +65,7 @@ describe("EventsContext", () => {
   it("should show loading state initially", () => {
     getEventsCollection.mockImplementation(() => new Promise(() => {}));
 
-    render(
-      <EventsProvider>
-        <TestComponent />
-      </EventsProvider>,
-    );
+    renderWithProvider();
 
     expect(screen.getByTestId("loading")).toBeInTheDocument();
   });
@@ -73,15 +77,15 @@ describe("EventsContext", () => {
           {
             node: {
               id: "1",
-              title: "Wine Tasting Event 1",
-              handle: "wine-tasting-1",
+              title: "Wine Tasting Event",
+              handle: "wine-tasting",
             },
           },
           {
             node: {
               id: "2",
-              title: "Wine Tasting Event 2",
-              handle: "wine-tasting-2",
+              title: "Wine Tour",
+              handle: "wine-tour",
             },
           },
         ],
@@ -90,11 +94,7 @@ describe("EventsContext", () => {
 
     getEventsCollection.mockResolvedValue(mockEvents);
 
-    render(
-      <EventsProvider>
-        <TestComponent />
-      </EventsProvider>,
-    );
+    renderWithProvider();
 
     await waitFor(() => {
       expect(screen.queryByTestId("loading")).not.toBeInTheDocument();
@@ -109,11 +109,7 @@ describe("EventsContext", () => {
   it("should handle empty events collection", async () => {
     getEventsCollection.mockResolvedValue({});
 
-    render(
-      <EventsProvider>
-        <TestComponent />
-      </EventsProvider>,
-    );
+    renderWithProvider();
 
     await waitFor(() => {
       expect(screen.queryByTestId("loading")).not.toBeInTheDocument();
@@ -126,11 +122,7 @@ describe("EventsContext", () => {
     const error = new Error("API Error");
     getEventsCollection.mockRejectedValue(error);
 
-    render(
-      <EventsProvider>
-        <TestComponent />
-      </EventsProvider>,
-    );
+    renderWithProvider();
 
     await waitFor(() => {
       expect(screen.queryByTestId("loading")).not.toBeInTheDocument();
@@ -138,7 +130,7 @@ describe("EventsContext", () => {
 
     expect(logError).toHaveBeenCalledWith("Error fetching events:", error);
     expect(screen.getByTestId("error")).toHaveTextContent(
-      "Failed to load events",
+      /Failed to load events/,
     );
   });
 });
