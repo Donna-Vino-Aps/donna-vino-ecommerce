@@ -226,4 +226,39 @@ describe("EventDetails Component", () => {
     expect(plentySeatsElement).toHaveClass("bg-calendar-open_light");
     expect(plentySeatsElement).toHaveClass("text-calendar-open_dark");
   });
+
+  it("handles date formatting errors gracefully", () => {
+    const invalidDateEvent = {
+      ...mockEventDetails,
+      date: "invalid-date",
+    };
+
+    render(<EventDetails eventDetails={invalidDateEvent} />);
+
+    expect(logError).toHaveBeenCalledWith(
+      "Error formatting date:",
+      expect.any(String),
+    );
+
+    const dateElement = screen.getByTestId("event-details-date");
+    expect(dateElement).toHaveTextContent("invalid-date");
+  });
+
+  it("handles time formatting errors gracefully", () => {
+    const invalidTimeEvent = {
+      ...mockEventDetails,
+      timeStart: new Date("invalid"),
+      timeEnd: new Date("also-invalid"),
+    };
+
+    render(<EventDetails eventDetails={invalidTimeEvent} />);
+
+    expect(logError).toHaveBeenCalledWith(
+      "Error formatting time:",
+      expect.any(String),
+    );
+
+    const timeElement = screen.getByTestId("event-details-time");
+    expect(timeElement).toBeInTheDocument();
+  });
 });
