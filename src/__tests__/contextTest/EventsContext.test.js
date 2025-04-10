@@ -5,6 +5,7 @@ import {
   getEventsCollection,
   transformShopifyProduct,
 } from "@/lib/shopify/collection-actions";
+import { logError } from "@/utils/logging";
 import { useLanguage } from "@/context/LanguageContext";
 
 // Mock dependencies
@@ -53,6 +54,18 @@ describe("EventsContext", () => {
     });
   });
 
+  it("should show loading state initially", () => {
+    getEventsCollection.mockImplementation(() => new Promise(() => {}));
+
+    render(
+      <EventsProvider>
+        <TestComponent />
+      </EventsProvider>,
+    );
+
+    expect(screen.getByTestId("loading")).toBeInTheDocument();
+  });
+
   it("should fetch and transform events successfully", async () => {
     const mockEvents = {
       products: {
@@ -60,15 +73,15 @@ describe("EventsContext", () => {
           {
             node: {
               id: "1",
-              title: "Wine Tasting Event",
-              handle: "wine-tasting",
+              title: "Wine Tasting Event 1",
+              handle: "wine-tasting-1",
             },
           },
           {
             node: {
               id: "2",
-              title: "Wine Tour",
-              handle: "wine-tour",
+              title: "Wine Tasting Event 2",
+              handle: "wine-tasting-2",
             },
           },
         ],
