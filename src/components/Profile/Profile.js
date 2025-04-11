@@ -12,8 +12,10 @@ const Profile = () => {
 
   useEffect(() => {
     const fetchProfile = async () => {
+      const token = localStorage.getItem("token");
+      logInfo("Token:", token);
       try {
-        const res = await fetch("/api/user/profile", {
+        const res = await fetch("http://localhost:5001/api/user/profile", {
           headers: {
             "Content-Type": "application/json",
             Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -43,7 +45,7 @@ const Profile = () => {
 
   const updateProfile = async (values, setSubmitting) => {
     try {
-      const res = await fetch("/api/user/profile", {
+      const res = await fetch("http://localhost:5001/api/user/profile", {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
