@@ -20,7 +20,9 @@ const CalendarItem = ({
     totalInventory > 0 ? (availableSeats / totalInventory) * 100 : 0;
 
   const BASE_CALENDARITEM_CLASSES = `
-   min-w-[2.818rem] min-h-[2.813rem] md:min-h-[4.813rem] lg:h-[4.926rem] ${(index + 1) % 7 === 0 ? "lg:w-[6.12rem]" : "lg:w-[6.20rem]"} text-labelXLarge font-semibold "rounded-tl-[6px] rounded-bl-[20px] md:rounded-tl-[12px] md:rounded-bl-[40px] lg:rounded-tl-[6px] lg:rounded-bl-[24px]"
+   min-w-[2.818rem] min-h-[2.813rem] md:min-h-[4.813rem] lg:h-[4.926rem] ${
+     (index + 1) % 7 === 0 ? "lg:w-[6.12rem]" : "lg:w-[6.20rem]"
+   } text-labelXLarge font-semibold "rounded-tl-[6px] rounded-bl-[20px] md:rounded-tl-[12px] md:rounded-bl-[40px] lg:rounded-tl-[6px] lg:rounded-bl-[24px]"
 `;
 
   // Get today's date

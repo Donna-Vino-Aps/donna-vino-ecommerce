@@ -35,7 +35,7 @@ jest.mock("../../utils/logging", () => ({
   logError: jest.fn(),
 }));
 
-// Mock the TextInputSignUpScreen component
+// Mock the TextInput component
 jest.mock("@/components/TextInput/TextInput", () => ({
   __esModule: true,
   default: jest.fn(
