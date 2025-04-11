@@ -160,7 +160,7 @@ const Profile = () => {
                 aria-label="Email"
                 error={touched.email && errors.email}
               />
-
+              {/* 
               <TextInput
                 type="password"
                 name="password"
@@ -172,7 +172,7 @@ const Profile = () => {
                 data-testid="input-password"
                 aria-label="Password"
                 error={touched.password && errors.password}
-              />
+              /> */}
 
               <TextInput
                 name="address"
