@@ -98,8 +98,12 @@ export default {
         },
         calendar: {
           full: "#FF3B30",
+          full_light: "#FEEBEB",
           limited: "#FF9500",
+          limited_light: "#FF95004D",
           open: "#34C759",
+          open_dark: "#1A8245",
+          open_light: "#DAF8E6",
         },
       },
       screens: {

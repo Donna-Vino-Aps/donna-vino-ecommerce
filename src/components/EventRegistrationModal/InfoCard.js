@@ -1,35 +1,44 @@
 import React from "react";
+import Image from "next/image";
 import PropTypes from "prop-types";
-function InfoCard({
-  title,
-  description,
-  bulletPoints = [],
-  imageUrl,
-  bgClass = "bg-white",
-}) {
+import ShopifyRichTextRenderer from "../common/ShopifyRichTextRenderer";
+
+function InfoCard({ title, imageUrl, imageAlt = "", description, bgClass }) {
   return (
-    <div className={`${bgClass} shadow-md pb-4 rounded-t-[5rem] rounded-b-xl`}>
+    <div
+      data-testid="info-card"
+      className={`${bgClass} shadow-md pb-4 rounded-[2rem] text-tertiary1-darker `}
+    >
       {imageUrl && (
-        <img
-          src={imageUrl}
-          alt={title}
-          className="w-full h-auto object-cover rounded-md mb-2"
-        />
+        <div
+          data-testid="info-card-image-container"
+          className="relative w-full h-52 mb-8"
+        >
+          <Image
+            data-testid="info-card-image"
+            src={imageUrl}
+            alt={imageAlt || "Decorative image for " + title}
+            fill
+            sizes="(max-width: 768px) 100vw, 50vw"
+            priority
+            className="object-cover rounded-t-[2rem]"
+          />
+        </div>
       )}
 
-      <h3 className="text-displaySmall text-terniary1-darker font-medium font-barlow mb-6 pr-6 pl-6">
+      <h3
+        data-testid="info-card-title"
+        className="text-displaySmall font-medium mb-6 px-5"
+      >
         {title}
       </h3>
 
-      <p className="mb-2 pr-2 pl-6 text-bodyLarge">{description}</p>
-
-      {bulletPoints.length > 0 && (
-        <ul className="list-none space-y-1 pr-6 pl-6 text-bodyLarge">
-          {bulletPoints.map((item, idx) => (
-            <li key={idx}>{item}</li>
-          ))}
-        </ul>
-      )}
+      <div
+        data-testid="info-card-description"
+        className="mb-8 px-5 text-bodyLarge"
+      >
+        <ShopifyRichTextRenderer jsonString={description} />
+      </div>
     </div>
   );
 }
@@ -39,6 +48,7 @@ InfoCard.propTypes = {
   description: PropTypes.string.isRequired,
   bulletPoints: PropTypes.arrayOf(PropTypes.string),
   imageUrl: PropTypes.string,
+  imageAlt: PropTypes.string,
   bgClass: PropTypes.string,
 };
 

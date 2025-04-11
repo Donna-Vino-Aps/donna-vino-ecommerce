@@ -3,7 +3,6 @@ import React from "react";
 import LoginScreen from "@/components/LogIn/LogInScreen";
 import TastingSession from "@/components/HeroSlider/HeroSlider";
 import TopWinesSection from "@/components/Slider/TopWinesSection";
-import LogoutButton from "@/components/Button/Logout";
 import ServicesBanner from "@/components/ServicesBanner/ServicesBanner";
 export default function Home() {
   return (
@@ -16,7 +15,6 @@ export default function Home() {
         <ServicesBanner />
         <TopWinesSection />
         <LoginScreen />
-        <LogoutButton />
       </main>
     </div>
   );
