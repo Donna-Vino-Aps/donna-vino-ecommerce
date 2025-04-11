@@ -42,6 +42,13 @@ const Calendar = ({ currentYear, currentMonth }) => {
     // Format the date to match event.date format (YYYY-MM-DD)
     const dateStr = `${year}-${String(month).padStart(2, "0")}-${String(day).padStart(2, "0")}`;
 
+    // Get todays date in the same format (YYYY-MM-DD)
+    const todayStr = new Date().toISOString().slice(0, 10);
+
+    if (dateStr < todayStr) {
+      return null; // Return null if the date is in the past
+    }
+
     return events.find((event) => event.date === dateStr) || null;
   };
 
