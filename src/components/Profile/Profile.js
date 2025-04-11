@@ -13,7 +13,7 @@ const Profile = () => {
   useEffect(() => {
     const fetchProfile = async () => {
       try {
-        const res = await fetch("/api/users/profile", {
+        const res = await fetch("/api/user/profile", {
           headers: {
             "Content-Type": "application/json",
             Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -43,7 +43,7 @@ const Profile = () => {
 
   const updateProfile = async (values, setSubmitting) => {
     try {
-      const res = await fetch("/api/users/profile", {
+      const res = await fetch("/api/user/profile", {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
