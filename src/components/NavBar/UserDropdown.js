@@ -4,7 +4,8 @@ import React, { useState, useEffect, useRef } from "react";
 // import React, { useState, useEffect, useRef, useContext } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import axios from "axios";
+// import axios from "axios";
+import LogoutButton from "../Button/Logout";
 import { useLanguage } from "../../context/LanguageContext";
 // import { CredentialsContext } from "../../context/credentialsContext";
 
@@ -28,15 +29,15 @@ const UserDropdown = () => {
   const toggleDropdown = () => setIsOpen(!isOpen);
 
   // Handle logout
-  const handleLogout = async () => {
-    try {
-      await axios.post("/api/auth/logout", {}, { withCredentials: true });
-      setStoredCredentials(null);
-      router.push("/"); // Redirect to start page
-    } catch (error) {
-      console.error("Logout failed:", error);
-    }
-  };
+  // const handleLogout = async () => {
+  //   try {
+  //     await axios.post("/api/auth/logout", {}, { withCredentials: true });
+  //     setStoredCredentials(null);
+  //     router.push("/"); // Redirect to start page
+  //   } catch (error) {
+  //     console.error("Logout failed:", error);
+  //   }
+  // };
 
   // Close dropdown when clicking outside of it
   useEffect(() => {
@@ -126,7 +127,7 @@ const UserDropdown = () => {
               </Link>
             </li>
             <hr className="border-[0.5px] min-w-[7.5rem] border-tertiary1-active"></hr>
-            <li
+            {/* <li
               className="flex gap-1 mt-3 mb-4 text-bodyMedium"
               onClick={handleLogout}
             >
@@ -138,7 +139,8 @@ const UserDropdown = () => {
               <button role="button">
                 {translations["user-dropdown.logout"]}
               </button>
-            </li>
+            </li> */}
+            <LogoutButton />
           </ul>
         </div>
       )}
