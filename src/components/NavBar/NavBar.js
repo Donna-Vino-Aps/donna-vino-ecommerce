@@ -6,7 +6,7 @@ import LanguageSwitch from "../NavBar/LanguageSwitch";
 import SideBar from "../SideBar/SideBar";
 import { useLanguage } from "../../context/LanguageContext";
 import SearchButton from "./SearchButton";
-import UserDropdown from "./UserDropdown";
+import UserDropdown from "./UserDropdown/UserDropdown";
 import ShoppingCart from "./ShoppingCart";
 
 const Navbar = () => {
