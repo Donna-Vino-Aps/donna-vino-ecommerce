@@ -1,8 +1,8 @@
-export const languageToShopifyLocale = {
+export const languageToShopifyLanguage = {
   en: "EN",
   dk: "DA",
 };
 
-export function getShopifyLocale(language) {
-  return languageToShopifyLocale[language] || "EN";
+export function getShopifyLanguage(language) {
+  return languageToShopifyLanguage[language] || "EN";
 }
