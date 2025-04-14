@@ -4,6 +4,7 @@ import {
   SHOPIFY_STOREFRONT_API_URL,
   SHOPIFY_STOREFRONT_ACCESS_TOKEN,
 } from "@/config/shopify";
+import { getShopifyLocale } from "@/utils/localization";
 
 // Validate Shopify configuration
 if (!SHOPIFY_STOREFRONT_API_URL || !SHOPIFY_STOREFRONT_ACCESS_TOKEN) {
@@ -12,7 +13,6 @@ if (!SHOPIFY_STOREFRONT_API_URL || !SHOPIFY_STOREFRONT_ACCESS_TOKEN) {
   );
 }
 
-// Create a GraphQL client for Shopify's Storefront API
 const shopifyClient = createGraphQLClient({
   url: SHOPIFY_STOREFRONT_API_URL || "",
   headers: {
@@ -27,12 +27,15 @@ const shopifyClient = createGraphQLClient({
  * Execute a GraphQL query against the Shopify Storefront API
  * @param {string} query - GraphQL query string
  * @param {Object} variables - Query variables
+ * @param {string} language - Current application language (en or dk)
  * @returns {Promise<Object>} - Query response
  */
-export async function shopifyQuery(query, variables = {}) {
+export async function shopifyQuery(query, variables = {}, language = "en") {
   try {
+    const locale = getShopifyLocale(language);
+
     const { data, errors } = await shopifyClient.request(query, {
-      variables,
+      variables: { ...variables, locale },
     });
 
     if (errors) {
