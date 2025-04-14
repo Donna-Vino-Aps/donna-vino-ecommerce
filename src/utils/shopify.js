@@ -1,12 +1,11 @@
 import { createGraphQLClient } from "@shopify/graphql-client";
 import { logError } from "@/utils/logging";
+import { getShopifyLanguage } from "@/utils/localization";
 import {
   SHOPIFY_STOREFRONT_API_URL,
   SHOPIFY_STOREFRONT_ACCESS_TOKEN,
 } from "@/config/shopify";
-import { getShopifyLocale } from "@/utils/localization";
 
-// Validate Shopify configuration
 if (!SHOPIFY_STOREFRONT_API_URL || !SHOPIFY_STOREFRONT_ACCESS_TOKEN) {
   logError(
     "Shopify configuration is incomplete. Please check your environment variables.",
@@ -19,12 +18,12 @@ const shopifyClient = createGraphQLClient({
     "X-Shopify-Storefront-Access-Token": SHOPIFY_STOREFRONT_ACCESS_TOKEN || "",
     "Content-Type": "application/json",
   },
-  retries: 3, // Automatically retry failed requests
+  retries: 3,
   customFetch: fetch,
 });
 
 /**
- * Execute a GraphQL query against the Shopify Storefront API
+ * Execute a GraphQL query against the Shopify Storefront API with language support
  * @param {string} query - GraphQL query string
  * @param {Object} variables - Query variables
  * @param {string} language - Current application language (en or dk)
@@ -32,10 +31,13 @@ const shopifyClient = createGraphQLClient({
  */
 export async function shopifyQuery(query, variables = {}, language = "en") {
   try {
-    const locale = getShopifyLocale(language);
+    const shopifyLanguage = getShopifyLanguage(language);
 
     const { data, errors } = await shopifyClient.request(query, {
-      variables: { ...variables, locale },
+      variables: {
+        ...variables,
+        language: shopifyLanguage,
+      },
     });
 
     if (errors) {
