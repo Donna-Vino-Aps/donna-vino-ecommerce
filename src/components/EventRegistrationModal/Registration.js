@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
+import { useLanguage } from "@/context/LanguageContext";
 
 function Registration({ eventDetails = {}, onClose }) {
+  const { translations } = useLanguage();
   const { availableSeats = 0, price = 0, currency = "Kr." } = eventDetails;
 
   const [firstName, setFirstName] = useState("");
@@ -19,7 +21,7 @@ function Registration({ eventDetails = {}, onClose }) {
   return (
     <>
       <h3 className="text-headlineSmall text-center font-medium font-barlow mb-4">
-        Reservation contacts details
+        {translations["event.registration.title"]}
       </h3>
       <form onSubmit={handleSubmit}>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
@@ -32,7 +34,7 @@ function Registration({ eventDetails = {}, onClose }) {
               onChange={(e) => setFirstName(e.target.value)}
               required
               className="w-full border border-tertiary2-normal rounded p-2 text-bodyLarge"
-              placeholder="First Name*"
+              placeholder={translations["event.registration.form.firstName"]}
             />
           </div>
           <div>
@@ -44,7 +46,7 @@ function Registration({ eventDetails = {}, onClose }) {
               onChange={(e) => setLastName(e.target.value)}
               required
               className="w-full border border-tertiary2-normal rounded p-2 text-bodyLarge"
-              placeholder="Last Name*"
+              placeholder={translations["event.registration.form.lastName"]}
             />
           </div>
         </div>
@@ -58,7 +60,7 @@ function Registration({ eventDetails = {}, onClose }) {
               onChange={(e) => setEmail(e.target.value)}
               required
               className="w-full border border-tertiary2-normal rounded p-2 text-bodyLarge"
-              placeholder="Email Address*"
+              placeholder={translations["event.registration.form.email"]}
             />
           </div>
           <div>
@@ -70,7 +72,7 @@ function Registration({ eventDetails = {}, onClose }) {
               onChange={(e) => setConfirmEmail(e.target.value)}
               required
               className="w-full border border-tertiary2-normal rounded p-2 text-bodyLarge"
-              placeholder="Confirm Email Address*"
+              placeholder={translations["event.registration.form.confirmEmail"]}
             />
           </div>
         </div>
@@ -83,7 +85,7 @@ function Registration({ eventDetails = {}, onClose }) {
             onChange={(e) => setPhone(e.target.value)}
             required
             className="w-full md:w-[49%] border border-tertiary2-normal rounded p-2 text-bodyLarge"
-            placeholder="Phone Number*"
+            placeholder={translations["event.registration.form.phone"]}
           />
         </div>
         <div className="flex flex-col sm:flex-row md:flex-row space-x-6 mb-4">
@@ -92,10 +94,10 @@ function Registration({ eventDetails = {}, onClose }) {
               htmlFor="seats"
               className="block text-bodyMedium font-medium mb-1"
             >
-              How many seats would you like to reserve?
+              {translations["event.registration.form.seats"]}
             </label>
             <p className="text-bodySmall text-tertiary1-normal mb-2">
-              Select your desired seats using the seat selector.
+              {translations["event.registration.form.selectSeats"]}
             </p>
           </div>
           <div className="flex items-center gap-9">
@@ -147,7 +149,7 @@ function Registration({ eventDetails = {}, onClose }) {
             className="mr-2 accent-primary-normal"
           />
           <label htmlFor="agree" className="text-bodySmall">
-            I agree with terms and conditions.
+            {translations["event.registration.form.acceptTerms"]}
           </label>
         </div>
         <div className="flex flex-col md:flex-row md:items-center md:justify-between w-full">
@@ -157,7 +159,7 @@ function Registration({ eventDetails = {}, onClose }) {
               className="w-full md:flex-1 bg-primary-normal hover:bg-primary-hover_normal text-white px-4 py-2 rounded font-medium"
               onClick={onClose}
             >
-              Close
+              {translations["event.registration.form.close"]}
             </button>
 
             <button
@@ -165,7 +167,7 @@ function Registration({ eventDetails = {}, onClose }) {
               className="w-full md:flex-1 bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded font-medium disabled:bg-blue-500 disabled:hover:bg-blue-500 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
               disabled={!agree || availableSeats === 0}
             >
-              <span>Pay with</span>
+              <span>{translations["event.registration.form.payWith"]}</span>
               <img
                 src="/icons/brand.svg"
                 alt="MobilePay Logo"
