@@ -56,6 +56,7 @@ describe("EventsContext", () => {
     jest.clearAllMocks();
 
     useLanguage.mockReturnValue({
+      language: "en",
       translations: {
         "events.error.loading": "Failed to load events",
       },
@@ -100,6 +101,8 @@ describe("EventsContext", () => {
       expect(screen.queryByTestId("loading")).not.toBeInTheDocument();
     });
 
+    // Verify getEventsCollection was called with language parameter
+    expect(getEventsCollection).toHaveBeenCalledWith("en");
     expect(transformShopifyProduct).toHaveBeenCalledTimes(2);
 
     const eventItems = screen.getAllByTestId("event-item");
@@ -132,5 +135,58 @@ describe("EventsContext", () => {
     expect(screen.getByTestId("error")).toHaveTextContent(
       /Failed to load events/,
     );
+  });
+
+  it("should refetch events when language changes", async () => {
+    // First render with English
+    useLanguage.mockReturnValue({
+      language: "en",
+      translations: {
+        "events.error.loading": "Failed to load events",
+      },
+    });
+
+    const mockEvents = {
+      products: {
+        edges: [
+          {
+            node: {
+              id: "1",
+              title: "Wine Tasting Event",
+              handle: "wine-tasting",
+            },
+          },
+        ],
+      },
+    };
+
+    getEventsCollection.mockResolvedValue(mockEvents);
+
+    const { rerender } = renderWithProvider();
+
+    await waitFor(() => {
+      expect(getEventsCollection).toHaveBeenCalledWith("en");
+    });
+
+    // Change language to Danish and rerender
+    useLanguage.mockReturnValue({
+      language: "dk",
+      translations: {
+        "events.error.loading": "Kunne ikke indlæse begivenheder",
+      },
+    });
+
+    rerender(
+      <EventsProvider>
+        <TestComponent />
+      </EventsProvider>,
+    );
+
+    await waitFor(() => {
+      expect(getEventsCollection).toHaveBeenCalledWith("dk");
+    });
+
+    // Ensure getEventsCollection was called twice with different languages
+    expect(getEventsCollection).toHaveBeenCalledTimes(2);
   });
 });
