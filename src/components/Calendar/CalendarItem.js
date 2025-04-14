@@ -36,7 +36,7 @@ const CalendarItem = ({
 
   let bgColor;
   if (isOtherMonth) {
-    bgColor = "bg-[#ffffff] text-tertiary1-active hover:cursor-default";
+    bgColor = "bg-transparent text-tertiary1-active hover:cursor-default";
   } else if (isFull) {
     bgColor = "bg-calendar-full text-tertiary1-light"; // Red if full
   } else if (percentageAvailable > 50 && totalInventory !== 0) {
@@ -46,9 +46,9 @@ const CalendarItem = ({
   } else if (isToday && percentageAvailable !== null) {
     bgColor = "bg-primary-active text-tertiary1-light"; // light pink if today
   } else if (totalInventory === 0) {
-    bgColor = "bg-[#ffffff] hover:cursor-default"; // White if there is no event on this day
+    bgColor = "bg-transparent hover:cursor-default"; // White if there is no event on this day
   } else {
-    bgColor = "bg-[#ffffff] hover:cursor-default"; // White if nothing else matches
+    bgColor = "bg-transparent hover:cursor-default"; // White if nothing else matches
   }
 
   const calendarItemClass = `
@@ -58,7 +58,7 @@ const CalendarItem = ({
 
   return (
     <article
-      className={`relative min-w-[2.818rem] min-h-[2.813rem] lg:h-[4.976rem] lg:w-[6.22rem] bg-white border-tertiary1-light border-t-[1px] border-x-[1px] 
+      className={`relative min-w-[2.818rem] min-h-[2.813rem] lg:h-[4.976rem] lg:w-[6.22rem] bg-transparent border-tertiary1-light border-t-[1px] border-x-[1px] 
         ${isFull ? "hover:cursor-not-allowed" : "hover:cursor-pointer"} 
        `}
       onClick={onClick}
