@@ -1,14 +1,14 @@
 export const GET_COLLECTION_BY_HANDLE = `
-  query GetCollectionByHandle($handle: String!, $locale: String!) {
+  query GetCollectionByHandle($handle: String!, $language: LanguageCode!) @inContext(language: $language) {
     collection: collectionByHandle(handle: $handle) {
       id
-      title(locale: $locale)
+      title
       handle
       products(first: 10) {
         edges {
           node {
             id
-            title(locale: $locale)
+            title
             handle
             totalInventory
             priceRange {
@@ -17,20 +17,20 @@ export const GET_COLLECTION_BY_HANDLE = `
                 currencyCode
               }
             }
-            description(locale: $locale)
+            description
             date: metafield(namespace: "event", key: "date") {
               value
             }
-            menuDescription: metafield(namespace: "event", key: "menuDescription", locale: $locale) {
+            menuDescription: metafield(namespace: "event", key: "menuDescription") {
               value
             }
-            wineDescription: metafield(namespace: "event", key: "wineDescription", locale: $locale) {
+            wineDescription: metafield(namespace: "event", key: "wineDescription") {
               value
             }
-            winery: metafield(namespace: "event", key: "winery", locale: $locale) {
+            winery: metafield(namespace: "event", key: "winery") {
               value
             }
-            wine: metafield(namespace: "event", key: "wine", locale: $locale) {
+            wine: metafield(namespace: "event", key: "wine") {
               value
             }
             timeStart: metafield(namespace: "event", key: "timestart") {
@@ -39,7 +39,7 @@ export const GET_COLLECTION_BY_HANDLE = `
             timeEnd: metafield(namespace: "event", key: "timeend") {
               value
             }
-            location: metafield(namespace: "event", key: "location", locale: $locale) {
+            location: metafield(namespace: "event", key: "location") {
               value
             }
             images(first: 2) {
