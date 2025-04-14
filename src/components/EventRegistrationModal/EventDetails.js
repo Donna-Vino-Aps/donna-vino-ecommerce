@@ -2,11 +2,23 @@ import React from "react";
 import PropTypes from "prop-types";
 import InfoCard from "./InfoCard";
 import { format, parseISO } from "date-fns";
+import { enUS, da } from "date-fns/locale";
 import { logError } from "@/utils/logging";
 import { useLanguage } from "@/context/LanguageContext";
 
 function EventDetails({ eventDetails = {} }) {
-  const { translations } = useLanguage();
+  const { language, translations } = useLanguage();
+
+  // Get the appropriate date-fns locale based on the current language
+  const getLocale = () => {
+    switch (language) {
+      case "dk":
+        return da;
+      case "en":
+      default:
+        return enUS;
+    }
+  };
 
   const {
     availableSeats = "",
@@ -32,7 +44,9 @@ function EventDetails({ eventDetails = {} }) {
 
     try {
       if (timeString instanceof Date) {
-        return format(timeString, "h:mm aaa");
+        // Use 24-hour format for Danish, 12-hour for English
+        const formatString = language === "dk" ? "HH:mm" : "h:mm aaa";
+        return format(timeString, formatString, { locale: getLocale() });
       }
       return String(timeString);
     } catch (error) {
@@ -46,7 +60,10 @@ function EventDetails({ eventDetails = {} }) {
 
     try {
       const date = parseISO(dateString);
-      return format(date, "MMMM, do, yyyy");
+      // Use different date formats based on language
+      const formatString =
+        language === "dk" ? "d. MMMM yyyy" : "MMMM, do, yyyy";
+      return format(date, formatString, { locale: getLocale() });
     } catch (error) {
       logError("Error formatting date:", error.message);
       return String(dateString);
