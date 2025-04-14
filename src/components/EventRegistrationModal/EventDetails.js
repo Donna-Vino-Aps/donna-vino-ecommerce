@@ -3,8 +3,11 @@ import PropTypes from "prop-types";
 import InfoCard from "./InfoCard";
 import { format, parseISO } from "date-fns";
 import { logError } from "@/utils/logging";
+import { useLanguage } from "@/context/LanguageContext";
 
 function EventDetails({ eventDetails = {} }) {
+  const { translations } = useLanguage();
+
   const {
     availableSeats = "",
     totalInventory = "",
@@ -55,7 +58,7 @@ function EventDetails({ eventDetails = {} }) {
   const formattedTimeEnd = formatTime(timeEnd);
   const time =
     formattedTimeStart && formattedTimeEnd
-      ? `From ${formattedTimeStart} to ${formattedTimeEnd}`
+      ? `${translations["event.details.from"]} ${formattedTimeStart} ${translations["event.details.to"]} ${formattedTimeEnd}`
       : "";
 
   // Format seats available
@@ -81,7 +84,7 @@ function EventDetails({ eventDetails = {} }) {
         data-testid="event-details-title"
         className="w-full text-headlineSmall md:text-headlineLarge text-center mb-6"
       >
-        🍷✨Event's details ✨🍷
+        🍷✨ {translations["event.details.title"]} ✨🍷
       </h2>
 
       <div
@@ -92,7 +95,7 @@ function EventDetails({ eventDetails = {} }) {
           data-testid="event-details-seats"
           className={`inline-block ${seatBgClass} ${seatTextClass} self-center text-labelXLarge font-semibold px-6 py-3 rounded-full`}
         >
-          Seats available {seatsInfo}
+          {translations["event.details.seatsAvailable"]} {seatsInfo}
         </span>
         <div
           data-testid="event-details-location"
@@ -129,7 +132,9 @@ function EventDetails({ eventDetails = {} }) {
         >
           <img src="/icons/Money.svg" alt="Money icon" className="h-6 w-6" />
           <p>
-            From {price} {currency === "DKK" ? "kr." : currency} per person
+            {translations["event.details.from"]} {price}{" "}
+            {currency === "DKK" ? "kr." : currency}{" "}
+            {translations["event.details.perPerson"]}
           </p>
         </div>
       </div>
@@ -146,7 +151,7 @@ function EventDetails({ eventDetails = {} }) {
       >
         <InfoCard
           data-testid="event-details-wine-card"
-          title="Our Wines"
+          title={translations["event.details.wineCard.title"]}
           imageUrl={wineImage.url || "/images/wines.svg"}
           imageAlt={wineImage.altText || "Wine image"}
           description={wineDescription}
@@ -155,7 +160,7 @@ function EventDetails({ eventDetails = {} }) {
 
         <InfoCard
           data-testid="event-details-menu-card"
-          title="Our Dinner Menu"
+          title={translations["event.details.menuCard.title"]}
           imageUrl={dinnerImage.url || "/images/dinner.svg"}
           imageAlt={dinnerImage.altText || "Dinner menu image"}
           description={menuDescription}
@@ -166,8 +171,7 @@ function EventDetails({ eventDetails = {} }) {
         data-testid="event-details-footer"
         className="text-bodySmall text-tertiary2-darker italic mb-6 text-center"
       >
-        (*) For allergies or special requests, please contact us after
-        confirming your reservation.
+        {translations["event.details.allergies"]}
       </p>
     </>
   );
