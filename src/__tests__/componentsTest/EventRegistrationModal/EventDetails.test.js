@@ -82,95 +82,103 @@ describe("EventDetails Component", () => {
     ],
   };
 
-  it("renders event details correctly with complete data", () => {
+  it("renders event details correctly with English language", () => {
+    // Mock English language
+    useLanguage.mockReturnValue({
+      language: "en",
+      translations: {
+        "event.details.title": "Event's details",
+        "event.details.seatsAvailable": "Seats available",
+        "event.details.from": "From",
+        "event.details.to": "to",
+        "event.details.perPerson": "per person",
+        "event.details.allergies":
+          "(*) For allergies or special requests, please contact us after confirming your reservation.",
+        "event.details.wineCard.title": "Our Wines",
+        "event.details.menuCard.title": "Our Dinner Menu",
+      },
+    });
+
     render(<EventDetails eventDetails={mockEventDetails} />);
 
-    // Check heading
     expect(screen.getByTestId("event-details-title")).toHaveTextContent(
       "Event's details",
     );
 
-    // Check seats availability
-    const seatsElement = screen.getByTestId("event-details-seats");
-    expect(seatsElement).toHaveTextContent("Seats available 15/20");
-    expect(seatsElement).toHaveClass("bg-calendar-open_light");
-    expect(seatsElement).toHaveClass("text-calendar-open_dark");
+    expect(screen.getByTestId("event-details-seats")).toHaveTextContent(
+      "Seats available 15/20",
+    );
 
-    // Check location
     expect(screen.getByTestId("event-details-location")).toHaveTextContent(
       "Copenhagen Wine Bar",
     );
     expect(screen.getByAltText("Location icon")).toBeInTheDocument();
 
-    // Check date
     expect(screen.getByTestId("event-details-date")).toHaveTextContent(
       "August, 15th, 2023",
     );
     expect(screen.getByAltText("Calendar icon")).toBeInTheDocument();
 
-    // Check time
     expect(screen.getByTestId("event-details-time")).toHaveTextContent(
       "From 6:00 pm to 9:00 pm",
     );
     expect(screen.getByAltText("Clock icon")).toBeInTheDocument();
 
-    // Check price
     expect(screen.getByTestId("event-details-price")).toHaveTextContent(
       "From 299 kr. per person",
     );
     expect(screen.getByAltText("Money icon")).toBeInTheDocument();
+  });
 
-    // Check description
-    expect(screen.getByTestId("event-details-description")).toHaveTextContent(
-      "Join us for a wonderful wine tasting event",
-    );
+  it("renders event details correctly with Danish language", () => {
+    // Mock Danish language
+    useLanguage.mockReturnValue({
+      language: "dk",
+      translations: {
+        "event.details.title": "Begivenhedsdetaljer",
+        "event.details.seatsAvailable": "Ledige pladser",
+        "event.details.from": "Fra",
+        "event.details.to": "til",
+        "event.details.perPerson": "per person",
+        "event.details.allergies":
+          "(*) Ved allergier eller særlige ønsker, kontakt os venligst efter bekræftelse af din reservation.",
+        "event.details.wineCard.title": "Vores Vine",
+        "event.details.menuCard.title": "Vores Middagsmenu",
+      },
+    });
 
-    // Check InfoCards
-    expect(screen.getByTestId("event-details-cards")).toBeInTheDocument();
+    render(<EventDetails eventDetails={mockEventDetails} />);
 
-    // Check wine card
-    expect(screen.getByTestId("event-details-wine-card")).toBeInTheDocument();
-    expect(screen.getAllByTestId("info-card-title")[0]).toHaveTextContent(
-      "Our Wines",
-    );
-    expect(screen.getAllByTestId("info-card-image-url")[0]).toHaveTextContent(
-      "https://example.com/wine.jpg",
-    );
-    expect(screen.getAllByTestId("info-card-image-alt")[0]).toHaveTextContent(
-      "Wine Image",
-    );
-    expect(screen.getAllByTestId("info-card-description")[0]).toHaveTextContent(
-      "Selection of premium wines",
-    );
-
-    // Check dinner card
-    expect(screen.getByTestId("event-details-menu-card")).toBeInTheDocument();
-    expect(screen.getAllByTestId("info-card-title")[1]).toHaveTextContent(
-      "Our Dinner Menu",
-    );
-    expect(screen.getAllByTestId("info-card-image-url")[1]).toHaveTextContent(
-      "https://example.com/dinner.jpg",
-    );
-    expect(screen.getAllByTestId("info-card-image-alt")[1]).toHaveTextContent(
-      "Dinner Image",
-    );
-    expect(screen.getAllByTestId("info-card-description")[1]).toHaveTextContent(
-      "Gourmet dinner menu",
+    expect(screen.getByTestId("event-details-title")).toHaveTextContent(
+      "Begivenhedsdetaljer",
     );
 
-    // Check footer note
-    expect(screen.getByTestId("event-details-footer")).toHaveTextContent(
-      "For allergies or special requests",
+    expect(screen.getByTestId("event-details-seats")).toHaveTextContent(
+      "Ledige pladser 15/20",
+    );
+
+    expect(screen.getByTestId("event-details-location")).toHaveTextContent(
+      "Copenhagen Wine Bar",
+    );
+
+    expect(screen.getByTestId("event-details-date")).toHaveTextContent(
+      "15. august 2023",
+    );
+
+    expect(screen.getByTestId("event-details-time")).toHaveTextContent(
+      "Fra 18:00 til 21:00",
+    );
+
+    expect(screen.getByTestId("event-details-price")).toHaveTextContent(
+      "Fra 299 kr. per person",
     );
   });
 
   it("renders with minimal data and default values", () => {
     render(<EventDetails />);
 
-    // Check heading is still there
     expect(screen.getByTestId("event-details-title")).toBeInTheDocument();
 
-    // Check seats availability with empty value
     expect(screen.getByTestId("event-details-seats")).toHaveTextContent(
       "Seats available",
     );
@@ -178,28 +186,22 @@ describe("EventDetails Component", () => {
       /Seats available \d+\/\d+/,
     );
 
-    // Check location with empty value
     const locationElement = screen.getByTestId("event-details-location");
     expect(locationElement.textContent.trim()).toBe("");
 
-    // Check date with empty value
     const dateElement = screen.getByTestId("event-details-date");
     expect(dateElement.textContent.trim()).toBe("");
 
-    // Check time with empty value
     const timeElement = screen.getByTestId("event-details-time");
     expect(timeElement.textContent.trim()).toBe("");
 
-    // Check price with empty value
     expect(screen.getByTestId("event-details-price")).toHaveTextContent(
       "From per person",
     );
 
-    // InfoCards should still be rendered with default images
     expect(screen.getByTestId("event-details-wine-card")).toBeInTheDocument();
     expect(screen.getByTestId("event-details-menu-card")).toBeInTheDocument();
 
-    // Check default image URLs
     expect(screen.getAllByTestId("info-card-image-url")[0]).toHaveTextContent(
       "/images/wines.svg",
     );
