@@ -67,13 +67,18 @@ function EventDetails({ eventDetails = {} }) {
       ? `${availableSeats}/${totalInventory}`
       : "";
 
-  // Assign classes based on available seats
+  const isFull = availableSeats === 0 && totalInventory > 0;
+  const percentageAvailable =
+    totalInventory > 0 ? (availableSeats / totalInventory) * 100 : 0;
+
+  // Assign classes based on available seats percentage
   let seatBgClass = "bg-calendar-open_light";
   let seatTextClass = "text-calendar-open_dark";
-  if (availableSeats === 0) {
+
+  if (isFull) {
     seatBgClass = "bg-calendar-full_light";
     seatTextClass = "text-calendar-full";
-  } else if (availableSeats < 10) {
+  } else if (percentageAvailable <= 50 && totalInventory !== 0) {
     seatBgClass = "bg-calendar-limited_light";
     seatTextClass = "text-calendar-limited";
   }
