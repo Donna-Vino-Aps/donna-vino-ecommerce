@@ -1,14 +1,14 @@
 export const GET_COLLECTION_BY_HANDLE = `
-  query GetCollectionByHandle($handle: String!) {
+  query GetCollectionByHandle($handle: String!, $locale: String!) {
     collection: collectionByHandle(handle: $handle) {
       id
-      title
+      title(locale: $locale)
       handle
       products(first: 10) {
         edges {
           node {
             id
-            title
+            title(locale: $locale)
             handle
             totalInventory
             priceRange {
@@ -17,20 +17,20 @@ export const GET_COLLECTION_BY_HANDLE = `
                 currencyCode
               }
             }
-            description
+            description(locale: $locale)
             date: metafield(namespace: "event", key: "date") {
               value
             }
-            menuDescription: metafield(namespace: "event", key: "menuDescription") {
+            menuDescription: metafield(namespace: "event", key: "menuDescription", locale: $locale) {
               value
             }
-            wineDescription: metafield(namespace: "event", key: "wineDescription") {
+            wineDescription: metafield(namespace: "event", key: "wineDescription", locale: $locale) {
               value
             }
-            winery: metafield(namespace: "event", key: "winery") {
+            winery: metafield(namespace: "event", key: "winery", locale: $locale) {
               value
             }
-            wine: metafield(namespace: "event", key: "wine") {
+            wine: metafield(namespace: "event", key: "wine", locale: $locale) {
               value
             }
             timeStart: metafield(namespace: "event", key: "timestart") {
@@ -39,7 +39,7 @@ export const GET_COLLECTION_BY_HANDLE = `
             timeEnd: metafield(namespace: "event", key: "timeend") {
               value
             }
-            location: metafield(namespace: "event", key: "location") {
+            location: metafield(namespace: "event", key: "location", locale: $locale) {
               value
             }
             images(first: 2) {
