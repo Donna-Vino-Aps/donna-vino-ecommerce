@@ -9,7 +9,6 @@ import { useLanguage } from "@/context/LanguageContext";
 function EventDetails({ eventDetails = {} }) {
   const { language, translations } = useLanguage();
 
-  // Get the appropriate date-fns locale based on the current language
   const getLocale = () => {
     switch (language) {
       case "dk":
@@ -60,7 +59,6 @@ function EventDetails({ eventDetails = {} }) {
 
     try {
       const date = parseISO(dateString);
-      // Use different date formats based on language
       const formatString =
         language === "dk" ? "d. MMMM yyyy" : "MMMM, do, yyyy";
       return format(date, formatString, { locale: getLocale() });
