@@ -3,12 +3,12 @@ import DropdownButton from "@/components/NavBar/UserDropdown/DropdownButton";
 import DropdownMenu from "@/components/NavBar/UserDropdown/DropdownMenu";
 import { useLanguage } from "@/context/LanguageContext";
 import { useRouter } from "next/navigation";
-import axios from "axios";
 import { CredentialsContext } from "@/context/credentialsContext";
+import useFetch from "@/hooks/api/useFetch";
 
 export default function UserDropdown() {
   const [isOpen, setIsOpen] = useState(false);
-  const [isAuthenticated, setIsAuthenticated] = useState(true);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [menuItems, setMenuItems] = useState([]);
   const buttonRef = useRef(null);
   const router = useRouter();
@@ -25,14 +25,19 @@ export default function UserDropdown() {
   };
 
   const handleLogout = async () => {
-    try {
-      await axios.post("/api/auth/logout", {}, { withCredentials: true });
-      setStoredCredentials(null);
-      router.push("/"); // Redirect to start page
-    } catch (error) {
-      console.error("Logout failed:", error);
-    }
+    setStoredCredentials(null);
+    await localStorage.removeItem("userCredentials");
+    await localStorage.removeItem("userCredentialsToken");
+    router.push("/"); // Redirect to start page
   };
+
+  const { performFetch } = useFetch(
+    "/user/log-out",
+    "POST",
+    { withCredentials: true },
+    {},
+    handleLogout,
+  );
 
   const handleLogin = () => {
     router.push("/login");
@@ -65,7 +70,7 @@ export default function UserDropdown() {
     {
       title: "Logout",
       variant: "button",
-      onClick: handleLogout,
+      onClick: performFetch,
     },
   ];
 
@@ -77,10 +82,10 @@ export default function UserDropdown() {
     },
   ];
 
-  // useEffect(() => {
-  //   // Check for user credentials in localStorage
-  //   setIsAuthenticated(!!storedCredentials);
-  // }, []);
+  useEffect(() => {
+    // Check for user credentials in localStorage
+    setIsAuthenticated(!!storedCredentials);
+  }, [storedCredentials]);
 
   useEffect(() => {
     if (isAuthenticated) {
