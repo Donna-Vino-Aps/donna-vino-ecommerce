@@ -3,15 +3,17 @@ import PropTypes from "prop-types";
 
 export default function MenuButton({ title, onClick, onClose }) {
   return (
-    <button
-      onClick={() => {
-        onClick();
-        onClose();
-      }}
-      className="w-fit max-w-max inline-block px-4 py-2 bg-primary-normal text-primary-light rounded hover:bg-primary-hover_normal"
-    >
-      {title}
-    </button>
+    <div className="w-full flex justify-center">
+      <button
+        onClick={() => {
+          onClick();
+          onClose();
+        }}
+        className="w-fit max-w-max inline-block px-4 py-2 bg-primary-normal text-primary-light rounded hover:bg-primary-hover_normal"
+      >
+        {title}
+      </button>
+    </div>
   );
 }
 
