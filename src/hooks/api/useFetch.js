@@ -76,7 +76,7 @@ const useFetch = (
     };
 
     try {
-      const url = `${baseApiUrl}/api${route}`.replace("//", "/");
+      const url = `${baseApiUrl}/api${route}`.replace("//api", "/api");
       const response = await axios(url, baseOptions);
       logInfo(`Request URL: ${url}`);
 
