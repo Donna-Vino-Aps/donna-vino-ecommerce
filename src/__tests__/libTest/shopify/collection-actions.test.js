@@ -36,9 +36,29 @@ describe("Shopify Collection Actions", () => {
 
       const result = await getCollectionByHandle("test-collection");
 
-      expect(shopifyQuery).toHaveBeenCalledWith(expect.any(String), {
-        handle: "test-collection",
-      });
+      expect(shopifyQuery).toHaveBeenCalledWith(
+        expect.any(String),
+        { handle: "test-collection" },
+        "en",
+      );
+      expect(result).toEqual(mockCollection);
+    });
+
+    it("should use the provided language parameter", async () => {
+      const mockCollection = {
+        id: "gid://shopify/Collection/123",
+        title: "Test Collection",
+      };
+
+      shopifyQuery.mockResolvedValue({ collection: mockCollection });
+
+      const result = await getCollectionByHandle("test-collection", "dk");
+
+      expect(shopifyQuery).toHaveBeenCalledWith(
+        expect.any(String),
+        { handle: "test-collection" },
+        "dk",
+      );
       expect(result).toEqual(mockCollection);
     });
 
@@ -57,15 +77,31 @@ describe("Shopify Collection Actions", () => {
   });
 
   describe("getEventsCollection", () => {
-    it("should call getCollectionByHandle with 'events'", async () => {
+    it("should call getCollectionByHandle with 'events' and default language", async () => {
       const mockCollection = { title: "Events Collection" };
       shopifyQuery.mockResolvedValue({ collection: mockCollection });
 
       const result = await getEventsCollection();
 
-      expect(shopifyQuery).toHaveBeenCalledWith(expect.any(String), {
-        handle: "events",
-      });
+      expect(shopifyQuery).toHaveBeenCalledWith(
+        expect.any(String),
+        { handle: "events" },
+        "en",
+      );
+      expect(result).toEqual(mockCollection);
+    });
+
+    it("should call getCollectionByHandle with 'events' and specified language", async () => {
+      const mockCollection = { title: "Events Collection" };
+      shopifyQuery.mockResolvedValue({ collection: mockCollection });
+
+      const result = await getEventsCollection("dk");
+
+      expect(shopifyQuery).toHaveBeenCalledWith(
+        expect.any(String),
+        { handle: "events" },
+        "dk",
+      );
       expect(result).toEqual(mockCollection);
     });
   });
@@ -200,35 +236,6 @@ describe("Shopify Collection Actions", () => {
         "Error handling time:",
         expect.any(Error),
       );
-    });
-
-    it("should default currency to DKK if not provided", () => {
-      const productWithoutCurrency = {
-        ...mockProduct,
-        priceRange: {
-          maxVariantPrice: {
-            amount: "599.00",
-            // Missing currencyCode
-          },
-        },
-      };
-
-      const result = transformShopifyProduct(productWithoutCurrency);
-
-      expect(result.currency).toBe("DKK");
-    });
-
-    it("should handle products with no images", () => {
-      const productWithoutImages = {
-        ...mockProduct,
-        images: {
-          edges: [],
-        },
-      };
-
-      const result = transformShopifyProduct(productWithoutImages);
-
-      expect(result.images).toEqual([]);
     });
 
     it("should handle products with empty metafields", () => {

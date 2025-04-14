@@ -25,7 +25,6 @@ jest.mock("@/context/LanguageContext", () => ({
   useLanguage: jest.fn(),
 }));
 
-// Test component to access context
 const TestComponent = () => {
   const { events, isLoading, error } = useEvents();
 
@@ -101,7 +100,6 @@ describe("EventsContext", () => {
       expect(screen.queryByTestId("loading")).not.toBeInTheDocument();
     });
 
-    // Verify getEventsCollection was called with language parameter
     expect(getEventsCollection).toHaveBeenCalledWith("en");
     expect(transformShopifyProduct).toHaveBeenCalledTimes(2);
 
@@ -138,7 +136,6 @@ describe("EventsContext", () => {
   });
 
   it("should refetch events when language changes", async () => {
-    // First render with English
     useLanguage.mockReturnValue({
       language: "en",
       translations: {
@@ -168,7 +165,6 @@ describe("EventsContext", () => {
       expect(getEventsCollection).toHaveBeenCalledWith("en");
     });
 
-    // Change language to Danish and rerender
     useLanguage.mockReturnValue({
       language: "dk",
       translations: {
@@ -186,7 +182,6 @@ describe("EventsContext", () => {
       expect(getEventsCollection).toHaveBeenCalledWith("dk");
     });
 
-    // Ensure getEventsCollection was called twice with different languages
     expect(getEventsCollection).toHaveBeenCalledTimes(2);
   });
 });
