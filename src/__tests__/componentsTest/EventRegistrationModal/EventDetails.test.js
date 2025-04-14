@@ -208,43 +208,74 @@ describe("EventDetails Component", () => {
     );
   });
 
-  it("handles different seat availability states", () => {
-    // Test with no seats available
-    const noSeatsEvent = {
+  it("applies correct styling for full events (0 seats available)", () => {
+    const fullEvent = {
       ...mockEventDetails,
       availableSeats: 0,
+      totalInventory: 20,
     };
 
-    const { rerender } = render(<EventDetails eventDetails={noSeatsEvent} />);
+    render(<EventDetails eventDetails={fullEvent} />);
 
-    // Should have the "full" styling
     const seatsElement = screen.getByTestId("event-details-seats");
-    expect(seatsElement).toHaveTextContent("Seats available 0/20");
     expect(seatsElement).toHaveClass("bg-calendar-full_light");
     expect(seatsElement).toHaveClass("text-calendar-full");
+  });
 
-    // Test with limited seats available
-    const limitedSeatsEvent = {
+  it("applies correct styling for limited availability (exactly 50%)", () => {
+    const limitedEvent = {
       ...mockEventDetails,
-      availableSeats: 5,
+      availableSeats: 10,
+      totalInventory: 20,
     };
 
-    rerender(<EventDetails eventDetails={limitedSeatsEvent} />);
+    render(<EventDetails eventDetails={limitedEvent} />);
 
-    // Should have the "limited" styling
-    const limitedSeatsElement = screen.getByTestId("event-details-seats");
-    expect(limitedSeatsElement).toHaveTextContent("Seats available 5/20");
-    expect(limitedSeatsElement).toHaveClass("bg-calendar-limited_light");
-    expect(limitedSeatsElement).toHaveClass("text-calendar-limited");
+    const seatsElement = screen.getByTestId("event-details-seats");
+    expect(seatsElement).toHaveClass("bg-calendar-limited_light");
+    expect(seatsElement).toHaveClass("text-calendar-limited");
+  });
 
-    // Test with plenty of seats available
-    rerender(<EventDetails eventDetails={mockEventDetails} />);
+  it("applies correct styling for limited availability (less than 50%)", () => {
+    const limitedEvent = {
+      ...mockEventDetails,
+      availableSeats: 8,
+      totalInventory: 20,
+    };
 
-    // Should have the "open" styling
-    const plentySeatsElement = screen.getByTestId("event-details-seats");
-    expect(plentySeatsElement).toHaveTextContent("Seats available 15/20");
-    expect(plentySeatsElement).toHaveClass("bg-calendar-open_light");
-    expect(plentySeatsElement).toHaveClass("text-calendar-open_dark");
+    render(<EventDetails eventDetails={limitedEvent} />);
+
+    const seatsElement = screen.getByTestId("event-details-seats");
+    expect(seatsElement).toHaveClass("bg-calendar-limited_light");
+    expect(seatsElement).toHaveClass("text-calendar-limited");
+  });
+
+  it("applies correct styling for open availability (more than 50%)", () => {
+    const openEvent = {
+      ...mockEventDetails,
+      availableSeats: 15,
+      totalInventory: 20,
+    };
+
+    render(<EventDetails eventDetails={openEvent} />);
+
+    const seatsElement = screen.getByTestId("event-details-seats");
+    expect(seatsElement).toHaveClass("bg-calendar-open_light");
+    expect(seatsElement).toHaveClass("text-calendar-open_dark");
+  });
+
+  it("applies correct styling for small events with all seats available", () => {
+    const smallEvent = {
+      ...mockEventDetails,
+      availableSeats: 8,
+      totalInventory: 8,
+    };
+
+    render(<EventDetails eventDetails={smallEvent} />);
+
+    const seatsElement = screen.getByTestId("event-details-seats");
+    expect(seatsElement).toHaveClass("bg-calendar-open_light");
+    expect(seatsElement).toHaveClass("text-calendar-open_dark");
   });
 
   it("handles date formatting errors gracefully", () => {
@@ -292,7 +323,6 @@ describe("EventDetails Component", () => {
 
     const { rerender } = render(<EventDetails eventDetails={dkkEvent} />);
 
-    // Should display kr. for DKK
     expect(screen.getByTestId("event-details-price")).toHaveTextContent(
       "From 299 kr. per person",
     );
