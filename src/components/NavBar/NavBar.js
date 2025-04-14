@@ -300,7 +300,7 @@ const Navbar = () => {
           <SearchButton />
           <UserDropdown />
           <ShoppingCart />
-          <div className="lg:hidden w-[1.5rem] h-[1.5rem] ml-2 relative top-[1px]">
+          <div className="lg:hidden w-[1.5rem] h-[1.5rem] ml-2 mr-8 relative top-[1px]">
             <button
               onClick={toggleMenu}
               aria-expanded={isMenuOpen}
