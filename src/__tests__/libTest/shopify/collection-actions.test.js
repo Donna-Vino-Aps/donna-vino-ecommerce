@@ -238,6 +238,35 @@ describe("Shopify Collection Actions", () => {
       );
     });
 
+    it("should default currency to DKK if not provided", () => {
+      const productWithoutCurrency = {
+        ...mockProduct,
+        priceRange: {
+          maxVariantPrice: {
+            amount: "599.00",
+            // Missing currencyCode
+          },
+        },
+      };
+
+      const result = transformShopifyProduct(productWithoutCurrency);
+
+      expect(result.currency).toBe("DKK");
+    });
+
+    it("should handle products with no images", () => {
+      const productWithoutImages = {
+        ...mockProduct,
+        images: {
+          edges: [],
+        },
+      };
+
+      const result = transformShopifyProduct(productWithoutImages);
+
+      expect(result.images).toEqual([]);
+    });
+
     it("should handle products with empty metafields", () => {
       const productWithEmptyMetafields = {
         ...mockProduct,
