@@ -86,7 +86,7 @@ describe("Shopify Utilities", () => {
       const query = "query { products { id title } }";
 
       await expect(shopifyUtils.shopifyQuery(query)).rejects.toThrow(
-        "GraphQL Error",
+        /GraphQL Error/,
       );
     });
 
@@ -97,7 +97,7 @@ describe("Shopify Utilities", () => {
       const query = "query { products { id title } }";
 
       await expect(shopifyUtils.shopifyQuery(query)).rejects.toThrow(
-        "Network Error",
+        /Network Error/,
       );
     });
 
@@ -108,7 +108,7 @@ describe("Shopify Utilities", () => {
       const query = "query { products { id title } }";
 
       await expect(shopifyUtils.shopifyQuery(query)).rejects.toThrow(
-        "Shopify domain is not configured correctly",
+        /Shopify domain is not configured correctly/,
       );
     });
 

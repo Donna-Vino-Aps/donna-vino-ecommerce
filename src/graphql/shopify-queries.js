@@ -4,7 +4,7 @@ export const GET_COLLECTION_BY_HANDLE = `
       id
       title
       handle
-      products(first: 10) {
+      products(first: 50, sortKey: CREATED, reverse: true) {
         edges {
           node {
             id
