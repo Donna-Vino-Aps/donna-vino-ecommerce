@@ -151,14 +151,14 @@ const Navbar = () => {
 
   return (
     <nav
-      className="flex w-full h-[7.18rem] md:h-[14.37rem] items-center justify-between px-8 py-6 gap-2 z-50"
+      className="flex w-full h-[7.18rem] md:h-[14.37rem] items-center justify-between py-6 gap-2 z-50"
       aria-label="Main Navigation"
     >
       <Link
         href="/"
         data-testid="navbar-brand"
         aria-label="Go to home"
-        className="flex-shrink-0"
+        className="flex-shrink-0 pl-10"
       >
         <img
           src="/images/donna-vino-logo-transparent.png"
@@ -295,7 +295,7 @@ const Navbar = () => {
         ))}
       </div>
 
-      <div className="flex justify-end w-full items-center gap-5">
+      <div className="flex justify-end w-full items-center gap-14">
         <div className="flex gap-3 lg:gap-5 items-center md:mr-6 relative bottom-[2px]">
           <SearchButton />
           <UserDropdown />
