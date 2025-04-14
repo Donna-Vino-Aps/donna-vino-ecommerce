@@ -3,10 +3,15 @@ import React from "react";
 import { render, screen } from "@testing-library/react";
 import EventDetails from "@/components/EventRegistrationModal/EventDetails";
 import { logError } from "@/utils/logging";
+import { useLanguage } from "@/context/LanguageContext";
 
 // Mock dependencies
 jest.mock("@/utils/logging", () => ({
   logError: jest.fn(),
+}));
+
+jest.mock("@/context/LanguageContext", () => ({
+  useLanguage: jest.fn(),
 }));
 
 // Mock the InfoCard component
@@ -33,6 +38,22 @@ jest.mock("@/components/EventRegistrationModal/InfoCard", () => {
 describe("EventDetails Component", () => {
   beforeEach(() => {
     jest.clearAllMocks();
+
+    // Mock the useLanguage hook to return English translations
+    useLanguage.mockReturnValue({
+      language: "en",
+      translations: {
+        "event.details.title": "Event's details",
+        "event.details.seatsAvailable": "Seats available",
+        "event.details.from": "From",
+        "event.details.to": "to",
+        "event.details.perPerson": "per person",
+        "event.details.allergies":
+          "(*) For allergies or special requests, please contact us after confirming your reservation.",
+        "event.details.wineCard.title": "Our Wines",
+        "event.details.menuCard.title": "Our Dinner Menu",
+      },
+    });
   });
 
   const mockEventDetails = {
@@ -66,7 +87,7 @@ describe("EventDetails Component", () => {
 
     // Check heading
     expect(screen.getByTestId("event-details-title")).toHaveTextContent(
-      "🍷✨Event's details ✨🍷",
+      "Event's details",
     );
 
     // Check seats availability
@@ -244,21 +265,22 @@ describe("EventDetails Component", () => {
   });
 
   it("handles time formatting errors gracefully", () => {
-    const invalidTimeEvent = {
+    const invalidDate1 = new Date("invalid");
+    const invalidDate2 = new Date("also-invalid");
+
+    const eventWithInvalidTime = {
       ...mockEventDetails,
-      timeStart: new Date("invalid"),
-      timeEnd: new Date("also-invalid"),
+      timeStart: invalidDate1,
+      timeEnd: invalidDate2,
     };
 
-    render(<EventDetails eventDetails={invalidTimeEvent} />);
+    render(<EventDetails eventDetails={eventWithInvalidTime} />);
 
+    expect(screen.getByTestId("event-details-time")).toBeInTheDocument();
     expect(logError).toHaveBeenCalledWith(
       "Error formatting time:",
       expect.any(String),
     );
-
-    const timeElement = screen.getByTestId("event-details-time");
-    expect(timeElement).toBeInTheDocument();
   });
 
   it("handles currency display correctly", () => {
