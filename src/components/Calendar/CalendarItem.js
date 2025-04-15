@@ -13,6 +13,7 @@ const CalendarItem = ({
   onClick,
   isOtherMonth,
   currentMonth,
+  currentYear,
 }) => {
   const { translations } = useLanguage();
   const isFull = availableSeats === 0 && totalInventory > 0;
@@ -32,7 +33,8 @@ const CalendarItem = ({
   const isToday =
     dayOfMonth === todayDayOfMonth && currentMonth === todayMonth + 1;
 
-  // Check if the calendar item is rendered in the current month
+  // Check if the calendar item is rendered in the current year or not
+  const isCurrentYear = currentYear === today.getFullYear(); // Get the current year
 
   let bgColor;
   if (isOtherMonth) {
@@ -43,7 +45,7 @@ const CalendarItem = ({
     bgColor = "bg-calendar-open text-tertiary1-light"; // Green if many seats available
   } else if (percentageAvailable <= 50 && totalInventory !== 0) {
     bgColor = "bg-calendar-limited text-tertiary1-light"; // Yellow if limited
-  } else if (isToday && percentageAvailable !== null) {
+  } else if (isToday && percentageAvailable !== null && isCurrentYear) {
     bgColor = "bg-primary-active text-tertiary1-light"; // light pink if today
   } else if (totalInventory === 0) {
     bgColor = "bg-transparent hover:cursor-default"; // White if there is no event on this day
@@ -71,7 +73,7 @@ const CalendarItem = ({
           {dayOfMonth}
         </p>
         {availableSeats >= 0 && totalInventory !== 0 && !isOtherMonth ? (
-          <div className="justify-end items-center md:gap-[4px] absolute bottom-3 md:right-2 hidden md:flex">
+          <div className="justify-end items-center md:gap-[4px] absolute bottom-3 md:right-1 hidden md:flex">
             <img
               src={icon}
               alt="attendants icon"
@@ -94,6 +96,7 @@ CalendarItem.propTypes = {
   onClick: PropTypes.func,
   isOtherMonth: PropTypes.bool,
   currentMonth: PropTypes.number,
+  currentYear: PropTypes.number,
 };
 
 export default CalendarItem;

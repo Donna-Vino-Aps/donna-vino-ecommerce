@@ -154,6 +154,7 @@ const Calendar = ({ currentYear, currentMonth }) => {
             totalInventory={event ? event.totalInventory : 0}
             isOtherMonth={day.isOtherMonth}
             currentMonth={currentMonth}
+            currentYear={currentYear}
             hasEvents={!!event}
             onClick={() => event && handleOpenModal(event)}
           />
