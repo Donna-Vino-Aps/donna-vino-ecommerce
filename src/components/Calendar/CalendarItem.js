@@ -21,7 +21,7 @@ const CalendarItem = ({
     totalInventory > 0 ? (availableSeats / totalInventory) * 100 : 0;
 
   const BASE_CALENDARITEM_CLASSES = `
-   min-w-[2.818rem] min-h-[2.813rem] md:min-h-[4.813rem] lg:h-[4.926rem] ${(index + 1) % 7 === 0 ? "lg:w-[6.12rem]" : "lg:w-[6.20rem]"} text-labelXLarge font-semibold ${isToday && isCurrentYear ? "rounded-tl-[6px] rounded-bl-[20px] md:rounded-tl-[12px] md:rounded-bl-[40px] lg:rounded-tl-[6px] lg:rounded-bl-[24px]" : ""}
+   min-w-[2.818rem] min-h-[2.813rem] md:min-h-[4.813rem] lg:h-[4.926rem] ${(index + 1) % 7 === 0 ? "lg:w-[6.12rem]" : "lg:w-[6.20rem]"} text-labelXLarge font-semibold rounded-tl-[6px] rounded-bl-[20px] md:rounded-tl-[12px] md:rounded-bl-[40px] lg:rounded-tl-[6px] lg:rounded-bl-[24px]
 `;
 
   // Get today's date
@@ -46,7 +46,8 @@ const CalendarItem = ({
   } else if (percentageAvailable <= 50 && totalInventory !== 0) {
     bgColor = "bg-calendar-limited text-tertiary1-light"; // Yellow if limited
   } else if (isToday && percentageAvailable !== null && isCurrentYear) {
-    bgColor = "bg-primary-active text-tertiary1-light"; // light pink if today
+    bgColor =
+      "bg-primary-active text-tertiary1-light rounded-tl-[0px] rounded-bl-[0px] md:rounded-tl-[0px] md:rounded-bl-[0px] lg:rounded-tl-[0px] lg:rounded-bl-[0px]"; // light pink and square if today
   } else if (totalInventory === 0) {
     bgColor = "bg-transparent hover:cursor-default"; // White if there is no event on this day
   } else {
@@ -70,10 +71,18 @@ const CalendarItem = ({
         `}
       >
         <p className="flex justify-center pt-3 md:h-auto md:absolute md:left-4 md:pt-4 text-labelLarge">
-          {dayOfMonth}
+          {isToday && isCurrentYear ? (
+            <span
+              className={`inline-flex items-center justify-center w-6 h-6 rounded-full border-2 ${percentageAvailable <= 50 && percentageAvailable !== null ? "border-[#f37277]" : "border-primary-active"}  relative right-[6px]`}
+            >
+              {dayOfMonth}
+            </span>
+          ) : (
+            dayOfMonth
+          )}
         </p>
         {availableSeats >= 0 && totalInventory !== 0 && !isOtherMonth ? (
-          <div className="justify-end items-center md:gap-[4px] absolute bottom-3 md:right-1 hidden md:flex">
+          <div className="justify-end items-center md:gap-[4px] absolute bottom-3 right-2 md:right-1 hidden md:flex">
             <img
               src={icon}
               alt="attendants icon"
