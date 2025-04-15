@@ -2,6 +2,6 @@ import React from "react";
 
 export default function Separator() {
   return (
-    <hr className="border-[0.5px] min-w-[7.5rem] border-tertiary1-active my-3"></hr>
+    <hr className="border-[0.5px] min-w-[7.5rem] border-tertiary1-active my-2"></hr>
   );
 }
