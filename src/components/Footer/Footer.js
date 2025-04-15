@@ -14,12 +14,12 @@ const Footer = () => {
       dataTestId: "booking-events",
     },
     {
-      href: "/contact-us",
-      label: translations["footer.contact-us"],
-      dataTestId: "contact-us",
+      href: "/contact",
+      label: translations["footer.contact"],
+      dataTestId: "contact",
     },
     {
-      href: "/company",
+      href: "/",
       label: translations["footer.company"],
       dataTestId: "company",
     },
