@@ -1,99 +1,35 @@
-import React, { useContext, useEffect, useRef, useState } from "react";
+import React, {
+  useCallback,
+  useContext,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import DropdownButton from "@/components/NavBar/UserDropdown/DropdownButton";
 import DropdownMenu from "@/components/NavBar/UserDropdown/DropdownMenu";
-import { useLanguage } from "@/context/LanguageContext";
 import { useRouter } from "next/navigation";
 import { CredentialsContext } from "@/context/credentialsContext";
-import useFetch from "@/hooks/api/useFetch";
 
 export default function UserDropdown() {
   const [isOpen, setIsOpen] = useState(false);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [menuItems, setMenuItems] = useState([]);
   const buttonRef = useRef(null);
   const router = useRouter();
 
-  const toggleDropdown = () => setIsOpen(!isOpen);
+  const toggleDropdown = useCallback(() => {
+    if (!isAuthenticated) {
+      router.push("/login");
+    } else {
+      setIsOpen(!isOpen);
+    }
+  }, [isAuthenticated, isOpen]);
 
-  const { translations } = useLanguage();
-  const { storedCredentials, setStoredCredentials } =
-    useContext(CredentialsContext);
-
-  const DefaultIcon = {
-    src: "/icons/wine-glass-1.svg",
-    alt: "wine glass icon",
-  };
-
-  const handleLogout = async () => {
-    setStoredCredentials(null);
-    await localStorage.removeItem("userCredentials");
-    await localStorage.removeItem("userCredentialsToken");
-    router.push("/"); // Redirect to start page
-  };
-
-  const { performFetch } = useFetch(
-    "/user/log-out",
-    "POST",
-    { withCredentials: true },
-    {},
-    handleLogout,
-  );
-
-  const handleLogin = () => {
-    router.push("/login");
-  };
-
-  const userMenuItems = [
-    {
-      image: DefaultIcon,
-      url: "/my-wines",
-      title: translations["user-dropdown.wines"],
-    },
-    {
-      image: DefaultIcon,
-      url: "/orders",
-      title: translations["user-dropdown.orders"],
-    },
-    {
-      image: DefaultIcon,
-      url: "/user/profile",
-      title: translations["user-dropdown.account"],
-    },
-    {
-      image: DefaultIcon,
-      url: "/settings",
-      title: translations["user-dropdown.settings"],
-    },
-    {
-      variant: "separator",
-    },
-    {
-      title: "Logout",
-      variant: "button",
-      onClick: performFetch,
-    },
-  ];
-
-  const anonymousItems = [
-    {
-      title: "Login",
-      variant: "button",
-      onClick: handleLogin,
-    },
-  ];
+  const { storedCredentials } = useContext(CredentialsContext);
 
   useEffect(() => {
     // Check for user credentials in localStorage
     setIsAuthenticated(!!storedCredentials);
   }, [storedCredentials]);
-
-  useEffect(() => {
-    if (isAuthenticated) {
-      setMenuItems(userMenuItems);
-    } else {
-      setMenuItems(anonymousItems);
-    }
-  }, [isAuthenticated]);
 
   return (
     <div className="relative">
@@ -101,7 +37,6 @@ export default function UserDropdown() {
       {isOpen && (
         <DropdownMenu
           isOpen={isOpen}
-          menuItems={menuItems}
           onClose={() => setIsOpen(false)}
           buttonRef={buttonRef}
         />

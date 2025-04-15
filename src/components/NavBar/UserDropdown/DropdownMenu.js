@@ -1,15 +1,82 @@
-import React from "react";
+import React, { useRef, useEffect, useContext } from "react";
 import MenuItem from "./MenuItem";
 import PropTypes from "prop-types";
 
-import { useRef, useEffect } from "react";
+import { useLanguage } from "@/context/LanguageContext";
+import useFetch from "@/hooks/api/useFetch";
+import { useRouter } from "next/navigation";
+import { CredentialsContext } from "@/context/credentialsContext";
 
-export default function DropdownMenu({
-  isOpen,
-  menuItems,
-  onClose,
-  buttonRef,
-}) {
+export default function DropdownMenu({ isOpen, onClose, buttonRef }) {
+  const router = useRouter();
+
+  const { setStoredCredentials } = useContext(CredentialsContext);
+
+  const { translations } = useLanguage();
+
+  const handleLogout = async () => {
+    setStoredCredentials(null);
+    await localStorage.removeItem("userCredentials");
+    await localStorage.removeItem("userCredentialsToken");
+    router.push("/"); // Redirect to start page
+  };
+
+  const { performFetch } = useFetch(
+    "/user/log-out",
+    "POST",
+    { withCredentials: true },
+    {},
+    handleLogout,
+  );
+
+  const menuItems = [
+    {
+      image: {
+        src: "/icons/userMenu/account.svg",
+        alt: "account",
+      },
+      url: "/user/profile",
+      title: translations["user-dropdown.account"],
+    },
+    {
+      image: {
+        src: "/icons/userMenu/favorites.svg",
+        alt: "favorites",
+      },
+      url: "/favorites",
+      title: translations["user-dropdown.favorites"] || "Favorites",
+    },
+    {
+      image: {
+        src: "/icons/userMenu/orders.svg",
+        alt: "orders",
+      },
+      url: "/orders",
+      title: translations["user-dropdown.orders"],
+    },
+
+    {
+      image: {
+        src: "/icons/userMenu/account.svg",
+        alt: "account",
+      },
+      url: "/settings",
+      title: translations["user-dropdown.settings"],
+    },
+    {
+      variant: "separator",
+    },
+    {
+      image: {
+        src: "/icons/userMenu/logout.svg",
+        alt: "logout",
+      },
+      title: translations["user-dropdown.logout"],
+      variant: "button",
+      onClick: performFetch,
+    },
+  ];
+
   const menuRef = useRef(null);
   useEffect(() => {
     function handleClickOutside(event) {
