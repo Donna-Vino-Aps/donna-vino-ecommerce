@@ -1,10 +1,10 @@
 export const GET_COLLECTION_BY_HANDLE = `
-  query GetCollectionByHandle($handle: String!) {
+  query GetCollectionByHandle($handle: String!, $language: LanguageCode!) @inContext(language: $language) {
     collection: collectionByHandle(handle: $handle) {
       id
       title
       handle
-      products(first: 10) {
+      products(first: 50, sortKey: CREATED, reverse: true) {
         edges {
           node {
             id
