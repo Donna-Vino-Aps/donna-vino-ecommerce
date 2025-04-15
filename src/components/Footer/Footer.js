@@ -9,19 +9,19 @@ const Footer = () => {
 
   const links = [
     {
-      href: "/our-team",
-      label: translations["footer.team"],
-      dataTestId: "our-team",
+      href: "/booking-events",
+      label: translations["footer.booking-events"],
+      dataTestId: "booking-events",
     },
     {
-      href: "/our-values",
-      label: translations["footer.values"],
-      dataTestId: "our-values",
+      href: "/contact-us",
+      label: translations["footer.contact-us"],
+      dataTestId: "contact-us",
     },
     {
-      href: "/contact",
-      label: translations["footer.contact"],
-      dataTestId: "contact",
+      href: "/company",
+      label: translations["footer.company"],
+      dataTestId: "company",
     },
   ];
 
