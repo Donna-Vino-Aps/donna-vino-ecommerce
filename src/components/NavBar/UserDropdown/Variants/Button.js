@@ -4,7 +4,7 @@ import Link from "next/link";
 
 export default function MenuButton({ title, image, onClick, onClose }) {
   return (
-    <div className="flex gap-2 hover:bg-primary-light rounded-md p-2 transition duration-200">
+    <div className="flex gap-2 text-nowrap hover:bg-primary-light rounded-md p-2 transition duration-200">
       {image && image.src && (
         <img src={image.src} alt={image.alt || ""} className="relative" />
       )}
