@@ -104,6 +104,7 @@ export default {
           open: "#34C759",
           open_dark: "#1A8245",
           open_light: "#DAF8E6",
+          today_ring: "#F37277",
         },
       },
       screens: {

@@ -73,7 +73,7 @@ const CalendarItem = ({
         <p className="flex justify-center pt-3 md:h-auto md:absolute md:left-4 md:pt-4 text-labelLarge">
           {isToday && isCurrentYear ? (
             <span
-              className={`inline-flex items-center justify-center w-6 h-6 rounded-full border-2 ${percentageAvailable <= 50 && percentageAvailable !== null ? "border-[#f37277]" : "border-primary-active"}  relative right-[6px]`}
+              className={`inline-flex items-center justify-center w-6 h-6 rounded-full border-2 ${percentageAvailable <= 50 && percentageAvailable !== null ? "border-calendar-today_ring" : "border-primary-active"}  relative right-[6px]`}
             >
               {dayOfMonth}
             </span>
