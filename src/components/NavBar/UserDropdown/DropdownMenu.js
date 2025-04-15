@@ -44,7 +44,7 @@ export default function DropdownMenu({ isOpen, onClose, buttonRef }) {
         alt: "favorites",
       },
       url: "/favorites",
-      title: translations["user-dropdown.favorites"] || "Favorites",
+      title: translations["user-dropdown.favorites"],
     },
     {
       image: {
@@ -57,8 +57,8 @@ export default function DropdownMenu({ isOpen, onClose, buttonRef }) {
 
     {
       image: {
-        src: "/icons/userMenu/account.svg",
-        alt: "account",
+        src: "/icons/userMenu/settings.svg",
+        alt: "settings",
       },
       url: "/settings",
       title: translations["user-dropdown.settings"],
