@@ -4,12 +4,14 @@ import PropTypes from "prop-types";
 
 export default function MenuLink({ image, url, title, onClose }) {
   return (
-    <div className="flex gap-2 text-nowrap hover:bg-primary-light rounded-md p-2 transition duration-200">
-      <img src={image.src} alt={image.alt} className="relative"></img>
-      <Link href={url} onClick={onClose}>
-        {title}
-      </Link>
-    </div>
+    <Link
+      className="flex w-full md:min-w-[10rem] gap-2 text-nowrap hover:bg-primary-light rounded-md p-2 transition duration-200"
+      href={url}
+      onClick={onClose}
+    >
+      <img src={image.src} alt={image.alt} className="w-3" />
+      <span>{title}</span>
+    </Link>
   );
 }
 
