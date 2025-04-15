@@ -1,18 +1,21 @@
 import React from "react";
 import PropTypes from "prop-types";
+import Link from "next/link";
 
-export default function MenuButton({ title, onClick, onClose }) {
+export default function MenuButton({ title, image, onClick, onClose }) {
   return (
-    <div className="w-full flex justify-center">
-      <button
-        onClick={() => {
+    <div className="flex justify-center gap-2 hover:bg-primary-light rounded-md p-2 transition duration-200">
+      <img src={image.src} alt={image.alt || ""} className="relative" />
+      <Link
+        onClick={(event) => {
+          event.preventDefault();
           onClick();
           onClose();
         }}
-        className="w-fit max-w-max inline-block px-4 py-2 bg-primary-normal text-primary-light rounded hover:bg-primary-hover_normal"
+        href="#"
       >
         {title}
-      </button>
+      </Link>
     </div>
   );
 }
@@ -21,4 +24,8 @@ MenuButton.propTypes = {
   onClick: PropTypes.func,
   onClose: PropTypes.func,
   title: PropTypes.string.isRequired,
+  image: PropTypes.shape({
+    src: PropTypes.string.isRequired,
+    alt: PropTypes.string.isRequired,
+  }),
 };
