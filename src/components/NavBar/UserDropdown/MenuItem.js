@@ -19,9 +19,16 @@ export default function MenuItem({
   if (variant === "separator") item = <Separator />;
 
   if (variant === "button")
-    item = <MenuButton title={title} onClick={onClick} onClose={onClose} />;
+    item = (
+      <MenuButton
+        title={title}
+        onClick={onClick}
+        onClose={onClose}
+        image={image}
+      />
+    );
 
-  return <li className="flex gap-1 p-2 text-bodyMedium">{item}</li>;
+  return <li className="flex gap-1 text-bodyMedium">{item}</li>;
 }
 
 MenuItem.propTypes = {
@@ -30,4 +37,5 @@ MenuItem.propTypes = {
   title: PropTypes.string.isRequired,
   variant: PropTypes.string.isRequired,
   onClick: PropTypes.func,
+  onClose: PropTypes.func,
 };
