@@ -28,7 +28,7 @@ export default function MenuItem({
       />
     );
 
-  return <li className="flex gap-1 text-bodyMedium">{item}</li>;
+  return <li className="flex gap-2 text-bodyMedium">{item}</li>;
 }
 
 MenuItem.propTypes = {

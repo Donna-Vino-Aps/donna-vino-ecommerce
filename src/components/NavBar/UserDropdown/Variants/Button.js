@@ -5,7 +5,9 @@ import Link from "next/link";
 export default function MenuButton({ title, image, onClick, onClose }) {
   return (
     <div className="flex justify-center gap-2 hover:bg-primary-light rounded-md p-2 transition duration-200">
-      <img src={image.src} alt={image.alt || ""} className="relative" />
+      {image && image.src && (
+        <img src={image.src} alt={image.alt || ""} className="relative" />
+      )}
       <Link
         onClick={(event) => {
           event.preventDefault();
