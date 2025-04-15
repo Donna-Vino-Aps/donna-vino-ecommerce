@@ -64,7 +64,9 @@ const Footer = () => {
             key={index}
             data-testid={dataTestId}
             href={href}
-            className={`rounded-md px-3 py-2 text-bodyLarge text-semibold order-${index + 2} md:order-${index + 1}`}
+            className={`rounded-md px-3 py-2 text-bodyLarge text-semibold order-${
+              index + 2
+            } md:order-${index + 1}`}
             role="navigation"
             aria-label={`Link to ${label}`}
           >

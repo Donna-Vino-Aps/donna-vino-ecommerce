@@ -40,7 +40,9 @@ const Calendar = ({ currentYear, currentMonth }) => {
     if (!events || events.length === 0) return [];
 
     // Format the date to match event.date format (YYYY-MM-DD)
-    const dateStr = `${year}-${String(month).padStart(2, "0")}-${String(day).padStart(2, "0")}`;
+    const dateStr = `${year}-${String(month).padStart(2, "0")}-${String(
+      day,
+    ).padStart(2, "0")}`;
 
     return events.find((event) => event.date === dateStr) || null;
   };
