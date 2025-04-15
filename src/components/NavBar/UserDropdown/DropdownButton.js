@@ -2,9 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 
 export default function DropdownButton({ onClick, ref }) {
-  {
-    /* User Icon Button */
-  }
+  /* User Icon Button */
   return (
     <button
       ref={ref}
