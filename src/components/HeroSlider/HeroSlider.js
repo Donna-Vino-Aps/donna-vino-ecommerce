@@ -7,34 +7,34 @@ const HeroSlider = () => {
 
   // Storing the different texts and images used in the slider
   const subheadings = [
-    "tasting.subheading1",
     "tasting.subheading2",
+    "tasting.subheading1", // video slide
     "tasting.subheading3",
   ];
 
-  const headings = ["tasting.heading1", "tasting.heading2", "tasting.heading3"];
+  const headings = ["tasting.heading2", "tasting.heading1", "tasting.heading3"]; // put these in numerical order for production
 
   const paragraphs = [
-    "tasting.paragraph1",
     "tasting.paragraph2",
+    "tasting.paragraph1", // video slide
     "tasting.paragraph3",
   ];
 
-  const buttons = ["tasting.button1", "tasting.button2", "tasting.button3"];
+  const buttons = ["tasting.button2", "tasting.button1", "tasting.button3"]; // put these in numerical order for production
 
   const buttonIcons = [
-    "/icons/calender-alt-1.svg",
     "/icons/envelope-alt.svg",
+    "/icons/calender-alt-1.svg", // video slide
     "/icons/wine-glass-white.svg",
   ];
 
   const images = [
-    "https://res.cloudinary.com/db3h63tns/video/upload/v1741092198/e-commerce-hero-section_egcjvf.mp4",
     "/images/hero-wines.jpg",
+    "https://res.cloudinary.com/db3h63tns/video/upload/v1741092198/e-commerce-hero-section_egcjvf.mp4", // video slide
     "/images/hero-newsletter.jpg",
   ];
 
-  const urls = ["/events", "/shop", "/subscribe"];
+  const urls = ["/shop", "/events", "/subscribe"]; // flip number 0 and 1 here for production
 
   // Logic for handling use of the prev/next-buttons
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
@@ -55,7 +55,7 @@ const HeroSlider = () => {
 
   return (
     <section
-      className={`relative flex flex-col-reverse md:w-full ${currentImageIndex === 0 ? "md:flex-row" : "md:flex-row-reverse"} justify-between bg-white min-h-[48rem]`}
+      className={`relative flex flex-col-reverse md:w-full ${currentImageIndex === 1 ? "md:flex-row" : "md:flex-row-reverse"} justify-between bg-white min-h-[48rem]`}
     >
       <div className="md:hidden flex mx-auto my-3 mt-6 relative top-3">
         {Array.from({ length: images.length }).map((_, index) => (
@@ -79,7 +79,7 @@ const HeroSlider = () => {
         ))}
       </div>
       <div className="relative justify-center self-start w-full md:w-1/2 min-h-[22.75rem] md:h-full">
-        {currentImageIndex === 0 ? (
+        {currentImageIndex === 1 ? ( // change this to 0 before production (after all other changes are made)
           <video
             className="absolute inset-0 mt-6 md:mt-0 md:rounded-t-[0rem] md:rounded-tr-[8rem] md:rounded-br-xl object-cover w-full h-full"
             autoPlay
@@ -97,7 +97,7 @@ const HeroSlider = () => {
           <img
             src={images[currentImageIndex]}
             alt="Tasting session slide"
-            className={`absolute inset-0 mt-6 md:mt-0 rounded-tl-[0rem] !rounded-tl-[0rem] ${currentImageIndex === 0 ? "md:rounded-tr-[8rem] md:rounded-br-xl" : "md:rounded-tl-[8rem] !md:rounded-tl-[8rem] md:rounded-bl-xl"} object-cover w-full h-full`}
+            className={`absolute inset-0 mt-6 md:mt-0 rounded-tl-[0rem] !rounded-tl-[0rem] ${currentImageIndex === 1 ? "md:rounded-tr-[8rem] md:rounded-br-xl" : "md:rounded-tl-[8rem] !md:rounded-tl-[8rem] md:rounded-bl-xl"} object-cover w-full h-full`}
             data-testid="hero-image"
           />
         )}
@@ -123,7 +123,7 @@ const HeroSlider = () => {
           linkUrl={urls[currentImageIndex]}
         ></Button>
         <div
-          className={`hidden md:flex mt-4 md:absolute md:bottom-8 lg:bottom-10 xl:bottom-14 ${currentImageIndex === 0 ? "md:right-8 lg:right-10 xl:right-12" : "md:left-[37.5%]"}`}
+          className={`hidden md:flex mt-4 md:absolute md:bottom-8 lg:bottom-10 xl:bottom-14 ${currentImageIndex === 1 ? "md:right-8 lg:right-10 xl:right-12" : "md:left-[37.5%]"}`}
         >
           <button
             onClick={handlePrevious}
