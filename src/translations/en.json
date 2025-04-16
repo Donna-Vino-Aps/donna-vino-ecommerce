@@ -175,5 +175,9 @@
   "profile.country.sweden": "Sweden",
   "profile.country.denmark": "Denmark",
   "profile.button.edit": "Edit",
-  "profile.button.save": "Save"
+  "profile.button.save": "Save",
+  "modal.h1": "We're working on it!",
+  "modal.p": "Our eCommerce platform is currently being created and updated and will be live as soon as possible. In the meantime, feel free to contact us for any inquiries, or you can simply close this modal.",
+  "modal.button-left": "Close",
+  "modal.button-right": "Contact us"
 }

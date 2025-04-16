@@ -1,9 +1,11 @@
 import React, { useState } from "react";
 import Button from "../Button/Button";
+import ComingSoonModal from "../Modal/ComingSoonModal";
 import { useLanguage } from "@/context/LanguageContext";
 
 const HeroSlider = () => {
   const { translations } = useLanguage();
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   // Storing the different texts and images used in the slider
   const subheadings = [
@@ -34,7 +36,8 @@ const HeroSlider = () => {
     "/images/hero-newsletter.jpg",
   ];
 
-  const urls = ["/shop", "/events", "/subscribe"]; // flip number 0 and 1 here for production
+  //const urls = ["/shop", "/events", "/subscribe"];  // flip number 0 and 1 here for production
+  const urls = ["", "/events", "/subscribe"];
 
   // Logic for handling use of the prev/next-buttons
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
@@ -57,6 +60,15 @@ const HeroSlider = () => {
     <section
       className={`relative flex flex-col-reverse md:w-full ${currentImageIndex === 1 ? "md:flex-row" : "md:flex-row-reverse"} justify-between bg-white min-h-[48rem]`}
     >
+      {/* Modal "Coming Soon" */}
+      {isModalOpen && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex justify-center items-center">
+          <ComingSoonModal
+            isOpen={isModalOpen}
+            onClose={() => setIsModalOpen(false)}
+          />
+        </div>
+      )}
       <div className="md:hidden flex mx-auto my-3 mt-6 relative top-3">
         {Array.from({ length: images.length }).map((_, index) => (
           <button
@@ -121,6 +133,7 @@ const HeroSlider = () => {
           aria-label={translations[buttons[currentImageIndex]]}
           data-testid="book-tasting-button"
           linkUrl={urls[currentImageIndex]}
+          onClick={currentImageIndex === 0 ? () => setIsModalOpen(true) : ""}
         ></Button>
         <div
           className={`hidden md:flex mt-4 md:absolute md:bottom-8 lg:bottom-10 xl:bottom-14 ${currentImageIndex === 1 ? "md:right-8 lg:right-10 xl:right-12" : "md:left-[37.5%]"}`}
