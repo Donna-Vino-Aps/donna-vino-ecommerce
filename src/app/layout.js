@@ -16,7 +16,8 @@ const RootLayout = ({ children }) => {
 
   const checkLoginCredentials = async () => {
     try {
-      const result = localStorage.getItem("donna-vino-e-commerce");
+      // const result = localStorage.getItem("donna-vino-e-commerce");
+      const result = localStorage.getItem("userCredentials");
       if (result !== null) {
         setStoredCredentials(JSON.parse(result));
       } else {
