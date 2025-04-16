@@ -6,7 +6,7 @@ import LanguageSwitch from "../NavBar/LanguageSwitch";
 import SideBar from "../SideBar/SideBar";
 import { useLanguage } from "../../context/LanguageContext";
 import SearchButton from "./SearchButton";
-import UserDropdown from "./UserDropdown";
+import UserDropdown from "./UserDropdown/UserDropdown";
 import ShoppingCart from "./ShoppingCart";
 
 const Navbar = () => {
@@ -156,14 +156,14 @@ const Navbar = () => {
 
   return (
     <nav
-      className="flex w-full h-[7.18rem] md:h-[14.37rem] items-center justify-between px-8 py-6 gap-2 z-50"
+      className="flex w-full h-[7.18rem] md:h-[14.37rem] items-center justify-between py-6 gap-2 z-50"
       aria-label="Main Navigation"
     >
       <Link
         href="/"
         data-testid="navbar-brand"
         aria-label="Go to home"
-        className="flex-shrink-0"
+        className="flex-shrink-0 pl-10"
       >
         <img
           src="/images/donna-vino-logo-transparent.png"
@@ -300,12 +300,12 @@ const Navbar = () => {
         ))}
       </div>
 
-      <div className="flex justify-end w-full items-center gap-5">
+      <div className="flex justify-end w-full items-center gap-14">
         <div className="flex gap-3 lg:gap-5 items-center md:mr-6 relative bottom-[2px]">
           <SearchButton />
           <UserDropdown />
           <ShoppingCart />
-          <div className="lg:hidden w-[1.5rem] h-[1.5rem] ml-2 relative top-[1px]">
+          <div className="lg:hidden w-[1.5rem] h-[1.5rem] ml-2 mr-8 relative top-[1px]">
             <button
               onClick={toggleMenu}
               aria-expanded={isMenuOpen}
