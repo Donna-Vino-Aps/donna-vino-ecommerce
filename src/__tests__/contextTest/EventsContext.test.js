@@ -25,7 +25,6 @@ jest.mock("@/context/LanguageContext", () => ({
   useLanguage: jest.fn(),
 }));
 
-// Test component to access context
 const TestComponent = () => {
   const { events, isLoading, error } = useEvents();
 
@@ -56,6 +55,7 @@ describe("EventsContext", () => {
     jest.clearAllMocks();
 
     useLanguage.mockReturnValue({
+      language: "en",
       translations: {
         "events.error.loading": "Failed to load events",
       },
@@ -100,6 +100,7 @@ describe("EventsContext", () => {
       expect(screen.queryByTestId("loading")).not.toBeInTheDocument();
     });
 
+    expect(getEventsCollection).toHaveBeenCalledWith("en");
     expect(transformShopifyProduct).toHaveBeenCalledTimes(2);
 
     const eventItems = screen.getAllByTestId("event-item");
@@ -132,5 +133,55 @@ describe("EventsContext", () => {
     expect(screen.getByTestId("error")).toHaveTextContent(
       /Failed to load events/,
     );
+  });
+
+  it("should refetch events when language changes", async () => {
+    useLanguage.mockReturnValue({
+      language: "en",
+      translations: {
+        "events.error.loading": "Failed to load events",
+      },
+    });
+
+    const mockEvents = {
+      products: {
+        edges: [
+          {
+            node: {
+              id: "1",
+              title: "Wine Tasting Event",
+              handle: "wine-tasting",
+            },
+          },
+        ],
+      },
+    };
+
+    getEventsCollection.mockResolvedValue(mockEvents);
+
+    const { rerender } = renderWithProvider();
+
+    await waitFor(() => {
+      expect(getEventsCollection).toHaveBeenCalledWith("en");
+    });
+
+    useLanguage.mockReturnValue({
+      language: "dk",
+      translations: {
+        "events.error.loading": "Kunne ikke indlæse begivenheder",
+      },
+    });
+
+    rerender(
+      <EventsProvider>
+        <TestComponent />
+      </EventsProvider>,
+    );
+
+    await waitFor(() => {
+      expect(getEventsCollection).toHaveBeenCalledWith("dk");
+    });
+
+    expect(getEventsCollection).toHaveBeenCalledTimes(2);
   });
 });

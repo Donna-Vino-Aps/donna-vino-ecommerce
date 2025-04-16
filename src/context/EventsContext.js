@@ -13,13 +13,13 @@ export function EventsProvider({ children }) {
   const [events, setEvents] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
-  const { translations } = useLanguage();
+  const { language, translations } = useLanguage();
 
   useEffect(() => {
     async function fetchEvents() {
       try {
         setIsLoading(true);
-        const collection = await getEventsCollection();
+        const collection = await getEventsCollection(language);
 
         if (!collection || !collection.products || !collection.products.edges) {
           setEvents([]);
@@ -43,7 +43,7 @@ export function EventsProvider({ children }) {
     }
 
     fetchEvents();
-  }, [translations]);
+  }, [language, translations]);
 
   return (
     <EventsContext.Provider value={{ events, isLoading, error }}>

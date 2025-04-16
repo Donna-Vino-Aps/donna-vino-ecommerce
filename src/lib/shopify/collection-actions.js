@@ -3,9 +3,13 @@ import { GET_COLLECTION_BY_HANDLE } from "@/graphql/shopify-queries";
 import { logError } from "@/utils/logging";
 import { parseISO } from "date-fns";
 
-export async function getCollectionByHandle(handle) {
+export async function getCollectionByHandle(handle, language = "en") {
   try {
-    const response = await shopifyQuery(GET_COLLECTION_BY_HANDLE, { handle });
+    const response = await shopifyQuery(
+      GET_COLLECTION_BY_HANDLE,
+      { handle },
+      language,
+    );
     return response.collection;
   } catch (error) {
     logError(`Error fetching collection ${handle}:`, error);
@@ -13,8 +17,8 @@ export async function getCollectionByHandle(handle) {
   }
 }
 
-export async function getEventsCollection() {
-  return getCollectionByHandle("events");
+export async function getEventsCollection(language = "en") {
+  return getCollectionByHandle("events", language);
 }
 
 export function transformShopifyProduct(product) {

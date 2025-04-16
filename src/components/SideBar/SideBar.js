@@ -188,7 +188,7 @@ const SideBar = ({ isMenuOpen, toggleMenu, navLinks }) => {
             aria-label="Social media icons"
           >
             <a
-              href="#"
+              href="https://www.instagram.com/donna_vino_winetastings/"
               data-testid="social-icon-instagram-link"
               aria-label="Instagram"
             >
@@ -199,7 +199,7 @@ const SideBar = ({ isMenuOpen, toggleMenu, navLinks }) => {
               />
             </a>
             <a
-              href="#"
+              href="https://www.linkedin.com/company/donna-vino-aps/"
               data-testid="social-icon-linkedin-link"
               aria-label="LinkedIn"
             >
@@ -210,7 +210,7 @@ const SideBar = ({ isMenuOpen, toggleMenu, navLinks }) => {
               />
             </a>
             <a
-              href="#"
+              href="https://www.facebook.com/donnavino.dk/"
               data-testid="social-icon-facebook-link"
               aria-label="Facebook"
             >

@@ -36,9 +36,29 @@ describe("Shopify Collection Actions", () => {
 
       const result = await getCollectionByHandle("test-collection");
 
-      expect(shopifyQuery).toHaveBeenCalledWith(expect.any(String), {
-        handle: "test-collection",
-      });
+      expect(shopifyQuery).toHaveBeenCalledWith(
+        expect.any(String),
+        { handle: "test-collection" },
+        "en",
+      );
+      expect(result).toEqual(mockCollection);
+    });
+
+    it("should use the provided language parameter", async () => {
+      const mockCollection = {
+        id: "gid://shopify/Collection/123",
+        title: "Test Collection",
+      };
+
+      shopifyQuery.mockResolvedValue({ collection: mockCollection });
+
+      const result = await getCollectionByHandle("test-collection", "dk");
+
+      expect(shopifyQuery).toHaveBeenCalledWith(
+        expect.any(String),
+        { handle: "test-collection" },
+        "dk",
+      );
       expect(result).toEqual(mockCollection);
     });
 
@@ -57,15 +77,31 @@ describe("Shopify Collection Actions", () => {
   });
 
   describe("getEventsCollection", () => {
-    it("should call getCollectionByHandle with 'events'", async () => {
+    it("should call getCollectionByHandle with 'events' and default language", async () => {
       const mockCollection = { title: "Events Collection" };
       shopifyQuery.mockResolvedValue({ collection: mockCollection });
 
       const result = await getEventsCollection();
 
-      expect(shopifyQuery).toHaveBeenCalledWith(expect.any(String), {
-        handle: "events",
-      });
+      expect(shopifyQuery).toHaveBeenCalledWith(
+        expect.any(String),
+        { handle: "events" },
+        "en",
+      );
+      expect(result).toEqual(mockCollection);
+    });
+
+    it("should call getCollectionByHandle with 'events' and specified language", async () => {
+      const mockCollection = { title: "Events Collection" };
+      shopifyQuery.mockResolvedValue({ collection: mockCollection });
+
+      const result = await getEventsCollection("dk");
+
+      expect(shopifyQuery).toHaveBeenCalledWith(
+        expect.any(String),
+        { handle: "events" },
+        "dk",
+      );
       expect(result).toEqual(mockCollection);
     });
   });
