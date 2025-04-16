@@ -34,7 +34,7 @@ const ComingSoonModal = ({ isOpen, onClose }) => {
           variant="darkGreenModal"
           testId="modal-button-contact"
           ariaLabel={translations["modal.button-right"]}
-          linkUrl="/contact"
+          linkUrl="https://www.donnavino.dk/contact"
         ></Button>
       </div>
     </div>

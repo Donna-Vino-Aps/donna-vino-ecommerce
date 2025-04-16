@@ -37,7 +37,7 @@ const HeroSlider = () => {
   ];
 
   //const urls = ["/shop", "/events", "/subscribe"];  // flip number 0 and 1 here for production
-  const urls = ["", "/events", "/subscribe"];
+  const urls = ["", "/events", "https://www.donnavino.dk/#subscribe"];
 
   // Logic for handling use of the prev/next-buttons
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
