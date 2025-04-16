@@ -118,7 +118,7 @@ const HeroSlider = () => {
           text={translations[buttons[currentImageIndex]]}
           icon={buttonIcons[currentImageIndex]}
           variant="redFullText"
-          aria-label="Book a tasting session"
+          aria-label={translations[buttons[currentImageIndex]]}
           data-testid="book-tasting-button"
           linkUrl={urls[currentImageIndex]}
         ></Button>
