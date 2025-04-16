@@ -150,8 +150,7 @@ const Navbar = () => {
       href: "/user/profile",
       label: translations["navbar.account"],
       icon: "/icons/user-alt-2.svg",
-      dropdown: true,
-      sublinks: ["My wines", "Orders", "Profile", "Settings"],
+      dropdown: false,
     },
   ];
 
