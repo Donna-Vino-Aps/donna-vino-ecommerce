@@ -120,7 +120,7 @@ const HeroSlider = () => {
           variant="redFullText"
           aria-label="Book a tasting session"
           data-testid="book-tasting-button"
-          linkUrl={urls[currentImageIndex]}
+          //linkUrl={urls[currentImageIndex]}/
         ></Button>
         <div
           className={`hidden md:flex mt-4 md:absolute md:bottom-8 lg:bottom-10 xl:bottom-14 ${currentImageIndex === 0 ? "md:right-8 lg:right-10 xl:right-12" : "md:left-[37.5%]"}`}
