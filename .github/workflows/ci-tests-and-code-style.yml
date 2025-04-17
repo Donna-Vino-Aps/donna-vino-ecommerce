@@ -15,13 +15,15 @@ jobs:
         node-version: [20.x]
 
     env:
-      API_URL_LOCAL: ${{ secrets.API_URL_LOCAL }}
-      API_URL_HEROKU: ${{ secrets.API_URL_HEROKU }}
+      NEXT_PUBLIC_API_URL_LOCAL: ${{ secrets.NEXT_PUBLIC_API_URL_LOCAL }}
+      NEXT_PUBLIC_API_URL_HEROKU: ${{ secrets.NEXT_PUBLIC_API_URL_HEROKU }}
       GOOGLE_CLIENT_ID: ${{secrets.GOOGLE_CLIENT_ID}}
+      SHOPIFY_STORE_DOMAIN: ${{ secrets.SHOPIFY_STORE_DOMAIN }}
+      SHOPIFY_STOREFRONT_ACCESS_TOKEN: ${{ secrets.SHOPIFY_STOREFRONT_ACCESS_TOKEN }}
 
     steps:
       # 1. Checkout the code
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
 
       # 2. Set up Node.js
       - name: Use Node.js ${{ matrix.node-version }}
