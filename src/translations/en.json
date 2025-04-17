@@ -10,6 +10,7 @@
   "navbar.grapes.sh1": "Grapes",
   "navbar.grapes.sh2": "Regions",
   "navbar.account": "Account",
+  "navbar.events": "Events & Wine Tasting",
   "signUp.create-button": "Create your account",
   "signUp.heading": "Join Donna Vino",
   "signUp.paragraph": "Create a profile for your future orders to have all your information saved and ready for use. Registering on our Donna Vino website is quick and easy, allowing you to streamline your shopping experience and enjoy a faster checkout every time.",
@@ -175,5 +176,9 @@
   "profile.country.sweden": "Sweden",
   "profile.country.denmark": "Denmark",
   "profile.button.edit": "Edit",
-  "profile.button.save": "Save"
+  "profile.button.save": "Save",
+  "modal.h1": "We're working on it!",
+  "modal.p": "Our eCommerce platform is currently being created and updated and will be live as soon as possible. In the meantime, feel free to contact us for any inquiries, or you can simply close this modal.",
+  "modal.button-left": "Close",
+  "modal.button-right": "Contact us"
 }
