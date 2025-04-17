@@ -6,6 +6,7 @@ import { useLanguage } from "@/context/LanguageContext";
 const HeroSlider = () => {
   const { translations } = useLanguage();
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const hasCredits = false;
 
   const slides = [
     {
@@ -93,19 +94,27 @@ const HeroSlider = () => {
       </div>
       <div className="relative justify-center self-start w-full md:w-1/2 min-h-[22.75rem] md:h-full">
         {currentImageIndex === 0 ? (
-          <video
-            className="absolute inset-0 mt-6 iimd:mt-0 md:rounded-t-[0rem] md:rounded-tr-[8rem] md:rounded-br-xl object-cover w-full h-full"
-            autoPlay
-            loop
-            muted
-            role="region"
-            aria-label="Background video for TastingSession Section"
-            aria-hidden="true"
-            data-testid="hero-video"
-          >
-            <source src={slides[currentImageIndex].media} type="video/mp4" />
-            Your browser does not support the video tag.
-          </video>
+          hasCredits ? (
+            <video
+              className="absolute inset-0 mt-6 iimd:mt-0 md:rounded-t-[0rem] md:rounded-tr-[8rem] md:rounded-br-xl object-cover w-full h-full"
+              autoPlay
+              loop
+              muted
+              role="region"
+              aria-label="Background video for TastingSession Section"
+              aria-hidden="true"
+              data-testid="hero-video"
+            >
+              <source src={slides[currentImageIndex].media} type="video/mp4" />
+              Your browser does not support the video tag.
+            </video>
+          ) : (
+            <img
+              src="/images/dv-tasting.png"
+              className="absolute inset-0 mt-6 iimd:mt-0 md:rounded-t-[0rem] md:rounded-tr-[8rem] md:rounded-br-xl object-cover w-full h-full"
+              data-testid="fallback-image"
+            />
+          )
         ) : (
           <img
             src={slides[currentImageIndex].media}
