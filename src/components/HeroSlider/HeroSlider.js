@@ -135,7 +135,7 @@ const HeroSlider = () => {
           data-testid="book-tasting-button"
           linkUrl={slides[currentImageIndex].url}
           onClick={
-            currentImageIndex === 0 ? () => setIsModalOpen(true) : undefined
+            currentImageIndex === 1 ? () => setIsModalOpen(true) : undefined
           }
         ></Button>
         <div
