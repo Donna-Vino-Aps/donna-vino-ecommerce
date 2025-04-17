@@ -41,7 +41,7 @@ const HeroSlider = () => {
     },
   ];
   // Logic for handling use of the prev/next-buttons
-  const [currentImageIndex, setCurrentImageIndex] = useState(1);
+  const [currentImageIndex, setCurrentImageIndex] = useState(1); // Change this to 0 before launching e-commerce for production
 
   const handleNext = () => {
     setCurrentImageIndex((prevIndex) => (prevIndex + 1) % slides.length);
@@ -92,9 +92,9 @@ const HeroSlider = () => {
         ))}
       </div>
       <div className="relative justify-center self-start w-full md:w-1/2 min-h-[22.75rem] md:h-full">
-        {currentImageIndex === 0 ? ( // change this to 0 before production (after all other changes are made)
+        {currentImageIndex === 0 ? (
           <video
-            className="absolute inset-0 mt-6 md:mt-0 md:rounded-t-[0rem] md:rounded-tr-[8rem] md:rounded-br-xl object-cover w-full h-full"
+            className="absolute inset-0 mt-6 iimd:mt-0 md:rounded-t-[0rem] md:rounded-tr-[8rem] md:rounded-br-xl object-cover w-full h-full"
             autoPlay
             loop
             muted
