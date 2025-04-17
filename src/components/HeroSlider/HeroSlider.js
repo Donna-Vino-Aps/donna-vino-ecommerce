@@ -117,7 +117,7 @@ const HeroSlider = () => {
       </div>
       <div className="flex flex-col justify-center align-start items-start md:items-start font-barlow font-regular px-12 sm:px-20 md:px-6 lg:px-10 xl:px-14 min-h-[20rem] md:max-w-[50%]">
         <div>
-          <p className="text-left sm:text-titleSmall md:text-titleMedium xl:text-titleLarge text-primary-normal">
+          <p className="text-left text-headlineSmall text-primary-normal">
             {translations[slides[currentImageIndex].subheading]}
           </p>
         </div>
