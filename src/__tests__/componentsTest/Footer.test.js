@@ -39,9 +39,13 @@ describe("Footer Component", () => {
 it("renders all navigation links", () => {
   renderWithProvider("en");
   const links = [
-    { id: "our-values", href: "/our-values", label: "Our Values" },
-    { id: "our-team", href: "/our-team", label: "Our Team" },
-    { id: "contact", href: "/contact", label: "Contact" },
+    { id: "events", href: "/events", label: "Booking & Events" },
+    {
+      id: "contact",
+      href: "https://www.donnavino.dk/contact",
+      label: "Contact Us",
+    },
+    { id: "company", href: "https://www.donnavino.dk/", label: "Company" },
   ];
 
   links.forEach((link) => {

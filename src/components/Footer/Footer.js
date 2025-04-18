@@ -9,19 +9,19 @@ const Footer = () => {
 
   const links = [
     {
-      href: "/our-team",
-      label: translations["footer.team"],
-      dataTestId: "our-team",
+      href: "/events",
+      label: translations["footer.booking-events"],
+      dataTestId: "events",
     },
     {
-      href: "/our-values",
-      label: translations["footer.values"],
-      dataTestId: "our-values",
-    },
-    {
-      href: "/contact",
+      href: "https://www.donnavino.dk/contact",
       label: translations["footer.contact"],
       dataTestId: "contact",
+    },
+    {
+      href: "https://www.donnavino.dk/",
+      label: translations["footer.company"],
+      dataTestId: "company",
     },
   ];
 
