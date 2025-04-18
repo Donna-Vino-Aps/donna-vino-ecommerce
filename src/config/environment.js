@@ -1,7 +1,10 @@
-import { API_URL_HEROKU } from "@env";
-//import { API_URL_LOCAL } from "@env";
 import { logInfo } from "@/utils/logging";
 
-export const baseApiUrl = API_URL_HEROKU;
-//export const baseApiUrl = API_URL_LOCAL;
-logInfo(`Server URL: ${baseApiUrl}`);
+const env = process.env.NODE_ENV || "development";
+
+export const baseApiUrl =
+  env === "production" || env === "staging"
+    ? process.env.NEXT_PUBLIC_API_URL_HEROKU
+    : process.env.NEXT_PUBLIC_API_URL_LOCAL;
+
+logInfo(`Server URL: ${baseApiUrl} (${env} mode)`);

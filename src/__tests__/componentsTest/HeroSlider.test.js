@@ -23,11 +23,18 @@ jest.mock("@/context/LanguageContext", () => {
       Provider: mockProvider,
     },
     useLanguage: () => ({
+      // translations:                      UNCOMMENT THIS TEXT WHEN SWITCHING BACK TO THE VIDEO SLIDE
+      //   "tasting.subheading1": "Events",
+      //   "tasting.heading1": "Book your seat at our next tasting session",
+      //   "tasting.paragraph1": "Join us for a premium wine tasting experience",
+      //   "tasting.button1": "Book a tasting session",
+      // },
       translations: {
-        "tasting.subheading1": "Events",
-        "tasting.heading1": "Book your seat at our next tasting session",
-        "tasting.paragraph1": "Join us for a premium wine tasting experience",
-        "tasting.button1": "Book a tasting session",
+        "tasting.subheading2": "Store",
+        "tasting.heading2": "Find the perfect wine",
+        "tasting.paragraph2":
+          "At Donna Vino, we believe there’s a perfect wine for every occasion. Explore our wine selection, carefully curated by our head sommelier, Katrine.",
+        "tasting.button2": "See catalog",
       },
     }),
   };
@@ -41,15 +48,26 @@ describe("HeroSlider Component", () => {
   test("renders the component correctly", () => {
     render(<HeroSlider />);
 
-    expect(screen.getByText(/Events/)).toBeInTheDocument();
+    // expect(screen.getByText(/Events/)).toBeInTheDocument();
+    // expect(
+    //   screen.getByText(/Book your seat at our next tasting session/),
+    // ).toBeInTheDocument();
+    // expect(
+    //   screen.getByText(/Join us for a premium wine tasting experience/),
+    // ).toBeInTheDocument();
+    // expect(
+    //   screen.getByRole("button", { name: /Book a tasting session/i }),
+    // ).toBeInTheDocument();
+
+    expect(screen.getByText(/Store/)).toBeInTheDocument();
+    expect(screen.getByText(/Find the perfect wine/)).toBeInTheDocument();
     expect(
-      screen.getByText(/Book your seat at our next tasting session/),
+      screen.getByText(
+        /At Donna Vino, we believe there’s a perfect wine for every occasion. Explore our wine selection, carefully curated by our head sommelier, Katrine./,
+      ),
     ).toBeInTheDocument();
     expect(
-      screen.getByText(/Join us for a premium wine tasting experience/),
-    ).toBeInTheDocument();
-    expect(
-      screen.getByRole("button", { name: /Book a tasting session/i }),
+      screen.getByRole("button", { name: /See catalog/i }),
     ).toBeInTheDocument();
   });
 

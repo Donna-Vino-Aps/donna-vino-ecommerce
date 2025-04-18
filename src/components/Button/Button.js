@@ -10,6 +10,8 @@ const BASE_BUTTON_CLASSES = `
 
 const VARIANT_CLASSES = {
   red: "bg-primary-normal hover:bg-primary-hover_normal text-primary-light w-full sm:w-[10.8rem]",
+  redModal:
+    "bg-primary-normal hover:bg-primary-hover_normal text-primary-light w-full min-w-[5.6rem] h-[2.4rem] text-bodyMedium sm:text-bodyLarge sm:h-[3rem] sm:w-[7.375rem]",
   redFullText:
     "bg-primary-normal hover:bg-primary-hover_normal text-primary-light w-[15.4rem]",
   redWide:
@@ -20,6 +22,8 @@ const VARIANT_CLASSES = {
     "bg-transparent border-2 hover:bg-primary-hover border-primary-active_normal text-primary-active_normal w-[8.3rem] sm:w-[8.3rem]",
   darkGreen:
     "bg-secondary-darker hover:bg-secondary-hover_dark text-white w-full sm:w-[10.8rem]",
+  darkGreenModal:
+    "bg-secondary-darker hover:bg-secondary-hover_dark text-white w-full min-w-[8.8rem] sm:w-[10.8rem] h-[2.4rem] text-bodyMedium sm:text-bodyLarge sm:h-[3rem] sm:h-100",
   grayGreen:
     "bg-secondary-light hover:bg-secondary-hover text-secondary-darker w-full sm:w-[10.8rem]",
   greenSubmit:

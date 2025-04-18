@@ -1,8 +1,6 @@
 "use client";
 import React from "react";
-import LoginScreen from "@/components/LogIn/LogInScreen";
 import TastingSession from "@/components/HeroSlider/HeroSlider";
-import TopWinesSection from "@/components/Slider/TopWinesSection";
 import ServicesBanner from "@/components/ServicesBanner/ServicesBanner";
 export default function Home() {
   return (
@@ -13,8 +11,6 @@ export default function Home() {
       >
         <TastingSession />
         <ServicesBanner />
-        <TopWinesSection />
-        <LoginScreen />
       </main>
     </div>
   );
