@@ -11,66 +11,56 @@ import { CredentialsContext } from "@/context/credentialsContext";
 import PropTypes from "prop-types";
 
 const GoogleAuth = ({ setMsg, setSuccess, setLoading }) => {
-  // Receive setMsg, setSuccess, and setLoading as props
   const clientId = process.env.GOOGLE_CLIENT_ID;
   const { translations } = useLanguage();
   const { setStoredCredentials } = useContext(CredentialsContext);
 
   const login = useGoogleLogin({
     onSuccess: async (response) => {
-      // 1. The access token returned by Google
       const accessToken = response?.access_token;
-      console.warn("Google access token:", accessToken);
 
       if (!accessToken) {
-        logError("No access_token found in Google login response.");
-        setMsg("No access token found");
+        logError("Google login succeeded, but no access token was received.");
+        setMsg(translations["logIn.no-token"] || "No access token retrieved");
         setSuccess(false);
         return;
       }
 
-      // Activate global loading and clear previous messages
       setLoading(true);
       setMsg("");
       setSuccess(null);
 
       try {
-        // 2. First, retrieve the user information provided by Google
+        logInfo("Google access token received.");
+
         const userProfileResponse = await axios.get(
           `https://www.googleapis.com/oauth2/v3/userinfo?access_token=${accessToken}`,
         );
-
         const { email, name, picture } = userProfileResponse.data;
-        console.warn("Google user profile data:", { email, name, picture });
+        logInfo("Google user profile retrieved.");
 
-        // Removed token from userData to separate session management (handled via cookie)
         const userData = { email, name, picture };
 
-        // 3. Send a request to the backend
+        // Send authentication request to backend
         const serverResponse = await axios.post(
           `${baseApiUrl}/api/auth/sign-in-with-google`,
-          { ...userData, token: accessToken }, // backend may need token
-          { withCredentials: true }, // ensures cookies are sent
+          { ...userData, token: accessToken },
+          { withCredentials: true },
         );
-
-        console.warn("Backend sign-in response:", serverResponse.data);
+        logInfo("Google login request sent to backend.");
 
         if (serverResponse.data.success) {
-          logInfo("Backend authenticated successfully:", serverResponse.data);
-          // 4. Save to localStorage
+          logInfo("Backend authentication succeeded.");
           saveLoginCredentials(userData, accessToken);
-          setMsg("Google login successful!");
+          setMsg(translations["logIn.success"] || "Google login successful!");
           setSuccess(true);
-
-          // 5. (Optional) Check the current cookies
-          console.warn("document.cookie after login:", document.cookie);
         } else {
           throw new Error(
             serverResponse.data.msg || "Backend authentication failed",
           );
         }
       } catch (error) {
-        console.error("Google sign-in failed:", error);
+        logError("Error during Google sign-in process", error);
         setMsg(error.message);
         setSuccess(false);
       } finally {
@@ -78,34 +68,24 @@ const GoogleAuth = ({ setMsg, setSuccess, setLoading }) => {
       }
     },
     onError: (error) => {
-      console.warn("Google Login Error:", error);
-      setMsg("Google login error occurred");
+      logError("Google login error occurred", error);
+      setMsg(
+        translations["logIn.error"] || "An error occurred during Google login",
+      );
       setSuccess(false);
     },
     clientId,
   });
 
-  // Save login credentials to localStorage
   const saveLoginCredentials = (user, token) => {
     try {
       localStorage.setItem("userCredentials", JSON.stringify(user));
       localStorage.setItem("userCredentialsToken", token);
       setStoredCredentials(user);
-
-      // Add a debug log here to check if it is stored successfully
-      console.warn(
-        "Token in localStorage:",
-        localStorage.getItem("userCredentialsToken"),
-      );
-      console.warn(
-        "User in localStorage:",
-        localStorage.getItem("userCredentials"),
-      );
-
-      logInfo("User saved in localStorage");
+      logInfo("User credentials have been saved.");
     } catch (error) {
       logError("Error saving user credentials", error);
-      setMsg("Error saving user credentials");
+      setMsg(translations["logIn.save-error"] || "Error saving credentials");
       setSuccess(false);
     }
   };
