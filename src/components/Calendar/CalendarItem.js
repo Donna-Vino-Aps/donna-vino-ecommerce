@@ -6,7 +6,6 @@ import { useLanguage } from "@/context/LanguageContext";
 
 const CalendarItem = ({
   dayOfMonth,
-  icon,
   index,
   availableSeats = 0,
   totalInventory = 0,
@@ -23,7 +22,7 @@ const CalendarItem = ({
     totalInventory > 0 ? (availableSeats / totalInventory) * 100 : undefined;
 
   const BASE_CALENDARITEM_CLASSES = `
-   min-w-[99%] min-h-[2.813rem] md:min-h-[4.813rem] lg:h-[4.926rem] ${(index + 1) % 7 === 0 ? "lg:w-[6.12rem]" : "lg:w-[6.20rem]"} text-labelXLarge font-semibold rounded-tl-[6px] rounded-bl-[20px] md:rounded-tl-[12px] md:rounded-bl-[40px] lg:rounded-tl-[6px] lg:rounded-bl-[24px]
+   min-w-[99%] min-h-[2.813rem] md:min-h-[4.813rem] lg:h-[4.926rem] ${(index + 1) % 7 === 0 ? "lg:w-[6.12rem]" : "lg:w-[6.20rem]"} text-labelXLarge font-semibold rounded-tl-[6px] rounded-bl-[20px] md:rounded-tl-[0px] md:rounded-bl-[16px]
 `;
 
   // Get today's date
@@ -72,7 +71,7 @@ const CalendarItem = ({
         className={`${calendarItemClass} 
         `}
       >
-        <p className="flex justify-center pt-3 md:h-auto md:absolute md:left-4 md:pt-4 text-labelLarge">
+        <p className="flex justify-center pt-3 md:h-auto md:absolute md:left-2 md:pt-[5px] font-medium text-labelLarge md:text-labelMedium">
           {isToday &&
           isCurrentYear &&
           typeof percentageAvailable === "number" ? (
@@ -81,7 +80,7 @@ const CalendarItem = ({
                 inline-flex items-center justify-center w-6 h-6 rounded-full border-2
                 ${percentageAvailable <= 50 ? "border-calendar-today_ring" : ""}
                 ${percentageAvailable > 50 ? "border-primary-active" : ""}
-                relative bottom-[2px]
+                relative bottom-1 right-1
               `}
             >
               {dayOfMonth}
@@ -91,13 +90,13 @@ const CalendarItem = ({
           )}
         </p>
         {availableSeats >= 0 && totalInventory !== 0 && !isOtherMonth ? (
-          <div className="justify-end items-center md:gap-[4px] absolute bottom-3 right-2 md:right-1 hidden md:flex">
-            <img
+          <div className="justify-end items-center md:gap-[4px] absolute bottom-1 right-2 md:right-2 hidden md:flex">
+            {/* <img
               src={icon}
               alt="attendants icon"
               className="object-center w-4 h-5"
-            />
-            <p className="text-white text-labelMedium">{`${translations["calendar.seats"]}: ${availableSeats}`}</p>
+            /> */}
+            <p className="text-white text-labelMedium font-medium">{`${translations["calendar.seats"]}: ${availableSeats}`}</p>
           </div>
         ) : null}
       </div>
