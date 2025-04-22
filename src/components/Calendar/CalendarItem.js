@@ -20,7 +20,7 @@ const CalendarItem = ({
   const isLeft = index % 7 === 0; // Check if the item is on the left side of the calendar
   const isRight = (index + 1) % 7 === 0; // Check if the item is on the right side of the calendar
   const percentageAvailable =
-    totalInventory > 0 ? (availableSeats / totalInventory) * 100 : 0;
+    totalInventory > 0 ? (availableSeats / totalInventory) * 100 : undefined;
 
   const BASE_CALENDARITEM_CLASSES = `
    min-w-[99%] min-h-[2.813rem] md:min-h-[4.813rem] lg:h-[4.926rem] ${(index + 1) % 7 === 0 ? "lg:w-[6.12rem]" : "lg:w-[6.20rem]"} text-labelXLarge font-semibold rounded-tl-[6px] rounded-bl-[20px] md:rounded-tl-[12px] md:rounded-bl-[40px] lg:rounded-tl-[6px] lg:rounded-bl-[24px]
@@ -73,9 +73,16 @@ const CalendarItem = ({
         `}
       >
         <p className="flex justify-center pt-3 md:h-auto md:absolute md:left-4 md:pt-4 text-labelLarge">
-          {isToday && isCurrentYear ? (
+          {isToday &&
+          isCurrentYear &&
+          typeof percentageAvailable === "number" ? (
             <span
-              className={`inline-flex items-center justify-center w-6 h-6 rounded-full border-2 ${percentageAvailable <= 50 && percentageAvailable !== null ? "border-calendar-today_ring" : "border-primary-active"}  relative right-[6px]`}
+              className={`
+                inline-flex items-center justify-center w-6 h-6 rounded-full border-2
+                ${percentageAvailable <= 50 ? "border-calendar-today_ring" : ""}
+                ${percentageAvailable > 50 ? "border-primary-active" : ""}
+                relative right-[6px]
+              `}
             >
               {dayOfMonth}
             </span>
