@@ -62,7 +62,7 @@ const CalendarItem = ({
 
   return (
     <article
-      className={`relative min-w-[2.618rem] min-h-[2.813rem] lg:h-[4.976rem] lg:w-[6.22rem] bg-transparent border-tertiary1-light border-t-[1px] ${!isLeft && !isRight ? "border-r-[1px]" : ""} ${isLeft ? "border-r-[1px]" : ""}  
+      className={`relative min-w-[2.618rem] min-h-[2.813rem] lg:h-[4.976rem] lg:w-[6.282rem] bg-transparent border-tertiary1-light border-t-[1px] ${!isLeft && !isRight ? "border-r-[1px]" : ""} ${isLeft ? "border-r-[1px]" : ""}  
         ${isFull ? "hover:cursor-not-allowed" : "hover:cursor-pointer"} 
        `}
       onClick={onClick}
@@ -80,7 +80,7 @@ const CalendarItem = ({
                 inline-flex items-center justify-center w-6 h-6 rounded-full border-2
                 ${percentageAvailable <= 50 ? "border-calendar-today_ring" : ""}
                 ${percentageAvailable > 50 ? "border-primary-active" : ""}
-                relative bottom-1 right-1
+                relative bottom-[2px] md:bottom-1 md:right-[6px]
               `}
             >
               {dayOfMonth}

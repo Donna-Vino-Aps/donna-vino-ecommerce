@@ -130,7 +130,7 @@ const Calendar = ({ currentYear, currentMonth }) => {
     "flex bg-primary-normal h-11 md:h-4 justify-center items-center text-labelLarge md:text-labelMedium text-tertiary2-light";
 
   return (
-    <section className="grid grid-cols-7 grid-row-5 justify-center w-full md:max-w-[calc(7*6.22rem-8px)] lg:md:max-w-[calc(7*6.22rem)] mx-auto border-b-tertiary1-light border-[1px] rounded-b-lg">
+    <section className="grid grid-cols-7 grid-row-5 justify-center w-full md:max-w-[calc(7*6.282rem-8px)] lg:md:max-w-[calc(7*6.282rem)] mx-auto border-b-tertiary1-light border-[1px] rounded-b-lg">
       {[...Array(7)].map((_, i) => (
         <div key={i} className={weekdayStyle}>
           {isMobile

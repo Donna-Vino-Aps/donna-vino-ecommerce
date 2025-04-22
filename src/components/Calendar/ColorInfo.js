@@ -5,7 +5,7 @@ const ColorInfo = () => {
   const { translations } = useLanguage();
 
   return (
-    <div className="flex justify-center items-center rounded-[0.5rem] bg-tertiary2-normal h-[88px] md:h-10 mt-3 w-full md:max-w-[calc(7*6.22rem-6px)] lg:md:max-w-[calc(7*6.22rem-2px)]">
+    <div className="flex justify-center items-center rounded-[0.5rem] bg-tertiary2-normal h-[88px] md:h-10 mt-3 w-full md:max-w-[calc(7*6.282rem-6px)] lg:md:max-w-[calc(7*6.282rem-2px)]">
       <div className="grid grid-cols-2 px-2 gap-6 justify-space-between md:gap-4 md:flex md:flex-row justify-center items-center">
         {[
           { color: "bg-primary-active", key: "today" },
