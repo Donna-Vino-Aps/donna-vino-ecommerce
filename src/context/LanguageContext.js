@@ -13,8 +13,11 @@ export const useLanguage = () => {
 };
 
 export const LanguageProvider = ({ children }) => {
-  const [language, setLanguage] = useState("en");
+  const [language, setLanguage] = useState(
+    localStorage.getItem("pageLanguage") || "en",
+  );
   const [translations, setTranslations] = useState(enTranslations);
+
   useEffect(() => {
     const savedLanguage = localStorage.getItem("pageLanguage");
     if (savedLanguage) {
