@@ -1,14 +1,8 @@
-import React, {
-  useCallback,
-  useContext,
-  useEffect,
-  useRef,
-  useState,
-} from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import DropdownButton from "@/components/NavBar/UserDropdown/DropdownButton";
 import DropdownMenu from "@/components/NavBar/UserDropdown/DropdownMenu";
 import { useRouter } from "next/navigation";
-import { CredentialsContext } from "@/context/credentialsContext";
+import { useCredentials } from "@/context/CredentialsContext";
 
 export default function UserDropdown() {
   const [isOpen, setIsOpen] = useState(false);
@@ -24,7 +18,7 @@ export default function UserDropdown() {
     }
   }, [isAuthenticated, isOpen]);
 
-  const { storedCredentials } = useContext(CredentialsContext);
+  const { storedCredentials } = useCredentials();
 
   useEffect(() => {
     // Check for user credentials in localStorage

@@ -1,24 +1,23 @@
 "use client";
 
-import React, { useContext } from "react";
+import React from "react";
 import { useGoogleLogin } from "@react-oauth/google";
 import axios from "axios";
 import { baseApiUrl } from "@/config/environment";
-import { logInfo, logError } from "../../utils/logging";
+import { logInfo, logError } from "@/utils/logging";
 import Button from "../Button/Button";
 import { useLanguage } from "@/context/LanguageContext";
-import { CredentialsContext } from "@/context/credentialsContext";
-import PropTypes from "prop-types";
+import { useCredentials } from "@/context/CredentialsContext";
+import PropTypes from "prop-types"; // Import PropTypes
 
 const GoogleAuth = ({ setMsg, setSuccess, setLoading }) => {
   const clientId = process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID;
   const { translations } = useLanguage();
-  const { setStoredCredentials } = useContext(CredentialsContext);
+  const { setStoredCredentials } = useCredentials();
 
   const login = useGoogleLogin({
     onSuccess: async (response) => {
       const accessToken = response?.access_token;
-
       if (!accessToken) {
         logError("Google login succeeded, but no access token was received.");
         setMsg(translations["logIn.no-token"] || "No access token retrieved");
@@ -31,23 +30,21 @@ const GoogleAuth = ({ setMsg, setSuccess, setLoading }) => {
       setSuccess(null);
 
       try {
-        logInfo("Google access token received.");
-
         const userProfileResponse = await axios.get(
           `https://www.googleapis.com/oauth2/v3/userinfo?access_token=${accessToken}`,
         );
+
         const { email, name, picture } = userProfileResponse.data;
         logInfo("Google user profile retrieved.");
 
-        const userData = { email, name, picture };
+        const userData = { email, name, picture, token: accessToken };
 
         // Send authentication request to backend
         const serverResponse = await axios.post(
           `${baseApiUrl}/api/auth/sign-in-with-google`,
-          { ...userData, token: accessToken },
+          userData,
           { withCredentials: true },
         );
-        logInfo("Google login request sent to backend.");
 
         if (serverResponse.data.success) {
           logInfo("Backend authentication succeeded.");

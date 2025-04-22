@@ -1,6 +1,6 @@
 import React, { useState, useContext, useEffect } from "react";
 import { Formik, Form } from "formik";
-import { CredentialsContext } from "../../context/credentialsContext";
+import { useCredentials } from "../../context/CredentialsContext";
 import { useLanguage } from "@/context/LanguageContext";
 import useFetch from "@/hooks/api/useFetch.js";
 import { useRouter } from "next/navigation";
@@ -20,7 +20,7 @@ const LoginForm = () => {
   const [success, setSuccessStatus] = useState(null);
   const [loading, setLoading] = useState(false);
 
-  const { setStoredCredentials } = useContext(CredentialsContext);
+  const { setStoredCredentials } = useCredentials();
 
   const onReceived = (response) => {
     const responseData = response.data || response;
