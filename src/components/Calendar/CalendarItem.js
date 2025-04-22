@@ -81,7 +81,7 @@ const CalendarItem = ({
                 inline-flex items-center justify-center w-6 h-6 rounded-full border-2
                 ${percentageAvailable <= 50 ? "border-calendar-today_ring" : ""}
                 ${percentageAvailable > 50 ? "border-primary-active" : ""}
-                relative right-[6px]
+                relative bottom-[2px]
               `}
             >
               {dayOfMonth}
