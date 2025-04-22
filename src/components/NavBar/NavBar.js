@@ -146,6 +146,13 @@ const Navbar = () => {
     //   sublinks: ["Grapes", "Regions"],
     // },
     {
+      id: "events",
+      href: "/events",
+      label: translations["navbar.events"],
+      icon: "/icons/calendar1.svg",
+      dropdown: false,
+    },
+    {
       id: "account",
       href: "/user/profile",
       label: translations["navbar.account"],
@@ -208,7 +215,6 @@ const Navbar = () => {
                     ? "text-tertiary1-gray"
                     : "text-tertiary2-active_dark"
                 }`}
-                onClick={() => handleClick(link.href)}
                 data-testid={`nav-link-${link.id}`}
               >
                 {link.label}
