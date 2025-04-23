@@ -14,37 +14,39 @@ const EventRow = ({
   const isFull = availableSeats === 0 && totalInventory > 0;
 
   return (
-    <div className={`mb-4 border-l-4 ${seatStatus.borderColor}`}>
-      <div className="p-4">
-        <div className="flex flex-col justify-between items-start mb-2">
+    <>
+      <div
+        className={`flex flex-row pl-2 mb-4 border-l-4 ${seatStatus.borderColor}`}
+      >
+        <div className="w-[22%] flex flex-col items-start">
           <div className="text-bodyMedium">{formattedDate}</div>
-          <div className="text-sm text-tertiary2-dark mt-1 md:mt-0">
+          <div className="text-bodySmall">
             {formattedTimeStart} - {formattedTimeEnd}
           </div>
         </div>
 
-        <div className="mb-4">
-          <div className="text-sm text-tertiary1-darker">
-            <span className="font-medium">Wines:</span> {wine}
+        <div className="w-[56%] flex flex-col items-start text-labelLarge">
+          <div>
+            <span className="font-medium">Wines:</span>{" "}
+            <span dangerouslySetInnerHTML={{ __html: wine }} />
           </div>
-          <div className="text-sm text-tertiary1-darker">
+          <div>
             <span className="font-medium">Winery:</span> {winery}
           </div>
-          <div className="mt-2">
-            {availableSeats} of {totalInventory}
-          </div>
         </div>
-
-        <div className="flex justify-end">
-          <Button
-            text="Book seats"
-            variant="eventButton"
-            onClick={() => showModal(event)}
-            disabled={isFull}
-          />
+        <div className="w-[22%] flex flex-col items-center text-bodyMedium">
+          {availableSeats} of {totalInventory}
         </div>
       </div>
-    </div>
+      <div className="flex justify-end py-2 mb-4 pr-2">
+        <Button
+          text="Book seats"
+          variant="eventButton"
+          onClick={() => showModal(event)}
+          disabled={isFull}
+        />
+      </div>
+    </>
   );
 };
 
