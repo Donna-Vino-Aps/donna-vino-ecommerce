@@ -7,25 +7,25 @@ const EventRow = ({
   formattedDate,
   formattedTimeStart,
   formattedTimeEnd,
-  seatStatus,
   showModal,
 }) => {
   const { wine, winery, availableSeats, totalInventory } = event;
   const isFull = availableSeats === 0 && totalInventory > 0;
+  const percentageAvailable =
+    totalInventory > 0 ? (availableSeats / totalInventory) * 100 : 0;
 
-  const borderColorClass = isFull
-    ? "border-calendar-full"
-    : seatStatus.bgColor === "bg-calendar-limited_light"
-      ? "border-calendar-limited"
-      : "border-calendar-open";
+  let seatAvailabilityClass = "calendar-open";
+  if (isFull) {
+    seatAvailabilityClass = "calendar-full";
+  } else if (percentageAvailable <= 50 && totalInventory !== 0) {
+    seatAvailabilityClass = "calendar-limited";
+  }
 
   return (
-    <div
-      className={`mb-4 border-l-4 ${borderColorClass} bg-white rounded shadow-sm`}
-    >
+    <div className={`mb-4 border-l-4 border-${seatAvailabilityClass}`}>
       <div className="p-4">
-        <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-2">
-          <div className="font-medium text-titleMedium">{formattedDate}</div>
+        <div className="flex flex-col justify-between items-start mb-2">
+          <div className="text-bodyMedium">{formattedDate}</div>
           <div className="text-sm text-tertiary2-dark mt-1 md:mt-0">
             {formattedTimeStart} - {formattedTimeEnd}
           </div>
@@ -67,11 +67,6 @@ EventRow.propTypes = {
   formattedDate: PropTypes.string.isRequired,
   formattedTimeStart: PropTypes.string,
   formattedTimeEnd: PropTypes.string,
-  seatStatus: PropTypes.shape({
-    bgColor: PropTypes.string,
-    textColor: PropTypes.string,
-    text: PropTypes.string,
-  }).isRequired,
   showModal: PropTypes.func.isRequired,
 };
 
