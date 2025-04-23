@@ -74,19 +74,19 @@ const EventList = () => {
       return {
         bgColor: "bg-calendar-full_light",
         textColor: "text-calendar-full",
-        text: translations["events.seatStatus.full"] || "Full",
+        borderColor: "border-calendar-full",
       };
     } else if (percentageAvailable <= 50 && totalInventory !== 0) {
       return {
         bgColor: "bg-calendar-limited_light",
         textColor: "text-calendar-limited",
-        text: translations["events.seatStatus.limited"] || "Limited",
+        borderColor: "border-calendar-limited",
       };
     } else {
       return {
         bgColor: "bg-calendar-open_light",
         textColor: "text-calendar-open_dark",
-        text: translations["events.seatStatus.available"] || "Available",
+        borderColor: "border-calendar-open",
       };
     }
   };
