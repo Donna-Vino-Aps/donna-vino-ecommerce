@@ -34,6 +34,8 @@ const VARIANT_CLASSES = {
     "bg-primary-normal hover:bg-primary-hover_normal text-white rounded-lg w-full sm:w-[10.8rem]",
   gray: "bg-tertiary1-normal hover:bg-tertiary1-dark text-tertiary1-light w-full sm:w-[10.8rem]",
   yellow: "bg-[#F59E0B] opacity-85 hover:opacity-100 text-primary-light w-full",
+  eventButton:
+    "bg-primary-normal hover:bg-primary-hover_normal text-primary-light w-[6.25rem] h-[1.75rem] text-bodyMedium",
 };
 
 const Button = ({
@@ -104,6 +106,7 @@ Button.propTypes = {
     "redSubmit",
     "gray",
     "yellow",
+    "eventButton",
   ]),
   onClick: PropTypes.func,
   disabled: PropTypes.bool,
