@@ -59,6 +59,8 @@ export default {
           hover_dark: "#8E1116",
           active_dark: "#6B0D10",
           darker: "#530A0D",
+          disabled: "#E5E7EB",
+          disabled_dark: "#6B7280",
         },
         secondary: {
           light: "#E8ECE9",
