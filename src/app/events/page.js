@@ -10,8 +10,10 @@ const Events = () => {
   return (
     <EventsProvider>
       <EventsHeader />
-      <CalendarFrame />
-      <EventList />
+      <section className="flex flex-col justify-center xl:flex-row xl:gap-8">
+        <CalendarFrame />
+        <EventList />
+      </section>
     </EventsProvider>
   );
 };
