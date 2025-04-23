@@ -4,7 +4,7 @@ import { usePathname } from "next/navigation";
 import React, { useState } from "react";
 import LanguageSwitch from "../NavBar/LanguageSwitch";
 import SideBar from "../SideBar/SideBar";
-import { useLanguage } from "../../context/LanguageContext";
+import { useLanguage } from "@/context/LanguageContext";
 import SearchButton from "./SearchButton";
 import UserDropdown from "./UserDropdown/UserDropdown";
 import ShoppingCart from "./ShoppingCart";
@@ -12,6 +12,7 @@ import ShoppingCart from "./ShoppingCart";
 const Navbar = () => {
   const { translations } = useLanguage();
   const pathname = usePathname();
+
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [openDropdowns, setOpenDropdowns] = useState({
     wines: false,
@@ -120,6 +121,13 @@ const Navbar = () => {
       href: "/",
       label: translations["navbar.home"],
       icon: "/icons/home.svg",
+      dropdown: false,
+    },
+    {
+      id: "events",
+      href: "/events",
+      label: translations["navbar.events"],
+      icon: "/icons/calendar1.svg",
       dropdown: false,
     },
     // {
@@ -313,7 +321,7 @@ const Navbar = () => {
               data-testid="menu-toggle"
               className="hover:opacity-85"
             >
-              <img src="/icons/menu.svg" alt="" />
+              <img src="/icons/menu.svg" alt="menu" />
             </button>
           </div>
         </div>

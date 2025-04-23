@@ -1,8 +1,6 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import { useLanguage } from "@/context/LanguageContext";
-import useFetch from "@/hooks/api/useFetch";
-import { useRouter } from "next/navigation";
 import { useCredentials } from "@/context/CredentialsContext";
 
 const UserContext = createContext();
@@ -10,24 +8,9 @@ const UserContext = createContext();
 export const UserContextProvider = ({ children }) => {
   const [menuItems, setMenuItems] = useState([]);
 
+  const { logout } = useCredentials();
+
   const { translations, language } = useLanguage();
-  const router = useRouter();
-  const { setStoredCredentials } = useCredentials();
-
-  const handleLogout = async () => {
-    setStoredCredentials(null);
-    await localStorage.removeItem("userCredentials");
-    await localStorage.removeItem("userCredentialsToken");
-    router.push("/"); // Redirect to start page
-  };
-
-  const { performFetch } = useFetch(
-    "/user/log-out",
-    "POST",
-    { withCredentials: true },
-    {},
-    handleLogout,
-  );
 
   useEffect(() => {
     setMenuItems([
@@ -38,7 +21,6 @@ export const UserContextProvider = ({ children }) => {
         },
         url: "/user/profile",
         title: translations["user-dropdown.account"],
-        // title: "user-dropdown.account",
       },
       // {
       //   image: {
@@ -75,7 +57,7 @@ export const UserContextProvider = ({ children }) => {
         },
         title: translations["user-dropdown.logout"],
         variant: "button",
-        onClick: performFetch,
+        onClick: logout,
       },
     ]);
   }, [translations, language]);

@@ -1,17 +1,35 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import Link from "next/link";
-import axios from "axios";
 import LanguageSwitch from "../NavBar/LanguageSwitch";
-import { useLanguage } from "../../context/LanguageContext";
+import { useLanguage } from "@/context/LanguageContext";
+import SocialLinks from "@/components/SideBar/SocialLinks";
+import UserInfoMobile from "@/components/SideBar/UserInfoMobile";
+import { useCredentials } from "@/context/CredentialsContext";
 
 const SideBar = ({ isMenuOpen, toggleMenu, navLinks }) => {
-  const { translations } = useLanguage();
   const [openDropdowns, setOpenDropdowns] = useState({
     wines: false,
     grapeszones: false,
     account: false,
   });
+
+  const { logout } = useCredentials();
+
+  const { translations } = useLanguage();
+
+  // Hide main content scroll when sideBar opened
+  useEffect(() => {
+    if (isMenuOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [isMenuOpen]);
 
   const toggleDropdown = (id) => {
     setOpenDropdowns((prev) => ({
@@ -22,20 +40,9 @@ const SideBar = ({ isMenuOpen, toggleMenu, navLinks }) => {
 
   const isDropdownOpen = (id) => openDropdowns[id] ?? false;
 
-  // Handle logout
-  const handleLogout = async () => {
-    try {
-      await axios.post("/api/auth/logout", {}, { withCredentials: true });
-      setStoredCredentials(null);
-      router.push("/"); // Redirect to start page
-    } catch (error) {
-      console.error("Logout failed:", error);
-    }
-  };
-
   return (
     <div
-      className={`fixed right-0 top-0 z-40 h-full w-full lg:hidden ${
+      className={`fixed right-0 top-0 w-full bg-white h-full lg:hidden z-40 overflow-y-auto ${
         isMenuOpen ? "translate-x-0" : "translate-x-full"
       }`}
       data-testid="side-bar"
@@ -43,27 +50,9 @@ const SideBar = ({ isMenuOpen, toggleMenu, navLinks }) => {
       aria-labelledby="menu-heading"
       inert={!isMenuOpen}
     >
-      <div className="flex h-full flex-col gap-8 bg-white p-8">
-        <div className="flex items-center justify-between">
-          <div className="relative left-1 top-8 flex gap-4">
-            <a href="/" className="">
-              <img
-                src="/images/courtney-cook-unsplash.jpg"
-                alt="User Profile Picture"
-                className="h-20 w-20"
-              />
-              <img
-                src="/icons/Edit profile pic.svg"
-                className="relative bottom-6 left-12"
-              />
-            </a>
-            <div className="mt-3">
-              <p className="text-headlineSmall text-tertiary1-darker">Admin</p>
-              <p className="text-bodyLarge text-[#637381]">
-                admin@donnavino.dk
-              </p>
-            </div>
-          </div>
+      <div className="flex flex-col h-full gap-8 p-8">
+        <div className="flex justify-between items-center">
+          <UserInfoMobile />
           <button
             role="button"
             className="self-start"
@@ -73,7 +62,7 @@ const SideBar = ({ isMenuOpen, toggleMenu, navLinks }) => {
             <img
               src="/icons/close.svg"
               alt="Close icon"
-              className="h-[1.12rem] w-[1.12rem]"
+              className="mt-3 mr-1 w-[1.12rem] h-[1.12rem]"
             />
           </button>
         </div>
@@ -86,7 +75,10 @@ const SideBar = ({ isMenuOpen, toggleMenu, navLinks }) => {
           <nav role="navigation">
             <ul className="ml-2 flex flex-col">
               {navLinks.map((link) => (
-                <li key={link.id} className={`relative flex gap-5`}>
+                <li
+                  key={link.id}
+                  className={`flex relative gap-5 active:bg-primary-light active:rounded-lg duration-300`}
+                >
                   <img
                     className="relative left-[6px] top-[10px] inline-block h-[1.25rem] w-[1.25rem] text-right align-middle"
                     src={link.icon}
@@ -153,7 +145,7 @@ const SideBar = ({ isMenuOpen, toggleMenu, navLinks }) => {
                                       {translations["user-dropdown.logout"]}
                                     </button>
                                     <img
-                                      src="/icons/log out.svg"
+                                      src="/icons/logout.svg"
                                       alt="log out icon"
                                       className="relative"
                                     ></img>
@@ -169,7 +161,16 @@ const SideBar = ({ isMenuOpen, toggleMenu, navLinks }) => {
               ))}
             </ul>
           </nav>
-          <hr className="relative bottom-4 border-t-slate-300" />
+          <hr className="border-t-slate-300 relative bottom-4" />
+          <Link
+            href="#"
+            onClick={(event) => {
+              event.preventDefault();
+              logout();
+            }}
+          >
+            Log out
+          </Link>
         </div>
 
         <div className="relative bottom-4 flex h-[4.87rem] w-[10.12rem] flex-col items-start">
@@ -178,50 +179,7 @@ const SideBar = ({ isMenuOpen, toggleMenu, navLinks }) => {
           </p>
           <LanguageSwitch />
         </div>
-
-        <div className="relative bottom-2 flex flex-col gap-8">
-          <h3 className="text-labelXLarge font-semibold">
-            {translations["footer.follow"]}
-          </h3>
-          <div
-            className="flex justify-start gap-6"
-            aria-label="Social media icons"
-          >
-            <a
-              href="https://www.instagram.com/donna_vino_winetastings/"
-              data-testid="social-icon-instagram-link"
-              aria-label="Instagram"
-            >
-              <img
-                src="/icons/instagram-original.svg"
-                className="h-[1.5rem] brightness-0 filter"
-                alt="Instagram"
-              />
-            </a>
-            <a
-              href="https://www.linkedin.com/company/donna-vino-aps/"
-              data-testid="social-icon-linkedin-link"
-              aria-label="LinkedIn"
-            >
-              <img
-                src="/icons/linkedin-alt.svg"
-                className="h-[1.5rem] brightness-0 filter"
-                alt="LinkedIn"
-              />
-            </a>
-            <a
-              href="https://www.facebook.com/donnavino.dk/"
-              data-testid="social-icon-facebook-link"
-              aria-label="Facebook"
-            >
-              <img
-                src="/icons/facebook-line.svg"
-                className="h-[1.5rem] brightness-0 filter"
-                alt="Facebook"
-              />
-            </a>
-          </div>
-        </div>
+        <SocialLinks />
       </div>
     </div>
   );
