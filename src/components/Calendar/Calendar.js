@@ -9,7 +9,7 @@ const Calendar = ({ currentYear, currentMonth }) => {
   const { events } = useEvents();
 
   const [isMobile, setIsMobile] = React.useState(
-    typeof window !== "undefined" && window.innerWidth < 1024,
+    typeof window !== "undefined" && window.innerWidth < 768,
   );
   const [isModalOpen, setIsModalOpen] = useState(true);
   const [selectedEvent, setSelectedEvent] = useState(null);
@@ -26,7 +26,7 @@ const Calendar = ({ currentYear, currentMonth }) => {
 
   React.useEffect(() => {
     const handleResize = () => {
-      setIsMobile(window.innerWidth < 1024);
+      setIsMobile(window.innerWidth < 768);
     };
 
     window.addEventListener("resize", handleResize);
@@ -127,10 +127,10 @@ const Calendar = ({ currentYear, currentMonth }) => {
   );
 
   const weekdayStyle =
-    "flex bg-primary-normal h-11 lg:h-16 justify-center items-center text-labelLarge md:text-titleMedium lg:text-labelLarge text-tertiary2-light";
+    "flex bg-primary-normal h-11 md:h-4 justify-center items-center text-labelLarge md:text-labelMedium text-tertiary2-light";
 
   return (
-    <section className="grid grid-cols-7 grid-row-5 justify-center w-full md:max-w-[calc(7*6.22rem-8px)] lg:md:max-w-[calc(7*6.22rem)] mx-auto border-b-tertiary1-light border-[1px] rounded-b-lg">
+    <section className="grid grid-cols-7 grid-row-5 justify-center w-full md:max-w-[calc(7*6.282rem-8px)] lg:md:max-w-[calc(7*6.282rem)] mx-auto border-b-tertiary1-light border-[1px] rounded-b-lg">
       {[...Array(7)].map((_, i) => (
         <div key={i} className={weekdayStyle}>
           {isMobile
