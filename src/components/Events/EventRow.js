@@ -46,7 +46,7 @@ const EventRow = ({
         <div className="flex justify-end">
           <Button
             text="Book seats"
-            variant="redSubmit"
+            variant="eventButton"
             onClick={() => showModal(event)}
             disabled={isFull}
           />

@@ -91,46 +91,34 @@ const EventList = () => {
     }
   };
 
-  if (isLoading) {
-    return (
-      <div className="w-full flex justify-center items-center py-10">
-        <div className="flex flex-col items-center">
-          <div className="w-12 h-12 border-4 border-primary-normal border-t-transparent rounded-full animate-spin"></div>
-          <p className="mt-4 text-primary-normal font-medium">
-            {translations["calendar.loading"]}
-          </p>
-        </div>
-      </div>
-    );
-  }
+  const renderLoading = () => (
+    <div className="flex flex-col items-center py-10">
+      <div className="w-12 h-12 border-4 border-primary-normal border-t-transparent rounded-full animate-spin"></div>
+      <p className="mt-4 text-primary-normal font-medium">
+        {translations["calendar.loading"]}
+      </p>
+    </div>
+  );
 
-  if (error) {
-    return (
-      <div className="text-primary-normal text-center py-8">
-        <p>{error}</p>
-      </div>
-    );
-  }
+  const renderError = () => (
+    <p className="text-primary-normal text-center py-8">{error}</p>
+  );
 
-  if (events.length === 0) {
-    return (
-      <div className="text-center py-8">
-        <p>
-          {translations["events.noEvents"] || "No upcoming events available."}
-        </p>
-      </div>
-    );
-  }
+  const renderEmptyState = () => (
+    <p className="text-center py-8">
+      {translations["events.noEvents"] || "No upcoming events available."}
+    </p>
+  );
 
-  return (
-    <div className="w-full mb-12 px-4">
-      <h2 className="text-titleLarge font-medium mb-4">
+  const renderEventList = () => (
+    <>
+      <h2 className="text-titleLarge font-medium mb-4 w-full">
         {translations["events.upcomingTitle"] ||
           "Upcoming wine tasting events:"}{" "}
         {language === "en" ? "April" : "april"}
       </h2>
 
-      <div className="mb-6 bg-primary-normal text-tertiary2-light rounded-t p-3 grid grid-cols-1 md:grid-cols-4 gap-4">
+      <div className="mb-6 bg-tertiary2-active text-tertiary2-light rounded-t p-3 grid grid-cols-1 md:grid-cols-4 gap-4 w-full">
         <div className="font-medium">
           {translations["events.dateHeader"] || "Date"}
         </div>
@@ -160,11 +148,20 @@ const EventList = () => {
               formattedTimeStart={formattedTimeStart}
               formattedTimeEnd={formattedTimeEnd}
               seatStatus={seatStatus}
-              onBookClick={handleOpenModal}
+              showModal={handleOpenModal}
             />
           );
         })}
       </div>
+    </>
+  );
+
+  return (
+    <div className="flex flex-col mb-12 mx-auto xl:mx-0 px-4 w-[37rem]">
+      {isLoading && renderLoading()}
+      {error && !isLoading && renderError()}
+      {!isLoading && !error && events.length === 0 && renderEmptyState()}
+      {!isLoading && !error && events.length > 0 && renderEventList()}
 
       {selectedEvent && (
         <EventRegistrationModal
