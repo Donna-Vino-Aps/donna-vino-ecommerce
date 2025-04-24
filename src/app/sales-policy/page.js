@@ -21,7 +21,10 @@ const SalesPolicy = () => {
           property="og:description"
           content="Learn about Donna Vino's sales policies."
         />
-        <meta property="og:url" content="https://donnavino.dk/privacy-policy" />
+        <meta
+          property="og:url"
+          content="https://donnavino.dk/shop/privacy-policy"
+        />
       </Head>
       <main className="w-full flex flex-col gap-3 font-barlow text-tertiary1-darker bg-white">
         <section className="px-2 pt-4 sm:mx-8">
@@ -72,8 +75,10 @@ const SalesPolicy = () => {
         <div className="mx-4 my-2 mb-4">
           <div className="flex justify-center flex-col w-full rounded-2xl border-[1px] border-black px-8 py-4 text-bodyLarge">
             <section className="">
-              <h2 className="text-displaySmall mt-3 mb-6">Payment Methods</h2>
-              <p>We accept the following payment methods:</p>
+              <h2 className="text-displaySmall mt-3 mb-6">
+                {translations["sales.payment.h2"]}
+              </h2>
+              <p>{translations["sales.payment.p1"]}</p>
               <ul className="list-disc font-semibold ml-6 mt-4 mb-4">
                 <li>MobilePay</li>
                 <li>VISA</li>
@@ -81,98 +86,86 @@ const SalesPolicy = () => {
                 <li>PayPal</li>
               </ul>
               <p>
-                <strong>Payment Timing:</strong> All payments are processed
-                securely. The payment will be debited from your account
-                immediately upon order confirmation.
+                <strong>{translations["sales.payment.p2"]}</strong>
+                {translations["sales.payment.p3"]}
               </p>
             </section>
             <section>
-              <h2 className="text-displaySmall my-6">Delivery Information</h2>
-              <p>We strive to deliver your order as quickly as possible.</p>
+              <h2 className="text-displaySmall my-6">
+                {translations["sales.delivery.h2"]}
+              </h2>
+              <p>{translations["sales.delivery.p1"]}</p>
               <br />
               <ul className="list-disc font-normal ml-6 mt-4 mb-4">
                 <li>
                   <strong className="font-semibold">
-                    Standard Delivery Time (Hand Delivery):
-                  </strong>{" "}
-                  2–5 business days within the Copenhagen area
+                    {translations["sales.delivery.li1-1"]}
+                  </strong>
+                  : {translations["sales.delivery.li1-2"]}
                 </li>
                 <br />
                 <li>
                   <strong className="font-semibold">
-                    International Shipping:
-                  </strong>{" "}
-                  Currently, we do not offer international shipping.
+                    {translations["sales.delivery.li2-1"]}
+                  </strong>
+                  : {translations["sales.delivery.li2-2"]}
                 </li>
               </ul>
               <br />
               <p>
-                <strong>Shipping Providers:</strong> Hand delivery to your
-                address or collection from our sales outlet, located at
-                Christianshavns Voldgade 54, 1424 København. <br /> Shipping
-                confirmation and tracking information will be provided via email
-                once your order has been dispatched.
+                <strong>{translations["sales.delivery.p2"]}</strong>{" "}
+                {translations["sales.delivery.p3"]}
+                <br /> {translations["sales.delivery.p4"]}
               </p>
             </section>
 
             <section>
               <h2 className="text-displaySmall my-6">
-                Returns and Cancellation Policy
+                {translations["sales.returns.h2"]}
               </h2>
+              <p>{translations["sales.returns.p1"]}</p>
               <p>
-                You have the right to cancel your order within 14 days of
-                receiving the item.
-              </p>
-              <p>
-                <strong>To be eligible for a return:</strong>
+                <strong>{translations["sales.returns.p2"]}</strong>
               </p>
               <ul className="list-disc font-semibold ml-6 mt-4 mb-4">
-                <li>The item must be unused and in its original packaging.</li>
-                <li>Proof of purchase is required.</li>
+                <li>{translations["sales.returns.li1"]}</li>
+                <li>{translations["sales.returns.li2"]}</li>
               </ul>
               <p>
-                <strong>To cancel your order or initiate a return:</strong>{" "}
-                Please contact us at{" "}
-                <a href="mailto:info@donnavino.com">info@donnavino.com</a> with
-                your order number and reason for return.
+                <strong>{translations["sales.returns.p3"]}</strong>{" "}
+                {translations["sales.returns.p4"]}{" "}
+                <a href="mailto:info@donnavino.com">info@donnavino.com</a>{" "}
+                {translations["sales.returns.p5"]}
               </p>
               <p>
-                <strong>Exclusions:</strong> Some perishable goods and
-                customized items may be excluded from the right of cancellation.
-                This will be stated clearly on the relevant product pages.
+                <strong>{translations["sales.returns.p6"]}:</strong>{" "}
+                {translations["sales.returns.p7"]}
               </p>
               <br />
               <p>
-                <strong>
-                  Refunds will be processed within 5 business days after we
-                  receive and inspect the returned item.
-                </strong>
+                <strong>{translations["sales.returns.p8"]}</strong>
               </p>
             </section>
 
             <section>
               <h2 className="text-displaySmall my-6">
-                Buyer’s Rights and Complaint Period
+                {translations["sales.rights.h2"]}
               </h2>
-              <p>
-                In accordance with Danish consumer law, customers have a right
-                to complain about a product within 24 months of purchase.
-              </p>
+              <p>{translations["sales.rights.p1"]}</p>
               <br />
               <p>
-                <strong>To file a complaint:</strong>
+                <strong>{translations["sales.rights.p2"]}</strong>
               </p>
               <ul className="list-disc font-normal ml-6 mt-4 mb-4">
                 <li>
-                  Contact us at{" "}
+                  {translations["sales.rights.li1-1"]}{" "}
                   <a href="mailto:info@donnavino.com">info@donnavino.com</a>{" "}
-                  with details and pictures of the issue.
+                  {translations["sales.rights.li1-2"]}
                 </li>
-                <li>Provide your order number and date of purchase.</li>
+                <li>{translations["sales.rights.li2"]}</li>
               </ul>
               <p>
-                If a solution cannot be reached, you may submit your complaint
-                to the Consumer Complaints Board via{" "}
+                {translations["sales.rights.p3"]}{" "}
                 <a href="https://forbrug.dk" target="_blank">
                   forbrug.dk
                 </a>
@@ -181,26 +174,22 @@ const SalesPolicy = () => {
             </section>
 
             <section>
-              <h2 className="text-displaySmall my-6">Complaint Procedure</h2>
-              <p>
-                For any complaints, please contact our customer support team:
-              </p>
+              <h2 className="text-displaySmall my-6">
+                {translations["sales.complaints.h2"]}
+              </h2>
+              <p>{translations["sales.complaints.p1"]}</p>
               <ul className="list-disc font-normal ml-6 mt-4 mb-4">
                 <li>
-                  Email:{" "}
+                  {translations["sales.complaints.li1"]}:{" "}
                   <a href="mailto:info@donnavino.com">info@donnavino.com</a>
                 </li>
-                <li>Phone: +45 31 62 06 93</li>
+                <li>{translations["sales.complaints.li2"]}: +45 31 62 06 93</li>
               </ul>
-              <p>We aim to respond to all inquiries within 2 business days.</p>
+              <p>{translations["sales.complaints.p2"]}</p>
             </section>
             <section className="mt-12 mb-4">
               <p>
-                <em>
-                  This information is provided in compliance with the Consumer
-                  Ombudsman’s requirements for use of MobilePay and ensures
-                  transparency for our valued customers.
-                </em>
+                <em>{translations["sales.footer"]}</em>
               </p>
             </section>
           </div>
