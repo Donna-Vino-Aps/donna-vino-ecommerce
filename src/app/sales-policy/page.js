@@ -36,9 +36,9 @@ const SalesPolicy = () => {
             }}
           />
         </section>
-        <div className="py-6 flex flex-col md:flex-row gap-8 md:gap-16 justify-center items-center w-full min-h-[43.75rem] bg-primary-light">
+        <div className="py-6 flex flex-col md:flex-row gap-8 md:gap-4 lg:gap-8 md:gap-16 justify-center items-center w-full min-h-[43.75rem] bg-primary-light">
           <div>
-            <h1 className="text-displayMedium">
+            <h1 className="text-displayMedium mt-6 md:mt-0">
               {translations["sales.title"]}
             </h1>
             <div className="text-tertiary1-dark text-bodyLarge mt-2">
