@@ -182,5 +182,12 @@
   "modal.h1": "We're working on it!",
   "modal.p": "Our eCommerce platform is currently being created and updated and will be live as soon as possible. In the meantime, feel free to contact us for any inquiries, or you can simply close this modal.",
   "modal.button-left": "Close",
-  "modal.button-right": "Contact us"
+  "modal.button-right": "Contact us",
+  "sales.title": "Sales Policy",
+  "sales.info.p1": "Company Information (The parties):",
+  "sales.info.p2": "CVR Number",
+  "sales.info.p3": "Company Name",
+  "sales.info.p4": "Email",
+  "sales.info.p5": "Phone Number",
+  "sales.info.p6": "Address"
 }

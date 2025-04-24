@@ -182,5 +182,12 @@
   "modal.h1": "Vi arbejder på det!",
   "modal.p": "Vores e-handelsplatform er i øjeblikket ved at blive oprettet og opdateret og vil være live så hurtigt som muligt. I mellemtiden er du velkommen til at kontakte os for eventuelle forespørgsler.",
   "modal.button-left": "Tæt",
-  "modal.button-right": "Kontakt os"
+  "modal.button-right": "Kontakt os",
+  "sales.title": "Salgspolitik",
+  "sales.info.p1": "Company Information (The parties):",
+  "sales.info.p2": "CVR Number",
+  "sales.info.p3": "Company Name",
+  "sales.info.p4": "E-mail",
+  "sales.info.p5": "Telefonnummer",
+  "sales.info.p6": "Adresse"
 }
