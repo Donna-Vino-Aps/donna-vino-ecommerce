@@ -66,7 +66,7 @@ const HeroSlider = () => {
   };
 
   return (
-    <section>
+    <section className="relative">
       <Swiper
         onSwiper={(swiper) => (swiperRef.current = swiper)}
         modules={[A11y]}
@@ -78,7 +78,7 @@ const HeroSlider = () => {
         {slides.map((slide, index) => (
           <SwiperSlide key={index}>
             <section
-              className={`relative flex flex-col-reverse md:w-full ${index === 0 ? "md:flex-row" : "md:flex-row-reverse"} justify-between bg-tertiary2-light min-h-[48rem]`}
+              className={`relative flex flex-col-reverse md:w-full ${index === 0 ? "md:flex-row" : "md:flex-row-reverse"} justify-between bg-tertiary2-light min-h-[43.75rem]`}
             >
               {/* Modal "Coming Soon" */}
               {isModalOpen && (
@@ -89,11 +89,11 @@ const HeroSlider = () => {
                   />
                 </div>
               )}
-              <div className="w-full md:w-[50%] items-center">
+              <div className="w-full mb-4 min-h-[20rem] md:mb-0 md:relative md:w-[50%] items-center">
                 {slide.type === "video" ? (
                   hasCredits ? (
                     <video
-                      className="absolute inset-0 mt-6 iimd:mt-0 md:rounded-t-[0rem] md:rounded-tr-[8rem] md:rounded-br-xl object-cover w-full max-h-[43.75rem]"
+                      className="md:absolute md:inset-0 mt-4 iimd:mt-0 rounded-tr-[0rem] rounded-br-[0rem] md:rounded-tr-[8rem] md:rounded-br-xl object-cover w-full max-h-[22.5rem] md:min-h-[43.75rem]"
                       autoPlay
                       loop
                       muted
@@ -108,7 +108,7 @@ const HeroSlider = () => {
                   ) : (
                     <img
                       src="/images/dv-tasting.png"
-                      className="absolute inset-0 mt-6 iimd:mt-0 md:rounded-t-[0rem] md:rounded-tr-[8rem] md:rounded-br-xl object-cover max-w-full max-h-[43.75rem]"
+                      className="md:absolute md:inset-0 mt-4 iimd:mt-0 rounded-tr-[0rem] rounded-br-[0rem] md:rounded-tr-[8rem] md:rounded-br-xl object-cover w-full max-h-[22.5rem] md:min-h-[43.75rem]"
                       data-testid="fallback-image"
                     />
                   )
@@ -116,17 +116,17 @@ const HeroSlider = () => {
                   <img
                     src={slide.media}
                     alt="Slide media"
-                    className="object-cover w-full max-h-[43.75rem]"
+                    className="md:absolute md:inset-0 mt-4 iimd:mt-0 rounded-tr-[0rem] rounded-br-[0rem] md:rounded-tl-[8rem] md:rounded-bl-xl object-cover w-full max-h-[22.5rem] md:min-h-[43.75rem]"
                   />
                 )}
               </div>
-              <div className="flex flex-col justify-center align-start items-start md:items-start font-barlow font-regular px-12 sm:px-20 md:px-6 lg:px-10 xl:px-14 min-h-[20rem] md:max-w-[50%]">
+              <div className="flex flex-col justify-center align-start items-start mb-3 md:items-start font-barlow font-regular px-12 sm:px-20 md:px-6 lg:px-10 xl:px-14 min-h-[20rem] md:max-w-[50%]">
                 <div>
                   <p className="text-left text-headlineSmall text-primary-normal">
                     {translations[slide.subheading]}
                   </p>
                 </div>
-                <h2 className="text-displayMedium text-left md:text-left md:text-headlineLarge lg:text-displaySmall xl:text-displayMedium text-tertiary1-dark my-2 md:my-2 mr-8">
+                <h2 className="text-displayMedium text-left md:text-left md:text-headlineLarge lg:text-displaySmall xl:text-displayMedium text-tertiary1-dark my-4 md:my-2 mr-8">
                   {translations[slide.heading]}
                 </h2>
                 <p className="text-start md:text-start text-bodyMedium md:text-bodyMedium xl:text-bodyLarge mt-2 mb-7 sm:mt-2 sm:mb-7 md:mt-2 mb-4 md:mb-5 xl:mb-10 mr-10">
@@ -142,7 +142,7 @@ const HeroSlider = () => {
                   onClick={index === 1 ? () => setIsModalOpen(true) : undefined}
                 ></Button>
                 <div
-                  className={`hidden md:flex mt-4 md:absolute md:bottom-8 lg:bottom-10 xl:bottom-14 ${index === 0 ? "md:right-8 lg:right-10 xl:right-12" : "md:left-[37.5%] pb-12"}`}
+                  className={`hidden md:flex mt-4 md:absolute md:bottom-8 lg:bottom-10 xl:bottom-14 ${index === 0 ? "md:right-8 lg:right-10 xl:right-12" : "md:left-[37.5%]"}`}
                 >
                   <button
                     onClick={handlePrevious}
@@ -175,28 +175,28 @@ const HeroSlider = () => {
             </section>
           </SwiperSlide>
         ))}
-        <div className="md:hidden flex mx-auto relative bottom-3 justify-center">
-          {slides.map((_, index) => (
-            <button
-              key={index}
-              onClick={() => handleDotClick(index)}
-              className="w-[10px] h-[10px] rounded-full mx-1"
-              aria-label={`Image ${index + 1}`}
-              data-testid={`carousel-dot-${index}`}
-            >
-              <img
-                src={
-                  index === currentImageIndex
-                    ? "/icons/dot-active.svg"
-                    : "/icons/dot-passive.svg"
-                }
-                alt={`Dot ${index + 1}`}
-                className="w-full h-full"
-              />
-            </button>
-          ))}
-        </div>
       </Swiper>
+      <div className="md:hidden flex py-2 min-h-[2rem] mx-auto relative bottom-8 justify-center">
+        {slides.map((_, index) => (
+          <button
+            key={index}
+            onClick={() => handleDotClick(index)}
+            className="w-[10px] h-[10px] rounded-full mx-1"
+            aria-label={`Image ${index + 1}`}
+            data-testid={`carousel-dot-${index}`}
+          >
+            <img
+              src={
+                index === currentImageIndex
+                  ? "/icons/dot-active.svg"
+                  : "/icons/dot-passive.svg"
+              }
+              alt={`Dot ${index + 1}`}
+              className="w-full h-full"
+            />
+          </button>
+        ))}
+      </div>
     </section>
   );
 };
