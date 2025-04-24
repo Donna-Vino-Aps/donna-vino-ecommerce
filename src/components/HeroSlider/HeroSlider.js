@@ -21,7 +21,7 @@ const HeroSlider = () => {
       heading: "tasting.heading1",
       paragraph: "tasting.paragraph1",
       buttonText: "tasting.button1",
-      buttonIcon: "/icons/envelope-alt.svg",
+      buttonIcon: "/icons/calender-alt-1.svg",
       media:
         "https://res.cloudinary.com/db3h63tns/video/upload/v1741092198/e-commerce-hero-section_egcjvf.mp4",
       url: "/events",
@@ -32,7 +32,7 @@ const HeroSlider = () => {
       heading: "tasting.heading2",
       paragraph: "tasting.paragraph2",
       buttonText: "tasting.button2",
-      buttonIcon: "/icons/calender-alt-1.svg",
+      buttonIcon: "/icons/wine-glass-white.svg",
       media: "/images/hero-wines.jpg",
       url: "", // blank for now until the webshop is ready
     },
@@ -42,13 +42,13 @@ const HeroSlider = () => {
       heading: "tasting.heading3",
       paragraph: "tasting.paragraph3",
       buttonText: "tasting.button3",
-      buttonIcon: "/icons/wine-glass-white.svg",
+      buttonIcon: "/icons/envelope-alt.svg",
       media: "/images/hero-newsletter.jpg",
       url: "https://www.donnavino.dk/#subscribe",
     },
   ];
   // Logic for handling use of the prev/next-buttons
-  const [currentImageIndex, setCurrentImageIndex] = useState(1); // Change this to 0 before launching e-commerce for production
+  const [currentImageIndex, setCurrentImageIndex] = useState(0); // Change this to 0 before launching e-commerce for production
 
   const handleNext = () => {
     const nextIndex =
@@ -72,7 +72,7 @@ const HeroSlider = () => {
         modules={[A11y]}
         className="w-full h-full"
         onSlideChange={(swiper) => setCurrentImageIndex(swiper.activeIndex)}
-        initialSlide={1}
+        initialSlide={0}
         loop={true}
       >
         {slides.map((slide, index) => (
