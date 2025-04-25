@@ -107,8 +107,8 @@ const HeroSlider = () => {
                     </video>
                   ) : (
                     <img
-                      src="/images/dv-tasting.png"
-                      className="md:absolute md:inset-0 mt-4 iimd:mt-0 rounded-tr-[0rem] rounded-br-[0rem] md:rounded-tr-[8rem] md:rounded-br-xl object-cover w-full max-h-[22.5rem] md:min-h-[43.75rem]"
+                      src="/images/caroline-attwood-unsplash.jpg"
+                      className="md:absolute md:inset-0 mt-4 iimd:mt-0 rounded-tr-[0rem] rounded-br-[0rem] md:rounded-tr-[8rem] md:rounded-br-[0.5rem] object-cover w-full max-h-[22.5rem] md:min-h-[43.75rem]"
                       data-testid="fallback-image"
                     />
                   )
