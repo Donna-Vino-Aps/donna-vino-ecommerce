@@ -9,9 +9,9 @@ const Footer = () => {
 
   const links = [
     {
-      href: "/events",
-      label: translations["footer.booking-events"],
-      dataTestId: "events",
+      href: "/sales-policy",
+      label: translations["footer.sales-policy"],
+      dataTestId: "sales-policy",
     },
     {
       href: "https://www.donnavino.dk/contact",
