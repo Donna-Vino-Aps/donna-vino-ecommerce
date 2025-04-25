@@ -5,7 +5,7 @@ import PropTypes from "prop-types";
 import Link from "next/link";
 
 const BASE_BUTTON_CLASSES = `
-  flex justify-center items-center h-[2.875rem] rounded-[0.3rem] bodyLarge
+  flex justify-center items-center h-[2.875rem] rounded-[0.3rem] text-bodyLarge 
 `;
 
 const VARIANT_CLASSES = {
@@ -20,6 +20,8 @@ const VARIANT_CLASSES = {
     "bg-primary-active hover:bg-primary-normal hover:bg-opacity-40 text-primary-active_dark font-semibold w-full",
   redLine:
     "bg-transparent border-2 hover:bg-primary-hover border-primary-active_normal text-primary-active_normal w-[8.3rem] sm:w-[8.3rem]",
+  redSmall:
+    "bg-primary-normal hover:bg-primary-hover_normal text-primary-light min-w-[6.25rem] !h-[1.75rem] text-bodyMedium",
   darkGreen:
     "bg-secondary-darker hover:bg-secondary-hover_dark text-white w-full sm:w-[10.8rem]",
   darkGreenModal:
@@ -34,8 +36,6 @@ const VARIANT_CLASSES = {
     "bg-primary-normal hover:bg-primary-hover_normal text-white rounded-lg w-full sm:w-[10.8rem]",
   gray: "bg-tertiary1-normal hover:bg-tertiary1-dark text-tertiary1-light w-full sm:w-[10.8rem]",
   yellow: "bg-[#F59E0B] opacity-85 hover:opacity-100 text-primary-light w-full",
-  eventButton:
-    "bg-primary-normal hover:bg-primary-hover_normal text-primary-light w-[6.25rem] h-[1.75rem] text-bodyMedium",
 };
 
 const Button = ({
@@ -51,8 +51,8 @@ const Button = ({
   linkWidth,
 }) => {
   const buttonClass = `
-  ${BASE_BUTTON_CLASSES}
-  ${VARIANT_CLASSES[variant] || ""}
+  ${BASE_BUTTON_CLASSES} 
+  ${VARIANT_CLASSES[variant] || ""} 
   ${disabled || isLoading ? "opacity-50 cursor-not-allowed" : ""}
 `.trim();
 
@@ -100,13 +100,13 @@ Button.propTypes = {
     "redWide",
     "lightRedWide",
     "redLine",
+    "redSmall",
     "darkGreen",
     "grayGreen",
     "greenSubmit",
     "redSubmit",
     "gray",
     "yellow",
-    "eventButton",
   ]),
   onClick: PropTypes.func,
   disabled: PropTypes.bool,
