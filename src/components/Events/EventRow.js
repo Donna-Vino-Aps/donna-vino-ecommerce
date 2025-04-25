@@ -41,9 +41,11 @@ const EventRow = ({
       <div className="flex justify-end py-2 mb-4 pr-2">
         <Button
           text="Book seats"
-          variant="eventButton"
+          variant="redSmall"
           onClick={() => showModal(event)}
           disabled={isFull}
+          ariaLabel="Book seats"
+          testId="book-seats"
         />
       </div>
     </>
