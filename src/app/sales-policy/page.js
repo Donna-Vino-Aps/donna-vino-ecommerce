@@ -3,9 +3,12 @@ import React from "react";
 import Button from "@/components/Button/Button";
 import { useLanguage } from "@/context/LanguageContext";
 import Head from "next/head";
+import Image from "next/image";
+import { useRouter } from "next/navigation";
 
 const SalesPolicy = () => {
   const { translations } = useLanguage();
+  const router = useRouter();
 
   return (
     <>
@@ -23,7 +26,7 @@ const SalesPolicy = () => {
         />
         <meta
           property="og:url"
-          content="https://donnavino.dk/shop/privacy-policy"
+          content="https://shop.donnavino.dk/sales-policy"
         />
       </Head>
       <main className="w-full flex flex-col gap-3 font-barlow text-tertiary1-darker bg-white">
@@ -34,9 +37,7 @@ const SalesPolicy = () => {
             variant="redLine"
             ariaLabel="Go back"
             testId="go-back-button"
-            onClick={() => {
-              history.go(-1);
-            }}
+            onClick={() => router.back()}
           />
         </section>
         <div className="py-6 flex flex-col md:flex-row gap-8 md:gap-4 lg:gap-8 md:gap-16 justify-center items-center w-full min-h-[43.75rem] bg-primary-light">
@@ -44,7 +45,7 @@ const SalesPolicy = () => {
             <h1 className="text-displayMedium mt-6 md:mt-0">
               {translations["sales.title"]}
             </h1>
-            <div className="text-tertiary1-dark text-bodyLarge mt-2">
+            <div className="text-tertiary1-dark text-bodyLarge mt-3">
               <p>{translations["sales.info.p1"]} </p>
               <br></br>
               <p>{translations["sales.info.p2"]}: 45017567</p>
@@ -58,22 +59,34 @@ const SalesPolicy = () => {
             </div>
           </div>
           <div className="relative w-[27.5rem] h-[27.5rem] flex justify-center items-center">
-            <img
+            <Image
               src="/images/sales-policy-image.png"
-              className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-30 rounded-2xl w-[16.563rem] h-[19.875rem]"
+              alt="Sales policy"
+              width={186.67} // equivalent to 11.667rem
+              height={224} // equivalent to 14rem
+              className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-30 rounded-xl md:rounded-2xl md:w-[16.563rem] md:h-[19.875rem]"
+              priority
             />
-            <img
+            <Image
               src="/icons/ellipse-small.svg"
-              className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-20 w-[21.625rem] h-[21.625rem]"
+              alt="Decorative ellipse small"
+              width={250} // 15.625rem
+              height={250}
+              className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-20 md:w-[21.625rem] md:h-[21.625rem]"
+              priority
             />
-            <img
+            <Image
               src="/icons/ellipse-big.svg"
-              className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-10 w-[27.5rem] h-[27.5rem]"
+              alt="Decorative ellipse big"
+              width={312} // 19.5rem
+              height={312}
+              className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-10 md:w-[27.5rem] md:h-[27.5rem]"
+              priority
             />
           </div>
         </div>
         <div className="mx-4 my-2 mb-4">
-          <div className="flex justify-center flex-col w-full rounded-2xl border-[1px] border-black px-8 py-4 text-bodyLarge">
+          <div className="flex justify-center flex-col w-full rounded-2xl border-[1px] border-black px-4 md:px-8 py-4 text-bodyLarge">
             <section className="">
               <h2 className="text-displaySmall mt-3 mb-6">
                 {translations["sales.payment.h2"]}
@@ -134,7 +147,7 @@ const SalesPolicy = () => {
               <p>
                 <strong>{translations["sales.returns.p3"]}</strong>{" "}
                 {translations["sales.returns.p4"]}{" "}
-                <a href="mailto:info@donnavino.com">info@donnavino.com</a>{" "}
+                <a href="mailto:info@donnavino.dk">info@donnavino.dk</a>{" "}
                 {translations["sales.returns.p5"]}
               </p>
               <p>
@@ -159,14 +172,18 @@ const SalesPolicy = () => {
               <ul className="list-disc font-normal ml-6 mt-4 mb-4">
                 <li>
                   {translations["sales.rights.li1-1"]}{" "}
-                  <a href="mailto:info@donnavino.com">info@donnavino.com</a>{" "}
+                  <a href="mailto:info@donnavino.dk">info@donnavino.dk</a>{" "}
                   {translations["sales.rights.li1-2"]}
                 </li>
                 <li>{translations["sales.rights.li2"]}</li>
               </ul>
               <p>
                 {translations["sales.rights.p3"]}{" "}
-                <a href="https://forbrug.dk" target="_blank">
+                <a
+                  href="https://forbrug.dk"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
                   forbrug.dk
                 </a>
                 .
@@ -181,7 +198,7 @@ const SalesPolicy = () => {
               <ul className="list-disc font-normal ml-6 mt-4 mb-4">
                 <li>
                   {translations["sales.complaints.li1"]}:{" "}
-                  <a href="mailto:info@donnavino.com">info@donnavino.com</a>
+                  <a href="mailto:info@donnavino.dk">info@donnavino.dk</a>
                 </li>
                 <li>{translations["sales.complaints.li2"]}: +45 31 62 06 93</li>
               </ul>
