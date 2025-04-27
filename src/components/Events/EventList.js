@@ -105,27 +105,25 @@ const EventList = () => {
   );
 
   const renderEmptyState = () => (
-    <p className="text-center py-8">
-      {translations["events.noEvents"] || "No upcoming events available."}
-    </p>
+    <p className="text-center py-8">{translations["events.noEvents"]}</p>
   );
 
   const renderEventList = () => (
     <>
       <h2 className="text-titleMedium font-medium mb-4 px-4 py-2 bg-[#FFF4F4] rounded-[0.5rem] w-full">
-        Upcoming wine tasting events:
+        {translations["events.upcomingTitle"]}
         <span className="font-semibold">April</span>
       </h2>
 
       <div className="bg-tertiary2-active text-tertiary1-active_dark text-titleMedium font-medium rounded-t p-3 pb-7 flex flex-row ">
         <div className="w-[22%] text-center">
-          {translations["events.dateHeader"] || "Date"}
+          {translations["events.dateHeader"]}
         </div>
         <div className="w-[56%] text-center">
-          {translations["events.detailsHeader"] || "Details"}
+          {translations["events.detailsHeader"]}
         </div>
         <div className="w-[22%] text-center">
-          {translations["events.availableSeatsHeader"] || "Available seats"}
+          {translations["events.availableSeatsHeader"]}
         </div>
       </div>
 

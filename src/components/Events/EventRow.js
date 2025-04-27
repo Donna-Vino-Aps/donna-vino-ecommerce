@@ -1,6 +1,9 @@
+"use client";
+
 import React from "react";
 import PropTypes from "prop-types";
 import Button from "../Button/Button";
+import { useLanguage } from "@/context/LanguageContext";
 
 const EventRow = ({
   event,
@@ -12,6 +15,7 @@ const EventRow = ({
 }) => {
   const { wine, winery, availableSeats, totalInventory } = event;
   const isFull = availableSeats === 0 && totalInventory > 0;
+  const { translations } = useLanguage();
 
   return (
     <>
@@ -27,24 +31,27 @@ const EventRow = ({
 
         <div className="w-[56%] flex flex-col items-start text-labelLarge">
           <div>
-            <span className="font-medium">Wines:</span>{" "}
+            <span className="font-medium">{translations["events.wines"]}:</span>{" "}
             <span dangerouslySetInnerHTML={{ __html: wine }} />
           </div>
           <div>
-            <span className="font-medium">Winery:</span> {winery}
+            <span className="font-medium">
+              {translations["events.winery"]}:
+            </span>{" "}
+            <span dangerouslySetInnerHTML={{ __html: winery }} />
           </div>
         </div>
         <div className="w-[22%] flex flex-col items-center text-bodyMedium">
-          {availableSeats} of {totalInventory}
+          {availableSeats} {translations["events.of"]} {totalInventory}
         </div>
       </div>
       <div className="flex justify-end py-2 mb-4 pr-2">
         <Button
-          text="Book seats"
+          text={translations["events.bookSeats"]}
           variant="redSmall"
           onClick={() => showModal(event)}
           disabled={isFull}
-          ariaLabel="Book seats"
+          ariaLabel={translations["events.bookSeats"]}
           testId="book-seats"
         />
       </div>
