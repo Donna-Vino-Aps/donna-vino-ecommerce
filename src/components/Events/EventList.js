@@ -129,7 +129,7 @@ const EventList = () => {
         </div>
       </div>
 
-      <div className="w-full bg-tertiary2-active text-tertiary1-active_dark p-2">
+      <div className="w-full bg-tertiary2-active text-tertiary1-active_dark p-2 overflow-y-auto">
         {sortedEvents.map((event) => {
           const formattedDate = formatDate(event.date);
           const formattedTimeStart = formatTime(event.timeStart);
@@ -163,7 +163,7 @@ const EventList = () => {
   };
 
   return (
-    <div className="flex flex-col mb-12 mx-auto xl:mx-0 min-w-[37rem]">
+    <div className="flex flex-col mb-12 mx-auto xl:mx-0 min-w-[37rem] xl:h-[36.5rem] overflow-hidden">
       {renderContent()}
 
       {selectedEvent && (
