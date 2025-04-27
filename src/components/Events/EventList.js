@@ -112,25 +112,24 @@ const EventList = () => {
 
   const renderEventList = () => (
     <>
-      <h2 className="text-titleLarge font-medium mb-4 w-full">
-        {translations["events.upcomingTitle"] ||
-          "Upcoming wine tasting events:"}{" "}
-        {language === "en" ? "April" : "april"}
+      <h2 className="text-titleMedium font-medium mb-4 px-4 py-2 bg-[#FFF4F4] rounded-[0.5rem] w-full">
+        Upcoming wine tasting events:
+        <span className="font-semibold">April</span>
       </h2>
 
-      <div className="mb-6 bg-tertiary2-active text-tertiary2-light rounded-t p-3 grid grid-cols-1 md:grid-cols-4 gap-4 w-full">
-        <div className="font-medium">
+      <div className="bg-tertiary2-active text-tertiary1-active_dark text-titleMedium font-medium rounded-t p-3 pb-7 flex flex-row ">
+        <div className="w-[22%] text-center">
           {translations["events.dateHeader"] || "Date"}
         </div>
-        <div className="font-medium md:col-span-2">
+        <div className="w-[56%] text-center">
           {translations["events.detailsHeader"] || "Details"}
         </div>
-        <div className="font-medium text-center">
+        <div className="w-[22%] text-center">
           {translations["events.availableSeatsHeader"] || "Available seats"}
         </div>
       </div>
 
-      <div className="w-full">
+      <div className="w-full bg-tertiary2-active text-tertiary1-active_dark p-2">
         {sortedEvents.map((event) => {
           const formattedDate = formatDate(event.date);
           const formattedTimeStart = formatTime(event.timeStart);
@@ -156,12 +155,16 @@ const EventList = () => {
     </>
   );
 
+  const renderContent = () => {
+    if (isLoading) return renderLoading();
+    if (error) return renderError();
+    if (events.length === 0) return renderEmptyState();
+    return renderEventList();
+  };
+
   return (
-    <div className="flex flex-col mb-12 mx-auto xl:mx-0 px-4 w-[37rem]">
-      {isLoading && renderLoading()}
-      {error && !isLoading && renderError()}
-      {!isLoading && !error && events.length === 0 && renderEmptyState()}
-      {!isLoading && !error && events.length > 0 && renderEventList()}
+    <div className="flex flex-col mb-12 mx-auto xl:mx-0 min-w-[37rem]">
+      {renderContent()}
 
       {selectedEvent && (
         <EventRegistrationModal
