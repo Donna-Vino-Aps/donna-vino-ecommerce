@@ -1,4 +1,11 @@
-import React, { createContext, useContext, useState, useEffect } from "react";
+import React, {
+  createContext,
+  useContext,
+  useState,
+  useEffect,
+  useCallback,
+  useMemo,
+} from "react";
 import PropTypes from "prop-types";
 import { logError } from "@/utils/logging";
 import {
@@ -10,10 +17,21 @@ import { useLanguage } from "@/context/LanguageContext";
 const EventsContext = createContext();
 
 export function EventsProvider({ children }) {
-  const [events, setEvents] = useState([]);
+  const [formattedEvents, setFormattedEvents] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
   const { language, translations } = useLanguage();
+
+  const isEventInFuture = useCallback((event) => {
+    if (!event || !event.timeStart) return false;
+    const now = new Date();
+    return event.timeStart instanceof Date && event.timeStart > now;
+  }, []);
+
+  const upcomingEvents = useMemo(
+    () => formattedEvents.filter(isEventInFuture),
+    [formattedEvents, isEventInFuture],
+  );
 
   useEffect(() => {
     async function fetchEvents() {
@@ -22,15 +40,15 @@ export function EventsProvider({ children }) {
         const collection = await getEventsCollection(language);
 
         if (!collection || !collection.products || !collection.products.edges) {
-          setEvents([]);
+          setFormattedEvents([]);
           return;
         }
 
-        const formattedEvents = collection.products.edges.map(({ node }) =>
+        const events = collection.products.edges.map(({ node }) =>
           transformShopifyProduct(node),
         );
 
-        setEvents(formattedEvents);
+        setFormattedEvents(events);
       } catch (err) {
         logError("Error fetching events:", err);
         setError(
@@ -43,10 +61,12 @@ export function EventsProvider({ children }) {
     }
 
     fetchEvents();
-  }, [language, translations]);
+  }, [language, translations, isEventInFuture]);
 
   return (
-    <EventsContext.Provider value={{ events, isLoading, error }}>
+    <EventsContext.Provider
+      value={{ events: upcomingEvents, isLoading, error }}
+    >
       {children}
     </EventsContext.Provider>
   );
