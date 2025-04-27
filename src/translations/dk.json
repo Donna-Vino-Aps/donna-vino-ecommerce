@@ -182,5 +182,14 @@
   "modal.h1": "Vi arbejder på det!",
   "modal.p": "Vores e-handelsplatform er i øjeblikket ved at blive oprettet og opdateret og vil være live så hurtigt som muligt. I mellemtiden er du velkommen til at kontakte os for eventuelle forespørgsler.",
   "modal.button-left": "Tæt",
-  "modal.button-right": "Kontakt os"
+  "modal.button-right": "Kontakt os",
+  "events.upcomingTitle": "Kommende vinsmagningsbegivenheder:",
+  "events.noEvents": "Ingen kommende begivenheder tilgængelige.",
+  "events.wines": "Vine",
+  "events.winery": "Vingård",
+  "events.of": "af",
+  "events.bookSeats": "Bestil pladser",
+  "events.dateHeader": "Dato",
+  "events.detailsHeader": "Detaljer",
+  "events.availableSeatsHeader": "Ledige pladser"
 }

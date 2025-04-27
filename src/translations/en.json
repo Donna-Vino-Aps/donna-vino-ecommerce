@@ -182,5 +182,14 @@
   "modal.h1": "We're working on it!",
   "modal.p": "Our eCommerce platform is currently being created and updated and will be live as soon as possible. In the meantime, feel free to contact us for any inquiries, or you can simply close this modal.",
   "modal.button-left": "Close",
-  "modal.button-right": "Contact us"
+  "modal.button-right": "Contact us",
+  "events.upcomingTitle": "Upcoming wine tasting events:",
+  "events.noEvents": "No upcoming events available.",
+  "events.wines": "Wines",
+  "events.winery": "Winery",
+  "events.of": "of",
+  "events.bookSeats": "Book seats",
+  "events.dateHeader": "Date",
+  "events.detailsHeader": "Details",
+  "events.availableSeatsHeader": "Available seats"
 }
