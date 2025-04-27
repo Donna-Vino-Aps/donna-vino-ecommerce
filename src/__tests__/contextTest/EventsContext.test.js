@@ -115,8 +115,58 @@ describe("EventsContext", () => {
   });
 
   it("should handle API errors", async () => {
-    const error = new Error("API Error");
-    getEventsCollection.mockRejectedValue(error);
+    getEventsCollection.mockRejectedValue(new Error("Failed to fetch"));
+
+    renderWithProvider();
+
+    await waitFor(() => {
+      expect(screen.getByTestId("error")).toBeInTheDocument();
+    });
+
+    expect(screen.getByText("Failed to load events")).toBeInTheDocument();
+  });
+
+  it("should filter out past events", async () => {
+    transformShopifyProduct.mockReset();
+
+    transformShopifyProduct.mockImplementation((node) => {
+      if (node.id === "1") {
+        const futureDate = new Date();
+        futureDate.setFullYear(futureDate.getFullYear() + 1);
+        return {
+          id: "future-event",
+          title: "Future Event",
+          date: futureDate.toISOString().slice(0, 10),
+          timeStart: futureDate,
+          totalInventory: 10,
+          availableQuantity: 5,
+          transformed: true,
+        };
+      } else {
+        const pastDate = new Date();
+        pastDate.setFullYear(pastDate.getFullYear() - 1);
+        return {
+          id: "past-event",
+          title: "Past Event",
+          date: pastDate.toISOString().slice(0, 10),
+          timeStart: pastDate,
+          totalInventory: 10,
+          availableQuantity: 5,
+          transformed: true,
+        };
+      }
+    });
+
+    const mockEvents = {
+      products: {
+        edges: [
+          { node: { id: "1", title: "Should be future" } },
+          { node: { id: "2", title: "Should be past" } },
+        ],
+      },
+    };
+
+    getEventsCollection.mockResolvedValue(mockEvents);
 
     renderWithProvider();
 
@@ -124,10 +174,11 @@ describe("EventsContext", () => {
       expect(screen.queryByTestId("loading")).not.toBeInTheDocument();
     });
 
-    expect(logError).toHaveBeenCalledWith("Error fetching events:", error);
-    expect(screen.getByTestId("error")).toHaveTextContent(
-      /Failed to load events/,
-    );
+    expect(transformShopifyProduct).toHaveBeenCalledTimes(2);
+
+    const futureEvent = screen.getByText("Future Event");
+    expect(futureEvent).toBeInTheDocument();
+    expect(screen.queryByText("Past Event")).not.toBeInTheDocument();
   });
 
   it("should refetch when language changes", async () => {
