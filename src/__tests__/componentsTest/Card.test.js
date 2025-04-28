@@ -15,21 +15,14 @@ describe("Card", () => {
       />,
     );
 
-    // Перевіряємо заголовок
     expect(screen.getByText("Test Card Title")).toBeInTheDocument();
-
-    // Перевіряємо опис 1
     expect(screen.getByText("Test description 1")).toBeInTheDocument();
-
-    // Перевіряємо опис 2
     expect(screen.getByText("Test description 2")).toBeInTheDocument();
 
-    // Перевіряємо лінк
     const link = screen.getByRole("link", { name: "Test Link Title" });
     expect(link).toBeInTheDocument();
     expect(link).toHaveAttribute("href", "/test-link");
 
-    // Перевіряємо картинку
     const image = screen.getByRole("img");
     expect(image).toHaveAttribute("src", "/test-image.svg");
   });
