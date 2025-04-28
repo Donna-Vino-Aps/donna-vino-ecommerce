@@ -194,7 +194,7 @@ const EventList = () => {
   };
 
   return (
-    <div className="flex flex-col mb-12 mx-auto xl:mx-0 sm:min-w-[37rem] xl:h-[36.5rem] overflow-hidden">
+    <div className="flex flex-col mb-12 mx-auto xl:mx-0 sm:min-w-[37rem] xl:h-[31rem] overflow-hidden">
       {renderContent()}
 
       {selectedEvent && (
