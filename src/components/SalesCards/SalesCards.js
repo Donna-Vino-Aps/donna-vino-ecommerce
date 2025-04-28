@@ -12,7 +12,7 @@ export default function SalesCards() {
       description1: translations["salesCards.card1.description1"],
       description2: translations["salesCards.card1.description2"],
       urlTitle: translations["salesCards.card1.urlTitle"],
-      url: "/Sales-policy/#shipping",
+      url: "/sales-policy#shipping",
     },
     {
       src: "/icons/salesCards/distribution.svg",
@@ -20,7 +20,7 @@ export default function SalesCards() {
       description1: translations["salesCards.card2.description1"],
       description2: translations["salesCards.card2.description2"],
       urlTitle: translations["salesCards.card2.urlTitle"],
-      url: "/",
+      url: "/sales-policy#returns",
     },
     {
       src: "/icons/salesCards/credit-card.svg",
@@ -28,7 +28,7 @@ export default function SalesCards() {
       description1: translations["salesCards.card3.description1"],
       description2: translations["salesCards.card3.description2"],
       urlTitle: translations["salesCards.card3.urlTitle"],
-      url: "/",
+      url: "/sales-policy#payment",
     },
   ];
 
