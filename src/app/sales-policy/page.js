@@ -87,7 +87,7 @@ const SalesPolicy = () => {
         </div>
         <div className="mx-4 my-2 mb-4">
           <div className="flex justify-center flex-col w-full rounded-2xl border-[1px] border-black px-4 md:px-8 py-4 text-bodyLarge">
-            <section className="">
+            <section className="" id="payment">
               <h2 className="text-displaySmall mt-3 mb-6">
                 {translations["sales.payment.h2"]}
               </h2>
@@ -103,7 +103,7 @@ const SalesPolicy = () => {
                 {translations["sales.payment.p3"]}
               </p>
             </section>
-            <section>
+            <section id="shipping">
               <h2 className="text-displaySmall my-6">
                 {translations["sales.delivery.h2"]}
               </h2>
@@ -132,7 +132,7 @@ const SalesPolicy = () => {
               </p>
             </section>
 
-            <section>
+            <section id="returns">
               <h2 className="text-displaySmall my-6">
                 {translations["sales.returns.h2"]}
               </h2>
