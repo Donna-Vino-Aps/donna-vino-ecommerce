@@ -5,7 +5,12 @@ const nextConfig = {
     domains: ["cdn.shopify.com"],
   },
   webpack: (config) => {
-    config.resolve.fallback = { fs: false };
+    config.resolve.fallback = {
+      fs: false,
+      crypto: false,
+      stream: false,
+      buffer: false,
+    };
     config.module.rules.push({
       test: /\.mjs$/,
       include: /node_modules/,
