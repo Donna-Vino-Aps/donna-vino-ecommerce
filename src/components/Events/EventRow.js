@@ -20,30 +20,30 @@ const EventRow = ({
   return (
     <>
       <div
-        className={`flex flex-row pl-2 mb-4 border-l-4 ${seatStatus.borderColor}`}
+        className={`flex flex-row gap-1 pl-2 mb-4 border-l-4 ${seatStatus.borderColor}`}
       >
         <div className="w-[22%] flex flex-col items-start">
-          <div className="text-bodyMedium">{formattedDate}</div>
-          <div className="text-bodySmall">
+          <p className="text-bodyMedium">{formattedDate}</p>
+          <p className="text-bodySmall">
             {formattedTimeStart} - {formattedTimeEnd}
-          </div>
+          </p>
         </div>
 
         <div className="w-[56%] flex flex-col items-start text-labelLarge">
-          <div>
+          <p>
             <span className="font-medium">{translations["events.wines"]}:</span>{" "}
             <span dangerouslySetInnerHTML={{ __html: wine }} />
-          </div>
-          <div>
+          </p>
+          <p>
             <span className="font-medium">
               {translations["events.winery"]}:
             </span>{" "}
             <span dangerouslySetInnerHTML={{ __html: winery }} />
-          </div>
+          </p>
         </div>
-        <div className="w-[22%] flex flex-col items-center text-bodyMedium">
+        <p className="w-[22%] text-center text-bodyMedium">
           {availableSeats} {translations["events.of"]} {totalInventory}
-        </div>
+        </p>
       </div>
       <div className="flex justify-end py-2 mb-4 pr-2">
         <Button

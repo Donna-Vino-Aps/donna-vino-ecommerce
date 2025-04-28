@@ -1,8 +1,9 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useMemo } from "react";
 import { useEvents } from "@/context/EventsContext";
 import { useLanguage } from "@/context/LanguageContext";
+import { useCalendar } from "@/context/CalendarContext";
 import { format, parseISO } from "date-fns";
 import { enUS, da } from "date-fns/locale";
 import EventRegistrationModal from "@/components/EventRegistrationModal/EventRegistrationModal";
@@ -11,14 +12,33 @@ import EventRow from "./EventRow";
 const EventList = () => {
   const { events, isLoading, error } = useEvents();
   const { language, translations } = useLanguage();
+  const { selectedMonth, selectedYear } = useCalendar();
   const [selectedEvent, setSelectedEvent] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const sortedEvents = [...events].sort((a, b) => {
-    if (a.date < b.date) return -1;
-    if (a.date > b.date) return 1;
-    return 0;
-  });
+  const filteredEvents = useMemo(() => {
+    if (!selectedMonth || !selectedYear) {
+      return [];
+    }
+
+    return events.filter((event) => {
+      if (!event.date) return false;
+
+      const eventDate = new Date(event.date);
+      const eventMonth = eventDate.getMonth() + 1;
+      const eventYear = eventDate.getFullYear();
+
+      return eventMonth === selectedMonth && eventYear === selectedYear;
+    });
+  }, [events, selectedMonth, selectedYear]);
+
+  const sortedEvents = useMemo(() => {
+    return [...filteredEvents].sort((a, b) => {
+      if (a.date < b.date) return -1;
+      if (a.date > b.date) return 1;
+      return 0;
+    });
+  }, [filteredEvents]);
 
   const getLocale = () => {
     switch (language) {
@@ -91,6 +111,17 @@ const EventList = () => {
     }
   };
 
+  const renderMonthHeader = () => (
+    <h2 className="text-titleMedium font-medium mb-4 px-4 py-2 bg-[#FFF4F4] rounded-[0.5rem] w-full">
+      {translations["events.upcomingTitle"]}{" "}
+      <span className="font-semibold">
+        {format(new Date(selectedYear, selectedMonth - 1, 1), "MMMM", {
+          locale: getLocale(),
+        })}
+      </span>
+    </h2>
+  );
+
   const renderLoading = () => (
     <div className="flex flex-col items-center py-10">
       <div className="w-12 h-12 border-4 border-primary-normal border-t-transparent rounded-full animate-spin"></div>
@@ -105,29 +136,31 @@ const EventList = () => {
   );
 
   const renderEmptyState = () => (
-    <p className="text-center py-8">{translations["events.noEvents"]}</p>
+    <>
+      {renderMonthHeader()}
+      <p className="text-center py-8">
+        {translations["events.noEventsForMonth"]}
+      </p>
+    </>
   );
 
   const renderEventList = () => (
     <>
-      <h2 className="text-titleMedium font-medium mb-4 px-4 py-2 bg-[#FFF4F4] rounded-[0.5rem] w-full">
-        {translations["events.upcomingTitle"]}
-        <span className="font-semibold">April</span>
-      </h2>
+      {renderMonthHeader()}
 
-      <div className="bg-tertiary2-active text-tertiary1-active_dark text-titleMedium font-medium rounded-t p-3 pb-7 flex flex-row ">
-        <div className="w-[22%] text-center">
+      <div className="bg-tertiary2-active text-tertiary1-active_dark text-titleMedium font-medium rounded-t p-3 pb-7 flex flex-row gap-2">
+        <p className="w-[22%] text-center">
           {translations["events.dateHeader"]}
-        </div>
-        <div className="w-[56%] text-center">
+        </p>
+        <p className="w-[56%] text-center">
           {translations["events.detailsHeader"]}
-        </div>
-        <div className="w-[22%] text-center">
+        </p>
+        <p className="w-[22%] text-center">
           {translations["events.availableSeatsHeader"]}
-        </div>
+        </p>
       </div>
 
-      <div className="w-full bg-tertiary2-active text-tertiary1-active_dark p-2 overflow-y-auto">
+      <div className="w-full bg-tertiary2-active text-tertiary1-active_dark p-2 rounded-b overflow-y-auto ">
         {sortedEvents.map((event) => {
           const formattedDate = formatDate(event.date);
           const formattedTimeStart = formatTime(event.timeStart);
@@ -156,12 +189,12 @@ const EventList = () => {
   const renderContent = () => {
     if (isLoading) return renderLoading();
     if (error) return renderError();
-    if (events.length === 0) return renderEmptyState();
+    if (sortedEvents.length === 0) return renderEmptyState();
     return renderEventList();
   };
 
   return (
-    <div className="flex flex-col mb-12 mx-auto xl:mx-0 min-w-[37rem] xl:h-[36.5rem] overflow-hidden">
+    <div className="flex flex-col mb-12 mx-auto xl:mx-0 sm:min-w-[37rem] xl:h-[36.5rem] overflow-hidden">
       {renderContent()}
 
       {selectedEvent && (
