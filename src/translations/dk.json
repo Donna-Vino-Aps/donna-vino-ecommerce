@@ -184,7 +184,7 @@
   "modal.button-left": "Tæt",
   "modal.button-right": "Kontakt os",
   "events.upcomingTitle": "Kommende vinsmagningsbegivenheder:",
-  "events.noEvents": "Ingen kommende begivenheder tilgængelige.",
+  "events.noEventsForMonth": "Ingen begivenheder tilgængelige for denne måned.",
   "events.wines": "Vine",
   "events.winery": "Vingård",
   "events.of": "af",

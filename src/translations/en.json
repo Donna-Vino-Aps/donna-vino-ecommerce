@@ -184,7 +184,7 @@
   "modal.button-left": "Close",
   "modal.button-right": "Contact us",
   "events.upcomingTitle": "Upcoming wine tasting events:",
-  "events.noEvents": "No upcoming events available.",
+  "events.noEventsForMonth": "No events available for this month.",
   "events.wines": "Wines",
   "events.winery": "Winery",
   "events.of": "of",
