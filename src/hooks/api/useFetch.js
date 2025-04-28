@@ -52,7 +52,8 @@ const useFetch = (
 
     let token = null;
     try {
-      token = (localStorage.getItem("userCredentials") || {}).token;
+      const data = JSON.parse(localStorage.getItem("userCredentials") || "{}");
+      token = data.token;
     } catch (error) {
       logError("Failed to retrieve token", error);
     }
