@@ -103,7 +103,7 @@ const SalesPolicy = () => {
                 {translations["sales.payment.p3"]}
               </p>
             </section>
-            <section>
+            <section id="shipping">
               <h2 className="text-displaySmall my-6">
                 {translations["sales.delivery.h2"]}
               </h2>
@@ -132,7 +132,7 @@ const SalesPolicy = () => {
               </p>
             </section>
 
-            <section>
+            <section id="returns">
               <h2 className="text-displaySmall my-6">
                 {translations["sales.returns.h2"]}
               </h2>
@@ -160,7 +160,7 @@ const SalesPolicy = () => {
               </p>
             </section>
 
-            <section>
+            <section id="payment">
               <h2 className="text-displaySmall my-6">
                 {translations["sales.rights.h2"]}
               </h2>
