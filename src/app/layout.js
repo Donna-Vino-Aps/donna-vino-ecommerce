@@ -6,12 +6,13 @@ import Footer from "../components/Footer/Footer.js";
 import Navbar from "../components/NavBar/NavBar.js";
 import { LanguageProvider } from "../context/LanguageContext";
 import { CredentialsContext } from "../context/credentialsContext";
-import { logError } from "@/utils/logging";
+import { logError, logInfo } from "@/utils/logging";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { GoogleOAuthProvider } from "@react-oauth/google";
 
 const RootLayout = ({ children }) => {
+  logInfo("Google Client ID:", process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID);
   const [storedCredentials, setStoredCredentials] = useState(null);
 
   const checkLoginCredentials = async () => {
