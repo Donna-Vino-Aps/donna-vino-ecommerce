@@ -11,7 +11,7 @@ import { CredentialsContext } from "@/context/credentialsContext";
 import PropTypes from "prop-types";
 
 const GoogleAuth = ({ setMsg, setSuccess, setLoading }) => {
-  const clientId = process.env.GOOGLE_CLIENT_ID;
+  const clientId = process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID;
   const { translations } = useLanguage();
   const { setStoredCredentials } = useContext(CredentialsContext);
 
