@@ -3,7 +3,6 @@ import { useEvents } from "@/context/EventsContext";
 import { useLanguage } from "@/context/LanguageContext";
 import Calendar from "./Calendar";
 import CalendarMonthPicker from "./CalendarMonthPicker";
-import DateSelector from "./DateSelector";
 import ColorInfo from "./ColorInfo";
 
 const CalendarFrame = () => {
@@ -47,17 +46,8 @@ const CalendarFrame = () => {
         </div>
       )}
 
-      <DateSelector
-        currentMonth={currentMonth}
-        currentYear={currentYear}
-        onMonthChange={handleMonthChange}
-      />
-      <CalendarMonthPicker
-        currentMonth={currentMonth}
-        currentYear={currentYear}
-        onMonthChange={handleMonthChange}
-      />
-      <Calendar currentYear={currentYear} currentMonth={currentMonth} />
+      <CalendarMonthPicker />
+      <Calendar />
       <ColorInfo />
     </div>
   );
