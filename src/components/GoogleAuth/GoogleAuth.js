@@ -8,10 +8,9 @@ import { logInfo, logError } from "../../utils/logging";
 import Button from "../Button/Button";
 import { useLanguage } from "@/context/LanguageContext";
 import { CredentialsContext } from "@/context/credentialsContext";
-import PropTypes from "prop-types"; // Import PropTypes
+import PropTypes from "prop-types";
 
 const GoogleAuth = ({ setMsg, setSuccess, setLoading }) => {
-  // Receive setMsg, setSuccess, and setLoading as props
   const clientId = process.env.GOOGLE_CLIENT_ID;
   const { translations } = useLanguage();
   const { setStoredCredentials } = useContext(CredentialsContext);
@@ -19,41 +18,41 @@ const GoogleAuth = ({ setMsg, setSuccess, setLoading }) => {
   const login = useGoogleLogin({
     onSuccess: async (response) => {
       const accessToken = response?.access_token;
+
       if (!accessToken) {
-        logError("No access_token found in Google login response.");
-        setMsg("No access token found");
+        logError("Google login succeeded, but no access token was received.");
+        setMsg(translations["logIn.no-token"] || "No access token retrieved");
         setSuccess(false);
         return;
       }
 
-      // Activate global loading
       setLoading(true);
-      // Clear previous messages
       setMsg("");
       setSuccess(null);
 
       try {
+        logInfo("Google access token received.");
+
         const userProfileResponse = await axios.get(
           `https://www.googleapis.com/oauth2/v3/userinfo?access_token=${accessToken}`,
         );
-
         const { email, name, picture } = userProfileResponse.data;
-        logInfo(
-          `User profile data: ${JSON.stringify(userProfileResponse.data)}`,
-        );
+        logInfo("Google user profile retrieved.");
 
-        const userData = { email, name, picture, token: accessToken };
+        const userData = { email, name, picture };
 
+        // Send authentication request to backend
         const serverResponse = await axios.post(
           `${baseApiUrl}/api/auth/sign-in-with-google`,
-          userData,
+          { ...userData, token: accessToken },
           { withCredentials: true },
         );
+        logInfo("Google login request sent to backend.");
 
         if (serverResponse.data.success) {
-          logInfo("Backend authenticated successfully:", serverResponse.data);
-          await saveLoginCredentials(userData, accessToken);
-          setMsg("Google login successful!");
+          logInfo("Backend authentication succeeded.");
+          saveLoginCredentials(userData, accessToken);
+          setMsg(translations["logIn.success"] || "Google login successful!");
           setSuccess(true);
         } else {
           throw new Error(
@@ -61,31 +60,32 @@ const GoogleAuth = ({ setMsg, setSuccess, setLoading }) => {
           );
         }
       } catch (error) {
+        logError("Error during Google sign-in process", error);
         setMsg(error.message);
         setSuccess(false);
-        logError("Google sign-in failed:", error);
       } finally {
-        // Deactivate global loading
         setLoading(false);
       }
     },
     onError: (error) => {
-      logInfo("Google Login Error:", error);
-      setMsg("Google login error occurred");
+      logError("Google login error occurred", error);
+      setMsg(
+        translations["logIn.error"] || "An error occurred during Google login",
+      );
       setSuccess(false);
     },
     clientId,
   });
 
-  const saveLoginCredentials = async (user, token) => {
+  const saveLoginCredentials = (user, token) => {
     try {
-      await localStorage.setItem("userCredentials", JSON.stringify(user));
-      await localStorage.setItem("userCredentialsToken", token);
+      localStorage.setItem("userCredentials", JSON.stringify(user));
+      localStorage.setItem("userCredentialsToken", token);
       setStoredCredentials(user);
-      logInfo("User saved in localStorage");
+      logInfo("User credentials have been saved.");
     } catch (error) {
       logError("Error saving user credentials", error);
-      setMsg("Error saving user credentials");
+      setMsg(translations["logIn.save-error"] || "Error saving credentials");
       setSuccess(false);
     }
   };

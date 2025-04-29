@@ -1,11 +1,30 @@
 import React from "react";
-import { render, screen } from "@testing-library/react";
+import { render, screen, fireEvent, waitFor } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import HeroSlider from "@/components/HeroSlider/HeroSlider";
+import { isVisible } from "@testing-library/dom";
+import { LanguageContext } from "@/context/LanguageContext";
 
 beforeAll(() => {
   global.innerWidth = 1024;
 });
+
+const mockTranslations = {
+  "tasting.subheading1": "Subheading 1",
+  "tasting.heading1": "Heading 1",
+  "tasting.paragraph1": "Paragraph 1",
+  "tasting.button1": "Button 1",
+
+  "tasting.subheading2": "Subheading 2",
+  "tasting.heading2": "Heading 2",
+  "tasting.paragraph2": "Paragraph 2",
+  "tasting.button2": "Button 2",
+
+  "tasting.subheading3": "Subheading 3",
+  "tasting.heading3": "Heading 3",
+  "tasting.paragraph3": "Paragraph 3",
+  "tasting.button3": "Button 3",
+};
 
 jest.mock("@/context/LanguageContext", () => {
   const PropTypes = require("prop-types");
@@ -71,16 +90,19 @@ describe("HeroSlider Component", () => {
     ).toBeInTheDocument();
   });
 
-  test("renders the previous and next buttons", () => {
+  test("renders the previous and next buttons (and their icons)", () => {
     render(<HeroSlider />);
 
-    expect(
-      screen.getByTestId("carousel-previous-button-large"),
-    ).toBeInTheDocument();
-    expect(
-      screen.getByTestId("carousel-next-button-large"),
-    ).toBeInTheDocument();
-    expect(screen.getByTestId("icon-previous-arrow-large")).toBeInTheDocument();
-    expect(screen.getByTestId("icon-next-arrow-large")).toBeInTheDocument();
+    // Collect all instances
+    const prevButtons = screen.getAllByTestId("carousel-previous-button-large");
+    const nextButtons = screen.getAllByTestId("carousel-next-button-large");
+    const prevIcons = screen.getAllByTestId("icon-previous-arrow-large");
+    const nextIcons = screen.getAllByTestId("icon-next-arrow-large");
+
+    // Assert that there is at least one of each
+    expect(prevButtons.length).toBeGreaterThan(0);
+    expect(nextButtons.length).toBeGreaterThan(0);
+    expect(prevIcons.length).toBeGreaterThan(0);
+    expect(nextIcons.length).toBeGreaterThan(0);
   });
 });
