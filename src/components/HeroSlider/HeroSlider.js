@@ -24,7 +24,7 @@ const HeroSlider = () => {
       buttonIcon: "/icons/calender-alt-1.svg",
       media:
         "https://res.cloudinary.com/db3h63tns/video/upload/v1741092198/e-commerce-hero-section_egcjvf.mp4",
-      url: "/events",
+      url: "",
     },
     {
       type: "image",
@@ -67,6 +67,15 @@ const HeroSlider = () => {
 
   return (
     <section className="relative">
+      {/* Modal "Coming Soon" */}
+      {isModalOpen && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex justify-center items-center">
+          <ComingSoonModal
+            isOpen={isModalOpen}
+            onClose={() => setIsModalOpen(false)}
+          />
+        </div>
+      )}
       <Swiper
         onSwiper={(swiper) => (swiperRef.current = swiper)}
         modules={[A11y]}
@@ -80,15 +89,6 @@ const HeroSlider = () => {
             <section
               className={`relative flex flex-col-reverse md:w-full ${index === 0 ? "md:flex-row" : "md:flex-row-reverse"} justify-between bg-tertiary2-light min-h-[43.75rem]`}
             >
-              {/* Modal "Coming Soon" */}
-              {isModalOpen && (
-                <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex justify-center items-center">
-                  <ComingSoonModal
-                    isOpen={isModalOpen}
-                    onClose={() => setIsModalOpen(false)}
-                  />
-                </div>
-              )}
               <div className="w-full mb-4 min-h-[20rem] md:mb-0 md:relative md:w-[50%] items-center">
                 {slide.type === "video" ? (
                   hasCredits ? (
@@ -138,8 +138,18 @@ const HeroSlider = () => {
                   variant="redFullText"
                   aria-label={translations[slide.buttonText]}
                   data-testid="book-tasting-button"
-                  linkUrl={slide.url}
-                  onClick={index === 1 ? () => setIsModalOpen(true) : undefined}
+                  linkUrl={
+                    slide.heading === "tasting.heading1" ||
+                    slide.heading === "tasting.heading2"
+                      ? undefined
+                      : slide.url
+                  }
+                  onClick={
+                    slide.heading === "tasting.heading1" ||
+                    slide.heading === "tasting.heading2"
+                      ? () => setIsModalOpen(true)
+                      : undefined
+                  }
                 ></Button>
                 <div
                   className={`hidden md:flex mt-4 md:absolute md:bottom-8 lg:bottom-10 xl:bottom-14 ${index === 0 ? "md:right-8 lg:right-10 xl:right-12" : "md:left-[37.5%]"}`}
