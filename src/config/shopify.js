@@ -10,7 +10,7 @@ if (!SHOPIFY_STORE_DOMAIN) {
   logError("Error: SHOPIFY_DOMAIN environment variable is not set");
 }
 
-if (!NEXT_PUBLIC_SHOPIFY_STOREFRONT_ACCESS_TOKEN) {
+if (!SHOPIFY_STOREFRONT_ACCESS_TOKEN) {
   logError(
     "Error: SHOPIFY_STOREFRONT_ACCESS_TOKEN environment variable is not set",
   );
