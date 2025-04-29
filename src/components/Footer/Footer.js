@@ -43,23 +43,23 @@ const Footer = () => {
     },
   ];
 
-  const paymentSymbols = [
-    {
-      src: "/icons/footer/apple-pay.svg",
-    },
-    {
-      src: "/icons/footer/google-pay.svg",
-    },
-    {
-      src: "/icons/footer/mastercard.svg",
-    },
-    {
-      src: "/icons/footer/Visa.svg",
-    },
-    {
-      src: "/icons/footer/MobilePayLogo.svg",
-    },
-  ];
+  // const paymentSymbols = [
+  //   {
+  //     src: "/icons/footer/apple-pay.svg",
+  //   },
+  //   {
+  //     src: "/icons/footer/google-pay.svg",
+  //   },
+  //   {
+  //     src: "/icons/footer/mastercard.svg",
+  //   },
+  //   {
+  //     src: "/icons/footer/Visa.svg",
+  //   },
+  //   {
+  //     src: "/icons/footer/MobilePayLogo.svg",
+  //   },
+  // ];
 
   return (
     <footer className="bg-[#2F2E2E]" data-testid="footer" aria-label="Footer">
@@ -113,11 +113,11 @@ const Footer = () => {
             </div>
           </div>
         </div>
-        <div className="lg:ml-14 grid grid-cols-[65px_auto] place-items-center md:mb-0 mb-14 flex-col md:flex mt-10 md:mt-0 items-center justify-center gap-4 md:mb-32 md:flex-row md:gap-6 lg:gap-9 xl:gap-12">
+        {/* <div className="lg:ml-14 grid grid-cols-[65px_auto] place-items-center md:mb-0 mb-14 flex-col md:flex mt-10 md:mt-0 items-center justify-center gap-4 md:mb-32 md:flex-row md:gap-6 lg:gap-9 xl:gap-12">
           {paymentSymbols.map(({ src }, index) => (
             <img src={src} key={index} />
           ))}
-        </div>
+        </div> */}
         <div className="bottom-30 whitespace-nowrap text-bodySmall mt-6 mb-1 mb-2 md:text-bodyMedium text-tertiary2-hover_dark">
           <p className="company-number">
             © 2025 Donna Vino Aps | CVR-n. 45017567 |{" "}
