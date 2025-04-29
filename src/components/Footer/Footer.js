@@ -123,7 +123,7 @@ const Footer = () => {
             © 2025 Donna Vino Aps | CVR-n. 45017567 |{" "}
             <a
               className="underline"
-              href="/privacy-policy"
+              href="https://www.donnavino.dk/privacy-policy"
               role="navigation"
               aria-label="Link to Privacy Policy"
             >
