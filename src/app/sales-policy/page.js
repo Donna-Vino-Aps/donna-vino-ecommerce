@@ -29,7 +29,7 @@ const SalesPolicy = () => {
           content="https://shop.donnavino.dk/sales-policy"
         />
       </Head>
-      <main className="w-full flex flex-col gap-3 font-barlow text-tertiary1-darker bg-white">
+      <main className="flex w-full flex-col gap-3 bg-white font-barlow text-tertiary1-darker">
         <section className="px-2 pt-4 sm:mx-8">
           <Button
             text={translations["button.go-back"]}
@@ -40,12 +40,12 @@ const SalesPolicy = () => {
             onClick={() => router.back()}
           />
         </section>
-        <div className="py-6 flex flex-col md:flex-row gap-8 md:gap-4 lg:gap-8 md:gap-16 justify-center items-center w-full min-h-[43.75rem] bg-primary-light">
+        <div className="flex min-h-[43.75rem] w-full flex-col items-center justify-center gap-8 bg-primary-light py-6 md:flex-row md:gap-16 md:gap-4 lg:gap-8">
           <div>
-            <h1 className="text-displayMedium mt-6 md:mt-0">
+            <h1 className="mt-6 text-displayMedium md:mt-0">
               {translations["sales.title"]}
             </h1>
-            <div className="text-tertiary1-dark text-bodyLarge mt-3">
+            <div className="mt-3 text-bodyLarge text-tertiary1-dark">
               <p>{translations["sales.info.p1"]} </p>
               <br></br>
               <p>{translations["sales.info.p2"]}: 45017567</p>
@@ -58,13 +58,13 @@ const SalesPolicy = () => {
               <p>Strandlodsvej 23C, 8. tv, 2300 København S</p>
             </div>
           </div>
-          <div className="relative w-[27.5rem] h-[27.5rem] flex justify-center items-center">
+          <div className="relative flex h-[27.5rem] w-[27.5rem] items-center justify-center">
             <Image
               src="/images/sales-policy-image.png"
               alt="Sales policy"
               width={186.67} // equivalent to 11.667rem
               height={224} // equivalent to 14rem
-              className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-30 rounded-xl md:rounded-2xl md:w-[16.563rem] md:h-[19.875rem]"
+              className="absolute left-1/2 top-1/2 z-30 -translate-x-1/2 -translate-y-1/2 rounded-xl md:h-[19.875rem] md:w-[16.563rem] md:rounded-2xl"
               priority
             />
             <Image
@@ -72,7 +72,7 @@ const SalesPolicy = () => {
               alt="Decorative ellipse small"
               width={250} // 15.625rem
               height={250}
-              className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-20 md:w-[21.625rem] md:h-[21.625rem]"
+              className="absolute left-1/2 top-1/2 z-20 -translate-x-1/2 -translate-y-1/2 md:h-[21.625rem] md:w-[21.625rem]"
               priority
             />
             <Image
@@ -80,19 +80,19 @@ const SalesPolicy = () => {
               alt="Decorative ellipse big"
               width={312} // 19.5rem
               height={312}
-              className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-10 md:w-[27.5rem] md:h-[27.5rem]"
+              className="absolute left-1/2 top-1/2 z-10 -translate-x-1/2 -translate-y-1/2 md:h-[27.5rem] md:w-[27.5rem]"
               priority
             />
           </div>
         </div>
         <div className="mx-4 my-2 mb-4">
-          <div className="flex justify-center flex-col w-full rounded-2xl border-[1px] border-black px-4 md:px-8 py-4 text-bodyLarge">
+          <div className="flex w-full flex-col justify-center rounded-2xl border-[1px] border-black px-4 py-4 text-bodyLarge md:px-8">
             <section className="" id="payment">
-              <h2 className="text-displaySmall mt-3 mb-6">
+              <h2 className="mb-6 mt-3 text-displaySmall">
                 {translations["sales.payment.h2"]}
               </h2>
               <p>{translations["sales.payment.p1"]}</p>
-              <ul className="list-disc font-semibold ml-6 mt-4 mb-4">
+              <ul className="mb-4 ml-6 mt-4 list-disc font-semibold">
                 <li>MobilePay</li>
                 <li>VISA</li>
                 <li>MasterCard</li>
@@ -104,12 +104,12 @@ const SalesPolicy = () => {
               </p>
             </section>
             <section id="shipping">
-              <h2 className="text-displaySmall my-6">
+              <h2 className="my-6 text-displaySmall">
                 {translations["sales.delivery.h2"]}
               </h2>
               <p>{translations["sales.delivery.p1"]}</p>
               <br />
-              <ul className="list-disc font-normal ml-6 mt-4 mb-4">
+              <ul className="mb-4 ml-6 mt-4 list-disc font-normal">
                 <li>
                   <strong className="font-semibold">
                     {translations["sales.delivery.li1-1"]}
@@ -133,14 +133,14 @@ const SalesPolicy = () => {
             </section>
 
             <section id="returns">
-              <h2 className="text-displaySmall my-6">
+              <h2 className="my-6 text-displaySmall">
                 {translations["sales.returns.h2"]}
               </h2>
               <p>{translations["sales.returns.p1"]}</p>
               <p>
                 <strong>{translations["sales.returns.p2"]}</strong>
               </p>
-              <ul className="list-disc font-semibold ml-6 mt-4 mb-4">
+              <ul className="mb-4 ml-6 mt-4 list-disc font-semibold">
                 <li>{translations["sales.returns.li1"]}</li>
                 <li>{translations["sales.returns.li2"]}</li>
               </ul>
@@ -161,7 +161,7 @@ const SalesPolicy = () => {
             </section>
 
             <section>
-              <h2 className="text-displaySmall my-6">
+              <h2 className="my-6 text-displaySmall">
                 {translations["sales.rights.h2"]}
               </h2>
               <p>{translations["sales.rights.p1"]}</p>
@@ -169,7 +169,7 @@ const SalesPolicy = () => {
               <p>
                 <strong>{translations["sales.rights.p2"]}</strong>
               </p>
-              <ul className="list-disc font-normal ml-6 mt-4 mb-4">
+              <ul className="mb-4 ml-6 mt-4 list-disc font-normal">
                 <li>
                   {translations["sales.rights.li1-1"]}{" "}
                   <a href="mailto:info@donnavino.dk">info@donnavino.dk</a>{" "}
@@ -191,11 +191,11 @@ const SalesPolicy = () => {
             </section>
 
             <section>
-              <h2 className="text-displaySmall my-6">
+              <h2 className="my-6 text-displaySmall">
                 {translations["sales.complaints.h2"]}
               </h2>
               <p>{translations["sales.complaints.p1"]}</p>
-              <ul className="list-disc font-normal ml-6 mt-4 mb-4">
+              <ul className="mb-4 ml-6 mt-4 list-disc font-normal">
                 <li>
                   {translations["sales.complaints.li1"]}:{" "}
                   <a href="mailto:info@donnavino.dk">info@donnavino.dk</a>
@@ -204,7 +204,7 @@ const SalesPolicy = () => {
               </ul>
               <p>{translations["sales.complaints.p2"]}</p>
             </section>
-            <section className="mt-12 mb-4">
+            <section className="mb-4 mt-12">
               <p>
                 <em>{translations["sales.footer"]}</em>
               </p>

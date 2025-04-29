@@ -18,7 +18,7 @@ const LogoutButton = () => {
   return (
     <button
       onClick={logoutUser}
-      className="w-fit mb-5 max-w-max inline-block px-4 py-2 bg-primary-normal text-primary-light rounded hover:bg-primary-hover_normal mx-2.5 my-2.5"
+      className="mx-2.5 my-2.5 mb-5 inline-block w-fit max-w-max rounded bg-primary-normal px-4 py-2 text-primary-light hover:bg-primary-hover_normal"
     >
       Logout
     </button>

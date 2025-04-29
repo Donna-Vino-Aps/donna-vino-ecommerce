@@ -70,7 +70,7 @@ const HeroSlider = () => {
       <Swiper
         onSwiper={(swiper) => (swiperRef.current = swiper)}
         modules={[A11y]}
-        className="w-full h-full"
+        className="h-full w-full"
         onSlideChange={(swiper) => setCurrentImageIndex(swiper.activeIndex)}
         initialSlide={0}
         loop={true}
@@ -78,22 +78,22 @@ const HeroSlider = () => {
         {slides.map((slide, index) => (
           <SwiperSlide key={index}>
             <section
-              className={`relative flex flex-col-reverse md:w-full ${index === 0 ? "md:flex-row" : "md:flex-row-reverse"} justify-between bg-tertiary2-light min-h-[43.75rem]`}
+              className={`relative flex flex-col-reverse md:w-full ${index === 0 ? "md:flex-row" : "md:flex-row-reverse"} min-h-[43.75rem] justify-between bg-tertiary2-light`}
             >
               {/* Modal "Coming Soon" */}
               {isModalOpen && (
-                <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex justify-center items-center">
+                <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
                   <ComingSoonModal
                     isOpen={isModalOpen}
                     onClose={() => setIsModalOpen(false)}
                   />
                 </div>
               )}
-              <div className="w-full mb-4 min-h-[20rem] md:mb-0 md:relative md:w-[50%] items-center">
+              <div className="mb-4 min-h-[20rem] w-full items-center md:relative md:mb-0 md:w-[50%]">
                 {slide.type === "video" ? (
                   hasCredits ? (
                     <video
-                      className="md:absolute md:inset-0 mt-4 iimd:mt-0 rounded-tr-[0rem] rounded-br-[0rem] md:rounded-tr-[8rem] md:rounded-br-xl object-cover w-full max-h-[22.5rem] md:min-h-[43.75rem]"
+                      className="iimd:mt-0 mt-4 max-h-[22.5rem] w-full rounded-br-[0rem] rounded-tr-[0rem] object-cover md:absolute md:inset-0 md:min-h-[43.75rem] md:rounded-br-xl md:rounded-tr-[8rem]"
                       autoPlay
                       loop
                       muted
@@ -108,7 +108,7 @@ const HeroSlider = () => {
                   ) : (
                     <img
                       src="/images/caroline-attwood-unsplash.jpg"
-                      className="md:absolute md:inset-0 mt-4 iimd:mt-0 rounded-tr-[0rem] rounded-br-[0rem] md:rounded-tr-[8rem] md:rounded-br-[0.5rem] object-cover w-full max-h-[22.5rem] md:min-h-[43.75rem]"
+                      className="iimd:mt-0 mt-4 max-h-[22.5rem] w-full rounded-br-[0rem] rounded-tr-[0rem] object-cover md:absolute md:inset-0 md:min-h-[43.75rem] md:rounded-br-[0.5rem] md:rounded-tr-[8rem]"
                       data-testid="fallback-image"
                     />
                   )
@@ -116,20 +116,20 @@ const HeroSlider = () => {
                   <img
                     src={slide.media}
                     alt="Slide media"
-                    className="md:absolute md:inset-0 mt-4 iimd:mt-0 rounded-tr-[0rem] rounded-br-[0rem] md:rounded-tl-[8rem] md:rounded-bl-xl object-cover w-full max-h-[22.5rem] md:min-h-[43.75rem]"
+                    className="iimd:mt-0 mt-4 max-h-[22.5rem] w-full rounded-br-[0rem] rounded-tr-[0rem] object-cover md:absolute md:inset-0 md:min-h-[43.75rem] md:rounded-bl-xl md:rounded-tl-[8rem]"
                   />
                 )}
               </div>
-              <div className="flex flex-col justify-center align-start items-start mb-3 md:items-start font-barlow font-regular px-12 sm:px-20 md:px-6 lg:px-10 xl:px-14 min-h-[20rem] md:max-w-[50%]">
+              <div className="mb-3 flex min-h-[20rem] flex-col items-start justify-center px-12 font-barlow font-regular sm:px-20 md:max-w-[50%] md:items-start md:px-6 lg:px-10 xl:px-14">
                 <div>
                   <p className="text-left text-headlineSmall text-primary-normal">
                     {translations[slide.subheading]}
                   </p>
                 </div>
-                <h2 className="text-displayMedium text-left md:text-left md:text-headlineLarge lg:text-displaySmall xl:text-displayMedium text-tertiary1-dark my-4 md:my-2 mr-8">
+                <h2 className="my-4 mr-8 text-left text-displayMedium text-tertiary1-dark md:my-2 md:text-left md:text-headlineLarge lg:text-displaySmall xl:text-displayMedium">
                   {translations[slide.heading]}
                 </h2>
-                <p className="text-start md:text-start text-bodyMedium md:text-bodyMedium xl:text-bodyLarge mt-2 mb-7 sm:mt-2 sm:mb-7 md:mt-2 mb-4 md:mb-5 xl:mb-10 mr-10">
+                <p className="mb-4 mr-10 mt-2 text-start text-bodyMedium sm:mb-7 sm:mt-2 md:mb-5 md:mt-2 md:text-start md:text-bodyMedium xl:mb-10 xl:text-bodyLarge">
                   {translations[slide.paragraph]}
                 </p>
                 <Button
@@ -142,11 +142,11 @@ const HeroSlider = () => {
                   onClick={index === 1 ? () => setIsModalOpen(true) : undefined}
                 ></Button>
                 <div
-                  className={`hidden md:flex mt-4 md:absolute md:bottom-8 lg:bottom-10 xl:bottom-14 ${index === 0 ? "md:right-8 lg:right-10 xl:right-12" : "md:left-[37.5%]"}`}
+                  className={`mt-4 hidden md:absolute md:bottom-8 md:flex lg:bottom-10 xl:bottom-14 ${index === 0 ? "md:right-8 lg:right-10 xl:right-12" : "md:left-[37.5%]"}`}
                 >
                   <button
                     onClick={handlePrevious}
-                    className="md:w-[2rem] md:h-[2rem] lg:w-[2.25rem] lg:h-[2.25rem] xl:w-[2.625rem] xl:h-[2.625rem] rounded-full flex items-center justify-center active:bg-primary-hover_normal mr-[8px]"
+                    className="mr-[8px] flex items-center justify-center rounded-full active:bg-primary-hover_normal md:h-[2rem] md:w-[2rem] lg:h-[2.25rem] lg:w-[2.25rem] xl:h-[2.625rem] xl:w-[2.625rem]"
                     aria-label="Previous image"
                     data-testid="carousel-previous-button-large"
                   >
@@ -159,7 +159,7 @@ const HeroSlider = () => {
                   </button>
                   <button
                     onClick={handleNext}
-                    className="md:w-[2rem] md:h-[2rem] lg:w-[2.25rem] lg:h-[2.25rem] xl:w-[2.625rem] xl:h-[2.625rem] rounded-full flex items-center justify-center active:bg-primary-hover_normal ml-[8px]"
+                    className="ml-[8px] flex items-center justify-center rounded-full active:bg-primary-hover_normal md:h-[2rem] md:w-[2rem] lg:h-[2.25rem] lg:w-[2.25rem] xl:h-[2.625rem] xl:w-[2.625rem]"
                     aria-label="Next image"
                     data-testid="carousel-next-button-large"
                   >
@@ -176,12 +176,12 @@ const HeroSlider = () => {
           </SwiperSlide>
         ))}
       </Swiper>
-      <div className="md:hidden flex py-2 min-h-[2rem] mx-auto relative bottom-8 justify-center">
+      <div className="relative bottom-8 mx-auto flex min-h-[2rem] justify-center py-2 md:hidden">
         {slides.map((_, index) => (
           <button
             key={index}
             onClick={() => handleDotClick(index)}
-            className="w-[10px] h-[10px] rounded-full mx-1"
+            className="mx-1 h-[10px] w-[10px] rounded-full"
             aria-label={`Image ${index + 1}`}
             data-testid={`carousel-dot-${index}`}
           >
@@ -192,7 +192,7 @@ const HeroSlider = () => {
                   : "/icons/dot-passive.svg"
               }
               alt={`Dot ${index + 1}`}
-              className="w-full h-full"
+              className="h-full w-full"
             />
           </button>
         ))}

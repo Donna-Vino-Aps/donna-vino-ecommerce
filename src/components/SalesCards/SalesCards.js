@@ -33,23 +33,23 @@ export default function SalesCards() {
   ];
 
   return (
-    <section className="relative w-full p-8 bg-primary-light mb-4">
+    <section className="relative mb-4 w-full bg-primary-light p-8">
       <img
         src="/icons/salesCards/dots.svg"
         alt="dots"
-        className="size-20 absolute top-0 left-0 xl:top-auto xl:bottom-0 z-0"
+        className="absolute left-0 top-0 z-0 size-20 xl:bottom-0 xl:top-auto"
       />
       <img
         src="/icons/salesCards/dots.svg"
         alt="dots"
-        className="size-20 absolute top-0 xl:left-[453px] z-0 hidden xl:block"
+        className="absolute top-0 z-0 hidden size-20 xl:left-[453px] xl:block"
       />
       <img
         src="/icons/salesCards/dots.svg"
         alt="dots"
-        className="size-20 absolute bottom-0 right-0 xl:right-[453px] z-0"
+        className="absolute bottom-0 right-0 z-0 size-20 xl:right-[453px]"
       />
-      <div className="relative z-10 grid grid-cols-1 lg:grid-cols-3 gap-8 w-full">
+      <div className="relative z-10 grid w-full grid-cols-1 gap-8 lg:grid-cols-3">
         {salesCardsInfo.map((card, index) => (
           <Card
             key={index}

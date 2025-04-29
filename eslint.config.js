@@ -3,6 +3,7 @@ const eslintPluginReact = require("eslint-plugin-react");
 const eslintPluginJsxA11y = require("eslint-plugin-jsx-a11y");
 const eslintPluginReactHooks = require("eslint-plugin-react-hooks");
 const eslintPluginCypress = require("eslint-plugin-cypress");
+const eslintPluginTailwindcss = require("eslint-plugin-tailwindcss");
 
 module.exports = defineConfig([
   {
@@ -27,6 +28,7 @@ module.exports = defineConfig([
       "jsx-a11y": eslintPluginJsxA11y,
       "react-hooks": eslintPluginReactHooks,
       cypress: eslintPluginCypress,
+      tailwindcss: eslintPluginTailwindcss,
     },
     settings: {
       react: {
@@ -39,6 +41,10 @@ module.exports = defineConfig([
       "react/jsx-uses-react": "off",
       "react/jsx-uses-vars": "error",
       "no-console": ["error", { allow: ["warn", "error"] }],
+      "tailwindcss/classnames-order": "warn",
+      "tailwindcss/no-custom-classname": ["error", {
+        "whitelistPatterns": ["^custom-"]
+      }]
     },
   },
   {

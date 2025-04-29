@@ -62,6 +62,7 @@ jest.mock("@/components/TextInput/TextInput", () => ({
           placeholder={placeholder}
           data-testid={props["data-testid"] || `input-${name}`}
         />
+        {/* eslint-disable-next-line tailwindcss/no-custom-classname */}
         {error && <div className="error">{error}</div>}
       </div>
     ),
