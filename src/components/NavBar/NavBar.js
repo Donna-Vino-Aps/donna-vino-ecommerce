@@ -5,9 +5,9 @@ import React, { useState } from "react";
 import LanguageSwitch from "../NavBar/LanguageSwitch";
 import SideBar from "../SideBar/SideBar";
 import { useLanguage } from "../../context/LanguageContext";
-import SearchButton from "./SearchButton";
+// import SearchButton from "./SearchButton";
 import UserDropdown from "./UserDropdown/UserDropdown";
-import ShoppingCart from "./ShoppingCart";
+// import ShoppingCart from "./ShoppingCart";
 
 const Navbar = () => {
   const { translations } = useLanguage();
@@ -47,18 +47,18 @@ const Navbar = () => {
   };
 
   const navLinks = [
-    {
-      id: "home",
-      href: "/",
-      label: translations["navbar.home"],
-      dropdown: false,
-    },
-    {
-      id: "events",
-      href: "/events",
-      label: translations["navbar.events"],
-      dropdown: false,
-    },
+    // {
+    //   id: "home",
+    //   href: "/",
+    //   label: translations["navbar.home"],
+    //   dropdown: false,
+    // },
+    // {
+    //   id: "events",
+    //   href: "/events",
+    //   label: translations["navbar.events"],
+    //   dropdown: false,
+    // },
     // {
     //   id: "wines",
     //   href: "/wines",
@@ -301,9 +301,9 @@ const Navbar = () => {
 
       <div className="flex justify-end w-full items-center gap-14">
         <div className="flex gap-3 lg:gap-5 items-center md:mr-6 relative bottom-[2px]">
-          <SearchButton />
+          {/* <SearchButton /> */}
           <UserDropdown />
-          <ShoppingCart />
+          {/* <ShoppingCart /> */}
           <div className="lg:hidden w-[1.5rem] h-[1.5rem] ml-2 mr-8 relative top-[1px]">
             <button
               onClick={toggleMenu}
