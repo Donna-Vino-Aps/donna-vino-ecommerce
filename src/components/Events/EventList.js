@@ -112,7 +112,7 @@ const EventList = () => {
   };
 
   const renderMonthHeader = () => (
-    <h2 className="text-titleMedium font-medium mb-4 px-4 py-2 bg-[#FFF4F4] rounded-[0.5rem] w-full">
+    <h2 className="mb-4 w-full rounded-[0.5rem] bg-[#FFF4F4] px-4 py-2 text-titleMedium font-medium">
       {translations["events.upcomingTitle"]}{" "}
       <span className="font-semibold">
         {format(new Date(selectedYear, selectedMonth - 1, 1), "MMMM", {
@@ -124,21 +124,21 @@ const EventList = () => {
 
   const renderLoading = () => (
     <div className="flex flex-col items-center py-10">
-      <div className="w-12 h-12 border-4 border-primary-normal border-t-transparent rounded-full animate-spin"></div>
-      <p className="mt-4 text-primary-normal font-medium">
+      <div className="h-12 w-12 animate-spin rounded-full border-4 border-primary-normal border-t-transparent"></div>
+      <p className="mt-4 font-medium text-primary-normal">
         {translations["calendar.loading"]}
       </p>
     </div>
   );
 
   const renderError = () => (
-    <p className="text-primary-normal text-center py-8">{error}</p>
+    <p className="py-8 text-center text-primary-normal">{error}</p>
   );
 
   const renderEmptyState = () => (
     <>
       {renderMonthHeader()}
-      <p className="text-center py-8">
+      <p className="py-8 text-center">
         {translations["events.noEventsForMonth"]}
       </p>
     </>
@@ -148,7 +148,7 @@ const EventList = () => {
     <>
       {renderMonthHeader()}
 
-      <div className="bg-tertiary2-active text-tertiary1-active_dark text-titleMedium font-medium rounded-t p-3 pb-7 flex flex-row gap-2">
+      <div className="flex flex-row gap-2 rounded-t bg-tertiary2-active p-3 pb-7 text-titleMedium font-medium text-tertiary1-active_dark">
         <p className="w-[22%] text-center">
           {translations["events.dateHeader"]}
         </p>
@@ -160,7 +160,7 @@ const EventList = () => {
         </p>
       </div>
 
-      <div className="w-full bg-tertiary2-active text-tertiary1-active_dark p-2 rounded-b overflow-y-auto ">
+      <div className="w-full overflow-y-auto rounded-b bg-tertiary2-active p-2 text-tertiary1-active_dark ">
         {sortedEvents.map((event) => {
           const formattedDate = formatDate(event.date);
           const formattedTimeStart = formatTime(event.timeStart);
@@ -194,7 +194,7 @@ const EventList = () => {
   };
 
   return (
-    <div className="flex flex-col mb-12 mx-auto xl:mx-0 sm:min-w-[37rem] xl:h-[31rem] overflow-hidden">
+    <div className="mx-auto mb-12 flex flex-col overflow-hidden sm:min-w-[37rem] xl:mx-0 xl:h-[31rem]">
       {renderContent()}
 
       {selectedEvent && (

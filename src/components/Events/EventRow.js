@@ -20,16 +20,16 @@ const EventRow = ({
   return (
     <>
       <div
-        className={`flex flex-row gap-1 pl-2 mb-4 border-l-4 ${seatStatus.borderColor}`}
+        className={`mb-4 flex flex-row gap-1 border-l-4 pl-2 ${seatStatus.borderColor}`}
       >
-        <div className="w-[22%] flex flex-col items-start">
+        <div className="flex w-[22%] flex-col items-start">
           <p className="text-bodyMedium">{formattedDate}</p>
           <p className="text-bodySmall">
             {formattedTimeStart} - {formattedTimeEnd}
           </p>
         </div>
 
-        <div className="w-[56%] flex flex-col items-start text-labelLarge">
+        <div className="flex w-[56%] flex-col items-start text-labelLarge">
           <p>
             <span className="font-medium">{translations["events.wines"]}:</span>{" "}
             <span dangerouslySetInnerHTML={{ __html: wine }} />
@@ -45,7 +45,7 @@ const EventRow = ({
           {availableSeats} {translations["events.of"]} {totalInventory}
         </p>
       </div>
-      <div className="flex justify-end py-2 mb-4 pr-2">
+      <div className="mb-4 flex justify-end py-2 pr-2">
         <Button
           text={translations["events.bookSeats"]}
           variant="redSmall"
