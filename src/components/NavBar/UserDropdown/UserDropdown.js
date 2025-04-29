@@ -6,7 +6,7 @@ import React, {
   useState,
 } from "react";
 import DropdownButton from "@/components/NavBar/UserDropdown/DropdownButton";
-// import DropdownMenu from "@/components/NavBar/UserDropdown/DropdownMenu";
+import DropdownMenu from "@/components/NavBar/UserDropdown/DropdownMenu";
 import { useRouter } from "next/navigation";
 import { CredentialsContext } from "@/context/credentialsContext";
 
@@ -34,13 +34,13 @@ export default function UserDropdown() {
   return (
     <div className="relative">
       <DropdownButton ref={buttonRef} onClick={toggleDropdown} />
-      {/* {isOpen && (
+      {isOpen && (
         <DropdownMenu
           isOpen={isOpen}
           onClose={() => setIsOpen(false)}
           buttonRef={buttonRef}
         />
-      )} */}
+      )}
     </div>
   );
 }
