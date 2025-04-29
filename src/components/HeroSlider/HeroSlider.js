@@ -101,6 +101,7 @@ const HeroSlider = () => {
                       aria-label="Background video for TastingSession Section"
                       aria-hidden="true"
                       data-testid="hero-video"
+                      alt="hero-video"
                     >
                       <source src={slide.media} type="video/mp4" />
                       Your browser does not support the video tag.
@@ -110,6 +111,7 @@ const HeroSlider = () => {
                       src="/images/caroline-attwood-unsplash.jpg"
                       className="md:absolute md:inset-0 mt-4 iimd:mt-0 rounded-tr-[0rem] rounded-br-[0rem] md:rounded-tr-[8rem] md:rounded-br-[0.5rem] object-cover w-full max-h-[22.5rem] md:min-h-[43.75rem]"
                       data-testid="fallback-image"
+                      alt="Wine glasses at a winetasting"
                     />
                   )
                 ) : (

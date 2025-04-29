@@ -35,7 +35,7 @@ const RootLayout = ({ children }) => {
   return (
     <GoogleOAuthProvider clientId={process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID}>
       <LocalizationProvider dateAdapter={AdapterDayjs}>
-        <html lang="en">
+        <html lang="en" title="Donna Vino E-Commerce">
           <body className="flex flex-col min-h-screen w-full font-barlow bg-white text-foreground-normal">
             <CredentialsContext.Provider
               value={{ storedCredentials, setStoredCredentials }}
