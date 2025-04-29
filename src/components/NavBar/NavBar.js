@@ -208,7 +208,6 @@ const Navbar = () => {
                     ? "text-tertiary1-gray"
                     : "text-tertiary2-active_dark"
                 }`}
-                onClick={() => handleClick(link.href)}
                 data-testid={`nav-link-${link.id}`}
               >
                 {link.label}

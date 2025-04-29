@@ -6,7 +6,7 @@ import Footer from "../components/Footer/Footer.js";
 import Navbar from "../components/NavBar/NavBar.js";
 import { LanguageProvider } from "../context/LanguageContext";
 import { CredentialsContext } from "../context/credentialsContext";
-import { logError } from "@/utils/logging";
+import { logError, logInfo } from "@/utils/logging";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { GoogleOAuthProvider } from "@react-oauth/google";
@@ -33,7 +33,7 @@ const RootLayout = ({ children }) => {
   }, []);
 
   return (
-    <GoogleOAuthProvider clientId={process.env.GOOGLE_CLIENT_ID}>
+    <GoogleOAuthProvider clientId={process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID}>
       <LocalizationProvider dateAdapter={AdapterDayjs}>
         <html lang="en">
           <body className="flex flex-col min-h-screen w-full font-barlow bg-white text-foreground-normal">
