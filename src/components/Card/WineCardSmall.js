@@ -27,51 +27,51 @@ const WineCardSmall = ({
   return (
     <section
       data-testid="wine-card"
-      className="group relative flex justify-center items-center min-h-[550px] w-[320px]"
+      className="group relative flex min-h-[550px] w-[320px] items-center justify-center"
     >
-      <div className="relative w-[270px] min-h-[411px] cursor-pointer bg-tertiary2-light shadow-xl rounded-lg overflow-visible transition-transform duration-300 hover:scale-105 flex flex-col mt-5 mb-5">
+      <div className="relative mb-5 mt-5 flex min-h-[411px] w-[270px] cursor-pointer flex-col overflow-visible rounded-lg bg-tertiary2-light shadow-xl transition-transform duration-300 hover:scale-105">
         {isNew && (
-          <span className="absolute top-3 right-3 flex items-center gap-1 rounded bg-primary-normal px-2 py-1 text-bodyMedium text-tertiary2-light font-medium z-20">
+          <span className="absolute right-3 top-3 z-20 flex items-center gap-1 rounded bg-primary-normal px-2 py-1 text-bodyMedium font-medium text-tertiary2-light">
             New
             <img
               src="/icons/card/star-fill.svg"
-              className="w-3 h-3 text-tertiary2-light"
+              className="h-3 w-3 text-tertiary2-light"
               alt="New Badge"
             />
           </span>
         )}
 
-        <div className="relative w-full h-[270px] flex flex-col justify-center items-center mt-5">
+        <div className="relative mt-5 flex h-[270px] w-full flex-col items-center justify-center">
           <img
             src={imageUrl}
             alt={title}
-            className="w-[100%] h-auto object-contain mx-auto block"
+            className="mx-auto block h-auto w-[100%] object-contain"
             data-testid="wine-image"
           />
 
           <div
             data-testid="wine-buttons"
-            className="absolute bottom-[50px] left-1/2 flex gap-3 -translate-x-1/2 opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+            className="absolute bottom-[50px] left-1/2 flex -translate-x-1/2 gap-3 opacity-0 transition-opacity duration-300 group-hover:opacity-100"
           >
             {buttons.map((button, index) => (
               <div key={index} className="relative">
-                <div className="group/button relative flex items-center justify-center w-10 h-10 rounded-full">
+                <div className="group/button relative flex h-10 w-10 items-center justify-center rounded-full">
                   <button
                     className="flex h-10 w-10 items-center justify-center rounded-full bg-white shadow-md transition duration-300 hover:bg-primary-normal"
                     onClick={button.onClick}
                   >
                     <img
                       src={button.icon}
-                      className="w-6 h-6 text-tertiary1-darker transition-all duration-300 group-hover/button:brightness-0 group-hover/button:invert"
+                      className="h-6 w-6 text-tertiary1-darker transition-all duration-300 group-hover/button:brightness-0 group-hover/button:invert"
                       alt={button.tooltip}
                     />
                   </button>
                   <div
-                    className="absolute -top-8 left-1/2 w-max -translate-x-1/2 invisible bg-tertiary2-light text-tertiary1-darker whitespace-nowrap px-3 py-1 rounded-md shadow-md transition-opacity duration-300 delay-200 group-hover/button:visible group-hover/button:opacity-100"
+                    className="invisible absolute -top-8 left-1/2 w-max -translate-x-1/2 whitespace-nowrap rounded-md bg-tertiary2-light px-3 py-1 text-tertiary1-darker shadow-md transition-opacity delay-200 duration-300 group-hover/button:visible group-hover/button:opacity-100"
                     data-testid={`tooltip-${index}`}
                   >
                     {button.tooltip}
-                    <div className="absolute left-1/2 -bottom-1 w-2 h-2 -translate-x-1/2 rotate-45 bg-tertiary2-light"></div>
+                    <div className="absolute -bottom-1 left-1/2 h-2 w-2 -translate-x-1/2 rotate-45 bg-tertiary2-light"></div>
                   </div>
                 </div>
               </div>
@@ -79,17 +79,17 @@ const WineCardSmall = ({
           </div>
         </div>
 
-        <div className="flex flex-col justify-center items-center w-full pb-[1.25rem] flex-grow">
-          <div className="p-4 flex flex-col items-center text-center w-full min-h-[71px]">
+        <div className="flex w-full flex-grow flex-col items-center justify-center pb-[1.25rem]">
+          <div className="flex min-h-[71px] w-full flex-col items-center p-4 text-center">
             <h3
               data-testid="wine-title"
-              className="text-headlineSmall font-regular text-tertiary1-normal text-center break-words"
+              className="break-words text-center text-headlineSmall font-regular text-tertiary1-normal"
             >
               {title}
             </h3>
             <p
               data-testid="wine-price"
-              className="text-tertiary1-normal text-bodyLarge mt-2 font-medium"
+              className="mt-2 text-bodyLarge font-medium text-tertiary1-normal"
             >
               Kr. {price.toFixed(2)}
             </p>

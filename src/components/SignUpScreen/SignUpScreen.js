@@ -90,21 +90,21 @@ const SignUpScreen = () => {
   };
 
   return (
-    <section className="bg-primary-light sm:bg-dots-lg sm:bg-dots-size-lg bg-dots-sm bg-dots-size-sm">
-      <div className="flex flex-col items-center justify-center flex-grow p-2 w-full">
-        <div className="bg-tertiary2-light my-8 sm:my-20 items-center justify-center rounded-2xl shadow-lg p-5 sm:p-8 max-w-[47.75rem] w-full">
+    <section className="bg-primary-light bg-dots-sm bg-dots-size-sm sm:bg-dots-lg sm:bg-dots-size-lg">
+      <div className="flex w-full flex-grow flex-col items-center justify-center p-2">
+        <div className="my-8 w-full max-w-[47.75rem] items-center justify-center rounded-2xl bg-tertiary2-light p-5 shadow-lg sm:my-20 sm:p-8">
           <img
             src="/images/donna-vino-logo-transparent.png"
             alt="Donna Vino logo"
-            className="w-[6.25rem] h-[4.31rem] mx-auto my-2"
+            className="mx-auto my-2 h-[4.31rem] w-[6.25rem]"
           />
           <h2
-            className="text-displaySmall md:text-displayMedium font-barlow text-tertiary1-darker mb-6 text-center"
+            className="mb-6 text-center font-barlow text-displaySmall text-tertiary1-darker md:text-displayMedium"
             aria-label="Sign Up"
           >
             {translations["signUp.heading"]}
           </h2>
-          <p className="text-bodyMedium md:text-bodyLarge text-tertiary2-darker text-center -mt-3 mb-8">
+          <p className="-mt-3 mb-8 text-center text-bodyMedium text-tertiary2-darker md:text-bodyLarge">
             {translations["signUp.paragraph"]}
           </p>
           <Formik
@@ -135,11 +135,11 @@ const SignUpScreen = () => {
               isSubmitting,
             }) => (
               <form onSubmit={handleSubmit}>
-                <h3 className="text-headlineMedium mb-6">
+                <h3 className="mb-6 text-headlineMedium">
                   {translations["signUp.personal"]}
                 </h3>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 mb-8">
+                <div className="mb-8 grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-6">
                   <TextInput
                     type="text"
                     name="firstName"
@@ -237,23 +237,23 @@ const SignUpScreen = () => {
                     error={touched.birthdate && errors.birthdate}
                   />
 
-                  <div className="relative group inline-block align-top top-7">
-                    <div className="relative w-[30px] h-[30px] z-30 rounded-full bg-primary-light flex items-center justify-center group-hover:w-[45px] group-hover:h-[45px] transition-all duration-200 cursor-pointer">
-                      <span className="z-40 text-tertiary1-darker text-labelXLarge group-hover:text-titleLarge">
+                  <div className="group relative top-7 inline-block align-top">
+                    <div className="relative z-30 flex h-[30px] w-[30px] cursor-pointer items-center justify-center rounded-full bg-primary-light transition-all duration-200 group-hover:h-[45px] group-hover:w-[45px]">
+                      <span className="z-40 text-labelXLarge text-tertiary1-darker group-hover:text-titleLarge">
                         ?
                       </span>
                     </div>
-                    <div className="absolute z-10 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-opacity duration-200 left-0 top-0">
-                      <div className="bg-primary-hover text-tertiary1-darker font-medium p-2 pl-12 rounded-full text-labelSmall sm:min-w-[18rem] h-[45px]">
+                    <div className="invisible absolute left-0 top-0 z-10 opacity-0 transition-opacity duration-200 group-hover:visible group-hover:opacity-100">
+                      <div className="h-[45px] rounded-full bg-primary-hover p-2 pl-12 text-labelSmall font-medium text-tertiary1-darker sm:min-w-[18rem]">
                         {translations["signUp.ageTooltip"]}
                       </div>
                     </div>
                   </div>
                 </div>
 
-                <div className="flex flex-col space-y-3 text-tertiary1-darker text-bodyLarge">
+                <div className="flex flex-col space-y-3 text-bodyLarge text-tertiary1-darker">
                   {/* Terms of Use Checkbox */}
-                  <label className="flex items-center space-x-3 cursor-pointer">
+                  <label className="flex cursor-pointer items-center space-x-3">
                     <input
                       type="checkbox"
                       name="acceptTerms"
@@ -262,11 +262,11 @@ const SignUpScreen = () => {
                         setFieldValue("acceptTerms", !values.acceptTerms)
                       }
                       onBlur={handleBlur}
-                      className={`w-6 h-6 border-2 ${
+                      className={`h-6 w-6 border-2 ${
                         touched.acceptTerms && errors.acceptTerms
-                          ? "border-primary-normal ring-1 ring-primary-normal text-primary-normal checked:bg-primary-normal checked:border-primary-active"
-                          : "border-secondary-active text-secondary-active checked:bg-secondary-active checked:border-secondary-dark"
-                      } rounded-md bg-white focus:ring-2 focus:ring-secondary-hover transition-all duration-200`}
+                          ? "border-primary-normal text-primary-normal ring-1 ring-primary-normal checked:border-primary-active checked:bg-primary-normal"
+                          : "border-secondary-active text-secondary-active checked:border-secondary-dark checked:bg-secondary-active"
+                      } rounded-md bg-white transition-all duration-200 focus:ring-2 focus:ring-secondary-hover`}
                     />
                     <span
                       dangerouslySetInnerHTML={{
@@ -280,7 +280,7 @@ const SignUpScreen = () => {
                             `<strong>${translations["signUp.privacy"]}</strong>`,
                           ),
                       }}
-                      className="text-bodyMedium sm:text-bodyLarge text-secondary-dark"
+                      className="text-bodyMedium text-secondary-dark sm:text-bodyLarge"
                     />
                   </label>
                   {touched.acceptTerms && errors.acceptTerms && (
@@ -290,7 +290,7 @@ const SignUpScreen = () => {
                   )}
 
                   {/* Subscribe to Newsletter Checkbox */}
-                  <label className="flex items-center space-x-3 cursor-pointer">
+                  <label className="flex cursor-pointer items-center space-x-3">
                     <input
                       type="checkbox"
                       name="subscribeToNewsletter"
@@ -301,15 +301,15 @@ const SignUpScreen = () => {
                           !values.subscribeToNewsletter,
                         )
                       }
-                      className="w-6 h-6 border-2 border-secondary-active rounded-md bg-white text-secondary-active focus:ring-2 focus:ring-secondary-hover checked:bg-secondary-active checked:border-secondary-dark transition-all duration-200"
+                      className="h-6 w-6 rounded-md border-2 border-secondary-active bg-white text-secondary-active transition-all duration-200 checked:border-secondary-dark checked:bg-secondary-active focus:ring-2 focus:ring-secondary-hover"
                     />
-                    <span className="text-bodyMedium sm:text-bodyLarge text-secondary-dark">
+                    <span className="text-bodyMedium text-secondary-dark sm:text-bodyLarge">
                       {translations["signUp.updates"]}
                     </span>
                   </label>
                 </div>
 
-                <div className="w-full mt-4">
+                <div className="mt-4 w-full">
                   <Button
                     text={
                       isSubmitting
@@ -326,9 +326,9 @@ const SignUpScreen = () => {
 
                 {/* Error Message */}
                 {!success && msg && (
-                  <div className="flex justify-center mt-3">
+                  <div className="mt-3 flex justify-center">
                     <p
-                      className="text-bodySmall sm:text-bodyMedium text-primary-normal text-center"
+                      className="text-center text-bodySmall text-primary-normal sm:text-bodyMedium"
                       aria-live="polite"
                       data-testid="message-status"
                     >
@@ -339,8 +339,8 @@ const SignUpScreen = () => {
 
                 {/* Loading Indicator */}
                 {(isSubmitting || isLoading) && (
-                  <div className="flex justify-center items-center mt-4">
-                    <div className="w-8 h-8 border-t-transparent border-solid animate-spin rounded-full border-primary-normal border-2" />
+                  <div className="mt-4 flex items-center justify-center">
+                    <div className="h-8 w-8 animate-spin rounded-full border-2 border-solid border-primary-normal border-t-transparent" />
                   </div>
                 )}
               </form>

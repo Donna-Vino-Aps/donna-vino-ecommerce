@@ -103,7 +103,7 @@ export default function DropdownMenu({ isOpen, onClose, buttonRef }) {
   return (
     <div
       ref={menuRef}
-      className={`flex absolute right-0 rounded-xl bg-white shadow-lg md:min-w-[10rem] md:text-tertiary1-dark ${isOpen ? "block" : "hidden"}`}
+      className={`absolute right-0 flex rounded-xl bg-white shadow-lg md:min-w-[10rem] md:text-tertiary1-dark ${isOpen ? "block" : "hidden"}`}
     >
       <ul className="relative m-2">
         {menuItems.map((item, index) => (

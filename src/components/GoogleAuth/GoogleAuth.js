@@ -91,7 +91,7 @@ const GoogleAuth = ({ setMsg, setSuccess, setLoading }) => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center space-y-2 w-[17.5rem] md:w-[18rem] lg:w-[25rem]">
+    <div className="flex w-[17.5rem] flex-col items-center justify-center space-y-2 md:w-[18rem] lg:w-[25rem]">
       <Button
         text={translations["logIn.signin-google"]}
         onClick={() => login()}

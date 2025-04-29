@@ -7,7 +7,7 @@ export default function DropdownButton({ onClick, ref }) {
     <button
       ref={ref}
       onClick={onClick}
-      className="cursor-pointer hidden lg:block hover:opacity-85"
+      className="hidden cursor-pointer hover:opacity-85 lg:block"
       aria-label="User menu"
     >
       <img src="/icons/user-alt.svg" alt="User icon" aria-hidden="true" />

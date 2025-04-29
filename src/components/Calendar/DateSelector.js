@@ -20,10 +20,10 @@ const DateSelector = ({ currentMonth, currentYear, onMonthChange }) => {
 
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>
-      <section className="flex justify-center items-center mx-auto bg-primary-light w-full h-[3.125rem] lg:h-[4rem] max-w-[calc(7*6.282rem-4px)] mb-4 rounded-lg">
-        <div className="flex justify-between lg:justify-center gap-2 hover:cursor-pointer">
+      <section className="mx-auto mb-4 flex h-[3.125rem] w-full max-w-[calc(7*6.282rem-4px)] items-center justify-center rounded-lg bg-primary-light lg:h-[4rem]">
+        <div className="flex justify-between gap-2 hover:cursor-pointer lg:justify-center">
           <p
-            className="text-titleMedium md:text-headlineSmall text-tertiary1-darker ml-6 lg:ml-0"
+            className="ml-6 text-titleMedium text-tertiary1-darker md:text-headlineSmall lg:ml-0"
             onClick={() => setOpen(true)}
           >
             {translations["calendar.select-date"]}
