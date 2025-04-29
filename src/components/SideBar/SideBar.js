@@ -45,7 +45,7 @@ const SideBar = ({ isMenuOpen, toggleMenu, navLinks }) => {
     >
       <div className="flex flex-col h-full gap-8 p-8 bg-white">
         <div className="flex justify-between items-center">
-          <div className="flex relative top-8 left-1 gap-4">
+          {/* <div className="flex relative top-8 left-1 gap-4">
             <a href="/" className="">
               <img
                 src="/images/courtney-cook-unsplash.jpg"
@@ -63,7 +63,7 @@ const SideBar = ({ isMenuOpen, toggleMenu, navLinks }) => {
                 admin@donnavino.dk
               </p>
             </div>
-          </div>
+          </div> */}
           <button
             role="button"
             className="self-start"
@@ -82,7 +82,7 @@ const SideBar = ({ isMenuOpen, toggleMenu, navLinks }) => {
           <h2 id="menu-heading" className="sr-only">
             Mobile navigation menu
           </h2>
-          <hr className="border-t-slate-300 relative top-6" />
+          {/* <hr className="border-t-slate-300 relative top-6" /> */}
           <nav role="navigation">
             <ul className="flex flex-col ml-2">
               {navLinks.map((link) => (
