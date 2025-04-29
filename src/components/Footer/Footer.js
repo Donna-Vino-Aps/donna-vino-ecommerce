@@ -63,11 +63,11 @@ const Footer = () => {
 
   return (
     <footer className="bg-[#2F2E2E]" data-testid="footer" aria-label="Footer">
-      <div className="text-white text-center">
-        <div className="flex mt-16 items-center justify-center flex-col relative items-center gap-1 md:mb-32 md:flex-row md:gap-6 lg:gap-9 xl:gap-12">
-          <Link href="/" className="navbar-brand" aria-label="logo">
+      <div className="text-center text-white">
+        <div className="relative mt-16 flex flex-col items-center justify-center gap-1 md:mb-32 md:flex-row md:gap-6 lg:gap-9 xl:gap-12">
+          <Link href="/" aria-label="logo">
             <img
-              className="h-[5.351rem] w-[7.75rem] rounded relative mt-6 mb-4 md:mt-0 md:mb-0 md:right-4 md:top-6"
+              className="relative mb-4 mt-6 h-[5.351rem] w-[7.75rem] rounded md:right-4 md:top-6 md:mb-0 md:mt-0"
               src="/images/donna-vino-logo-transparent.png"
               alt="Donna Vino Logo - Red background, white text saying 'Donna Vino'"
               data-testid="logo-footer"
@@ -79,7 +79,7 @@ const Footer = () => {
               key={index}
               data-testid={dataTestId}
               href={href}
-              className={`rounded-md px-3 py-2 text-bodyLarge text-semibold order-${index + 2} md:order-${index + 1}`}
+              className="rounded-md px-3 py-2 text-bodyLarge font-semibold"
               role="navigation"
               aria-label={`Link to ${label}`}
             >
@@ -87,12 +87,12 @@ const Footer = () => {
             </Link>
           ))}
 
-          <div className="mt-5 md:mt-0 flex flex-col order-1 md:order-4 items-center md:relative top-5">
-            <h4 className="text-bodyLarge text-semibold mb-1 md:mb-3 md:mt-3">
+          <div className="top-5 order-1 mt-5 flex flex-col items-center md:relative md:order-4 md:mt-0">
+            <h4 className="mb-1 text-bodyLarge font-semibold md:mb-3 md:mt-3">
               {translations["footer.follow"]}
             </h4>
             <div
-              className="flex gap-4 justify-center mt-3 mb-1"
+              className="mb-1 mt-3 flex justify-center gap-4"
               aria-label="Social media icons"
             >
               {socialLinks.map(({ href, src, alt }, index) => (
@@ -106,20 +106,20 @@ const Footer = () => {
                   <img
                     src={src}
                     alt={alt}
-                    className="h-[1.5rem] w-[1.5rem] filter brightness-0 invert"
+                    className="h-[1.5rem] w-[1.5rem] brightness-0 invert filter"
                   />
                 </a>
               ))}
             </div>
           </div>
         </div>
-        <div className="lg:ml-14 grid grid-cols-[65px_auto] place-items-center md:mb-0 mb-14 flex-col md:flex mt-10 md:mt-0 items-center justify-center gap-4 md:mb-32 md:flex-row md:gap-6 lg:gap-9 xl:gap-12">
+        <div className="mb-14 mt-10 grid grid-cols-[65px_auto] flex-col place-items-center items-center justify-center gap-4 md:mb-32 md:mt-0 md:flex md:flex-row md:gap-6 lg:ml-14 lg:gap-9 xl:gap-12">
           {paymentSymbols.map(({ src }, index) => (
             <img src={src} key={index} />
           ))}
         </div>
-        <div className="bottom-30 whitespace-nowrap text-bodySmall mt-6 mb-1 mb-2 md:text-bodyMedium text-tertiary2-hover_dark">
-          <p className="company-number">
+        <div className="bottom-28 mb-1 mt-6 whitespace-nowrap text-bodySmall text-tertiary2-hover_dark md:text-bodyMedium">
+          <p>
             © 2025 Donna Vino Aps | CVR-n. 45017567 |{" "}
             <a
               className="underline"
