@@ -1,12 +1,15 @@
+"use client";
 import React, { useState } from "react";
-import PropTypes from "prop-types";
 import CalendarItem from "./CalendarItem";
 import { useLanguage } from "@/context/LanguageContext";
 import { useEvents } from "@/context/EventsContext";
+import { useCalendar } from "@/context/CalendarContext";
 import EventRegistrationModal from "../EventRegistrationModal/EventRegistrationModal";
 
-const Calendar = ({ currentYear, currentMonth }) => {
+const Calendar = () => {
   const { events } = useEvents();
+  const { selectedMonth: currentMonth, selectedYear: currentYear } =
+    useCalendar();
 
   const [isMobile, setIsMobile] = React.useState(
     typeof window !== "undefined" && window.innerWidth < 768,
@@ -169,11 +172,6 @@ const Calendar = ({ currentYear, currentMonth }) => {
       )}
     </section>
   );
-};
-
-Calendar.propTypes = {
-  currentMonth: PropTypes.number.isRequired,
-  currentYear: PropTypes.number.isRequired,
 };
 
 export default Calendar;

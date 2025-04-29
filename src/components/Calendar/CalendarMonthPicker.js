@@ -1,9 +1,16 @@
+"use client";
 import React from "react";
-import PropTypes from "prop-types";
 import { useLanguage } from "@/context/LanguageContext";
+import { useCalendar } from "@/context/CalendarContext";
 
-const CalendarMonthPicker = ({ currentMonth, currentYear, onMonthChange }) => {
+const CalendarMonthPicker = () => {
   const { translations } = useLanguage();
+  const {
+    selectedMonth: currentMonth,
+    selectedYear: currentYear,
+    onMonthYearChange: onChange,
+  } = useCalendar();
+
   const months = [
     translations["calendar.month.1"],
     translations["calendar.month.2"],
@@ -21,17 +28,17 @@ const CalendarMonthPicker = ({ currentMonth, currentYear, onMonthChange }) => {
 
   const handlePreviousMonth = () => {
     if (currentMonth === 1) {
-      onMonthChange(12, currentYear - 1); // Move to December of previous year
+      onChange(12, currentYear - 1); // Move to December of previous year
     } else {
-      onMonthChange(currentMonth - 1, currentYear);
+      onChange(currentMonth - 1, currentYear);
     }
   };
 
   const handleNextMonth = () => {
     if (currentMonth === 12) {
-      onMonthChange(1, currentYear + 1); // Move to January of next year
+      onChange(1, currentYear + 1); // Move to January of next year
     } else {
-      onMonthChange(currentMonth + 1, currentYear);
+      onChange(currentMonth + 1, currentYear);
     }
   };
 
@@ -54,12 +61,6 @@ const CalendarMonthPicker = ({ currentMonth, currentYear, onMonthChange }) => {
       </button>
     </div>
   );
-};
-
-CalendarMonthPicker.propTypes = {
-  currentMonth: PropTypes.number.isRequired,
-  currentYear: PropTypes.number.isRequired,
-  onMonthChange: PropTypes.func.isRequired,
 };
 
 export default CalendarMonthPicker;

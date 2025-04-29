@@ -3,6 +3,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { useLanguage } from "@/context/LanguageContext";
+import { useCalendar } from "@/context/CalendarContext";
 
 const CalendarItem = ({
   dayOfMonth,
@@ -11,10 +12,10 @@ const CalendarItem = ({
   totalInventory = 0,
   onClick,
   isOtherMonth,
-  currentMonth,
-  currentYear,
 }) => {
   const { translations } = useLanguage();
+  const { selectedMonth: currentMonth, selectedYear: currentYear } =
+    useCalendar();
   const isFull = availableSeats === 0 && totalInventory > 0;
   const isLeft = index % 7 === 0; // Check if the item is on the left side of the calendar
   const isRight = (index + 1) % 7 === 0; // Check if the item is on the right side of the calendar
@@ -106,14 +107,11 @@ const CalendarItem = ({
 
 CalendarItem.propTypes = {
   dayOfMonth: PropTypes.number.isRequired,
-  icon: PropTypes.string,
   index: PropTypes.number.isRequired,
   availableSeats: PropTypes.number,
   totalInventory: PropTypes.number,
   onClick: PropTypes.func,
   isOtherMonth: PropTypes.bool,
-  currentMonth: PropTypes.number,
-  currentYear: PropTypes.number,
 };
 
 export default CalendarItem;

@@ -2,7 +2,12 @@
 const nextConfig = {
   reactStrictMode: true,
   images: {
-    domains: ["cdn.shopify.com"],
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "cdn.shopify.com",
+      },
+    ],
   },
   webpack: (config) => {
     config.resolve.fallback = {
