@@ -6,8 +6,8 @@ const ColorInfo = () => {
   const { translations } = useLanguage();
 
   return (
-    <div className="flex justify-center items-center rounded-[0.5rem] bg-tertiary2-normal h-[88px] md:h-10 mt-3 w-full md:max-w-[calc(7*6.282rem-6px)] lg:md:max-w-[calc(7*6.282rem-2px)]">
-      <div className="grid grid-cols-2 px-2 gap-6 justify-space-between md:gap-4 md:flex md:flex-row justify-center items-center">
+    <div className="mt-3 flex h-[88px] w-full items-center justify-center rounded-[0.5rem] bg-tertiary2-normal md:h-10 md:max-w-[calc(7*6.282rem-6px)] lg:md:max-w-[calc(7*6.282rem-2px)]">
+      <div className="grid grid-cols-2 items-center justify-between gap-6 px-2 md:flex md:flex-row md:gap-4">
         {[
           { color: "bg-primary-active", key: "today" },
           { color: "bg-calendar-open", key: "available" },
@@ -16,10 +16,10 @@ const ColorInfo = () => {
         ].map((item) => (
           <article key={item.key} className="flex items-center gap-2">
             <div
-              className={`w-4 h-4 rounded-full ${item.color}`}
+              className={`h-4 w-4 rounded-full ${item.color}`}
               aria-label={translations[`calendar.colorinfo.${item.key}`]}
             ></div>
-            <p className="text-labelMedium font-medium relative bottom-[1px]">
+            <p className="relative bottom-[1px] text-labelMedium font-medium">
               {translations[`calendar.colorinfo.${item.key}`]}
             </p>
           </article>

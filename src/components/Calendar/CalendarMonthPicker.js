@@ -43,21 +43,21 @@ const CalendarMonthPicker = () => {
   };
 
   return (
-    <div className="flex justify-between items-center mx-auto bg-primary-active_normal w-full h-[3.438rem] md:h-[2.25rem] md:max-w-[calc(7*6.282rem-2px)] lg:md:max-w-[calc(7*6.6.282rem-2px)] rounded-t-[0.5rem] text-titleMedium lg:text-titleSmall text-center text-tertiary2-light">
+    <div className="mx-auto flex h-[3.438rem] w-full items-center justify-between rounded-t-[0.5rem] bg-primary-active_normal text-center text-titleMedium text-tertiary2-light md:h-[2.25rem] md:max-w-[calc(7*6.282rem-2px)] lg:md:max-w-[calc(7*6.6.282rem-2px)] lg:text-titleSmall">
       <button
         onClick={handlePreviousMonth}
         aria-label="Previous Month"
-        className="relative left-6 md:left-10 lg:left-18"
+        className="relative left-6 md:left-10 lg:left-20"
       >
-        <img src="/icons/arrow-left-small.svg" className="w-4 h-4" />
+        <img src="/icons/arrow-left-small.svg" className="h-4 w-4" />
       </button>
       {months[currentMonth - 1]} {currentYear}
       <button
         onClick={handleNextMonth}
         aria-label="Next Month"
-        className="relative right-6 md:right-10 lg:right-18"
+        className="relative right-6 md:right-10 lg:right-20"
       >
-        <img src="/icons/arrow-right-small.svg" className="w-4 h-4" />
+        <img src="/icons/arrow-right-small.svg" className="h-4 w-4" />
       </button>
     </div>
   );

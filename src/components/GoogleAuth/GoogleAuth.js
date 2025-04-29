@@ -11,7 +11,7 @@ import { CredentialsContext } from "@/context/credentialsContext";
 import PropTypes from "prop-types";
 
 const GoogleAuth = ({ setMsg, setSuccess, setLoading }) => {
-  const clientId = process.env.GOOGLE_CLIENT_ID;
+  const clientId = process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID;
   const { translations } = useLanguage();
   const { setStoredCredentials } = useContext(CredentialsContext);
 
@@ -91,7 +91,7 @@ const GoogleAuth = ({ setMsg, setSuccess, setLoading }) => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center space-y-2 w-[17.5rem] md:w-[18rem] lg:w-[25rem]">
+    <div className="flex w-[17.5rem] flex-col items-center justify-center space-y-2 md:w-[18rem] lg:w-[25rem]">
       <Button
         text={translations["logIn.signin-google"]}
         onClick={() => login()}

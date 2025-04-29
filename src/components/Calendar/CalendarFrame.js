@@ -17,18 +17,18 @@ const CalendarFrame = () => {
   }
 
   return (
-    <div className="mb-12 flex flex-col items-center mx-10 md:mx-2 lg:mx-4 relative">
+    <div className="relative mx-10 mb-12 flex flex-col items-center md:mx-2 lg:mx-4">
       {error && (
-        <div className="text-primary-normal text-center mb-4">
+        <div className="mb-4 text-center text-primary-normal">
           <p>{error}</p>
         </div>
       )}
 
       {isLoading && (
-        <div className="absolute inset-0 bg-white bg-opacity-70 flex items-center justify-center z-10 rounded-lg">
+        <div className="absolute inset-0 z-10 flex items-center justify-center rounded-lg bg-white bg-opacity-70">
           <div className="flex flex-col items-center">
-            <div className="w-12 h-12 border-4 border-primary-normal border-t-transparent rounded-full animate-spin"></div>
-            <p className="mt-4 text-primary-normal font-medium">
+            <div className="h-12 w-12 animate-spin rounded-full border-4 border-primary-normal border-t-transparent"></div>
+            <p className="mt-4 font-medium text-primary-normal">
               {translations["calendar.loading"]}
             </p>
           </div>

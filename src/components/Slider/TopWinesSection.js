@@ -54,21 +54,21 @@ const wineData = [
 
 const TopWinesSection = () => {
   return (
-    <section className="py-20 bg-primary-light text-center relative pb-24 w-full">
+    <section className="relative w-full bg-primary-light py-20 pb-24 text-center">
       <div className="mb-[-60px]">
         <h3 className="text-titleMedium font-semibold text-primary-normal">
           MOST POPULAR PRODUCTS
         </h3>
-        <h2 className="font-regular text-tertiary1-dark text-displayLarge">
+        <h2 className="text-displayLarge font-regular text-tertiary1-dark">
           Top Wines
         </h2>
-        <p className="text-bodyLarge font-regular text-tertiary1-dark mt-2">
+        <p className="mt-2 text-bodyLarge font-regular text-tertiary1-dark">
           Our Exclusive Selection of Finest Wines, Handpicked for You <br />
           Discover our wine selection
         </p>
       </div>
 
-      <div className="relative w-full max-w-7xl mx-auto px-4 md:h-[660px] h-auto overflow-visible">
+      <div className="relative mx-auto h-auto w-full max-w-7xl overflow-visible px-4 md:h-[660px]">
         <Swiper
           slidesPerView={1}
           spaceBetween={5}
@@ -87,13 +87,13 @@ const TopWinesSection = () => {
           {wineData.map((wine, index) => (
             <SwiperSlide
               key={index}
-              className="flex justify-center items-center overflow-visible px-3"
+              className="flex items-center justify-center overflow-visible px-3"
             >
-              <div className="overflow-visible transition-all duration-300 group flex justify-center items-center px-5 py-5">
+              <div className="group flex items-center justify-center overflow-visible px-5 py-5 transition-all duration-300">
                 <WineCardSmall
                   data-testid="wine-card"
                   {...wine}
-                  className="transition-transform duration-300 group-hover:scale-105 shadow-lg group-hover:overflow-visible"
+                  className="shadow-lg transition-transform duration-300 group-hover:scale-105 group-hover:overflow-visible"
                 />
               </div>
             </SwiperSlide>
@@ -102,22 +102,24 @@ const TopWinesSection = () => {
 
         <button
           aria-label="Previous Slide"
+          /* eslint-disable-next-line tailwindcss/no-custom-classname */
           className="prev-btn nav-button nav-button-prev bg-primary-normal hover:bg-primary-dark"
         >
           <img
             src="/icons/slider/arrow-left.svg"
             alt="Previous"
-            className="w-4 h-4 md:w-5 md:h-5 invert"
+            className="h-4 w-4 invert md:h-5 md:w-5"
           />
         </button>
         <button
           aria-label="Next Slide"
+          /* eslint-disable-next-line tailwindcss/no-custom-classname */
           className="next-btn nav-button nav-button-next bg-primary-normal hover:bg-primary-dark"
         >
           <img
             src="/icons/slider/arrow-right.svg"
             alt="Next"
-            className="w-4 h-4 md:w-5 md:h-5 invert"
+            className="h-4 w-4 invert md:h-5 md:w-5"
           />
         </button>
       </div>

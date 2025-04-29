@@ -8,13 +8,13 @@ const ForgotPassword = () => {
   const { translations } = useLanguage();
 
   return (
-    <div className="relative flex justify-center items-center h-screen bg-[#FDE8E9]">
+    <div className="relative flex h-screen items-center justify-center bg-[#FDE8E9]">
       <img
         src="/vector.svg"
         alt="Background Vector"
-        className="absolute top-0 left-0 w-full h-full object-cover"
+        className="absolute left-0 top-0 h-full w-full object-cover"
       />
-      <div className="relative bg-white pt-10 pr-20 pb-10 pl-20 rounded-2xl shadow-lg w-[560px]  text-center">
+      <div className="relative w-[560px] rounded-2xl bg-white pb-10 pl-20 pr-20 pt-10 text-center  shadow-lg">
         <section className="mb-8 sm:!w-[133px]">
           <Button
             text={translations["button.go-back"]}
@@ -27,10 +27,10 @@ const ForgotPassword = () => {
             }}
           />
         </section>
-        <h1 className="text-headlineLarge text-left mb-4">
+        <h1 className="mb-4 text-left text-headlineLarge">
           {translations["forgotPassword.heading"]}
         </h1>
-        <p className="text-left mb-4 w-[400px]">
+        <p className="mb-4 w-[400px] text-left">
           {" "}
           {translations["forgotPassword.paragraph"]}
         </p>
@@ -38,9 +38,9 @@ const ForgotPassword = () => {
         <input
           type="email"
           placeholder={translations["forgotPassword.input"]}
-          className="w-full p-2 mb-4 mt-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+          className="mb-4 mt-2 w-full rounded-lg border border-gray-300 p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
         />
-        <div className="w-full mt-2 mb-4">
+        <div className="mb-4 mt-2 w-full">
           <Link href="/check-in-box">
             <Button
               text={translations["forgotPassword.button"]}

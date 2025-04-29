@@ -7,12 +7,12 @@ function InfoCard({ title, imageUrl, imageAlt = "", description, bgClass }) {
   return (
     <div
       data-testid="info-card"
-      className={`${bgClass} shadow-md pb-4 rounded-[2rem] text-tertiary1-darker `}
+      className={`${bgClass} rounded-[2rem] pb-4 text-tertiary1-darker shadow-md `}
     >
       {imageUrl && (
         <div
           data-testid="info-card-image-container"
-          className="relative w-full h-52 mb-8"
+          className="relative mb-8 h-52 w-full"
         >
           <Image
             data-testid="info-card-image"
@@ -21,14 +21,14 @@ function InfoCard({ title, imageUrl, imageAlt = "", description, bgClass }) {
             fill
             sizes="(max-width: 768px) 100vw, 50vw"
             priority
-            className="object-cover rounded-t-[2rem]"
+            className="rounded-t-[2rem] object-cover"
           />
         </div>
       )}
 
       <h3
         data-testid="info-card-title"
-        className="text-displaySmall font-medium mb-6 px-5"
+        className="mb-6 px-5 text-displaySmall font-medium"
       >
         {title}
       </h3>

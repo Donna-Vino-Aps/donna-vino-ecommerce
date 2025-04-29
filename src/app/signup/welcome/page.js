@@ -144,10 +144,10 @@ const Welcome = () => {
   };
 
   return (
-    <section className="my-4 bg-primary-light sm:bg-dots-lg sm:bg-dots-size-lg bg-dots-sm bg-dots-size-sm">
-      <div className="flex flex-col justify-center items-center sm:py-24 py-4 mx-2">
-        <div className="bg-tertiary2-light items-center justify-center rounded-2xl shadow-lg px-5 py-8 sm:px-16 sm:py-10 max-w-[35rem] w-full">
-          <div className="flex justify-center mb-4">
+    <section className="my-4 bg-primary-light bg-dots-sm bg-dots-size-sm sm:bg-dots-lg sm:bg-dots-size-lg">
+      <div className="mx-2 flex flex-col items-center justify-center py-4 sm:py-24">
+        <div className="w-full max-w-[35rem] items-center justify-center rounded-2xl bg-tertiary2-light px-5 py-8 shadow-lg sm:px-16 sm:py-10">
+          <div className="mb-4 flex justify-center">
             <Image
               src="/icons/message-check.svg"
               alt=""
@@ -157,13 +157,13 @@ const Welcome = () => {
           </div>
           <h1
             id="email-verification-title"
-            className="text-titleLarge sm:text-headlineMedium text-center mb-6 sm:mb-4"
+            className="mb-6 text-center text-titleLarge sm:mb-4 sm:text-headlineMedium"
           >
             {translations["signUp.welcome.title"]}
           </h1>
 
           <p
-            className="text-bodyLarge mb-6 sm:mb-4 text-left"
+            className="mb-6 text-left text-bodyLarge sm:mb-4"
             dangerouslySetInnerHTML={{
               __html: translations["signUp.welcome.message"],
             }}
@@ -177,14 +177,14 @@ const Welcome = () => {
             ariaLabel={translations["signUp.welcome.button"]}
           />
 
-          <div className="text-left mt-6 sm:mt-8">
+          <div className="mt-6 text-left sm:mt-8">
             <span className="text-bodyLarge">
               {translations["signUp.welcome.resend"]}{" "}
             </span>
             <button
-              className={`font-semibold underline focus:outline-none inline-block ${
+              className={`inline-block font-semibold underline focus:outline-none ${
                 isResendDisabled
-                  ? "text-tertiary2-dark cursor-not-allowed"
+                  ? "cursor-not-allowed text-tertiary2-dark"
                   : "hover:text-primary-hover_normal"
               }`}
               onClick={handleResendVerification}
@@ -204,7 +204,7 @@ const Welcome = () => {
             {showResendMessage && (
               <div className="mt-2">
                 <p
-                  className={`text-bodySmall text-center ${
+                  className={`text-center text-bodySmall ${
                     resendSuccess
                       ? "text-secondary-normal"
                       : "text-primary-normal"

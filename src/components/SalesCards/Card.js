@@ -11,17 +11,17 @@ export default function Card({
   url,
 }) {
   return (
-    <div className="w-full h-full flex flex-col justify-between rounded-2xl px-2 pb-4 pt-2 md:px-4 md:pt-4 md:pb-6 bg-white border border-primary-active">
-      <div className="flex gap-4 items-center px-4">
+    <div className="flex h-full w-full flex-col justify-between rounded-2xl border border-primary-active bg-white px-2 pb-4 pt-2 md:px-4 md:pb-6 md:pt-4">
+      <div className="flex items-center gap-4 px-4">
         <img className="size-8 md:size-12" src={src} alt="cardImg" />
-        <p className="text-titleMedium md:text-headlineSmall py-2">{title}</p>
+        <p className="py-2 text-titleMedium md:text-headlineSmall">{title}</p>
       </div>
-      <div className="flex flex-col text-tertiary1-darker px-4 my-4 md:my-8 gap-4 text-bodySmall md:text-bodyLarge">
+      <div className="my-4 flex flex-col gap-4 px-4 text-bodySmall text-tertiary1-darker md:my-8 md:text-bodyLarge">
         <p dangerouslySetInnerHTML={{ __html: description1 }} />
         <p dangerouslySetInnerHTML={{ __html: description2 }} />
       </div>
       <Link
-        className="px-4 py-2 text-primary-normal md:text-bodyLarge text-bodyMedium"
+        className="px-4 py-2 text-bodyMedium text-primary-normal md:text-bodyLarge"
         href={url}
       >
         {urlTitle}

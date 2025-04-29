@@ -57,18 +57,18 @@ const VerificationFailedContent = () => {
   };
 
   return (
-    <section className="my-4 bg-primary-light sm:bg-dots-lg sm:bg-dots-size-lg bg-dots-sm bg-dots-size-sm">
-      <div className="flex flex-col justify-center items-center sm:py-24 py-4 mx-2">
-        <div className="bg-tertiary2-light items-center justify-center rounded-2xl shadow-lg px-5 py-8 sm:px-16 sm:py-10 max-w-[35rem] w-full">
+    <section className="my-4 bg-primary-light bg-dots-sm bg-dots-size-sm sm:bg-dots-lg sm:bg-dots-size-lg">
+      <div className="mx-2 flex flex-col items-center justify-center py-4 sm:py-24">
+        <div className="w-full max-w-[35rem] items-center justify-center rounded-2xl bg-tertiary2-light px-5 py-8 shadow-lg sm:px-16 sm:py-10">
           <h1
             id="verification-failed-title"
-            className="text-titleLarge sm:text-headlineMedium text-center mb-6 sm:mb-4"
+            className="mb-6 text-center text-titleLarge sm:mb-4 sm:text-headlineMedium"
           >
             {getTitle()}
           </h1>
 
           <p
-            className="text-bodyLarge mb-6 sm:mb-4 text-center"
+            className="mb-6 text-center text-bodyLarge sm:mb-4"
             data-testid="verification-failed-message"
           >
             {getMessage()}
@@ -91,9 +91,9 @@ const VerificationFailed = () => {
   return (
     <Suspense
       fallback={
-        <div className="flex justify-center items-center min-h-[50vh]">
-          <div className="text-center p-4">
-            <div className="animate-pulse text-secondary-normal font-medium">
+        <div className="flex min-h-[50vh] items-center justify-center">
+          <div className="p-4 text-center">
+            <div className="animate-pulse font-medium text-secondary-normal">
               Loading...
             </div>
           </div>
