@@ -12,7 +12,6 @@ import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { GoogleOAuthProvider } from "@react-oauth/google";
 
 const RootLayout = ({ children }) => {
-  logInfo("Google Client ID:", process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID);
   const [storedCredentials, setStoredCredentials] = useState(null);
 
   const checkLoginCredentials = async () => {
