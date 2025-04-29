@@ -112,8 +112,8 @@ const EventList = () => {
   };
 
   const renderMonthHeader = () => (
-    <h2 className="mb-4 w-full rounded-[0.5rem] bg-[#FFF4F4] px-4 py-2 text-titleMedium font-medium">
-      {translations["events.upcomingTitle"]}{" "}
+    <h2 className="mb-4 flex w-full items-baseline gap-1 rounded-[0.5rem] bg-[#FFF4F4] px-4 py-2 text-titleMedium font-medium">
+      <span>{translations["events.upcomingTitle"]}</span>
       <span className="font-semibold">
         {format(new Date(selectedYear, selectedMonth - 1, 1), "MMMM", {
           locale: getLocale(),

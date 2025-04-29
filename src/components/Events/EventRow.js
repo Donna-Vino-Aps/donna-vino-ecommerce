@@ -31,13 +31,11 @@ const EventRow = ({
 
         <div className="flex w-[56%] flex-col items-start text-labelLarge">
           <p>
-            <span className="font-medium">{translations["events.wines"]}:</span>{" "}
+            <span className="font-medium">{translations["events.wines"]}</span>
             <span dangerouslySetInnerHTML={{ __html: wine }} />
           </p>
           <p>
-            <span className="font-medium">
-              {translations["events.winery"]}:
-            </span>{" "}
+            <span className="font-medium">{translations["events.winery"]}</span>
             <span dangerouslySetInnerHTML={{ __html: winery }} />
           </p>
         </div>
