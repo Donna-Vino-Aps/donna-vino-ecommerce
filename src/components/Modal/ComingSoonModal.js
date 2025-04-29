@@ -30,7 +30,7 @@ const ComingSoonModal = ({ isOpen, onClose }) => {
         ></Button>
         <Button
           text={translations["modal.button-right"]}
-          icon="/icons/phone-ring.svg"
+          icon="/icons/envelope-alt.svg"
           variant="darkGreenModal"
           testId="modal-button-contact"
           ariaLabel={translations["modal.button-right"]}
