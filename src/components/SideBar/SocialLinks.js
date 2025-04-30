@@ -5,11 +5,11 @@ export default function SocialLinks() {
   const { translations } = useLanguage();
 
   return (
-    <div className="flex flex-col gap-8 relative bottom-2">
+    <div className="relative bottom-2 flex flex-col gap-8">
       <h3 className="text-labelXLarge font-semibold">
         {translations["footer.follow"]}
       </h3>
-      <div className="flex gap-6 justify-start" aria-label="Social media icons">
+      <div className="flex justify-start gap-6" aria-label="Social media icons">
         <a
           href="https://www.instagram.com/donna_vino_winetastings/"
           data-testid="social-icon-instagram-link"
@@ -17,7 +17,7 @@ export default function SocialLinks() {
         >
           <img
             src="/icons/instagram-original.svg"
-            className="h-[1.5rem] filter brightness-0"
+            className="h-[1.5rem] brightness-0 filter"
             alt="Instagram"
           />
         </a>
@@ -28,7 +28,7 @@ export default function SocialLinks() {
         >
           <img
             src="/icons/linkedin-alt.svg"
-            className="h-[1.5rem] filter brightness-0"
+            className="h-[1.5rem] brightness-0 filter"
             alt="LinkedIn"
           />
         </a>
@@ -39,7 +39,7 @@ export default function SocialLinks() {
         >
           <img
             src="/icons/facebook-line.svg"
-            className="h-[1.5rem] filter brightness-0"
+            className="h-[1.5rem] brightness-0 filter"
             alt="Facebook"
           />
         </a>

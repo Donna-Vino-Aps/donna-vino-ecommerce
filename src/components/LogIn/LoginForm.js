@@ -1,6 +1,6 @@
 import React, { useState, useContext, useEffect } from "react";
 import { Formik, Form } from "formik";
-import { useCredentials } from "../../context/CredentialsContext";
+import { useCredentials } from "@/context/CredentialsContext";
 import { useLanguage } from "@/context/LanguageContext";
 import useFetch from "@/hooks/api/useFetch.js";
 import { useRouter } from "next/navigation";
@@ -8,7 +8,7 @@ import { useRouter } from "next/navigation";
 import Button from "../Button/Button.js";
 import Link from "next/link";
 import TextInput from "../TextInput/TextInput";
-import { logInfo, logError } from "../../utils/logging";
+import { logInfo, logError } from "@/utils/logging";
 import GoogleAuth from "../GoogleAuth/GoogleAuth";
 import { mapBackendMessage } from "@/services/messageMap";
 

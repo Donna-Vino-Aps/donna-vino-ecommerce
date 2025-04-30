@@ -16,7 +16,7 @@ const RootLayout = ({ children }) => {
     <GoogleOAuthProvider clientId={process.env.GOOGLE_CLIENT_ID}>
       <LocalizationProvider dateAdapter={AdapterDayjs}>
         <html lang="en">
-          <body className="flex flex-col min-h-screen w-full font-barlow bg-white text-foreground-normal">
+          <body className="flex min-h-screen w-full flex-col bg-white font-barlow text-tertiary1-normal">
             <CredentialsProvider>
               <LanguageProvider>
                 <UserContextProvider>

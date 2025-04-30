@@ -42,7 +42,7 @@ const SideBar = ({ isMenuOpen, toggleMenu, navLinks }) => {
 
   return (
     <div
-      className={`fixed right-0 top-0 w-full bg-white h-full lg:hidden z-40 overflow-y-auto ${
+      className={`fixed right-0 top-0 z-40 h-full w-full overflow-y-auto bg-white lg:hidden ${
         isMenuOpen ? "translate-x-0" : "translate-x-full"
       }`}
       data-testid="side-bar"
@@ -50,8 +50,8 @@ const SideBar = ({ isMenuOpen, toggleMenu, navLinks }) => {
       aria-labelledby="menu-heading"
       inert={!isMenuOpen}
     >
-      <div className="flex flex-col h-full gap-8 p-8">
-        <div className="flex justify-between items-center">
+      <div className="flex h-full flex-col gap-8 p-8">
+        <div className="flex items-center justify-between">
           <UserInfoMobile />
           <button
             role="button"
@@ -62,7 +62,7 @@ const SideBar = ({ isMenuOpen, toggleMenu, navLinks }) => {
             <img
               src="/icons/close.svg"
               alt="Close icon"
-              className="mt-3 mr-1 w-[1.12rem] h-[1.12rem]"
+              className="mr-1 mt-3 h-[1.12rem] w-[1.12rem]"
             />
           </button>
         </div>
@@ -71,13 +71,13 @@ const SideBar = ({ isMenuOpen, toggleMenu, navLinks }) => {
           <h2 id="menu-heading" className="sr-only">
             Mobile navigation menu
           </h2>
-          <hr className="border-t-slate-300 my-2" />
+          <hr className="my-2 border-t-slate-300" />
           <nav role="navigation">
             <ul className="ml-2 flex flex-col">
               {navLinks.map((link) => (
                 <li
                   key={link.id}
-                  className={`flex relative gap-5 active:bg-primary-light active:rounded-lg duration-300`}
+                  className={`relative flex gap-5 duration-300 active:rounded-lg active:bg-primary-light`}
                 >
                   <img
                     className="relative left-[6px] top-[10px] inline-block h-[1.25rem] w-[1.25rem] text-right align-middle"
@@ -142,9 +142,9 @@ const SideBar = ({ isMenuOpen, toggleMenu, navLinks }) => {
               ))}
             </ul>
           </nav>
-          <hr className="border-t-slate-300 my-2" />
+          <hr className="my-2 border-t-slate-300" />
           <Link
-            className="flex gap-2 pl-4 pb-8"
+            className="flex gap-2 pb-8 pl-4"
             href="#"
             onClick={(event) => {
               event.preventDefault();
@@ -152,15 +152,15 @@ const SideBar = ({ isMenuOpen, toggleMenu, navLinks }) => {
             }}
           >
             <img
-              className="w-[1.5rem] h-[1.5rem]"
+              className="h-[1.5rem] w-[1.5rem]"
               src="/icons/logout.svg"
               alt="logout"
             />
             <span>Log out</span>
           </Link>
         </div>
-        <div className="w-[10.12rem] h-[4.87rem] flex flex-col items-start relative bottom-4">
-          <p className="text-labelXLarge font-semibold mb-6">
+        <div className="relative bottom-4 flex h-[4.87rem] w-[10.12rem] flex-col items-start">
+          <p className="mb-6 text-labelXLarge font-semibold">
             {translations["footer.language"]}
           </p>
           <LanguageSwitch />

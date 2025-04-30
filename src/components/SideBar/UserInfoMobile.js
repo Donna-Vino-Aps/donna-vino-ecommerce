@@ -2,12 +2,12 @@ import React from "react";
 
 export default function UserInfoMobile() {
   return (
-    <div className="flex relative top-8 left-1 gap-4">
+    <div className="relative left-1 top-8 flex gap-4">
       <a href="/" className="">
         <img
           src="/images/courtney-cook-unsplash.jpg"
           alt="User Profile Picture"
-          className="w-18 h-18"
+          className="size-20"
         />
         <img
           src="/icons/Edit profile pic.svg"
