@@ -67,11 +67,11 @@ const SideBar = ({ isMenuOpen, toggleMenu, navLinks }) => {
           </button>
         </div>
 
-        <div className="flex flex-col gap-8">
+        <div className="flex flex-col gap-2">
           <h2 id="menu-heading" className="sr-only">
             Mobile navigation menu
           </h2>
-          <hr className="relative top-6 border-t-slate-300" />
+          <hr className="border-t-slate-300 my-2" />
           <nav role="navigation">
             <ul className="ml-2 flex flex-col">
               {navLinks.map((link) => (
@@ -133,25 +133,6 @@ const SideBar = ({ isMenuOpen, toggleMenu, navLinks }) => {
                               index !== link.sublinks.length - 1 && (
                                 <hr className="relative left-4 mb-1 mt-3 w-[95%] border-[1.25px] border-secondary-hover" />
                               )}
-                            {link.id === "account" &&
-                              index === link.sublinks.length - 1 && (
-                                <div>
-                                  <hr className="relative left-4 mb-1 mt-3 w-[95%] border-[1.25px] border-secondary-hover" />
-                                  <div
-                                    className="relative left-4 mb-1 mt-5 flex gap-2 text-bodyMedium text-tertiary1-normal"
-                                    onClick={handleLogout}
-                                  >
-                                    <button role="button">
-                                      {translations["user-dropdown.logout"]}
-                                    </button>
-                                    <img
-                                      src="/icons/logout.svg"
-                                      alt="log out icon"
-                                      className="relative"
-                                    ></img>
-                                  </div>
-                                </div>
-                              )}
                           </div>
                         ))}
                       </div>
@@ -161,20 +142,25 @@ const SideBar = ({ isMenuOpen, toggleMenu, navLinks }) => {
               ))}
             </ul>
           </nav>
-          <hr className="border-t-slate-300 relative bottom-4" />
+          <hr className="border-t-slate-300 my-2" />
           <Link
+            className="flex gap-2 pl-4 pb-8"
             href="#"
             onClick={(event) => {
               event.preventDefault();
               logout();
             }}
           >
-            Log out
+            <img
+              className="w-[1.5rem] h-[1.5rem]"
+              src="/icons/logout.svg"
+              alt="logout"
+            />
+            <span>Log out</span>
           </Link>
         </div>
-
-        <div className="relative bottom-4 flex h-[4.87rem] w-[10.12rem] flex-col items-start">
-          <p className="mb-6 text-labelXLarge font-semibold">
+        <div className="w-[10.12rem] h-[4.87rem] flex flex-col items-start relative bottom-4">
+          <p className="text-labelXLarge font-semibold mb-6">
             {translations["footer.language"]}
           </p>
           <LanguageSwitch />

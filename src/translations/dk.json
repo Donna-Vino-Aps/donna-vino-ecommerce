@@ -52,6 +52,7 @@
   "signUp.verificationFailed.generic.message": "Der opstod et problem med din verifikation. Prøv venligst at tilmelde dig igen eller kontakt vores supportteam, hvis problemet fortsætter.",
   "signUp.verificationFailed.login.button": "Gå til Login",
   "signUp.verificationFailed.signup.button": "Tilmeld Igen",
+  "logIn.success": "Google-login gennemført!",
   "logIn.button": "Logge Ind",
   "logIn.signin-google": "Log ind med Google",
   "logIn.label-mail": "E-mail Adresse",

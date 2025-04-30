@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import axios from "axios";
-import { baseApiUrl } from "../../config/environment";
-import { logInfo } from "../../utils/logging";
+import { baseApiUrl } from "@/config/environment";
+import { logInfo } from "@/utils/logging";
 
 const useFetch = (
   initialRoute,

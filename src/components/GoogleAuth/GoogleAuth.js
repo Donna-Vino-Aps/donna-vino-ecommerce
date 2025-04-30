@@ -8,12 +8,14 @@ import { logInfo, logError } from "@/utils/logging";
 import Button from "../Button/Button";
 import { useLanguage } from "@/context/LanguageContext";
 import { useCredentials } from "@/context/CredentialsContext";
+import { useRouter } from "next/navigation";
 import PropTypes from "prop-types"; // Import PropTypes
 
 const GoogleAuth = ({ setMsg, setSuccess, setLoading }) => {
   const clientId = process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID;
   const { translations } = useLanguage();
   const { setStoredCredentials } = useCredentials();
+  const router = useRouter();
 
   const login = useGoogleLogin({
     onSuccess: async (response) => {
@@ -49,8 +51,9 @@ const GoogleAuth = ({ setMsg, setSuccess, setLoading }) => {
         if (serverResponse.data.success) {
           logInfo("Backend authentication succeeded.");
           saveLoginCredentials(userData, accessToken);
-          setMsg(translations["logIn.success"] || "Google login successful!");
+          setMsg(translations["logIn.success"]);
           setSuccess(true);
+          router.push("/");
         } else {
           throw new Error(
             serverResponse.data.msg || "Backend authentication failed",

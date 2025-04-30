@@ -52,6 +52,7 @@
   "signUp.verificationFailed.generic.message": "There was a problem with your verification. Please try signing up again or contact our support team if the issue persists.",
   "signUp.verificationFailed.login.button": "Go to Login",
   "signUp.verificationFailed.signup.button": "Sign Up Again",
+  "logIn.success": "Google login successful!",
   "logIn.button": "Log In",
   "logIn.signin-google": "Sign in with Google",
   "logIn.label-mail": "Email Address",
