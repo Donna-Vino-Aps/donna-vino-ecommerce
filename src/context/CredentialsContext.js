@@ -29,8 +29,8 @@ export const CredentialsProvider = ({ children }) => {
 
   const handleLogout = async () => {
     setStoredCredentials(null);
-    await localStorage.removeItem("userCredentials");
-    await localStorage.removeItem("userCredentialsToken");
+    localStorage.removeItem("userCredentials");
+    localStorage.removeItem("userCredentialsToken");
     router.push("/"); // Redirect to start page
   };
 
