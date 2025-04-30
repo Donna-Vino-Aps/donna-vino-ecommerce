@@ -2,7 +2,13 @@
 import React, { createContext, useContext, useState, useEffect } from "react";
 import PropTypes from "prop-types";
 
-const CalendarContext = createContext();
+const defaultContextValue = {
+  selectedMonth: null,
+  selectedYear: null,
+  onMonthYearChange: () => {},
+};
+
+const CalendarContext = createContext(defaultContextValue);
 
 export function CalendarProvider({ children }) {
   const [selectedMonth, setSelectedMonth] = useState(null);
