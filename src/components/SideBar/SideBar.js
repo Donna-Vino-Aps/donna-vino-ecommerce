@@ -156,7 +156,7 @@ const SideBar = ({ isMenuOpen, toggleMenu, navLinks }) => {
               src="/icons/logout.svg"
               alt="logout"
             />
-            <span>Log out</span>
+            <span>{translations["user-dropdown.logout"]}</span>
           </Link>
         </div>
         <div className="relative bottom-4 flex h-[4.87rem] w-[10.12rem] flex-col items-start">
