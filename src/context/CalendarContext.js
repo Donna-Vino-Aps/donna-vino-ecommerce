@@ -10,13 +10,19 @@ const defaultContextValue = {
 
 const CalendarContext = createContext(defaultContextValue);
 
+const getCurrentDateInfo = () => ({
+  month: new Date().getMonth() + 1,
+  year: new Date().getFullYear(),
+});
+
 export function CalendarProvider({ children }) {
   const [selectedMonth, setSelectedMonth] = useState(null);
   const [selectedYear, setSelectedYear] = useState(null);
 
   useEffect(() => {
-    setSelectedMonth(new Date().getMonth() + 1);
-    setSelectedYear(new Date().getFullYear());
+    const { month, year } = getCurrentDateInfo();
+    setSelectedMonth(month);
+    setSelectedYear(year);
   }, []);
 
   const handleMonthYearChange = (month, year) => {
