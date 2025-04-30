@@ -43,7 +43,13 @@ export function CalendarProvider({ children }) {
   );
 }
 
-export const useCalendar = () => useContext(CalendarContext);
+export const useCalendar = () => {
+  const context = useContext(CalendarContext);
+  if (context.selectedMonth === null && context.selectedYear === null) {
+    throw new Error("useCalendar must be used within a CalendarProvider");
+  }
+  return context;
+};
 
 CalendarProvider.propTypes = {
   children: PropTypes.node.isRequired,
