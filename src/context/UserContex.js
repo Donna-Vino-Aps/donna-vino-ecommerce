@@ -1,3 +1,5 @@
+"use client";
+
 import React, { createContext, useContext, useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import { useLanguage } from "@/context/LanguageContext";
@@ -10,7 +12,7 @@ export const UserContextProvider = ({ children }) => {
 
   const { logout } = useCredentials();
 
-  const { translations, language } = useLanguage();
+  const { translations } = useLanguage();
 
   useEffect(() => {
     setMenuItems([
@@ -60,7 +62,7 @@ export const UserContextProvider = ({ children }) => {
         onClick: logout,
       },
     ]);
-  }, [translations, language]);
+  }, [translations]);
 
   return (
     <UserContext.Provider value={{ menuItems }}>

@@ -9,7 +9,7 @@ import Button from "../Button/Button";
 import { useLanguage } from "@/context/LanguageContext";
 import { useCredentials } from "@/context/CredentialsContext";
 import { useRouter } from "next/navigation";
-import PropTypes from "prop-types"; // Import PropTypes
+import PropTypes from "prop-types";
 
 const GoogleAuth = ({ setMsg, setSuccess, setLoading }) => {
   const clientId = process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID;

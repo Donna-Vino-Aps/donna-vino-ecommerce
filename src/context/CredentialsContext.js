@@ -1,3 +1,5 @@
+"use client";
+
 import React from "react";
 import { createContext, useContext, useEffect, useState } from "react";
 import PropTypes from "prop-types";
