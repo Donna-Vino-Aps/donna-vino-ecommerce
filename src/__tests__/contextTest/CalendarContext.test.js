@@ -1,5 +1,5 @@
 import React from "react";
-import { render, screen } from "@testing-library/react";
+import { render, screen, act } from "@testing-library/react";
 import { CalendarProvider, useCalendar } from "@/context/CalendarContext";
 
 const EXPECTED_MONTH = 4;
@@ -27,7 +27,7 @@ describe("CalendarContext", () => {
   });
 
   describe("CalendarProvider", () => {
-    it("initializes with the current month and year", () => {
+    it("should initialize with the current month and year", () => {
       render(
         <CalendarProvider>
           <TestComponent />
@@ -40,6 +40,27 @@ describe("CalendarContext", () => {
       expect(screen.getByTestId("year").textContent).toBe(
         EXPECTED_YEAR.toString(),
       );
+    });
+
+    it("should update month and year when onMonthYearChange is called", () => {
+      render(
+        <CalendarProvider>
+          <TestComponent />
+        </CalendarProvider>,
+      );
+
+      expect(screen.getByTestId("month").textContent).toBe(
+        EXPECTED_MONTH.toString(),
+      );
+      expect(screen.getByTestId("year").textContent).toBe(
+        EXPECTED_YEAR.toString(),
+      );
+
+      act(() => {
+        screen.getByTestId("change-date").click();
+      });
+      expect(screen.getByTestId("month").textContent).toBe("12");
+      expect(screen.getByTestId("year").textContent).toBe("2026");
     });
   });
 });
