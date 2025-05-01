@@ -13,7 +13,7 @@ import { UserContextProvider } from "@/context/UserContex";
 
 const RootLayout = ({ children }) => {
   return (
-    <GoogleOAuthProvider clientId={process.env.GOOGLE_CLIENT_ID}>
+    <GoogleOAuthProvider clientId={process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID}>
       <LocalizationProvider dateAdapter={AdapterDayjs}>
         <html lang="en">
           <body className="flex min-h-screen w-full flex-col bg-white font-barlow text-tertiary1-normal">
