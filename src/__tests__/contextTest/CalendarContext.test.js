@@ -78,5 +78,20 @@ describe("CalendarContext", () => {
         onMonthYearChange: expect.any(Function),
       });
     });
+
+    it("should handles the month/year change function correctly", () => {
+      const { result } = renderHook(() => useCalendar(), {
+        wrapper: ({ children }) => (
+          <CalendarProvider>{children}</CalendarProvider>
+        ),
+      });
+
+      act(() => {
+        result.current.onMonthYearChange(3, 2030);
+      });
+
+      expect(result.current.selectedMonth).toBe(3);
+      expect(result.current.selectedYear).toBe(2030);
+    });
   });
 });
