@@ -79,7 +79,7 @@ describe("CalendarContext", () => {
       });
     });
 
-    it("should handles the month/year change function correctly", () => {
+    it("should handle the month/year change function correctly", () => {
       const { result } = renderHook(() => useCalendar(), {
         wrapper: ({ children }) => (
           <CalendarProvider>{children}</CalendarProvider>
@@ -96,7 +96,7 @@ describe("CalendarContext", () => {
   });
 
   describe("Edge cases", () => {
-    it("should handles year transitions correctly", () => {
+    it("should handle year transitions correctly", () => {
       const { result } = renderHook(() => useCalendar(), {
         wrapper: ({ children }) => (
           <CalendarProvider>{children}</CalendarProvider>
@@ -118,7 +118,7 @@ describe("CalendarContext", () => {
       expect(result.current.selectedYear).toBe(2026);
     });
 
-    it("should handles out-of-range months gracefully", () => {
+    it("should handle out-of-range months gracefully", () => {
       const { result } = renderHook(() => useCalendar(), {
         wrapper: ({ children }) => (
           <CalendarProvider>{children}</CalendarProvider>
