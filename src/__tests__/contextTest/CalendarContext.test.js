@@ -1,5 +1,5 @@
 import React from "react";
-import { render, screen, act } from "@testing-library/react";
+import { render, screen, renderHook, act } from "@testing-library/react";
 import { CalendarProvider, useCalendar } from "@/context/CalendarContext";
 
 const EXPECTED_MONTH = 4;
@@ -61,6 +61,22 @@ describe("CalendarContext", () => {
       });
       expect(screen.getByTestId("month").textContent).toBe("12");
       expect(screen.getByTestId("year").textContent).toBe("2026");
+    });
+  });
+
+  describe("useCalendar hook", () => {
+    it("should provide the calendar context when used within a provider", () => {
+      const { result } = renderHook(() => useCalendar(), {
+        wrapper: ({ children }) => (
+          <CalendarProvider>{children}</CalendarProvider>
+        ),
+      });
+
+      expect(result.current).toMatchObject({
+        selectedMonth: EXPECTED_MONTH,
+        selectedYear: EXPECTED_YEAR,
+        onMonthYearChange: expect.any(Function),
+      });
     });
   });
 });
