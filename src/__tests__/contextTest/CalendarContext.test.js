@@ -94,4 +94,28 @@ describe("CalendarContext", () => {
       expect(result.current.selectedYear).toBe(2030);
     });
   });
+
+  describe("Edge cases", () => {
+    it("should handles year transitions correctly", () => {
+      const { result } = renderHook(() => useCalendar(), {
+        wrapper: ({ children }) => (
+          <CalendarProvider>{children}</CalendarProvider>
+        ),
+      });
+
+      act(() => {
+        result.current.onMonthYearChange(12, 2025);
+      });
+
+      expect(result.current.selectedMonth).toBe(12);
+      expect(result.current.selectedYear).toBe(2025);
+
+      act(() => {
+        result.current.onMonthYearChange(1, 2026);
+      });
+
+      expect(result.current.selectedMonth).toBe(1);
+      expect(result.current.selectedYear).toBe(2026);
+    });
+  });
 });
