@@ -33,7 +33,7 @@ const HeroSlider = () => {
       paragraph: "tasting.paragraph2",
       buttonText: "tasting.button2",
       buttonIcon: "/icons/wine-glass-white.svg",
-      media: "/images/hero-wines.jpg",
+      media: "/images/hero-wines-resized.png",
       url: "", // blank for now until the webshop is ready
     },
     {
@@ -43,7 +43,7 @@ const HeroSlider = () => {
       paragraph: "tasting.paragraph3",
       buttonText: "tasting.button3",
       buttonIcon: "/icons/envelope-alt.svg",
-      media: "/images/hero-newsletter.jpg",
+      media: "/images/hero-newsletter-resized.jpg",
       url: "https://www.donnavino.dk/#subscribe",
     },
   ];
@@ -93,7 +93,7 @@ const HeroSlider = () => {
                 {slide.type === "video" ? (
                   hasCredits ? (
                     <video
-                      className="md:absolute md:inset-0 mt-4 iimd:mt-0 rounded-tr-[0rem] rounded-br-[0rem] md:rounded-tr-[8rem] md:rounded-br-xl object-cover w-full max-h-[22.5rem] md:min-h-[43.75rem]"
+                      className="md:absolute md:inset-0 mt-4 md:mt-0 rounded-tr-[0rem] rounded-br-[0rem] md:rounded-tr-[8rem] md:rounded-br-xl object-cover w-full max-h-[22.5rem] md:min-h-[43.75rem]"
                       autoPlay
                       loop
                       muted
@@ -108,8 +108,8 @@ const HeroSlider = () => {
                     </video>
                   ) : (
                     <img
-                      src="/images/caroline-attwood-unsplash.jpg"
-                      className="md:absolute md:inset-0 mt-4 iimd:mt-0 rounded-tr-[0rem] rounded-br-[0rem] md:rounded-tr-[8rem] md:rounded-br-[0.5rem] object-cover w-full max-h-[22.5rem] md:min-h-[43.75rem]"
+                      src="/images/hero-tasting-resized.jpg"
+                      className="md:absolute md:inset-0 mt-4 md:mt-0 rounded-tr-[0rem] rounded-br-[0rem] md:rounded-tr-[8rem] md:rounded-br-[0.5rem] object-cover w-full max-h-[22.5rem] md:min-h-[43.75rem]"
                       data-testid="fallback-image"
                       alt="Wine glasses at a winetasting"
                     />
@@ -118,7 +118,7 @@ const HeroSlider = () => {
                   <img
                     src={slide.media}
                     alt="Slide media"
-                    className="md:absolute md:inset-0 mt-4 iimd:mt-0 rounded-tr-[0rem] rounded-br-[0rem] md:rounded-tl-[8rem] md:rounded-bl-xl object-cover w-full max-h-[22.5rem] md:min-h-[43.75rem]"
+                    className="md:absolute md:inset-0 mt-4 md:mt-0 rounded-tr-[0rem] rounded-br-[0rem] md:rounded-tl-[8rem] md:rounded-bl-xl object-cover w-full max-h-[22.5rem] md:min-h-[43.75rem]"
                   />
                 )}
               </div>
