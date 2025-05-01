@@ -117,5 +117,23 @@ describe("CalendarContext", () => {
       expect(result.current.selectedMonth).toBe(1);
       expect(result.current.selectedYear).toBe(2026);
     });
+
+    it("should handles out-of-range months gracefully", () => {
+      const { result } = renderHook(() => useCalendar(), {
+        wrapper: ({ children }) => (
+          <CalendarProvider>{children}</CalendarProvider>
+        ),
+      });
+
+      act(() => {
+        result.current.onMonthYearChange(0, 2025);
+      });
+      expect(result.current.selectedMonth).toBe(0);
+
+      act(() => {
+        result.current.onMonthYearChange(13, 2025);
+      });
+      expect(result.current.selectedMonth).toBe(13);
+    });
   });
 });
