@@ -33,7 +33,7 @@ const HeroSlider = () => {
       paragraph: "tasting.paragraph2",
       buttonText: "tasting.button2",
       buttonIcon: "/icons/wine-glass-white.svg",
-      media: "/images/hero-wines.jpg",
+      media: "/images/hero-wines-resized.png",
       url: "", // blank for now until the webshop is ready
     },
     {
@@ -43,7 +43,7 @@ const HeroSlider = () => {
       paragraph: "tasting.paragraph3",
       buttonText: "tasting.button3",
       buttonIcon: "/icons/envelope-alt.svg",
-      media: "/images/hero-newsletter.jpg",
+      media: "/images/hero-newsletter-resized.jpg",
       url: "https://www.donnavino.dk/#subscribe",
     },
   ];
@@ -107,8 +107,8 @@ const HeroSlider = () => {
                     </video>
                   ) : (
                     <img
-                      src="/images/caroline-attwood-unsplash.jpg"
-                      className="iimd:mt-0 mt-4 max-h-[22.5rem] w-full rounded-br-[0rem] rounded-tr-[0rem] object-cover md:absolute md:inset-0 md:min-h-[43.75rem] md:rounded-br-[0.5rem] md:rounded-tr-[8rem]"
+                      src="/images/hero-tasting-resized.jpg"
+                      className="mt-4 max-h-[22.5rem] w-full rounded-br-[0rem] rounded-tr-[0rem] object-cover md:absolute md:inset-0 md:mt-0 md:min-h-[43.75rem] md:rounded-br-[0.5rem] md:rounded-tr-[8rem]"
                       data-testid="fallback-image"
                     />
                   )
@@ -116,7 +116,7 @@ const HeroSlider = () => {
                   <img
                     src={slide.media}
                     alt="Slide media"
-                    className="iimd:mt-0 mt-4 max-h-[22.5rem] w-full rounded-br-[0rem] rounded-tr-[0rem] object-cover md:absolute md:inset-0 md:min-h-[43.75rem] md:rounded-bl-xl md:rounded-tl-[8rem]"
+                    className="mt-4 max-h-[22.5rem] w-full rounded-br-[0rem] rounded-tr-[0rem] object-cover md:absolute md:inset-0 md:mt-0 md:min-h-[43.75rem] md:rounded-bl-xl md:rounded-tl-[8rem]"
                   />
                 )}
               </div>
