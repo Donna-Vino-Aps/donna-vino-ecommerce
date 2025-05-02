@@ -107,7 +107,10 @@ describe("useFetch Hook", () => {
 
   it("should add Authorization header with token if present in localStorage", async () => {
     const mockToken = "mocked-token";
-    localStorage.setItem("userCredentials", mockToken);
+    localStorage.setItem(
+      "userCredentials",
+      JSON.stringify({ token: mockToken }),
+    );
 
     const onReceived = jest.fn();
 

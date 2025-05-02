@@ -1,6 +1,6 @@
 "use client";
 
-import { useLanguage } from "../../context/LanguageContext";
+import { useLanguage } from "@/context/LanguageContext";
 import React, { useEffect } from "react";
 
 function LanguageSwitch() {
@@ -15,7 +15,6 @@ function LanguageSwitch() {
 
   const handleLanguageChange = (newLanguage) => {
     setLanguage(newLanguage);
-    localStorage.setItem("pageLanguage", newLanguage);
   };
 
   return (

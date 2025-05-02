@@ -9,7 +9,9 @@ export default function MenuLink({ image, url, title, onClose }) {
       href={url}
       onClick={onClose}
     >
-      <img src={image.src} alt={image.alt} className="w-3" />
+      {image && image.src && (
+        <img src={image.src} alt={image.alt} className="w-3" />
+      )}
       <span>{title}</span>
     </Link>
   );

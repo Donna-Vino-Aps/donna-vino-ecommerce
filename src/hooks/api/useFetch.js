@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import axios from "axios";
-import { baseApiUrl } from "../../config/environment";
-import { logInfo } from "../../utils/logging";
+import { baseApiUrl } from "@/config/environment";
+import { logInfo } from "@/utils/logging";
 
 const useFetch = (
   initialRoute,
@@ -52,7 +52,8 @@ const useFetch = (
 
     let token = null;
     try {
-      token = await localStorage.getItem("userCredentials");
+      const data = JSON.parse(localStorage.getItem("userCredentials") || "{}");
+      token = data.token;
     } catch (error) {
       logError("Failed to retrieve token", error);
     }
