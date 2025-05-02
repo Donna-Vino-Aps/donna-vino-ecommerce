@@ -9,7 +9,7 @@ import { CredentialsProvider } from "@/context/CredentialsContext";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { GoogleOAuthProvider } from "@react-oauth/google";
-import { UserContextProvider } from "@/context/UserContex";
+import { UserContextProvider } from "@/context/UserContext";
 
 const RootLayout = ({ children }) => {
   return (

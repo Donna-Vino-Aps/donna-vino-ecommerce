@@ -1,7 +1,7 @@
 import React, { useRef, useEffect } from "react";
 import MenuItem from "./MenuItem";
 import PropTypes from "prop-types";
-import { useUser } from "@/context/UserContex";
+import { useUser } from "@/context/UserContext";
 
 export default function DropdownMenu({ isOpen, onClose, buttonRef }) {
   const { menuItems } = useUser();
