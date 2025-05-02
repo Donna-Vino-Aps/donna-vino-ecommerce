@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
 import { useLanguage } from "@/context/LanguageContext";
+import ShopifyBuyButton from "@/components/Button/ShopifyBuyButton";
+import ShopifyCartButton from "@/components/Button/ShopifyCartButton";
 
 function Registration({ eventDetails = {}, onClose }) {
   const { translations } = useLanguage();
@@ -162,18 +164,8 @@ function Registration({ eventDetails = {}, onClose }) {
               {translations["event.registration.form.close"]}
             </button>
 
-            <button
-              type="submit"
-              className="flex w-full items-center justify-center gap-2 rounded bg-blue-500 px-4 py-2 font-medium text-white hover:bg-blue-600 disabled:cursor-not-allowed disabled:bg-blue-500 disabled:opacity-50 disabled:hover:bg-blue-500 md:flex-1"
-              disabled={!agree || availableSeats === 0}
-            >
-              <span>{translations["event.registration.form.payWith"]}</span>
-              <img
-                src="/icons/brand.svg"
-                alt="MobilePay Logo"
-                className="h-8 !w-[7rem]"
-              />
-            </button>
+            {/* <ShopifyBuyButton /> */}
+            <ShopifyCartButton />
           </div>
         </div>
       </form>
