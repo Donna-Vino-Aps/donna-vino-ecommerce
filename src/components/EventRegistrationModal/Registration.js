@@ -25,9 +25,9 @@ function Registration({ eventDetails = {}, onClose }) {
       <h3 className="mb-4 text-center font-barlow text-headlineSmall font-medium">
         {translations["event.registration.title"]}
       </h3>
-      <form onSubmit={handleSubmit}>
-        <div className="mb-4 grid grid-cols-1 gap-4 md:grid-cols-2">
-          <div>
+      {/* <form onSubmit={handleSubmit}> */}
+      {/* <div className="mb-4 grid grid-cols-1 gap-4 md:grid-cols-2">  */}
+      {/* <div>
             <input
               type="text"
               id="firstName"
@@ -38,8 +38,8 @@ function Registration({ eventDetails = {}, onClose }) {
               className="w-full rounded border border-tertiary2-normal p-2 text-bodyLarge"
               placeholder={translations["event.registration.form.firstName"]}
             />
-          </div>
-          <div>
+          </div> */}
+      {/* <div>
             <input
               type="text"
               id="lastName"
@@ -50,10 +50,10 @@ function Registration({ eventDetails = {}, onClose }) {
               className="w-full rounded border border-tertiary2-normal p-2 text-bodyLarge"
               placeholder={translations["event.registration.form.lastName"]}
             />
-          </div>
+          </div> 
         </div>
-        <div className="mb-4 grid grid-cols-1 gap-4 md:grid-cols-2">
-          <div>
+        <div className="mb-4 grid grid-cols-1 gap-4 md:grid-cols-2">*/}
+      {/* <div>
             <input
               type="email"
               id="email"
@@ -64,8 +64,8 @@ function Registration({ eventDetails = {}, onClose }) {
               className="w-full rounded border border-tertiary2-normal p-2 text-bodyLarge"
               placeholder={translations["event.registration.form.email"]}
             />
-          </div>
-          <div>
+          </div> */}
+      {/* <div>
             <input
               type="email"
               id="confirmEmail"
@@ -77,8 +77,8 @@ function Registration({ eventDetails = {}, onClose }) {
               placeholder={translations["event.registration.form.confirmEmail"]}
             />
           </div>
-        </div>
-        <div className="mb-4">
+        </div> */}
+      {/* <div className="mb-4">
           <input
             type="tel"
             id="phone"
@@ -89,9 +89,9 @@ function Registration({ eventDetails = {}, onClose }) {
             className="w-full rounded border border-tertiary2-normal p-2 text-bodyLarge md:w-[49%]"
             placeholder={translations["event.registration.form.phone"]}
           />
-        </div>
-        <div className="mb-4 flex flex-col space-x-6 sm:flex-row md:flex-row">
-          <div>
+        </div> */}
+      {/* <div className="mb-4 flex flex-col space-x-6 sm:flex-row md:flex-row"> */}
+      {/* <div>
             <label
               htmlFor="seats"
               className="mb-1 block text-bodyMedium font-medium"
@@ -101,8 +101,8 @@ function Registration({ eventDetails = {}, onClose }) {
             <p className="mb-2 text-bodySmall text-tertiary1-normal">
               {translations["event.registration.form.selectSeats"]}
             </p>
-          </div>
-          <div className="flex items-center gap-9">
+          </div> */}
+      {/* <div className="flex items-center gap-9">
             <div className="flex items-center gap-2">
               <button
                 type="button"
@@ -139,36 +139,36 @@ function Registration({ eventDetails = {}, onClose }) {
               </p>
             </div>
           </div>
-        </div>
-        <div className="mb-6 flex items-center">
-          <input
-            type="checkbox"
-            id="agree"
-            name="agree"
-            checked={agree}
-            onChange={(e) => setAgree(e.target.checked)}
-            required
-            className="mr-2 accent-primary-normal"
-          />
-          <label htmlFor="agree" className="text-bodySmall">
-            {translations["event.registration.form.acceptTerms"]}
-          </label>
-        </div>
-        <div className="flex w-full flex-col md:flex-row md:items-center md:justify-between">
-          <div className="mb-4 flex w-full flex-col gap-2 md:mb-0 md:flex-row">
-            <button
-              type="button"
-              className="w-full rounded bg-primary-normal px-4 py-2 font-medium text-white hover:bg-primary-hover_normal md:flex-1"
-              onClick={onClose}
-            >
-              {translations["event.registration.form.close"]}
-            </button>
+        </div> */}
+      <div className="mb-6 flex items-center">
+        <input
+          type="checkbox"
+          id="agree"
+          name="agree"
+          checked={agree}
+          onChange={(e) => setAgree(e.target.checked)}
+          required
+          className="mr-2 accent-primary-normal"
+        />
+        <label htmlFor="agree" className="text-bodySmall">
+          {translations["event.registration.form.acceptTerms"]}
+        </label>
+      </div>
+      <div className="flex w-full flex-col md:flex-row md:items-center md:justify-between">
+        <div className="mb-4 flex w-full flex-col gap-2 md:mb-0 md:flex-row">
+          <button
+            type="button"
+            className="relative top-5 max-h-[2.625rem] w-full rounded bg-primary-normal px-4 py-2 font-medium text-white hover:bg-primary-hover_normal md:flex-1"
+            onClick={onClose}
+          >
+            {translations["event.registration.form.close"]}
+          </button>
 
-            {/* <ShopifyBuyButton /> */}
-            <ShopifyCartButton />
-          </div>
+          {/* <ShopifyBuyButton /> */}
+          <ShopifyCartButton />
         </div>
-      </form>
+      </div>
+      {/* </form> */}
     </>
   );
 }
