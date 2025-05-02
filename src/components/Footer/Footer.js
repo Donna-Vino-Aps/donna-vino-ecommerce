@@ -43,7 +43,7 @@ const Footer = () => {
     },
   ];
 
-  const paymentSymbols = [
+  const paymentIcons = [
     {
       src: "/icons/footer/apple-pay.svg",
     },
@@ -62,9 +62,14 @@ const Footer = () => {
   ];
 
   return (
-    <footer className="bg-[#2F2E2E]" data-testid="footer" aria-label="Footer">
-      <div className="text-white text-center">
-        <div className="flex mt-16 items-center justify-center flex-col relative items-center gap-1 md:mb-32 md:flex-row md:gap-6 lg:gap-9 xl:gap-12">
+    <footer
+    
+      className="flex text-white text-center py-4 h-96 bg-[#2F2E2E] md:h-[26.625rem] h-[48.625rem] items-center justify-center"
+      data-testid="footer"
+      aria-label="Footer"
+    >
+      <div>
+        <div className="flex flex-col relative items-center gap-1 md:bottom-3 bottom-14 md:mb-32 md:flex-row md:gap-6 lg:gap-9 xl:gap-12">
           <Link href="/" className="navbar-brand" aria-label="logo">
             <img
               className="h-[5.351rem] w-[7.75rem] rounded relative mt-6 mb-4 md:mt-0 md:mb-0 md:right-4 md:top-6"
@@ -74,21 +79,35 @@ const Footer = () => {
             />
           </Link>
 
-          {links.map(({ href, label, dataTestId }, index) => (
-            <Link
-              key={index}
-              data-testid={dataTestId}
-              href={href}
-              className={`rounded-md px-3 py-2 text-bodyLarge text-semibold order-${index + 2} md:order-${index + 1}`}
-              role="navigation"
-              aria-label={`Link to ${label}`}
-            >
-              {label}
-            </Link>
-          ))}
+          <div className="md:relative md:top-6">
+            <div className="flex flex-col md:flex-row">
+              {links.map(({ href, label, dataTestId }, index) => (
+                <Link
+                  key={index}
+                  data-testid={dataTestId}
+                  href={href}
+                  className={`rounded-md px-3 py-2 text-bodyLarge text-semibold order-${index + 2} md:order-${index + 1}`}
+                  role="navigation"
+                  aria-label={`Link to ${label}`}
+                >
+                  {label}
+                </Link>
+              ))}
 
-          <div className="mt-5 md:mt-0 flex flex-col order-1 md:order-4 items-center md:relative top-5">
-            <h4 className="text-bodyLarge text-semibold mb-1 md:mb-3 md:mt-3">
+            </div>
+            <div className="md:left-3 flex order-1 md:order-1 relative md:top-20 top-10">
+              <div className="place-items-center md:flex grid grid-cols-2 gap-12 md:gap-9 lg:gap-14">
+                {paymentIcons.map(({ src }, index) => (
+                  <div key={index} className={index == paymentIcons.length - 1 ? "col-span-2" : "col-span-1"}><img
+                    src={src}
+
+                  /></div>
+                ))}
+              </div>
+            </div>
+          </div>
+          <div className="flex flex-col order-1 md:order-4 items-center relative md:top-4 top-20">
+            <h4 className="text-bodyLarge text-semibold mb-1 md:mb-3 md:mt-4">
               {translations["footer.follow"]}
             </h4>
             <div
@@ -113,25 +132,8 @@ const Footer = () => {
             </div>
           </div>
         </div>
-        <div className="lg:ml-14 grid grid-cols-[65px_auto] place-items-center md:mb-0 mb-14 flex-col md:flex mt-10 md:mt-0 items-center justify-center gap-4 md:mb-32 md:flex-row md:gap-6 lg:gap-9 xl:gap-12">
-          {paymentSymbols.map(({ src }, index) => (
-            <img src={src} key={index} />
-          ))}
-        </div>
-        <div className="bottom-30 whitespace-nowrap text-bodySmall mt-6 mb-1 mb-2 md:text-bodyMedium text-tertiary2-hover_dark">
-          <p className="company-number">
-            © 2025 Donna Vino Aps | CVR-n. 45017567 |{" "}
-            <a
-              className="underline"
-              href="https://www.donnavino.dk/privacy-policy"
-              role="navigation"
-              aria-label="Link to Privacy Policy"
-            >
-              Privacy Policy
-            </a>
-          </p>
-        </div>
-      </div>
+        <div className="pt-3 top-20 relative whitespace-nowrap text-bodySmall md:text-bodyMedium text-tertiary2-hover_dark"><p className="company-number">© 2025 Donna Vino Aps | CVR-n. 45017567 | <a className="underline" href="https://www.donnavino.dk/privacy-policy" role="navigation" aria-label="Link to Privacy Policy">Privacy Policy</a></p></div>
+    </div>
     </footer>
   );
 };
