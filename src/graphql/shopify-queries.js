@@ -11,10 +11,16 @@ export const GET_COLLECTION_BY_HANDLE = `
             title
             handle
             totalInventory
-            priceRange {
-              maxVariantPrice {
-                amount
-                currencyCode
+            variants(first: 1) {
+              edges {
+                node {
+                  id
+                  price {
+                    amount
+                    currencyCode
+                  }
+                  availableSeats: quantityAvailable
+                }
               }
             }
             description
@@ -48,13 +54,6 @@ export const GET_COLLECTION_BY_HANDLE = `
                   url
                   altText
                   id
-                }
-              }
-            }
-            availableSeats: variants(first: 1) {
-              edges {
-                node {
-                  quantityAvailable
                 }
               }
             }
