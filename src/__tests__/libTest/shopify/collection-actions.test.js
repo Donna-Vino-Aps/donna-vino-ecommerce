@@ -113,11 +113,19 @@ describe("Shopify Collection Actions", () => {
       handle: "wine-tasting-event",
       description: "A wonderful wine tasting event",
       totalInventory: 20,
-      priceRange: {
-        maxVariantPrice: {
-          amount: "599.00",
-          currencyCode: "DKK",
-        },
+      variants: {
+        edges: [
+          {
+            node: {
+              id: "gid://shopify/ProductVariant/456",
+              price: {
+                amount: "599.00",
+                currencyCode: "DKK",
+              },
+              availableSeats: 15,
+            },
+          },
+        ],
       },
       images: {
         edges: [
@@ -126,15 +134,6 @@ describe("Shopify Collection Actions", () => {
               id: "img1",
               url: "https://example.com/image1.jpg",
               altText: "Wine Image",
-            },
-          },
-        ],
-      },
-      availableSeats: {
-        edges: [
-          {
-            node: {
-              quantityAvailable: 15,
             },
           },
         ],
@@ -158,6 +157,7 @@ describe("Shopify Collection Actions", () => {
         handle: "wine-tasting-event",
         description: "A wonderful wine tasting event",
         totalInventory: 20,
+        variantId: "gid://shopify/ProductVariant/456",
         price: 599,
         currency: "DKK",
         images: [
@@ -189,6 +189,7 @@ describe("Shopify Collection Actions", () => {
         handle: "wine-tasting-event",
         description: "A wonderful wine tasting event",
         // Missing totalInventory
+        // Missing variants
         // Missing priceRange
         // Missing images
         // Missing availableSeats
@@ -202,6 +203,7 @@ describe("Shopify Collection Actions", () => {
         title: "Wine Tasting Event",
         handle: "wine-tasting-event",
         description: "A wonderful wine tasting event",
+        variantId: null,
         totalInventory: undefined,
         price: null,
         currency: "DKK",
@@ -238,7 +240,7 @@ describe("Shopify Collection Actions", () => {
       );
     });
 
-    it("should default currency to DKK if not provided", () => {
+    it("should set default currency to DKK if not provided", () => {
       const productWithoutCurrency = {
         ...mockProduct,
         priceRange: {
