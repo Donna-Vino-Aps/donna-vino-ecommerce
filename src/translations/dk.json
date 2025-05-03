@@ -182,6 +182,8 @@
   "event.registration.form.acceptTerms": "Jeg accepterer vilkår og betingelser",
   "event.registration.form.payWith": "Betal med",
   "event.registration.form.close": "Luk",
+  "event.checkout.button": "Køb tickets",
+  "event.checkout.error": "Kunne ikke starte checkout",
   "profile.placeholder.firstName": "Fornavn",
   "profile.placeholder.lastName": "Efternavn",
   "profile.placeholder.email": "E-mail",

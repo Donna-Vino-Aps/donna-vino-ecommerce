@@ -182,6 +182,8 @@
   "event.registration.form.acceptTerms": "I agree with terms and conditions",
   "event.registration.form.payWith": "Pay with",
   "event.registration.form.close": "Close",
+  "event.checkout.button": "Buy Tickets",
+  "event.checkout.error": "Failed to initiate checkout",
   "profile.placeholder.firstName": "First name",
   "profile.placeholder.lastName": "Last name",
   "profile.placeholder.email": "Email",
