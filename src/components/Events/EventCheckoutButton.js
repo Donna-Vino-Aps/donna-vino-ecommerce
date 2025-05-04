@@ -28,7 +28,7 @@ const EventCheckoutButton = ({
     } catch (error) {
       console.error("Checkout error:", error);
       if (onError) {
-        onError(translations["event.checkout.error"]);
+        onError(translations["event.reservation.error"]);
       }
       setIsLoading(false);
     }
@@ -36,12 +36,12 @@ const EventCheckoutButton = ({
 
   return (
     <Button
-      text={translations["event.checkout.button"]}
+      text={translations["event.reservation.buy"]}
       variant="greenSubmit"
       onClick={handleCheckout}
       disabled={disabled || isLoading}
       isLoading={isLoading}
-      ariaLabel={translations["event.checkout.button"]}
+      ariaLabel={translations["event.reservation.buy"]}
       testId="event-checkout-button"
     />
   );

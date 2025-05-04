@@ -4,7 +4,7 @@ import CalendarItem from "./CalendarItem";
 import { useLanguage } from "@/context/LanguageContext";
 import { useEvents } from "@/context/EventsContext";
 import { useCalendar } from "@/context/CalendarContext";
-import EventRegistrationModal from "../EventRegistrationModal/EventRegistrationModal";
+import EventModal from "@/components/EventModal/EventModal";
 
 const Calendar = () => {
   const { events } = useEvents();
@@ -164,7 +164,7 @@ const Calendar = () => {
         );
       })}
       {selectedEvent && (
-        <EventRegistrationModal
+        <EventModal
           onClose={handleCloseModal}
           isOpen={isModalOpen}
           event={selectedEvent}
