@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import React from "react";
 import { render, screen } from "@testing-library/react";
-import EventDetails from "@/components/EventRegistrationModal/EventDetails";
+import EventDetails from "@/components/EventModal/EventDetails";
 import { logError } from "@/utils/logging";
 import { useLanguage } from "@/context/LanguageContext";
 
@@ -15,7 +15,7 @@ jest.mock("@/context/LanguageContext", () => ({
 }));
 
 // Mock the InfoCard component
-jest.mock("@/components/EventRegistrationModal/InfoCard", () => {
+jest.mock("@/components/EventModal/InfoCard", () => {
   return function MockInfoCard({
     title,
     imageUrl,

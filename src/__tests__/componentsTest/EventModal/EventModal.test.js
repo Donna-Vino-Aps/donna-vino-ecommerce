@@ -1,22 +1,24 @@
 import React from "react";
 import { render, screen, fireEvent } from "@testing-library/react";
-import EventRegistrationModal from "@/components/EventRegistrationModal/EventRegistrationModal";
-import EventDetails from "@/components/EventRegistrationModal/EventDetails";
-import Registration from "@/components/EventRegistrationModal/Registration";
+import EventModal from "@/components/EventModal/EventModal";
+import EventDetails from "@/components/EventModal/EventDetails";
+import EventTicketReservation from "@/components/EventModal/EventTicketReservation";
 
-jest.mock("@/components/EventRegistrationModal/EventDetails", () => {
+jest.mock("@/components/EventModal/EventDetails", () => {
   return jest.fn(() => (
     <div data-testid="event-details-mock">Event Details Component</div>
   ));
 });
 
-jest.mock("@/components/EventRegistrationModal/Registration", () => {
+jest.mock("@/components/EventModal/EventTicketReservation", () => {
   return jest.fn(() => (
-    <div data-testid="registration-mock">Registration Component</div>
+    <div data-testid="event-ticket-reservation-mock">
+      Event Ticket Reservation Component
+    </div>
   ));
 });
 
-describe("EventRegistrationModal", () => {
+describe("EventModal", () => {
   const mockEvent = {
     title: "Test Event",
     price: 50,
@@ -38,22 +40,14 @@ describe("EventRegistrationModal", () => {
 
   it("does not render when isOpen is false", () => {
     const { container } = render(
-      <EventRegistrationModal
-        isOpen={false}
-        onClose={mockOnClose}
-        event={mockEvent}
-      />,
+      <EventModal isOpen={false} onClose={mockOnClose} event={mockEvent} />,
     );
     expect(container.firstChild).toBeNull();
   });
 
   it("renders when isOpen is true", () => {
     render(
-      <EventRegistrationModal
-        isOpen={true}
-        onClose={mockOnClose}
-        event={mockEvent}
-      />,
+      <EventModal isOpen={true} onClose={mockOnClose} event={mockEvent} />,
     );
 
     expect(
@@ -69,23 +63,21 @@ describe("EventRegistrationModal", () => {
       screen.getByTestId("event-registration-modal-body"),
     ).toBeInTheDocument();
     expect(screen.getByTestId("event-details-mock")).toBeInTheDocument();
-    expect(screen.getByTestId("registration-mock")).toBeInTheDocument();
+    expect(
+      screen.getByTestId("event-ticket-reservation-mock"),
+    ).toBeInTheDocument();
   });
 
   it("passes event data to child components", () => {
     render(
-      <EventRegistrationModal
-        isOpen={true}
-        onClose={mockOnClose}
-        event={mockEvent}
-      />,
+      <EventModal isOpen={true} onClose={mockOnClose} event={mockEvent} />,
     );
 
     expect(EventDetails.mock.calls[0][0]).toEqual({
       eventDetails: mockEvent,
     });
 
-    expect(Registration.mock.calls[0][0]).toEqual({
+    expect(EventTicketReservation.mock.calls[0][0]).toEqual({
       eventDetails: mockEvent,
       onClose: mockOnClose,
     });
@@ -93,11 +85,7 @@ describe("EventRegistrationModal", () => {
 
   it("calls onClose when clicking outside the modal", () => {
     render(
-      <EventRegistrationModal
-        isOpen={true}
-        onClose={mockOnClose}
-        event={mockEvent}
-      />,
+      <EventModal isOpen={true} onClose={mockOnClose} event={mockEvent} />,
     );
 
     // Click on the overlay (outside the modal content)
@@ -108,11 +96,7 @@ describe("EventRegistrationModal", () => {
 
   it("does not call onClose when clicking inside the modal", () => {
     render(
-      <EventRegistrationModal
-        isOpen={true}
-        onClose={mockOnClose}
-        event={mockEvent}
-      />,
+      <EventModal isOpen={true} onClose={mockOnClose} event={mockEvent} />,
     );
 
     // Click inside the modal content
@@ -123,18 +107,14 @@ describe("EventRegistrationModal", () => {
 
   it("handles empty event object gracefully", () => {
     render(
-      <EventRegistrationModal
-        isOpen={true}
-        onClose={mockOnClose}
-        event={undefined}
-      />,
+      <EventModal isOpen={true} onClose={mockOnClose} event={undefined} />,
     );
 
     // Check that EventDetails was called with the correct props
     expect(EventDetails.mock.calls[0][0]).toEqual({ eventDetails: {} });
 
-    // Check that Registration was called with the correct props
-    expect(Registration.mock.calls[0][0]).toEqual({
+    // Check that EventTicketReservation was called with the correct props
+    expect(EventTicketReservation.mock.calls[0][0]).toEqual({
       eventDetails: {},
       onClose: mockOnClose,
     });
@@ -144,11 +124,7 @@ describe("EventRegistrationModal", () => {
     const removeEventListenerSpy = jest.spyOn(document, "removeEventListener");
 
     const { unmount } = render(
-      <EventRegistrationModal
-        isOpen={true}
-        onClose={mockOnClose}
-        event={mockEvent}
-      />,
+      <EventModal isOpen={true} onClose={mockOnClose} event={mockEvent} />,
     );
 
     unmount();
@@ -165,21 +141,13 @@ describe("EventRegistrationModal", () => {
     const addEventListenerSpy = jest.spyOn(document, "addEventListener");
 
     const { rerender } = render(
-      <EventRegistrationModal
-        isOpen={false}
-        onClose={mockOnClose}
-        event={mockEvent}
-      />,
+      <EventModal isOpen={false} onClose={mockOnClose} event={mockEvent} />,
     );
 
     expect(addEventListenerSpy).not.toHaveBeenCalled();
 
     rerender(
-      <EventRegistrationModal
-        isOpen={true}
-        onClose={mockOnClose}
-        event={mockEvent}
-      />,
+      <EventModal isOpen={true} onClose={mockOnClose} event={mockEvent} />,
     );
 
     expect(addEventListenerSpy).toHaveBeenCalledWith(
@@ -192,11 +160,7 @@ describe("EventRegistrationModal", () => {
 
   it("has proper accessibility attributes", () => {
     render(
-      <EventRegistrationModal
-        isOpen={true}
-        onClose={mockOnClose}
-        event={mockEvent}
-      />,
+      <EventModal isOpen={true} onClose={mockOnClose} event={mockEvent} />,
     );
 
     const overlay = screen.getByTestId("event-registration-modal-overlay");
@@ -206,11 +170,7 @@ describe("EventRegistrationModal", () => {
 
   it("renders with proper styling", () => {
     render(
-      <EventRegistrationModal
-        isOpen={true}
-        onClose={mockOnClose}
-        event={mockEvent}
-      />,
+      <EventModal isOpen={true} onClose={mockOnClose} event={mockEvent} />,
     );
 
     const overlay = screen.getByTestId("event-registration-modal-overlay");
@@ -229,6 +189,6 @@ describe("EventRegistrationModal", () => {
     );
 
     const body = screen.getByTestId("event-registration-modal-body");
-    expect(body).toHaveClass("p-6 md:p-8");
+    expect(body).toHaveClass("p-4 md:p-8");
   });
 });
