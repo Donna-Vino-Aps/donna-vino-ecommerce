@@ -6,7 +6,7 @@ import { useLanguage } from "@/context/LanguageContext";
 import { useCalendar } from "@/context/CalendarContext";
 import { format, parseISO } from "date-fns";
 import { enUS, da } from "date-fns/locale";
-import EventRegistrationModal from "@/components/EventRegistrationModal/EventRegistrationModal";
+import EventModal from "@/components/EventModal/EventModal";
 import EventRow from "./EventRow";
 
 const EventList = () => {
@@ -198,7 +198,7 @@ const EventList = () => {
       {renderContent()}
 
       {selectedEvent && (
-        <EventRegistrationModal
+        <EventModal
           isOpen={isModalOpen}
           onClose={handleCloseModal}
           event={selectedEvent}

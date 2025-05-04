@@ -26,10 +26,7 @@ function InfoCard({ title, imageUrl, imageAlt = "", description, bgClass }) {
         </div>
       )}
 
-      <h3
-        data-testid="info-card-title"
-        className="mb-6 px-5 text-displaySmall font-medium"
-      >
+      <h3 data-testid="info-card-title" className="mb-6 px-5 text-displaySmall">
         {title}
       </h3>
 
