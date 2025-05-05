@@ -1,17 +1,35 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import Link from "next/link";
-import axios from "axios";
 import LanguageSwitch from "../NavBar/LanguageSwitch";
-import { useLanguage } from "../../context/LanguageContext";
+import { useLanguage } from "@/context/LanguageContext";
+import SocialLinks from "@/components/SideBar/SocialLinks";
+import UserInfoMobile from "@/components/SideBar/UserInfoMobile";
+import { useCredentials } from "@/context/CredentialsContext";
 
 const SideBar = ({ isMenuOpen, toggleMenu, navLinks }) => {
-  const { translations } = useLanguage();
   const [openDropdowns, setOpenDropdowns] = useState({
     wines: false,
     grapeszones: false,
     account: false,
   });
+
+  const { logout } = useCredentials();
+
+  const { translations } = useLanguage();
+
+  // Hide main content scroll when sideBar opened
+  useEffect(() => {
+    if (isMenuOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [isMenuOpen]);
 
   const toggleDropdown = (id) => {
     setOpenDropdowns((prev) => ({
@@ -22,20 +40,9 @@ const SideBar = ({ isMenuOpen, toggleMenu, navLinks }) => {
 
   const isDropdownOpen = (id) => openDropdowns[id] ?? false;
 
-  // Handle logout
-  const handleLogout = async () => {
-    try {
-      await axios.post("/api/auth/logout", {}, { withCredentials: true });
-      setStoredCredentials(null);
-      router.push("/"); // Redirect to start page
-    } catch (error) {
-      console.error("Logout failed:", error);
-    }
-  };
-
   return (
     <div
-      className={`fixed right-0 top-0 w-full h-full lg:hidden z-40 ${
+      className={`fixed right-0 top-0 z-40 h-full w-full overflow-y-auto bg-white lg:hidden ${
         isMenuOpen ? "translate-x-0" : "translate-x-full"
       }`}
       data-testid="side-bar"
@@ -43,27 +50,9 @@ const SideBar = ({ isMenuOpen, toggleMenu, navLinks }) => {
       aria-labelledby="menu-heading"
       inert={!isMenuOpen}
     >
-      <div className="flex flex-col h-full gap-8 p-8 bg-white">
-        <div className="flex justify-between items-center">
-          <div className="flex relative top-8 left-1 gap-4">
-            <a href="/" className="">
-              <img
-                src="/images/courtney-cook-unsplash.jpg"
-                alt="User Profile Picture"
-                className="w-18 h-18"
-              />
-              <img
-                src="/icons/Edit profile pic.svg"
-                className="relative bottom-6 left-12"
-              />
-            </a>
-            <div className="mt-3">
-              <p className="text-headlineSmall text-tertiary1-darker">Admin</p>
-              <p className="text-bodyLarge text-[#637381]">
-                admin@donnavino.dk
-              </p>
-            </div>
-          </div>
+      <div className="flex h-full flex-col gap-8 p-8">
+        <div className="flex items-center justify-between">
+          <UserInfoMobile />
           <button
             role="button"
             className="self-start"
@@ -73,37 +62,40 @@ const SideBar = ({ isMenuOpen, toggleMenu, navLinks }) => {
             <img
               src="/icons/close.svg"
               alt="Close icon"
-              className="w-[1.12rem] h-[1.12rem]"
+              className="mr-1 mt-3 h-[1.12rem] w-[1.12rem]"
             />
           </button>
         </div>
 
-        <div className="flex flex-col gap-8">
+        <div className="flex flex-col gap-2">
           <h2 id="menu-heading" className="sr-only">
             Mobile navigation menu
           </h2>
-          <hr className="border-t-slate-300 relative top-6" />
+          <hr className="my-2 border-t-slate-300" />
           <nav role="navigation">
-            <ul className="flex flex-col ml-2">
+            <ul className="ml-2 flex flex-col">
               {navLinks.map((link) => (
-                <li key={link.id} className={`flex relative gap-5`}>
+                <li
+                  key={link.id}
+                  className={`relative flex gap-5 duration-300 active:rounded-lg active:bg-primary-light`}
+                >
                   <img
-                    className="align-middle inline-block text-right h-[1.25rem] w-[1.25rem] relative top-[10px] left-[6px]"
+                    className="relative left-[6px] top-[10px] inline-block h-[1.25rem] w-[1.25rem] text-right align-middle"
                     src={link.icon}
                   ></img>
 
                   {/* Render dropdown if dropdown is set to true, otherwise render a link */}
-                  <div className="flex flex-col w-full">
+                  <div className="flex w-full flex-col">
                     {link.dropdown ? (
                       <button
                         onClick={() => toggleDropdown(link.id)}
-                        className="flex items-center relative right-3 rounded-md px-3 py-2 text-titleMedium text-tertiary1"
+                        className="relative right-3 flex items-center rounded-md px-3 py-2 text-titleMedium text-tertiary1-normal"
                       >
                         {link.label}
                         <img
                           src="/icons/chevron-down.svg"
                           alt="Chevron Down"
-                          className={`ml-2 relative top-[2px] right-1 transition-transform ${
+                          className={`relative right-1 top-[2px] ml-2 transition-transform ${
                             isDropdownOpen(link.id) ? "rotate-180" : "rotate-0"
                           }`}
                         />
@@ -112,7 +104,7 @@ const SideBar = ({ isMenuOpen, toggleMenu, navLinks }) => {
                       <Link
                         href={link.href}
                         onClick={toggleMenu}
-                        className="block py-2 text-titleMedium text-tertiary1"
+                        className="block py-2 text-titleMedium text-tertiary1-normal"
                       >
                         {link.label}
                       </Link>
@@ -123,7 +115,7 @@ const SideBar = ({ isMenuOpen, toggleMenu, navLinks }) => {
                       <div
                         className={` w-full bg-white ${
                           isDropdownOpen(link.id)
-                            ? "flex flex-col relative right-4 my-1"
+                            ? "relative right-4 my-1 flex flex-col"
                             : "hidden"
                         }`}
                       >
@@ -133,32 +125,13 @@ const SideBar = ({ isMenuOpen, toggleMenu, navLinks }) => {
                               key={sublink}
                               href={link.href} // Initially set to go to the href of the overarching Link (like Wines)
                               // href={`${link.href}/${sublink.toLowerCase()}`}  Or something similar can be used in future implementations
-                              className={`block px-4 text-titleMedium text-tertiary1 ${link.id === "account" ? "py-3" : "py-2"}`}
+                              className={`block px-4 text-titleMedium text-tertiary1-normal ${link.id === "account" ? "py-3" : "py-2"}`}
                             >
                               {sublink}
                             </Link>
                             {link.id !== "account" &&
                               index !== link.sublinks.length - 1 && (
-                                <hr className="border-secondary-hover border-[1.25px] w-[95%] relative left-4 mt-3 mb-1" />
-                              )}
-                            {link.id === "account" &&
-                              index === link.sublinks.length - 1 && (
-                                <div>
-                                  <hr className="border-secondary-hover border-[1.25px] w-[95%] relative left-4 mt-3 mb-1" />
-                                  <div
-                                    className="flex gap-2 mt-5 mb-1 relative left-4 text-bodyMedium text-tertiary1"
-                                    onClick={handleLogout}
-                                  >
-                                    <button role="button">
-                                      {translations["user-dropdown.logout"]}
-                                    </button>
-                                    <img
-                                      src="/icons/log out.svg"
-                                      alt="log out icon"
-                                      className="relative"
-                                    ></img>
-                                  </div>
-                                </div>
+                                <hr className="relative left-4 mb-1 mt-3 w-[95%] border-[1.25px] border-secondary-hover" />
                               )}
                           </div>
                         ))}
@@ -169,59 +142,30 @@ const SideBar = ({ isMenuOpen, toggleMenu, navLinks }) => {
               ))}
             </ul>
           </nav>
-          <hr className="border-t-slate-300 relative bottom-4" />
+          <hr className="my-2 border-t-slate-300" />
+          <Link
+            className="flex gap-2 pb-8 pl-4"
+            href="#"
+            onClick={(event) => {
+              event.preventDefault();
+              logout();
+            }}
+          >
+            <img
+              className="h-[1.5rem] w-[1.5rem]"
+              src="/icons/logout.svg"
+              alt="logout"
+            />
+            <span>{translations["user-dropdown.logout"]}</span>
+          </Link>
         </div>
-
-        <div className="w-[10.12rem] h-[4.87rem] flex flex-col items-start relative bottom-4">
-          <p className="text-labelXLarge font-semibold mb-6">
+        <div className="relative bottom-4 flex h-[4.87rem] w-[10.12rem] flex-col items-start">
+          <p className="mb-6 text-labelXLarge font-semibold">
             {translations["footer.language"]}
           </p>
           <LanguageSwitch />
         </div>
-
-        <div className="flex flex-col gap-8 relative bottom-2">
-          <h3 className="text-labelXLarge font-semibold">
-            {translations["footer.follow"]}
-          </h3>
-          <div
-            className="flex gap-6 justify-start"
-            aria-label="Social media icons"
-          >
-            <a
-              href="https://www.instagram.com/donna_vino_winetastings/"
-              data-testid="social-icon-instagram-link"
-              aria-label="Instagram"
-            >
-              <img
-                src="/icons/instagram-original.svg"
-                className="h-[1.5rem] filter brightness-0"
-                alt="Instagram"
-              />
-            </a>
-            <a
-              href="https://www.linkedin.com/company/donna-vino-aps/"
-              data-testid="social-icon-linkedin-link"
-              aria-label="LinkedIn"
-            >
-              <img
-                src="/icons/linkedin-alt.svg"
-                className="h-[1.5rem] filter brightness-0"
-                alt="LinkedIn"
-              />
-            </a>
-            <a
-              href="https://www.facebook.com/donnavino.dk/"
-              data-testid="social-icon-facebook-link"
-              aria-label="Facebook"
-            >
-              <img
-                src="/icons/facebook-line.svg"
-                className="h-[1.5rem] filter brightness-0"
-                alt="Facebook"
-              />
-            </a>
-          </div>
-        </div>
+        <SocialLinks />
       </div>
     </div>
   );

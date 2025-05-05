@@ -7,26 +7,26 @@ import { useLanguage } from "@/context/LanguageContext";
 const Profile = () => {
   const { translations } = useLanguage();
   return (
-    <div className="flex flex-col bg-white rounded-2xl justify-center items-center py-8 px-6 min-w-[22.5rem] md:px-8 md:min-w-[47.75rem] shadow-lg my-8">
+    <div className="my-8 flex min-w-[22.5rem] flex-col items-center justify-center rounded-2xl bg-white px-6 py-8 shadow-lg md:min-w-[47.75rem] md:px-8">
       <img
         src="/images/donna-vino-logo-transparent.png"
         alt="Donna Vino logo"
-        className="w-[6.25rem] h-[4.31rem] mb-8"
+        className="mb-8 h-[4.31rem] w-[6.25rem]"
       />
       <div>
         <img
           src="/images/Avatar.jpg"
           alt="Profile picture"
-          className="w-[9.375rem] h-[9.375rem] rounded-full"
+          className="h-[9.375rem] w-[9.375rem] rounded-full"
         />
         <img
           src="/icons/Edit profile pic.svg"
-          className="relative w-6 h-6 bottom-[2.125rem] left-[6.8rem]"
+          className="relative bottom-[2.125rem] left-[6.8rem] h-6 w-6"
         />
       </div>
       <h2 className="text-displaySmall">Davide Rossi</h2>
-      <p className="text-labelLarge mt-2 mb-5 md:mt-4 md:mb-7">Denmark</p>
-      <h3 className="text-headlineSmall self-start mb-4">Personal Details</h3>
+      <p className="mb-5 mt-2 text-labelLarge md:mb-7 md:mt-4">Denmark</p>
+      <h3 className="mb-4 self-start text-headlineSmall">Personal Details</h3>
       <Formik
         initialValues={{
           firstName: "Davide",
@@ -50,7 +50,7 @@ const Profile = () => {
           isSubmitting,
         }) => (
           <form onSubmit={handleSubmit} className="w-full">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-4 mb-8">
+            <div className="mb-8 grid grid-cols-1 gap-3 md:grid-cols-2 md:gap-4">
               <TextInput
                 type="text"
                 name="firstName"
@@ -135,7 +135,7 @@ const Profile = () => {
                 error={touched.country && errors.country}
               />
             </div>
-            <div className="relative top-1 md:top-2 w-full mt-4">
+            <div className="relative top-1 mt-4 w-full md:top-2">
               <Button
                 text={
                   isSubmitting

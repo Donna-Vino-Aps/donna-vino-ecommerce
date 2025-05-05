@@ -5,20 +5,24 @@ import {
   getEventsCollection,
   transformShopifyProduct,
 } from "@/lib/shopify/collection-actions";
-import { logError } from "@/utils/logging";
 import { useLanguage } from "@/context/LanguageContext";
 
 // Mock dependencies
 jest.mock("@/lib/shopify/collection-actions", () => ({
   getEventsCollection: jest.fn(),
-  transformShopifyProduct: jest.fn((product) => ({
-    ...product,
-    transformed: true,
-  })),
-}));
+  transformShopifyProduct: jest.fn((product) => {
+    const futureDate = new Date();
+    futureDate.setFullYear(futureDate.getFullYear() + 1);
 
-jest.mock("@/utils/logging", () => ({
-  logError: jest.fn(),
+    return {
+      ...product,
+      transformed: true,
+      date: futureDate.toISOString().slice(0, 10),
+      timeStart: futureDate,
+      totalInventory: 10,
+      availableQuantity: 5,
+    };
+  }),
 }));
 
 jest.mock("@/context/LanguageContext", () => ({
@@ -74,20 +78,90 @@ describe("EventsContext", () => {
     const mockEvents = {
       products: {
         edges: [
-          {
-            node: {
-              id: "1",
-              title: "Wine Tasting Event",
-              handle: "wine-tasting",
-            },
-          },
-          {
-            node: {
-              id: "2",
-              title: "Wine Tour",
-              handle: "wine-tour",
-            },
-          },
+          { node: { id: "1", title: "Event 1" } },
+          { node: { id: "2", title: "Event 2" } },
+        ],
+      },
+    };
+
+    getEventsCollection.mockResolvedValue(mockEvents);
+
+    renderWithProvider();
+
+    expect(screen.getByTestId("loading")).toBeInTheDocument();
+
+    await waitFor(() => {
+      expect(getEventsCollection).toHaveBeenCalledWith("en");
+    });
+
+    expect(transformShopifyProduct).toHaveBeenCalledTimes(2);
+
+    const eventItems = await screen.findAllByTestId("event-item");
+    expect(eventItems).toHaveLength(2);
+  });
+
+  it("should handle empty events", async () => {
+    getEventsCollection.mockResolvedValue({
+      products: { edges: [] },
+    });
+
+    renderWithProvider();
+
+    await waitFor(() => {
+      expect(getEventsCollection).toHaveBeenCalledWith("en");
+    });
+
+    expect(screen.queryAllByTestId("event-item")).toHaveLength(0);
+  });
+
+  it("should handle API errors", async () => {
+    getEventsCollection.mockRejectedValue(new Error("Failed to fetch"));
+
+    renderWithProvider();
+
+    await waitFor(() => {
+      expect(screen.getByTestId("error")).toBeInTheDocument();
+    });
+
+    expect(screen.getByText("Failed to load events")).toBeInTheDocument();
+  });
+
+  it("should filter out past events", async () => {
+    transformShopifyProduct.mockReset();
+
+    transformShopifyProduct.mockImplementation((node) => {
+      if (node.id === "1") {
+        const futureDate = new Date();
+        futureDate.setFullYear(futureDate.getFullYear() + 1);
+        return {
+          id: "future-event",
+          title: "Future Event",
+          date: futureDate.toISOString().slice(0, 10),
+          timeStart: futureDate,
+          totalInventory: 10,
+          availableQuantity: 5,
+          transformed: true,
+        };
+      } else {
+        const pastDate = new Date();
+        pastDate.setFullYear(pastDate.getFullYear() - 1);
+        return {
+          id: "past-event",
+          title: "Past Event",
+          date: pastDate.toISOString().slice(0, 10),
+          timeStart: pastDate,
+          totalInventory: 10,
+          availableQuantity: 5,
+          transformed: true,
+        };
+      }
+    });
+
+    const mockEvents = {
+      products: {
+        edges: [
+          { node: { id: "1", title: "Should be future" } },
+          { node: { id: "2", title: "Should be past" } },
         ],
       },
     };
@@ -100,59 +174,19 @@ describe("EventsContext", () => {
       expect(screen.queryByTestId("loading")).not.toBeInTheDocument();
     });
 
-    expect(getEventsCollection).toHaveBeenCalledWith("en");
     expect(transformShopifyProduct).toHaveBeenCalledTimes(2);
 
-    const eventItems = screen.getAllByTestId("event-item");
-    expect(eventItems).toHaveLength(2);
+    const futureEvent = screen.getByText("Future Event");
+    expect(futureEvent).toBeInTheDocument();
+    expect(screen.queryByText("Past Event")).not.toBeInTheDocument();
   });
 
-  it("should handle empty events collection", async () => {
-    getEventsCollection.mockResolvedValue({});
-
-    renderWithProvider();
-
-    await waitFor(() => {
-      expect(screen.queryByTestId("loading")).not.toBeInTheDocument();
-    });
-
-    expect(screen.queryByTestId("event-item")).not.toBeInTheDocument();
-  });
-
-  it("should handle API errors", async () => {
-    const error = new Error("API Error");
-    getEventsCollection.mockRejectedValue(error);
-
-    renderWithProvider();
-
-    await waitFor(() => {
-      expect(screen.queryByTestId("loading")).not.toBeInTheDocument();
-    });
-
-    expect(logError).toHaveBeenCalledWith("Error fetching events:", error);
-    expect(screen.getByTestId("error")).toHaveTextContent(
-      /Failed to load events/,
-    );
-  });
-
-  it("should refetch events when language changes", async () => {
-    useLanguage.mockReturnValue({
-      language: "en",
-      translations: {
-        "events.error.loading": "Failed to load events",
-      },
-    });
-
+  it("should refetch when language changes", async () => {
     const mockEvents = {
       products: {
         edges: [
-          {
-            node: {
-              id: "1",
-              title: "Wine Tasting Event",
-              handle: "wine-tasting",
-            },
-          },
+          { node: { id: "1", title: "Event 1" } },
+          { node: { id: "2", title: "Event 2" } },
         ],
       },
     };

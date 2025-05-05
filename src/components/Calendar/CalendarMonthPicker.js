@@ -1,9 +1,16 @@
+"use client";
 import React from "react";
-import PropTypes from "prop-types";
 import { useLanguage } from "@/context/LanguageContext";
+import { useCalendar } from "@/context/CalendarContext";
 
-const CalendarMonthPicker = ({ currentMonth, currentYear, onMonthChange }) => {
+const CalendarMonthPicker = () => {
   const { translations } = useLanguage();
+  const {
+    selectedMonth: currentMonth,
+    selectedYear: currentYear,
+    onMonthYearChange: onChange,
+  } = useCalendar();
+
   const months = [
     translations["calendar.month.1"],
     translations["calendar.month.2"],
@@ -21,45 +28,39 @@ const CalendarMonthPicker = ({ currentMonth, currentYear, onMonthChange }) => {
 
   const handlePreviousMonth = () => {
     if (currentMonth === 1) {
-      onMonthChange(12, currentYear - 1); // Move to December of previous year
+      onChange(12, currentYear - 1); // Move to December of previous year
     } else {
-      onMonthChange(currentMonth - 1, currentYear);
+      onChange(currentMonth - 1, currentYear);
     }
   };
 
   const handleNextMonth = () => {
     if (currentMonth === 12) {
-      onMonthChange(1, currentYear + 1); // Move to January of next year
+      onChange(1, currentYear + 1); // Move to January of next year
     } else {
-      onMonthChange(currentMonth + 1, currentYear);
+      onChange(currentMonth + 1, currentYear);
     }
   };
 
   return (
-    <div className="flex justify-between items-center mx-auto bg-primary-active_normal w-full h-[3.438rem] md:h-[2.25rem] md:max-w-[calc(7*6.282rem-2px)] lg:md:max-w-[calc(7*6.6.282rem-2px)] rounded-t-[0.5rem] text-titleMedium lg:text-titleSmall text-center text-tertiary2-light">
+    <div className="mx-auto flex h-[3.438rem] w-full items-center justify-between rounded-t-[0.5rem] bg-primary-active_normal text-center text-titleMedium text-tertiary2-light md:h-[2.25rem] md:max-w-[calc(7*6.282rem-2px)] lg:md:max-w-[calc(7*6.6.282rem-2px)] lg:text-titleSmall">
       <button
         onClick={handlePreviousMonth}
         aria-label="Previous Month"
-        className="relative left-6 md:left-10 lg:left-18"
+        className="relative left-6 md:left-10 lg:left-20"
       >
-        <img src="/icons/arrow-left-small.svg" className="w-4 h-4" />
+        <img src="/icons/arrow-left-small.svg" className="h-4 w-4" />
       </button>
       {months[currentMonth - 1]} {currentYear}
       <button
         onClick={handleNextMonth}
         aria-label="Next Month"
-        className="relative right-6 md:right-10 lg:right-18"
+        className="relative right-6 md:right-10 lg:right-20"
       >
-        <img src="/icons/arrow-right-small.svg" className="w-4 h-4" />
+        <img src="/icons/arrow-right-small.svg" className="h-4 w-4" />
       </button>
     </div>
   );
-};
-
-CalendarMonthPicker.propTypes = {
-  currentMonth: PropTypes.number.isRequired,
-  currentYear: PropTypes.number.isRequired,
-  onMonthChange: PropTypes.func.isRequired,
 };
 
 export default CalendarMonthPicker;

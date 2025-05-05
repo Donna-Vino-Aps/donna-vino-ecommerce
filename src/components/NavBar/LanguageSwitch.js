@@ -1,6 +1,6 @@
 "use client";
 
-import { useLanguage } from "../../context/LanguageContext";
+import { useLanguage } from "@/context/LanguageContext";
 import React, { useEffect } from "react";
 
 function LanguageSwitch() {
@@ -15,32 +15,31 @@ function LanguageSwitch() {
 
   const handleLanguageChange = (newLanguage) => {
     setLanguage(newLanguage);
-    localStorage.setItem("pageLanguage", newLanguage);
   };
 
   return (
     <div
-      className="flex w-[5.12rem] h-[2.87rem] items-center justify-center gap-2 shadow-sm rounded-sm lg:absolute lg:right-[3.44rem]"
+      className="flex h-[2.87rem] w-[5.12rem] items-center justify-center gap-2 rounded-sm shadow-sm lg:absolute lg:right-[3.44rem]"
       data-testid="language-switch-container"
       role="toolbar"
       aria-label="Language Switch"
     >
       <div
-        className="flex items-center justify-center w-[4.5rem] h-[2.25rem]"
+        className="flex h-[2.25rem] w-[4.5rem] items-center justify-center"
         data-testid="language-switch"
       >
         <button
           data-testid="en-icon"
           aria-label="Switch to English"
           aria-pressed={language === "en"}
-          className={`flex items-center justify-center w-[2.25rem] h-[2.25rem] rounded-md hover:bg-primary-light ${
+          className={`flex h-[2.25rem] w-[2.25rem] items-center justify-center rounded-md hover:bg-primary-light ${
             language === "en" ? "bg-primary-light" : ""
           }`}
           onClick={() => handleLanguageChange("en")}
         >
           <img
             src="/images/ic_en.png"
-            className="w-[1rem] h-[1rem]"
+            className="h-[1rem] w-[1rem]"
             alt="English Flag"
           />
         </button>
@@ -48,14 +47,14 @@ function LanguageSwitch() {
           data-testid="dk-icon"
           aria-label="Switch to Danish"
           aria-pressed={language === "dk"}
-          className={`flex items-center justify-center w-[2.25rem] h-[2.25rem] rounded-md hover:bg-primary-light ${
+          className={`flex h-[2.25rem] w-[2.25rem] items-center justify-center rounded-md hover:bg-primary-light ${
             language === "dk" ? "bg-primary-light" : ""
           }`}
           onClick={() => handleLanguageChange("dk")}
         >
           <img
             src="/images/ic_dk.png"
-            className="w-[1rem] h-[1rem]"
+            className="h-[1rem] w-[1rem]"
             alt="Danish Flag"
           />
         </button>

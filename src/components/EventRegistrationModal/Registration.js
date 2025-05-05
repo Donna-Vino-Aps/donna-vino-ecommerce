@@ -20,11 +20,11 @@ function Registration({ eventDetails = {}, onClose }) {
 
   return (
     <>
-      <h3 className="text-headlineSmall text-center font-medium font-barlow mb-4">
+      <h3 className="mb-4 text-center font-barlow text-headlineSmall font-medium">
         {translations["event.registration.title"]}
       </h3>
       <form onSubmit={handleSubmit}>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+        <div className="mb-4 grid grid-cols-1 gap-4 md:grid-cols-2">
           <div>
             <input
               type="text"
@@ -33,7 +33,7 @@ function Registration({ eventDetails = {}, onClose }) {
               value={firstName}
               onChange={(e) => setFirstName(e.target.value)}
               required
-              className="w-full border border-tertiary2-normal rounded p-2 text-bodyLarge"
+              className="w-full rounded border border-tertiary2-normal p-2 text-bodyLarge"
               placeholder={translations["event.registration.form.firstName"]}
             />
           </div>
@@ -45,12 +45,12 @@ function Registration({ eventDetails = {}, onClose }) {
               value={lastName}
               onChange={(e) => setLastName(e.target.value)}
               required
-              className="w-full border border-tertiary2-normal rounded p-2 text-bodyLarge"
+              className="w-full rounded border border-tertiary2-normal p-2 text-bodyLarge"
               placeholder={translations["event.registration.form.lastName"]}
             />
           </div>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+        <div className="mb-4 grid grid-cols-1 gap-4 md:grid-cols-2">
           <div>
             <input
               type="email"
@@ -59,7 +59,7 @@ function Registration({ eventDetails = {}, onClose }) {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
-              className="w-full border border-tertiary2-normal rounded p-2 text-bodyLarge"
+              className="w-full rounded border border-tertiary2-normal p-2 text-bodyLarge"
               placeholder={translations["event.registration.form.email"]}
             />
           </div>
@@ -71,7 +71,7 @@ function Registration({ eventDetails = {}, onClose }) {
               value={confirmEmail}
               onChange={(e) => setConfirmEmail(e.target.value)}
               required
-              className="w-full border border-tertiary2-normal rounded p-2 text-bodyLarge"
+              className="w-full rounded border border-tertiary2-normal p-2 text-bodyLarge"
               placeholder={translations["event.registration.form.confirmEmail"]}
             />
           </div>
@@ -84,19 +84,19 @@ function Registration({ eventDetails = {}, onClose }) {
             value={phone}
             onChange={(e) => setPhone(e.target.value)}
             required
-            className="w-full md:w-[49%] border border-tertiary2-normal rounded p-2 text-bodyLarge"
+            className="w-full rounded border border-tertiary2-normal p-2 text-bodyLarge md:w-[49%]"
             placeholder={translations["event.registration.form.phone"]}
           />
         </div>
-        <div className="flex flex-col sm:flex-row md:flex-row space-x-6 mb-4">
+        <div className="mb-4 flex flex-col space-x-6 sm:flex-row md:flex-row">
           <div>
             <label
               htmlFor="seats"
-              className="block text-bodyMedium font-medium mb-1"
+              className="mb-1 block text-bodyMedium font-medium"
             >
               {translations["event.registration.form.seats"]}
             </label>
-            <p className="text-bodySmall text-tertiary1-normal mb-2">
+            <p className="mb-2 text-bodySmall text-tertiary1-normal">
               {translations["event.registration.form.selectSeats"]}
             </p>
           </div>
@@ -105,7 +105,7 @@ function Registration({ eventDetails = {}, onClose }) {
               <button
                 type="button"
                 onClick={() => setSeats(Math.max(1, seats - 1))}
-                className="border border-tertiary2-normal px-3 py-1 rounded hover:bg-tertiary2-hover_normal"
+                className="rounded border border-tertiary2-normal px-3 py-1 hover:bg-tertiary2-hover_normal"
               >
                 –
               </button>
@@ -117,12 +117,12 @@ function Registration({ eventDetails = {}, onClose }) {
                 value={seats}
                 onChange={(e) => setSeats(Number(e.target.value))}
                 required
-                className="w-16 text-center border border-tertiary2-normal rounded py-1"
+                className="w-16 rounded border border-tertiary2-normal py-1 text-center"
               />
               <button
                 type="button"
                 onClick={() => setSeats(seats + 1)}
-                className="border border-tertiary2-normal px-3 py-1 rounded hover:bg-tertiary2-hover_normal"
+                className="rounded border border-tertiary2-normal px-3 py-1 hover:bg-tertiary2-hover_normal"
               >
                 +
               </button>
@@ -138,7 +138,7 @@ function Registration({ eventDetails = {}, onClose }) {
             </div>
           </div>
         </div>
-        <div className="flex items-center mb-6">
+        <div className="mb-6 flex items-center">
           <input
             type="checkbox"
             id="agree"
@@ -152,11 +152,11 @@ function Registration({ eventDetails = {}, onClose }) {
             {translations["event.registration.form.acceptTerms"]}
           </label>
         </div>
-        <div className="flex flex-col md:flex-row md:items-center md:justify-between w-full">
-          <div className="flex flex-col md:flex-row w-full gap-2 mb-4 md:mb-0">
+        <div className="flex w-full flex-col md:flex-row md:items-center md:justify-between">
+          <div className="mb-4 flex w-full flex-col gap-2 md:mb-0 md:flex-row">
             <button
               type="button"
-              className="w-full md:flex-1 bg-primary-normal hover:bg-primary-hover_normal text-white px-4 py-2 rounded font-medium"
+              className="w-full rounded bg-primary-normal px-4 py-2 font-medium text-white hover:bg-primary-hover_normal md:flex-1"
               onClick={onClose}
             >
               {translations["event.registration.form.close"]}
@@ -164,14 +164,14 @@ function Registration({ eventDetails = {}, onClose }) {
 
             <button
               type="submit"
-              className="w-full md:flex-1 bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded font-medium disabled:bg-blue-500 disabled:hover:bg-blue-500 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+              className="flex w-full items-center justify-center gap-2 rounded bg-blue-500 px-4 py-2 font-medium text-white hover:bg-blue-600 disabled:cursor-not-allowed disabled:bg-blue-500 disabled:opacity-50 disabled:hover:bg-blue-500 md:flex-1"
               disabled={!agree || availableSeats === 0}
             >
               <span>{translations["event.registration.form.payWith"]}</span>
               <img
                 src="/icons/brand.svg"
                 alt="MobilePay Logo"
-                className="!w-[7rem] h-8"
+                className="h-8 !w-[7rem]"
               />
             </button>
           </div>

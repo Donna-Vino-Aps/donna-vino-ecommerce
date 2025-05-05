@@ -39,7 +39,7 @@ describe("Footer Component", () => {
 it("renders all navigation links", () => {
   renderWithProvider("en");
   const links = [
-    { id: "events", href: "/events", label: "Booking & Events" },
+    { id: "sales-policy", href: "/sales-policy", label: "Sales Policy" },
     {
       id: "contact",
       href: "https://www.donnavino.dk/contact",

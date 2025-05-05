@@ -1,6 +1,6 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { Formik, Form } from "formik";
-import { CredentialsContext } from "../../context/credentialsContext";
+import { useCredentials } from "@/context/CredentialsContext";
 import { useLanguage } from "@/context/LanguageContext";
 import useFetch from "@/hooks/api/useFetch.js";
 import { useRouter } from "next/navigation";
@@ -8,7 +8,7 @@ import { useRouter } from "next/navigation";
 import Button from "../Button/Button.js";
 import Link from "next/link";
 import TextInput from "../TextInput/TextInput";
-import { logInfo, logError } from "../../utils/logging";
+import { logInfo, logError } from "@/utils/logging";
 import GoogleAuth from "../GoogleAuth/GoogleAuth";
 import { mapBackendMessage } from "@/services/messageMap";
 
@@ -20,7 +20,7 @@ const LoginForm = () => {
   const [success, setSuccessStatus] = useState(null);
   const [loading, setLoading] = useState(false);
 
-  const { setStoredCredentials } = useContext(CredentialsContext);
+  const { setStoredCredentials } = useCredentials();
 
   const onReceived = (response) => {
     const responseData = response.data || response;
@@ -102,9 +102,9 @@ const LoginForm = () => {
   };
 
   return (
-    <div className="flex flex-col h-full" data-testid="login-container">
-      <main className="md:w-[18rem] lg:w-[25rem] flex flex-col justify-center items-center">
-        <div className=" w-[17.5rem] md:w-[18rem] lg:w-[25rem] flex justify-start items-start">
+    <div className="flex h-full flex-col" data-testid="login-container">
+      <main className="flex flex-col items-center justify-center md:w-[18rem] lg:w-[25rem]">
+        <div className=" flex w-[17.5rem] items-start justify-start md:w-[18rem] lg:w-[25rem]">
           <h2 className="mb-4 text-headlineMedium text-tertiary1-normal">
             {translations["logIn.button"]}
           </h2>
@@ -127,10 +127,10 @@ const LoginForm = () => {
           {({ handleChange, handleBlur, handleSubmit, values }) => (
             <Form
               onSubmit={handleSubmit}
-              className="w-full h-auto space-y-2 flex flex-col items-center justify-center"
+              className="flex h-auto w-full flex-col items-center justify-center space-y-2"
               data-testid="login-form"
             >
-              <div className="space-y-2 mb-1 w-[17.5rem] md:w-[18rem] lg:w-[25rem]">
+              <div className="mb-1 w-[17.5rem] space-y-2 md:w-[18rem] lg:w-[25rem]">
                 <TextInput
                   name="email"
                   placeholder=""
@@ -142,7 +142,7 @@ const LoginForm = () => {
                   dataTestId="login-input-email"
                 />
               </div>
-              <div className="space-y-1 w-[17.5rem] md:w-[18rem] lg:w-[25rem]">
+              <div className="w-[17.5rem] space-y-1 md:w-[18rem] lg:w-[25rem]">
                 <TextInput
                   type="password"
                   name="password"
@@ -157,7 +157,7 @@ const LoginForm = () => {
                   aria-label="Password"
                 />
               </div>
-              <div className="w-[17.5rem] md:w-[18rem] lg:w-[25rem] flex flex-col space-y-4">
+              <div className="flex w-[17.5rem] flex-col space-y-4 md:w-[18rem] lg:w-[25rem]">
                 <Button
                   text={translations["logIn.button"]}
                   onClick={handleSubmit}
@@ -174,29 +174,29 @@ const LoginForm = () => {
               />
               {/* Message container with fixed height to prevent inputs from moving */}
               <div
-                className="flex justify-center min-h-[2rem]"
+                className="flex min-h-[2rem] justify-center"
                 data-testid="login-message"
               >
                 <p
-                  className={`text-labelLarge text-center ${loading ? "text-black" : success ? "text-green-500" : "text-red-500"}`}
+                  className={`text-center text-labelLarge ${loading ? "text-black" : success ? "text-green-500" : "text-red-500"}`}
                   aria-live="polite"
                   data-testid="message-status"
                 >
                   {loading ? "Loading..." : msg}
                 </p>
               </div>
-              <div className="flex !mt-1 !mb-1 space-x-1 items-center text-labelMedium relative bottom-1">
+              <div className="relative bottom-1 !mb-1 !mt-1 flex items-center space-x-1 text-labelMedium">
                 <Link
                   href="/forgotpassword"
                   data-testid="forget-password-link"
                   aria-label="Forgot Password"
-                  className="text-left font-medium hover:underline hover:font-semibold"
+                  className="text-left font-medium hover:font-semibold hover:underline"
                 >
                   {translations["logIn.forgot-link"]}
                 </Link>
               </div>
               <div className="relative bottom-5 w-[17.5rem] md:w-[18rem] lg:w-[25rem]">
-                <h2 className="mb-1 mt-1 text-headlineMedium self-center sm:self-start text-tertiary1-normal">
+                <h2 className="mb-1 mt-1 self-center text-headlineMedium text-tertiary1-normal sm:self-start">
                   {translations["logIn.no-account"]}
                 </h2>
                 <Button
@@ -209,8 +209,8 @@ const LoginForm = () => {
                 />
               </div>
               {isLoading && (
-                <div className="flex justify-center items-center !mt-1">
-                  <div className="w-8 h-8 border-4 border-t-4 border-blue-500 border-solid rounded-full animate-spin" />
+                <div className="!mt-1 flex items-center justify-center">
+                  <div className="h-8 w-8 animate-spin rounded-full border-4 border-t-4 border-solid border-blue-500" />
                 </div>
               )}
             </Form>

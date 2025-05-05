@@ -2,13 +2,23 @@
 const nextConfig = {
   reactStrictMode: true,
   images: {
-    domains: ["cdn.shopify.com"],
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "cdn.shopify.com",
+      },
+    ],
   },
   webpack: (config) => {
-    config.resolve.fallback = { fs: false };
+    config.resolve.fallback = {
+      fs: false,
+      crypto: false,
+      stream: false,
+      buffer: false,
+    };
     config.module.rules.push({
-      test: "/\.mjs$/",
-      include: "/node_modules/",
+      test: /\.mjs$/,
+      include: /node_modules/,
       type: "javascript/auto",
     });
     return config;

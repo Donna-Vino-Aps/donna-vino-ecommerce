@@ -4,7 +4,7 @@ import Profile from "@/components/Profile/Profile";
 
 const UserProfile = () => {
   return (
-    <div className="flex flex-col min-h-screen bg-primary-light sm:bg-dots-lg sm:bg-dots-size-lg bg-dots-sm bg-dots-size-sm items-center">
+    <div className="flex min-h-screen flex-col items-center bg-primary-light bg-dots-sm bg-dots-size-sm sm:bg-dots-lg sm:bg-dots-size-lg">
       <Profile />
     </div>
   );

@@ -11,7 +11,7 @@ export default function MenuButton({ title, image, onClick, onClose }) {
         onClose();
       }}
       href="#"
-      className="flex w-full gap-2 text-nowrap hover:bg-primary-light rounded-md p-2 transition duration-200"
+      className="flex w-full gap-2 text-nowrap rounded-md p-2 transition duration-200 hover:bg-primary-light"
     >
       {image && image.src && (
         <img src={image.src} alt={image.alt || ""} className="relative w-3" />

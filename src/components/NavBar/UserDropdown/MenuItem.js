@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import MenuLink from "@/components/NavBar/UserDropdown/Variants/Link";
+import MenuLink from "@/components/NavBar/UserDropdown/Variants/MenuLink";
 import Separator from "@/components/NavBar/UserDropdown/Variants/Separator";
 import MenuButton from "@/components/NavBar/UserDropdown/Variants/Button";
 

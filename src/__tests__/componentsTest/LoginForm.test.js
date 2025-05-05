@@ -4,6 +4,7 @@ import LoginForm from "@/components/LogIn/LoginForm.js";
 import { useLanguage } from "@/context/LanguageContext";
 import { useRouter } from "next/navigation";
 import { GoogleOAuthProvider } from "@react-oauth/google";
+import { CredentialsProvider } from "@/context/CredentialsContext";
 
 // Mock useLanguage to avoid translation errors
 jest.mock("@/context/LanguageContext", () => ({
@@ -30,9 +31,11 @@ describe("LoginForm", () => {
     });
 
     render(
-      <GoogleOAuthProvider>
-        <LoginForm />
-      </GoogleOAuthProvider>,
+      <CredentialsProvider>
+        <GoogleOAuthProvider>
+          <LoginForm />
+        </GoogleOAuthProvider>
+      </CredentialsProvider>,
     );
   });
 

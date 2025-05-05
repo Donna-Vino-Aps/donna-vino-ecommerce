@@ -39,7 +39,7 @@ function EventRegistrationModal({ isOpen, onClose, event = {} }) {
         <div
           data-testid="event-registration-modal-content"
           ref={modalRef}
-          className="relative w-full max-w-[50rem] bg-white rounded-lg shadow-lg"
+          className="relative w-full max-w-[50rem] rounded-lg bg-white shadow-lg"
         >
           <div
             data-testid="event-registration-modal-body"

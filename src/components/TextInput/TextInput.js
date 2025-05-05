@@ -46,7 +46,7 @@ const TextInput = ({
         htmlFor={name}
         id={labelId}
         style={visuallyHiddenLabel ? visuallyHiddenLabelStyle : {}}
-        className={visuallyHiddenLabel ? undefined : "block mb-1 font-medium"}
+        className={visuallyHiddenLabel ? undefined : "mb-1 block font-medium"}
       >
         {placeholder || `Enter your ${name}`}
       </label>
@@ -55,7 +55,7 @@ const TextInput = ({
       {!isDate && !isDropdown ? (
         <div className="relative">
           {icon && (
-            <div className="absolute left-3 top-1/2 transform -translate-y-1/2">
+            <div className="absolute left-3 top-1/2 -translate-y-1/2 transform">
               {React.cloneElement(icon, { style: { color: "black" } })}
             </div>
           )}
@@ -71,7 +71,7 @@ const TextInput = ({
             aria-labelledby={labelId}
             aria-label={visuallyHiddenLabel ? undefined : placeholder}
             data-testid={`input-${name}`}
-            className={`w-full py-3 px-5 border rounded-lg bg-white text-tertiary1-darker focus:outline-none focus:ring-1
+            className={`w-full rounded-lg border bg-white px-5 py-3 text-tertiary1-darker focus:outline-none focus:ring-1
               ${error ? "border-primary-normal focus:ring-primary-hover" : "border-tertiary2-active_normal focus:ring-tertiary1-active"}
               ${icon ? "pl-12" : ""} ${showPasswordToggle ? "pr-10" : ""}`}
           />
@@ -83,7 +83,7 @@ const TextInput = ({
               onClick={() => setShowPassword(!showPassword)}
               aria-label={showPassword ? "Hide password" : "Show password"}
               data-testid="toggle-password-visibility"
-              className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-600"
+              className="absolute right-3 top-1/2 -translate-y-1/2 transform text-gray-600"
             >
               {showPassword ? <FaEyeSlash /> : <FaEye />}
             </button>
@@ -91,7 +91,7 @@ const TextInput = ({
 
           {/* Error message */}
           {error && (
-            <div className="text-xs text-primary-normal mt-1">{error}</div>
+            <div className="mt-1 text-xs text-primary-normal">{error}</div>
           )}
         </div>
       ) : isDropdown ? (
@@ -106,7 +106,7 @@ const TextInput = ({
             aria-labelledby={labelId}
             aria-label={visuallyHiddenLabel ? undefined : placeholder}
             data-testid={`dropdown-${name}`}
-            className={`w-full py-[14px] px-5 border rounded-lg bg-white text-tertiary1-darker font-barlow focus:outline-none focus:ring-1
+            className={`w-full rounded-lg border bg-white px-5 py-[14px] font-barlow text-tertiary1-darker focus:outline-none focus:ring-1
               ${error ? "border-primary-normal focus:ring-primary-hover" : "border-tertiary2-active_normal focus:ring-tertiary1-active"}`}
           >
             {options.map((option, index) => (
@@ -118,7 +118,7 @@ const TextInput = ({
 
           {/* Error message for dropdown */}
           {error && (
-            <div className="text-xs text-primary-normal mt-1">{error}</div>
+            <div className="mt-1 text-xs text-primary-normal">{error}</div>
           )}
         </div>
       ) : (
@@ -201,7 +201,7 @@ const TextInput = ({
 
           {/* Error message for date input */}
           {error && (
-            <div className="text-xs text-primary-normal mt-1">{error}</div>
+            <div className="mt-1 text-xs text-primary-normal">{error}</div>
           )}
         </div>
       )}

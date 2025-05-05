@@ -3,6 +3,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { useLanguage } from "@/context/LanguageContext";
+import { useCalendar } from "@/context/CalendarContext";
 
 const CalendarItem = ({
   dayOfMonth,
@@ -11,10 +12,10 @@ const CalendarItem = ({
   totalInventory = 0,
   onClick,
   isOtherMonth,
-  currentMonth,
-  currentYear,
 }) => {
   const { translations } = useLanguage();
+  const { selectedMonth: currentMonth, selectedYear: currentYear } =
+    useCalendar();
   const isFull = availableSeats === 0 && totalInventory > 0;
   const isLeft = index % 7 === 0; // Check if the item is on the left side of the calendar
   const isRight = (index + 1) % 7 === 0; // Check if the item is on the right side of the calendar
@@ -62,7 +63,7 @@ const CalendarItem = ({
 
   return (
     <article
-      className={`relative min-w-[2.618rem] min-h-[2.813rem] lg:h-[4.976rem] lg:w-[6.282rem] bg-transparent border-tertiary1-light border-t-[1px] ${!isLeft && !isRight ? "border-r-[1px]" : ""} ${isLeft ? "border-r-[1px]" : ""}  
+      className={`relative min-h-[2.813rem] min-w-[2.618rem] border-t-[1px] border-tertiary1-light bg-transparent lg:h-[4.976rem] lg:w-[6.282rem] ${!isLeft && !isRight ? "border-r-[1px]" : ""} ${isLeft ? "border-r-[1px]" : ""}  
         ${isFull ? "hover:cursor-not-allowed" : "hover:cursor-pointer"} 
        `}
       onClick={onClick}
@@ -71,13 +72,13 @@ const CalendarItem = ({
         className={`${calendarItemClass} 
         `}
       >
-        <p className="flex justify-center pt-3 md:h-auto md:absolute md:left-2 md:pt-[5px] font-medium text-labelLarge md:text-labelMedium">
+        <p className="flex justify-center pt-3 text-labelLarge font-medium md:absolute md:left-2 md:h-auto md:pt-[5px] md:text-labelMedium">
           {isToday &&
           isCurrentYear &&
           typeof percentageAvailable === "number" ? (
             <span
               className={`
-                inline-flex items-center justify-center w-6 h-6 rounded-full border-2
+                inline-flex h-6 w-6 items-center justify-center rounded-full border-2
                 ${percentageAvailable <= 50 ? "border-calendar-today_ring" : ""}
                 ${percentageAvailable > 50 ? "border-primary-active" : ""}
                 relative bottom-[2px] md:bottom-1 md:right-[6px]
@@ -90,13 +91,13 @@ const CalendarItem = ({
           )}
         </p>
         {availableSeats >= 0 && totalInventory !== 0 && !isOtherMonth ? (
-          <div className="justify-end items-center md:gap-[4px] absolute bottom-1 right-2 md:right-2 hidden md:flex">
+          <div className="absolute bottom-1 right-2 hidden items-center justify-end md:right-2 md:flex md:gap-[4px]">
             {/* <img
               src={icon}
               alt="attendants icon"
               className="object-center w-4 h-5"
             /> */}
-            <p className="text-white text-labelMedium font-medium">{`${translations["calendar.seats"]}: ${availableSeats}`}</p>
+            <p className="text-labelMedium font-medium text-white">{`${translations["calendar.seats"]}: ${availableSeats}`}</p>
           </div>
         ) : null}
       </div>
@@ -106,14 +107,11 @@ const CalendarItem = ({
 
 CalendarItem.propTypes = {
   dayOfMonth: PropTypes.number.isRequired,
-  icon: PropTypes.string,
   index: PropTypes.number.isRequired,
   availableSeats: PropTypes.number,
   totalInventory: PropTypes.number,
   onClick: PropTypes.func,
   isOtherMonth: PropTypes.bool,
-  currentMonth: PropTypes.number,
-  currentYear: PropTypes.number,
 };
 
 export default CalendarItem;
