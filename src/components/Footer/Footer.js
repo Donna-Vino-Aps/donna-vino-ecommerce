@@ -63,7 +63,6 @@ const Footer = () => {
 
   return (
     <footer
-    
       className="flex h-96 h-[48.625rem] items-center justify-center bg-[#2F2E2E] py-4 text-center text-white md:h-[26.625rem]"
       data-testid="footer"
       aria-label="Footer"
@@ -86,22 +85,27 @@ const Footer = () => {
                   key={index}
                   data-testid={dataTestId}
                   href={href}
-                  className={`rounded-md px-3 py-2 text-bodyLarge${index + 2}`}
+                  className={`rounded-md px-3 py-2 text-bodyLarge${index + 2} `}
                   role="navigation"
                   aria-label={`Link to ${label}`}
                 >
                   {label}
                 </Link>
               ))}
-
             </div>
             <div className="relative top-10 order-1 flex md:left-3 md:top-20 md:order-1">
               <div className="grid grid-cols-2 place-items-center gap-12 md:flex md:gap-9 lg:gap-14">
                 {paymentIcons.map(({ src }, index) => (
-                  <div key={index} className={index == paymentIcons.length - 1 ? "col-span-2" : "col-span-1"}><img
-                    src={src}
-
-                  /></div>
+                  <div
+                    key={index}
+                    className={
+                      index == paymentIcons.length - 1
+                        ? "col-span-2"
+                        : "col-span-1"
+                    }
+                  >
+                    <img src={src} />
+                  </div>
                 ))}
               </div>
             </div>
@@ -132,8 +136,20 @@ const Footer = () => {
             </div>
           </div>
         </div>
-        <div className="relative top-20 whitespace-nowrap pt-3 text-bodySmall text-tertiary2-hover_dark md:text-bodyMedium"><p>© 2025 Donna Vino Aps | CVR-n. 45017567 | <a className="underline" href="https://www.donnavino.dk/privacy-policy" role="navigation" aria-label="Link to Privacy Policy">Privacy Policy</a></p></div>
-    </div>
+        <div className="relative top-20 whitespace-nowrap pt-3 text-bodySmall text-tertiary2-hover_dark md:text-bodyMedium">
+          <p>
+            © 2025 Donna Vino Aps | CVR-n. 45017567 |{" "}
+            <a
+              className="underline"
+              href="https://www.donnavino.dk/privacy-policy"
+              role="navigation"
+              aria-label="Link to Privacy Policy"
+            >
+              Privacy Policy
+            </a>
+          </p>
+        </div>
+      </div>
     </footer>
   );
 };
