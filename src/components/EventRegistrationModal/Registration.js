@@ -17,7 +17,26 @@ function Registration({ eventDetails = {}, onClose }) {
   const handleSubmit = (e) => {
     e.preventDefault();
   };
+  const handlePayment = async () => {
+    const orderId = `event-${Date.now()}`;
+    const res = await fetch("/api/create-payment", {
+      method: "POST",
+      body: JSON.stringify({
+        orderId: orderId,
+        amount: Number(price) * Number(seats),
+      }), // 5000 = 50.00 DKK
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
 
+    const data = await res.json();
+    if (data.url) {
+      window.location.href = data.url; // Redirect to MobilePay payment page
+    } else {
+      alert("Something went wrong");
+    }
+  };
   return (
     <>
       <h3 className="mb-4 text-center font-barlow text-headlineSmall font-medium">
@@ -166,6 +185,7 @@ function Registration({ eventDetails = {}, onClose }) {
               type="submit"
               className="flex w-full items-center justify-center gap-2 rounded bg-blue-500 px-4 py-2 font-medium text-white hover:bg-blue-600 disabled:cursor-not-allowed disabled:bg-blue-500 disabled:opacity-50 disabled:hover:bg-blue-500 md:flex-1"
               disabled={!agree || availableSeats === 0}
+              onClick={handlePayment}
             >
               <span>{translations["event.registration.form.payWith"]}</span>
               <img
