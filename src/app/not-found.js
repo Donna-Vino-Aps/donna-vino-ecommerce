@@ -1,8 +1,6 @@
 "use client";
-
 import React from "react";
 import { useLanguage } from "@/context/LanguageContext";
-
 import Button from "@/components/Button/Button";
 
 export default function NotFound() {
