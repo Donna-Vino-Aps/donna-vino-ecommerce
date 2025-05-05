@@ -248,5 +248,8 @@
   "sales.complaints.li1": "E-mail",
   "sales.complaints.li2": "Telefon",
   "sales.complaints.p2": "Vi bestræber os på at besvare alle henvendelser inden for 2 hverdage.",
-  "sales.footer": "Disse oplysninger gives i overensstemmelse med Forbrugerombudsmandens krav til brug af MobilePay og sikrer gennemsigtighed for vores værdsatte kunder."
+  "sales.footer": "Disse oplysninger gives i overensstemmelse med Forbrugerombudsmandens krav til brug af MobilePay og sikrer gennemsigtighed for vores værdsatte kunder.",
+  "notFound.title": "Siden blev ikke fundet",
+  "notFound.message": "Beklager, siden du leder efter findes ikke eller er blevet flyttet.",
+  "notFound.button": "Tilbage til forsiden"
 }

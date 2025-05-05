@@ -249,5 +249,8 @@
   "sales.complaints.li1": "Email",
   "sales.complaints.li2": "Phone",
   "sales.complaints.p2": "We aim to respond to all inquiries within 2 business days.",
-  "sales.footer": "This information is provided in compliance with the Consumer Ombudsman’s requirements for use of MobilePay and ensures transparency for our valued customers."
+  "sales.footer": "This information is provided in compliance with the Consumer Ombudsman’s requirements for use of MobilePay and ensures transparency for our valued customers.",
+  "notFound.title": "Page not found",
+  "notFound.message": "Sorry, the page you are looking for doesn't exist or has been moved.",
+  "notFound.button": "Back to home"
 }
