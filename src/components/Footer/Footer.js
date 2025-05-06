@@ -46,24 +46,29 @@ const Footer = () => {
   const paymentIcons = [
     {
       src: "/icons/footer/apple-pay.svg",
+      alt: "Apple pay"
     },
     {
       src: "/icons/footer/google-pay.svg",
+      alt: "Google pay"
     },
     {
       src: "/icons/footer/mastercard.svg",
+      alt: "Mastercard"
     },
     {
       src: "/icons/footer/Visa.svg",
+      alt: "Visa"
     },
     {
       src: "/icons/footer/MobilePayLogo.svg",
+      alt: "Mobile pay"
     },
   ];
 
   return (
     <footer
-      className="flex h-96 h-[48.625rem] items-center justify-center bg-[#2F2E2E] py-4 text-center text-white md:h-[26.625rem]"
+      className="flex h-[48.625rem] items-center justify-center bg-[#2F2E2E] py-4 text-center text-white md:h-[26.625rem]"
       data-testid="footer"
       aria-label="Footer"
     >
@@ -79,13 +84,13 @@ const Footer = () => {
           </Link>
 
           <div className="md:relative md:top-6">
-            <div className="flex flex-col md:flex-row">
+            <div className="flex flex-col md:flex-row md:gap-9 lg:gap-16">
               {links.map(({ href, label, dataTestId }, index) => (
                 <Link
                   key={index}
                   data-testid={dataTestId}
                   href={href}
-                  className={`rounded-md px-3 py-2 text-bodyLarge${index + 2} `}
+                  className={`rounded-md px-3 py-2`}
                   role="navigation"
                   aria-label={`Link to ${label}`}
                 >
@@ -95,7 +100,7 @@ const Footer = () => {
             </div>
             <div className="relative top-10 order-1 flex md:left-3 md:top-20 md:order-1">
               <div className="grid grid-cols-2 place-items-center gap-12 md:flex md:gap-9 lg:gap-14">
-                {paymentIcons.map(({ src }, index) => (
+                {paymentIcons.map(({ src, alt }, index) => (
                   <div
                     key={index}
                     className={
@@ -104,14 +109,14 @@ const Footer = () => {
                         : "col-span-1"
                     }
                   >
-                    <img src={src} />
+                    <img src={src} alt={alt} />
                   </div>
                 ))}
               </div>
             </div>
           </div>
           <div className="relative top-20 order-1 flex flex-col items-center md:top-4 md:order-4">
-            <h4 className="mb-1 text-bodyLarge md:mb-3 md:mt-4">
+            <h4 className="mb-1 text-bodyLarge md:mb-3 md:mt-5">
               {translations["footer.follow"]}
             </h4>
             <div
@@ -138,7 +143,7 @@ const Footer = () => {
         </div>
         <div className="relative top-20 whitespace-nowrap pt-3 text-bodySmall text-tertiary2-hover_dark md:text-bodyMedium">
           <p>
-            © 2025 Donna Vino Aps | CVR-n. 45017567 |{" "}
+            {"© 2025 Donna Vino Aps | CVR-n. 45017567 | "}
             <a
               className="underline"
               href="https://www.donnavino.dk/privacy-policy"
