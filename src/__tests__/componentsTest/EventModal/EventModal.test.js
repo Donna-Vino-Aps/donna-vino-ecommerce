@@ -24,7 +24,7 @@ describe("EventModal", () => {
     price: 50,
     currency: "DKK",
     availableSeats: 5,
-    totalInventory: 10,
+    totalSeats: 10,
     location: "Copenhagen",
     date: "2023-08-15",
     timeStart: "18:00",

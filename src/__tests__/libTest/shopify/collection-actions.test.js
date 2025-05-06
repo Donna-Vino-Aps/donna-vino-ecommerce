@@ -111,15 +111,13 @@ describe("Shopify Collection Actions", () => {
       id: "gid://shopify/Product/123",
       title: "Wine Tasting Event",
       handle: "wine-tasting-event",
-      description: "A wonderful wine tasting event",
-      totalInventory: 20,
       variants: {
         edges: [
           {
             node: {
               id: "gid://shopify/ProductVariant/456",
               price: {
-                amount: "599.00",
+                amount: "599.0",
                 currencyCode: "DKK",
               },
               availableSeats: 15,
@@ -127,25 +125,52 @@ describe("Shopify Collection Actions", () => {
           },
         ],
       },
+      description: "A wonderful wine tasting event",
+      date: {
+        value: "2025-08-15",
+      },
+      menuDescription: {
+        value: "Delicious menu",
+      },
+      wineDescription: {
+        value: "Fine wines",
+      },
+      winery: {
+        value: "Test Winery",
+      },
+      wine: {
+        value: "Test Wine",
+      },
+      timeStart: {
+        value: "2025-08-15T18:00:00Z",
+      },
+      timeEnd: {
+        value: "2025-08-15T21:00:00Z",
+      },
+      location: {
+        value: "Copenhagen",
+      },
+      totalSeats: {
+        value: "20",
+      },
       images: {
         edges: [
           {
             node: {
-              id: "img1",
               url: "https://example.com/image1.jpg",
               altText: "Wine Image",
+              id: "img1",
+            },
+          },
+          {
+            node: {
+              url: "https://example.com/image2.jpg",
+              altText: "Wine Image",
+              id: "img2",
             },
           },
         ],
       },
-      date: { value: "2025-08-15" },
-      menuDescription: { value: "Delicious menu" },
-      wineDescription: { value: "Fine wines" },
-      winery: { value: "Test Winery" },
-      wine: { value: "Test Wine" },
-      timeStart: { value: "2025-08-15T18:00:00Z" },
-      timeEnd: { value: "2025-08-15T21:00:00Z" },
-      location: { value: "Copenhagen" },
     };
 
     it("should transform a Shopify product to the expected format", () => {
@@ -156,7 +181,6 @@ describe("Shopify Collection Actions", () => {
         title: "Wine Tasting Event",
         handle: "wine-tasting-event",
         description: "A wonderful wine tasting event",
-        totalInventory: 20,
         variantId: "gid://shopify/ProductVariant/456",
         price: 599,
         currency: "DKK",
@@ -164,6 +188,11 @@ describe("Shopify Collection Actions", () => {
           {
             id: "img1",
             url: "https://example.com/image1.jpg",
+            altText: "Wine Image",
+          },
+          {
+            id: "img2",
+            url: "https://example.com/image2.jpg",
             altText: "Wine Image",
           },
         ],
@@ -176,6 +205,7 @@ describe("Shopify Collection Actions", () => {
         timeStart: expect.any(Date),
         timeEnd: expect.any(Date),
         location: "Copenhagen",
+        totalSeats: 20,
       });
 
       expect(parseISO).toHaveBeenCalledWith("2025-08-15T18:00:00Z");
@@ -188,7 +218,6 @@ describe("Shopify Collection Actions", () => {
         title: "Wine Tasting Event",
         handle: "wine-tasting-event",
         description: "A wonderful wine tasting event",
-        // Missing totalInventory
         // Missing variants
         // Missing priceRange
         // Missing images
@@ -204,7 +233,6 @@ describe("Shopify Collection Actions", () => {
         handle: "wine-tasting-event",
         description: "A wonderful wine tasting event",
         variantId: null,
-        totalInventory: undefined,
         price: null,
         currency: "DKK",
         images: [],
@@ -217,6 +245,7 @@ describe("Shopify Collection Actions", () => {
         timeStart: null,
         timeEnd: null,
         location: null,
+        totalSeats: 0,
       });
     });
 
@@ -280,6 +309,7 @@ describe("Shopify Collection Actions", () => {
         timeStart: null,
         timeEnd: null,
         location: null,
+        totalSeats: 0,
       };
 
       const result = transformShopifyProduct(productWithEmptyMetafields);
@@ -292,6 +322,7 @@ describe("Shopify Collection Actions", () => {
       expect(result.timeStart).toBeNull();
       expect(result.timeEnd).toBeNull();
       expect(result.location).toBeNull();
+      expect(result.totalSeats).toBe(0);
     });
   });
 });
