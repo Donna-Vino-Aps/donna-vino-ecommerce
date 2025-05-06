@@ -90,7 +90,7 @@ const Footer = () => {
                   key={index}
                   data-testid={dataTestId}
                   href={href}
-                  className={`rounded-md px-3 py-2`}
+                  className={`rounded-md px-3 py-2 lg:px-9`}
                   role="navigation"
                   aria-label={`Link to ${label}`}
                 >
@@ -98,8 +98,8 @@ const Footer = () => {
                 </Link>
               ))}
             </div>
-            <div className="relative top-10 order-1 flex md:left-3 md:top-20 md:order-1">
-              <div className="grid grid-cols-2 place-items-center gap-12 md:flex md:gap-9 lg:gap-14">
+            <div className="relative top-10 order-1 flex md:left-3 md:top-20 md:order-1 lg:left-12">
+              <div className="grid grid-cols-2 place-items-center gap-12 md:flex md:gap-9 lg:gap-16">
                 {paymentIcons.map(({ src, alt }, index) => (
                   <div
                     key={index}
@@ -115,8 +115,8 @@ const Footer = () => {
               </div>
             </div>
           </div>
-          <div className="relative top-20 order-1 flex flex-col items-center md:top-4 md:order-4">
-            <h4 className="mb-1 text-bodyLarge md:mb-3 md:mt-5">
+          <div className="relative top-20 order-1 flex flex-col items-center md:top-4 md:order-4 lg:left-16">
+            <h4 className="mb-1 text-bodyLarge font-medium md:mb-3 md:mt-5">
               {translations["footer.follow"]}
             </h4>
             <div
