@@ -43,7 +43,8 @@ export function transformShopifyProduct(product) {
   const availableSeats = firstVariant?.availableSeats || 0;
 
   // Extract metafield values, providing fallbacks for missing data
-  const getMetafieldValue = (metafield) => metafield?.value || null;
+  const getMetafieldValue = (metafield, defaultValue = null) =>
+    metafield?.value || defaultValue;
 
   // Convert UTC time strings to CEST time
   const adjustTimeZone = (utcTimeString) => {
@@ -64,7 +65,6 @@ export function transformShopifyProduct(product) {
     handle: product.handle,
     variantId,
     description: product.description,
-    totalInventory: product.totalInventory,
     price,
     currency,
     images,
@@ -78,6 +78,7 @@ export function transformShopifyProduct(product) {
     timeStart: adjustTimeZone(getMetafieldValue(product.timeStart)),
     timeEnd: adjustTimeZone(getMetafieldValue(product.timeEnd)),
     location: getMetafieldValue(product.location),
+    totalSeats: Number(getMetafieldValue(product.totalSeats, 0)),
   };
 
   return transformedProduct;

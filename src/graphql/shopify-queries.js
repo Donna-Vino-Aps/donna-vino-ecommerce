@@ -10,7 +10,6 @@ export const GET_COLLECTION_BY_HANDLE = `
             id
             title
             handle
-            totalInventory
             variants(first: 1) {
               edges {
                 node {
@@ -46,6 +45,9 @@ export const GET_COLLECTION_BY_HANDLE = `
               value
             }
             location: metafield(namespace: "event", key: "location") {
+              value
+            }
+            totalSeats: metafield(namespace: "event", key: "totalSeats") {
               value
             }
             images(first: 2) {
