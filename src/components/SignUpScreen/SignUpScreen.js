@@ -277,7 +277,7 @@ const SignUpScreen = () => {
                           )
                           .replace(
                             "{privacy}",
-                            `<strong>${translations["signUp.privacy"]}</strong>`,
+                            `<a class="underline font-semibold" href="https://www.donnavino.dk/privacy-policy" role="navigation" aria-label="Link to ${translations["signUp.privacy"]}">${translations["signUp.privacy"]}</a>`,
                           ),
                       }}
                       className="text-bodyMedium text-secondary-dark sm:text-bodyLarge"
