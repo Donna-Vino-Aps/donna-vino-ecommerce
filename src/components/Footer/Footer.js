@@ -46,23 +46,23 @@ const Footer = () => {
   const paymentIcons = [
     {
       src: "/icons/footer/apple-pay.svg",
-      alt: "Apple pay"
+      alt: "Apple pay",
     },
     {
       src: "/icons/footer/google-pay.svg",
-      alt: "Google pay"
+      alt: "Google pay",
     },
     {
       src: "/icons/footer/mastercard.svg",
-      alt: "Mastercard"
+      alt: "Mastercard",
     },
     {
       src: "/icons/footer/Visa.svg",
-      alt: "Visa"
+      alt: "Visa",
     },
     {
       src: "/icons/footer/MobilePayLogo.svg",
-      alt: "Mobile pay"
+      alt: "Mobile pay",
     },
   ];
 
