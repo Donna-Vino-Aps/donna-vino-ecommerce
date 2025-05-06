@@ -154,7 +154,7 @@ const Calendar = () => {
             index={index}
             icon="./icons/users-2.svg"
             availableSeats={event ? event.availableSeats : 0}
-            totalInventory={event ? event.totalInventory : 0}
+            totalSeats={event ? event.totalSeats : 0}
             isOtherMonth={day.isOtherMonth}
             currentMonth={currentMonth}
             currentYear={currentYear}

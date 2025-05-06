@@ -85,10 +85,10 @@ const EventList = () => {
     setSelectedEvent(null);
   };
 
-  const getSeatStatus = (availableSeats, totalInventory) => {
-    const isFull = availableSeats === 0 && totalInventory > 0;
+  const getSeatStatus = (availableSeats, totalSeats) => {
+    const isFull = availableSeats === 0 && totalSeats > 0;
     const percentageAvailable =
-      totalInventory > 0 ? (availableSeats / totalInventory) * 100 : 0;
+      totalSeats > 0 ? (availableSeats / totalSeats) * 100 : 0;
 
     if (isFull) {
       return {
@@ -96,7 +96,7 @@ const EventList = () => {
         textColor: "text-calendar-full",
         borderColor: "border-calendar-full",
       };
-    } else if (percentageAvailable <= 50 && totalInventory !== 0) {
+    } else if (percentageAvailable <= 50 && totalSeats !== 0) {
       return {
         bgColor: "bg-calendar-limited_light",
         textColor: "text-calendar-limited",
@@ -167,7 +167,7 @@ const EventList = () => {
           const formattedTimeEnd = formatTime(event.timeEnd);
           const seatStatus = getSeatStatus(
             event.availableSeats,
-            event.totalInventory,
+            event.totalSeats,
           );
 
           return (
