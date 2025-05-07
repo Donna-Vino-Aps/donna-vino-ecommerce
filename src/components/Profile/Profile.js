@@ -1,11 +1,76 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Formik } from "formik";
 import TextInput from "../TextInput/TextInput";
 import Button from "../Button/Button";
+import axios from "axios";
+import Spinner from "../UI/Spinner";
 import { useLanguage } from "@/context/LanguageContext";
+import { useRouter } from "next/navigation";
+import { useCredentials } from "@/context/CredentialsContext";
 
 const Profile = () => {
+  const { storedCredentials } = useCredentials();
+  const router = useRouter();
   const { translations } = useLanguage();
+  const [isEditing, setIsEditing] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+
+  const [initialValues, setInitialValues] = useState({
+    firstName: "",
+    lastName: "",
+    email: "",
+    address: "",
+    country: "",
+  });
+
+  useEffect(() => {
+    const fetchProfile = async () => {
+      const token = localStorage.getItem("token");
+      try {
+        const res = await axios.get("/api/user/profile", {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        setInitialValues(res.data);
+      } catch (err) {
+        console.error("Failed to load profile", err);
+      }
+    };
+
+    fetchProfile();
+  }, []);
+
+  useEffect(() => {
+    if (!storedCredentials && !isLoading) {
+      router.push("/sign-in"); // or whatever your login page is
+    } else {
+      setIsLoading(false);
+    }
+  }, [storedCredentials, router]);
+
+  if (isLoading) {
+    return <Spinner />;
+  }
+  if (!storedCredentials) return null;
+
+  const handleSubmit = async (values, { setSubmitting }) => {
+    const token = localStorage.getItem("token");
+    try {
+      const res = await axios.put("/api/user/profile", values, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      setInitialValues(res.data.result);
+      setIsEditing(false);
+    } catch (err) {
+      console.error("Error updating profile:", err);
+    } finally {
+      setSubmitting(false);
+    }
+  };
+
   return (
     <div className="my-8 flex min-w-[22.5rem] flex-col items-center justify-center rounded-2xl bg-white px-6 py-8 shadow-lg md:min-w-[47.75rem] md:px-8">
       <img
@@ -24,21 +89,17 @@ const Profile = () => {
           className="relative bottom-[2.125rem] left-[6.8rem] h-6 w-6"
         />
       </div>
-      <h2 className="text-displaySmall">Davide Rossi</h2>
-      <p className="mb-5 mt-2 text-labelLarge md:mb-7 md:mt-4">Denmark</p>
+      <h2 className="text-displaySmall">
+        {initialValues.firstName} {initialValues.lastName}
+      </h2>
+      <p className="mb-5 mt-2 text-labelLarge md:mb-7 md:mt-4">
+        {initialValues.country}
+      </p>
       <h3 className="mb-4 self-start text-headlineSmall">Personal Details</h3>
       <Formik
-        initialValues={{
-          firstName: "Davide",
-          lastName: "Rossi",
-          email: "daviderossi@emailadress.com",
-          password: "password",
-          address: "Kirkesvinget 1, 2610 Rødovre",
-          country: "Denmark",
-        }}
-        onSubmit={(values, { setSubmitting }) => {
-          handleSignup(values, setSubmitting);
-        }}
+        initialValues={initialValues}
+        enableReinitialize
+        onSubmit={handleSubmit}
       >
         {({
           handleChange,
@@ -58,6 +119,7 @@ const Profile = () => {
                 value={values.firstName}
                 onChange={handleChange}
                 onBlur={handleBlur}
+                disabled={!isEditing}
                 data-testid="input-first-name"
                 aria-label="First Name"
                 error={touched.firstName && errors.firstName}
@@ -70,6 +132,7 @@ const Profile = () => {
                 value={values.lastName}
                 onChange={handleChange}
                 onBlur={handleBlur}
+                disabled={!isEditing}
                 data-testid="input-last-name"
                 aria-label="Last Name"
                 error={touched.lastName && errors.lastName}
@@ -82,22 +145,10 @@ const Profile = () => {
                 value={values.email}
                 onChange={handleChange}
                 onBlur={handleBlur}
+                disabled={!isEditing}
                 data-testid="input-email"
                 aria-label="Email"
                 error={touched.email && errors.email}
-              />
-
-              <TextInput
-                type="password"
-                name="password"
-                placeholder={translations["profile.placeholder.password"]}
-                value={values.password}
-                onChange={handleChange}
-                onBlur={handleBlur}
-                showPasswordToggle={true}
-                data-testid="input-password"
-                aria-label="Password"
-                error={touched.password && errors.password}
               />
 
               <TextInput
@@ -107,6 +158,7 @@ const Profile = () => {
                 value={values.address}
                 onChange={handleChange}
                 onBlur={handleBlur}
+                disabled={!isEditing}
                 data-testid="input-address"
                 aria-label="Address"
                 error={touched.address && errors.address}
@@ -119,6 +171,7 @@ const Profile = () => {
                 value={values.country}
                 onChange={handleChange}
                 onBlur={handleBlur}
+                disabled={!isEditing}
                 isDropdown={true}
                 options={[
                   {
@@ -137,13 +190,22 @@ const Profile = () => {
             </div>
             <div className="relative top-1 mt-4 w-full md:top-2">
               <Button
+                type="submit"
                 text={
-                  isSubmitting
-                    ? translations["common.submitting"]
+                  isEditing
+                    ? translations["common.save"]
                     : translations["profile.button.edit"]
                 }
-                onClick={handleSubmit}
-                icon="/icons/pencil.svg"
+                onClick={() => {
+                  if (!isEditing) {
+                    setIsEditing(true);
+                  }
+                }}
+                icon={
+                  isEditing
+                    ? "/icons/checkmark-circle.svg"
+                    : "/icons/pencil.svg"
+                }
                 variant="greenEdit"
                 disabled={isSubmitting}
                 data-testid="edit-button"
