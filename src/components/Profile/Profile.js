@@ -13,6 +13,7 @@ const Profile = () => {
   const router = useRouter();
   const { translations } = useLanguage();
   const [isEditing, setIsEditing] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
   const [initialValues, setInitialValues] = useState({
     firstName: "",
@@ -22,7 +23,7 @@ const Profile = () => {
     country: "",
   });
 
-  const { isLoading, performFetch } = useFetch(
+  const { performFetch } = useFetch(
     "/user/profile", // This becomes `${baseApiUrl}/api/user/profile`
     "GET",
     null,
