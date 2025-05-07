@@ -24,7 +24,7 @@ export function createCheckoutUrl(variantId, quantity = 1) {
 
     const numericId = extractNumericId(variantId);
 
-    return `https://${SHOPIFY_STORE_DOMAIN}/cart/${numericId}:${quantity}?access_token=${SHOPIFY_STOREFRONT_ACCESS_TOKEN}`;
+    return `https://${SHOPIFY_STORE_DOMAIN}/cart/${numericId}:${quantity}?access_token=${SHOPIFY_STOREFRONT_ACCESS_TOKEN}&storefront=true`;
   } catch (error) {
     logError("Error creating checkout URL:", error);
     throw error;
