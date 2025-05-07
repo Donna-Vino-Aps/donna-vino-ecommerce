@@ -5,6 +5,7 @@ import useFetch from "../../hooks/api/useFetch";
 import { logError } from "../../utils/logging";
 import Button from "../Button/Button";
 import TextInput from "../TextInput/TextInput";
+import TermsAndPrivacyLabel from "./TermsAndPrivacyLabel";
 import dayjs from "dayjs";
 import { createSignUpSchema } from "@/validation/signUpSchema";
 import { useRouter } from "next/navigation";
@@ -262,25 +263,18 @@ const SignUpScreen = () => {
                         setFieldValue("acceptTerms", !values.acceptTerms)
                       }
                       onBlur={handleBlur}
-                      className={`h-6 w-6 border-2 ${
+                      className={`size-5 rounded accent-secondary-normal ${
                         touched.acceptTerms && errors.acceptTerms
-                          ? "border-primary-normal text-primary-normal ring-1 ring-primary-normal checked:border-primary-active checked:bg-primary-normal"
+                          ? "border-primary-normal text-primary-normal"
                           : "border-secondary-active text-secondary-active checked:border-secondary-dark checked:bg-secondary-active"
                       } rounded-md bg-white transition-all duration-200 focus:ring-2 focus:ring-secondary-hover`}
                     />
-                    <span
-                      dangerouslySetInnerHTML={{
-                        __html: translations["signUp.acceptTerms"]
-                          .replace(
-                            "{terms}",
-                            `<strong>${translations["signUp.terms"]}</strong>`,
-                          )
-                          .replace(
-                            "{privacy}",
-                            `<a class="underline font-semibold" href="https://www.donnavino.dk/privacy-policy" role="navigation" aria-label="Link to ${translations["signUp.privacy"]}">${translations["signUp.privacy"]}</a>`,
-                          ),
-                      }}
-                      className="text-bodyMedium text-secondary-dark sm:text-bodyLarge"
+                    <TermsAndPrivacyLabel
+                      textTemplate={translations["signUp.acceptTerms"]}
+                      termsText={translations["signUp.terms"]}
+                      privacyText={translations["signUp.privacy"]}
+                      termsUrl="https://www.donnavino.dk/privacy-policy" // Update when we have a terms page
+                      privacyUrl="https://www.donnavino.dk/privacy-policy"
                     />
                   </label>
                   {touched.acceptTerms && errors.acceptTerms && (
@@ -301,7 +295,7 @@ const SignUpScreen = () => {
                           !values.subscribeToNewsletter,
                         )
                       }
-                      className="h-6 w-6 rounded-md border-2 border-secondary-active bg-white text-secondary-active transition-all duration-200 checked:border-secondary-dark checked:bg-secondary-active focus:ring-2 focus:ring-secondary-hover"
+                      className="size-5 rounded accent-secondary-normal"
                     />
                     <span className="text-bodyMedium text-secondary-dark sm:text-bodyLarge">
                       {translations["signUp.updates"]}
