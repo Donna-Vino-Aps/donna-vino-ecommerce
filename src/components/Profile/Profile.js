@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
+import useFetch from "@/hooks/api/useFetch";
 import { Formik } from "formik";
 import TextInput from "../TextInput/TextInput";
 import Button from "../Button/Button";
-import axios from "axios";
 import Spinner from "../UI/Spinner";
 import { useLanguage } from "@/context/LanguageContext";
 import { useRouter } from "next/navigation";
@@ -13,7 +13,6 @@ const Profile = () => {
   const router = useRouter();
   const { translations } = useLanguage();
   const [isEditing, setIsEditing] = useState(false);
-  const [isLoading, setIsLoading] = useState(true);
 
   const [initialValues, setInitialValues] = useState({
     firstName: "",
@@ -23,31 +22,29 @@ const Profile = () => {
     country: "",
   });
 
-  useEffect(() => {
-    const fetchProfile = async () => {
-      const token = localStorage.getItem("token");
-      try {
-        const res = await axios.get("/api/user/profile", {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
-        setInitialValues(res.data);
-      } catch (err) {
-        console.error("Failed to load profile", err);
-      }
-    };
+  const { isLoading, performFetch } = useFetch(
+    "/user/profile", // This becomes `${baseApiUrl}/api/user/profile`
+    "GET",
+    null,
+    {},
+    (data) => {
+      setInitialValues(data);
+    },
+  );
 
-    fetchProfile();
+  // triggers fetch on mount
+  useEffect(() => {
+    performFetch();
   }, []);
 
+  // Redirects user to login if not authenticated
   useEffect(() => {
     if (!storedCredentials && !isLoading) {
-      router.push("/sign-in"); // or whatever your login page is
+      router.push("/login");
     } else {
       setIsLoading(false);
     }
-  }, [storedCredentials, router]);
+  }, [storedCredentials, isLoading, router]);
 
   if (isLoading) {
     return <Spinner />;
@@ -57,13 +54,21 @@ const Profile = () => {
   const handleSubmit = async (values, { setSubmitting }) => {
     const token = localStorage.getItem("token");
     try {
-      const res = await axios.put("/api/user/profile", values, {
+      const res = await fetch("/api/user/profile", {
+        method: "PUT",
         headers: {
+          "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
         },
+        body: JSON.stringify(values),
       });
-      setInitialValues(res.data.result);
-      setIsEditing(false);
+      const json = await res.json();
+      if (json.success) {
+        setInitialValues(res.data.result);
+        setIsEditing(false);
+      } else {
+        console.error("Error updating profile:", json.message || json.error);
+      }
     } catch (err) {
       console.error("Error updating profile:", err);
     } finally {
