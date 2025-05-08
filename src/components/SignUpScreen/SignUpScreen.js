@@ -6,6 +6,7 @@ import { logError } from "../../utils/logging";
 import Button from "../Button/Button";
 import TextInput from "../TextInput/TextInput";
 import TermsAndPrivacyLabel from "./TermsAndPrivacyLabel";
+import AgeTooltip from "./AgeTooltip";
 import dayjs from "dayjs";
 import { createSignUpSchema } from "@/validation/signUpSchema";
 import { useRouter } from "next/navigation";
@@ -225,18 +226,7 @@ const SignUpScreen = () => {
                     hint={translations["signUp.validation.birthdate"]}
                   />
 
-                  <div className="group relative top-7 inline-block align-top">
-                    <div className="relative z-30 flex h-[30px] w-[30px] cursor-pointer items-center justify-center rounded-full bg-primary-light transition-all duration-200 group-hover:h-[45px] group-hover:w-[45px]">
-                      <span className="z-40 text-labelXLarge text-tertiary1-darker group-hover:text-titleLarge">
-                        ?
-                      </span>
-                    </div>
-                    <div className="invisible absolute left-0 top-0 z-10 opacity-0 transition-opacity duration-200 group-hover:visible group-hover:opacity-100">
-                      <div className="h-[45px] rounded-full bg-primary-hover p-2 pl-12 text-labelSmall font-medium text-tertiary1-darker sm:min-w-[18rem]">
-                        {translations["signUp.ageTooltip"]}
-                      </div>
-                    </div>
-                  </div>
+                  <AgeTooltip text={translations["signUp.ageTooltip"]} />
                 </div>
 
                 <div className="flex flex-col space-y-3 text-bodyLarge text-tertiary1-darker">
