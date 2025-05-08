@@ -7,6 +7,7 @@ import dayjs from "dayjs";
 const TextInput = ({
   type = "text",
   name,
+  label,
   placeholder = "",
   value,
   onChange,
@@ -40,6 +41,9 @@ const TextInput = ({
     return type;
   };
 
+  const displayLabel =
+    label || (name ? name.charAt(0).toUpperCase() + name.slice(1) : "");
+
   return (
     <div data-testid={`input-container-${name}`}>
       {/* Label for screen readers */}
@@ -53,7 +57,7 @@ const TextInput = ({
             : "mb-2 block text-labelMedium font-medium"
         }
       >
-        {placeholder || `Enter your ${name}`}
+        {displayLabel}
       </label>
 
       {/* Non-date or dropdown input */}
@@ -69,12 +73,12 @@ const TextInput = ({
               type={getInputType()}
               name={name}
               id={name}
-              placeholder=""
+              placeholder={placeholder}
               value={value}
               onChange={onChange}
               onBlur={onBlur}
               aria-labelledby={labelId}
-              aria-label={visuallyHiddenLabel ? undefined : placeholder}
+              aria-label={visuallyHiddenLabel ? displayLabel : undefined}
               data-testid={`input-${name}`}
               className={`relative w-full rounded-lg border bg-tertiary2-light px-5 py-3 text-bodyLarge text-tertiary1-normal focus:outline-none focus:ring-1
               ${error ? "border-others-negative focus:ring-primary-hover" : "border-tertiary1-hover focus:ring-tertiary2-darker"}
@@ -116,7 +120,7 @@ const TextInput = ({
             onChange={onChange}
             onBlur={onBlur}
             aria-labelledby={labelId}
-            aria-label={visuallyHiddenLabel ? undefined : placeholder}
+            aria-label={visuallyHiddenLabel ? displayLabel : undefined}
             data-testid={`dropdown-${name}`}
             className={`w-full rounded-lg border bg-tertiary2-light px-5 py-[14px] font-barlow text-tertiary1-normal focus:outline-none focus:ring-1
               ${error ? "border-others-negative focus:ring-primary-hover" : "border-tertiary2-active_normal focus:ring-tertiary1-active"}`}
@@ -231,7 +235,8 @@ const TextInput = ({
 TextInput.propTypes = {
   type: PropTypes.string,
   name: PropTypes.string.isRequired,
-  placeholder: PropTypes.string.isRequired,
+  label: PropTypes.string,
+  placeholder: PropTypes.string,
   value: PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.number,
@@ -251,6 +256,9 @@ TextInput.propTypes = {
 
 TextInput.defaultProps = {
   type: "text",
+  label: "",
+  placeholder: "",
+  value: "",
   onBlur: () => {},
   icon: null,
   showPasswordToggle: false,
