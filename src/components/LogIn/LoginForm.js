@@ -4,7 +4,6 @@ import { useCredentials } from "@/context/CredentialsContext";
 import { useLanguage } from "@/context/LanguageContext";
 import useFetch from "@/hooks/api/useFetch.js";
 import { useRouter } from "next/navigation";
-// import { MdOutlineEmail, MdLockOutline } from "react-icons/md";
 import Button from "../Button/Button.js";
 import Link from "next/link";
 import TextInput from "../TextInput/TextInput";
@@ -138,10 +137,6 @@ const LoginForm = () => {
                   value={values.email}
                   onChange={handleChange}
                   onBlur={handleBlur}
-                  icon=""
-                  // icon={<MdOutlineEmail />}
-                  dataTestId="login-input-email"
-                  aria-label={translations["logIn.label.email"]}
                 />
               </div>
               <div className="w-[17.5rem] space-y-1 md:w-[18rem] lg:w-[25rem]">
@@ -153,11 +148,7 @@ const LoginForm = () => {
                   value={values.password}
                   onChange={handleChange}
                   onBlur={handleBlur}
-                  icon=""
-                  // icon={<MdLockOutline />}
                   showPasswordToggle={true}
-                  data-testid="login-input-password"
-                  aria-label={translations["logIn.label.password"]}
                 />
               </div>
               <div className="flex w-[17.5rem] flex-col space-y-4 md:w-[18rem] lg:w-[25rem]">
@@ -165,8 +156,8 @@ const LoginForm = () => {
                   text={translations["logIn.button"]}
                   onClick={handleSubmit}
                   variant="redWide"
-                  data-testid="login-button"
-                  aria-label="Submit Log In"
+                  testId="login-button"
+                  ariaLabel="Submit Log In"
                 />
               </div>
               {/* Pass setMsg, setSuccess, and setLoading so GoogleAuth updates global state */}
@@ -205,9 +196,9 @@ const LoginForm = () => {
                 <Button
                   text={translations["logIn.signup-button"]}
                   variant="greenSubmit"
-                  data-testid="login-button"
-                  aria-label="Submit Log In"
-                  type="submit"
+                  testId="signup-button"
+                  ariaLabel="Go to Sign Up"
+                  type="button"
                   onClick={() => router.push("/signup")}
                 />
               </div>
