@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
-import { FaEye, FaEyeSlash, FaCalendarAlt } from "react-icons/fa";
+import { FiEye, FiEyeOff, FiCalendar } from "react-icons/fi";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import dayjs from "dayjs";
 
@@ -76,19 +76,19 @@ const TextInput = ({
               ${icon ? "pl-12" : ""} ${showPasswordToggle ? "pr-10" : ""}`}
           />
 
-          {/* Password toggle */}
-          {showPasswordToggle && (
-            <button
-              type="button"
-              onClick={() => setShowPassword(!showPassword)}
-              aria-label={showPassword ? "Hide password" : "Show password"}
-              data-testid="toggle-password-visibility"
-              className="absolute right-3 top-1/2 -translate-y-1/2 transform text-gray-600"
-            >
-              {showPassword ? <FaEyeSlash /> : <FaEye />}
-            </button>
-          )}
-
+            {/* Password toggle */}
+            {showPasswordToggle && (
+              <button
+                type="button"
+                onClick={() => setShowPassword(!showPassword)}
+                aria-label={showPassword ? "Hide password" : "Show password"}
+                data-testid="toggle-password-visibility"
+                className="absolute right-3 top-1/2 -translate-y-1/2 transform text-tertiary1-normal"
+              >
+                {showPassword ? <FiEyeOff /> : <FiEye />}
+              </button>
+            )}
+          </div>
           {/* Error message */}
           {error && (
             <div className="mt-1 text-xs text-primary-normal">{error}</div>
