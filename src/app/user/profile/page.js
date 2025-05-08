@@ -8,9 +8,11 @@ const UserProfile = () => {
 
   useEffect(() => {
     const token = localStorage.getItem("token");
-    if (!token) {
-      router.push("/login"); // Redirect if not authenticated
-    }
+    // if (!token) {
+    //   router.push("/login"); // Redirect if not authenticated
+    // }
+    // Uncomment the above line to enforce authentication
+    // Keep them commented to access the profile page without authentication
   }, []);
 
   return (
