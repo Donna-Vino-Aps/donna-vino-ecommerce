@@ -28,6 +28,7 @@
   "signUp.validation.emailMatch": "Emails do not match",
   "signUp.validation.passwordFormat": "Password must be at least 8 characters long, including one uppercase letter, one lowercase letter, one number, and one special character (e.g., !, @, #, $)",
   "signUp.validation.passwordMatch": "Passwords do not match",
+  "signUp.validation.birthdate": "Your date of birth in DD/MM/YYYY",
   "signUp.validation.acceptTerms": "Please check the box to proceed",
   "signUp.acceptTerms": "Accept the {terms} and {privacy}.",
   "signUp.terms": "Terms of Use",

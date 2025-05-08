@@ -28,6 +28,7 @@
   "signUp.validation.emailMatch": "E-mails stemmer ikke overens",
   "signUp.validation.passwordFormat": "Adgangskoden skal være mindst 8 tegn lang, inklusive et stort bogstav, et lille bogstav, et tal og et specialtegn (f.eks. !, @, #, $)",
   "signUp.validation.passwordMatch": "Adgangskoder stemmer ikke overens",
+  "signUp.validation.birthdate": "Din fødselsdato i DD/MM/ÅÅÅÅ",
   "signUp.validation.acceptTerms": "Markér venligst boksen for at fortsætte",
   "signUp.acceptTerms": "Accepter {terms} og {privacy}.",
   "signUp.terms": "Brugsbetingelser",
