@@ -146,6 +146,7 @@ const TextInput = ({
             disableFuture
             format="DD/MM/YYYY"
             aria-labelledby={labelId}
+            aria-label={visuallyHiddenLabel ? displayLabel : undefined}
             data-testid={`datepicker-${name}`}
             slots={{
               openPickerIcon: () => <FiCalendar size={16} color="#6C6C6C" />,
@@ -159,6 +160,8 @@ const TextInput = ({
                 id: name,
                 InputProps: {
                   id: name,
+                  "aria-labelledby": labelId,
+                  "aria-label": visuallyHiddenLabel ? displayLabel : undefined,
                 },
                 InputLabelProps: {
                   shrink: false,

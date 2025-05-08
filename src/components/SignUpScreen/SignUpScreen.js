@@ -148,8 +148,6 @@ const SignUpScreen = () => {
                     value={values.firstName}
                     onChange={handleChange}
                     onBlur={handleBlur}
-                    data-testid="input-first-name"
-                    aria-label="First Name"
                     error={touched.firstName && errors.firstName}
                   />
 
@@ -160,8 +158,6 @@ const SignUpScreen = () => {
                     value={values.lastName}
                     onChange={handleChange}
                     onBlur={handleBlur}
-                    data-testid="input-last-name"
-                    aria-label="Last Name"
                     error={touched.lastName && errors.lastName}
                   />
 
@@ -172,8 +168,6 @@ const SignUpScreen = () => {
                     value={values.email}
                     onChange={handleChange}
                     onBlur={handleBlur}
-                    data-testid="input-email"
-                    aria-label="Email"
                     error={touched.email && errors.email}
                   />
 
@@ -184,8 +178,6 @@ const SignUpScreen = () => {
                     value={values.confirmEmail}
                     onChange={handleChange}
                     onBlur={handleBlur}
-                    data-testid="input-confirm-email"
-                    aria-label="Confirm Email"
                     error={touched.confirmEmail && errors.confirmEmail}
                   />
 
@@ -197,8 +189,6 @@ const SignUpScreen = () => {
                     onChange={handleChange}
                     onBlur={handleBlur}
                     showPasswordToggle={true}
-                    data-testid="input-password"
-                    aria-label="Password"
                     error={touched.password && errors.password}
                     hint={translations["signUp.validation.passwordFormat"]}
                   />
@@ -211,8 +201,6 @@ const SignUpScreen = () => {
                     onChange={handleChange}
                     onBlur={handleBlur}
                     showPasswordToggle={true}
-                    data-testid="input-confirm-password"
-                    aria-label="Confirm Password"
                     error={touched.confirmPassword && errors.confirmPassword}
                   />
 
@@ -231,8 +219,6 @@ const SignUpScreen = () => {
                     showDatePicker={() =>
                       document.getElementById("datePicker").focus()
                     }
-                    data-testid="input-birthdate"
-                    aria-label="Birthdate"
                     error={touched.birthdate && errors.birthdate}
                     hint={translations["signUp.validation.birthdate"]}
                   />
@@ -312,8 +298,8 @@ const SignUpScreen = () => {
                     onClick={handleSubmit}
                     variant="redWide"
                     disabled={isSubmitting}
-                    data-testid="submit-button"
-                    aria-label="Submit Sign Up"
+                    testId="submit-button"
+                    ariaLabel="Submit Sign Up"
                   />
                 </div>
 
@@ -321,7 +307,7 @@ const SignUpScreen = () => {
                 {!success && msg && (
                   <div className="mt-3 flex justify-center">
                     <p
-                      className="text-center text-bodySmall text-primary-normal sm:text-bodyMedium"
+                      className="text-center text-bodySmall text-others-negative sm:text-bodyMedium"
                       aria-live="polite"
                       data-testid="message-status"
                     >
