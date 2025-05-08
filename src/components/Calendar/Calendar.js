@@ -4,7 +4,7 @@ import CalendarItem from "./CalendarItem";
 import { useLanguage } from "@/context/LanguageContext";
 import { useEvents } from "@/context/EventsContext";
 import { useCalendar } from "@/context/CalendarContext";
-import EventRegistrationModal from "../EventRegistrationModal/EventRegistrationModal";
+import EventModal from "@/components/EventModal/EventModal";
 
 const Calendar = () => {
   const { events } = useEvents();
@@ -154,7 +154,7 @@ const Calendar = () => {
             index={index}
             icon="./icons/users-2.svg"
             availableSeats={event ? event.availableSeats : 0}
-            totalInventory={event ? event.totalInventory : 0}
+            totalSeats={event ? event.totalSeats : 0}
             isOtherMonth={day.isOtherMonth}
             currentMonth={currentMonth}
             currentYear={currentYear}
@@ -164,7 +164,7 @@ const Calendar = () => {
         );
       })}
       {selectedEvent && (
-        <EventRegistrationModal
+        <EventModal
           onClose={handleCloseModal}
           isOpen={isModalOpen}
           event={selectedEvent}

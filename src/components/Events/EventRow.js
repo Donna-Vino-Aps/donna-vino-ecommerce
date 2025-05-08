@@ -13,8 +13,8 @@ const EventRow = ({
   seatStatus,
   showModal,
 }) => {
-  const { wine, winery, availableSeats, totalInventory } = event;
-  const isFull = availableSeats === 0 && totalInventory > 0;
+  const { wine, winery, availableSeats, totalSeats } = event;
+  const isFull = availableSeats === 0 && totalSeats > 0;
   const { translations } = useLanguage();
 
   return (
@@ -40,7 +40,7 @@ const EventRow = ({
           </p>
         </div>
         <p className="w-[22%] text-center text-bodyMedium">
-          {availableSeats} {translations["events.of"]} {totalInventory}
+          {availableSeats} {translations["events.of"]} {totalSeats}
         </p>
       </div>
       <div className="mb-4 flex justify-end py-2 pr-2">
@@ -62,7 +62,7 @@ EventRow.propTypes = {
     wine: PropTypes.string,
     winery: PropTypes.string,
     availableSeats: PropTypes.number,
-    totalInventory: PropTypes.number,
+    totalSeats: PropTypes.number,
     id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   }).isRequired,
   formattedDate: PropTypes.string.isRequired,

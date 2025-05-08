@@ -1,6 +1,6 @@
 import React from "react";
 import { render, screen } from "@testing-library/react";
-import InfoCard from "@/components/EventRegistrationModal/InfoCard";
+import InfoCard from "@/components/EventModal/InfoCard";
 
 // Mock the next/image component
 jest.mock("next/image", () => ({

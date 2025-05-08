@@ -18,10 +18,14 @@ export async function getCollectionByHandle(handle, language = "en") {
 }
 
 export async function getEventsCollection(language = "en") {
-  return getCollectionByHandle("events", language);
+  return await getCollectionByHandle("events", language);
 }
 
 export function transformShopifyProduct(product) {
+  // Extract the variant
+  const firstVariant = product.variants?.edges?.[0]?.node || null;
+  const variantId = firstVariant?.id || null;
+
   // Extract image data
   const images =
     product.images?.edges.map((edge) => ({
@@ -30,17 +34,17 @@ export function transformShopifyProduct(product) {
       altText: edge.node.altText || product.title,
     })) || [];
 
-  // Extract price data
-  const priceString = product.priceRange?.maxVariantPrice?.amount || null;
+  // Extract price data from variant
+  const priceString = firstVariant?.price?.amount || null;
   const price = priceString ? parseFloat(priceString.replace(",", ".")) : null;
-  const currency = product.priceRange?.maxVariantPrice?.currencyCode || "DKK";
+  const currency = firstVariant?.price?.currencyCode || "DKK";
 
-  // Extract available seats
-  const quantityAvailable =
-    product.availableSeats?.edges[0]?.node?.quantityAvailable || 0;
+  // Extract available seats from variant
+  const availableSeats = firstVariant?.availableSeats || 0;
 
   // Extract metafield values, providing fallbacks for missing data
-  const getMetafieldValue = (metafield) => metafield?.value || null;
+  const getMetafieldValue = (metafield, defaultValue = null) =>
+    metafield?.value || defaultValue;
 
   // Convert UTC time strings to CEST time
   const adjustTimeZone = (utcTimeString) => {
@@ -59,12 +63,12 @@ export function transformShopifyProduct(product) {
     id: product.id,
     title: product.title,
     handle: product.handle,
+    variantId,
     description: product.description,
-    totalInventory: product.totalInventory,
     price,
     currency,
     images,
-    availableSeats: quantityAvailable,
+    availableSeats,
     // Event specific fields
     date: getMetafieldValue(product.date),
     menuDescription: getMetafieldValue(product.menuDescription),
@@ -74,6 +78,7 @@ export function transformShopifyProduct(product) {
     timeStart: adjustTimeZone(getMetafieldValue(product.timeStart)),
     timeEnd: adjustTimeZone(getMetafieldValue(product.timeEnd)),
     location: getMetafieldValue(product.location),
+    totalSeats: Number(getMetafieldValue(product.totalSeats, 0)),
   };
 
   return transformedProduct;

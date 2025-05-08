@@ -1,9 +1,9 @@
 import React, { useRef, useEffect } from "react";
 import PropTypes from "prop-types";
 import EventDetails from "./EventDetails";
-import Registration from "./Registration";
+import EventTicketReservation from "./EventTicketReservation";
 
-function EventRegistrationModal({ isOpen, onClose, event = {} }) {
+function EventModal({ isOpen, onClose, event = {} }) {
   const eventDetails = event;
   const modalRef = useRef(null);
 
@@ -43,10 +43,13 @@ function EventRegistrationModal({ isOpen, onClose, event = {} }) {
         >
           <div
             data-testid="event-registration-modal-body"
-            className="p-6 md:p-8"
+            className="p-4 md:p-8"
           >
             <EventDetails eventDetails={eventDetails} />
-            <Registration eventDetails={eventDetails} onClose={onClose} />
+            <EventTicketReservation
+              eventDetails={eventDetails}
+              onClose={onClose}
+            />
           </div>
         </div>
       </div>
@@ -54,10 +57,10 @@ function EventRegistrationModal({ isOpen, onClose, event = {} }) {
   );
 }
 
-EventRegistrationModal.propTypes = {
+EventModal.propTypes = {
   isOpen: PropTypes.bool.isRequired,
   onClose: PropTypes.func.isRequired,
   event: PropTypes.object,
 };
 
-export default EventRegistrationModal;
+export default EventModal;

@@ -19,7 +19,7 @@ jest.mock("@/lib/shopify/collection-actions", () => ({
       transformed: true,
       date: futureDate.toISOString().slice(0, 10),
       timeStart: futureDate,
-      totalInventory: 10,
+      totalSeats: 10,
       availableQuantity: 5,
     };
   }),
@@ -138,7 +138,7 @@ describe("EventsContext", () => {
           title: "Future Event",
           date: futureDate.toISOString().slice(0, 10),
           timeStart: futureDate,
-          totalInventory: 10,
+          totalSeats: 10,
           availableQuantity: 5,
           transformed: true,
         };
@@ -150,7 +150,7 @@ describe("EventsContext", () => {
           title: "Past Event",
           date: pastDate.toISOString().slice(0, 10),
           timeStart: pastDate,
-          totalInventory: 10,
+          totalSeats: 10,
           availableQuantity: 5,
           transformed: true,
         };
