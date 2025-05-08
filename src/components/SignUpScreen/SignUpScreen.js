@@ -179,6 +179,7 @@ const SignUpScreen = () => {
                     onChange={handleChange}
                     onBlur={handleBlur}
                     error={touched.confirmEmail && errors.confirmEmail}
+                    alternateBackground={true}
                   />
 
                   <TextInput
@@ -202,6 +203,7 @@ const SignUpScreen = () => {
                     onBlur={handleBlur}
                     showPasswordToggle={true}
                     error={touched.confirmPassword && errors.confirmPassword}
+                    alternateBackground={true}
                   />
 
                   <TextInput

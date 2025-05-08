@@ -19,6 +19,7 @@ const TextInput = ({
   options = [],
   error,
   hint,
+  alternateBackground = false,
   visuallyHiddenLabel = false,
 }) => {
   const [showPassword, setShowPassword] = useState(false);
@@ -80,8 +81,9 @@ const TextInput = ({
               aria-labelledby={labelId}
               aria-label={visuallyHiddenLabel ? displayLabel : undefined}
               data-testid={`input-${name}`}
-              className={`relative w-full rounded-lg border bg-tertiary2-light px-5 py-3 text-bodyLarge text-tertiary1-normal focus:outline-none focus:ring-1
-              ${error ? "border-others-negative focus:ring-primary-hover" : "border-tertiary1-hover focus:ring-tertiary2-darker"}
+              className={`relative w-full rounded-lg border px-5 py-3 text-bodyLarge text-tertiary1-normal focus:outline-none focus:ring-1
+              ${alternateBackground ? "bg-tertiary2-normal" : "bg-tertiary2-light"}
+              ${error ? "border-others-negative focus:ring-primary-hover" : "border-tertiary2-normal focus:ring-tertiary2-darker"}
               ${icon ? "pl-12" : ""} ${showPasswordToggle ? "pr-10" : ""}`}
             />
 
@@ -122,8 +124,9 @@ const TextInput = ({
             aria-labelledby={labelId}
             aria-label={visuallyHiddenLabel ? displayLabel : undefined}
             data-testid={`dropdown-${name}`}
-            className={`w-full rounded-lg border bg-tertiary2-light px-5 py-[14px] font-barlow text-tertiary1-normal focus:outline-none focus:ring-1
-              ${error ? "border-others-negative focus:ring-primary-hover" : "border-tertiary2-active_normal focus:ring-tertiary1-active"}`}
+            className={`w-full rounded-lg border px-5 py-[14px] font-barlow text-tertiary1-normal focus:outline-none focus:ring-1
+              ${alternateBackground ? "bg-tertiary2-normal" : "bg-tertiary2-light"}
+              ${error ? "border-others-negative focus:ring-primary-hover" : "border-tertiary2-normal focus:ring-tertiary1-active"}`}
           >
             {options.map((option, index) => (
               <option key={index} value={option.value}>
@@ -153,7 +156,7 @@ const TextInput = ({
             }}
             slotProps={{
               textField: {
-                placeholder: "DD/MM/YYYY",
+                placeholder: placeholder,
                 fullWidth: true,
                 size: "medium",
                 variant: "outlined",
@@ -169,11 +172,11 @@ const TextInput = ({
                 sx: {
                   "& .MuiOutlinedInput-root": {
                     "& fieldset": {
-                      borderColor: error ? "#ED1C24" : "#C1C1C1",
+                      borderColor: error ? "#ED1C24" : "#F1F1F1",
                       borderRadius: "0.5rem",
                     },
                     "&.Mui-focused fieldset": {
-                      borderColor: error ? "#ED1C24" : "#C1C1C1",
+                      borderColor: error ? "#ED1C24" : "#F1F1F1",
                       boxShadow: error
                         ? "0 0 0 1px #FCA5A5"
                         : "0 0 0 1px #BFBEBE",
@@ -254,6 +257,7 @@ TextInput.propTypes = {
   options: PropTypes.array,
   error: PropTypes.string,
   hint: PropTypes.string,
+  alternateBackground: PropTypes.bool,
   visuallyHiddenLabel: PropTypes.bool,
 };
 
@@ -270,6 +274,7 @@ TextInput.defaultProps = {
   options: [],
   error: null,
   hint: null,
+  alternateBackground: false,
   visuallyHiddenLabel: false,
 };
 
