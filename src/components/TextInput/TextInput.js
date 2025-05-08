@@ -46,7 +46,11 @@ const TextInput = ({
         htmlFor={name}
         id={labelId}
         style={visuallyHiddenLabel ? visuallyHiddenLabelStyle : {}}
-        className={visuallyHiddenLabel ? undefined : "mb-1 block font-medium"}
+        className={
+          visuallyHiddenLabel
+            ? undefined
+            : "mb-2 block text-labelMedium font-medium"
+        }
       >
         {placeholder || `Enter your ${name}`}
       </label>
@@ -83,7 +87,7 @@ const TextInput = ({
                 onClick={() => setShowPassword(!showPassword)}
                 aria-label={showPassword ? "Hide password" : "Show password"}
                 data-testid="toggle-password-visibility"
-                className="absolute right-3 top-1/2 -translate-y-1/2 transform text-tertiary1-normal"
+                className="absolute right-3 top-1/2 -translate-y-1/2 transform text-tertiary2-active_dark"
               >
                 {showPassword ? <FiEyeOff /> : <FiEye />}
               </button>
@@ -91,7 +95,7 @@ const TextInput = ({
           </div>
           {/* Error message */}
           {error && (
-            <div className="mt-1 text-xs text-primary-normal">{error}</div>
+            <div className="mt-1 text-xs text-others-negative">{error}</div>
           )}
         </div>
       ) : isDropdown ? (
@@ -106,8 +110,8 @@ const TextInput = ({
             aria-labelledby={labelId}
             aria-label={visuallyHiddenLabel ? undefined : placeholder}
             data-testid={`dropdown-${name}`}
-            className={`w-full rounded-lg border bg-white px-5 py-[14px] font-barlow text-tertiary1-darker focus:outline-none focus:ring-1
-              ${error ? "border-primary-normal focus:ring-primary-hover" : "border-tertiary2-active_normal focus:ring-tertiary1-active"}`}
+            className={`w-full rounded-lg border bg-tertiary2-light px-5 py-[14px] font-barlow text-tertiary1-normal focus:outline-none focus:ring-1
+              ${error ? "border-others-negative focus:ring-primary-hover" : "border-tertiary2-active_normal focus:ring-tertiary1-active"}`}
           >
             {options.map((option, index) => (
               <option key={index} value={option.value}>
@@ -118,7 +122,7 @@ const TextInput = ({
 
           {/* Error message for dropdown */}
           {error && (
-            <div className="mt-1 text-xs text-primary-normal">{error}</div>
+            <div className="mt-1 text-xs text-others-negative">{error}</div>
           )}
         </div>
       ) : (
@@ -132,7 +136,7 @@ const TextInput = ({
             aria-labelledby={labelId}
             data-testid={`datepicker-${name}`}
             slots={{
-              openPickerIcon: () => <FaCalendarAlt size={16} color="#BFBEBE" />,
+              openPickerIcon: () => <FiCalendar size={16} color="#6C6C6C" />,
             }}
             slotProps={{
               textField: {
@@ -201,7 +205,7 @@ const TextInput = ({
 
           {/* Error message for date input */}
           {error && (
-            <div className="mt-1 text-xs text-primary-normal">{error}</div>
+            <div className="mt-1 text-xs text-others-negative">{error}</div>
           )}
         </div>
       )}
