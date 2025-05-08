@@ -59,22 +59,22 @@ const TextInput = ({
               {React.cloneElement(icon, { style: { color: "black" } })}
             </div>
           )}
-
-          <input
-            type={getInputType()}
-            name={name}
-            id={name}
-            placeholder=""
-            value={value}
-            onChange={onChange}
-            onBlur={onBlur}
-            aria-labelledby={labelId}
-            aria-label={visuallyHiddenLabel ? undefined : placeholder}
-            data-testid={`input-${name}`}
-            className={`w-full rounded-lg border bg-white px-5 py-3 text-tertiary1-darker focus:outline-none focus:ring-1
-              ${error ? "border-primary-normal focus:ring-primary-hover" : "border-tertiary2-active_normal focus:ring-tertiary1-active"}
+          <div className="relative">
+            <input
+              type={getInputType()}
+              name={name}
+              id={name}
+              placeholder=""
+              value={value}
+              onChange={onChange}
+              onBlur={onBlur}
+              aria-labelledby={labelId}
+              aria-label={visuallyHiddenLabel ? undefined : placeholder}
+              data-testid={`input-${name}`}
+              className={`relative w-full rounded-lg border bg-tertiary2-light px-5 py-3 text-bodyLarge text-tertiary1-normal focus:outline-none focus:ring-1
+              ${error ? "border-others-negative focus:ring-primary-hover" : "border-tertiary1-hover focus:ring-tertiary2-darker"}
               ${icon ? "pl-12" : ""} ${showPasswordToggle ? "pr-10" : ""}`}
-          />
+            />
 
             {/* Password toggle */}
             {showPasswordToggle && (
