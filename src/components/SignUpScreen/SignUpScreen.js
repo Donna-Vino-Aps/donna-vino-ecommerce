@@ -144,7 +144,7 @@ const SignUpScreen = () => {
                   <TextInput
                     type="text"
                     name="firstName"
-                    placeholder={translations["signUp.placeholder.firstName"]}
+                    label={translations["signUp.label.firstName"]}
                     value={values.firstName}
                     onChange={handleChange}
                     onBlur={handleBlur}
@@ -156,7 +156,7 @@ const SignUpScreen = () => {
                   <TextInput
                     type="text"
                     name="lastName"
-                    placeholder={translations["signUp.placeholder.lastName"]}
+                    label={translations["signUp.label.lastName"]}
                     value={values.lastName}
                     onChange={handleChange}
                     onBlur={handleBlur}
@@ -168,7 +168,7 @@ const SignUpScreen = () => {
                   <TextInput
                     type="email"
                     name="email"
-                    placeholder={translations["signUp.placeholder.email"]}
+                    label={translations["signUp.label.email"]}
                     value={values.email}
                     onChange={handleChange}
                     onBlur={handleBlur}
@@ -180,9 +180,7 @@ const SignUpScreen = () => {
                   <TextInput
                     type="email"
                     name="confirmEmail"
-                    placeholder={
-                      translations["signUp.placeholder.confirmEmail"]
-                    }
+                    label={translations["signUp.label.confirmEmail"]}
                     value={values.confirmEmail}
                     onChange={handleChange}
                     onBlur={handleBlur}
@@ -194,7 +192,7 @@ const SignUpScreen = () => {
                   <TextInput
                     type="password"
                     name="password"
-                    placeholder={translations["signUp.placeholder.password"]}
+                    label={translations["signUp.label.password"]}
                     value={values.password}
                     onChange={handleChange}
                     onBlur={handleBlur}
@@ -208,9 +206,7 @@ const SignUpScreen = () => {
                   <TextInput
                     type="password"
                     name="confirmPassword"
-                    placeholder={
-                      translations["signUp.placeholder.confirmPassword"]
-                    }
+                    label={translations["signUp.label.confirmPassword"]}
                     value={values.confirmPassword}
                     onChange={handleChange}
                     onBlur={handleBlur}
@@ -224,7 +220,8 @@ const SignUpScreen = () => {
                     type="text"
                     name="birthdate"
                     id="birthdate"
-                    placeholder={translations["signUp.placeholder.birthdate"]}
+                    label={translations["signUp.label.birthdate"]}
+                    placeholder="__ / __ / ____"
                     value={values.birthdate || userBirthDay}
                     onChange={(newValue) => {
                       setFieldValue("birthdate", newValue);

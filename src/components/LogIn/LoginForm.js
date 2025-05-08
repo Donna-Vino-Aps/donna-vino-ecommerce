@@ -133,6 +133,7 @@ const LoginForm = () => {
               <div className="mb-1 w-[17.5rem] space-y-2 md:w-[18rem] lg:w-[25rem]">
                 <TextInput
                   name="email"
+                  label={translations["logIn.label.email"]}
                   placeholder=""
                   value={values.email}
                   onChange={handleChange}
@@ -140,12 +141,14 @@ const LoginForm = () => {
                   icon=""
                   // icon={<MdOutlineEmail />}
                   dataTestId="login-input-email"
+                  aria-label={translations["logIn.label.email"]}
                 />
               </div>
               <div className="w-[17.5rem] space-y-1 md:w-[18rem] lg:w-[25rem]">
                 <TextInput
                   type="password"
                   name="password"
+                  label={translations["logIn.label.password"]}
                   placeholder=""
                   value={values.password}
                   onChange={handleChange}
@@ -154,7 +157,7 @@ const LoginForm = () => {
                   // icon={<MdLockOutline />}
                   showPasswordToggle={true}
                   data-testid="login-input-password"
-                  aria-label="Password"
+                  aria-label={translations["logIn.label.password"]}
                 />
               </div>
               <div className="flex w-[17.5rem] flex-col space-y-4 md:w-[18rem] lg:w-[25rem]">
