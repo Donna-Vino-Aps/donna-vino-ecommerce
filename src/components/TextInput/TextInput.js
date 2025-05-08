@@ -7,7 +7,7 @@ import dayjs from "dayjs";
 const TextInput = ({
   type = "text",
   name,
-  placeholder,
+  placeholder = "",
   value,
   onChange,
   onBlur,
@@ -17,6 +17,7 @@ const TextInput = ({
   isDropdown = false,
   options = [],
   error,
+  hint,
   visuallyHiddenLabel = false,
 }) => {
   const [showPassword, setShowPassword] = useState(false);
@@ -95,7 +96,14 @@ const TextInput = ({
           </div>
           {/* Error message */}
           {error && (
-            <div className="mt-1 text-xs text-others-negative">{error}</div>
+            <div className="mt-1 text-labelMedium text-others-negative">
+              {error}
+            </div>
+          )}
+          {hint && !error && (
+            <div className="mt-1 text-labelMedium text-tertiary2-dark">
+              {hint}
+            </div>
           )}
         </div>
       ) : isDropdown ? (
@@ -205,7 +213,14 @@ const TextInput = ({
 
           {/* Error message for date input */}
           {error && (
-            <div className="mt-1 text-xs text-others-negative">{error}</div>
+            <div className="mt-1 text-labelMedium text-others-negative">
+              {error}
+            </div>
+          )}
+          {hint && !error && (
+            <div className="mt-1 text-labelMedium text-tertiary2-dark">
+              {hint}
+            </div>
           )}
         </div>
       )}
@@ -230,6 +245,7 @@ TextInput.propTypes = {
   isDropdown: PropTypes.bool,
   options: PropTypes.array,
   error: PropTypes.string,
+  hint: PropTypes.string,
   visuallyHiddenLabel: PropTypes.bool,
 };
 
@@ -242,6 +258,7 @@ TextInput.defaultProps = {
   isDropdown: false,
   options: [],
   error: null,
+  hint: null,
   visuallyHiddenLabel: false,
 };
 

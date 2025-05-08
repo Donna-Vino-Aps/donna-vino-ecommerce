@@ -202,6 +202,7 @@ const SignUpScreen = () => {
                     data-testid="input-password"
                     aria-label="Password"
                     error={touched.password && errors.password}
+                    hint={translations["signUp.validation.passwordFormat"]}
                   />
 
                   <TextInput
@@ -236,6 +237,7 @@ const SignUpScreen = () => {
                     data-testid="input-birthdate"
                     aria-label="Birthdate"
                     error={touched.birthdate && errors.birthdate}
+                    hint={translations["signUp.validation.birthdate"]}
                   />
 
                   <div className="group relative top-7 inline-block align-top">
