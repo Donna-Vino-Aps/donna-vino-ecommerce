@@ -21,7 +21,7 @@ function EventDetails({ eventDetails = {} }) {
 
   const {
     availableSeats = "",
-    totalInventory = "",
+    totalSeats = "",
     location = "",
     date = "",
     timeStart = "",
@@ -78,13 +78,13 @@ function EventDetails({ eventDetails = {} }) {
 
   // Format seats available
   const seatsInfo =
-    availableSeats !== undefined && availableSeats !== "" && totalInventory
-      ? `${availableSeats}/${totalInventory}`
+    availableSeats !== undefined && availableSeats !== "" && totalSeats
+      ? `${availableSeats}/${totalSeats}`
       : "";
 
-  const isFull = availableSeats === 0 && totalInventory > 0;
+  const isFull = availableSeats === 0 && totalSeats > 0;
   const percentageAvailable =
-    totalInventory > 0 ? (availableSeats / totalInventory) * 100 : 0;
+    totalSeats > 0 ? (availableSeats / totalSeats) * 100 : 0;
 
   // Assign classes based on available seats percentage
   let seatBgClass = "bg-calendar-open_light";
@@ -93,7 +93,7 @@ function EventDetails({ eventDetails = {} }) {
   if (isFull) {
     seatBgClass = "bg-calendar-full_light";
     seatTextClass = "text-calendar-full";
-  } else if (percentageAvailable <= 50 && totalInventory !== 0) {
+  } else if (percentageAvailable <= 50 && totalSeats !== 0) {
     seatBgClass = "bg-calendar-limited_light";
     seatTextClass = "text-calendar-limited";
   }
@@ -200,7 +200,7 @@ function EventDetails({ eventDetails = {} }) {
 EventDetails.propTypes = {
   eventDetails: PropTypes.shape({
     availableSeats: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-    totalInventory: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    totalSeats: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     location: PropTypes.string,
     date: PropTypes.string,
     timeStart: PropTypes.string,
