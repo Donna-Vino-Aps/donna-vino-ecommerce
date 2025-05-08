@@ -22,7 +22,7 @@
   "signUp.label.password": "Password*",
   "signUp.label.confirmPassword": "Confirm Password*",
   "signUp.label.birthdate": "Date of birth*",
-  "signUp.ageTooltip": "Why we ask? As we sell alcoholic beverages, you must be +18 to purchase",
+  "signUp.ageTooltip": "Why do we ask? Since we sell alcoholic beverages, you must be <strong>18 or older</strong> to make a purchase.",
   "signUp.validation.required": "This field is empty",
   "signUp.validation.emailFormat": "Please enter a valid email address",
   "signUp.validation.emailMatch": "Emails do not match",
