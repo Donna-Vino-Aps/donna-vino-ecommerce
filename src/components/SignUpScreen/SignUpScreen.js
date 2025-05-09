@@ -240,7 +240,7 @@ const SignUpScreen = () => {
                         setFieldValue("acceptTerms", !values.acceptTerms)
                       }
                       onBlur={handleBlur}
-                      className={`size-5 rounded accent-secondary-normal ${
+                      className={`size-4 rounded accent-secondary-normal md:size-5 ${
                         touched.acceptTerms && errors.acceptTerms
                           ? "border-primary-normal text-primary-normal"
                           : "border-secondary-active text-secondary-active checked:border-secondary-dark checked:bg-secondary-active"
@@ -272,7 +272,7 @@ const SignUpScreen = () => {
                           !values.subscribeToNewsletter,
                         )
                       }
-                      className="size-5 rounded accent-secondary-normal"
+                      className="size-4 rounded accent-secondary-normal md:size-5"
                     />
                     <span className="text-bodyMedium text-secondary-dark sm:text-bodyLarge">
                       {translations["signUp.updates"]}
