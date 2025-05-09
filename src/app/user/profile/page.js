@@ -1,17 +1,17 @@
 "use client";
 import React, { useEffect } from "react";
-import { useRouter } from "next/navigation";
+// import { useRouter } from "next/navigation";
 import Profile from "@/components/Profile/Profile";
 
 const UserProfile = () => {
-  const router = useRouter();
+  // const router = useRouter();
 
   useEffect(() => {
-    const token = localStorage.getItem("token");
+    // const token = localStorage.getItem("token");
     // if (!token) {
     //   router.push("/login"); // Redirect if not authenticated
     // }
-    // Uncomment the above line to enforce authentication
+    // Uncomment the lines above to enforce authentication
     // Keep them commented to access the profile page without authentication
   }, []);
 

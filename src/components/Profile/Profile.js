@@ -86,7 +86,7 @@ const Profile = () => {
       />
       <div>
         <img
-          src="/images/Avatar.jpg"
+          src="/images/wineglass-avatar.png"
           alt="Profile picture"
           className="h-[9.375rem] w-[9.375rem] rounded-full"
         />
