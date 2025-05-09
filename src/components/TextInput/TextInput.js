@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import PropTypes from "prop-types";
 import { FiEye, FiEyeOff, FiCalendar } from "react-icons/fi";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
+import { DateField } from "@mui/x-date-pickers/DateField";
 import dayjs from "dayjs";
 
 const TextInput = ({
@@ -15,6 +16,7 @@ const TextInput = ({
   icon,
   showPasswordToggle = false,
   isDate = false,
+  hasDatePicker = false,
   isDropdown = false,
   options = [],
   error,
@@ -61,7 +63,6 @@ const TextInput = ({
 
   return (
     <div data-testid={`input-container-${name}`}>
-      {/* Label for screen readers */}
       <label
         htmlFor={name}
         id={labelId}
@@ -75,8 +76,8 @@ const TextInput = ({
         {displayLabel}
       </label>
 
-      {/* Non-date or dropdown input */}
-      {!isDate && !isDropdown ? (
+      {/* Regular input (not date or dropdown) */}
+      {!isDate && !hasDatePicker && !isDropdown ? (
         <div className="relative">
           {icon && (
             <div className="absolute left-3 top-1/2 -translate-y-1/2 transform">
@@ -95,9 +96,9 @@ const TextInput = ({
               aria-labelledby={labelId}
               aria-label={visuallyHiddenLabel ? displayLabel : undefined}
               data-testid={`input-${name}`}
-              className={`relative w-full rounded-lg border px-5 py-3 text-bodyLarge text-tertiary1-normal focus:outline-none focus:ring-1
+              className={`relative w-full rounded-lg border px-5 py-3 text-bodyLarge text-tertiary1-normal focus:outline-none
               ${alternateBackground ? "bg-tertiary2-normal" : "bg-tertiary2-light"}
-              ${error ? "border-others-negative focus:ring-primary-hover" : "border-tertiary2-normal focus:ring-tertiary2-darker"}
+              ${error ? "border-others-negative focus:border-others-negative" : "border-tertiary2-normal focus:border-tertiary2-darker"}
               ${icon ? "pl-12" : ""} ${showPasswordToggle ? "pr-10" : ""}`}
             />
 
@@ -114,17 +115,8 @@ const TextInput = ({
               </button>
             )}
           </div>
-          {/* Error message */}
-          {error && (
-            <div className="mt-1 text-labelMedium text-others-negative">
-              {error}
-            </div>
-          )}
-          {hint && !error && (
-            <div className="mt-1 text-labelMedium text-tertiary2-dark">
-              {hint}
-            </div>
-          )}
+          {renderError()}
+          {renderHint()}
         </div>
       ) : isDropdown ? (
         // Dropdown input
@@ -138,9 +130,9 @@ const TextInput = ({
             aria-labelledby={labelId}
             aria-label={visuallyHiddenLabel ? displayLabel : undefined}
             data-testid={`dropdown-${name}`}
-            className={`w-full rounded-lg border px-5 py-[14px] font-barlow text-tertiary1-normal focus:outline-none focus:ring-1
+            className={`w-full rounded-lg border px-5 py-[14px] font-barlow text-tertiary1-normal focus:outline-none
               ${alternateBackground ? "bg-tertiary2-normal" : "bg-tertiary2-light"}
-              ${error ? "border-others-negative focus:ring-primary-hover" : "border-tertiary2-normal focus:ring-tertiary1-active"}`}
+              ${error ? "border-others-negative focus:border-others-negative" : "border-tertiary2-normal focus:border-tertiary2-darker"}`}
           >
             {options.map((option, index) => (
               <option key={index} value={option.value}>
@@ -148,14 +140,70 @@ const TextInput = ({
               </option>
             ))}
           </select>
-
-          {/* Error message for dropdown */}
-          {error && (
-            <div className="mt-1 text-xs text-others-negative">{error}</div>
-          )}
+          {renderError()}
+          {renderHint()}
+        </div>
+      ) : isDate ? (
+        <div>
+          <DateField
+            name={name}
+            value={value ? dayjs(value) : null}
+            onChange={onChange}
+            onBlur={onBlur}
+            disableFuture
+            format="DD/MM/YYYY"
+            aria-labelledby={labelId}
+            aria-label={visuallyHiddenLabel ? displayLabel : undefined}
+            data-testid={`datefield-${name}`}
+            slotProps={{
+              textField: {
+                placeholder: placeholder,
+                fullWidth: true,
+                variant: "outlined",
+                error: Boolean(error),
+                id: name,
+                sx: {
+                  "& .MuiOutlinedInput-root": {
+                    borderRadius: "0.5rem",
+                    backgroundColor: alternateBackground
+                      ? "#f1f1f1"
+                      : "#fefefe",
+                    height: "3.125rem",
+                    "& fieldset": {
+                      borderColor: error ? "#FF3B30" : "#F1F1F1",
+                    },
+                    "&.Mui-focused fieldset": {
+                      borderColor: error ? "#FF3B30" : "#bfbebe",
+                      borderWidth: "1px !important",
+                    },
+                    "&.Mui-error fieldset": {
+                      borderColor: "#FF3B30 !important",
+                      borderWidth: "1px !important",
+                    },
+                    "& .MuiOutlinedInput-input": {
+                      padding: "0.75rem 1rem 0.75rem 1.25rem",
+                      fontFamily: "inherit",
+                      fontSize: "16px",
+                      color: "#2F2E2E",
+                    },
+                  },
+                  "& .MuiInputBase-input::placeholder": {
+                    color: "#B5B5B5",
+                    fontFamily: "inherit",
+                    fontSize: "16px",
+                  },
+                },
+              },
+              field: {
+                shouldRespectLeadingZeros: true,
+              },
+            }}
+          />
+          {renderError()}
+          {renderHint()}
         </div>
       ) : (
-        // DatePicker block
+        // DatePicker (with calendar popup)
         <div>
           <DatePicker
             value={value ? dayjs(value) : null}
@@ -175,6 +223,7 @@ const TextInput = ({
                 size: "medium",
                 variant: "outlined",
                 id: name,
+                error: Boolean(error),
                 InputProps: {
                   id: name,
                   "aria-labelledby": labelId,
@@ -186,11 +235,11 @@ const TextInput = ({
                 sx: {
                   "& .MuiOutlinedInput-root": {
                     "& fieldset": {
-                      borderColor: error ? "#ED1C24" : "#F1F1F1",
+                      borderColor: error ? "#FF3B30" : "#F1F1F1",
                       borderRadius: "0.5rem",
                     },
                     "&.Mui-focused fieldset": {
-                      borderColor: error ? "#ED1C24" : "#F1F1F1",
+                      borderColor: error ? "#FF3B30" : "#F1F1F1",
                       boxShadow: error
                         ? "0 0 0 1px #FCA5A5"
                         : "0 0 0 1px #BFBEBE",
@@ -234,18 +283,8 @@ const TextInput = ({
               },
             }}
           />
-
-          {/* Error message for date input */}
-          {error && (
-            <div className="mt-1 text-labelMedium text-others-negative">
-              {error}
-            </div>
-          )}
-          {hint && !error && (
-            <div className="mt-1 text-labelMedium text-tertiary2-dark">
-              {hint}
-            </div>
-          )}
+          {renderError()}
+          {renderHint()}
         </div>
       )}
     </div>
@@ -260,13 +299,14 @@ TextInput.propTypes = {
   value: PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.number,
-    PropTypes.instanceOf(Date),
+    PropTypes.object, // For date objects and dayjs objects
   ]),
   onChange: PropTypes.func.isRequired,
   onBlur: PropTypes.func,
   icon: PropTypes.element,
   showPasswordToggle: PropTypes.bool,
   isDate: PropTypes.bool,
+  hasDatePicker: PropTypes.bool,
   isDropdown: PropTypes.bool,
   options: PropTypes.array,
   error: PropTypes.string,
@@ -284,6 +324,7 @@ TextInput.defaultProps = {
   icon: null,
   showPasswordToggle: false,
   isDate: false,
+  hasDatePicker: false,
   isDropdown: false,
   options: [],
   error: null,

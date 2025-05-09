@@ -208,9 +208,8 @@ const SignUpScreen = () => {
                   />
 
                   <TextInput
-                    type="text"
                     name="birthdate"
-                    id="birthdate"
+                    isDate={true}
                     label={translations["signUp.label.birthdate"]}
                     placeholder="__ / __ / ____"
                     value={values.birthdate || userBirthDay}
@@ -218,10 +217,7 @@ const SignUpScreen = () => {
                       setFieldValue("birthdate", newValue);
                       setUserBirthDay(newValue);
                     }}
-                    isDate={true}
-                    showDatePicker={() =>
-                      document.getElementById("datePicker").focus()
-                    }
+                    onBlur={handleBlur}
                     error={touched.birthdate && errors.birthdate}
                     hint={translations["signUp.validation.birthdate"]}
                   />
