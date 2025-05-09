@@ -45,6 +45,20 @@ const TextInput = ({
   const displayLabel =
     label || (name ? name.charAt(0).toUpperCase() + name.slice(1) : "");
 
+  const renderError = () => {
+    if (!error) return null;
+    return (
+      <div className="mt-1 text-labelMedium text-others-negative">{error}</div>
+    );
+  };
+
+  const renderHint = () => {
+    if (!hint || error) return null;
+    return (
+      <div className="mt-1 text-labelMedium text-tertiary2-dark">{hint}</div>
+    );
+  };
+
   return (
     <div data-testid={`input-container-${name}`}>
       {/* Label for screen readers */}
