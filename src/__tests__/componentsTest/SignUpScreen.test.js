@@ -35,21 +35,19 @@ jest.mock("../../utils/logging", () => ({
   logError: jest.fn(),
 }));
 
-// Mock the TextInputSignUpScreen component
+jest.mock("@/components/SignUpScreen/AgeTooltip", () => ({
+  __esModule: true,
+  default: jest.fn(({ text }) => (
+    <div data-testid="age-tooltip">
+      <span data-testid="tooltip-text">{text}</span>
+    </div>
+  )),
+}));
+
 jest.mock("@/components/TextInput/TextInput", () => ({
   __esModule: true,
   default: jest.fn(
-    ({
-      name,
-      type,
-      placeholder,
-      value,
-      onChange,
-      onBlur,
-      isDate,
-      error,
-      ...props
-    }) => (
+    ({ name, type, placeholder, value, onChange, onBlur, isDate, error }) => (
       <div data-testid={`input-container-${name}`}>
         <input
           type={type}
@@ -60,16 +58,14 @@ jest.mock("@/components/TextInput/TextInput", () => ({
           }
           onBlur={onBlur}
           placeholder={placeholder}
-          data-testid={props["data-testid"] || `input-${name}`}
+          data-testid={`input-${name}`}
         />
-        {/* eslint-disable-next-line tailwindcss/no-custom-classname */}
-        {error && <div className="error">{error}</div>}
+        {error && <div>{error}</div>}
       </div>
     ),
   ),
 }));
 
-// Add helper function for form filling
 const fillSignUpForm = (customValues = {}) => {
   const defaultValues = {
     firstName: "John",
@@ -86,13 +82,12 @@ const fillSignUpForm = (customValues = {}) => {
   // Merge default values with any custom values provided
   const values = { ...defaultValues, ...customValues };
 
-  // Get form elements
-  const firstNameInput = screen.getByTestId("input-first-name");
-  const lastNameInput = screen.getByTestId("input-last-name");
+  const firstNameInput = screen.getByTestId("input-firstName");
+  const lastNameInput = screen.getByTestId("input-lastName");
   const emailInput = screen.getByTestId("input-email");
-  const confirmEmailInput = screen.getByTestId("input-confirm-email");
+  const confirmEmailInput = screen.getByTestId("input-confirmEmail");
   const passwordInput = screen.getByTestId("input-password");
-  const confirmPasswordInput = screen.getByTestId("input-confirm-password");
+  const confirmPasswordInput = screen.getByTestId("input-confirmPassword");
   const birthdateInput = screen.getByTestId("input-birthdate");
   const termsCheckbox = screen.getByRole("checkbox", {
     name: (content, element) => element.name === "acceptTerms",
@@ -142,7 +137,7 @@ const fillSignUpForm = (customValues = {}) => {
       birthdateInput,
       termsCheckbox,
       newsletterCheckbox,
-      submitButton: screen.getByRole("button", { name: "Create your account" }),
+      submitButton: screen.getByTestId("submit-button"),
     },
     values,
   };
@@ -157,17 +152,17 @@ describe("SignUpScreen", () => {
     "signUp.create-button": "Create your account",
     "signUp.heading": "Join Donna Vino",
     "signUp.paragraph":
-      "Create a profile for your future orders to have all your information saved and ready for use. Registering on our Donna Vino website is quick and easy, allowing you to streamline your shopping experience and enjoy a faster checkout every time.",
+      "Create a profile for your future orders to have all your information saved and ready to use. Registering on our website is quick and easy, allowing you to streamline your shopping experience and enjoy a faster checkout every time.",
     "signUp.personal": "Personal Details",
-    "signUp.placeholder.firstName": "First name*",
-    "signUp.placeholder.lastName": "Last name*",
-    "signUp.placeholder.email": "Email*",
-    "signUp.placeholder.confirmEmail": "Confirm Email*",
-    "signUp.placeholder.password": "Password*",
-    "signUp.placeholder.confirmPassword": "Confirm Password*",
-    "signUp.placeholder.birthdate": "Date of birth*",
+    "signUp.label.firstName": "First name*",
+    "signUp.label.lastName": "Last name*",
+    "signUp.label.email": "Email*",
+    "signUp.label.confirmEmail": "Confirm Email*",
+    "signUp.label.password": "Password*",
+    "signUp.label.confirmPassword": "Confirm Password*",
+    "signUp.label.birthdate": "Date of birth*",
     "signUp.ageTooltip":
-      "Why we ask? As we sell alcoholic beverages, you must be +18 to purchase",
+      "Why do we ask? Since we sell alcoholic beverages, you must be <strong>18 or older</strong> to make a purchase.",
     "signUp.validation.required": "This field is empty",
     "signUp.validation.emailFormat": "Please enter a valid email address",
     "signUp.validation.emailMatch": "Emails do not match",
@@ -175,10 +170,10 @@ describe("SignUpScreen", () => {
       "Password must be at least 8 characters long, including one uppercase letter, one lowercase letter, one number, and one special character (e.g., !, @, #, $)",
     "signUp.validation.passwordMatch": "Passwords do not match",
     "signUp.validation.acceptTerms": "Please check the box to proceed",
-    "signUp.acceptTerms": "I accept {terms} and {privacy}.",
+    "signUp.acceptTerms": "Accept the {terms} and {privacy}.",
     "signUp.terms": "Terms of Use",
     "signUp.privacy": "Privacy Policy",
-    "signUp.updates": "I want to receive updates and offers.",
+    "signUp.updates": "Subscribe to receive product updates and promotions.",
     "common.submitting": "Submitting...",
   };
 
@@ -217,21 +212,19 @@ describe("SignUpScreen", () => {
       render(<SignUpScreen />);
 
       // Input fields
-      expect(screen.getByTestId("input-first-name")).toBeInTheDocument();
-      expect(screen.getByTestId("input-last-name")).toBeInTheDocument();
+      expect(screen.getByTestId("input-firstName")).toBeInTheDocument();
+      expect(screen.getByTestId("input-lastName")).toBeInTheDocument();
       expect(screen.getByTestId("input-email")).toBeInTheDocument();
-      expect(screen.getByTestId("input-confirm-email")).toBeInTheDocument();
+      expect(screen.getByTestId("input-confirmEmail")).toBeInTheDocument();
       expect(screen.getByTestId("input-password")).toBeInTheDocument();
-      expect(screen.getByTestId("input-confirm-password")).toBeInTheDocument();
+      expect(screen.getByTestId("input-confirmPassword")).toBeInTheDocument();
       expect(
         screen.getByTestId("input-container-birthdate"),
       ).toBeInTheDocument();
       expect(screen.getByTestId("input-birthdate")).toBeInTheDocument();
 
       // Check buttons and checkboxes
-      expect(
-        screen.getByRole("button", { name: "Create your account" }),
-      ).toBeInTheDocument();
+      expect(screen.getByTestId("submit-button")).toBeInTheDocument();
       expect(
         screen.getByRole("checkbox", {
           name: (content, element) => element.name === "acceptTerms",
@@ -242,6 +235,11 @@ describe("SignUpScreen", () => {
           name: (content, element) => element.name === "subscribeToNewsletter",
         }),
       ).toBeInTheDocument();
+      // Check for the age tooltip
+      expect(screen.getByTestId("age-tooltip")).toBeInTheDocument();
+      expect(screen.getByTestId("tooltip-text").textContent).toBe(
+        mockTranslations["signUp.ageTooltip"],
+      );
     });
   });
 
@@ -328,15 +326,14 @@ describe("SignUpScreen", () => {
           setFieldValue: jest.fn(),
           errors: {},
           touched: {},
-          isSubmitting: true, // Set to true to test disabled state
+          isSubmitting: true,
         });
       });
 
       render(<SignUpScreen />);
 
-      const submitButton = screen.getByRole("button", {
-        name: /submitting|create your account/i,
-      });
+      const submitButton = screen.getByTestId("submit-button");
+
       expect(submitButton).toBeDisabled();
 
       expect(screen.getByText("Submitting...")).toBeInTheDocument();
