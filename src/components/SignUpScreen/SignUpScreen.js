@@ -228,53 +228,38 @@ const SignUpScreen = () => {
 
                 <div className="flex flex-col space-y-3 text-bodyLarge text-tertiary1-darker">
                   {/* Terms of Use Checkbox */}
-                  <label className="flex cursor-pointer items-center space-x-3">
-                    <input
-                      type="checkbox"
-                      name="acceptTerms"
-                      checked={values.acceptTerms}
-                      onChange={() =>
-                        setFieldValue("acceptTerms", !values.acceptTerms)
-                      }
-                      onBlur={handleBlur}
-                      className={`size-4 rounded accent-secondary-normal md:size-5 ${
-                        touched.acceptTerms && errors.acceptTerms
-                          ? "border-primary-normal text-primary-normal"
-                          : "border-secondary-active text-secondary-active checked:border-secondary-dark checked:bg-secondary-active"
-                      } rounded-md bg-white transition-all duration-200 focus:ring-2 focus:ring-secondary-hover`}
-                    />
-                    <TermsAndPrivacyLabel
-                      textTemplate={translations["signUp.acceptTerms"]}
-                      termsText={translations["signUp.terms"]}
-                      privacyText={translations["signUp.privacy"]}
-                      termsUrl="https://www.donnavino.dk/privacy-policy" // Update when we have a terms page
-                      privacyUrl="https://www.donnavino.dk/privacy-policy"
-                    />
-                  </label>
-                  {touched.acceptTerms && errors.acceptTerms && (
-                    <div className="text-xs text-primary-normal">
-                      {errors.acceptTerms}
-                    </div>
-                  )}
+                  <CheckboxField
+                    name="acceptTerms"
+                    checked={values.acceptTerms}
+                    onChange={() =>
+                      setFieldValue("acceptTerms", !values.acceptTerms)
+                    }
+                    onBlur={handleBlur}
+                    error={touched.acceptTerms && errors.acceptTerms}
+                    labelComponent={
+                      <TermsAndPrivacyLabel
+                        textTemplate={translations["signUp.acceptTerms"]}
+                        termsText={translations["signUp.terms"]}
+                        privacyText={translations["signUp.privacy"]}
+                        termsUrl="https://www.donnavino.dk/privacy-policy" // Update when we have a terms page
+                        privacyUrl="https://www.donnavino.dk/privacy-policy"
+                      />
+                    }
+                  />
 
                   {/* Subscribe to Newsletter Checkbox */}
-                  <label className="flex cursor-pointer items-center space-x-3">
-                    <input
-                      type="checkbox"
-                      name="subscribeToNewsletter"
-                      checked={values.subscribeToNewsletter}
-                      onChange={() =>
-                        setFieldValue(
-                          "subscribeToNewsletter",
-                          !values.subscribeToNewsletter,
-                        )
-                      }
-                      className="size-4 rounded accent-secondary-normal md:size-5"
-                    />
-                    <span className="text-bodyMedium text-secondary-dark sm:text-bodyLarge">
-                      {translations["signUp.updates"]}
-                    </span>
-                  </label>
+                  <CheckboxField
+                    name="subscribeToNewsletter"
+                    checked={values.subscribeToNewsletter}
+                    onChange={() =>
+                      setFieldValue(
+                        "subscribeToNewsletter",
+                        !values.subscribeToNewsletter,
+                      )
+                    }
+                    onBlur={handleBlur}
+                    label={translations["signUp.updates"]}
+                  />
                 </div>
 
                 <div className="mt-4 w-full">
