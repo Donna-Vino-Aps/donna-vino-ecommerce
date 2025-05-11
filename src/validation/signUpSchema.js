@@ -21,10 +21,10 @@ export const createSignUpSchema = (translations) => {
 
   return Yup.object({
     firstName: Yup.string().required(
-      translations["signUp.validation.required"] || "This field is empty",
+      translations["signUp.validation.required"] || "This field is required",
     ),
     lastName: Yup.string().required(
-      translations["signUp.validation.required"] || "This field is empty",
+      translations["signUp.validation.required"] || "This field is required",
     ),
     email: Yup.string()
       .matches(
@@ -33,15 +33,16 @@ export const createSignUpSchema = (translations) => {
           "Please enter a valid email address",
       )
       .required(
-        translations["signUp.validation.required"] || "This field is empty",
+        translations["signUp.validation.required"] || "This field is required",
       ),
     confirmEmail: Yup.string()
       .oneOf(
         [Yup.ref("email"), null],
-        translations["signUp.validation.emailMatch"] || "Emails do not match",
+        translations["signUp.validation.emailMatch"] ||
+          "Emails do not match. Please check and try again",
       )
       .required(
-        translations["signUp.validation.required"] || "This field is empty",
+        translations["signUp.validation.required"] || "This field is required",
       ),
     password: Yup.string()
       .matches(
@@ -50,16 +51,16 @@ export const createSignUpSchema = (translations) => {
           "Password must be at least 8 characters long, including one uppercase letter, one lowercase letter, one number, and one special character (e.g., !, @, #, $)",
       )
       .required(
-        translations["signUp.validation.required"] || "This field is empty",
+        translations["signUp.validation.required"] || "This field is required",
       ),
     confirmPassword: Yup.string()
       .oneOf(
         [Yup.ref("password"), null],
         translations["signUp.validation.passwordMatch"] ||
-          "Passwords do not match",
+          "Passwords do not match. Please check and try again",
       )
       .required(
-        translations["signUp.validation.required"] || "This field is empty",
+        translations["signUp.validation.required"] || "This field is required",
       ),
     birthdate: Yup.string()
       .required(
@@ -74,7 +75,7 @@ export const createSignUpSchema = (translations) => {
     acceptTerms: Yup.boolean().oneOf(
       [true],
       translations["signUp.validation.acceptTerms"] ||
-        "Please check the box to proceed",
+        "This checkbox is required",
     ),
   });
 };
