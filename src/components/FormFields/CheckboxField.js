@@ -13,32 +13,65 @@ const CheckboxField = ({
   const inputId = `checkbox-${name}`;
 
   return (
-    <>
+    <div className="flex flex-col gap-1">
       <label
         htmlFor={inputId}
-        className="flex cursor-pointer items-center space-x-3"
+        className="flex cursor-pointer items-center gap-2"
       >
-        <input
-          id={inputId}
-          type="checkbox"
-          name={name}
-          checked={checked}
-          onChange={onChange}
-          onBlur={onBlur}
-          className={`size-4 rounded accent-secondary-normal md:size-5 ${
-            error
-              ? "border-primary-normal text-primary-normal"
-              : "border-secondary-active text-secondary-active checked:border-secondary-dark checked:bg-secondary-active"
-          } rounded-md bg-white transition-all duration-200 focus:ring-2 focus:ring-secondary-hover`}
-        />
+        <div className="relative flex items-center justify-center">
+          <input
+            id={inputId}
+            type="checkbox"
+            name={name}
+            checked={checked}
+            onChange={onChange}
+            onBlur={onBlur}
+            className="peer sr-only"
+          />
+
+          {/* Custom checkbox appearance */}
+          <div
+            className={`relative flex h-4 w-4 items-center justify-center rounded border transition-all duration-200 md:h-5 md:w-5 ${
+              error
+                ? "border-others-negative peer-focus:border-others-negative"
+                : checked
+                  ? "border-secondary-normal bg-secondary-normal peer-focus:border-tertiary2-darker"
+                  : "border-tertiary2-normal peer-focus:border-tertiary2-darker"
+            }`}
+          >
+            {/* Checkmark */}
+            {checked && (
+              <svg
+                className="h-3 w-3 text-tertiary2-light md:h-3.5 md:w-3.5"
+                viewBox="0 0 20 20"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M3 10L8 15L17 5"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
+            )}
+          </div>
+        </div>
+
         {labelComponent || (
-          <span className="text-bodyMedium text-secondary-dark sm:text-bodyLarge">
+          <span className="text-labelSmall text-secondary-dark sm:text-bodyLarge">
             {label}
           </span>
         )}
       </label>
-      {error && <div className="text-xs text-primary-normal">{error}</div>}
-    </>
+
+      {error && (
+        <div className="text-labelSmall text-others-negative sm:text-labelMedium">
+          {error}
+        </div>
+      )}
+    </div>
   );
 };
 
