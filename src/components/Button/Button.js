@@ -5,7 +5,7 @@ import PropTypes from "prop-types";
 import Link from "next/link";
 
 const BASE_BUTTON_CLASSES = `
-  flex justify-center items-center h-[2.875rem] rounded-[0.3rem] text-bodyLarge 
+  flex justify-center items-center h-[2.5rem] rounded-[0.3rem] text-titleMedium 
 `;
 
 const VARIANT_CLASSES = {
@@ -15,7 +15,7 @@ const VARIANT_CLASSES = {
   redFullText:
     "bg-primary-normal hover:bg-primary-hover_normal text-primary-light w-[15.4rem]",
   redWide:
-    "bg-primary-normal hover:bg-primary-hover_normal text-primary-light font-semibold w-full",
+    "bg-primary-normal hover:bg-primary-hover_normal text-primary-light font-medium w-full",
   lightRedWide:
     "bg-primary-active hover:bg-primary-normal hover:bg-opacity-40 text-primary-active_dark font-semibold w-full",
   redLine:
