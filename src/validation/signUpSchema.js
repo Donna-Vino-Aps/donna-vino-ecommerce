@@ -1,6 +1,24 @@
 import * as Yup from "yup";
+import dayjs from "dayjs";
 
 export const createSignUpSchema = (translations) => {
+  const validateBirthdate = (value) => {
+    if (!value) return false;
+
+    const birthDate = dayjs(value);
+
+    if (!birthDate.isValid()) return false;
+
+    const birthYear = birthDate.year();
+    const currentYear = dayjs().year();
+    if (birthYear < 1900 || birthYear > currentYear) return false;
+
+    const today = dayjs();
+    const age = today.diff(birthDate, "year");
+
+    return age >= 18;
+  };
+
   return Yup.object({
     firstName: Yup.string().required(
       translations["signUp.validation.required"] || "This field is empty",
@@ -43,9 +61,16 @@ export const createSignUpSchema = (translations) => {
       .required(
         translations["signUp.validation.required"] || "This field is empty",
       ),
-    birthdate: Yup.string().required(
-      translations["signUp.validation.required"] || "This field is empty",
-    ),
+    birthdate: Yup.string()
+      .required(
+        translations["signUp.validation.required"] || "This field is required",
+      )
+      .test(
+        "age-validation",
+        translations["signUp.validation.ageRequirement"] ||
+          "You must be at least 18 years old to register",
+        validateBirthdate,
+      ),
     acceptTerms: Yup.boolean().oneOf(
       [true],
       translations["signUp.validation.acceptTerms"] ||
