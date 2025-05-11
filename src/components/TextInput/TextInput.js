@@ -185,7 +185,7 @@ const TextInput = ({
                       borderWidth: "1px !important",
                     },
                     "& .MuiOutlinedInput-input": {
-                      padding: "0.75rem 1rem 0.75rem 1.25rem",
+                      padding: "0.75rem 1rem",
                       fontFamily: "inherit",
                       fontSize: "16px",
                       color: "#2F2E2E",

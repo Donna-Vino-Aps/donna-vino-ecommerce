@@ -126,6 +126,9 @@ const SignUpScreen = () => {
             onSubmit={(values, { setSubmitting }) => {
               handleSignup(values, setSubmitting);
             }}
+            validateOnMount={true}
+            validateOnChange={true}
+            validateOnBlur={true}
           >
             {({
               handleChange,
@@ -136,6 +139,8 @@ const SignUpScreen = () => {
               errors,
               touched,
               isSubmitting,
+              isValid,
+              dirty,
             }) => (
               <form onSubmit={handleSubmit}>
                 <h3 className="mb-4 text-headlineSmall md:mb-6 md:text-headlineMedium">
@@ -226,7 +231,7 @@ const SignUpScreen = () => {
                   <AgeTooltip text={translations["signUp.ageTooltip"]} />
                 </div>
 
-                <div className="flex flex-col gap-2 text-bodyLarge text-tertiary1-darker md:gap-8">
+                <div className="flex flex-col gap-2 text-bodyLarge text-tertiary1-darker md:gap-4">
                   <CheckboxField
                     name="acceptTerms"
                     checked={values.acceptTerms}
@@ -269,7 +274,7 @@ const SignUpScreen = () => {
                     }
                     onClick={handleSubmit}
                     variant="redWide"
-                    disabled={isSubmitting}
+                    disabled={isSubmitting || !(isValid && dirty)}
                     testId="submit-button"
                     ariaLabel="Submit Sign Up"
                   />
