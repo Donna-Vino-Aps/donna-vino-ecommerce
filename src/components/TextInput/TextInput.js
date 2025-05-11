@@ -50,14 +50,18 @@ const TextInput = ({
   const renderError = () => {
     if (!error) return null;
     return (
-      <div className="mt-1 text-labelMedium text-others-negative">{error}</div>
+      <div className="mt-1 text-labelSmall text-others-negative sm:text-labelMedium">
+        {error}
+      </div>
     );
   };
 
   const renderHint = () => {
     if (!hint || error) return null;
     return (
-      <div className="mt-1 text-labelMedium text-tertiary2-dark">{hint}</div>
+      <div className="mt-1 text-labelSmall text-tertiary2-dark sm:text-labelMedium">
+        {hint}
+      </div>
     );
   };
 
@@ -96,7 +100,7 @@ const TextInput = ({
               aria-labelledby={labelId}
               aria-label={visuallyHiddenLabel ? displayLabel : undefined}
               data-testid={`input-${name}`}
-              className={`relative w-full rounded-lg border px-5 py-3 text-bodyLarge text-tertiary1-normal focus:outline-none
+              className={`relative w-full rounded-lg border px-4 py-3 text-bodyLarge text-tertiary1-normal focus:outline-none
               ${alternateBackground ? "bg-tertiary2-normal" : "bg-tertiary2-light"}
               ${error ? "border-others-negative focus:border-others-negative" : "border-tertiary2-normal focus:border-tertiary2-darker"}
               ${icon ? "pl-12" : ""} ${showPasswordToggle ? "pr-10" : ""}`}

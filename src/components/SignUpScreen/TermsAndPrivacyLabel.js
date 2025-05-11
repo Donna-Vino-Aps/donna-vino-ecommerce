@@ -7,7 +7,7 @@ const TermsAndPrivacyLabel = ({
   privacyText,
   termsUrl,
   privacyUrl,
-  className = "text-bodyMedium text-secondary-dark sm:text-bodyLarge",
+  className = "text-labelSmall text-secondary-dark sm:text-bodyLarge",
   linkClassName = "underline font-semibold",
 }) => {
   if (!textTemplate || !termsText || !privacyText || !termsUrl || !privacyUrl) {

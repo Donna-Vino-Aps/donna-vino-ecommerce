@@ -93,21 +93,21 @@ const SignUpScreen = () => {
   };
 
   return (
-    <section className="bg-primary-light bg-dots-sm bg-dots-size-sm sm:bg-dots-lg sm:bg-dots-size-lg">
+    <section className="my-4 bg-primary-light bg-dots-sm bg-dots-size-sm sm:bg-dots-lg sm:bg-dots-size-lg">
       <div className="flex w-full flex-grow flex-col items-center justify-center p-2">
-        <div className="my-8 w-full max-w-[47.75rem] items-center justify-center rounded-2xl bg-tertiary2-light p-5 shadow-lg sm:my-20 sm:p-8">
+        <div className="my-8 w-full max-w-[47.75rem] items-center justify-center rounded-2xl bg-tertiary2-light p-4 shadow-lg sm:my-20 sm:p-8">
           <img
             src="/images/donna-vino-logo-transparent.png"
             alt="Donna Vino logo"
             className="mx-auto my-2 h-[4.31rem] w-[6.25rem]"
           />
           <h2
-            className="mb-6 text-center font-barlow text-displaySmall text-tertiary1-darker md:text-displayMedium"
+            className="mb-6 text-center text-displaySmall text-tertiary1-darker md:text-displayMedium"
             aria-label="Sign Up"
           >
             {translations["signUp.heading"]}
           </h2>
-          <p className="-mt-3 mb-8 text-center text-bodyMedium text-tertiary2-darker md:text-bodyLarge">
+          <p className="-mt-3 mb-8 text-center text-bodySmall text-tertiary2-darker md:text-bodyLarge">
             {translations["signUp.paragraph"]}
           </p>
           <Formik
@@ -138,11 +138,11 @@ const SignUpScreen = () => {
               isSubmitting,
             }) => (
               <form onSubmit={handleSubmit}>
-                <h3 className="mb-6 text-headlineMedium">
+                <h3 className="mb-4 text-headlineSmall md:mb-6 md:text-headlineMedium">
                   {translations["signUp.personal"]}
                 </h3>
 
-                <div className="mb-8 grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-6">
+                <div className="mb-8 grid grid-cols-1 gap-6 md:grid-cols-2">
                   <TextInput
                     type="text"
                     name="firstName"
@@ -226,8 +226,7 @@ const SignUpScreen = () => {
                   <AgeTooltip text={translations["signUp.ageTooltip"]} />
                 </div>
 
-                <div className="flex flex-col space-y-3 text-bodyLarge text-tertiary1-darker">
-                  {/* Terms of Use Checkbox */}
+                <div className="flex flex-col gap-2 text-bodyLarge text-tertiary1-darker md:gap-8">
                   <CheckboxField
                     name="acceptTerms"
                     checked={values.acceptTerms}
@@ -247,7 +246,6 @@ const SignUpScreen = () => {
                     }
                   />
 
-                  {/* Subscribe to Newsletter Checkbox */}
                   <CheckboxField
                     name="subscribeToNewsletter"
                     checked={values.subscribeToNewsletter}
