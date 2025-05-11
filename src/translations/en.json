@@ -29,6 +29,7 @@
   "signUp.validation.passwordFormat": "Password must be at least 8 characters long, including one uppercase letter, one lowercase letter, one number, and one special character (e.g., !, @, #, $)",
   "signUp.validation.passwordMatch": "Passwords do not match. Please check and try again",
   "signUp.validation.birthdate": "Your date of birth in DD/MM/YYYY",
+  "signUp.validation.ageRequirement": "You must be at least 18 years old to register",
   "signUp.validation.acceptTerms": "This checkbox is required",
   "signUp.acceptTerms": "Accept the {terms} and {privacy}.*",
   "signUp.terms": "Terms of Use",

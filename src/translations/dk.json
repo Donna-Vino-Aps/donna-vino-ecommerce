@@ -29,6 +29,7 @@
   "signUp.validation.passwordFormat": "Adgangskoden skal være mindst 8 tegn lang, inklusive et stort bogstav, et lille bogstav, et tal og et specialtegn (f.eks. !, @, #, $)",
   "signUp.validation.passwordMatch": "Adgangskoderne stemmer ikke overens. Tjek venligst og prøv igen",
   "signUp.validation.birthdate": "Din fødselsdato i DD/MM/ÅÅÅÅ",
+  "signUp.validation.ageRequirement": "Du skal være mindst 18 år for at registrere dig",
   "signUp.validation.acceptTerms": "Dette afkrydsningsfelt er påkrævet",
   "signUp.acceptTerms": "Accepter {terms} og {privacy}.*",
   "signUp.terms": "Brugsbetingelser",
