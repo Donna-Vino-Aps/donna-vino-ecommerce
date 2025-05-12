@@ -53,9 +53,9 @@ const Profile = () => {
   if (!storedCredentials) return null;
 
   const handleSubmit = async (values, { setSubmitting }) => {
-    const token = localStorage.getItem("token");
+    const token = localStorage.getItem("session");
     try {
-      const res = await fetch("/api/user/profile", {
+      const res = await fetch(`/api/user/profile`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
