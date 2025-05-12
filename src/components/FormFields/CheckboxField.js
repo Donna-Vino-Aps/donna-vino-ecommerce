@@ -67,7 +67,7 @@ const CheckboxField = ({
       </label>
 
       {error && (
-        <div className="text-labelSmall text-others-negative sm:text-labelMedium">
+        <div className="mx-0.5 text-labelSmall text-others-negative sm:text-labelMedium">
           {error}
         </div>
       )}

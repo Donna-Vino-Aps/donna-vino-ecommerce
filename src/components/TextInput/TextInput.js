@@ -50,7 +50,7 @@ const TextInput = ({
   const renderError = () => {
     if (!error) return null;
     return (
-      <div className="mt-1 text-labelSmall text-others-negative sm:text-labelMedium">
+      <div className="mx-0.5 mt-1 text-labelSmall text-others-negative sm:text-labelMedium">
         {error}
       </div>
     );
@@ -59,7 +59,7 @@ const TextInput = ({
   const renderHint = () => {
     if (!hint || error) return null;
     return (
-      <div className="mt-1 text-labelSmall text-tertiary2-dark sm:text-labelMedium">
+      <div className="mx-0.5 mt-1 text-labelSmall text-tertiary2-dark sm:text-labelMedium">
         {hint}
       </div>
     );
