@@ -7,7 +7,7 @@ const UserProfile = () => {
   const router = useRouter();
 
   useEffect(() => {
-    const token = localStorage.getItem("session");
+    const token = localStorage.getItem("userCredentialsToken");
     if (!token) {
       router.push("/login"); // Redirect if not authenticated
     }

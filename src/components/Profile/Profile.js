@@ -53,7 +53,7 @@ const Profile = () => {
   if (!storedCredentials) return null;
 
   const handleSubmit = async (values, { setSubmitting }) => {
-    const token = localStorage.getItem("session");
+    const token = localStorage.getItem("userCredentialsToken");
     try {
       const res = await fetch(`/api/user/profile`, {
         method: "PUT",
@@ -86,7 +86,7 @@ const Profile = () => {
       />
       <div>
         <img
-          src="/images/wineglass-avatar.png"
+          src="/images/wineglass-avatar-min.png"
           alt="Profile picture"
           className="h-[9.375rem] w-[9.375rem] rounded-full"
         />
