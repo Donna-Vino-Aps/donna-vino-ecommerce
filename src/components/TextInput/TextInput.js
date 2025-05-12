@@ -116,7 +116,7 @@ const TextInput = ({
                             : "on"
               }
               className={`relative w-full rounded-lg border px-4 py-3 text-bodyLarge text-tertiary1-normal focus:outline-none
-              ${alternateBackground ? "bg-tertiary2-normal" : "bg-tertiary2-light"}
+              ${value && value.toString().trim() !== "" ? "bg-white" : alternateBackground ? "bg-tertiary2-normal" : "bg-tertiary2-light"}
               ${error ? "border-others-negative focus:border-others-negative" : "border-tertiary2-normal focus:border-tertiary2-darker"}
               ${icon ? "pl-12" : ""} ${showPasswordToggle ? "pr-10" : ""}`}
             />

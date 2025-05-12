@@ -36,7 +36,7 @@ const CheckboxField = ({
                 ? "border-others-negative peer-focus:border-others-negative"
                 : checked
                   ? "border-secondary-normal bg-secondary-normal peer-focus:border-tertiary2-darker"
-                  : "border-tertiary2-normal peer-focus:border-tertiary2-darker"
+                  : "border-tertiary1-light peer-focus:border-tertiary2-darker"
             }`}
           >
             {/* Checkmark */}
