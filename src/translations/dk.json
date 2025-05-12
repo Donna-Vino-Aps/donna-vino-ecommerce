@@ -20,7 +20,7 @@
   "signUp.label.email": "E-mail*",
   "signUp.label.confirmEmail": "Bekræft E-mail*",
   "signUp.label.password": "Adgangskode*",
-  "signUp.label.confirmPassword": "Bekræft adgangskode*",
+  "signUp.label.confirmPassword": "Bekræft Adgangskode*",
   "signUp.label.birthdate": "Fødselsdato*",
   "signUp.ageTooltip": "Hvorfor spørger vi? Da vi sælger alkoholholdige drikkevarer, skal du være <strong>18 år eller ældre</strong> for at foretage et køb.",
   "signUp.validation.required": "Dette felt er påkrævet",
