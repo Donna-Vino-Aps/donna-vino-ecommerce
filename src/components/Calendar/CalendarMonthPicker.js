@@ -43,7 +43,7 @@ const CalendarMonthPicker = () => {
   };
 
   return (
-    <div className="mx-auto flex h-[3.438rem] w-full items-center justify-between rounded-t-[0.5rem] bg-primary-active_normal text-center text-titleMedium text-tertiary2-light md:h-[2.25rem] md:max-w-[calc(7*6.282rem-2px)] lg:md:max-w-[calc(7*6.6.282rem-2px)] lg:text-titleSmall">
+    <div className="mx-auto flex h-[3.438rem] w-[calc(100%-2px)] items-center justify-between rounded-t-[0.5rem] bg-primary-active_normal text-center text-titleMedium text-tertiary2-light md:h-[2.25rem] md:max-w-[calc(7*6.282rem-12px)] lg:max-w-[calc(7*6.282rem-2px)] lg:text-titleSmall">
       <button
         onClick={handlePreviousMonth}
         aria-label="Previous Month"
