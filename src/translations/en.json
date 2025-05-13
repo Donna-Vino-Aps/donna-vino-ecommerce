@@ -153,6 +153,7 @@
   "events.error.loading": "Failed to load events. Please try again later.",
   "common.loading": "Loading...",
   "common.submitting": "Submitting...",
+  "common.save": "Save Changes",
   "events-header.h1": "Secure your spot for our upcoming events",
   "events-header.p": "Easily reserve one or more seats for our upcoming events, featuring freshly prepared Italian cuisine and wine tastings curated by our expert team.",
   "events-header.button-next": "Next step",
