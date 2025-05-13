@@ -10,7 +10,6 @@ const useFetch = (
   customHeaders = {},
   onReceived = () => {},
 ) => {
-  // Validate initial inputs to avoid confusion with server routing
   if (!initialRoute || initialRoute.includes("api/")) {
     throw new Error(
       "Invalid route provided. Routes cannot include 'api/' as part of the endpoint, to avoid conflicts and confusion in server routing.",
@@ -30,12 +29,11 @@ const useFetch = (
   const [route, setRoute] = useState(initialRoute);
   const [data, setData] = useState(null);
 
-  // Store multiple cancel tokens
   const cancelTokens = useRef({});
 
-  const performFetch = async (options = {}, newUrl) => {
+  const performFetch = async (options = {}, newUrl, newBody = null) => {
     if (newUrl) {
-      cancelFetch(newUrl); // Cancel the previous request if URL changes
+      cancelFetch(newUrl);
       setRoute(newUrl);
     }
 
@@ -43,7 +41,6 @@ const useFetch = (
     setData(null);
     setIsLoading(true);
 
-    // Validate the route format
     if (!route || !/^\/[a-zA-Z0-9/_-]*(\?[a-zA-Z0-9=&]*)?$/.test(route)) {
       setError(new Error("Invalid URL"));
       setIsLoading(false);
@@ -55,25 +52,28 @@ const useFetch = (
       const data = JSON.parse(localStorage.getItem("userCredentials") || "{}");
       token = data.token;
     } catch (error) {
-      logError("Failed to retrieve token", error);
+      console.error("Failed to retrieve token", error);
     }
 
+    const requestBody = newBody ?? body;
+
     const headers = {
-      "Content-Type": "application/json",
       ...(token ? { Authorization: `Bearer ${token}` } : {}),
       ...customHeaders,
+      ...(requestBody instanceof FormData
+        ? {}
+        : { "Content-Type": "application/json" }),
     };
 
     const baseOptions = {
-      method: method, // Allow other HTTP methods (GET, POST, PUT, DELETE)
-      headers: headers,
+      method,
+      headers,
       withCredentials: true,
       cancelToken: new axios.CancelToken((cancel) => {
-        // Use the route as a unique identifier
         cancelTokens.current[route] = cancel;
       }),
-      ...(body && { data: body }), // Attach the body for POST, PUT, etc.
-      ...options, // Allow additional custom options
+      ...(requestBody && { data: requestBody }),
+      ...options,
     };
 
     try {
@@ -97,7 +97,7 @@ const useFetch = (
 
       if (success) {
         setData(response.data);
-        onReceived(response.data); // Pass data to the onReceived callback
+        onReceived(response.data);
       } else {
         const errorMsg =
           serverError || msg || message || "Unexpected server error";
@@ -116,21 +116,19 @@ const useFetch = (
     }
   };
 
-  // Cancel a specific request based on its URL
   const cancelFetch = (url) => {
     if (cancelTokens.current[url]) {
       cancelTokens.current[url]("Fetch was canceled");
-      delete cancelTokens.current[url]; // Clean up after canceling
+      delete cancelTokens.current[url];
     }
   };
 
   useEffect(() => {
     return () => {
-      // Clean up any remaining cancel tokens when the component unmounts
       Object.values(cancelTokens.current).forEach((cancel) =>
         cancel("Fetch was canceled"),
       );
-      cancelTokens.current = {}; // Clear the tokens
+      cancelTokens.current = {};
     };
   }, []);
 

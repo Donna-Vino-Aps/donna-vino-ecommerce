@@ -90,7 +90,7 @@ const HeroSlider = () => {
             >
               <div className="mb-4 min-h-[20rem] w-full items-center md:relative md:mb-0 md:w-[50%]">
                 {slide.type === "video" ? (
-                  hasCredits ? (
+                  process.env.NODE_ENV === "production" && hasCredits ? (
                     <video
                       className="iimd:mt-0 mt-4 max-h-[22.5rem] w-full rounded-br-[0rem] rounded-tr-[0rem] object-cover md:absolute md:inset-0 md:min-h-[43.75rem] md:rounded-br-xl md:rounded-tr-[8rem]"
                       autoPlay
