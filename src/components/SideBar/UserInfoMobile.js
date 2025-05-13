@@ -15,8 +15,9 @@ export default function UserInfoMobile() {
     null,
     {},
     (data) => {
-      if (data?.url) {
-        setImageUrl(data.url);
+      const url = data?.cloudinaryUrl || data?.url;
+      if (url) {
+        setImageUrl(url);
       }
       alert("✅ Image uploaded successfully!");
     },
