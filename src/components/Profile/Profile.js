@@ -7,9 +7,21 @@ import Spinner from "../UI/Spinner";
 import { useLanguage } from "@/context/LanguageContext";
 import { useRouter } from "next/navigation";
 import { useCredentials } from "@/context/CredentialsContext";
+import Image from "next/image";
 
 const Profile = () => {
   const { storedCredentials } = useCredentials();
+  const userId = storedCredentials?.id;
+  const [authToken, setAuthToken] = useState(null);
+
+  useEffect(() => {
+    // Check if we are in the browser environment
+    if (typeof window !== "undefined") {
+      const token = localStorage.getItem("userCredentialsToken");
+      setAuthToken(token);
+    }
+  }, []);
+
   const router = useRouter();
   const { translations } = useLanguage();
   const [isEditing, setIsEditing] = useState(false);
@@ -23,20 +35,46 @@ const Profile = () => {
     country: "",
   });
 
+  useEffect(() => {
+    logInfo("Stored credentials:", storedCredentials);
+  }, [storedCredentials]);
+
   const { performFetch } = useFetch(
-    "/user/profile", // This becomes `${baseApiUrl}/api/user/profile`
-    "GET",
+    null, // don't pass URL until ready
+    null, // don't pass method until ready
     null,
     {},
     (data) => {
       setInitialValues(data);
+      setIsLoading(false);
     },
+    { manual: true },
   );
+
+  useEffect(() => {
+    if (userId && authToken) {
+      logInfo("Triggering fetch for userId:", userId);
+      performFetch(`/user/profile/${userId}`, "GET", null, {
+        headers: {
+          Authorization: `Bearer ${authToken}`,
+        },
+        credentials: "include",
+      });
+    }
+  }, [userId, authToken]);
 
   // triggers fetch on mount
   useEffect(() => {
     performFetch();
   }, []);
+
+  if (!userId || isLoading) {
+    return (
+      <div className="flex items-center justify-center">
+        <Spinner />
+      </div>
+    );
+  }
 
   // Redirects user to login if not authenticated
   useEffect(() => {
@@ -47,23 +85,20 @@ const Profile = () => {
     }
   }, [storedCredentials, isLoading, router]);
 
-  if (isLoading) {
-    return <Spinner />;
-  }
   if (!storedCredentials) return null;
 
   const handleSubmit = async (values, { setSubmitting }) => {
-    const token = localStorage.getItem("userCredentialsToken");
     try {
-      const res = await fetch(`/api/user/profile`, {
-        method: "PUT",
+      const res = performFetch(`/user/profile/${userId}`, "PUT", null, {
         headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
+          Authorization: `Bearer ${authToken}`,
         },
-        body: JSON.stringify(values),
+        contentType: "application/json",
+        credentials: "include",
       });
+
       const json = await res.json();
+
       if (json.success) {
         setInitialValues(res.data.result);
         setIsEditing(false);
@@ -77,6 +112,13 @@ const Profile = () => {
     }
   };
 
+  useEffect(() => {
+    if (fetchError) {
+      setError(fetchError);
+      setIsLoading(false);
+    }
+  }, [fetchError]);
+
   return (
     <div className="my-8 flex min-w-[22.5rem] flex-col items-center justify-center rounded-2xl bg-white px-6 py-8 shadow-lg md:min-w-[47.75rem] md:px-8">
       <img
@@ -85,12 +127,12 @@ const Profile = () => {
         className="mb-8 h-[4.31rem] w-[6.25rem]"
       />
       <div>
-        <img
+        <Image
           src="/images/wineglass-avatar-min.png"
           alt="Profile picture"
           className="h-[9.375rem] w-[9.375rem] rounded-full"
         />
-        <img
+        <Image
           src="/icons/Edit profile pic.svg"
           className="relative bottom-[2.125rem] left-[6.8rem] h-6 w-6"
         />
