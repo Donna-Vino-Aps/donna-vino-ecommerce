@@ -1,3 +1,4 @@
+"use client";
 import React, { useEffect, useState } from "react";
 import useFetch from "@/hooks/api/useFetch";
 import { Formik } from "formik";
