@@ -23,10 +23,8 @@ const CalendarItem = ({
     totalSeats > 0 ? (availableSeats / totalSeats) * 100 : undefined;
 
   const BASE_CALENDARITEM_CLASSES = `
-   min-w-[99%] min-h-[2.813rem] md:min-h-[4.813rem] lg:h-[4.926rem] ${(index + 1) % 7 === 0 ? "lg:w-[6.12rem]" : "lg:w-[6.20rem]"} text-labelXLarge font-semibold 
+   min-w-[99%] min-h-[2.813rem] md:min-h-[4.813rem] lg:h-[4.926rem] ${(index + 1) % 7 === 0 ? "lg:w-[6.12rem]" : "lg:w-[6.20rem]"} text-labelXLarge font-semibold
 `;
-  const ROUNDED =
-    "rounded-tl-[6px] rounded-bl-[20px] md:rounded-tl-[0px] md:rounded-bl-[16px]";
 
   // Get today's date
   const today = new Date();
@@ -41,16 +39,20 @@ const CalendarItem = ({
   const isCurrentYear = currentYear === today.getFullYear(); // Get the current year
 
   let bgColor;
+  let cornerStyle =
+    "rounded-tl-[6px] rounded-bl-[20px] md:rounded-tl-[0px] md:rounded-bl-[16px]";
+
   if (isOtherMonth) {
     bgColor = "bg-transparent text-tertiary1-active hover:cursor-default";
+  } else if (isToday && isCurrentYear && totalSeats === 0) {
+    bgColor = "bg-primary-active text-tertiary1-light"; // Pink if today without an event
+    cornerStyle = ""; // No rounded corners (completely square)
   } else if (isFull) {
-    bgColor = `bg-calendar-full text-tertiary1-light ${ROUNDED}`; // Red if full
+    bgColor = "bg-calendar-full text-tertiary1-light"; // Red if full
   } else if (percentageAvailable > 50 && totalSeats !== 0) {
-    bgColor = `bg-calendar-open text-tertiary1-light ${ROUNDED}`; // Green if many seats available
+    bgColor = "bg-calendar-open text-tertiary1-light"; // Green if many seats available
   } else if (percentageAvailable <= 50 && totalSeats !== 0) {
-    bgColor = `bg-calendar-limited text-tertiary1-light ${ROUNDED}`; // Yellow if limited
-  } else if (isToday && percentageAvailable !== null && isCurrentYear) {
-    bgColor = "bg-primary-active text-tertiary1-light"; // light pink and square if today
+    bgColor = "bg-calendar-limited text-tertiary1-light"; // Yellow if limited
   } else if (totalSeats === 0) {
     bgColor = "bg-transparent hover:cursor-default"; // White if there is no event on this day
   } else {
@@ -60,6 +62,7 @@ const CalendarItem = ({
   const calendarItemClass = `
     ${BASE_CALENDARITEM_CLASSES}
     ${bgColor}
+    ${cornerStyle}
       `.trim();
 
   return (
@@ -74,17 +77,8 @@ const CalendarItem = ({
         `}
       >
         <p className="flex justify-center pt-3 text-labelLarge font-medium md:absolute md:left-2 md:h-auto md:pt-[5px] md:text-labelMedium">
-          {isToday &&
-          isCurrentYear &&
-          typeof percentageAvailable === "number" ? (
-            <span
-              className={`
-                inline-flex h-6 w-6 items-center justify-center rounded-full border-2
-                ${percentageAvailable <= 50 ? "border-calendar-today_ring" : ""}
-                ${percentageAvailable > 50 ? "border-primary-active" : ""}
-                relative bottom-[2px] md:bottom-1 md:right-[6px]
-              `}
-            >
+          {isToday && isCurrentYear && totalSeats > 0 ? (
+            <span className="relative bottom-[2px] inline-flex h-6 w-6 items-center justify-center rounded-full border-2 border-primary-active md:bottom-1 md:right-[6px]">
               {dayOfMonth}
             </span>
           ) : (
@@ -93,11 +87,6 @@ const CalendarItem = ({
         </p>
         {availableSeats >= 0 && totalSeats !== 0 && !isOtherMonth ? (
           <div className="absolute bottom-1 right-2 hidden items-center justify-end md:right-2 md:flex md:gap-[4px]">
-            {/* <img
-              src={icon}
-              alt="attendants icon"
-              className="object-center w-4 h-5"
-            /> */}
             <p className="text-labelMedium font-medium text-white">{`${translations["calendar.seats"]}: ${availableSeats}`}</p>
           </div>
         ) : null}
