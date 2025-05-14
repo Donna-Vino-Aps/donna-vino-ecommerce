@@ -326,10 +326,6 @@ const Navbar = () => {
           </div>
         </div>
 
-        <div className="hidden h-[2.87rem] w-[5.12rem] lg:block">
-          <LanguageSwitch />
-        </div>
-
         <SideBar
           id="mobile-menu"
           isMenuOpen={isMenuOpen}
