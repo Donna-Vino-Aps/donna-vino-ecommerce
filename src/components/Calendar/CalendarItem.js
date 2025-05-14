@@ -23,8 +23,10 @@ const CalendarItem = ({
     totalSeats > 0 ? (availableSeats / totalSeats) * 100 : undefined;
 
   const BASE_CALENDARITEM_CLASSES = `
-   min-w-[99%] min-h-[2.813rem] md:min-h-[4.813rem] lg:h-[4.926rem] ${(index + 1) % 7 === 0 ? "lg:w-[6.12rem]" : "lg:w-[6.20rem]"} text-labelXLarge font-semibold rounded-tl-[6px] rounded-bl-[20px] md:rounded-tl-[0px] md:rounded-bl-[16px]
+   min-w-[99%] min-h-[2.813rem] md:min-h-[4.813rem] lg:h-[4.926rem] ${(index + 1) % 7 === 0 ? "lg:w-[6.12rem]" : "lg:w-[6.20rem]"} text-labelXLarge font-semibold 
 `;
+  const ROUNDED =
+    "rounded-tl-[6px] rounded-bl-[20px] md:rounded-tl-[0px] md:rounded-bl-[16px]";
 
   // Get today's date
   const today = new Date();
@@ -42,14 +44,13 @@ const CalendarItem = ({
   if (isOtherMonth) {
     bgColor = "bg-transparent text-tertiary1-active hover:cursor-default";
   } else if (isFull) {
-    bgColor = "bg-calendar-full text-tertiary1-light"; // Red if full
+    bgColor = `bg-calendar-full text-tertiary1-light ${ROUNDED}`; // Red if full
   } else if (percentageAvailable > 50 && totalSeats !== 0) {
-    bgColor = "bg-calendar-open text-tertiary1-light"; // Green if many seats available
+    bgColor = `bg-calendar-open text-tertiary1-light ${ROUNDED}`; // Green if many seats available
   } else if (percentageAvailable <= 50 && totalSeats !== 0) {
-    bgColor = "bg-calendar-limited text-tertiary1-light"; // Yellow if limited
+    bgColor = `bg-calendar-limited text-tertiary1-light ${ROUNDED}`; // Yellow if limited
   } else if (isToday && percentageAvailable !== null && isCurrentYear) {
-    bgColor =
-      "bg-primary-active text-tertiary1-light rounded-tl-[0px] rounded-bl-[0px] md:rounded-tl-[0px] md:rounded-bl-[0px] lg:rounded-tl-[0px] lg:rounded-bl-[0px]"; // light pink and square if today
+    bgColor = "bg-primary-active text-tertiary1-light"; // light pink and square if today
   } else if (totalSeats === 0) {
     bgColor = "bg-transparent hover:cursor-default"; // White if there is no event on this day
   } else {
