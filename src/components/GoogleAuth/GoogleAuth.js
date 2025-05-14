@@ -95,7 +95,8 @@ const GoogleAuth = ({ setMsg, setSuccess, setLoading }) => {
       <Button
         text={translations["logIn.signin-google"]}
         onClick={() => login()}
-        variant="lightRedWide"
+        color="primaryActive"
+        size={{md:"wide"}}
         icon="/icons/google-darkred.svg"
         data-testid="login-google-button"
         aria-label="Google Sign In"

@@ -161,7 +161,8 @@ const LoginForm = () => {
                 <Button
                   text={translations["logIn.button"]}
                   onClick={handleSubmit}
-                  variant="redWide"
+                  size={{md:"wide"}}
+                  extraStyle="font-semibold"
                   data-testid="login-button"
                   aria-label="Submit Log In"
                 />
@@ -201,7 +202,9 @@ const LoginForm = () => {
                 </h2>
                 <Button
                   text={translations["logIn.signup-button"]}
-                  variant="greenSubmit"
+                  size={{md:"wide"} }
+                  color="green"
+                  extraStyle="py-3"
                   data-testid="login-button"
                   aria-label="Submit Log In"
                   type="submit"

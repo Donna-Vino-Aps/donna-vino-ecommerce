@@ -8,40 +8,49 @@ const BASE_BUTTON_CLASSES = `
   flex justify-center items-center h-[2.875rem] rounded-[0.3rem] text-bodyLarge 
 `;
 
-const VARIANT_CLASSES = {
-  red: "bg-primary-normal hover:bg-primary-hover_normal text-primary-light w-full sm:w-[10.8rem]",
-  redModal:
-    "bg-primary-normal hover:bg-primary-hover_normal text-primary-light w-full min-w-[5.6rem] h-[2.4rem] text-bodyMedium sm:text-bodyLarge sm:h-[3rem] sm:w-[7.375rem]",
-  redFullText:
-    "bg-primary-normal hover:bg-primary-hover_normal text-primary-light w-[15.4rem]",
-  redWide:
-    "bg-primary-normal hover:bg-primary-hover_normal text-primary-light font-semibold w-full",
-  lightRedWide:
-    "bg-primary-active hover:bg-primary-normal hover:bg-opacity-40 text-primary-active_dark font-semibold w-full",
-  redLine:
-    "bg-transparent border-2 hover:bg-primary-hover border-primary-active_normal text-primary-active_normal w-[8.3rem] sm:w-[8.3rem]",
-  redSmall:
-    "bg-primary-normal hover:bg-primary-hover_normal text-primary-light px-4 min-w-[6.25rem] !h-[1.75rem] text-bodyMedium",
-  darkGreen:
-    "bg-secondary-darker hover:bg-secondary-hover_dark text-white w-full sm:w-[10.8rem]",
-  darkGreenModal:
-    "bg-secondary-darker hover:bg-secondary-hover_dark text-white w-full min-w-[8.8rem] sm:w-[10.8rem] h-[2.4rem] text-bodyMedium sm:text-bodyLarge sm:h-[3rem] sm:h-100",
-  grayGreen:
-    "bg-secondary-light hover:bg-secondary-hover text-secondary-darker w-full sm:w-[10.8rem]",
-  greenSubmit:
-    "w-full bg-[#183F27] hover:bg-[#153823] text-white font-barlow font-semibold py-3",
-  greenEdit:
-    "w-full bg-[#183F27] hover:bg-[#153823] text-white font-barlow font-semibold py-3 min-h-[3.125rem]",
-  redSubmit:
-    "bg-primary-normal hover:bg-primary-hover_normal text-white rounded-lg w-full sm:w-[10.8rem]",
-  gray: "bg-tertiary1-normal hover:bg-tertiary1-dark text-tertiary1-light w-full sm:w-[10.8rem]",
-  yellow: "bg-[#F59E0B] opacity-85 hover:opacity-100 text-primary-light w-full",
-};
+const SIZE = {
+  sm: {
+    small: "sm:w-[7.375rem]",
+    medium: "sm:w-[8.3rem]",
+    large: "sm:w-[10.8rem]"
+
+  },
+  md: {
+    medium: "w-[8.3rem]",
+    large: "w-[15.4rem]",
+    wide: "w-full"
+  }
+  
+}
+
+const COLORS = {
+  primary: "bg-primary-normal hover:bg-primary-hover_normal text-primary-light",
+  primaryActive: "bg-primary-active hover:bg-primary-normal hover:bg-opacity-40 text-primary-active_dark font-semibold",
+  transparent: "bg-transparent hover:bg-primary-hover text-primary-active_normal",
+  secondaryDark: "bg-secondary-darker hover:bg-secondary-hover_dark text-white",
+  secondaryLight: "bg-secondary-light hover:bg-secondary-hover text-secondary-darker",
+  green: "bg-[#183F27] hover:bg-[#153823] text-white font-barlow font-semibold",
+  tertiary: "bg-tertiary1-normal hover:bg-tertiary1-dark text-tertiary1-light",
+  yellow: "bg-[#F59E0B] opacity-85 hover:opacity-100 text-primary-light",
+  disabled: "bg-primary-disabled hover:bg-primary-disabled text-primary-disabled_dark cursor-not-allowed"
+
+}
+
+const VARIANT = {
+  outlineRed: "border-2 border-primary-active_normal",
+  radiuslg: "rounded-lg",
+  outlineGreen: "border-2 border-[#183F27]",
+  solid: "rounded-[0rem]"
+
+}
 
 const Button = ({
   text,
   icon,
-  variant = "primary",
+  color = "primary",
+  size = {},
+  variant = "",
+  extraStyle = "",
   onClick,
   disabled = false,
   ariaLabel,
@@ -52,8 +61,12 @@ const Button = ({
 }) => {
   const buttonClass = `
   ${BASE_BUTTON_CLASSES} 
-  ${VARIANT_CLASSES[variant] || ""} 
-  ${disabled || isLoading ? "opacity-50 cursor-not-allowed" : ""}
+  ${COLORS[color] || ""}
+  ${SIZE.md[size.md] || ""}
+  ${SIZE.sm[size.sm] || ""}
+  ${VARIANT[variant] || ""}
+  ${extraStyle || ""}
+  ${disabled || isLoading ? COLORS.disabled : ""}
 `.trim();
 
   const buttonContent = (
@@ -63,7 +76,7 @@ const Button = ({
       disabled={disabled || isLoading}
       aria-label={ariaLabel}
       data-testid={linkUrl ? undefined : testId}
-      type={variant === "submit" ? "submit" : "button"}
+      //type={variant === "submit" ? "submit" : "button"}
     >
       {isLoading ? (
         "Submitting..."
@@ -94,20 +107,10 @@ const Button = ({
 Button.propTypes = {
   text: PropTypes.string.isRequired,
   icon: PropTypes.string,
-  variant: PropTypes.oneOf([
-    "red",
-    "redFullText",
-    "redWide",
-    "lightRedWide",
-    "redLine",
-    "redSmall",
-    "darkGreen",
-    "grayGreen",
-    "greenSubmit",
-    "redSubmit",
-    "gray",
-    "yellow",
-  ]),
+  color: PropTypes.string,
+  size: PropTypes.object,
+  variant: PropTypes.string,
+  extraStyle: PropTypes.string,
   onClick: PropTypes.func,
   disabled: PropTypes.bool,
   ariaLabel: PropTypes.string,

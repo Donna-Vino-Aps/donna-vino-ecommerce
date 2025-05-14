@@ -17,7 +17,7 @@ export default function NotFound() {
       <div>
         <Button
           text={translations["notFound.button"]}
-          variant="redFullText"
+          size={{ md: "large" }}
           linkUrl="/"
           aria-label={translations["notFound.button"]}
         />
