@@ -73,3 +73,47 @@ describe("getSeatStatus", () => {
     expect(defaultStatus.borderColor).toBe("border-calendar-open");
   });
 });
+
+describe("filterEventsByMonth", () => {
+  const testEvents = [
+    { date: "2023-01-15", title: "January Event" },
+    { date: "2023-02-15", title: "February Event" },
+    { date: "2023-02-20", title: "Another February Event" },
+    { date: "2023-03-15", title: "March Event" },
+    { date: "2024-02-15", title: "Next Year February Event" },
+  ];
+
+  it("filters events for the selected month and year", () => {
+    const februaryEvents = filterEventsByMonth(testEvents, 2, 2023);
+
+    expect(februaryEvents.length).toBe(2);
+    expect(februaryEvents[0].title).toBe("February Event");
+    expect(februaryEvents[1].title).toBe("Another February Event");
+  });
+
+  it("returns empty array if no events match the month and year", () => {
+    const aprilEvents = filterEventsByMonth(testEvents, 4, 2023);
+    expect(aprilEvents.length).toBe(0);
+  });
+
+  it("returns empty array if month or year is not provided", () => {
+    expect(filterEventsByMonth(testEvents, null, 2023).length).toBe(0);
+    expect(filterEventsByMonth(testEvents, 2, null).length).toBe(0);
+    expect(filterEventsByMonth(testEvents, null, null).length).toBe(0);
+  });
+
+  it("returns empty array if events array is empty", () => {
+    expect(filterEventsByMonth([], 2, 2023).length).toBe(0);
+  });
+
+  it("handles events without dates gracefully", () => {
+    const mixedEvents = [
+      { title: "No Date Event" },
+      { date: "2023-02-15", title: "With Date Event" },
+    ];
+
+    const result = filterEventsByMonth(mixedEvents, 2, 2023);
+    expect(result.length).toBe(1);
+    expect(result[0].title).toBe("With Date Event");
+  });
+});
