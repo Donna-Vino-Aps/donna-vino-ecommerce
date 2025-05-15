@@ -13,7 +13,7 @@ const EventList = ({ events, onEventClick }) => {
   const { selectedMonth, selectedYear } = useCalendar();
 
   const renderMonthHeader = () => (
-    <h2 className="mb-4 flex w-full items-baseline gap-1 rounded-[0.5rem] bg-[#FFF4F4] px-4 py-2 text-titleMedium font-medium">
+    <h2 className="mb-4 flex w-full items-baseline gap-1 rounded-[0.5rem] bg-tertiary2-normal px-4 py-2 text-titleMedium font-medium">
       <span>{translations["events.upcomingTitle"]}</span>
       <span className="font-semibold">
         {format(new Date(selectedYear, selectedMonth - 1, 1), "MMMM", {

@@ -61,7 +61,7 @@ export function EventsProvider({ children }) {
     }
 
     fetchEvents();
-  }, [language, translations, isEventInFuture]);
+  }, [language, translations]);
 
   return (
     <EventsContext.Provider
