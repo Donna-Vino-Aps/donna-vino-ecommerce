@@ -14,18 +14,6 @@ const Calendar = () => {
   const [isMobile, setIsMobile] = React.useState(
     typeof window !== "undefined" && window.innerWidth < 768,
   );
-  const [isModalOpen, setIsModalOpen] = useState(true);
-  const [selectedEvent, setSelectedEvent] = useState(null);
-
-  const handleCloseModal = () => {
-    setIsModalOpen(false);
-    setSelectedEvent(null);
-  };
-
-  const handleOpenModal = (event) => {
-    setSelectedEvent(event);
-    setIsModalOpen(true);
-  };
 
   React.useEffect(() => {
     const handleResize = () => {
@@ -163,13 +151,6 @@ const Calendar = () => {
           />
         );
       })}
-      {selectedEvent && (
-        <EventModal
-          onClose={handleCloseModal}
-          isOpen={isModalOpen}
-          event={selectedEvent}
-        />
-      )}
     </section>
   );
 };

@@ -6,11 +6,7 @@ import { useEvents } from "@/context/EventsContext";
 import { useLanguage } from "@/context/LanguageContext";
 import { useCalendar } from "@/context/CalendarContext";
 import { formatDate, formatTime } from "@/utils/dateTimeFormatting";
-import {
-  getSeatStatus,
-  filterEventsByMonth,
-  sortEventsByDate,
-} from "@/utils/eventUtils";
+import { filterEventsByMonth, sortEventsByDate } from "@/utils/eventUtils";
 import Spinner from "@/components/UI/Spinner";
 import ErrorMessage from "@/components/UI/ErrorMessage";
 
