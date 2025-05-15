@@ -2,7 +2,6 @@
 import React, { useState, useEffect } from "react";
 import CalendarItem from "./CalendarItem";
 import { useLanguage } from "@/context/LanguageContext";
-// import { useEvents } from "@/context/EventsContext";
 import { useCalendar } from "@/context/CalendarContext";
 import PropTypes from "prop-types";
 

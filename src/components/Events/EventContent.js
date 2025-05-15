@@ -46,7 +46,7 @@ const EventContent = ({ children }) => {
 
   if (isLoading) {
     return (
-      <div className="flex min-h-[400px] items-center justify-center">
+      <div className="flex min-h-[25rem] items-center justify-center">
         <Spinner size="medium" />
       </div>
     );
