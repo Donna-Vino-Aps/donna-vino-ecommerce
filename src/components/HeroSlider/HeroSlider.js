@@ -67,6 +67,14 @@ const HeroSlider = () => {
 
   return (
     <section className="relative">
+      {isModalOpen && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
+          <ComingSoonModal
+            isOpen={isModalOpen}
+            onClose={() => setIsModalOpen(false)}
+          />
+        </div>
+      )}
       <Swiper
         onSwiper={(swiper) => (swiperRef.current = swiper)}
         modules={[A11y]}
@@ -80,15 +88,6 @@ const HeroSlider = () => {
             <section
               className={`relative flex flex-col-reverse md:w-full ${index === 0 ? "md:flex-row" : "md:flex-row-reverse"} min-h-[43.75rem] justify-between bg-tertiary2-light`}
             >
-              {/* Modal "Coming Soon" */}
-              {isModalOpen && (
-                <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
-                  <ComingSoonModal
-                    isOpen={isModalOpen}
-                    onClose={() => setIsModalOpen(false)}
-                  />
-                </div>
-              )}
               <div className="mb-4 min-h-[20rem] w-full items-center md:relative md:mb-0 md:w-[50%]">
                 {slide.type === "video" ? (
                   hasCredits ? (

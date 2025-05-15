@@ -5,7 +5,7 @@ import PropTypes from "prop-types";
 import Link from "next/link";
 
 const BASE_BUTTON_CLASSES = `
-  flex justify-center items-center h-[2.875rem] rounded-[0.3rem] text-bodyLarge 
+  flex justify-center items-center h-[2.5rem] rounded-[0.3rem] text-titleMedium 
 `;
 
 const SIZE = {
@@ -76,7 +76,7 @@ const Button = ({
       disabled={disabled || isLoading}
       aria-label={ariaLabel}
       data-testid={linkUrl ? undefined : testId}
-      //type={variant === "submit" ? "submit" : "button"}
+      type={variant === "submit" ? "submit" : "button"}
     >
       {isLoading ? (
         "Submitting..."

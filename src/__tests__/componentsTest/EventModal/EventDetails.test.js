@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import React from "react";
 import { render, screen } from "@testing-library/react";
-import EventDetails from "@/components/EventRegistrationModal/EventDetails";
+import EventDetails from "@/components/EventModal/EventDetails";
 import { logError } from "@/utils/logging";
 import { useLanguage } from "@/context/LanguageContext";
 
@@ -15,7 +15,7 @@ jest.mock("@/context/LanguageContext", () => ({
 }));
 
 // Mock the InfoCard component
-jest.mock("@/components/EventRegistrationModal/InfoCard", () => {
+jest.mock("@/components/EventModal/InfoCard", () => {
   return function MockInfoCard({
     title,
     imageUrl,
@@ -58,7 +58,7 @@ describe("EventDetails Component", () => {
 
   const mockEventDetails = {
     availableSeats: 15,
-    totalInventory: 20,
+    totalSeats: 20,
     location: "Copenhagen Wine Bar",
     date: "2023-08-15",
     timeStart: new Date("2023-08-15T18:00:00"),
@@ -214,7 +214,7 @@ describe("EventDetails Component", () => {
     const fullEvent = {
       ...mockEventDetails,
       availableSeats: 0,
-      totalInventory: 20,
+      totalSeats: 20,
     };
 
     render(<EventDetails eventDetails={fullEvent} />);
@@ -228,7 +228,7 @@ describe("EventDetails Component", () => {
     const limitedEvent = {
       ...mockEventDetails,
       availableSeats: 10,
-      totalInventory: 20,
+      totalSeats: 20,
     };
 
     render(<EventDetails eventDetails={limitedEvent} />);
@@ -242,7 +242,7 @@ describe("EventDetails Component", () => {
     const limitedEvent = {
       ...mockEventDetails,
       availableSeats: 8,
-      totalInventory: 20,
+      totalSeats: 20,
     };
 
     render(<EventDetails eventDetails={limitedEvent} />);
@@ -256,7 +256,7 @@ describe("EventDetails Component", () => {
     const openEvent = {
       ...mockEventDetails,
       availableSeats: 15,
-      totalInventory: 20,
+      totalSeats: 20,
     };
 
     render(<EventDetails eventDetails={openEvent} />);
@@ -270,7 +270,7 @@ describe("EventDetails Component", () => {
     const smallEvent = {
       ...mockEventDetails,
       availableSeats: 8,
-      totalInventory: 8,
+      totalSeats: 8,
     };
 
     render(<EventDetails eventDetails={smallEvent} />);

@@ -4,7 +4,7 @@ import CalendarItem from "./CalendarItem";
 import { useLanguage } from "@/context/LanguageContext";
 import { useEvents } from "@/context/EventsContext";
 import { useCalendar } from "@/context/CalendarContext";
-import EventRegistrationModal from "../EventRegistrationModal/EventRegistrationModal";
+import EventModal from "@/components/EventModal/EventModal";
 
 const Calendar = () => {
   const { events } = useEvents();
@@ -130,10 +130,10 @@ const Calendar = () => {
   );
 
   const weekdayStyle =
-    "flex bg-primary-normal h-11 md:h-4 justify-center items-center text-labelLarge md:text-labelMedium text-tertiary2-light";
+    "flex bg-primary-normal h-11 md:h-4 w-full justify-center items-center text-labelLarge md:text-labelMedium text-tertiary2-light";
 
   return (
-    <section className="mx-auto grid w-full grid-cols-7 grid-rows-5 justify-center rounded-b-lg border-[1px] border-b-tertiary1-light md:max-w-[calc(7*6.282rem-8px)] lg:max-w-[calc(7*6.282rem)]">
+    <section className="mx-auto grid w-full auto-rows-fr grid-cols-7 justify-center rounded-b-lg border-[1px] border-b-tertiary1-light [grid-template-rows:auto_repeat(5,minmax(0,1fr))] md:max-w-[calc(7*6.282rem-10px)] lg:max-w-[calc(7*6.282rem-2px)]">
       {[...Array(7)].map((_, i) => (
         <div key={i} className={weekdayStyle}>
           {isMobile
@@ -154,7 +154,7 @@ const Calendar = () => {
             index={index}
             icon="./icons/users-2.svg"
             availableSeats={event ? event.availableSeats : 0}
-            totalInventory={event ? event.totalInventory : 0}
+            totalSeats={event ? event.totalSeats : 0}
             isOtherMonth={day.isOtherMonth}
             currentMonth={currentMonth}
             currentYear={currentYear}
@@ -164,7 +164,7 @@ const Calendar = () => {
         );
       })}
       {selectedEvent && (
-        <EventRegistrationModal
+        <EventModal
           onClose={handleCloseModal}
           isOpen={isModalOpen}
           event={selectedEvent}
