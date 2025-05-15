@@ -47,3 +47,25 @@ export const getSeatStatus = (availableSeats, totalSeats, style = "list") => {
     return statuses.open[style];
   }
 };
+
+export const filterEventsByMonth = (events, selectedMonth, selectedYear) => {
+  if (!selectedMonth || !selectedYear || !events.length) {
+    return [];
+  }
+
+  return events.filter((event) => {
+    if (!event.date) return false;
+    const eventDate = new Date(event.date);
+    const eventMonth = eventDate.getMonth() + 1;
+    const eventYear = eventDate.getFullYear();
+    return eventMonth === selectedMonth && eventYear === selectedYear;
+  });
+};
+
+export const sortEventsByDate = (events) => {
+  return [...events].sort((a, b) => {
+    if (a.date < b.date) return -1;
+    if (a.date > b.date) return 1;
+    return 0;
+  });
+};
