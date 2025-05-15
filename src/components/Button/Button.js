@@ -12,37 +12,37 @@ const SIZE = {
   sm: {
     small: "sm:w-[7.375rem]",
     medium: "sm:w-[8.3rem]",
-    large: "sm:w-[10.8rem]"
-
+    large: "sm:w-[10.8rem]",
   },
   md: {
     medium: "w-[8.3rem]",
     large: "w-[15.4rem]",
-    wide: "w-full"
-  }
-  
-}
+    wide: "w-full",
+  },
+};
 
 const COLORS = {
   primary: "bg-primary-normal hover:bg-primary-hover_normal text-primary-light",
-  primaryActive: "bg-primary-active hover:bg-primary-normal hover:bg-opacity-40 text-primary-active_dark font-semibold",
-  transparent: "bg-transparent hover:bg-primary-hover text-primary-active_normal",
+  primaryActive:
+    "bg-primary-active hover:bg-primary-normal hover:bg-opacity-40 text-primary-active_dark font-semibold",
+  transparent:
+    "bg-transparent hover:bg-primary-hover text-primary-active_normal",
   secondaryDark: "bg-secondary-darker hover:bg-secondary-hover_dark text-white",
-  secondaryLight: "bg-secondary-light hover:bg-secondary-hover text-secondary-darker",
+  secondaryLight:
+    "bg-secondary-light hover:bg-secondary-hover text-secondary-darker",
   green: "bg-[#183F27] hover:bg-[#153823] text-white font-barlow font-semibold",
   tertiary: "bg-tertiary1-normal hover:bg-tertiary1-dark text-tertiary1-light",
   yellow: "bg-[#F59E0B] opacity-85 hover:opacity-100 text-primary-light",
-  disabled: "bg-primary-disabled hover:bg-primary-disabled text-primary-disabled_dark cursor-not-allowed"
-
-}
+  disabled:
+    "bg-primary-disabled hover:bg-primary-disabled text-primary-disabled_dark cursor-not-allowed",
+};
 
 const VARIANT = {
   outlineRed: "border-2 border-primary-active_normal",
   radiuslg: "rounded-lg",
   outlineGreen: "border-2 border-[#183F27]",
-  solid: "rounded-[0rem]"
-
-}
+  solid: "rounded-[0rem]",
+};
 
 const Button = ({
   text,
