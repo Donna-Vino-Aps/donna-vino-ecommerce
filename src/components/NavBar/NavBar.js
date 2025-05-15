@@ -5,9 +5,9 @@ import React, { useState } from "react";
 import LanguageSwitch from "../NavBar/LanguageSwitch";
 import SideBar from "../SideBar/SideBar";
 import { useLanguage } from "@/context/LanguageContext";
-import SearchButton from "./SearchButton";
-import UserDropdown from "./UserDropdown/UserDropdown";
-import ShoppingCart from "./ShoppingCart";
+// import SearchButton from "./SearchButton";
+// import UserDropdown from "./UserDropdown/UserDropdown";
+// import ShoppingCart from "./ShoppingCart";
 
 const Navbar = () => {
   const { translations } = useLanguage();
@@ -130,6 +130,13 @@ const Navbar = () => {
       icon: "/icons/calendar1.svg",
       dropdown: false,
     },
+    {
+      id: "company",
+      href: "https://www.donnavino.dk/",
+      label: translations["navbar.company"],
+      icon: "/icons/team-icon.svg",
+      dropdown: false,
+    },
     // {
     //   id: "wines",
     //   href: "/wines",
@@ -153,13 +160,13 @@ const Navbar = () => {
     //   dropdown: true,
     //   sublinks: ["Grapes", "Regions"],
     // },
-    {
-      id: "account",
-      href: "/user/profile",
-      label: translations["navbar.account"],
-      icon: "/icons/user-alt-2.svg",
-      dropdown: false,
-    },
+    // {
+    //   id: "account",
+    //   href: "/user/profile",
+    //   label: translations["navbar.account"],
+    //   icon: "/icons/user-alt-2.svg",
+    //   dropdown: false,
+    // },
   ];
 
   return (
@@ -309,9 +316,9 @@ const Navbar = () => {
 
       <div className="flex w-full items-center justify-end gap-14">
         <div className="relative bottom-[2px] flex items-center gap-3 md:mr-6 lg:gap-5">
-          <SearchButton />
-          <UserDropdown />
-          <ShoppingCart />
+          {/* <SearchButton /> */}
+          {/* <UserDropdown /> */}
+          {/* <ShoppingCart /> */}
           <div className="relative top-[1px] ml-2 mr-8 h-[1.5rem] w-[1.5rem] lg:hidden">
             <button
               onClick={toggleMenu}

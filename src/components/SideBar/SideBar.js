@@ -4,7 +4,7 @@ import Link from "next/link";
 import LanguageSwitch from "../NavBar/LanguageSwitch";
 import { useLanguage } from "@/context/LanguageContext";
 import SocialLinks from "@/components/SideBar/SocialLinks";
-import UserInfoMobile from "@/components/SideBar/UserInfoMobile";
+// import UserInfoMobile from "@/components/SideBar/UserInfoMobile";
 import { useCredentials } from "@/context/CredentialsContext";
 
 const SideBar = ({ isMenuOpen, toggleMenu, navLinks }) => {
@@ -14,7 +14,7 @@ const SideBar = ({ isMenuOpen, toggleMenu, navLinks }) => {
     account: false,
   });
 
-  const { logout } = useCredentials();
+  // const { logout } = useCredentials();
 
   const { translations } = useLanguage();
 
@@ -52,7 +52,7 @@ const SideBar = ({ isMenuOpen, toggleMenu, navLinks }) => {
     >
       <div className="flex h-full flex-col gap-8 p-8">
         <div className="flex items-center justify-between">
-          <UserInfoMobile />
+          {/* <UserInfoMobile /> */}
           <button
             role="button"
             className="self-start"
@@ -143,7 +143,7 @@ const SideBar = ({ isMenuOpen, toggleMenu, navLinks }) => {
             </ul>
           </nav>
           <hr className="my-2 border-t-slate-300" />
-          <Link
+          {/* <Link
             className="flex gap-2 pb-8 pl-4"
             href="#"
             onClick={(event) => {
@@ -157,7 +157,7 @@ const SideBar = ({ isMenuOpen, toggleMenu, navLinks }) => {
               alt="logout"
             />
             <span>{translations["user-dropdown.logout"]}</span>
-          </Link>
+          </Link> */}
         </div>
         <div className="relative bottom-4 flex h-[4.87rem] w-[10.12rem] flex-col items-start">
           <p className="mb-6 text-labelXLarge font-semibold">

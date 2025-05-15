@@ -45,10 +45,6 @@ const Footer = () => {
 
   const paymentIcons = [
     {
-      src: "/icons/footer/apple-pay.svg",
-      alt: "Apple pay",
-    },
-    {
       src: "/icons/footer/google-pay.svg",
       alt: "Google pay",
     },
@@ -64,6 +60,10 @@ const Footer = () => {
       src: "/icons/footer/MobilePayLogo.svg",
       alt: "Mobile pay",
     },
+    // {
+    //   src: "/icons/footer/apple-pay.svg",
+    //   alt: "Apple pay",
+    // },
   ];
 
   return (
@@ -99,16 +99,9 @@ const Footer = () => {
               ))}
             </div>
             <div className="relative top-10 order-1 flex md:left-3 md:top-20 md:order-1 lg:left-12">
-              <div className="grid grid-cols-2 place-items-center gap-12 md:flex md:gap-9 lg:gap-16">
+              <div className="col-span-2 grid grid-cols-2 place-items-center gap-12 md:flex md:gap-9 lg:gap-16">
                 {paymentIcons.map(({ src, alt }, index) => (
-                  <div
-                    key={index}
-                    className={
-                      index == paymentIcons.length - 1
-                        ? "col-span-2"
-                        : "col-span-1"
-                    }
-                  >
+                  <div key={index}>
                     <img src={src} alt={alt} />
                   </div>
                 ))}

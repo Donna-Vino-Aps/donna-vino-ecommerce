@@ -92,7 +92,7 @@ const HeroSlider = () => {
                 {slide.type === "video" ? (
                   hasCredits ? (
                     <video
-                      className="iimd:mt-0 mt-4 max-h-[22.5rem] w-full rounded-br-[0rem] rounded-tr-[0rem] object-cover md:absolute md:inset-0 md:min-h-[43.75rem] md:rounded-br-xl md:rounded-tr-[8rem]"
+                      className="mt-4 max-h-[22.5rem] w-full rounded-br-[0rem] rounded-tr-[0rem] object-cover md:absolute md:inset-0 md:mt-0 md:min-h-[43.75rem] md:rounded-br-xl md:rounded-tr-[8rem]"
                       autoPlay
                       loop
                       muted
@@ -100,6 +100,7 @@ const HeroSlider = () => {
                       aria-label="Background video for TastingSession Section"
                       aria-hidden="true"
                       data-testid="hero-video"
+                      alt="hero-video"
                     >
                       <source src={slide.media} type="video/mp4" />
                       Your browser does not support the video tag.
@@ -109,6 +110,7 @@ const HeroSlider = () => {
                       src="/images/hero-tasting-resized.jpg"
                       className="mt-4 max-h-[22.5rem] w-full rounded-br-[0rem] rounded-tr-[0rem] object-cover md:absolute md:inset-0 md:mt-0 md:min-h-[43.75rem] md:rounded-br-[0.5rem] md:rounded-tr-[8rem]"
                       data-testid="fallback-image"
+                      alt="Wine glasses at a winetasting"
                     />
                   )
                 ) : (

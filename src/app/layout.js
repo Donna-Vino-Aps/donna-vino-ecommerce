@@ -15,7 +15,7 @@ const RootLayout = ({ children }) => {
   return (
     <GoogleOAuthProvider clientId={process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID}>
       <LocalizationProvider dateAdapter={AdapterDayjs}>
-        <html lang="en">
+        <html lang="en" title="Donna Vino E-Commerce">
           <body className="flex min-h-screen w-full flex-col bg-white font-barlow text-tertiary1-normal">
             <CredentialsProvider>
               <LanguageProvider>
