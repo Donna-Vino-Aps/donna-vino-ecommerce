@@ -1,21 +1,21 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import CalendarItem from "./CalendarItem";
 import { useLanguage } from "@/context/LanguageContext";
-import { useEvents } from "@/context/EventsContext";
+// import { useEvents } from "@/context/EventsContext";
 import { useCalendar } from "@/context/CalendarContext";
-import EventModal from "@/components/EventModal/EventModal";
+import PropTypes from "prop-types";
 
-const Calendar = () => {
-  const { events } = useEvents();
+const Calendar = ({ events, onEventClick }) => {
   const { selectedMonth: currentMonth, selectedYear: currentYear } =
     useCalendar();
+  const { translations } = useLanguage();
 
-  const [isMobile, setIsMobile] = React.useState(
+  const [isMobile, setIsMobile] = useState(
     typeof window !== "undefined" && window.innerWidth < 768,
   );
 
-  React.useEffect(() => {
+  useEffect(() => {
     const handleResize = () => {
       setIsMobile(window.innerWidth < 768);
     };
@@ -24,11 +24,9 @@ const Calendar = () => {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  const { translations } = useLanguage();
-
   // Function to get an event for a specific day
   const getEventForDay = (day, month, year) => {
-    if (!events || events.length === 0) return [];
+    if (!events || events.length === 0) return null;
 
     // Format the date to match event.date format (YYYY-MM-DD)
     const dateStr = `${year}-${String(month).padStart(2, "0")}-${String(day).padStart(2, "0")}`;
@@ -140,19 +138,21 @@ const Calendar = () => {
             key={index}
             dayOfMonth={day.dayOfMonth}
             index={index}
-            icon="./icons/users-2.svg"
             availableSeats={event ? event.availableSeats : 0}
             totalSeats={event ? event.totalSeats : 0}
             isOtherMonth={day.isOtherMonth}
-            currentMonth={currentMonth}
-            currentYear={currentYear}
             hasEvents={!!event}
-            onClick={() => event && handleOpenModal(event)}
+            onClick={() => event && onEventClick(event)}
           />
         );
       })}
     </section>
   );
+};
+
+Calendar.propTypes = {
+  events: PropTypes.array.isRequired,
+  onEventClick: PropTypes.func.isRequired,
 };
 
 export default Calendar;
