@@ -68,6 +68,12 @@ const CalendarItem = ({
     ${cornerStyle}
       `.trim();
 
+  const handleClick = () => {
+    if (hasEvents && availableSeats > 0 && onClick) {
+      onClick();
+    }
+  };
+
   return (
     <article
       className={`relative min-h-[2.813rem] min-w-[2.618rem] border-t-[1px] border-tertiary1-light bg-transparent lg:h-[4.976rem] lg:w-[6.282rem] ${!isLeft && !isRight ? "border-r-[1px]" : ""} ${isLeft ? "border-r-[1px]" : ""}`}
