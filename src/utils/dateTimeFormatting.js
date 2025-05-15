@@ -9,7 +9,7 @@ export const formatDate = (dateString, language, formatStr) => {
   if (!dateString) return "";
   try {
     const date = dateString instanceof Date ? dateString : parseISO(dateString);
-    const defaultFormat = language === "dk" ? "d. MMMM yyyy" : "MMMM d, yyyy";
+    const defaultFormat = language === "dk" ? "d. MMMM yyyy" : "MMMM do, yyyy";
     return format(date, formatStr || defaultFormat, {
       locale: getLocale(language),
     });
