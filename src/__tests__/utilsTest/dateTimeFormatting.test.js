@@ -1,4 +1,4 @@
-import { getLocale, formatDate } from "@/utils/dateTimeFormatting";
+import { getLocale, formatDate, formatTime } from "@/utils/dateTimeFormatting";
 import { enUS, da } from "date-fns/locale";
 
 const originalConsoleError = console.error;
@@ -66,5 +66,51 @@ describe("formatDate", () => {
   it("uses short date format when requested", () => {
     const shortFormat = formatDate(testDate, "en", "dd/MM");
     expect(shortFormat).toBe("15/05");
+  });
+});
+
+describe("formatTime", () => {
+  const testTime = new Date(2023, 4, 15, 14, 30);
+
+  it("formats time correctly in English (12-hour format)", () => {
+    const formattedTime = formatTime(testTime, "en");
+    expect(formattedTime).toBe("2:30 pm");
+  });
+
+  it("formats time correctly in Danish (24-hour format)", () => {
+    const formattedTime = formatTime(testTime, "dk");
+    expect(formattedTime).toBe("14:30");
+  });
+
+  it("handles string time inputs", () => {
+    const timeString = "2023-05-15T14:30:00";
+
+    const formattedTimeEn = formatTime(timeString, "en");
+    const formattedTimeDk = formatTime(timeString, "dk");
+
+    expect(formattedTimeEn).toBe("2:30 pm");
+    expect(formattedTimeDk).toBe("14:30");
+  });
+
+  it("returns empty string for null or undefined input", () => {
+    expect(formatTime(null, "en")).toBe("");
+    expect(formatTime(undefined, "en")).toBe("");
+  });
+
+  it("handles invalid time inputs gracefully", () => {
+    const invalidTime = "not-a-time";
+    const result = formatTime(invalidTime, "en");
+
+    expect(console.error).toHaveBeenCalled();
+    expect(result).toBe("not-a-time");
+  });
+
+  it("handles edge cases for time values", () => {
+    const midnight = new Date(2023, 4, 15, 0, 0);
+    expect(formatTime(midnight, "en")).toBe("12:00 am");
+    expect(formatTime(midnight, "dk")).toBe("00:00");
+    const noon = new Date(2023, 4, 15, 12, 0);
+    expect(formatTime(noon, "en")).toBe("12:00 pm");
+    expect(formatTime(noon, "dk")).toBe("12:00");
   });
 });
