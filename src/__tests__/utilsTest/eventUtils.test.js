@@ -117,3 +117,32 @@ describe("filterEventsByMonth", () => {
     expect(result[0].title).toBe("With Date Event");
   });
 });
+
+describe("sortEventsByDate", () => {
+  it("sorts events by date in ascending order", () => {
+    const unsortedEvents = [
+      { date: "2023-03-15" },
+      { date: "2023-01-15" },
+      { date: "2023-02-15" },
+    ];
+
+    const sortedEvents = sortEventsByDate(unsortedEvents);
+
+    expect(sortedEvents[0].date).toBe("2023-01-15");
+    expect(sortedEvents[1].date).toBe("2023-02-15");
+    expect(sortedEvents[2].date).toBe("2023-03-15");
+  });
+
+  it("returns a new array without modifying the original", () => {
+    const unsortedEvents = [{ date: "2023-03-15" }, { date: "2023-01-15" }];
+
+    const sortedEvents = sortEventsByDate(unsortedEvents);
+
+    expect(sortedEvents[0].date).toBe("2023-01-15");
+    expect(unsortedEvents[0].date).toBe("2023-03-15");
+  });
+
+  it("handles empty arrays gracefully", () => {
+    expect(sortEventsByDate([])).toEqual([]);
+  });
+});
