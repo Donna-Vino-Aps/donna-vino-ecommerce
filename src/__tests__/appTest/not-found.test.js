@@ -35,7 +35,7 @@ describe("NotFound", () => {
 
     const buttonProps = Button.mock.calls[0][0];
     expect(buttonProps.text).toBe("Back to home");
-    expect(buttonProps.size).toBe({ md: "large" });
+    expect(buttonProps.size).toEqual({ md: "large" });
     expect(buttonProps.linkUrl).toBe("/");
     expect(buttonProps["aria-label"]).toBe("Back to home");
   });
