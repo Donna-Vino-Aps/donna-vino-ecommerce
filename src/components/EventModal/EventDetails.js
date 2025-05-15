@@ -7,13 +7,13 @@ function EventDetails({ eventDetails = {} }) {
   const { translations } = useLanguage();
 
   const {
-    availableSeats = "",
-    totalSeats = "",
+    availableSeats = null,
+    totalSeats = null,
     location = "",
     formattedDateFull = "",
     formattedTimeStart = "",
     formattedTimeEnd = "",
-    price = "",
+    price = null,
     currency = "",
     description = "",
     wineDescription = "",
@@ -40,7 +40,19 @@ function EventDetails({ eventDetails = {} }) {
   const seatTextClass = seatStatus.textColor;
 
   const currencySymbol = currency === "DKK" ? "kr." : currency;
-  const priceInfo = `${translations["event.details.from"]} ${price} ${currencySymbol} ${translations["event.details.perPerson"]}`;
+
+  let priceAndCurrencyText = "";
+  if (price !== null && price !== undefined) {
+    if (currency) {
+      priceAndCurrencyText = `${price} ${currencySymbol}`;
+    } else {
+      priceAndCurrencyText = `${price}`; // Price only, no currency
+    }
+  }
+
+  const priceInfo = priceAndCurrencyText
+    ? `${translations["event.details.from"]} ${priceAndCurrencyText} ${translations["event.details.perPerson"]}`
+    : `${translations["event.details.from"]} ${translations["event.details.perPerson"]}`;
 
   return (
     <>
