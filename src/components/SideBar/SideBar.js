@@ -5,7 +5,7 @@ import LanguageSwitch from "../NavBar/LanguageSwitch";
 import { useLanguage } from "@/context/LanguageContext";
 import SocialLinks from "@/components/SideBar/SocialLinks";
 // import UserInfoMobile from "@/components/SideBar/UserInfoMobile";
-import { useCredentials } from "@/context/CredentialsContext";
+// import { useCredentials } from "@/context/CredentialsContext";
 
 const SideBar = ({ isMenuOpen, toggleMenu, navLinks }) => {
   const [openDropdowns, setOpenDropdowns] = useState({
@@ -71,9 +71,14 @@ const SideBar = ({ isMenuOpen, toggleMenu, navLinks }) => {
           <h2 id="menu-heading" className="sr-only">
             Mobile navigation menu
           </h2>
-          <hr className="my-2 border-t-slate-300" />
+          <h2
+            className="mb-3 text-labelXLarge font-semibold"
+            data-testid="menu-heading"
+          >
+            Menu
+          </h2>
           <nav role="navigation">
-            <ul className="ml-2 flex flex-col">
+            <ul className="flex flex-col">
               {navLinks.map((link) => (
                 <li
                   key={link.id}
