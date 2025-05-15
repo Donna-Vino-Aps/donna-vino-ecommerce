@@ -35,7 +35,7 @@ const SalesPolicy = () => {
             text={translations["button.go-back"]}
             icon="/icons/back-arrow.svg"
             color="transparent"
-            size={{md:"medium", sm:"medium"}}
+            size={{ md: "medium", sm: "medium" }}
             variant="outlineRed"
             ariaLabel="Go back"
             testId="go-back-button"

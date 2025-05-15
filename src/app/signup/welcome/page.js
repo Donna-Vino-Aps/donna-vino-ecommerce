@@ -171,7 +171,7 @@ const Welcome = () => {
 
           <Button
             text={translations["signUp.welcome.button"]}
-            size={{md:"wide"} }
+            size={{ md: "wide" }}
             extraStyle="font-semibold"
             onClick={() => router.push("/login")}
             testId="login-button"

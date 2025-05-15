@@ -76,7 +76,7 @@ const Button = ({
       disabled={disabled || isLoading}
       aria-label={ariaLabel}
       data-testid={linkUrl ? undefined : testId}
-      //type={variant === "submit" ? "submit" : "button"}
+      type={variant === "submit" ? "submit" : "button"}
     >
       {isLoading ? (
         "Submitting..."

@@ -317,7 +317,7 @@ const SignUpScreen = () => {
                         : translations["signUp.create-button"]
                     }
                     onClick={handleSubmit}
-                    size={{md:"wide"} }
+                    size={{ md: "wide" }}
                     extraStyle="font-semibold"
                     disabled={isSubmitting}
                     data-testid="submit-button"

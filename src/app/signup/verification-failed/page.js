@@ -76,7 +76,7 @@ const VerificationFailedContent = () => {
 
           <Button
             text={getButtonText()}
-            size={{md:"wide"} }
+            size={{ md: "wide" }}
             extraStyle="font-semibold"
             onClick={handleButtonClick}
             testId="verification-action-button"
