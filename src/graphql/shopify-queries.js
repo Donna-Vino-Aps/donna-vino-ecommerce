@@ -10,11 +10,16 @@ export const GET_COLLECTION_BY_HANDLE = `
             id
             title
             handle
-            totalInventory
-            priceRange {
-              maxVariantPrice {
-                amount
-                currencyCode
+            variants(first: 1) {
+              edges {
+                node {
+                  id
+                  price {
+                    amount
+                    currencyCode
+                  }
+                  availableSeats: quantityAvailable
+                }
               }
             }
             description
@@ -42,19 +47,15 @@ export const GET_COLLECTION_BY_HANDLE = `
             location: metafield(namespace: "event", key: "location") {
               value
             }
+            totalSeats: metafield(namespace: "event", key: "totalSeats") {
+              value
+            }
             images(first: 2) {
               edges {
                 node {
                   url
                   altText
                   id
-                }
-              }
-            }
-            availableSeats: variants(first: 1) {
-              edges {
-                node {
-                  quantityAvailable
                 }
               }
             }

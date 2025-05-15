@@ -108,6 +108,9 @@ export default {
           open_light: "#DAF8E6",
           today_ring: "#F37277",
         },
+        others: {
+          negative: "#FF3B30",
+        },
       },
       screens: {
         sm: "640px",
