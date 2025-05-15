@@ -159,7 +159,6 @@ const LoginForm = () => {
                   extraStyle="font-semibold"
                   testId="login-button"
                   ariaLabel="Submit Log In"
-
                 />
               </div>
               {/* Pass setMsg, setSuccess, and setLoading so GoogleAuth updates global state */}
