@@ -162,7 +162,7 @@
   "events-header.button-prev": "Forrige skridt",
   "events-header.button-complete": "Din reservation er gennemført",
   "events-header.card1-h": "Tjek tilgængelighed i kalenderen",
-  "events-header.card1-p": "Tjek tilgængelighed i kalenderen for at se de kommende begivenhedsdatoer. Kalenderen fremhæver tilgængelighedsstatus med tre farvekoder: Grøn for fuld tilgængelighed, Orange for begrænsede pladser og Rød for udsolgte begivenheder. Du skal blot klikke på din foretrukne dato for at fortsætte med din reservation.",
+  "events-header.card1-p": "Tjek kalenderen for kommende begivenhedsdatoer. Den viser tilgængelighed med tre farver: Grøn for fuld adgang, Orange for få pladser og Rød for udsolgt. Klik på din ønskede dato for at fortsætte reservationen.",
   "events-header.card2-h": "Vælg dato og pladser",
   "events-header.card2-p": "Klik på datoen for at se begivenhedsdetaljer, herunder de udvalgte vine og middagsmenuen. Vælg derefter dine pladser og fortsæt til det sidste trin.",
   "events-header.card3-h": "Betaling og bekræftelse",
