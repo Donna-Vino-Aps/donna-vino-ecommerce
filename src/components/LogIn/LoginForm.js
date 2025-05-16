@@ -23,10 +23,10 @@ const LoginForm = () => {
 
   const onReceived = (response) => {
     const responseData = response.data || response;
-    const { success, msg, user } = responseData;
+    const { success, msg, user, token } = responseData;
 
     if (success) {
-      saveLoginCredentials(user);
+      saveLoginCredentials(user, token, msg, success);
       handleMessage({ successStatus: true, msg });
       router.push("/");
     } else {
