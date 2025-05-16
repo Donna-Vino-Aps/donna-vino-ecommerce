@@ -164,7 +164,7 @@
   "events-header.card1-h": "Tjek tilgængelighed i kalenderen",
   "events-header.card1-p": "Tjek kalenderen for kommende begivenhedsdatoer. Den viser tilgængelighed med tre farver: Grøn for fuld adgang, Orange for få pladser og Rød for udsolgt. Klik på din ønskede dato for at fortsætte reservationen.",
   "events-header.card2-h": "Vælg dato og pladser",
-  "events-header.card2-p": "Når du klikker på datoen, kan du se detaljerne om begivenheden, herunder de udvalgte vine og middagsmenuen. Vælg derefter dine pladser og fortsæt til det sidste trin, kassen.",
+  "events-header.card2-p": "Når du klikker på datoen, kan du se detaljerne om begivenheden, inklusive de udvalgte vine og middagsmenuen. Vælg derefter det antal pladser, du vil reservere, og fortsæt til det sidste trin, kassen.",
   "events-header.card3-h": "Betaling og bekræftelse",
   "events-header.card3-p": "I kassen kan du se detaljerne for din reservation og fortsætte til betalingen, når du har bekræftet din alder med mitID. Der sendes en bekræftelsesbesked til din e-mail, når din reservation er gennemført.",
   "event.details.title": "Begivenhedsdetaljer",
