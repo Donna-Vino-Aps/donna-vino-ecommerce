@@ -76,7 +76,8 @@ const VerificationFailedContent = () => {
 
           <Button
             text={getButtonText()}
-            variant="redWide"
+            size={{ md: "wide" }}
+            extraStyle="font-medium"
             onClick={handleButtonClick}
             testId="verification-action-button"
             ariaLabel={getButtonText()}
