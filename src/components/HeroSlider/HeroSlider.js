@@ -11,7 +11,7 @@ import { useLanguage } from "@/context/LanguageContext";
 const HeroSlider = () => {
   const { translations } = useLanguage();
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const hasCredits = false;
+  const hasCredits = true;
   const swiperRef = useRef();
 
   const slides = [
