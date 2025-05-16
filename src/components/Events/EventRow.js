@@ -5,7 +5,7 @@ import PropTypes from "prop-types";
 import Button from "../Button/Button";
 import { useLanguage } from "@/context/LanguageContext";
 
-const EventRow = ({ event, seatStatus, showModal }) => {
+const EventRow = ({ event, showModal }) => {
   const {
     wine,
     winery,
@@ -14,6 +14,7 @@ const EventRow = ({ event, seatStatus, showModal }) => {
     formattedDate,
     formattedTimeStart,
     formattedTimeEnd,
+    seatStatus,
   } = event;
   const isFull = availableSeats === 0 && totalSeats > 0;
   const { translations } = useLanguage();
@@ -67,13 +68,14 @@ EventRow.propTypes = {
     formattedDate: PropTypes.string,
     formattedTimeStart: PropTypes.string,
     formattedTimeEnd: PropTypes.string,
+    seatStatus: PropTypes.shape({
+      bgColor: PropTypes.string,
+      textColor: PropTypes.string,
+      borderColor: PropTypes.string,
+    }).isRequired,
     id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   }).isRequired,
-  seatStatus: PropTypes.shape({
-    bgColor: PropTypes.string,
-    textColor: PropTypes.string,
-    borderColor: PropTypes.string,
-  }).isRequired,
+
   showModal: PropTypes.func.isRequired,
 };
 

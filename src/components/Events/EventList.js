@@ -53,7 +53,6 @@ const EventList = ({ events, onEventClick }) => {
           <EventRow
             key={event.id}
             event={event}
-            seatStatus={event.seatStatus}
             showModal={() => onEventClick(event)}
           />
         ))}

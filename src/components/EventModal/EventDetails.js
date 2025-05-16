@@ -1,3 +1,4 @@
+"use client;";
 import React from "react";
 import PropTypes from "prop-types";
 import InfoCard from "./InfoCard";
@@ -46,7 +47,7 @@ function EventDetails({ eventDetails = {} }) {
     if (currency) {
       priceAndCurrencyText = `${price} ${currencySymbol}`;
     } else {
-      priceAndCurrencyText = `${price}`; // Price only, no currency
+      priceAndCurrencyText = `${price}`;
     }
   }
 
