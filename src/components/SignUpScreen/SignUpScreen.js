@@ -274,7 +274,7 @@ const SignUpScreen = () => {
                     }
                     onClick={handleSubmit}
                     size={{ md: "wide" }}
-                    extraStyle="font-semibold"
+                    extraStyle="font-medium"
                     disabled={isSubmitting || !(isValid && dirty)}
                     testId="submit-button"
                     ariaLabel="Submit Sign Up"

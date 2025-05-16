@@ -47,7 +47,7 @@ const ForgotPassword = () => {
             <Button
               text={translations["forgotPassword.button"]}
               size={{ md: "wide" }}
-              extraStyle="font-semibold"
+              extraStyle="font-medium"
               data-testid="forgot-password-send-reset-link-button"
               aria-label="forgot password send reset link button"
             />{" "}

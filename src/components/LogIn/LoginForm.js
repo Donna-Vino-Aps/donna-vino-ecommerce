@@ -156,7 +156,7 @@ const LoginForm = () => {
                   text={translations["logIn.button"]}
                   onClick={handleSubmit}
                   size={{ md: "wide" }}
-                  extraStyle="font-semibold"
+                  extraStyle="font-medium"
                   testId="login-button"
                   ariaLabel="Submit Log In"
                 />

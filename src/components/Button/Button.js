@@ -61,12 +61,11 @@ const Button = ({
 }) => {
   const buttonClass = `
   ${BASE_BUTTON_CLASSES} 
-  ${COLORS[color] || ""}
   ${SIZE.md[size.md] || ""}
   ${SIZE.sm[size.sm] || ""}
   ${VARIANT[variant] || ""}
   ${extraStyle || ""}
-  ${disabled || isLoading ? COLORS.disabled : ""}
+  ${disabled || isLoading ? COLORS.disabled : COLORS[color] || ""}
 `.trim();
 
   const buttonContent = (
