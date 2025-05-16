@@ -1,15 +1,10 @@
 /* eslint-disable react/prop-types */
 import React from "react";
-import { render, screen } from "@testing-library/react";
+import { render, screen, cleanup } from "@testing-library/react";
 import EventDetails from "@/components/EventModal/EventDetails";
-import { logError } from "@/utils/logging";
 import { useLanguage } from "@/context/LanguageContext";
 
 // Mock dependencies
-jest.mock("@/utils/logging", () => ({
-  logError: jest.fn(),
-}));
-
 jest.mock("@/context/LanguageContext", () => ({
   useLanguage: jest.fn(),
 }));
@@ -39,7 +34,6 @@ describe("EventDetails Component", () => {
   beforeEach(() => {
     jest.clearAllMocks();
 
-    // Mock the useLanguage hook to return English translations
     useLanguage.mockReturnValue({
       language: "en",
       translations: {
@@ -60,14 +54,20 @@ describe("EventDetails Component", () => {
     availableSeats: 15,
     totalSeats: 20,
     location: "Copenhagen Wine Bar",
-    date: "2023-08-15",
-    timeStart: new Date("2023-08-15T18:00:00"),
-    timeEnd: new Date("2023-08-15T21:00:00"),
+    formattedDate: "August 15, 2023",
+    formattedDateFull: "August 15th, 2023",
+    formattedTimeStart: "6:00 pm",
+    formattedTimeEnd: "9:00 pm",
     price: 299,
     currency: "DKK",
     description: "Join us for a wonderful wine tasting event",
     wineDescription: "Selection of premium wines",
     menuDescription: "Gourmet dinner menu",
+    seatStatus: {
+      bgColor: "bg-calendar-open_light",
+      textColor: "text-calendar-open_dark",
+      borderColor: "border-calendar-open",
+    },
     images: [
       {
         id: "img1",
@@ -115,7 +115,7 @@ describe("EventDetails Component", () => {
     expect(screen.getByAltText("Location icon")).toBeInTheDocument();
 
     expect(screen.getByTestId("event-details-date")).toHaveTextContent(
-      "August, 15th, 2023",
+      "August 15th, 2023",
     );
     expect(screen.getByAltText("Calendar icon")).toBeInTheDocument();
 
@@ -132,6 +132,14 @@ describe("EventDetails Component", () => {
 
   it("renders event details correctly with Danish language", () => {
     // Mock Danish language
+    const danishEvent = {
+      ...mockEventDetails,
+      formattedDate: "15 august, 2023",
+      formattedDateFull: "15. august 2023",
+      formattedTimeStart: "18:00",
+      formattedTimeEnd: "21:00",
+    };
+
     useLanguage.mockReturnValue({
       language: "dk",
       translations: {
@@ -147,7 +155,7 @@ describe("EventDetails Component", () => {
       },
     });
 
-    render(<EventDetails eventDetails={mockEventDetails} />);
+    render(<EventDetails eventDetails={danishEvent} />);
 
     expect(screen.getByTestId("event-details-title")).toHaveTextContent(
       "Begivenhedsdetaljer",
@@ -210,135 +218,49 @@ describe("EventDetails Component", () => {
     );
   });
 
-  it("applies correct styling for full events (0 seats available)", () => {
-    const fullEvent = {
+  it("applies the provided styling classes correctly", () => {
+    const eventWithStyling = {
       ...mockEventDetails,
-      availableSeats: 0,
-      totalSeats: 20,
+      seatStatus: {
+        bgColor: "custom-bg-class",
+        textColor: "custom-text-class",
+        borderColor: "custom-border-class",
+      },
     };
 
-    render(<EventDetails eventDetails={fullEvent} />);
+    render(<EventDetails eventDetails={eventWithStyling} />);
 
     const seatsElement = screen.getByTestId("event-details-seats");
-    expect(seatsElement).toHaveClass("bg-calendar-full_light");
-    expect(seatsElement).toHaveClass("text-calendar-full");
+    expect(seatsElement).toHaveClass("custom-bg-class");
+    expect(seatsElement).toHaveClass("custom-text-class");
   });
 
-  it("applies correct styling for limited availability (exactly 50%)", () => {
-    const limitedEvent = {
-      ...mockEventDetails,
-      availableSeats: 10,
-      totalSeats: 20,
-    };
-
-    render(<EventDetails eventDetails={limitedEvent} />);
-
-    const seatsElement = screen.getByTestId("event-details-seats");
-    expect(seatsElement).toHaveClass("bg-calendar-limited_light");
-    expect(seatsElement).toHaveClass("text-calendar-limited");
-  });
-
-  it("applies correct styling for limited availability (less than 50%)", () => {
-    const limitedEvent = {
-      ...mockEventDetails,
-      availableSeats: 8,
-      totalSeats: 20,
-    };
-
-    render(<EventDetails eventDetails={limitedEvent} />);
-
-    const seatsElement = screen.getByTestId("event-details-seats");
-    expect(seatsElement).toHaveClass("bg-calendar-limited_light");
-    expect(seatsElement).toHaveClass("text-calendar-limited");
-  });
-
-  it("applies correct styling for open availability (more than 50%)", () => {
-    const openEvent = {
-      ...mockEventDetails,
-      availableSeats: 15,
-      totalSeats: 20,
-    };
-
-    render(<EventDetails eventDetails={openEvent} />);
-
-    const seatsElement = screen.getByTestId("event-details-seats");
-    expect(seatsElement).toHaveClass("bg-calendar-open_light");
-    expect(seatsElement).toHaveClass("text-calendar-open_dark");
-  });
-
-  it("applies correct styling for small events with all seats available", () => {
-    const smallEvent = {
-      ...mockEventDetails,
-      availableSeats: 8,
-      totalSeats: 8,
-    };
-
-    render(<EventDetails eventDetails={smallEvent} />);
-
-    const seatsElement = screen.getByTestId("event-details-seats");
-    expect(seatsElement).toHaveClass("bg-calendar-open_light");
-    expect(seatsElement).toHaveClass("text-calendar-open_dark");
-  });
-
-  it("handles date formatting errors gracefully", () => {
-    const invalidDateEvent = {
-      ...mockEventDetails,
-      date: "invalid-date",
-    };
-
-    render(<EventDetails eventDetails={invalidDateEvent} />);
-
-    expect(logError).toHaveBeenCalledWith(
-      "Error formatting date:",
-      expect.any(String),
-    );
-
-    const dateElement = screen.getByTestId("event-details-date");
-    expect(dateElement).toHaveTextContent("invalid-date");
-  });
-
-  it("handles time formatting errors gracefully", () => {
-    const invalidDate1 = new Date("invalid");
-    const invalidDate2 = new Date("also-invalid");
-
-    const eventWithInvalidTime = {
-      ...mockEventDetails,
-      timeStart: invalidDate1,
-      timeEnd: invalidDate2,
-    };
-
-    render(<EventDetails eventDetails={eventWithInvalidTime} />);
-
-    expect(screen.getByTestId("event-details-time")).toBeInTheDocument();
-    expect(logError).toHaveBeenCalledWith(
-      "Error formatting time:",
-      expect.any(String),
-    );
-  });
-
-  it("handles currency display correctly", () => {
+  it("handles currency display correctly for DKK", () => {
     const dkkEvent = {
       ...mockEventDetails,
       price: 299,
       currency: "DKK",
     };
 
-    const { rerender } = render(<EventDetails eventDetails={dkkEvent} />);
+    render(<EventDetails eventDetails={dkkEvent} />);
 
     expect(screen.getByTestId("event-details-price")).toHaveTextContent(
       "From 299 kr. per person",
     );
+  });
 
-    const usdEvent = {
+  it("handles currency display correctly for EUR", () => {
+    cleanup();
+    const euroEvent = {
       ...mockEventDetails,
       price: 49,
-      currency: "USD",
+      currency: "EUR",
     };
 
-    rerender(<EventDetails eventDetails={usdEvent} />);
+    render(<EventDetails eventDetails={euroEvent} />);
 
     expect(screen.getByTestId("event-details-price")).toHaveTextContent(
-      "From 49 USD per person",
+      "From 49 EUR per person",
     );
   });
 });

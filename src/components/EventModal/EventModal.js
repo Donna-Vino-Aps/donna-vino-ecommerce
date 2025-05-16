@@ -4,7 +4,6 @@ import EventDetails from "./EventDetails";
 import EventTicketReservation from "./EventTicketReservation";
 
 function EventModal({ isOpen, onClose, event = {} }) {
-  const eventDetails = event;
   const modalRef = useRef(null);
 
   useEffect(() => {
@@ -45,11 +44,8 @@ function EventModal({ isOpen, onClose, event = {} }) {
             data-testid="event-registration-modal-body"
             className="p-4 md:p-8"
           >
-            <EventDetails eventDetails={eventDetails} />
-            <EventTicketReservation
-              eventDetails={eventDetails}
-              onClose={onClose}
-            />
+            <EventDetails eventDetails={event} />
+            <EventTicketReservation eventDetails={event} onClose={onClose} />
           </div>
         </div>
       </div>

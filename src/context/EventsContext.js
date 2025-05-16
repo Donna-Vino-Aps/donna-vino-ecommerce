@@ -36,7 +36,6 @@ export function EventsProvider({ children }) {
   useEffect(() => {
     async function fetchEvents() {
       try {
-        setIsLoading(true);
         const collection = await getEventsCollection(language);
 
         if (!collection || !collection.products || !collection.products.edges) {
@@ -61,7 +60,7 @@ export function EventsProvider({ children }) {
     }
 
     fetchEvents();
-  }, [language, translations, isEventInFuture]);
+  }, [language, translations]);
 
   return (
     <EventsContext.Provider
