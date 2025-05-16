@@ -99,7 +99,7 @@ function EventTicketReservation({ eventDetails = {}, onClose }) {
               <Button
                 text={translations["event.reservation.close"]}
                 extraStyle="font-medium"
-                size={{md: "wide"} }
+                size={{ md: "wide" }}
                 onClick={onClose}
                 ariaLabel={translations["event.reservation.close"]}
                 testId="close-reservation-button"
