@@ -25,7 +25,6 @@ const EventMobileView = ({ event, showModal, activeView = "date" }) => {
       {activeView === "date" && (
         <div className="p-4">
           <div className="mb-5 flex items-start justify-between">
-            {/* Date and time */}
             <div>
               <p className="text-titleSmall font-medium">{formattedDate}</p>
               <p className="text-bodyMedium">
@@ -33,7 +32,6 @@ const EventMobileView = ({ event, showModal, activeView = "date" }) => {
               </p>
             </div>
 
-            {/* Seats availability */}
             <div className="text-right">
               <p className="mb-1 text-bodyMedium font-medium">
                 {translations["events.availableSeatsHeader"] ||
@@ -47,7 +45,6 @@ const EventMobileView = ({ event, showModal, activeView = "date" }) => {
             </div>
           </div>
 
-          {/* Button positioned underneath with proper spacing */}
           <div className="flex justify-end">
             <Button
               text={translations["events.bookSeats"] || "Book seats"}

@@ -1,16 +1,30 @@
 "use client";
 
-import React from "react";
+import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import { useLanguage } from "@/context/LanguageContext";
 import { useCalendar } from "@/context/CalendarContext";
 import { format } from "date-fns";
 import { getLocale } from "@/utils/dateTimeFormatting";
 import EventRow from "./EventRow";
+import EventMobileView from "./EventMobileView";
 
 const EventList = ({ events, onEventClick }) => {
   const { language, translations } = useLanguage();
   const { selectedMonth, selectedYear } = useCalendar();
+  const [isMobile, setIsMobile] = useState(
+    typeof window !== "undefined" && window.innerWidth < 768,
+  );
+  const [activeTab, setActiveTab] = useState("date");
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   const renderMonthHeader = () => (
     <h2 className="mb-4 flex w-full items-baseline gap-1 rounded-[0.5rem] bg-tertiary2-normal px-4 py-2 text-titleMedium font-medium">
@@ -32,8 +46,52 @@ const EventList = ({ events, onEventClick }) => {
     </>
   );
 
-  const renderEventList = () => (
+  const renderMobileEventList = () => (
     <>
+      <div className="mx-10 mb-12 flex flex-col items-center bg-tertiary2-active text-tertiary1-active_dark md:mx-2 lg:mx-4">
+        <div className="flex w-full border-b bg-white">
+          <button
+            className={`w-1/2 border-b-2 py-3 text-center font-medium ${
+              activeTab === "date"
+                ? "border-primary-active_normal"
+                : "border-transparent"
+            }`}
+            onClick={() => setActiveTab("date")}
+            aria-selected={activeTab === "date"}
+            role="tab"
+          >
+            {translations["events.dateHeader"] || "Date"}
+          </button>
+          <button
+            className={`w-1/2 border-b-2 py-3 text-center font-medium ${
+              activeTab === "details"
+                ? "border-primary-active_normal"
+                : "border-transparent"
+            }`}
+            onClick={() => setActiveTab("details")}
+            aria-selected={activeTab === "details"}
+            role="tab"
+          >
+            {translations["events.detailsHeader"] || "Event details"}
+          </button>
+        </div>
+
+        <div className="flex w-full flex-col gap-1">
+          {events.map((event) => (
+            <EventMobileView
+              key={event.id}
+              event={event}
+              showModal={() => onEventClick(event)}
+              activeView={activeTab}
+            />
+          ))}
+        </div>
+      </div>
+    </>
+  );
+
+  const renderDesktopEventList = () => (
+    <div className="mx-auto mb-12 flex flex-col overflow-hidden sm:min-w-[37rem] xl:mx-0 xl:h-[31rem]">
       {renderMonthHeader()}
 
       <div className="flex flex-row gap-2 rounded-t bg-tertiary2-active p-3 pb-7 text-titleMedium font-medium text-tertiary1-active_dark">
@@ -57,14 +115,17 @@ const EventList = ({ events, onEventClick }) => {
           />
         ))}
       </div>
-    </>
-  );
-
-  return (
-    <div className="mx-auto mb-12 flex flex-col overflow-hidden sm:min-w-[37rem] xl:mx-0 xl:h-[31rem]">
-      {events.length === 0 ? renderEmptyState() : renderEventList()}
     </div>
   );
+
+  const renderEventList = () => {
+    if (isMobile) {
+      return renderMobileEventList();
+    }
+    return renderDesktopEventList();
+  };
+
+  return events.length === 0 ? renderEmptyState() : renderEventList();
 };
 
 EventList.propTypes = {
