@@ -48,8 +48,8 @@ const EventList = ({ events, onEventClick }) => {
 
   const renderMobileEventList = () => (
     <>
-      <div className="mx-10 mb-12 flex flex-col items-center bg-tertiary2-active text-tertiary1-active_dark md:mx-2 lg:mx-4">
-        <div className="flex w-full border-b bg-white">
+      <div className="flex flex-col items-center bg-tertiary2-active text-tertiary1-active_dark md:mx-2 lg:mx-4">
+        <div className="mb-1 flex w-full border-b bg-white">
           <button
             className={`w-1/2 border-b-2 py-3 text-center font-medium ${
               activeTab === "date"
@@ -91,7 +91,7 @@ const EventList = ({ events, onEventClick }) => {
   );
 
   const renderDesktopEventList = () => (
-    <div className="mx-auto mb-12 flex flex-col overflow-hidden sm:min-w-[37rem] xl:mx-0 xl:h-[31rem]">
+    <div className="mx-auto flex flex-col overflow-hidden sm:min-w-[34rem] xl:mx-0 xl:h-[31rem]">
       {renderMonthHeader()}
 
       <div className="flex flex-row gap-2 rounded-t bg-tertiary2-active p-3 pb-7 text-titleMedium font-medium text-tertiary1-active_dark">

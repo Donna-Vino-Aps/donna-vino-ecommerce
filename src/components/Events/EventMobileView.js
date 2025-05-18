@@ -21,7 +21,9 @@ const EventMobileView = ({ event, showModal, activeView = "date" }) => {
   const { translations } = useLanguage();
 
   return (
-    <div className={`border-l-4 bg-white shadow-sm ${seatStatus.borderColor}`}>
+    <div
+      className={`min-h-[7.8rem] border-l-4 bg-white shadow-sm ${seatStatus.borderColor}`}
+    >
       {activeView === "date" && (
         <div className="p-4">
           <div className="mb-5 flex items-start justify-between">
