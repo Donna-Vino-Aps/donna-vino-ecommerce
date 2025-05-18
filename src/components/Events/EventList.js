@@ -44,12 +44,12 @@ const EventList = ({ events, onEventClick }) => {
   );
 
   const renderEmptyState = () => (
-    <>
-      {renderMonthHeader()}
-      <p className="py-8 text-center">
-        {translations["events.noEventsForMonth"]}
-      </p>
-    </>
+    <div
+      className={`flex flex-col items-center ${isMobile ? "" : "mx-auto sm:min-w-[34rem] xl:mx-0"}`}
+    >
+      {isMobile ? null : renderMonthHeader()}
+      <p className="text-center">{translations["events.noEventsForMonth"]}</p>
+    </div>
   );
 
   const renderMobileEventList = () => (
