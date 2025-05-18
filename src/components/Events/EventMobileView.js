@@ -35,9 +35,8 @@ const EventMobileView = ({ event, showModal, activeView = "date" }) => {
             </div>
 
             <div className="text-right">
-              <p className="mb-1 text-bodyMedium font-medium">
-                {translations["events.availableSeatsHeader"] ||
-                  "Seats available"}
+              <p className="mb-1 text-labelMedium font-medium sm:text-labelLarge">
+                {translations["event.details.seatsAvailable"]}
               </p>
               <div
                 className={`inline-block rounded-full px-3 py-1 text-center ${seatStatus.bgColor} ${seatStatus.textColor}`}
@@ -65,7 +64,7 @@ const EventMobileView = ({ event, showModal, activeView = "date" }) => {
           <div className="mb-3">
             <p className="text-bodyMedium">
               <span className="font-medium">
-                {translations["events.wines"] || "Wines served: "}
+                {translations["events.wines"]}
               </span>
               <span dangerouslySetInnerHTML={{ __html: wine }} />
             </p>
@@ -74,7 +73,7 @@ const EventMobileView = ({ event, showModal, activeView = "date" }) => {
           <div>
             <p className="text-bodyMedium">
               <span className="font-medium">
-                {translations["events.winery"] || "Winery: "}
+                {translations["events.winery"]}
               </span>
               <span dangerouslySetInnerHTML={{ __html: winery }} />
             </p>

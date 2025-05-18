@@ -203,6 +203,7 @@
   "events.bookSeats": "Bestil pladser",
   "events.dateHeader": "Dato",
   "events.detailsHeader": "Detaljer",
+  "events.detailsHeader-mobile": "Detaljer",
   "events.availableSeatsHeader": "Ledige pladser",
   "sales.title": "Salgspolitik",
   "sales.info.p1": "Salgsvirksomhedsoplysninger (parterne):",

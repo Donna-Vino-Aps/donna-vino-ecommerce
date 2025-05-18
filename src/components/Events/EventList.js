@@ -60,7 +60,7 @@ const EventList = ({ events, onEventClick }) => {
             aria-selected={activeTab === "date"}
             role="tab"
           >
-            {translations["events.dateHeader"] || "Date"}
+            {translations["events.dateHeader"]}
           </button>
           <button
             className={`w-1/2 border-b-2 py-3 text-center font-medium ${
@@ -72,7 +72,7 @@ const EventList = ({ events, onEventClick }) => {
             aria-selected={activeTab === "details"}
             role="tab"
           >
-            {translations["events.detailsHeader"] || "Event details"}
+            {translations["events.detailsHeader-mobile"]}
           </button>
         </div>
 

@@ -203,6 +203,7 @@
   "events.bookSeats": "Book seats",
   "events.dateHeader": "Date",
   "events.detailsHeader": "Details",
+  "events.detailsHeader-mobile": "Event details",
   "events.availableSeatsHeader": "Available seats",
   "sales.title": "Sales Policy",
   "sales.info.p1": "Company Information (The parties):",
