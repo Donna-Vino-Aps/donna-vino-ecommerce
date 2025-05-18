@@ -12,6 +12,12 @@ import EventMobileView from "./EventMobileView";
 const EventList = ({ events, onEventClick }) => {
   const { language, translations } = useLanguage();
   const { selectedMonth, selectedYear } = useCalendar();
+
+  const tabs = [
+    { id: "date", labelKey: "events.dateHeader" },
+    { id: "details", labelKey: "events.detailsHeader-mobile" },
+  ];
+
   const [isMobile, setIsMobile] = useState(
     typeof window !== "undefined" && window.innerWidth < 768,
   );
@@ -50,30 +56,21 @@ const EventList = ({ events, onEventClick }) => {
     <>
       <div className="flex flex-col items-center text-tertiary1-active_dark md:mx-2 lg:mx-4">
         <div className="mb-1 flex w-full bg-tertiary2-light">
-          <button
-            className={`w-1/2 border-b-2 px-4 py-2 text-left text-titleSmall font-medium sm:text-titleMedium ${
-              activeTab === "date"
-                ? "border-primary-active_normal bg-tertiary2-active"
-                : "border-transparent"
-            }`}
-            onClick={() => setActiveTab("date")}
-            aria-selected={activeTab === "date"}
-            role="tab"
-          >
-            {translations["events.dateHeader"]}
-          </button>
-          <button
-            className={`w-1/2 border-b-2 px-4 py-2 text-left text-titleSmall font-medium sm:text-titleMedium ${
-              activeTab === "details"
-                ? "border-primary-active_normal bg-tertiary2-active"
-                : "border-transparent"
-            }`}
-            onClick={() => setActiveTab("details")}
-            aria-selected={activeTab === "details"}
-            role="tab"
-          >
-            {translations["events.detailsHeader-mobile"]}
-          </button>
+          {tabs.map((tab) => (
+            <button
+              key={tab.id}
+              className={`w-1/2 border-b-2 px-4 py-2 text-left text-titleSmall font-medium sm:text-titleMedium ${
+                activeTab === tab.id
+                  ? "border-primary-active_normal bg-tertiary2-active"
+                  : "border-transparent"
+              }`}
+              onClick={() => setActiveTab(tab.id)}
+              aria-selected={activeTab === tab.id}
+              role="tab"
+            >
+              {translations[tab.labelKey]}
+            </button>
+          ))}
         </div>
 
         <div className="flex w-full flex-col gap-1">
