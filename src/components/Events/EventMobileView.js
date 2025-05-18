@@ -5,7 +5,15 @@ import PropTypes from "prop-types";
 import Button from "../Button/Button";
 import { useLanguage } from "@/context/LanguageContext";
 
-const EventMobileView = ({ event, showModal, activeView = "date" }) => {
+const EventMobileView = ({
+  event,
+  showModal,
+  activeView = "date",
+  dateTabId,
+  detailsTabId,
+  dateContentId,
+  detailsContentId,
+}) => {
   const {
     wine,
     winery,
@@ -25,7 +33,12 @@ const EventMobileView = ({ event, showModal, activeView = "date" }) => {
       className={`min-h-[8rem] border-l-4 bg-tertiary2-active shadow-sm sm:min-h-[7.9rem] ${seatStatus.borderColor}`}
     >
       {activeView === "date" && (
-        <div className="p-4">
+        <div
+          id={dateContentId}
+          role="tabpanel"
+          aria-labelledby={dateTabId}
+          className="p-4"
+        >
           <div className="mb-4 flex items-start justify-between">
             <div>
               <p className="text-labelMedium font-medium sm:text-labelLarge">
@@ -42,6 +55,7 @@ const EventMobileView = ({ event, showModal, activeView = "date" }) => {
               </p>
               <div
                 className={`inline-block rounded-full px-3 py-1 text-center text-labelMedium font-regular sm:text-labelLarge ${seatStatus.bgColor} ${seatStatus.textColor}`}
+                aria-label={`${availableSeats} ${translations["events.of"]} ${totalSeats} ${translations["event.details.seatsAvailable"]}`}
               >
                 {availableSeats} {translations["events.of"]} {totalSeats}
               </div>
@@ -62,7 +76,12 @@ const EventMobileView = ({ event, showModal, activeView = "date" }) => {
       )}
 
       {activeView === "details" && (
-        <div className="p-4">
+        <div
+          id={detailsContentId}
+          role="tabpanel"
+          aria-labelledby={detailsTabId}
+          className="p-4"
+        >
           <div className="mb-3">
             <p className="text-labelMedium sm:text-labelLarge">
               <span className="font-medium">
@@ -104,6 +123,11 @@ EventMobileView.propTypes = {
   }).isRequired,
   showModal: PropTypes.func.isRequired,
   activeView: PropTypes.oneOf(["date", "details"]),
+  // ARIA-related props
+  dateTabId: PropTypes.string,
+  detailsTabId: PropTypes.string,
+  dateContentId: PropTypes.string,
+  detailsContentId: PropTypes.string,
 };
 
 export default EventMobileView;

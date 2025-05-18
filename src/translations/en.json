@@ -205,6 +205,7 @@
   "events.detailsHeader": "Details",
   "events.detailsHeader-mobile": "Event details",
   "events.availableSeatsHeader": "Available seats",
+  "events.tabsLabel": "Event information",
   "sales.title": "Sales Policy",
   "sales.info.p1": "Company Information (The parties):",
   "sales.info.p2": "CVR Number",

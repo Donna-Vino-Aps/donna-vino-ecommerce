@@ -49,20 +49,31 @@ const EventList = ({ events, onEventClick }) => {
     }
 
     if (isMobile) {
+      const dateTabId = `tab-date`;
+      const detailsTabId = `tab-details`;
+      const dateContentId = `tabpanel-date`;
+      const detailsContentId = `tabpanel-details`;
+
       return (
         <div className="flex flex-col items-center text-tertiary1-active_dark md:mx-2 lg:mx-4">
-          <div className="mb-1 flex w-full bg-tertiary2-light">
+          <div
+            role="tablist"
+            aria-label={translations["events.tabsLabel"]}
+            className="mb-1 flex w-full bg-tertiary2-light"
+          >
             {tabs.map((tab) => (
               <button
                 key={tab.id}
+                id={`tab-${tab.id}`}
+                role="tab"
+                aria-selected={activeTab === tab.id}
+                aria-controls={`tabpanel-${tab.id}`}
                 className={`w-1/2 border-b-2 px-4 py-2 text-left text-titleSmall font-medium sm:text-titleMedium ${
                   activeTab === tab.id
                     ? "border-primary-active_normal bg-tertiary2-active"
                     : "border-transparent"
                 }`}
                 onClick={() => setActiveTab(tab.id)}
-                aria-selected={activeTab === tab.id}
-                role="tab"
               >
                 {translations[tab.labelKey]}
               </button>
@@ -76,6 +87,10 @@ const EventList = ({ events, onEventClick }) => {
                 event={event}
                 showModal={() => onEventClick(event)}
                 activeView={activeTab}
+                dateTabId={dateTabId}
+                detailsTabId={detailsTabId}
+                dateContentId={dateContentId}
+                detailsContentId={detailsContentId}
               />
             ))}
           </div>
