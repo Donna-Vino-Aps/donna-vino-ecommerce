@@ -22,14 +22,16 @@ const EventMobileView = ({ event, showModal, activeView = "date" }) => {
 
   return (
     <div
-      className={`min-h-[7.8rem] border-l-4 bg-white shadow-sm ${seatStatus.borderColor}`}
+      className={`min-h-[8rem] border-l-4 bg-tertiary2-active shadow-sm sm:min-h-[7.9rem] ${seatStatus.borderColor}`}
     >
       {activeView === "date" && (
         <div className="p-4">
-          <div className="mb-5 flex items-start justify-between">
+          <div className="mb-4 flex items-start justify-between">
             <div>
-              <p className="text-titleSmall font-medium">{formattedDate}</p>
-              <p className="text-bodyMedium">
+              <p className="text-labelMedium font-medium sm:text-labelLarge">
+                {formattedDate}
+              </p>
+              <p className="text-labelMedium sm:text-labelLarge">
                 {formattedTimeStart} - {formattedTimeEnd}
               </p>
             </div>
@@ -39,7 +41,7 @@ const EventMobileView = ({ event, showModal, activeView = "date" }) => {
                 {translations["event.details.seatsAvailable"]}
               </p>
               <div
-                className={`inline-block rounded-full px-3 py-1 text-center ${seatStatus.bgColor} ${seatStatus.textColor}`}
+                className={`inline-block rounded-full px-3 py-1 text-center text-labelMedium font-regular sm:text-labelLarge ${seatStatus.bgColor} ${seatStatus.textColor}`}
               >
                 {availableSeats} {translations["events.of"]} {totalSeats}
               </div>
@@ -48,7 +50,7 @@ const EventMobileView = ({ event, showModal, activeView = "date" }) => {
 
           <div className="flex justify-end">
             <Button
-              text={translations["events.bookSeats"] || "Book seats"}
+              text={translations["events.bookSeats"]}
               variant="redSmall"
               onClick={() => showModal(event)}
               disabled={isFull}
@@ -62,7 +64,7 @@ const EventMobileView = ({ event, showModal, activeView = "date" }) => {
       {activeView === "details" && (
         <div className="p-4">
           <div className="mb-3">
-            <p className="text-bodyMedium">
+            <p className="text-labelMedium sm:text-labelLarge">
               <span className="font-medium">
                 {translations["events.wines"]}
               </span>
@@ -71,7 +73,7 @@ const EventMobileView = ({ event, showModal, activeView = "date" }) => {
           </div>
 
           <div>
-            <p className="text-bodyMedium">
+            <p className="text-labelMedium sm:text-labelLarge">
               <span className="font-medium">
                 {translations["events.winery"]}
               </span>
