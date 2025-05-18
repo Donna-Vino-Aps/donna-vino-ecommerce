@@ -1,8 +1,9 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React from "react";
 import CalendarItem from "./CalendarItem";
 import { useLanguage } from "@/context/LanguageContext";
 import { useCalendar } from "@/context/CalendarContext";
+import useIsMobile from "@/hooks/useIsMobile";
 import PropTypes from "prop-types";
 
 const Calendar = ({ events, onEventClick }) => {
@@ -10,18 +11,7 @@ const Calendar = ({ events, onEventClick }) => {
     useCalendar();
   const { translations } = useLanguage();
 
-  const [isMobile, setIsMobile] = useState(
-    typeof window !== "undefined" && window.innerWidth < 768,
-  );
-
-  useEffect(() => {
-    const handleResize = () => {
-      setIsMobile(window.innerWidth < 768);
-    };
-
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
+  const isMobile = useIsMobile(768);
 
   // Function to get an event for a specific day
   const getEventForDay = (day, month, year) => {

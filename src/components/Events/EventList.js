@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import PropTypes from "prop-types";
 import { useLanguage } from "@/context/LanguageContext";
 import { useCalendar } from "@/context/CalendarContext";
@@ -8,29 +8,19 @@ import { format } from "date-fns";
 import { getLocale } from "@/utils/dateTimeFormatting";
 import EventRow from "./EventRow";
 import EventMobileView from "./EventMobileView";
+import useIsMobile from "@/hooks/useIsMobile";
 
 const EventList = ({ events, onEventClick }) => {
   const { language, translations } = useLanguage();
   const { selectedMonth, selectedYear } = useCalendar();
+  const isMobile = useIsMobile(768);
+
+  const [activeTab, setActiveTab] = useState("date");
 
   const tabs = [
     { id: "date", labelKey: "events.dateHeader" },
     { id: "details", labelKey: "events.detailsHeader-mobile" },
   ];
-
-  const [isMobile, setIsMobile] = useState(
-    typeof window !== "undefined" && window.innerWidth < 768,
-  );
-  const [activeTab, setActiveTab] = useState("date");
-
-  useEffect(() => {
-    const handleResize = () => {
-      setIsMobile(window.innerWidth < 768);
-    };
-
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
 
   const renderMonthHeader = () => (
     <h2 className="mb-4 flex w-full items-baseline gap-1 rounded-[0.5rem] bg-tertiary2-normal px-4 py-2 text-titleMedium font-medium">
