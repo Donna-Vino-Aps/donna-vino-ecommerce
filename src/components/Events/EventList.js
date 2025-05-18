@@ -14,7 +14,6 @@ const EventList = ({ events, onEventClick }) => {
   const { language, translations } = useLanguage();
   const { selectedMonth, selectedYear } = useCalendar();
   const isMobile = useIsMobile(768);
-
   const [activeTab, setActiveTab] = useState("date");
 
   const tabs = [
@@ -22,7 +21,7 @@ const EventList = ({ events, onEventClick }) => {
     { id: "details", labelKey: "events.detailsHeader-mobile" },
   ];
 
-  const renderMonthHeader = () => (
+  const MonthHeader = () => (
     <h2 className="mb-4 flex w-full items-baseline gap-1 rounded-[0.5rem] bg-tertiary2-normal px-4 py-2 text-titleMedium font-medium">
       <span>{translations["events.upcomingTitle"]}</span>
       <span className="font-semibold">
@@ -33,86 +32,87 @@ const EventList = ({ events, onEventClick }) => {
     </h2>
   );
 
-  const renderEmptyState = () => (
-    <div
-      className={`flex flex-col items-center ${isMobile ? "" : "mx-auto sm:min-w-[34rem] xl:mx-0"}`}
-    >
-      {isMobile ? null : renderMonthHeader()}
-      <p className="text-center">{translations["events.noEventsForMonth"]}</p>
-    </div>
-  );
+  const renderEventList = () => {
+    if (events.length === 0) {
+      return (
+        <div
+          className={`flex flex-col items-center ${
+            isMobile ? "" : "mx-auto sm:min-w-[34rem] xl:mx-0"
+          }`}
+        >
+          {!isMobile && <MonthHeader />}
+          <p className="text-center">
+            {translations["events.noEventsForMonth"]}
+          </p>
+        </div>
+      );
+    }
 
-  const renderMobileEventList = () => (
-    <>
-      <div className="flex flex-col items-center text-tertiary1-active_dark md:mx-2 lg:mx-4">
-        <div className="mb-1 flex w-full bg-tertiary2-light">
-          {tabs.map((tab) => (
-            <button
-              key={tab.id}
-              className={`w-1/2 border-b-2 px-4 py-2 text-left text-titleSmall font-medium sm:text-titleMedium ${
-                activeTab === tab.id
-                  ? "border-primary-active_normal bg-tertiary2-active"
-                  : "border-transparent"
-              }`}
-              onClick={() => setActiveTab(tab.id)}
-              aria-selected={activeTab === tab.id}
-              role="tab"
-            >
-              {translations[tab.labelKey]}
-            </button>
-          ))}
+    if (isMobile) {
+      return (
+        <div className="flex flex-col items-center text-tertiary1-active_dark md:mx-2 lg:mx-4">
+          <div className="mb-1 flex w-full bg-tertiary2-light">
+            {tabs.map((tab) => (
+              <button
+                key={tab.id}
+                className={`w-1/2 border-b-2 px-4 py-2 text-left text-titleSmall font-medium sm:text-titleMedium ${
+                  activeTab === tab.id
+                    ? "border-primary-active_normal bg-tertiary2-active"
+                    : "border-transparent"
+                }`}
+                onClick={() => setActiveTab(tab.id)}
+                aria-selected={activeTab === tab.id}
+                role="tab"
+              >
+                {translations[tab.labelKey]}
+              </button>
+            ))}
+          </div>
+
+          <div className="flex w-full flex-col gap-1">
+            {events.map((event) => (
+              <EventMobileView
+                key={event.id}
+                event={event}
+                showModal={() => onEventClick(event)}
+                activeView={activeTab}
+              />
+            ))}
+          </div>
+        </div>
+      );
+    }
+
+    return (
+      <div className="mx-auto flex flex-col overflow-hidden sm:min-w-[34rem] xl:mx-0 xl:h-[31rem]">
+        <MonthHeader />
+
+        <div className="flex flex-row gap-2 rounded-t bg-tertiary2-active p-3 pb-7 text-titleMedium font-medium text-tertiary1-active_dark">
+          <p className="w-[22%] text-center">
+            {translations["events.dateHeader"]}
+          </p>
+          <p className="w-[56%] text-center">
+            {translations["events.detailsHeader"]}
+          </p>
+          <p className="w-[22%] text-center">
+            {translations["events.availableSeatsHeader"]}
+          </p>
         </div>
 
-        <div className="flex w-full flex-col gap-1">
+        <div className="w-full overflow-y-auto rounded-b bg-tertiary2-active p-2 text-tertiary1-active_dark">
           {events.map((event) => (
-            <EventMobileView
+            <EventRow
               key={event.id}
               event={event}
               showModal={() => onEventClick(event)}
-              activeView={activeTab}
             />
           ))}
         </div>
       </div>
-    </>
-  );
-
-  const renderDesktopEventList = () => (
-    <div className="mx-auto flex flex-col overflow-hidden sm:min-w-[34rem] xl:mx-0 xl:h-[31rem]">
-      {renderMonthHeader()}
-
-      <div className="flex flex-row gap-2 rounded-t bg-tertiary2-active p-3 pb-7 text-titleMedium font-medium text-tertiary1-active_dark">
-        <p className="w-[22%] text-center">
-          {translations["events.dateHeader"]}
-        </p>
-        <p className="w-[56%] text-center">
-          {translations["events.detailsHeader"]}
-        </p>
-        <p className="w-[22%] text-center">
-          {translations["events.availableSeatsHeader"]}
-        </p>
-      </div>
-
-      <div className="w-full overflow-y-auto rounded-b bg-tertiary2-active p-2 text-tertiary1-active_dark ">
-        {events.map((event) => (
-          <EventRow
-            key={event.id}
-            event={event}
-            showModal={() => onEventClick(event)}
-          />
-        ))}
-      </div>
-    </div>
-  );
-
-  const renderEventList = () => {
-    if (isMobile) {
-      return renderMobileEventList();
-    }
-    return renderDesktopEventList();
+    );
   };
 
-  return events.length === 0 ? renderEmptyState() : renderEventList();
+  return renderEventList();
 };
 
 EventList.propTypes = {
