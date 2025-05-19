@@ -30,7 +30,7 @@ const EventMobileView = ({
 
   return (
     <div
-      className={`min-h-[8rem] border-l-4 bg-tertiary2-active shadow-sm sm:min-h-[7.9rem] ${seatStatus.borderColor}`}
+      className={`min-h-[8rem] border-b-[1px] border-l-4 bg-tertiary2-active sm:min-h-[7.9rem] ${seatStatus.borderColor} border-b-tertiary1-hover`}
     >
       {activeView === "date" && (
         <div
