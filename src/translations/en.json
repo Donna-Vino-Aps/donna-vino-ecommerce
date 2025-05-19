@@ -198,6 +198,7 @@
   "events.upcomingTitle": "Upcoming wine tasting events:",
   "events.noEventsForMonth": "No events available for this month.",
   "events.wines": "Wines: ",
+  "events.wines-mobile": "Wines served: ",
   "events.winery": "Winery: ",
   "events.of": "of",
   "events.bookSeats": "Book seats",

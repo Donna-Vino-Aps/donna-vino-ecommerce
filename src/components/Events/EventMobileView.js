@@ -85,7 +85,7 @@ const EventMobileView = ({
           <div className="mb-3">
             <p className="text-labelMedium sm:text-labelLarge">
               <span className="font-medium">
-                {translations["events.wines"]}
+                {translations["events.wines-mobile"]}
               </span>
               <span dangerouslySetInnerHTML={{ __html: wine }} />
             </p>
