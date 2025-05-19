@@ -105,9 +105,9 @@ const LoginForm = () => {
       className="flex min-h-[37.25rem] flex-col"
       data-testid="login-container"
     >
-      <main className="flex flex-col items-center justify-center md:w-[18rem] lg:w-[25rem] mt-9 md:mt-6">
+      <main className="mt-9 flex flex-col items-center justify-center md:mt-6 md:w-[18rem] lg:w-[25rem]">
         <div className="flex w-[17.5rem] items-start justify-start md:w-[18rem] lg:w-[25rem]">
-          <h2 className="mb-4 mt-5 text-titleLarge md:text-headlineMedium text-tertiary1-normal">
+          <h2 className="mb-4 mt-5 text-titleLarge text-tertiary1-normal md:text-headlineMedium">
             {translations["logIn.button"]}
           </h2>
         </div>
@@ -154,7 +154,7 @@ const LoginForm = () => {
                   showPasswordToggle={true}
                 />
               </div>
-              <div className="flex w-[17.5rem] flex-col space-y-4 md:w-[18rem] lg:w-[25rem] relative top-3 md:top-5">
+              <div className="relative top-3 flex w-[17.5rem] flex-col space-y-4 md:top-5 md:w-[18rem] lg:w-[25rem]">
                 <Button
                   text={translations["logIn.button"]}
                   onClick={handleSubmit}
@@ -182,18 +182,18 @@ const LoginForm = () => {
                   </p>
                 </div>
               </div>
-              <div className="relative bottom-5 md:bottom-0 !mb-1 !mt-1 flex items-center space-x-1 text-labelMedium">
+              <div className="relative bottom-5 !mb-1 !mt-1 flex items-center space-x-1 text-labelMedium md:bottom-0">
                 <Link
                   href="/forgotpassword"
                   data-testid="forget-password-link"
                   aria-label="Forgot Password"
-                  className="text-left font-medium hover:font-semibold hover:underline text-titleMedium"
+                  className="text-left text-titleMedium font-medium hover:font-semibold hover:underline"
                 >
                   {translations["logIn.forgot-link"]}
                 </Link>
               </div>
-              <div className="relative bottom-2 md:top-2 w-[17.5rem] md:w-[18rem] lg:w-[25rem]">
-                <h2 className="mb-3 mt-1 self-center text-titleMedium font-medium md:font-normal md:text-headlineSmall text-tertiary1-normal sm:self-start">
+              <div className="relative bottom-2 w-[17.5rem] md:top-2 md:w-[18rem] lg:w-[25rem]">
+                <h2 className="mb-3 mt-1 self-center text-titleMedium font-medium text-tertiary1-normal sm:self-start md:text-headlineSmall md:font-normal">
                   {translations["logIn.no-account"]}
                 </h2>
                 <Button
