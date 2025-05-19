@@ -68,9 +68,9 @@ const EventList = ({ events, onEventClick }) => {
                 role="tab"
                 aria-selected={activeTab === tab.id}
                 aria-controls={`tabpanel-${tab.id}`}
-                className={`w-1/2 border-b-2 px-4 py-2 text-left text-titleSmall font-medium sm:text-titleMedium ${
+                className={`w-1/2 rounded-t-[0.5rem] border-b-2 px-4 py-2 text-left text-titleSmall font-medium sm:text-titleMedium ${
                   activeTab === tab.id
-                    ? "border-primary-active_normal bg-tertiary2-active"
+                    ? "border-primary-active_normal bg-tertiary2-normal"
                     : "border-transparent"
                 }`}
                 onClick={() => setActiveTab(tab.id)}
