@@ -92,7 +92,7 @@ const HeroSlider = () => {
                 {slide.type === "video" ? (
                   hasCredits ? (
                     <video
-                      className="iimd:mt-0 mt-4 max-h-[22.5rem] w-full rounded-br-[0rem] rounded-tr-[0rem] object-cover md:absolute md:inset-0 md:min-h-[43.75rem] md:rounded-br-xl md:rounded-tr-[8rem]"
+                      className="iimd:mt-0 mt-4 min-h-[22.5rem] w-full rounded-br-[0rem] rounded-tr-[0rem] object-cover md:absolute md:inset-0 md:min-h-[43.75rem] md:rounded-br-xl md:rounded-tr-[8rem]"
                       autoPlay
                       loop
                       muted
