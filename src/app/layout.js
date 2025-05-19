@@ -5,11 +5,11 @@ import "./globals.css";
 import Footer from "../components/Footer/Footer.js";
 import Navbar from "../components/NavBar/NavBar.js";
 import { LanguageProvider } from "@/context/LanguageContext";
-import { CredentialsProvider } from "@/context/CredentialsContext";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { GoogleOAuthProvider } from "@react-oauth/google";
 import { UserContextProvider } from "@/context/UserContext";
+import { SessionProvider } from "next-auth/react";
 
 const RootLayout = ({ children }) => {
   return (
@@ -17,11 +17,10 @@ const RootLayout = ({ children }) => {
       <LocalizationProvider dateAdapter={AdapterDayjs}>
         <html lang="en">
           <body className="flex min-h-screen w-full flex-col bg-white font-barlow text-tertiary1-normal">
-            <CredentialsProvider>
-              <LanguageProvider>
+            <LanguageProvider>
+              <SessionProvider>
                 <UserContextProvider>
                   <Navbar />
-
                   <main
                     className="flex-grow"
                     role="main"
@@ -31,8 +30,8 @@ const RootLayout = ({ children }) => {
                   </main>
                   <Footer />
                 </UserContextProvider>
-              </LanguageProvider>
-            </CredentialsProvider>
+              </SessionProvider>
+            </LanguageProvider>
           </body>
         </html>
       </LocalizationProvider>
