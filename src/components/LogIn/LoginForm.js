@@ -101,10 +101,13 @@ const LoginForm = () => {
   };
 
   return (
-    <div className="flex h-full flex-col" data-testid="login-container">
-      <main className="flex flex-col items-center justify-center md:w-[18rem] lg:w-[25rem]">
-        <div className=" flex w-[17.5rem] items-start justify-start md:w-[18rem] lg:w-[25rem]">
-          <h2 className="mb-4 text-headlineMedium text-tertiary1-normal">
+    <div
+      className="flex min-h-[37.25rem] flex-col"
+      data-testid="login-container"
+    >
+      <main className="flex flex-col items-center justify-center md:w-[18rem] lg:w-[25rem] mt-9 md:mt-6">
+        <div className="flex w-[17.5rem] items-start justify-start md:w-[18rem] lg:w-[25rem]">
+          <h2 className="mb-4 mt-5 text-titleLarge md:text-headlineMedium text-tertiary1-normal">
             {translations["logIn.button"]}
           </h2>
         </div>
@@ -126,7 +129,7 @@ const LoginForm = () => {
           {({ handleChange, handleBlur, handleSubmit, values }) => (
             <Form
               onSubmit={handleSubmit}
-              className="flex h-auto w-full flex-col items-center justify-center space-y-2"
+              className="flex h-auto w-full flex-col items-center justify-center space-y-3"
               data-testid="login-form"
             >
               <div className="mb-1 w-[17.5rem] space-y-2 md:w-[18rem] lg:w-[25rem]">
@@ -151,7 +154,7 @@ const LoginForm = () => {
                   showPasswordToggle={true}
                 />
               </div>
-              <div className="flex w-[17.5rem] flex-col space-y-4 md:w-[18rem] lg:w-[25rem]">
+              <div className="flex w-[17.5rem] flex-col space-y-4 md:w-[18rem] lg:w-[25rem] relative top-3 md:top-5">
                 <Button
                   text={translations["logIn.button"]}
                   onClick={handleSubmit}
@@ -159,38 +162,38 @@ const LoginForm = () => {
                   testId="login-button"
                   ariaLabel="Submit Log In"
                 />
-              </div>
-              {/* Pass setMsg, setSuccess, and setLoading so GoogleAuth updates global state */}
-              <GoogleAuth
-                setMsg={setMsg}
-                setSuccess={setSuccessStatus}
-                setLoading={setLoading}
-              />
-              {/* Message container with fixed height to prevent inputs from moving */}
-              <div
-                className="flex min-h-[2rem] justify-center"
-                data-testid="login-message"
-              >
-                <p
-                  className={`text-center text-labelLarge ${loading ? "text-black" : success ? "text-green-500" : "text-red-500"}`}
-                  aria-live="polite"
-                  data-testid="message-status"
+                {/* Pass setMsg, setSuccess, and setLoading so GoogleAuth updates global state */}
+                <GoogleAuth
+                  setMsg={setMsg}
+                  setSuccess={setSuccessStatus}
+                  setLoading={setLoading}
+                />
+                {/* Message container with fixed height to prevent inputs from moving */}
+                <div
+                  className="flex min-h-[2rem] justify-center"
+                  data-testid="login-message"
                 >
-                  {loading ? "Loading..." : msg}
-                </p>
+                  <p
+                    className={`text-center text-labelLarge ${loading ? "text-black" : success ? "text-green-500" : "text-red-500"}`}
+                    aria-live="polite"
+                    data-testid="message-status"
+                  >
+                    {loading ? "Loading..." : msg}
+                  </p>
+                </div>
               </div>
-              <div className="relative bottom-1 !mb-1 !mt-1 flex items-center space-x-1 text-labelMedium">
+              <div className="relative bottom-5 md:bottom-0 !mb-1 !mt-1 flex items-center space-x-1 text-labelMedium">
                 <Link
                   href="/forgotpassword"
                   data-testid="forget-password-link"
                   aria-label="Forgot Password"
-                  className="text-left font-medium hover:font-semibold hover:underline"
+                  className="text-left font-medium hover:font-semibold hover:underline text-titleMedium"
                 >
                   {translations["logIn.forgot-link"]}
                 </Link>
               </div>
-              <div className="relative bottom-5 w-[17.5rem] md:w-[18rem] lg:w-[25rem]">
-                <h2 className="mb-1 mt-1 self-center text-headlineMedium text-tertiary1-normal sm:self-start">
+              <div className="relative bottom-2 md:top-2 w-[17.5rem] md:w-[18rem] lg:w-[25rem]">
+                <h2 className="mb-3 mt-1 self-center text-titleMedium font-medium md:font-normal md:text-headlineSmall text-tertiary1-normal sm:self-start">
                   {translations["logIn.no-account"]}
                 </h2>
                 <Button
