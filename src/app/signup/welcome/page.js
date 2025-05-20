@@ -1,9 +1,7 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
-import Button from "@/components/Button/Button";
 import { useLanguage } from "@/context/LanguageContext";
-import { useRouter } from "next/navigation";
 import useFetch from "@/hooks/api/useFetch";
 import { getSessionItem, SESSION_KEYS } from "@/utils/sessionStorage";
 import { logError, logInfo } from "@/utils/logging";
@@ -13,7 +11,6 @@ const MAX_RESEND_ATTEMPTS = 5;
 
 const Welcome = () => {
   const { translations } = useLanguage();
-  const router = useRouter();
 
   const [email, setEmail] = useState("");
   const [resendMsg, setResendMsg] = useState("");
@@ -167,14 +164,6 @@ const Welcome = () => {
             dangerouslySetInnerHTML={{
               __html: translations["signUp.welcome.message"],
             }}
-          />
-
-          <Button
-            text={translations["signUp.welcome.button"]}
-            variant="redWide"
-            onClick={() => router.push("/login")}
-            testId="login-button"
-            ariaLabel={translations["signUp.welcome.button"]}
           />
 
           <div className="mt-6 text-left sm:mt-8">
