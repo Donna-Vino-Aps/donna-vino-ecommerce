@@ -145,11 +145,10 @@ const Welcome = () => {
       <div className="mx-2 flex flex-col items-center justify-center py-4 sm:py-24">
         <div className="w-full max-w-[35rem] items-center justify-center rounded-2xl bg-tertiary2-light px-5 py-8 shadow-lg sm:px-16 sm:py-10">
           <div className="mb-4 flex justify-center">
-            <Image
-              src="/icons/message-check.svg"
+            <img
+              src="/icons/success-glasses.svg"
               alt=""
-              width={48}
-              height={48}
+              className="h-[100px] w-[103px] md:h-[150px] md:w-[154px]"
             />
           </div>
           <h1
