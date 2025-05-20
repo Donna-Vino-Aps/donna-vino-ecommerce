@@ -141,7 +141,7 @@ const Welcome = () => {
 
   return (
     <section className="my-4 bg-primary-light bg-dots-sm bg-dots-size-sm sm:bg-dots-lg sm:bg-dots-size-lg">
-      <div className="mx-2 flex flex-col items-center justify-center py-4 sm:py-24">
+      <div className="mx-2 flex flex-col items-center justify-center py-8 sm:py-24">
         <div className="w-full max-w-[35rem] items-center justify-center rounded-lg bg-tertiary2-light px-5 py-8 sm:px-20 sm:py-10">
           <div className="mb-6 flex justify-center sm:mb-4">
             <img
