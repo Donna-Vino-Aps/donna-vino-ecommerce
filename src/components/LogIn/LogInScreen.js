@@ -1,6 +1,7 @@
 import React from "react";
 // import { useLanguage } from "@/context/LanguageContext";
 import LoginForm from "./LoginForm";
+import Image from "next/image";
 
 const LoginScreen = () => {
   // const { translations } = useLanguage();
@@ -11,10 +12,11 @@ const LoginScreen = () => {
         <section className="flex max-h-[33.75rem] max-w-[35.781rem] flex-1 flex-col items-center justify-center rounded-b-lg bg-white p-4 pt-4 shadow-lg md:h-auto md:max-h-[37.25rem] md:rounded-lg md:rounded-l-xl md:rounded-r-none md:shadow-none">
           <LoginForm />
         </section>
-        <figure className="hidden max-h-[37.25rem] w-full max-w-[35.781rem] flex-1 justify-center overflow-hidden md:flex md:h-auto md:w-[50%] md:rounded-l-none md:rounded-r-xl">
-          <img
+        <figure className="relative hidden max-h-[37.25rem] w-full max-w-[35.781rem] flex-1 justify-center overflow-hidden md:flex md:h-auto md:w-[50%] md:rounded-l-none md:rounded-r-xl">
+          <Image
             src="/images/dv-join.jpg"
-            className="h-full w-full object-cover object-right"
+            fill
+            className="object-cover object-right"
           />
         </figure>
       </div>
