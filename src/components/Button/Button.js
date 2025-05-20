@@ -21,7 +21,7 @@ const VARIANT_CLASSES = {
   redLine:
     "bg-transparent border-2 hover:bg-primary-hover border-primary-active_normal text-primary-active_normal w-[8.3rem] sm:w-[8.3rem]",
   redSmall:
-    "bg-primary-normal hover:bg-primary-hover_normal text-primary-light px-4 min-w-[6.25rem] !h-[1.75rem] text-bodyMedium",
+    "bg-primary-normal hover:bg-primary-hover_normal text-primary-light px-4 min-w-[7.375rem] md:min-w-[6.25rem] !h-[2rem] md:!h-[1.75rem] text-bodyMedium",
   darkGreen:
     "bg-secondary-darker hover:bg-secondary-hover_dark text-white w-full sm:w-[10.8rem]",
   darkGreenModal:

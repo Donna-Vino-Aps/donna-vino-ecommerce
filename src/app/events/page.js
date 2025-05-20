@@ -17,7 +17,7 @@ const Events = () => {
         <EventContent>
           {({ processedEvents }) => (
             <>
-              <section className="flex flex-col justify-center xl:flex-row xl:gap-8">
+              <section className="mx-8 mb-8 flex flex-col justify-center gap-8 xl:mb-12 xl:flex-row xl:gap-12">
                 <EventModalManager>
                   {({ onEventClick }) => (
                     <>
