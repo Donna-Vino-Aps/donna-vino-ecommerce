@@ -1,6 +1,5 @@
 "use client";
 import React, { useState, useEffect } from "react";
-import Image from "next/image";
 import { useLanguage } from "@/context/LanguageContext";
 import useFetch from "@/hooks/api/useFetch";
 import { getSessionItem, SESSION_KEYS } from "@/utils/sessionStorage";
