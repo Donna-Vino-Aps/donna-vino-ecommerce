@@ -132,7 +132,7 @@ const LoginForm = () => {
               className="flex h-auto w-full flex-col items-center justify-center space-y-3"
               data-testid="login-form"
             >
-              <div className="mb-1 w-[17.5rem] space-y-2 md:w-[18rem] lg:w-[25rem]">
+              <div className="mb-1 w-[17.5rem] md:w-[18rem] lg:w-[25rem]">
                 <TextInput
                   name="email"
                   label={translations["logIn.label.email"]}
@@ -142,7 +142,7 @@ const LoginForm = () => {
                   onBlur={handleBlur}
                 />
               </div>
-              <div className="w-[17.5rem] space-y-1 md:w-[18rem] lg:w-[25rem]">
+              <div className="w-[17.5rem] md:w-[18rem] lg:w-[25rem]">
                 <TextInput
                   type="password"
                   name="password"
