@@ -54,16 +54,7 @@ const SideBar = ({ isMenuOpen, toggleMenu, navLinks }) => {
     >
       <div className="flex h-full flex-col gap-8 p-8">
         <div className="flex items-center justify-between">
-          {session && (
-            <UserInfoMobile />
-            // ) : (
-            //   <Link
-            //     href="/auth/signin"
-            //     className="text-titleMedium text-primary-normal"
-            //   >
-            //     {translations["navbar.login"]}
-            //   </Link>
-          )}
+          {session && <UserInfoMobile />}
           <button
             role="button"
             className="self-start"

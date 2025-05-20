@@ -40,7 +40,9 @@ function isAccessTokenExpires(nextToken, bufferSeconds = 30) {
 async function refreshToken(nextToken) {
   if (!isAccessTokenExpires(nextToken)) return nextToken;
 
-  const res = await fetch(`${process.env.BACKEND_URI}/api/auth/refresh`, {
+  const backendUri = process.env.API_URL_LOCAL || process.env.API_URL_HEROKU;
+
+  const res = await fetch(`${backendUri}/api/auth/refresh`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",

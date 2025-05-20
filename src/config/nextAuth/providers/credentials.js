@@ -6,7 +6,7 @@
  * to extract the user ID (`sub`) and uses that to construct the authenticated user session.
  *
  * Environment Variable:
- * - BACKEND_URI: Base URI of your backend where the login endpoint is hosted.
+ * - backendUri: Base URI of your backend where the login endpoint is hosted.
  *
  * Expected backend response structure:
  * {
@@ -46,7 +46,9 @@ const credentialsProvider = CredentialsProvider({
   async authorize(credentials) {
     logInfo(credentials); // For debugging: log submitted credentials
 
-    const res = await fetch(`${process.env.BACKEND_URI}/api/auth/login`, {
+    const backendUri = process.env.API_URL_LOCAL || process.env.API_URL_HEROKU;
+
+    const res = await fetch(`${backendUri}/api/auth/login`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(credentials),

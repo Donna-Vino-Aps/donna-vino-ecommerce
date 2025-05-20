@@ -1,22 +1,35 @@
 /**
- * Exchanges a Google ID token (JWT) for access and refresh tokens from the backend.
+ * Sends the Google ID token to the backend for unified registration or session creation.
  *
- * This function is typically used during the SSO login flow when authenticating
- * with Google's OAuth provider. The ID token received from Google is forwarded
- * to your backend, which verifies it and returns your app's own token set.
+ * This function is used during both Google sign-in and sign-up flows. It sends the
+ * ID token (JWT) received from Google to the backend's `/api/register/google` endpoint.
  *
- * @param {string} token - The Google ID token (JWT) received from the OAuth provider.
- * @returns {Promise<Object>} - The backend-issued token response (e.g., { accessToken, refreshToken }).
- * @throws {Error} - If the HTTP request fails or the response is not successful.
+ * The backend will:
+ * - Create a new user if the account does not exist.
+ * - Create a new session if the user already exists.
+ *
+ * This eliminates the need to distinguish between login and registration on the frontend.
+ *
+ * @param {object} token - Token object passed by NextAuth.
+ * @param {object} user - User info returned by the SSO provider.
+ * @param {object} account - OAuth account object containing id_token or access_token.
+ * @returns {Promise<Object>} - The backend-issued token response (e.g., { accessToken, renewToken }).
+ * @throws {Error} - If the HTTP request fails or the backend response is not successful.
  */
+async function exchangeGoogleToken(token, user, account) {
+  const jwtToken =
+    account?.id_token || account?.access_token || user?.accessToken;
 
-async function exchangeGoogleToken(token) {
-  const res = await fetch(`${process.env.BACKEND_URI}/api/auth/google/login`, {
+  const backendUri = process.env.API_URL_LOCAL || process.env.API_URL_HEROKU;
+
+  // Always use the registration endpoint.
+  // It will handle both new user creation and existing user session generation.
+  const res = await fetch(`${backendUri}/api/register/google`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify({ token }),
+    body: JSON.stringify({ token: jwtToken }),
   });
 
   if (!res.ok) {

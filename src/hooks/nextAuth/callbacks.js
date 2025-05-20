@@ -39,21 +39,10 @@ function handleCredentialsRoutine(token, user) {
  * @returns {object} Updated token after backend token exchange.
  */
 async function handleSSORoutine(token, user, account) {
-  const method = exchangeMap[account.provider];
+  const method = exchangeMap[account.provider]; // Resolve exchange function
+  const apiToken = await method(token, user, account); // Exchange with backend
 
-  if (typeof method !== "function") {
-    throw new Error(
-      `No exchange method found for provider: ${account.provider}`,
-    );
-  }
-
-  const jwtToken =
-    account?.id_token || account?.access_token || user?.accessToken;
-
-  const apiToken = await method(jwtToken); // Exchange with backend to get access and refresh tokens
-
-  const decoded = jwtLib.decode(apiToken.accessToken); // Decode token to get user ID
-
+  const decoded = jwtLib.decode(apiToken.accessToken); // Decode to get user id
   token.id = decoded.sub;
   token.accessToken = apiToken.accessToken;
   token.refreshToken = apiToken.refreshToken;
@@ -69,17 +58,17 @@ async function handleSSORoutine(token, user, account) {
  * @returns {object} Updated token.
  */
 export async function jwt({ token, user, account }) {
-  // First-time login using credentials
-  if (account?.provider === "credentials") {
+  // Case 1: First-time login using credentials
+  if (!token && user?.accessToken && user?.refreshToken && user?.id) {
     return handleCredentialsRoutine(token, user);
   }
 
-  // First-time login using OAuth SSO (Google, etc.)
-  if (account && account.provider !== "credentials") {
+  // Case 2: First-time login using OAuth SSO (Google, etc.)
+  if (!token?.accessToken && !token?.refreshToken && account?.provider) {
     return await handleSSORoutine(token, user, account);
   }
 
-  // Already authenticated — try refreshing the access token if possible
+  // Case 3: Already authenticated — try refreshing the access token if possible
   if (token?.accessToken && token?.refreshToken) {
     return await refreshToken(token);
   }

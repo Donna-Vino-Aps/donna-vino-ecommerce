@@ -5,9 +5,9 @@ import { useRouter } from "next/navigation";
 import Button from "../Button/Button.js";
 import Link from "next/link";
 import TextInput from "../TextInput/TextInput";
-// import GoogleAuth from "../GoogleAuth/GoogleAuth";
 import { mapBackendMessage } from "@/services/messageMap";
 import { signIn } from "next-auth/react";
+import GoogleAuth from "@/components/GoogleAuth/GoogleAuth";
 
 const LoginForm = () => {
   const { translations } = useLanguage();
@@ -101,42 +101,11 @@ const LoginForm = () => {
                   ariaLabel="Submit Log In"
                 />
               </div>
-              <div className="w-[17.5rem] md:w-[18rem] lg:w-[25rem]">
-                <button
-                  onClick={(e) => {
-                    e.preventDefault();
-                    signIn("google", { callbackUrl: "/" });
-                  }}
-                  className="mt-4 flex w-full items-center justify-center gap-2 rounded-md border border-gray-300 bg-white px-4 py-2 shadow transition duration-150 hover:bg-gray-100"
-                  aria-label="Sign in with Google"
-                >
-                  <svg
-                    className="h-5 w-5"
-                    viewBox="0 0 533.5 544.3"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M533.5 278.4c0-17.4-1.4-34.1-4.1-50.3H272v95.3h146.9c-6.3 33.6-25 62-53.2 81.2v67h85.9c50.3-46.3 81.9-114.6 81.9-193.2z"
-                      fill="#4285F4"
-                    />
-                    <path
-                      d="M272 544.3c72.6 0 133.6-24.1 178.1-65.4l-85.9-67c-23.9 16.1-54.5 25.6-92.2 25.6-70.8 0-130.7-47.8-152.2-112.1H30.9v70.7c44.3 88.1 135.6 148.2 241.1 148.2z"
-                      fill="#34A853"
-                    />
-                    <path
-                      d="M119.8 325.4c-10.3-30.6-10.3-63.5 0-94.1V160.6H30.9c-41.6 81.4-41.6 176.6 0 258l88.9-69.2z"
-                      fill="#FBBC05"
-                    />
-                    <path
-                      d="M272 107.7c39.5-.6 77.3 13.8 106.4 40.6l79.5-79.5C398.8 24.1 337.8 0 272 0 166.5 0 75.2 60.1 30.9 148.2l88.9 69.2C141.3 155.5 201.2 107.7 272 107.7z"
-                      fill="#EA4335"
-                    />
-                  </svg>
-                  <span className="text-sm font-medium text-gray-700">
-                    Sign in with Google
-                  </span>
-                </button>
-              </div>
+              <GoogleAuth
+                setMsg={setMsg}
+                setSuccess={setSuccessStatus}
+                setLoading={setLoading}
+              />
               {/* Message container with fixed height to prevent inputs from moving */}
               <div
                 className="flex min-h-[2rem] justify-center"

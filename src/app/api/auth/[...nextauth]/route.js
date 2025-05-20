@@ -21,7 +21,6 @@ const handler = NextAuth({
   // Custom pages for sign-in and error display
   pages: {
     signIn: "/login",
-    error: "/error",
   },
 
   // Session configuration (JWT-based)
