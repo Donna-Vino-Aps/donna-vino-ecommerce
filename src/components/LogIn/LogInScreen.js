@@ -15,6 +15,7 @@ const LoginScreen = () => {
         <figure className="relative hidden max-h-[37.25rem] w-full max-w-[35.781rem] flex-1 justify-center overflow-hidden md:flex md:h-auto md:w-[50%] md:rounded-l-none md:rounded-r-xl">
           <Image
             src="/images/dv-join.jpg"
+            alt="Wine glasses toasting"
             fill
             className="object-cover object-right"
           />
