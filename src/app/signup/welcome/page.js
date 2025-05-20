@@ -143,12 +143,12 @@ const Welcome = () => {
   return (
     <section className="my-4 bg-primary-light bg-dots-sm bg-dots-size-sm sm:bg-dots-lg sm:bg-dots-size-lg">
       <div className="mx-2 flex flex-col items-center justify-center py-4 sm:py-24">
-        <div className="w-full max-w-[35rem] items-center justify-center rounded-2xl bg-tertiary2-light px-5 py-8 shadow-lg sm:px-16 sm:py-10">
-          <div className="mb-4 flex justify-center">
+        <div className="w-full max-w-[35rem] items-center justify-center rounded-lg bg-tertiary2-light px-5 py-8 sm:px-20 sm:py-10">
+          <div className="mb-6 flex justify-center sm:mb-4">
             <img
               src="/icons/success-glasses.svg"
-              alt=""
-              className="h-[100px] w-[103px] md:h-[150px] md:w-[154px]"
+              alt="clinking glasses"
+              className="h-[100px] w-[103px] sm:h-[150px] sm:w-[154px]"
             />
           </div>
           <h1
@@ -157,20 +157,21 @@ const Welcome = () => {
           >
             {translations["signUp.welcome.title"]}
           </h1>
+          <div className="mb-6 flex flex-col items-center gap-6 text-center text-bodyMedium sm:mb-4 sm:text-bodyLarge">
+            <p>
+              {translations["signUp.welcome.paragraph1"]}
+              <br />
+              <span className="font-semibold">
+                {translations["signUp.welcome.paragraph2"]}
+              </span>
+            </p>
+            <p>{translations["signUp.welcome.paragraph3"]}</p>
+          </div>
 
-          <p
-            className="mb-6 text-left text-bodyLarge sm:mb-4"
-            dangerouslySetInnerHTML={{
-              __html: translations["signUp.welcome.message"],
-            }}
-          />
-
-          <div className="mt-6 text-left sm:mt-8">
-            <span className="text-bodyLarge">
-              {translations["signUp.welcome.resend"]}{" "}
-            </span>
+          <div className="flex justify-center gap-2 text-bodyLarge sm:justify-start">
+            <span>{translations["signUp.welcome.resend"]}</span>
             <button
-              className={`inline-block font-semibold underline focus:outline-none ${
+              className={`inline-block font-medium underline ${
                 isResendDisabled
                   ? "cursor-not-allowed text-tertiary2-dark"
                   : "hover:text-primary-hover_normal"
