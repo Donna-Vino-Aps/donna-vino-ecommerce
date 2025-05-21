@@ -10,6 +10,7 @@ import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { GoogleOAuthProvider } from "@react-oauth/google";
 import { UserContextProvider } from "@/context/UserContext";
+import Script from "next/script";
 
 const RootLayout = ({ children }) => {
   return (
@@ -21,7 +22,6 @@ const RootLayout = ({ children }) => {
               <LanguageProvider>
                 <UserContextProvider>
                   <Navbar />
-
                   <main
                     className="flex-grow"
                     role="main"
@@ -33,6 +33,14 @@ const RootLayout = ({ children }) => {
                 </UserContextProvider>
               </LanguageProvider>
             </CredentialsProvider>
+
+            {process.env.NODE_ENV === "production" && (
+              <Script
+                defer
+                src="https://cloud.umami.is/script.js"
+                data-website-id="2a60d0b9-2baa-48f9-88df-67e44d159e85"
+              />
+            )}
           </body>
         </html>
       </LocalizationProvider>
