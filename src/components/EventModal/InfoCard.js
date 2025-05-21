@@ -43,7 +43,6 @@ function InfoCard({ title, imageUrl, imageAlt = "", description, bgClass }) {
 InfoCard.propTypes = {
   title: PropTypes.string.isRequired,
   description: PropTypes.string.isRequired,
-  bulletPoints: PropTypes.arrayOf(PropTypes.string),
   imageUrl: PropTypes.string,
   imageAlt: PropTypes.string,
   bgClass: PropTypes.string,
