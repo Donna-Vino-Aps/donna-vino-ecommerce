@@ -66,7 +66,7 @@ export default {
           light: "#E8ECE9",
           hover: "#DCE2DF",
           active: "#B7C3BC",
-          normal: "#183127",
+          normal: "#183F27",
           hover_normal: "#163923",
           active_normal: "#133211",
           dark: "#12281D",

@@ -23,8 +23,8 @@ const ComingSoonModal = ({ isOpen, onClose }) => {
         <Button
           text={translations["modal.button-left"]}
           icon="/icons/close-white.svg"
-          size={{ md: "wide", sm: "small" }}
-          extraStyle="min-w-[5.6rem] h-[2.4rem] text-bodyMedium sm:text-bodyLarge sm:h-[3rem]"
+          width="full"
+          extraStyle="min-w-[5.6rem] sm:text-bodyLarge sm:h-[3rem]"
           testId="modal-button-close"
           ariaLabel={translations["modal.button-left"]}
           onClick={onClose}
@@ -33,8 +33,8 @@ const ComingSoonModal = ({ isOpen, onClose }) => {
           text={translations["modal.button-right"]}
           icon="/icons/phone-ring.svg"
           color="secondaryDark"
-          size={{ md: "wide", sm: "large" }}
-          extraStyle="h-[2.4rem] text-bodyMedium sm:text-bodyLarge sm:h-[3rem] sm:h-100 min-w-[8.8rem]"
+          width="full"
+          extraStyle="sm:text-bodyLarge sm:h-[3rem] sm:h-100 min-w-[8.8rem]"
           testId="modal-button-contact"
           ariaLabel={translations["modal.button-right"]}
           linkUrl="https://www.donnavino.dk/contact"

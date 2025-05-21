@@ -273,8 +273,7 @@ const SignUpScreen = () => {
                         : translations["signUp.create-button"]
                     }
                     onClick={handleSubmit}
-                    size={{ md: "wide" }}
-                    extraStyle="font-medium"
+                    width="full"
                     disabled={isSubmitting || !(isValid && dirty)}
                     testId="submit-button"
                     ariaLabel="Submit Sign Up"

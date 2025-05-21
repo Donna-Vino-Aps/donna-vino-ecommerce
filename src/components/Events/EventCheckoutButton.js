@@ -37,8 +37,8 @@ const EventCheckoutButton = ({
   return (
     <Button
       text={translations["event.reservation.buy"]}
-      color="green"
-      size={{ md: "wide" }}
+      color="secondary"
+      width="full"
       extraStyle="py-3"
       onClick={handleCheckout}
       disabled={disabled || isLoading}

@@ -33,8 +33,7 @@ const CheckInbox = () => {
         <div className="mb-4 mt-2 w-full">
           <Button
             text={translations["forgotPassword.button"]}
-            size={{ md: "wide" }}
-            extraStyle="font-medium"
+            width="full"
             data-testid="forgot-password-send-reset-link-button"
             aria-label="forgot password send reset link button"
           />

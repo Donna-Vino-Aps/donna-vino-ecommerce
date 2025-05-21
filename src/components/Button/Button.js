@@ -3,22 +3,25 @@
 import React from "react";
 import PropTypes from "prop-types";
 import Link from "next/link";
+import clsx from "clsx";
 
 const BASE_BUTTON_CLASSES = `
-  flex justify-center items-center h-[2.5rem] rounded-[0.3rem] text-titleMedium 
+  flex justify-center items-center rounded-[0.3rem]
 `;
 
-const SIZE = {
-  sm: {
-    small: "sm:w-[7.375rem]",
-    medium: "sm:w-[8.3rem]",
-    large: "sm:w-[10.8rem]",
-  },
-  md: {
-    medium: "w-[8.3rem]",
-    large: "w-[15.4rem]",
-    wide: "w-full",
-  },
+const SIZES = {
+  sm: "h-[2rem] text-bodyMedium",
+  md: "h-[2.5rem] text-titleMedium",
+  lg: "h-[3rem] text-titleLarge",
+};
+
+const WIDTHS = {
+  small: "w-[7.375rem]",
+  medium: "w-[8.3rem]",
+  large: "w-[10.8rem]",
+  wide: "w-[15.4rem]",
+  auto: "w-auto",
+  full: "w-full",
 };
 
 const COLORS = {
@@ -28,29 +31,32 @@ const COLORS = {
   transparent:
     "bg-transparent hover:bg-primary-hover text-primary-active_normal",
   secondaryDark: "bg-secondary-darker hover:bg-secondary-hover_dark text-white",
-  secondaryLight:
-    "bg-secondary-light hover:bg-secondary-hover text-secondary-darker",
-  green: "bg-[#183F27] hover:bg-[#153823] text-white font-barlow font-semibold",
-  tertiary: "bg-tertiary1-normal hover:bg-tertiary1-dark text-tertiary1-light",
-  yellow: "bg-[#F59E0B] opacity-85 hover:opacity-100 text-primary-light",
+  secondary:
+    "bg-secondary-normal hover:bg-secondary-hover_normal text-white font-barlow font-semibold",
   disabled:
     "bg-primary-disabled hover:bg-primary-disabled text-primary-disabled_dark cursor-not-allowed",
 };
 
 const VARIANT = {
-  outlineRed: "border-2 border-primary-active_normal",
-  radiuslg: "rounded-lg",
-  outlineGreen: "border-2 border-[#183F27]",
+  outline: "border-2",
+  rounded: "rounded-lg",
   solid: "rounded-[0rem]",
+};
+
+const BORDERS = {
+  primary: "border-primary-active_normal",
+  secondary: "border-secondary-normal",
 };
 
 const Button = ({
   text,
   icon,
   color = "primary",
-  size = {},
+  size = "md",
+  width = "medium",
   variant = "",
-  extraStyle = "",
+  border = "",
+  extraStyle = "font-medium",
   onClick,
   disabled = false,
   ariaLabel,
@@ -59,15 +65,15 @@ const Button = ({
   linkUrl,
   linkWidth,
 }) => {
-  const buttonClass = `
-  ${BASE_BUTTON_CLASSES} 
-  ${SIZE.md[size.md] || ""}
-  ${SIZE.sm[size.sm] || ""}
-  ${VARIANT[variant] || ""}
-  ${extraStyle || ""}
-  ${disabled || isLoading ? COLORS.disabled : COLORS[color] || ""}
-`.trim();
-
+  const buttonClass = clsx(
+    BASE_BUTTON_CLASSES,
+    SIZES[size],
+    WIDTHS[width],
+    VARIANT[variant],
+    BORDERS[border],
+    extraStyle,
+    disabled || isLoading ? COLORS.disabled : COLORS[color],
+  );
   const buttonContent = (
     <button
       className={buttonClass}
@@ -106,9 +112,11 @@ const Button = ({
 Button.propTypes = {
   text: PropTypes.string.isRequired,
   icon: PropTypes.string,
-  color: PropTypes.string,
-  size: PropTypes.object,
-  variant: PropTypes.string,
+  color: PropTypes.oneOf(Object.keys(COLORS)),
+  size: PropTypes.oneOf(["sm", "md", "lg"]),
+  width: PropTypes.oneOf(["small", "medium", "large", "wide", "auto", "full"]),
+  variant: PropTypes.oneOf(Object.keys(VARIANT)),
+  border: PropTypes.oneOf(Object.keys(BORDERS)),
   extraStyle: PropTypes.string,
   onClick: PropTypes.func,
   disabled: PropTypes.bool,

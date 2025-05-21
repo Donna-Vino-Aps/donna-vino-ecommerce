@@ -144,8 +144,8 @@ const Profile = () => {
                 }
                 onClick={handleSubmit}
                 icon="/icons/pencil.svg"
-                color="green"
-                size={{ md: "wide" }}
+                color="secondary"
+                width="full"
                 extraStyle="py-3 min-h-[3.125rem]"
                 disabled={isSubmitting}
                 data-testid="edit-button"

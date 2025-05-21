@@ -155,8 +155,7 @@ const LoginForm = () => {
                 <Button
                   text={translations["logIn.button"]}
                   onClick={handleSubmit}
-                  size={{ md: "wide" }}
-                  extraStyle="font-medium"
+                  width="full"
                   testId="login-button"
                   ariaLabel="Submit Log In"
                 />
@@ -196,8 +195,8 @@ const LoginForm = () => {
                 </h2>
                 <Button
                   text={translations["logIn.signup-button"]}
-                  size={{ md: "wide" }}
-                  color="green"
+                  width="full"
+                  color="secondary"
                   extraStyle="py-3"
                   testId="signup-button"
                   ariaLabel="Go to Sign Up"

@@ -134,7 +134,7 @@ const HeroSlider = () => {
                 <Button
                   text={translations[slide.buttonText]}
                   icon={slide.buttonIcon}
-                  size={{ md: "large" }}
+                  width="wide"
                   aria-label={translations[slide.buttonText]}
                   data-testid="book-tasting-button"
                   linkUrl={slide.url}

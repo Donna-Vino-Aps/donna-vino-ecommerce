@@ -96,11 +96,10 @@ const GoogleAuth = ({ setMsg, setSuccess, setLoading }) => {
         text={translations["logIn.signin-google"]}
         onClick={() => login()}
         color="primaryActive"
-        size={{ md: "wide" }}
+        width="full"
         icon="/icons/google-darkred.svg"
         data-testid="login-google-button"
         aria-label="Google Sign In"
-        className="w-full"
       />
     </div>
   );

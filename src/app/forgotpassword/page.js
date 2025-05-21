@@ -19,9 +19,10 @@ const ForgotPassword = () => {
           <Button
             text={translations["button.go-back"]}
             icon="/icons/arrow-left.svg"
-            variant="outlineRed"
+            variant="outline"
+            border="primary"
             color="transparent"
-            size={{ md: "medium", sm: "medium" }}
+            width="medium"
             ariaLabel="Go back"
             testId="go-back-button"
             onClick={() => {
@@ -46,8 +47,7 @@ const ForgotPassword = () => {
           <Link href="/check-in-box">
             <Button
               text={translations["forgotPassword.button"]}
-              size={{ md: "wide" }}
-              extraStyle="font-medium"
+              width="full"
               data-testid="forgot-password-send-reset-link-button"
               aria-label="forgot password send reset link button"
             />{" "}
