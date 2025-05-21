@@ -91,12 +91,12 @@ const GoogleAuth = ({ setMsg, setSuccess, setLoading }) => {
   };
 
   return (
-    <div className="flex w-[17.5rem] flex-col items-center justify-center space-y-2 md:w-[18rem] lg:w-[25rem]">
+    <div className="flex w-full max-w-[19.063rem] flex-col items-center justify-center space-y-2 md:max-w-[18rem] lg:max-w-[25rem]">
       <Button
         text={translations["logIn.signin-google"]}
         onClick={() => login()}
         variant="lightRedWide"
-        icon="/icons/google-darkred.svg"
+        icon="/icons/google-darkred2.svg"
         data-testid="login-google-button"
         aria-label="Google Sign In"
         className="w-full"
