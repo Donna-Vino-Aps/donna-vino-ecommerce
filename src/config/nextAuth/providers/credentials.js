@@ -26,7 +26,6 @@
 
 import jwt from "jsonwebtoken";
 import CredentialsProvider from "next-auth/providers/credentials";
-import { logInfo } from "@/utils/logging";
 
 const credentialsProvider = CredentialsProvider({
   id: "credentials", // Unique ID for the provider
@@ -44,8 +43,6 @@ const credentialsProvider = CredentialsProvider({
    * @returns {Object|null} - Authenticated user object or null if authentication fails.
    */
   async authorize(credentials) {
-    logInfo(credentials); // For debugging: log submitted credentials
-
     const backendUri = process.env.API_URL_LOCAL || process.env.API_URL_HEROKU;
 
     const res = await fetch(`${backendUri}/api/auth/login`, {
@@ -58,10 +55,7 @@ const credentialsProvider = CredentialsProvider({
     if (!res.ok) return null;
 
     const data = await res.json();
-    logInfo(data); // For debugging: log the response payload
-
     const decoded = jwt.decode(data.accessToken);
-    logInfo(decoded); // For debugging: inspect decoded JWT
 
     // Return user session data to NextAuth
     return {
