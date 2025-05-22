@@ -160,6 +160,19 @@ const SalesPolicy = () => {
               </p>
             </section>
 
+            <section id="event-cancellation">
+              <h2 className="my-6 text-displaySmall">
+                {translations["sales.cancellation.h2"]}
+              </h2>
+              <p>{translations["sales.cancellation.p1"]}</p>
+              <br />
+              <p>{translations["sales.cancellation.p2"]}</p>
+              <br />
+              <p>{translations["sales.cancellation.p3"]}</p>
+              <br />
+              <p>{translations["sales.cancellation.p4"]}</p>
+            </section>
+
             <section>
               <h2 className="my-6 text-displaySmall">
                 {translations["sales.rights.h2"]}
