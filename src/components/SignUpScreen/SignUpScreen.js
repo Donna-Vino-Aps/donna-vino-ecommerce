@@ -1,8 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Formik } from "formik";
 import { useLanguage } from "@/context/LanguageContext";
-import useFetch from "@/hooks/api/useFetch";
-import { logError } from "@/utils/logging";
 import Button from "@/components/Button/Button";
 import TextInput from "@/components/TextInput/TextInput";
 import TermsAndPrivacyLabel from "@/components/SignUpScreen/TermsAndPrivacyLabel";
@@ -11,67 +9,23 @@ import CheckboxField from "@/components/FormFields/CheckboxField";
 import dayjs from "dayjs";
 import { createSignUpSchema } from "@/validation/signUpSchema";
 import { useRouter } from "next/navigation";
-import { setSessionItem, SESSION_KEYS } from "@/utils/sessionStorage";
 
 const SignUpScreen = () => {
   const { translations } = useLanguage();
   const router = useRouter();
-  const [userBirthDay, setUserBirthDay] = useState();
-
   const [msg, setMsg] = useState("");
-  const [success, setSuccessStatus] = useState("");
+  const [success, setSuccessStatus] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [userBirthDay, setUserBirthDay] = useState();
 
   const validationSchema = createSignUpSchema(translations);
 
-  const onReceived = (response) => {
-    const responseData = response.data || response;
-    const { success, msg } = responseData;
-
-    if (success) {
-      handleMessage({ successStatus: true, msg: msg });
-
-      // Store email in sessionStorage using the utility function
-      if (responseData.pendingUser?.email) {
-        setSessionItem(
-          SESSION_KEYS.PENDING_USER_EMAIL,
-          responseData.pendingUser.email,
-        );
-      }
-
-      router.push("/signup/welcome");
-    } else {
-      logError(`API Error: ${msg}`);
-      handleMessage({ successStatus: false, msg: msg });
-    }
-  };
-
-  const { performFetch, isLoading, error } = useFetch(
-    "/auth/pre-sign-up",
-    "POST",
-    {},
-    {},
-    onReceived,
-  );
-
-  useEffect(() => {
-    if (error) {
-      const errorMessage = error.message || "An unexpected error occurred.";
-      handleMessage({
-        successStatus: false,
-        msg: errorMessage,
-      });
-    }
-  }, [error]);
-
-  const handleSignup = (values, setSubmitting) => {
-    setMsg("");
-    setSuccessStatus("");
-
+  const formatSignUpData = (values) => {
     const formattedBirthdate = values.birthdate
       ? dayjs(values.birthdate).format("YYYY-MM-DD")
       : null;
 
-    const credentials = {
+    return {
       firstName: values.firstName,
       lastName: values.lastName,
       email: values.email,
@@ -80,16 +34,33 @@ const SignUpScreen = () => {
       isSubscribed: values.subscribeToNewsletter,
       authProvider: "local",
     };
-
-    performFetch({
-      method: "POST",
-      data: { user: credentials },
-    }).finally(() => setSubmitting(false));
   };
 
-  const handleMessage = ({ successStatus, msg }) => {
-    setSuccessStatus(successStatus);
-    setMsg(msg);
+  const handleSignup = async (values, setSubmitting) => {
+    const formattedData = formatSignUpData(values);
+
+    const backendURI =
+      process.env.NEXT_PUBLIC_API_URL_LOCAL ||
+      process.env.NEXT_PUBLIC_API_URL_HEROKU;
+
+    const signUpURI = `${backendURI}/api/register`;
+    setIsLoading(true);
+    const response = await fetch(signUpURI, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(formattedData),
+    });
+    setSubmitting(false);
+    setIsLoading(false);
+    if (response.ok) {
+      setSuccessStatus(true);
+      router.push("/signup/welcome");
+    }
+    const responseData = await response.json();
+    setMsg(responseData.message);
+    setSuccessStatus(false);
   };
 
   return (
