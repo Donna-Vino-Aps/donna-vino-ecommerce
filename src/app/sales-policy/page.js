@@ -40,7 +40,7 @@ const SalesPolicy = () => {
             onClick={() => router.back()}
           />
         </section>
-        <div className="flex min-h-[43.75rem] w-full flex-col items-center justify-center gap-8 bg-primary-light py-6 md:flex-row md:gap-16 md:gap-4 lg:gap-8">
+        <div className="flex min-h-[43.75rem] w-full flex-col items-center justify-center gap-8 bg-primary-light py-6 md:flex-row md:gap-4 lg:gap-8">
           <div>
             <h1 className="mt-6 text-displayMedium md:mt-0">
               {translations["sales.title"]}

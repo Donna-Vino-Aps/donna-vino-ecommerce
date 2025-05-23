@@ -3,6 +3,7 @@ export default {
   content: [
     "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
+    "./src/utils/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   theme: {
     extend: {
@@ -107,6 +108,9 @@ export default {
           open_dark: "#1A8245",
           open_light: "#DAF8E6",
           today_ring: "#F37277",
+        },
+        others: {
+          negative: "#FF3B30",
         },
       },
       screens: {

@@ -1,74 +1,31 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Formik } from "formik";
 import { useLanguage } from "@/context/LanguageContext";
-import useFetch from "../../hooks/api/useFetch";
-import { logError } from "../../utils/logging";
-import Button from "../Button/Button";
-import TextInput from "../TextInput/TextInput";
+import Button from "@/components/Button/Button";
+import TextInput from "@/components/TextInput/TextInput";
+import TermsAndPrivacyLabel from "@/components/SignUpScreen/TermsAndPrivacyLabel";
+import AgeTooltip from "@/components/SignUpScreen/AgeTooltip";
+import CheckboxField from "@/components/FormFields/CheckboxField";
 import dayjs from "dayjs";
 import { createSignUpSchema } from "@/validation/signUpSchema";
 import { useRouter } from "next/navigation";
-import { setSessionItem, SESSION_KEYS } from "@/utils/sessionStorage";
 
 const SignUpScreen = () => {
   const { translations } = useLanguage();
   const router = useRouter();
-  const [userBirthDay, setUserBirthDay] = useState();
-
   const [msg, setMsg] = useState("");
-  const [success, setSuccessStatus] = useState("");
+  const [success, setSuccessStatus] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [userBirthDay, setUserBirthDay] = useState();
 
   const validationSchema = createSignUpSchema(translations);
 
-  const onReceived = (response) => {
-    const responseData = response.data || response;
-    const { success, msg } = responseData;
-
-    if (success) {
-      handleMessage({ successStatus: true, msg: msg });
-
-      // Store email in sessionStorage using the utility function
-      if (responseData.pendingUser?.email) {
-        setSessionItem(
-          SESSION_KEYS.PENDING_USER_EMAIL,
-          responseData.pendingUser.email,
-        );
-      }
-
-      router.push("/signup/welcome");
-    } else {
-      logError(`API Error: ${msg}`);
-      handleMessage({ successStatus: false, msg: msg });
-    }
-  };
-
-  const { performFetch, isLoading, error } = useFetch(
-    "/auth/pre-sign-up",
-    "POST",
-    {},
-    {},
-    onReceived,
-  );
-
-  useEffect(() => {
-    if (error) {
-      const errorMessage = error.message || "An unexpected error occurred.";
-      handleMessage({
-        successStatus: false,
-        msg: errorMessage,
-      });
-    }
-  }, [error]);
-
-  const handleSignup = (values, setSubmitting) => {
-    setMsg("");
-    setSuccessStatus("");
-
+  const formatSignUpData = (values) => {
     const formattedBirthdate = values.birthdate
       ? dayjs(values.birthdate).format("YYYY-MM-DD")
       : null;
 
-    const credentials = {
+    return {
       firstName: values.firstName,
       lastName: values.lastName,
       email: values.email,
@@ -77,34 +34,51 @@ const SignUpScreen = () => {
       isSubscribed: values.subscribeToNewsletter,
       authProvider: "local",
     };
-
-    performFetch({
-      method: "POST",
-      data: { user: credentials },
-    }).finally(() => setSubmitting(false));
   };
 
-  const handleMessage = ({ successStatus, msg }) => {
-    setSuccessStatus(successStatus);
-    setMsg(msg);
+  const handleSignup = async (values, setSubmitting) => {
+    const formattedData = formatSignUpData(values);
+
+    const backendURI =
+      process.env.NEXT_PUBLIC_API_URL_LOCAL ||
+      process.env.NEXT_PUBLIC_API_URL_HEROKU;
+
+    const signUpURI = `${backendURI}/api/register`;
+    setIsLoading(true);
+    const response = await fetch(signUpURI, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(formattedData),
+    });
+    setSubmitting(false);
+    setIsLoading(false);
+    if (response.ok) {
+      setSuccessStatus(true);
+      router.push("/signup/welcome");
+    }
+    const responseData = await response.json();
+    setMsg(responseData.message);
+    setSuccessStatus(false);
   };
 
   return (
-    <section className="bg-primary-light bg-dots-sm bg-dots-size-sm sm:bg-dots-lg sm:bg-dots-size-lg">
+    <section className="my-4 bg-primary-light bg-dots-sm bg-dots-size-sm sm:bg-dots-lg sm:bg-dots-size-lg">
       <div className="flex w-full flex-grow flex-col items-center justify-center p-2">
-        <div className="my-8 w-full max-w-[47.75rem] items-center justify-center rounded-2xl bg-tertiary2-light p-5 shadow-lg sm:my-20 sm:p-8">
+        <div className="my-8 w-full max-w-[47.75rem] items-center justify-center rounded-2xl bg-tertiary2-light p-4 shadow-lg sm:my-20 sm:p-8">
           <img
             src="/images/donna-vino-logo-transparent.png"
             alt="Donna Vino logo"
             className="mx-auto my-2 h-[4.31rem] w-[6.25rem]"
           />
           <h2
-            className="mb-6 text-center font-barlow text-displaySmall text-tertiary1-darker md:text-displayMedium"
+            className="mb-6 text-center text-displaySmall text-tertiary1-darker md:text-displayMedium"
             aria-label="Sign Up"
           >
             {translations["signUp.heading"]}
           </h2>
-          <p className="-mt-3 mb-8 text-center text-bodyMedium text-tertiary2-darker md:text-bodyLarge">
+          <p className="-mt-3 mb-8 text-center text-bodySmall text-tertiary2-darker md:text-bodyLarge">
             {translations["signUp.paragraph"]}
           </p>
           <Formik
@@ -123,6 +97,9 @@ const SignUpScreen = () => {
             onSubmit={(values, { setSubmitting }) => {
               handleSignup(values, setSubmitting);
             }}
+            validateOnMount={true}
+            validateOnChange={true}
+            validateOnBlur={true}
           >
             {({
               handleChange,
@@ -133,180 +110,130 @@ const SignUpScreen = () => {
               errors,
               touched,
               isSubmitting,
+              isValid,
+              dirty,
             }) => (
               <form onSubmit={handleSubmit}>
-                <h3 className="mb-6 text-headlineMedium">
+                <h3 className="mb-4 text-headlineSmall md:mb-6 md:text-headlineMedium">
                   {translations["signUp.personal"]}
                 </h3>
 
-                <div className="mb-8 grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-6">
+                <div className="mb-8 grid grid-cols-1 gap-6 md:grid-cols-2">
                   <TextInput
                     type="text"
                     name="firstName"
-                    placeholder={translations["signUp.placeholder.firstName"]}
+                    label={translations["signUp.label.firstName"]}
                     value={values.firstName}
                     onChange={handleChange}
                     onBlur={handleBlur}
-                    data-testid="input-first-name"
-                    aria-label="First Name"
                     error={touched.firstName && errors.firstName}
                   />
 
                   <TextInput
                     type="text"
                     name="lastName"
-                    placeholder={translations["signUp.placeholder.lastName"]}
+                    label={translations["signUp.label.lastName"]}
                     value={values.lastName}
                     onChange={handleChange}
                     onBlur={handleBlur}
-                    data-testid="input-last-name"
-                    aria-label="Last Name"
                     error={touched.lastName && errors.lastName}
                   />
 
                   <TextInput
                     type="email"
                     name="email"
-                    placeholder={translations["signUp.placeholder.email"]}
+                    label={translations["signUp.label.email"]}
                     value={values.email}
                     onChange={handleChange}
                     onBlur={handleBlur}
-                    data-testid="input-email"
-                    aria-label="Email"
                     error={touched.email && errors.email}
                   />
 
                   <TextInput
                     type="email"
                     name="confirmEmail"
-                    placeholder={
-                      translations["signUp.placeholder.confirmEmail"]
-                    }
+                    label={translations["signUp.label.confirmEmail"]}
                     value={values.confirmEmail}
                     onChange={handleChange}
                     onBlur={handleBlur}
-                    data-testid="input-confirm-email"
-                    aria-label="Confirm Email"
                     error={touched.confirmEmail && errors.confirmEmail}
+                    alternateBackground={true}
                   />
 
                   <TextInput
                     type="password"
                     name="password"
-                    placeholder={translations["signUp.placeholder.password"]}
+                    label={translations["signUp.label.password"]}
                     value={values.password}
                     onChange={handleChange}
                     onBlur={handleBlur}
                     showPasswordToggle={true}
-                    data-testid="input-password"
-                    aria-label="Password"
                     error={touched.password && errors.password}
+                    hint={translations["signUp.validation.passwordFormat"]}
                   />
 
                   <TextInput
                     type="password"
                     name="confirmPassword"
-                    placeholder={
-                      translations["signUp.placeholder.confirmPassword"]
-                    }
+                    label={translations["signUp.label.confirmPassword"]}
                     value={values.confirmPassword}
                     onChange={handleChange}
                     onBlur={handleBlur}
                     showPasswordToggle={true}
-                    data-testid="input-confirm-password"
-                    aria-label="Confirm Password"
                     error={touched.confirmPassword && errors.confirmPassword}
+                    alternateBackground={true}
                   />
 
                   <TextInput
-                    type="text"
                     name="birthdate"
-                    id="birthdate"
-                    placeholder={translations["signUp.placeholder.birthdate"]}
+                    isDate={true}
+                    label={translations["signUp.label.birthdate"]}
+                    placeholder="__ / __ / ____"
                     value={values.birthdate || userBirthDay}
                     onChange={(newValue) => {
                       setFieldValue("birthdate", newValue);
                       setUserBirthDay(newValue);
                     }}
-                    isDate={true}
-                    showDatePicker={() =>
-                      document.getElementById("datePicker").focus()
-                    }
-                    data-testid="input-birthdate"
-                    aria-label="Birthdate"
+                    onBlur={handleBlur}
                     error={touched.birthdate && errors.birthdate}
+                    hint={translations["signUp.validation.birthdate"]}
                   />
 
-                  <div className="group relative top-7 inline-block align-top">
-                    <div className="relative z-30 flex h-[30px] w-[30px] cursor-pointer items-center justify-center rounded-full bg-primary-light transition-all duration-200 group-hover:h-[45px] group-hover:w-[45px]">
-                      <span className="z-40 text-labelXLarge text-tertiary1-darker group-hover:text-titleLarge">
-                        ?
-                      </span>
-                    </div>
-                    <div className="invisible absolute left-0 top-0 z-10 opacity-0 transition-opacity duration-200 group-hover:visible group-hover:opacity-100">
-                      <div className="h-[45px] rounded-full bg-primary-hover p-2 pl-12 text-labelSmall font-medium text-tertiary1-darker sm:min-w-[18rem]">
-                        {translations["signUp.ageTooltip"]}
-                      </div>
-                    </div>
-                  </div>
+                  <AgeTooltip text={translations["signUp.ageTooltip"]} />
                 </div>
 
-                <div className="flex flex-col space-y-3 text-bodyLarge text-tertiary1-darker">
-                  {/* Terms of Use Checkbox */}
-                  <label className="flex cursor-pointer items-center space-x-3">
-                    <input
-                      type="checkbox"
-                      name="acceptTerms"
-                      checked={values.acceptTerms}
-                      onChange={() =>
-                        setFieldValue("acceptTerms", !values.acceptTerms)
-                      }
-                      onBlur={handleBlur}
-                      className={`h-6 w-6 border-2 ${
-                        touched.acceptTerms && errors.acceptTerms
-                          ? "border-primary-normal text-primary-normal ring-1 ring-primary-normal checked:border-primary-active checked:bg-primary-normal"
-                          : "border-secondary-active text-secondary-active checked:border-secondary-dark checked:bg-secondary-active"
-                      } rounded-md bg-white transition-all duration-200 focus:ring-2 focus:ring-secondary-hover`}
-                    />
-                    <span
-                      dangerouslySetInnerHTML={{
-                        __html: translations["signUp.acceptTerms"]
-                          .replace(
-                            "{terms}",
-                            `<strong>${translations["signUp.terms"]}</strong>`,
-                          )
-                          .replace(
-                            "{privacy}",
-                            `<strong>${translations["signUp.privacy"]}</strong>`,
-                          ),
-                      }}
-                      className="text-bodyMedium text-secondary-dark sm:text-bodyLarge"
-                    />
-                  </label>
-                  {touched.acceptTerms && errors.acceptTerms && (
-                    <div className="text-xs text-primary-normal">
-                      {errors.acceptTerms}
-                    </div>
-                  )}
+                <div className="flex flex-col gap-2 text-bodyLarge text-tertiary1-darker md:gap-4">
+                  <CheckboxField
+                    name="acceptTerms"
+                    checked={values.acceptTerms}
+                    onChange={() =>
+                      setFieldValue("acceptTerms", !values.acceptTerms)
+                    }
+                    onBlur={handleBlur}
+                    error={touched.acceptTerms && errors.acceptTerms}
+                    labelComponent={
+                      <TermsAndPrivacyLabel
+                        textTemplate={translations["signUp.acceptTerms"]}
+                        termsText={translations["signUp.terms"]}
+                        privacyText={translations["signUp.privacy"]}
+                        termsUrl="https://www.donnavino.dk/privacy-policy" // Update when we have a terms page
+                        privacyUrl="https://www.donnavino.dk/privacy-policy"
+                      />
+                    }
+                  />
 
-                  {/* Subscribe to Newsletter Checkbox */}
-                  <label className="flex cursor-pointer items-center space-x-3">
-                    <input
-                      type="checkbox"
-                      name="subscribeToNewsletter"
-                      checked={values.subscribeToNewsletter}
-                      onChange={() =>
-                        setFieldValue(
-                          "subscribeToNewsletter",
-                          !values.subscribeToNewsletter,
-                        )
-                      }
-                      className="h-6 w-6 rounded-md border-2 border-secondary-active bg-white text-secondary-active transition-all duration-200 checked:border-secondary-dark checked:bg-secondary-active focus:ring-2 focus:ring-secondary-hover"
-                    />
-                    <span className="text-bodyMedium text-secondary-dark sm:text-bodyLarge">
-                      {translations["signUp.updates"]}
-                    </span>
-                  </label>
+                  <CheckboxField
+                    name="subscribeToNewsletter"
+                    checked={values.subscribeToNewsletter}
+                    onChange={() =>
+                      setFieldValue(
+                        "subscribeToNewsletter",
+                        !values.subscribeToNewsletter,
+                      )
+                    }
+                    onBlur={handleBlur}
+                    label={translations["signUp.updates"]}
+                  />
                 </div>
 
                 <div className="mt-4 w-full">
@@ -318,9 +245,9 @@ const SignUpScreen = () => {
                     }
                     onClick={handleSubmit}
                     variant="redWide"
-                    disabled={isSubmitting}
-                    data-testid="submit-button"
-                    aria-label="Submit Sign Up"
+                    disabled={isSubmitting || !(isValid && dirty)}
+                    testId="submit-button"
+                    ariaLabel="Submit Sign Up"
                   />
                 </div>
 
@@ -328,7 +255,7 @@ const SignUpScreen = () => {
                 {!success && msg && (
                   <div className="mt-3 flex justify-center">
                     <p
-                      className="text-center text-bodySmall text-primary-normal sm:text-bodyMedium"
+                      className="text-center text-bodySmall text-others-negative sm:text-bodyMedium"
                       aria-live="polite"
                       data-testid="message-status"
                     >

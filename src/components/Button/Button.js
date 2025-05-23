@@ -5,7 +5,7 @@ import PropTypes from "prop-types";
 import Link from "next/link";
 
 const BASE_BUTTON_CLASSES = `
-  flex justify-center items-center h-[2.875rem] rounded-[0.3rem] text-bodyLarge 
+  flex justify-center items-center h-[2.5rem] rounded-[0.3rem] text-titleMedium 
 `;
 
 const VARIANT_CLASSES = {
@@ -15,13 +15,13 @@ const VARIANT_CLASSES = {
   redFullText:
     "bg-primary-normal hover:bg-primary-hover_normal text-primary-light w-[15.4rem]",
   redWide:
-    "bg-primary-normal hover:bg-primary-hover_normal text-primary-light font-semibold w-full",
+    "bg-primary-normal hover:bg-primary-hover_normal text-primary-light font-medium w-full",
   lightRedWide:
     "bg-primary-active hover:bg-primary-normal hover:bg-opacity-40 text-primary-active_dark font-semibold w-full",
   redLine:
     "bg-transparent border-2 hover:bg-primary-hover border-primary-active_normal text-primary-active_normal w-[8.3rem] sm:w-[8.3rem]",
   redSmall:
-    "bg-primary-normal hover:bg-primary-hover_normal text-primary-light px-4 min-w-[6.25rem] !h-[1.75rem] text-bodyMedium",
+    "bg-primary-normal hover:bg-primary-hover_normal text-primary-light px-4 min-w-[7.375rem] md:min-w-[6.25rem] !h-[2rem] md:!h-[1.75rem] text-bodyMedium",
   darkGreen:
     "bg-secondary-darker hover:bg-secondary-hover_dark text-white w-full sm:w-[10.8rem]",
   darkGreenModal:

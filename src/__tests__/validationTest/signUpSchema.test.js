@@ -1,15 +1,21 @@
 import { createSignUpSchema } from "@/validation/signUpSchema";
+import dayjs from "dayjs";
 
 describe("Sign Up Schema Validation", () => {
   // Mock translations
   const mockTranslations = {
-    "signUp.validation.required": "This field is empty",
+    "signUp.validation.required": "This field is required",
     "signUp.validation.emailFormat": "Please enter a valid email address",
-    "signUp.validation.emailMatch": "Emails do not match",
+    "signUp.validation.emailMatch":
+      "Emails do not match. Please check and try again",
     "signUp.validation.passwordFormat":
       "Password must be at least 8 characters long, including one uppercase letter, one lowercase letter, one number, and one special character (e.g., !, @, #, $)",
-    "signUp.validation.passwordMatch": "Passwords do not match",
-    "signUp.validation.acceptTerms": "Please check the box to proceed",
+    "signUp.validation.passwordMatch":
+      "Passwords do not match. Please check and try again",
+    "signUp.validation.birthdate": "Your date of birth in DD/MM/YYYY",
+    "signUp.validation.ageRequirement":
+      "You must be at least 18 years old to register",
+    "signUp.validation.acceptTerms": "This checkbox is required",
   };
 
   let schema;
@@ -115,7 +121,7 @@ describe("Sign Up Schema Validation", () => {
           // Should not reach here
           expect(true).toBe(false);
         } catch (err) {
-          expect(err.message).toEqual(
+          expect(err.errors[0]).toEqual(
             mockTranslations["signUp.validation.emailFormat"],
           );
         }
@@ -139,7 +145,7 @@ describe("Sign Up Schema Validation", () => {
         // Should not reach here
         expect(true).toBe(false);
       } catch (err) {
-        expect(err.message).toEqual(
+        expect(err.errors[0]).toEqual(
           mockTranslations["signUp.validation.emailMatch"],
         );
       }
@@ -201,7 +207,7 @@ describe("Sign Up Schema Validation", () => {
           // Should not reach here
           expect(true).toBe(false);
         } catch (err) {
-          expect(err.message).toEqual(
+          expect(err.errors[0]).toEqual(
             mockTranslations["signUp.validation.passwordFormat"],
           );
         }
@@ -225,7 +231,7 @@ describe("Sign Up Schema Validation", () => {
         // Should not reach here
         expect(true).toBe(false);
       } catch (err) {
-        expect(err.message).toEqual(
+        expect(err.errors[0]).toEqual(
           mockTranslations["signUp.validation.passwordMatch"],
         );
       }
@@ -275,7 +281,7 @@ describe("Sign Up Schema Validation", () => {
         // Should not reach here
         expect(true).toBe(false);
       } catch (err) {
-        expect(err.message).toEqual(
+        expect(err.errors[0]).toEqual(
           mockTranslations["signUp.validation.acceptTerms"],
         );
       }
@@ -300,9 +306,104 @@ describe("Sign Up Schema Validation", () => {
         // Should not reach here
         expect(true).toBe(false);
       } catch (err) {
-        expect(err.message).toEqual(
+        expect(err.errors[0]).toEqual(
           mockTranslations["signUp.validation.required"],
         );
+      }
+    });
+
+    test("validates user must be at least 18 years old", async () => {
+      // Generate a date for someone who is 17 years old
+      const seventeenYearsAgo = dayjs()
+        .subtract(17, "year")
+        .format("YYYY-MM-DD");
+
+      const testData = {
+        firstName: "John",
+        lastName: "Doe",
+        email: "john@example.com",
+        confirmEmail: "john@example.com",
+        password: "Password123!",
+        confirmPassword: "Password123!",
+        birthdate: seventeenYearsAgo,
+        acceptTerms: true,
+      };
+
+      try {
+        await schema.validate(testData);
+        // Should not reach here
+        expect(true).toBe(false);
+      } catch (err) {
+        expect(err.errors[0]).toEqual(
+          mockTranslations["signUp.validation.ageRequirement"],
+        );
+      }
+    });
+
+    test("validates birthdate rejects invalid dates", async () => {
+      const invalidDates = [
+        "1212-12-12T00:00:00.000+00:00", // Very old date
+        dayjs().add(1, "year").format("YYYY-MM-DD"), // Future date
+        "invalid-date", // Not a date format
+        "2100-01-01", // Unreasonable future date
+      ];
+
+      for (const invalidDate of invalidDates) {
+        const testData = {
+          firstName: "John",
+          lastName: "Doe",
+          email: "john@example.com",
+          confirmEmail: "john@example.com",
+          password: "Password123!",
+          confirmPassword: "Password123!",
+          birthdate: invalidDate,
+          acceptTerms: true,
+        };
+
+        try {
+          await schema.validate(testData);
+          // Should not reach here
+          expect(true).toBe(false);
+        } catch (err) {
+          expect(err.errors[0]).toEqual(
+            mockTranslations["signUp.validation.ageRequirement"],
+          );
+        }
+      }
+    });
+
+    test("accepts valid birthdates for users who are 18 or older", async () => {
+      // Exactly 18 years old
+      const eighteenYearsAgo = dayjs()
+        .subtract(18, "year")
+        .format("YYYY-MM-DD");
+      // 30 years old
+      const thirtyYearsAgo = dayjs().subtract(30, "year").format("YYYY-MM-DD");
+      // 65 years old
+      const sixtyFiveYearsAgo = dayjs()
+        .subtract(65, "year")
+        .format("YYYY-MM-DD");
+
+      const validDates = [
+        eighteenYearsAgo,
+        thirtyYearsAgo,
+        sixtyFiveYearsAgo,
+        "1990-01-01", // Static date for stable tests
+      ];
+
+      for (const validDate of validDates) {
+        const testData = {
+          firstName: "John",
+          lastName: "Doe",
+          email: "john@example.com",
+          confirmEmail: "john@example.com",
+          password: "Password123!",
+          confirmPassword: "Password123!",
+          birthdate: validDate,
+          acceptTerms: true,
+        };
+
+        await expect(schema.validate(testData)).resolves.toEqual(testData);
       }
     });
   });

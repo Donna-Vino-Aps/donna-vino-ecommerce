@@ -5,22 +5,24 @@ import PropTypes from "prop-types";
 import Button from "../Button/Button";
 import { useLanguage } from "@/context/LanguageContext";
 
-const EventRow = ({
-  event,
-  formattedDate,
-  formattedTimeStart,
-  formattedTimeEnd,
-  seatStatus,
-  showModal,
-}) => {
-  const { wine, winery, availableSeats, totalSeats } = event;
+const EventRow = ({ event, showModal }) => {
+  const {
+    wine,
+    winery,
+    availableSeats,
+    totalSeats,
+    formattedDate,
+    formattedTimeStart,
+    formattedTimeEnd,
+    seatStatus,
+  } = event;
   const isFull = availableSeats === 0 && totalSeats > 0;
   const { translations } = useLanguage();
 
   return (
     <>
       <div
-        className={`mb-4 flex flex-row gap-1 border-l-4 pl-2 ${seatStatus.borderColor}`}
+        className={`mb-4 flex flex-row gap-3 border-l-4 pl-2 ${seatStatus.borderColor}`}
       >
         <div className="flex w-[22%] flex-col items-start">
           <p className="text-bodyMedium">{formattedDate}</p>
@@ -63,16 +65,17 @@ EventRow.propTypes = {
     winery: PropTypes.string,
     availableSeats: PropTypes.number,
     totalSeats: PropTypes.number,
+    formattedDate: PropTypes.string,
+    formattedTimeStart: PropTypes.string,
+    formattedTimeEnd: PropTypes.string,
+    seatStatus: PropTypes.shape({
+      bgColor: PropTypes.string,
+      textColor: PropTypes.string,
+      borderColor: PropTypes.string,
+    }).isRequired,
     id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   }).isRequired,
-  formattedDate: PropTypes.string.isRequired,
-  formattedTimeStart: PropTypes.string,
-  formattedTimeEnd: PropTypes.string,
-  seatStatus: PropTypes.shape({
-    bgColor: PropTypes.string,
-    textColor: PropTypes.string,
-    borderColor: PropTypes.string,
-  }).isRequired,
+
   showModal: PropTypes.func.isRequired,
 };
 
