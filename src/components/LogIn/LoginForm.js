@@ -17,7 +17,6 @@ const LoginForm = () => {
   const [msg, setMsg] = useState("");
   const [success, setSuccessStatus] = useState(null);
   const [loading, setLoading] = useState(false);
-
   const handleMessage = ({ successStatus, msg }) => {
     const friendlyMsg = mapBackendMessage(msg);
     setSuccessStatus(successStatus);
