@@ -9,7 +9,9 @@ import React, {
 } from "react";
 import PropTypes from "prop-types";
 import { useLanguage } from "@/context/LanguageContext";
-import { signOut } from "next-auth/react";
+import { signOut, useSession } from "next-auth/react";
+import { logError } from "@/utils/logging";
+import { useAPI } from "@/context/ApiProvider";
 
 const UserContext = createContext({ menuItems: [] });
 
@@ -63,11 +65,35 @@ const generateMenuItems = (translations, logout) => [
 
 export const UserContextProvider = ({ children }) => {
   const { translations } = useLanguage();
+  const { data: session, status } = useSession();
+  const { get } = useAPI();
 
   const [menuItems, setMenuItems] = useState([]);
+  const [userInfo, setUserInfo] = useState(null);
+  const [userId, setUserId] = useState();
+
+  useEffect(() => {
+    if (!userId && status !== "authenticated") return;
+
+    if (!userId) {
+      setUserId(session?.user?.id);
+    }
+
+    const fetchUserInfo = async () => {
+      try {
+        const response = await get(`/user/${userId}`);
+        const data = await response.json();
+        setUserInfo(data);
+      } catch (error) {
+        logError("Failed to fetch user info", error);
+      }
+    };
+    fetchUserInfo();
+  }, [userId, status]);
 
   const logout = useCallback(() => {
     signOut({ callbackUrl: "/" });
+    setUserInfo(null);
   }, []);
 
   useEffect(() => {
@@ -76,7 +102,7 @@ export const UserContextProvider = ({ children }) => {
   }, [translations, logout]);
 
   return (
-    <UserContext.Provider value={{ menuItems }}>
+    <UserContext.Provider value={{ userId, userInfo, setUserInfo, menuItems }}>
       {children}
     </UserContext.Provider>
   );
