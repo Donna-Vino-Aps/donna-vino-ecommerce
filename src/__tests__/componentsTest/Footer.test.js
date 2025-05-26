@@ -39,13 +39,13 @@ describe("Footer Component", () => {
 it("renders all navigation links", () => {
   renderWithProvider("en");
   const links = [
-    { id: "sales-policy", href: "/sales-policy", label: "Sales Policy" },
+    { id: "sales-policy", href: "/sales-policy", label: "Salgspolitik" },
     {
       id: "contact",
       href: "https://www.donnavino.dk/contact",
-      label: "Contact Us",
+      label: "Kontakt os",
     },
-    { id: "company", href: "https://www.donnavino.dk/", label: "Company" },
+    { id: "company", href: "https://www.donnavino.dk/", label: "Virksomhed" },
   ];
 
   links.forEach((link) => {

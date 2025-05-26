@@ -29,12 +29,12 @@ describe("LanguageSwitch component", () => {
     );
 
     const englishIcon = screen.getByTestId("en-icon");
-    expect(englishIcon).toHaveClass("bg-primary-light");
+    expect(englishIcon).toHaveClass("hover:bg-primary-light");
 
     const denmarkIcon = screen.getByTestId("dk-icon");
     fireEvent.click(denmarkIcon);
 
-    expect(denmarkIcon).toHaveClass("bg-primary-light");
+    expect(denmarkIcon).toHaveClass("hover:bg-primary-light");
     expect(englishIcon.classList.contains("bg-primary-light")).toBe(false);
   });
 });
