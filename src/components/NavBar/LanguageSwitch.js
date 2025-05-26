@@ -8,9 +8,7 @@ function LanguageSwitch() {
 
   useEffect(() => {
     const savedLanguage = localStorage.getItem("pageLanguage");
-    if (savedLanguage) {
-      setLanguage(savedLanguage);
-    }
+    setLanguage(savedLanguage || "dk");
   }, [setLanguage]);
 
   const handleLanguageChange = (newLanguage) => {

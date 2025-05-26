@@ -9,7 +9,8 @@ import dkTranslations from "../translations/dk.json";
 const LanguageContext = createContext();
 
 export const LanguageProvider = ({ children }) => {
-  const [language, setLanguage] = useState("en");
+  const [language, setLanguage] = useState("dk");
+  const [translations, setTranslations] = useState(dkTranslations);
 
   // respond reading actual language when we are sure that it's a browser environment
   // but not at server side pre-rendering time
@@ -19,14 +20,6 @@ export const LanguageProvider = ({ children }) => {
       if (storedLanguage) {
         setLanguage(storedLanguage);
       }
-    }
-  }, []);
-  const [translations, setTranslations] = useState(enTranslations);
-
-  useEffect(() => {
-    const savedLanguage = localStorage.getItem("pageLanguage");
-    if (savedLanguage) {
-      setLanguage(savedLanguage);
     }
   }, []);
 
