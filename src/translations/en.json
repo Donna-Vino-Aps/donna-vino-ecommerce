@@ -36,6 +36,8 @@
   "signUp.terms": "Terms of Use",
   "signUp.privacy": "Privacy Policy",
   "signUp.updates": "Subscribe to receive product updates and promotions.",
+  "signUp.verification-completed.title": "👏 E-mail verification completed 👏",
+  "signUp.verification-completed.message": "Thanks for verifying your e-mail! Everything’s all set — you can now enjoy full access to your account.",
   "signUp.welcome.title": "👏 Done! Welcome on board! 👏",
   "signUp.welcome.message": "Your email has been successfully registered in our system. <strong>Please check your inbox</strong> for the confirmation email regarding your registration. Once confirmed, you will be able to access your personalized profile dashboard, where you can upload your profile picture, update your information, and complete all the required details to streamline your future orders and enhance your shopping experience.",
   "signUp.welcome.button": "Back to the log in page",

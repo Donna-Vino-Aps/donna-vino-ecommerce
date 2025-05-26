@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import Link from "next/link";
 import LanguageSwitch from "../NavBar/LanguageSwitch";
 import { useLanguage } from "@/context/LanguageContext";
 import SocialLinks from "@/components/SideBar/SocialLinks";
-// import UserInfoMobile from "@/components/SideBar/UserInfoMobile";
-// import { useCredentials } from "@/context/CredentialsContext";
+import UserInfoMobile from "@/components/SideBar/UserInfoMobile";
+import { signOut, useSession } from "next-auth/react";
 
 const SideBar = ({ isMenuOpen, toggleMenu, navLinks }) => {
   const [openDropdowns, setOpenDropdowns] = useState({
@@ -13,12 +13,14 @@ const SideBar = ({ isMenuOpen, toggleMenu, navLinks }) => {
     grapeszones: false,
     account: false,
   });
-
-  // const { logout } = useCredentials();
-
+  const { data: session } = useSession();
   const { translations } = useLanguage();
 
-  // Hide main content scroll when sideBar opened
+  const logout = useCallback(() => {
+    signOut({ callbackUrl: "/" });
+  }, []);
+
+  // Hide the main content scroll when sideBar opened
   useEffect(() => {
     if (isMenuOpen) {
       document.body.style.overflow = "hidden";
@@ -52,7 +54,7 @@ const SideBar = ({ isMenuOpen, toggleMenu, navLinks }) => {
     >
       <div className="flex h-full flex-col gap-8 p-8">
         <div className="flex items-center justify-between">
-          {/* <UserInfoMobile /> */}
+          {session && <UserInfoMobile />}
           <button
             role="button"
             className="self-start"
@@ -116,30 +118,34 @@ const SideBar = ({ isMenuOpen, toggleMenu, navLinks }) => {
                     )}
 
                     {/* Dropdown menu */}
-                    {link.dropdown && (
-                      <div
-                        className={` w-full bg-white ${
-                          isDropdownOpen(link.id)
-                            ? "relative right-4 my-1 flex flex-col"
-                            : "hidden"
-                        }`}
-                      >
-                        {link.sublinks.map((sublink, index) => (
-                          <div key={`${link.id}-${index}`}>
-                            <Link
-                              key={sublink}
-                              href={link.href} // Initially set to go to the href of the overarching Link (like Wines)
-                              // href={`${link.href}/${sublink.toLowerCase()}`}  Or something similar can be used in future implementations
-                              className={`block px-4 text-titleMedium text-tertiary1-normal ${link.id === "account" ? "py-3" : "py-2"}`}
-                            >
-                              {sublink}
-                            </Link>
-                            {link.id !== "account" &&
-                              index !== link.sublinks.length - 1 && (
-                                <hr className="relative left-4 mb-1 mt-3 w-[95%] border-[1.25px] border-secondary-hover" />
-                              )}
+                    {session && (
+                      <div>
+                        {link.dropdown && (
+                          <div
+                            className={` w-full bg-white ${
+                              isDropdownOpen(link.id)
+                                ? "relative right-4 my-1 flex flex-col"
+                                : "hidden"
+                            }`}
+                          >
+                            {link.sublinks.map((sublink, index) => (
+                              <div key={`${link.id}-${index}`}>
+                                <Link
+                                  key={sublink}
+                                  href={link.href} // Initially set to go to the href of the overarching Link (like Wines)
+                                  // href={`${link.href}/${sublink.toLowerCase()}`}  Or something similar can be used in future implementations
+                                  className={`block px-4 text-titleMedium text-tertiary1-normal ${link.id === "account" ? "py-3" : "py-2"}`}
+                                >
+                                  {sublink}
+                                </Link>
+                                {link.id !== "account" &&
+                                  index !== link.sublinks.length - 1 && (
+                                    <hr className="relative left-4 mb-1 mt-3 w-[95%] border-[1.25px] border-secondary-hover" />
+                                  )}
+                              </div>
+                            ))}
                           </div>
-                        ))}
+                        )}
                       </div>
                     )}
                   </div>
@@ -148,21 +154,23 @@ const SideBar = ({ isMenuOpen, toggleMenu, navLinks }) => {
             </ul>
           </nav>
           <hr className="my-2 border-t-slate-300" />
-          {/* <Link
-            className="flex gap-2 pb-8 pl-4"
-            href="#"
-            onClick={(event) => {
-              event.preventDefault();
-              logout();
-            }}
-          >
-            <img
-              className="h-[1.5rem] w-[1.5rem]"
-              src="/icons/logout.svg"
-              alt="logout"
-            />
-            <span>{translations["user-dropdown.logout"]}</span>
-          </Link> */}
+          {session && (
+            <Link
+              className="flex gap-2 pb-8 pl-4"
+              href="#"
+              onClick={(event) => {
+                event.preventDefault();
+                logout();
+              }}
+            >
+              <img
+                className="h-[1.5rem] w-[1.5rem]"
+                src="/icons/logout.svg"
+                alt="logout"
+              />
+              <span>{translations["user-dropdown.logout"]}</span>
+            </Link>
+          )}
         </div>
         <div className="relative bottom-4 flex h-[4.87rem] w-[10.12rem] flex-col items-start">
           <p className="mb-6 text-labelXLarge font-semibold">

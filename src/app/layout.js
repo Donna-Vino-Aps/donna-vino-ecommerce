@@ -5,38 +5,42 @@ import "./globals.css";
 import Footer from "../components/Footer/Footer.js";
 import Navbar from "../components/NavBar/NavBar.js";
 import { LanguageProvider } from "@/context/LanguageContext";
-import { CredentialsProvider } from "@/context/CredentialsContext";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-import { GoogleOAuthProvider } from "@react-oauth/google";
 import { UserContextProvider } from "@/context/UserContext";
+import { SessionProvider } from "next-auth/react";
 
 const RootLayout = ({ children }) => {
   return (
-    <GoogleOAuthProvider clientId={process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID}>
-      <LocalizationProvider dateAdapter={AdapterDayjs}>
-        <html lang="en" title="Donna Vino E-Commerce">
-          <body className="flex min-h-screen w-full flex-col bg-white font-barlow text-tertiary1-normal">
-            <CredentialsProvider>
-              <LanguageProvider>
-                <UserContextProvider>
-                  <Navbar />
+    <LocalizationProvider dateAdapter={AdapterDayjs}>
+      <html lang="en">
+        <body className="flex min-h-screen w-full flex-col bg-white font-barlow text-tertiary1-normal">
+          <LanguageProvider>
+            <SessionProvider>
+              <UserContextProvider>
+                <Navbar />
+                <main
+                  className="flex-grow"
+                  role="main"
+                  data-testid="main-content"
+                >
+                  {children}
+                </main>
+                <Footer />
+              </UserContextProvider>
+            </SessionProvider>
+          </LanguageProvider>
 
-                  <main
-                    className="flex-grow"
-                    role="main"
-                    data-testid="main-content"
-                  >
-                    {children}
-                  </main>
-                  <Footer />
-                </UserContextProvider>
-              </LanguageProvider>
-            </CredentialsProvider>
-          </body>
-        </html>
-      </LocalizationProvider>
-    </GoogleOAuthProvider>
+          {process.env.NODE_ENV === "production" && (
+            <Script
+              defer
+              src="https://cloud.umami.is/script.js"
+              data-website-id="2a60d0b9-2baa-48f9-88df-67e44d159e85"
+            />
+          )}
+        </body>
+      </html>
+    </LocalizationProvider>
   );
 };
 
