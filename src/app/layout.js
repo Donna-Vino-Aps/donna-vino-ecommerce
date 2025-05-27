@@ -9,6 +9,7 @@ import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { UserContextProvider } from "@/context/UserContext";
 import { SessionProvider } from "next-auth/react";
+import APIProvider from "@/context/ApiProvider";
 
 const RootLayout = ({ children }) => {
   return (
@@ -17,17 +18,19 @@ const RootLayout = ({ children }) => {
         <body className="flex min-h-screen w-full flex-col bg-white font-barlow text-tertiary1-normal">
           <LanguageProvider>
             <SessionProvider>
-              <UserContextProvider>
-                <Navbar />
-                <main
-                  className="flex-grow"
-                  role="main"
-                  data-testid="main-content"
-                >
-                  {children}
-                </main>
-                <Footer />
-              </UserContextProvider>
+              <APIProvider>
+                <UserContextProvider>
+                  <Navbar />
+                  <main
+                    className="flex-grow"
+                    role="main"
+                    data-testid="main-content"
+                  >
+                    {children}
+                  </main>
+                  <Footer />
+                </UserContextProvider>
+              </APIProvider>
             </SessionProvider>
           </LanguageProvider>
         </body>
