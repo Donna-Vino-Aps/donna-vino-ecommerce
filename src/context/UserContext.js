@@ -66,25 +66,28 @@ const generateMenuItems = (translations, logout) => [
 export const UserContextProvider = ({ children }) => {
   const { translations } = useLanguage();
   const { data: session, status } = useSession();
-  const { get } = useAPI();
+  const { get, error } = useAPI();
 
   const [menuItems, setMenuItems] = useState([]);
   const [userInfo, setUserInfo] = useState(null);
   const [userId, setUserId] = useState();
 
   useEffect(() => {
-    if (!userId && status !== "authenticated") return;
-
-    if (!userId) {
-      setUserId(session?.user?.id);
+    if (status !== "authenticated") {
+      setUserId(null);
+      setUserInfo(null);
+      return;
     }
+    if (!userId) return;
+
+    setUserId(session?.user?.id);
 
     const fetchUserInfo = async () => {
       if (!userId) return;
 
       try {
         const data = await get(`/user/${userId}`);
-        setUserInfo(data);
+        if (!error) setUserInfo(data);
       } catch (error) {
         logError("Failed to fetch user info", error);
       }
