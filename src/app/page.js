@@ -2,7 +2,7 @@
 import React from "react";
 import TastingSession from "@/components/HeroSlider/HeroSlider";
 import ServicesBanner from "@/components/ServicesBanner/ServicesBanner";
-import SalesCards from "@/components/SalesCards/SalesCards";
+import TopWinesSection from "@/components/Slider/TopWinesSection";
 export default function Home() {
   return (
     <div className="flex w-[100%]" data-testid="home-container">
@@ -12,7 +12,7 @@ export default function Home() {
       >
         <TastingSession />
         <ServicesBanner />
-        <SalesCards />
+        <TopWinesSection />
       </main>
     </div>
   );

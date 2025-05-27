@@ -54,17 +54,17 @@ const wineData = [
 
 const TopWinesSection = () => {
   return (
-    <section className="relative w-full bg-primary-light py-20 pb-24 text-center">
+    <section className="relative w-full bg-primary-light py-6 pb-24 text-center">
       <div className="mb-[-60px]">
-        <h3 className="text-titleMedium font-semibold text-primary-normal">
-          MOST POPULAR PRODUCTS
+        <h3 className="text-titleMedium font-semibold">
+          Most Popular Products
         </h3>
-        <h2 className="text-displayLarge font-regular text-tertiary1-dark">
-          Top Wines
+        <h2 className="py-6 text-displayLarge font-regular text-tertiary1-dark">
+          Our Top Wines
         </h2>
-        <p className="mt-2 text-bodyLarge font-regular text-tertiary1-dark">
-          Our Exclusive Selection of Finest Wines, Handpicked for You <br />
-          Discover our wine selection
+        <p className="mb-6 text-bodyLarge font-regular text-tertiary1-dark">
+          There are many variations of passages of Lorem Ipsum available but the
+          majority have suffered alteration in some form.
         </p>
       </div>
 

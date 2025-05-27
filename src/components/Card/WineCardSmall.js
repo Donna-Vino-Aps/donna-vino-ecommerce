@@ -29,7 +29,7 @@ const WineCardSmall = ({
       data-testid="wine-card"
       className="group relative flex min-h-[550px] w-[320px] items-center justify-center"
     >
-      <div className="relative mb-5 mt-5 flex min-h-[411px] w-[270px] cursor-pointer flex-col overflow-visible rounded-lg bg-tertiary2-light shadow-xl transition-transform duration-300 hover:scale-105">
+      <div className="relative mb-5 mt-5 flex min-h-[411px] w-[300px] cursor-pointer flex-col overflow-visible rounded-lg bg-tertiary2-light shadow-xl transition-transform duration-300 hover:scale-105">
         {isNew && (
           <span className="absolute right-3 top-3 z-20 flex items-center gap-1 rounded bg-primary-normal px-2 py-1 text-bodyMedium font-medium text-tertiary2-light">
             New
@@ -79,7 +79,7 @@ const WineCardSmall = ({
           </div>
         </div>
 
-        <div className="flex w-full flex-grow flex-col items-center justify-center pb-[1.25rem]">
+        <div className="flex w-full flex-grow items-center justify-center pb-[1.25rem]">
           <div className="flex min-h-[71px] w-full flex-col items-center p-4 text-center">
             <h3
               data-testid="wine-title"
@@ -94,6 +94,7 @@ const WineCardSmall = ({
               Kr. {price.toFixed(2)}
             </p>
           </div>
+          <div className="flex min-h-[71px] w-full flex-col items-center p-4 text-center"></div>
         </div>
       </div>
     </section>
