@@ -63,8 +63,8 @@ const TopWinesSection = () => {
           Our Top Wines
         </h2>
         <p className="mb-6 text-bodyLarge font-regular text-tertiary1-dark">
-          There are many variations of passages of Lorem Ipsum available but the
-          majority have suffered alteration in some form.
+          Our Exclusive Selection of Finest Wines, Handpicked for You Discover
+          our wine selection
         </p>
       </div>
 
