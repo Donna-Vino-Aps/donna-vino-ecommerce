@@ -80,6 +80,8 @@ export const UserContextProvider = ({ children }) => {
     }
 
     const fetchUserInfo = async () => {
+      if (!userId) return;
+
       try {
         const response = await get(`/user/${userId}`);
         const data = await response.json();
