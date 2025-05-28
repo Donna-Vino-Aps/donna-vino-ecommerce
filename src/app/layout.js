@@ -5,23 +5,22 @@ import "./globals.css";
 import Footer from "../components/Footer/Footer.js";
 import Navbar from "../components/NavBar/NavBar.js";
 import { LanguageProvider } from "@/context/LanguageContext";
-import { CredentialsProvider } from "@/context/CredentialsContext";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-import { GoogleOAuthProvider } from "@react-oauth/google";
 import { UserContextProvider } from "@/context/UserContext";
+import { SessionProvider } from "next-auth/react";
+import APIProvider from "@/context/ApiProvider";
 
 const RootLayout = ({ children }) => {
   return (
-    <GoogleOAuthProvider clientId={process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID}>
-      <LocalizationProvider dateAdapter={AdapterDayjs}>
-        <html lang="en">
-          <body className="flex min-h-screen w-full flex-col bg-white font-barlow text-tertiary1-normal">
-            <CredentialsProvider>
-              <LanguageProvider>
+    <LocalizationProvider dateAdapter={AdapterDayjs}>
+      <html lang="en">
+        <body className="flex min-h-screen w-full flex-col bg-white font-barlow text-tertiary1-normal">
+          <LanguageProvider>
+            <SessionProvider>
+              <APIProvider>
                 <UserContextProvider>
                   <Navbar />
-
                   <main
                     className="flex-grow"
                     role="main"
@@ -31,12 +30,12 @@ const RootLayout = ({ children }) => {
                   </main>
                   <Footer />
                 </UserContextProvider>
-              </LanguageProvider>
-            </CredentialsProvider>
-          </body>
-        </html>
-      </LocalizationProvider>
-    </GoogleOAuthProvider>
+              </APIProvider>
+            </SessionProvider>
+          </LanguageProvider>
+        </body>
+      </html>
+    </LocalizationProvider>
   );
 };
 

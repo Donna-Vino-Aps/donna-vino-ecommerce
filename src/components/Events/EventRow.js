@@ -22,7 +22,7 @@ const EventRow = ({ event, showModal }) => {
   return (
     <>
       <div
-        className={`mb-4 flex flex-row gap-1 border-l-4 pl-2 ${seatStatus.borderColor}`}
+        className={`mb-4 flex flex-row gap-3 border-l-4 pl-2 ${seatStatus.borderColor}`}
       >
         <div className="flex w-[22%] flex-col items-start">
           <p className="text-bodyMedium">{formattedDate}</p>

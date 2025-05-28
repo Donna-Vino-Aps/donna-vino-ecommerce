@@ -15,7 +15,7 @@ const CalendarFrame = ({ events, onEventClick }) => {
   }
 
   return (
-    <div className="relative mx-10 mb-12 flex flex-col items-center md:mx-2 lg:mx-4">
+    <div className="relative flex flex-col items-center">
       <CalendarMonthPicker />
       <Calendar events={events} onEventClick={onEventClick} />
       <ColorInfo />
