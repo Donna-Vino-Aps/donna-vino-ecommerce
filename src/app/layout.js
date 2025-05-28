@@ -1,6 +1,7 @@
 "use client";
 import React from "react";
 import PropTypes from "prop-types";
+import Script from "next/script";
 import "./globals.css";
 import Footer from "../components/Footer/Footer.js";
 import Navbar from "../components/NavBar/NavBar.js";
@@ -31,7 +32,7 @@ const RootLayout = ({ children }) => {
             </SessionProvider>
           </LanguageProvider>
 
-          {process.env.NODE_ENV === "production" && (
+          {process.env.NEXT_PUBLIC_NODE_ENV === "production" && (
             <Script
               defer
               src="https://cloud.umami.is/script.js"
