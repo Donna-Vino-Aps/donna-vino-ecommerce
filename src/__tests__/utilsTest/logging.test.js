@@ -76,4 +76,70 @@ describe("Logging Utilities", () => {
       consoleLogMock.mockRestore();
     });
   });
+
+  describe("logWarning", () => {
+    it("logWarning should log to the console.warn", () => {
+      const consoleWarnMock = jest
+        .spyOn(console, "warn")
+        .mockImplementation(() => {});
+
+      expect(consoleWarnMock).toHaveBeenCalledTimes(0);
+
+      logWarning("Some warning");
+
+      expect(consoleWarnMock).toHaveBeenCalledTimes(1);
+
+      consoleWarnMock.mockRestore();
+    });
+
+    it("logWarning should support multiple arguments", () => {
+      const consoleWarnMock = jest
+        .spyOn(console, "warn")
+        .mockImplementation(() => {});
+
+      const limit = { current: 95, max: 100 };
+      logWarning("API rate limit approaching:", limit);
+
+      expect(consoleWarnMock).toHaveBeenCalledTimes(1);
+      expect(consoleWarnMock).toHaveBeenLastCalledWith(
+        "API rate limit approaching:",
+        limit,
+      );
+
+      consoleWarnMock.mockRestore();
+    });
+
+    it("logWarning should support mixed argument types", () => {
+      const consoleWarnMock = jest
+        .spyOn(console, "warn")
+        .mockImplementation(() => {});
+
+      logWarning("Database connection slow", 1500, "ms", { action: "retry" });
+
+      expect(consoleWarnMock).toHaveBeenCalledTimes(1);
+      expect(consoleWarnMock).toHaveBeenLastCalledWith(
+        "Database connection slow",
+        1500,
+        "ms",
+        { action: "retry" },
+      );
+
+      consoleWarnMock.mockRestore();
+    });
+
+    it("logWarning should not log in production environment", () => {
+      const consoleWarnMock = jest
+        .spyOn(console, "warn")
+        .mockImplementation(() => {});
+
+      // Set environment to production
+      process.env.NODE_ENV = "production";
+
+      logWarning("This warning should not be logged");
+
+      expect(consoleWarnMock).not.toHaveBeenCalled();
+
+      consoleWarnMock.mockRestore();
+    });
+  });
 });
