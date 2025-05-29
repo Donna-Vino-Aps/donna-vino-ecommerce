@@ -16,7 +16,7 @@ const GoogleAuth = () => {
         color="primaryActive"
         width="full"
         onClick={() => signIn("google", { callbackUrl: "/" })}
-        icon="/icons/google-darkred.svg"
+        icon="/icons/google-darkred2.svg"
         data-testid="login-google-button"
         aria-label="Google Sign In"
       />
