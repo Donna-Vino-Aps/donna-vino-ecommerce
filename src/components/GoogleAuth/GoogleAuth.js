@@ -13,12 +13,12 @@ const GoogleAuth = () => {
     <div className="flex w-[17.5rem] flex-col items-center justify-center space-y-2 md:w-[18rem] lg:w-[25rem]">
       <Button
         text={translations["logIn.signin-google"]}
+        color="primaryActive"
+        width="full"
         onClick={() => signIn("google", { callbackUrl: "/" })}
-        variant="lightRedWide"
         icon="/icons/google-darkred.svg"
         data-testid="login-google-button"
         aria-label="Google Sign In"
-        className="w-full"
       />
     </div>
   );

@@ -48,7 +48,7 @@ const EventRow = ({ event, showModal }) => {
       <div className="mb-4 flex justify-end py-2 pr-2">
         <Button
           text={translations["events.bookSeats"]}
-          variant="redSmall"
+          extraStyle="px-4 min-w-[6.25rem] !h-[1.75rem] text-bodyMedium"
           onClick={() => showModal(event)}
           disabled={isFull}
           ariaLabel={translations["events.bookSeats"]}

@@ -171,7 +171,7 @@ const Welcome = () => {
 
           <Button
             text={translations["signUp.welcome.button"]}
-            variant="redWide"
+            width="full"
             onClick={() => router.push("/login")}
             testId="login-button"
             ariaLabel={translations["signUp.welcome.button"]}
