@@ -106,7 +106,7 @@ function EventTicketReservation({ eventDetails = {}, onClose }) {
             <div className="w-full md:flex-1">
               <Button
                 text={translations["event.reservation.close"]}
-                variant="redWide"
+                width="full"
                 onClick={onClose}
                 ariaLabel={translations["event.reservation.close"]}
                 testId="close-reservation-button"
