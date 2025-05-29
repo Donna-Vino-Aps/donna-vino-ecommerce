@@ -73,7 +73,7 @@ const LoginForm = () => {
               className="flex h-auto w-full flex-col items-center justify-center space-y-2"
               data-testid="login-form"
             >
-              <div className="mb-1 w-[19.063rem] md:w-[18rem] lg:w-[25rem]">
+              <div className="mb-2 w-[19.063rem] md:w-[18rem] lg:w-[25rem]">
                 <TextInput
                   name="email"
                   label={translations["logIn.label.email"]}
@@ -103,12 +103,13 @@ const LoginForm = () => {
                   testId="login-button"
                   ariaLabel="Submit Log In"
                 />
+
+                <GoogleAuth
+                  setMsg={setMsg}
+                  setSuccess={setSuccessStatus}
+                  setLoading={setLoading}
+                />
               </div>
-              <GoogleAuth
-                setMsg={setMsg}
-                setSuccess={setSuccessStatus}
-                setLoading={setLoading}
-              />
               {/* Message container with fixed height to prevent inputs from moving */}
               <div
                 className="flex min-h-[2rem] justify-center"
@@ -122,7 +123,7 @@ const LoginForm = () => {
                   {loading ? "Loading..." : msg}
                 </p>
               </div>
-              <div className="relative bottom-1 !mb-1 !mt-1 flex items-center space-x-1 text-labelMedium">
+              <div className="relative bottom-3 md:bottom-0 !mb-1 !mt-2 flex items-center space-x-1 text-labelMedium">
                 <Link
                   href="/forgotpassword"
                   data-testid="forget-password-link"
@@ -132,8 +133,8 @@ const LoginForm = () => {
                   {translations["logIn.forgot-link"]}
                 </Link>
               </div>
-              <div className="relative bottom-2 w-[19.063rem] md:top-2 md:w-[18rem] lg:w-[25rem]">
-                <h2 className="mb-3 mt-1 self-center text-titleMedium font-medium text-tertiary1-normal sm:self-start md:text-headlineSmall md:font-normal">
+              <div className="relative w-[19.063rem] md:top-4 md:w-[18rem] lg:w-[25rem]">
+                <h2 className="mb-3 mt-1 self-center text-titleLarge font-normal text-tertiary1-normal sm:self-start md:text-headlineSmall md:font-normal">
                   {translations["logIn.no-account"]}
                 </h2>
                 <Button
