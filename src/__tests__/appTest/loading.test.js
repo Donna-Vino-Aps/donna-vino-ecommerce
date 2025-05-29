@@ -13,7 +13,7 @@ describe("RootLoading", () => {
 
     const overlay = screen.getByTestId("spinner-mock").parentElement;
     expect(overlay).toHaveClass(
-      "fixed inset-0 z-50 flex items-center justify-center bg-white/80 backdrop-blur-sm",
+      "absolute inset-0 z-50 flex items-center justify-center bg-white/80 backdrop-blur-sm",
     );
 
     expect(Spinner).toHaveBeenCalled();
