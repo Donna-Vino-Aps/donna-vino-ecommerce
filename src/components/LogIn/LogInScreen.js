@@ -12,12 +12,15 @@ const LoginScreen = () => {
         <section className="flex max-h-[33.75rem] max-w-[21.5rem] flex-1 flex-col items-center justify-center rounded-b-lg bg-white p-4 pt-4 shadow-lg md:h-auto md:max-h-[37.25rem] md:max-w-[35.781rem] md:rounded-lg md:rounded-l-xl md:rounded-r-none md:shadow-none">
           <LoginForm />
         </section>
-        <figure className="relative hidden max-h-[37.25rem] w-full max-w-[35.781rem] flex-1 justify-center overflow-hidden md:flex md:h-auto md:w-[50%] md:rounded-l-none md:rounded-r-xl">
+        <figure className="relative max-h-[37.25rem] w-full hidden max-w-[35.781rem] flex-1 justify-center overflow-hidden md:h-auto md:flex md:w-[50%] md:rounded-l-none md:rounded-r-xl">
           <Image
             src="/images/dv-join.jpg"
             alt="Wine glasses toasting"
+            sizes="(max-width: 767px) 0vw, (min-width: 768px) 50vw"
             fill
             className="object-cover object-right"
+            loading="eager"
+            priority={false}
           />
         </figure>
       </div>
