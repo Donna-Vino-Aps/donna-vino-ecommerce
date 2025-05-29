@@ -66,7 +66,6 @@ describe("Logging Utilities", () => {
         .spyOn(console, "log")
         .mockImplementation(() => {});
 
-      // Set environment to production
       process.env.NODE_ENV = "production";
 
       logInfo("This should not be logged");
@@ -132,7 +131,6 @@ describe("Logging Utilities", () => {
         .spyOn(console, "warn")
         .mockImplementation(() => {});
 
-      // Set environment to production
       process.env.NODE_ENV = "production";
 
       logWarning("This warning should not be logged");
@@ -140,6 +138,121 @@ describe("Logging Utilities", () => {
       expect(consoleWarnMock).not.toHaveBeenCalled();
 
       consoleWarnMock.mockRestore();
+    });
+  });
+
+  describe("logError", () => {
+    it("logError should log simple messages to the console.error", () => {
+      const consoleErrorMock = jest
+        .spyOn(console, "error")
+        .mockImplementation(() => {});
+
+      expect(consoleErrorMock).toHaveBeenCalledTimes(0);
+
+      logError("Some error message");
+
+      expect(consoleErrorMock).toHaveBeenCalledTimes(1);
+      expect(consoleErrorMock).toHaveBeenLastCalledWith(
+        "ERROR: ",
+        "Some error message",
+      );
+
+      consoleErrorMock.mockRestore();
+    });
+
+    it("logError should log Error objects with stack to the console.error", () => {
+      const consoleErrorMock = jest
+        .spyOn(console, "error")
+        .mockImplementation(() => {});
+
+      expect(consoleErrorMock).toHaveBeenCalledTimes(0);
+
+      const errMessage = "My error";
+      const err = new Error(errMessage);
+      logError(err);
+
+      expect(consoleErrorMock).toHaveBeenCalledTimes(1);
+      expect(consoleErrorMock).toHaveBeenLastCalledWith(errMessage, err.stack);
+
+      consoleErrorMock.mockRestore();
+    });
+
+    it("logError should support multiple arguments", () => {
+      const consoleErrorMock = jest
+        .spyOn(console, "error")
+        .mockImplementation(() => {});
+
+      const additionalInfo = { code: 500, details: "Server error" };
+      logError("Connection failed", additionalInfo);
+
+      expect(consoleErrorMock).toHaveBeenCalledTimes(1);
+      expect(consoleErrorMock).toHaveBeenLastCalledWith(
+        "ERROR: ",
+        "Connection failed",
+        additionalInfo,
+      );
+
+      consoleErrorMock.mockRestore();
+    });
+
+    it("logError should support multiple arguments with Error objects", () => {
+      const consoleErrorMock = jest
+        .spyOn(console, "error")
+        .mockImplementation(() => {});
+
+      const err = new Error("Database error");
+      const additionalInfo = { table: "users", operation: "insert" };
+
+      logError(err, additionalInfo);
+
+      expect(consoleErrorMock).toHaveBeenCalledTimes(1);
+      expect(consoleErrorMock).toHaveBeenLastCalledWith(
+        err.message,
+        err.stack,
+        additionalInfo,
+      );
+
+      consoleErrorMock.mockRestore();
+    });
+
+    it("logError should handle inner errors", () => {
+      const consoleErrorMock = jest
+        .spyOn(console, "error")
+        .mockImplementation(() => {});
+
+      const innerError = new Error("Inner error");
+      const error = new Error("Main error");
+      error.innerError = innerError;
+
+      logError(error);
+
+      expect(consoleErrorMock).toHaveBeenCalledTimes(2);
+      expect(consoleErrorMock).toHaveBeenNthCalledWith(
+        1,
+        error.message,
+        error.stack,
+      );
+      expect(consoleErrorMock).toHaveBeenNthCalledWith(
+        2,
+        "Inner Error: ",
+        innerError,
+      );
+
+      consoleErrorMock.mockRestore();
+    });
+
+    it("logError should not log in production environment", () => {
+      const consoleErrorMock = jest
+        .spyOn(console, "error")
+        .mockImplementation(() => {});
+
+      process.env.NODE_ENV = "production";
+
+      logError(new Error("This error should not be logged"));
+
+      expect(consoleErrorMock).not.toHaveBeenCalled();
+
+      consoleErrorMock.mockRestore();
     });
   });
 });
