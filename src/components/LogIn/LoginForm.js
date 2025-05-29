@@ -123,7 +123,7 @@ const LoginForm = () => {
                   {loading ? "Loading..." : msg}
                 </p>
               </div>
-              <div className="relative bottom-3 md:bottom-0 !mb-1 !mt-2 flex items-center space-x-1 text-labelMedium">
+              <div className="relative bottom-3 !mb-1 !mt-2 flex items-center space-x-1 text-labelMedium md:bottom-0">
                 <Link
                   href="/forgotpassword"
                   data-testid="forget-password-link"
