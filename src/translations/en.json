@@ -255,5 +255,8 @@
   "sales.footer": "This information is provided in compliance with the Consumer Ombudsman’s requirements for use of MobilePay and ensures transparency for our valued customers.",
   "notFound.title": "Page not found",
   "notFound.message": "Sorry, the page you are looking for doesn't exist or has been moved.",
-  "notFound.button": "Back to home"
+  "notFound.button": "Back to home",
+  "faq.h1": "Customer FAQs",
+  "faq.h1-mobile": "FAQs",
+  "faq.p": "Here you can find the most searched questions by our clients."
 }

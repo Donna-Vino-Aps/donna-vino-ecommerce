@@ -254,5 +254,8 @@
   "sales.footer": "Disse oplysninger gives i overensstemmelse med Forbrugerombudsmandens krav til brug af MobilePay og sikrer gennemsigtighed for vores værdsatte kunder.",
   "notFound.title": "Siden blev ikke fundet",
   "notFound.message": "Beklager, siden du leder efter findes ikke eller er blevet flyttet.",
-  "notFound.button": "Tilbage til forsiden"
+  "notFound.button": "Tilbage til forsiden",
+  "faq.h1": "Ofte stillede spørgsmål",
+  "faq.h1-mobile": "Almindelige spørgsmål",
+  "faq.p": "Her finder du de mest søgte spørgsmål fra vores kunder."
 }
