@@ -8,7 +8,7 @@ const LoginScreen = () => {
 
   return (
     <div className="flex max-h-[49.375rem] flex-col justify-center bg-primary-light bg-dots-sm bg-dots-size-sm sm:bg-dots-lg sm:bg-dots-size-lg">
-      <div className="mx-2 my-8 md:my-24 flex items-start md:items-center justify-center overflow-hidden px-4 md:mx-8 md:max-h-[49.375rem]">
+      <div className="mx-2 my-8 flex items-start justify-center overflow-hidden px-4 md:mx-8 md:my-24 md:max-h-[49.375rem] md:items-center">
         <section className="flex h-full max-h-[33.75rem] max-w-[21.5rem] flex-1 flex-col items-center justify-center rounded-b-lg bg-white p-4 pt-4 shadow-lg md:h-auto md:max-h-[37.25rem] md:max-w-[35.781rem] md:rounded-lg md:rounded-l-xl md:rounded-r-none md:shadow-none">
           <LoginForm />
         </section>
