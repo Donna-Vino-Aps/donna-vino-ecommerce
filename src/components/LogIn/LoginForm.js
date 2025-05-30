@@ -29,7 +29,7 @@ const LoginForm = () => {
       className="flex min-h-[37.25rem] flex-col"
       data-testid="login-container"
     >
-      <div className="mx-2 mt-9 flex flex-col items-center justify-center md:mt-6 md:w-[18rem] lg:w-[25rem]">
+      <div className="mx-2 pt-9 flex flex-col items-center justify-center md:pt-6 md:w-[18rem] lg:w-[25rem]">
         <div className="flex w-[19.063rem] items-start justify-start md:w-[18rem] lg:w-[25rem]">
           <h2 className="mb-4 mt-5 text-titleLarge text-tertiary1-normal md:text-headlineMedium">
             {translations["logIn.button"]}
