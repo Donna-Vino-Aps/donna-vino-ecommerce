@@ -29,7 +29,10 @@ const SalesPolicy = () => {
           <Button
             text={translations["button.go-back"]}
             icon="/icons/back-arrow.svg"
-            variant="redLine"
+            color="transparent"
+            width="medium"
+            variant="outline"
+            border="primary"
             ariaLabel="Go back"
             testId="go-back-button"
             onClick={() => router.back()}
