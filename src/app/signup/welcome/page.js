@@ -182,29 +182,29 @@ const Welcome = () => {
             >
               {getButtonText()}
             </button>
-
-            {cooldownRemaining > 0 && (
-              <span className="ml-2 text-bodySmall text-tertiary2-dark">
-                ({cooldownRemaining}s)
-              </span>
-            )}
-
-            {showResendMessage && (
-              <div className="mt-2">
-                <p
-                  className={`text-center text-bodySmall ${
-                    resendSuccess
-                      ? "text-secondary-normal"
-                      : "text-primary-normal"
-                  }`}
-                  aria-live="polite"
-                  data-testid="resend-message"
-                >
-                  {resendMsg}
-                </p>
-              </div>
-            )}
           </div>
+
+          {cooldownRemaining > 0 && (
+            <span className="ml-2 text-bodySmall text-tertiary2-dark">
+              ({cooldownRemaining}s)
+            </span>
+          )}
+
+          {showResendMessage && (
+            <div className="mt-2">
+              <p
+                className={`text-center text-bodySmall ${
+                  resendSuccess
+                    ? "text-secondary-normal"
+                    : "text-primary-normal"
+                }`}
+                aria-live="polite"
+                data-testid="resend-message"
+              >
+                {resendMsg}
+              </p>
+            </div>
+          )}
         </div>
       </div>
     </section>
