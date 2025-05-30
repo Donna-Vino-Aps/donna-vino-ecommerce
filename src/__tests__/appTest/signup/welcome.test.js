@@ -29,12 +29,6 @@ jest.mock("@/utils/sessionStorage", () => ({
   SESSION_KEYS: { PENDING_USER_EMAIL: "PENDING_USER_EMAIL" },
 }));
 
-// Mock next/image
-jest.mock("next/image", () => ({
-  __esModule: true,
-  default: (props) => <img {...props} alt={props.alt || ""} />,
-}));
-
 // Constants matching the Welcome component
 const COOLDOWN_SECONDS = 60;
 const MAX_RESEND_ATTEMPTS = 5;
@@ -43,10 +37,7 @@ describe("Welcome Page", () => {
   const mockRouter = { push: jest.fn() };
   const mockPerformFetch = jest.fn();
   const defaultTranslations = {
-    "signUp.welcome.title": "👏 Done! Welcome on board! 👏",
-    "signUp.welcome.message":
-      "Your email has been successfully registered in our system. <strong>Please check your inbox</strong> for the confirmation email regarding your registration. Once confirmed, you will be able to access your personalized profile dashboard, where you can upload your profile picture, update your information, and complete all the required details to streamline your future orders and enhance your shopping experience.",
-    "signUp.welcome.button": "Back to the log in page",
+    "signUp.welcome.title": "Done! Welcome on board!",
     "signUp.welcome.resend": "Didn't receive the email?",
     "signUp.welcome.resend.button": "Resend",
     "signUp.welcome.resend.sending": "Sending...",
@@ -83,22 +74,11 @@ describe("Welcome Page", () => {
     sessionStorage.getSessionItem.mockReturnValue("test@example.com");
   });
 
-  test("renders welcome page with correct title and buttons", () => {
+  test("renders welcome page with correct title and resend button", () => {
     render(<Welcome />);
     expect(screen.getByText(/Done! Welcome on board!/i)).toBeInTheDocument();
     expect(screen.getByText(/Didn't receive the email?/i)).toBeInTheDocument();
-    expect(
-      screen.getByRole("button", { name: /Back to the log in page/i }),
-    ).toBeInTheDocument();
-  });
-
-  test("login button redirects to login page", () => {
-    render(<Welcome />);
-    const loginButton = screen.getByRole("button", {
-      name: /Back to the log in page/i,
-    });
-    fireEvent.click(loginButton);
-    expect(mockRouter.push).toHaveBeenCalledWith("/login");
+    expect(screen.getByRole("button", { name: /Resend/i })).toBeInTheDocument();
   });
 
   test("calls resend API with correct email", () => {
