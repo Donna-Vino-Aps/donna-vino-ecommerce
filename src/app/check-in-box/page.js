@@ -2,12 +2,17 @@
 import React from "react";
 import Button from "@/components/Button/Button";
 import { useLanguage } from "@/context/LanguageContext";
+import MetaTags from "@/components/SEO/MetaTags";
 import Link from "next/link";
 
 const CheckInbox = () => {
   const { translations } = useLanguage();
   return (
     <div className="relative flex h-screen items-center justify-center bg-[#FDE8E9]">
+      <MetaTags
+        title="Verification reset password"
+        description="Verification after sending email to reset password"
+      />
       <img
         src="/vector.svg"
         alt="Background Vector"
