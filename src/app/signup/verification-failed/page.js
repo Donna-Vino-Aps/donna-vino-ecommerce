@@ -3,7 +3,6 @@ import React from "react";
 import Button from "@/components/Button/Button";
 import { useLanguage } from "@/context/LanguageContext";
 import { useRouter } from "next/navigation";
-import Image from "next/image";
 
 const VerificationFailed = () => {
   const { translations } = useLanguage();
