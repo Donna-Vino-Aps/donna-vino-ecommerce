@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Formik } from "formik";
 import { useLanguage } from "@/context/LanguageContext";
 import Button from "@/components/Button/Button";
@@ -9,14 +9,26 @@ import CheckboxField from "@/components/FormFields/CheckboxField";
 import dayjs from "dayjs";
 import { createSignUpSchema } from "@/validation/signUpSchema";
 import { useRouter } from "next/navigation";
+import { useAPI } from "@/context/ApiProvider";
 
 const SignUpScreen = () => {
   const { translations } = useLanguage();
   const router = useRouter();
+  const { post, error: apiError, isLoading } = useAPI();
   const [msg, setMsg] = useState("");
   const [success, setSuccessStatus] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
   const [userBirthDay, setUserBirthDay] = useState();
+
+  useEffect(() => {
+    if (apiError) {
+      setMsg(
+        typeof apiError === "string"
+          ? apiError
+          : apiError.message || "An unknown error occurred",
+      );
+      setSuccessStatus(false);
+    }
+  }, [apiError]);
 
   const validationSchema = createSignUpSchema(translations);
 
@@ -38,29 +50,17 @@ const SignUpScreen = () => {
 
   const handleSignup = async (values, setSubmitting) => {
     const formattedData = formatSignUpData(values);
-
-    const backendURI =
-      process.env.NEXT_PUBLIC_API_URL_LOCAL ||
-      process.env.NEXT_PUBLIC_API_URL_HEROKU;
-
-    const signUpURI = `${backendURI}/api/register`;
-    setIsLoading(true);
-    const response = await fetch(signUpURI, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(formattedData),
-    });
-    setSubmitting(false);
-    setIsLoading(false);
-    if (response.ok) {
-      setSuccessStatus(true);
-      router.push("/signup/welcome");
-    }
-    const responseData = await response.json();
-    setMsg(responseData.message);
+    setMsg("");
     setSuccessStatus(false);
+
+    const responseData = await post("register", { payload: formattedData });
+
+    setSubmitting(false);
+
+    if (responseData) {
+      setSuccessStatus(true);
+      router.push("/signup/pending");
+    }
   };
 
   return (
