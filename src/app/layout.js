@@ -31,7 +31,7 @@ const RootLayout = ({ children }) => {
             </SessionProvider>
           </LanguageProvider>
 
-          {process.env.NODE_ENV === "production" && (
+          {process.env.NEXT_PUBLIC_NODE_ENV === "production" && (
             <Script
               defer
               src="https://cloud.umami.is/script.js"
