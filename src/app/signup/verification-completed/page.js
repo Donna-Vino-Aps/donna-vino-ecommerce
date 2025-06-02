@@ -47,7 +47,7 @@ const VerificationCompletedContent = () => {
           >
             {translations["signUp.verification-completed.title"]}
           </h1>
-          <p className="mb-6 text-left text-bodyLarge sm:mb-4">
+          <p className="mb-6 text-center text-bodyLarge sm:mb-4">
             {translations["signUp.verification-completed.message"]}
           </p>
         </div>
