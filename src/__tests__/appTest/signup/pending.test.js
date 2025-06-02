@@ -1,6 +1,6 @@
 import React from "react";
 import { render, screen, fireEvent, act } from "@testing-library/react";
-import Welcome from "@/app/signup/welcome/page";
+import Pending from "@/app/signup/pending/page";
 import { useLanguage } from "@/context/LanguageContext";
 import { useRouter } from "next/navigation";
 import useFetch from "@/hooks/api/useFetch";
@@ -29,11 +29,11 @@ jest.mock("@/utils/sessionStorage", () => ({
   SESSION_KEYS: { PENDING_USER_EMAIL: "PENDING_USER_EMAIL" },
 }));
 
-// Constants matching the Welcome component
+// Constants matching the Pending component
 const COOLDOWN_SECONDS = 60;
 const MAX_RESEND_ATTEMPTS = 5;
 
-describe("Welcome Page", () => {
+describe("Pending Page", () => {
   const mockRouter = { push: jest.fn() };
   const mockPerformFetch = jest.fn();
   const defaultTranslations = {
@@ -74,15 +74,15 @@ describe("Welcome Page", () => {
     sessionStorage.getSessionItem.mockReturnValue("test@example.com");
   });
 
-  test("renders welcome page with correct title and resend button", () => {
-    render(<Welcome />);
+  test("renders pending page with correct title and resend button", () => {
+    render(<Pending />);
     expect(screen.getByText(/Done! Welcome on board!/i)).toBeInTheDocument();
     expect(screen.getByText(/Didn't receive the email?/i)).toBeInTheDocument();
     expect(screen.getByRole("button", { name: /Resend/i })).toBeInTheDocument();
   });
 
   test("calls resend API with correct email", () => {
-    render(<Welcome />);
+    render(<Pending />);
     const resendButton = screen.getByTestId("resend-button");
 
     act(() => {
@@ -98,7 +98,7 @@ describe("Welcome Page", () => {
   test("shows no email error when email is not available", () => {
     sessionStorage.getSessionItem.mockReturnValue(null);
 
-    render(<Welcome />);
+    render(<Pending />);
     const resendButton = screen.getByTestId("resend-button");
 
     act(() => {
@@ -123,7 +123,7 @@ describe("Welcome Page", () => {
       },
     );
 
-    render(<Welcome />);
+    render(<Pending />);
     const resendButton = screen.getByTestId("resend-button");
 
     act(() => {
@@ -147,7 +147,7 @@ describe("Welcome Page", () => {
       error: null,
     });
 
-    render(<Welcome />);
+    render(<Pending />);
     const resendButton = screen.getByTestId("resend-button");
     expect(resendButton).toHaveTextContent(/Sending/i);
   });
@@ -166,7 +166,7 @@ describe("Welcome Page", () => {
       },
     );
 
-    render(<Welcome />);
+    render(<Pending />);
     const resendButton = screen.getByTestId("resend-button");
 
     act(() => {
@@ -197,7 +197,7 @@ describe("Welcome Page", () => {
       },
     );
 
-    render(<Welcome />);
+    render(<Pending />);
     const resendButton = screen.getByTestId("resend-button");
 
     for (let i = 0; i < MAX_RESEND_ATTEMPTS; i++) {
@@ -247,7 +247,7 @@ describe("Welcome Page", () => {
       },
     );
 
-    render(<Welcome />);
+    render(<Pending />);
     const resendButton = screen.getByTestId("resend-button");
 
     act(() => {
