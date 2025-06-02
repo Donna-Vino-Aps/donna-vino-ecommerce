@@ -254,5 +254,9 @@
   "sales.footer": "Disse oplysninger gives i overensstemmelse med Forbrugerombudsmandens krav til brug af MobilePay og sikrer gennemsigtighed for vores værdsatte kunder.",
   "notFound.title": "Siden blev ikke fundet",
   "notFound.message": "Beklager, siden du leder efter findes ikke eller er blevet flyttet.",
-  "notFound.button": "Tilbage til forsiden"
+  "notFound.button": "Tilbage til forsiden",
+  "api.error.default": "Ukendt fejl. Prøv venligst igen senere.",
+  "api.error.offline": "Du lader til at være offline. Kontroller venligst din internetforbindelse og prøv igen.",
+  "api.error.serverDown": "Kan ikke få forbindelse til serveren. Tjenesten kan være nede eller opleve problemer.",
+  "api.error.connectionFailed": "Forbindelse til serveren mislykkedes. Prøv venligst igen senere."
 }
