@@ -1,12 +1,13 @@
 "use client";
 
-import React, { useEffect } from "react";
+import React, { useEffect, Suspense } from "react";
 import Image from "next/image";
 import { useLanguage } from "@/context/LanguageContext";
 import { useRouter, useSearchParams } from "next/navigation";
 import { signIn } from "next-auth/react";
+import Spinner from "@/components/UI/Spinner";
 
-const VerificationCompleted = () => {
+const VerificationCompletedContent = () => {
   const { translations } = useLanguage();
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -48,6 +49,20 @@ const VerificationCompleted = () => {
         </div>
       </div>
     </section>
+  );
+};
+
+const VerificationCompleted = () => {
+  return (
+    <Suspense
+      fallback={
+        <div className="flex h-screen w-full items-center justify-center">
+          <Spinner size="large" />
+        </div>
+      }
+    >
+      <VerificationCompletedContent />
+    </Suspense>
   );
 };
 
