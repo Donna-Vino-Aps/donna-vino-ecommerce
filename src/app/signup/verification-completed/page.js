@@ -17,13 +17,17 @@ const VerificationCompletedContent = () => {
     const refreshToken = searchParams.get("refreshToken");
 
     if (accessToken && refreshToken) {
-      signIn("apiToken", {
-        accessToken,
-        refreshToken,
-        callbackUrl: "/",
-      });
+      const redirectTimer = setTimeout(() => {
+        signIn("apiToken", {
+          accessToken,
+          refreshToken,
+          callbackUrl: "/",
+        });
+      }, 3000);
+
+      return () => clearTimeout(redirectTimer);
     }
-  }, [router.query]);
+  }, [searchParams, router]);
 
   return (
     <section className="my-4 bg-primary-light bg-dots-sm bg-dots-size-sm sm:bg-dots-lg sm:bg-dots-size-lg">
