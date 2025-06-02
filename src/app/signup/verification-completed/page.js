@@ -3,15 +3,17 @@
 import React, { useEffect } from "react";
 import Image from "next/image";
 import { useLanguage } from "@/context/LanguageContext";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { signIn } from "next-auth/react";
 
 const VerificationCompleted = () => {
   const { translations } = useLanguage();
   const router = useRouter();
+  const searchParams = useSearchParams();
 
   useEffect(() => {
-    const { accessToken, refreshToken } = router.query;
+    const accessToken = searchParams.get("accessToken");
+    const refreshToken = searchParams.get("refreshToken");
 
     if (accessToken && refreshToken) {
       signIn("apiToken", {
