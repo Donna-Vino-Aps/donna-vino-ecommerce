@@ -33,6 +33,14 @@ const RootLayout = ({ children }) => {
               </APIProvider>
             </SessionProvider>
           </LanguageProvider>
+
+          {process.env.NEXT_PUBLIC_NODE_ENV === "production" && (
+            <Script
+              defer
+              src="https://cloud.umami.is/script.js"
+              data-website-id="2a60d0b9-2baa-48f9-88df-67e44d159e85"
+            />
+          )}
         </body>
       </html>
     </LocalizationProvider>

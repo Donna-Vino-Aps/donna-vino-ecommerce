@@ -107,7 +107,7 @@ const EventsHeader = () => {
           <h3 className="pt-2 text-headlineMedium">
             2. {translations["events-header.card2-h"]}
           </h3>
-          <p className="text-bodyLarge">
+          <p className="text-bodyMedium lg:text-bodyLarge">
             {translations["events-header.card2-p"]}
           </p>
           <div className="absolute bottom-6 flex w-full items-center justify-between lg:hidden">
@@ -148,7 +148,7 @@ const EventsHeader = () => {
           <h3 className="pt-2  text-headlineMedium">
             3. {translations["events-header.card3-h"]}
           </h3>
-          <p className="text-bodyMedium sm:text-bodyLarge">
+          <p className="text-bodyMedium lg:text-bodyLarge">
             {translations["events-header.card3-p"]}
           </p>
           <button
