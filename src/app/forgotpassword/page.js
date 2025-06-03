@@ -2,7 +2,7 @@
 import React from "react";
 import Button from "@/components/Button/Button";
 import { useLanguage } from "@/context/LanguageContext";
-import MetaTags from "@/components/SEO/MetaTags";
+import SEO from "@/components/SEO/SEO";
 
 import Link from "next/link";
 const ForgotPassword = () => {
@@ -10,9 +10,9 @@ const ForgotPassword = () => {
 
   return (
     <div className="relative flex h-screen items-center justify-center bg-[#FDE8E9]">
-      <MetaTags
-        title="Page to reset password"
-        description="Page to get a reset link to change password"
+      <SEO
+        title={translations["forgotPassword.title"]}
+        description={translations["forgotPassword.description"]}
       />
       <img
         src="/vector.svg"

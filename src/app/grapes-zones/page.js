@@ -1,11 +1,11 @@
 "use client";
 import React from "react";
-import MetaTags from "@/components/SEO/MetaTags";
+import SEO from "@/components/SEO/SEO";
 
 const GrapesZones = () => {
   return (
     <div>
-      <MetaTags title="Grapes & Zones" description="Grapes & Zones" />
+      <SEO title="Grapes & Zones" description="Grapes & Zones" />
       <h1 className="text-center text-headlineLarge">Grapes & Zones</h1>
     </div>
   );

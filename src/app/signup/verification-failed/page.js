@@ -3,6 +3,7 @@ import React, { Suspense } from "react";
 import Button from "@/components/Button/Button";
 import { useLanguage } from "@/context/LanguageContext";
 import { useRouter, useSearchParams } from "next/navigation";
+import SEO from "@/components/SEO/SEO";
 
 const VerificationFailedContent = () => {
   const { translations } = useLanguage();
@@ -58,6 +59,10 @@ const VerificationFailedContent = () => {
 
   return (
     <section className="my-4 bg-primary-light bg-dots-sm bg-dots-size-sm sm:bg-dots-lg sm:bg-dots-size-lg">
+      <SEO
+        title={translations["signUp.verificationFailed.title"]}
+        description={translations["signUp.verificationFailed.description"]}
+      />
       <div className="mx-2 flex flex-col items-center justify-center py-4 sm:py-24">
         <div className="w-full max-w-[35rem] items-center justify-center rounded-2xl bg-tertiary2-light px-5 py-8 shadow-lg sm:px-16 sm:py-10">
           <h1

@@ -2,14 +2,16 @@
 
 import SignUpScreen from "@/components/SignUpScreen/SignUpScreen";
 import React from "react";
-import MetaTags from "@/components/SEO/MetaTags";
+import SEO from "@/components/SEO/SEO";
+import { useLanguage } from "@/context/LanguageContext";
 
 const SignUp = () => {
+  const { translations } = useLanguage();
   return (
     <div>
-      <MetaTags
-        title="Sign up Page"
-        description="Page for users to sign up and be member of Donna Vino"
+      <SEO
+        title={translations["signUp.title"]}
+        description={translations["signUp.description"]}
       />
       <SignUpScreen />;
     </div>

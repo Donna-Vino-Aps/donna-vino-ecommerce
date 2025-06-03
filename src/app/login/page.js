@@ -2,12 +2,17 @@
 
 import LoginScreen from "@/components/LogIn/LogInScreen";
 import React from "react";
-import MetaTags from "@/components/SEO/MetaTags";
+import SEO from "@/components/SEO/SEO";
+import { useLanguage } from "@/context/LanguageContext";
 
 const LogIn = () => {
+  const { translations } = useLanguage();
   return (
     <div>
-      <MetaTags title="Login Page" description="Page for users to login" />
+      <SEO
+        title={translations["logIn.title"]}
+        description={translations["logIn.description"]}
+      />
       <LoginScreen />
     </div>
   );

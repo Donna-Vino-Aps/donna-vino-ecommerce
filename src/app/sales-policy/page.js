@@ -4,8 +4,7 @@ import Button from "@/components/Button/Button";
 import { useLanguage } from "@/context/LanguageContext";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import MetaTags from "@/components/SEO/MetaTags";
-import GraphTags from "@/components/SEO/GraphTags";
+import SEO from "@/components/SEO/SEO";
 
 const SalesPolicy = () => {
   const { translations } = useLanguage();
@@ -13,15 +12,11 @@ const SalesPolicy = () => {
 
   return (
     <>
-      <MetaTags
-        title={`${translations["sales.title"]} - Donna Vino`}
-        description="Read Donna Vino's sales policy regarding payment, shipments, complaints and more."
-      />
-
-      <GraphTags
-        title="Sales Policy | Donna Vino"
-        description="Learn about Donna Vino's sales policies."
+      <SEO
+        title={translations["sales.title"]}
+        description={translations["sales.description"]}
         url="https://shop.donnavino.dk/sales-policy"
+        includeOpenGraph={true}
       />
 
       <main className="flex w-full flex-col gap-3 bg-white font-barlow text-tertiary1-darker">

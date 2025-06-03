@@ -15,6 +15,7 @@ const LoginScreen = () => {
           <img
             src="/images/dv-join.jpg"
             className="h-full w-full object-cover object-right"
+            alt="A wine-themed scene featuring wine bottles, glasses, and a vineyard backdrop."
           />
         </figure>
       </div>

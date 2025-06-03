@@ -5,7 +5,7 @@ import Image from "next/image";
 import { useLanguage } from "@/context/LanguageContext";
 import { useRouter } from "next/navigation";
 import { signIn } from "next-auth/react";
-import MetaTags from "@/components/SEO/MetaTags";
+import SEO from "@/components/SEO/SEO";
 
 const VerificationCompleted = () => {
   const { translations } = useLanguage();
@@ -25,9 +25,11 @@ const VerificationCompleted = () => {
 
   return (
     <section className="my-4 bg-primary-light bg-dots-sm bg-dots-size-sm sm:bg-dots-lg sm:bg-dots-size-lg">
-      <MetaTags
-        title="Verification completed Page"
-        description="Page to inform user that the signup is completed"
+      <SEO
+        title={translations["signUp.verification-completed.seo.title"]}
+        description={
+          translations["signUp.verification-completed.seo.description"]
+        }
       />
       <div className="mx-2 flex flex-col items-center justify-center py-4 sm:py-24">
         <div className="w-full max-w-[35rem] items-center justify-center rounded-2xl bg-tertiary2-light px-5 py-8 shadow-lg sm:px-16 sm:py-10">

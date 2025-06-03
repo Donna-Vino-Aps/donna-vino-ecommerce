@@ -96,6 +96,7 @@ const EventsHeader = () => {
             <img
               className="relative top-[2px]"
               src="/icons/chevron-right-circle.svg"
+              alt="Chevron right in circle icon, indicates forward navigation."
             />
           </button>
         </article>
@@ -115,7 +116,11 @@ const EventsHeader = () => {
               onClick={handlePrevious}
               aria-label={translations["events-header.button-prev"]}
             >
-              <img className="h-4 w-4" src="/icons/chevron-left-circle.svg" />
+              <img
+                alt="Chevron left in circle icon, indicates backward navigation."
+                className="h-4 w-4"
+                src="/icons/chevron-left-circle.svg"
+              />
               <p className="text-tertiary2-darker">
                 {translations["events-header.button-prev"]}
               </p>
@@ -130,6 +135,7 @@ const EventsHeader = () => {
               </p>
               <img
                 className="relative top-[2px]"
+                alt="Chevron right in circle icon, indicates forward navigation."
                 src="/icons/chevron-right-circle.svg"
               />
             </button>
@@ -153,7 +159,10 @@ const EventsHeader = () => {
             <p className="text-tertiary2-darker">
               {translations["events-header.button-complete"]}
             </p>
-            <img src="/icons/checkmark-circle.svg" />
+            <img
+              src="/icons/checkmark-circle.svg"
+              alt="Checkmark in circle icon, indicates success or confirmation."
+            />
           </button>
         </article>
       </section>

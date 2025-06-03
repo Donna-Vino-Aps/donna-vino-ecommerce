@@ -3,13 +3,15 @@ import React from "react";
 import TastingSession from "@/components/HeroSlider/HeroSlider";
 import ServicesBanner from "@/components/ServicesBanner/ServicesBanner";
 import SalesCards from "@/components/SalesCards/SalesCards";
-import MetaTags from "@/components/SEO/MetaTags";
+import SEO from "@/components/SEO/SEO";
+import { useLanguage } from "@/context/LanguageContext";
 export default function Home() {
+  const { translations } = useLanguage();
   return (
     <div className="flex w-[100%]" data-testid="home-container">
-      <MetaTags
-        title="Home Page"
-        description="Home Page for Donna Vino Ecommerce"
+      <SEO
+        title={translations["home.title"]}
+        description={translations["home.description"]}
       />
       <main
         className="flex w-full flex-col gap-4 bg-white"
