@@ -22,6 +22,7 @@ const Profile = () => {
         <img
           src="/icons/Edit profile pic.svg"
           className="relative bottom-[2.125rem] left-[6.8rem] h-6 w-6"
+          alt="Edit profile picture icon."
         />
       </div>
       <h2 className="text-displaySmall">Davide Rossi</h2>

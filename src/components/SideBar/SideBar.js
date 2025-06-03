@@ -84,6 +84,7 @@ const SideBar = ({ isMenuOpen, toggleMenu, navLinks }) => {
                   <img
                     className="relative left-[6px] top-[10px] inline-block h-[1.25rem] w-[1.25rem] text-right align-middle"
                     src={link.icon}
+                    alt={`icon-${link.id}`}
                   ></img>
 
                   {/* Render dropdown if dropdown is set to true, otherwise render a link */}

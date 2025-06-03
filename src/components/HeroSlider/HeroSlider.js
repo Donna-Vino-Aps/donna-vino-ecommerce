@@ -109,6 +109,7 @@ const HeroSlider = () => {
                       src="/images/hero-tasting-resized.jpg"
                       className="mt-4 max-h-[22.5rem] w-full rounded-br-[0rem] rounded-tr-[0rem] object-cover md:absolute md:inset-0 md:mt-0 md:min-h-[43.75rem] md:rounded-br-[0.5rem] md:rounded-tr-[8rem]"
                       data-testid="fallback-image"
+                      alt="Guests at a wine tasting event sampling different wines in a warm, elegant setting."
                     />
                   )
                 ) : (
