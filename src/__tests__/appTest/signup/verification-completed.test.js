@@ -62,4 +62,35 @@ describe("VerificationCompleted Page", () => {
     const image = screen.getByAltText("verification completed");
     expect(image).toBeInTheDocument();
   });
+
+  test("should not call signIn when tokens are not in URL params", () => {
+    render(<VerificationCompleted />);
+
+    act(() => {
+      jest.advanceTimersByTime(4000);
+    });
+    expect(signIn).not.toHaveBeenCalled();
+  });
+
+  test("should call signIn with correct params after timeout when tokens are provided", () => {
+    mockSearchParams = new URLSearchParams({
+      accessToken: "test-access-token",
+      refreshToken: "test-refresh-token",
+    });
+    useSearchParams.mockReturnValue(mockSearchParams);
+
+    render(<VerificationCompleted />);
+
+    expect(signIn).not.toHaveBeenCalled();
+
+    act(() => {
+      jest.advanceTimersByTime(3000);
+    });
+
+    expect(signIn).toHaveBeenCalledWith("apiToken", {
+      accessToken: "test-access-token",
+      refreshToken: "test-refresh-token",
+      callbackUrl: "/",
+    });
+  });
 });
