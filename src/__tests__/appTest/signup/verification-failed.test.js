@@ -1,22 +1,13 @@
 import React from "react";
-import { render, screen, fireEvent } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
 import VerificationFailed from "@/app/signup/verification-failed/page";
 import { useLanguage } from "@/context/LanguageContext";
-import { useRouter } from "next/navigation";
 
-// Mock the next/navigation module
-jest.mock("next/navigation", () => ({
-  useRouter: jest.fn(),
-}));
-
-// Mock the LanguageContext
 jest.mock("@/context/LanguageContext", () => ({
   useLanguage: jest.fn(),
 }));
 
 describe("VerificationFailed Page", () => {
-  const mockRouter = { push: jest.fn() };
-
   const defaultTranslations = {
     "signUp.verificationFailed.title": "Verification Failed",
     "signUp.verificationFailed.message":
@@ -26,34 +17,28 @@ describe("VerificationFailed Page", () => {
 
   beforeEach(() => {
     jest.clearAllMocks();
-
-    // Setup router mock
-    useRouter.mockReturnValue(mockRouter);
-
-    // Setup translations mock
     useLanguage.mockReturnValue({ translations: defaultTranslations });
   });
 
-  test("should render the verification failed page correctly", () => {
+  test("should display verification failed message with appropriate elements", () => {
     render(<VerificationFailed />);
 
-    expect(screen.getByText("Verification Failed")).toBeInTheDocument();
-    expect(
-      screen.getByText(
-        "There was a problem with your verification. Please try signing up again or contact our support team if the issue persists.",
-      ),
-    ).toBeInTheDocument();
-    expect(
-      screen.getByRole("button", { name: "Sign Up Again" }),
-    ).toBeInTheDocument();
-  });
+    const title = screen.getByText(
+      defaultTranslations["signUp.verificationFailed.title"],
+    );
+    expect(title).toBeInTheDocument();
 
-  test("should navigate to signup page when button is clicked", () => {
-    render(<VerificationFailed />);
+    const message = screen.getByText(
+      defaultTranslations["signUp.verificationFailed.message"],
+    );
+    expect(message).toBeInTheDocument();
 
-    const button = screen.getByRole("button", { name: "Sign Up Again" });
-    fireEvent.click(button);
+    const button = screen.getByRole("button", {
+      name: defaultTranslations["signUp.verificationFailed.signup.button"],
+    });
+    expect(button).toBeInTheDocument();
 
-    expect(mockRouter.push).toHaveBeenCalledWith("/signup");
+    const link = button.closest("a");
+    expect(link).toHaveAttribute("href", "/signup");
   });
 });

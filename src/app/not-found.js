@@ -16,10 +16,10 @@ export default function NotFound() {
       </p>
       <div>
         <Button
-          text={translations["notFound.button"]}
+          text={translations["common.button.backToHome"]}
           width="wide"
           linkUrl="/"
-          aria-label={translations["notFound.button"]}
+          aria-label={translations["common.button.backToHome"]}
         />
       </div>
     </div>

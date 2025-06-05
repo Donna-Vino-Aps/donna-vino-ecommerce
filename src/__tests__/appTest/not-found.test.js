@@ -9,7 +9,7 @@ jest.mock("@/context/LanguageContext", () => ({
       "notFound.title": "Page not found",
       "notFound.message":
         "Sorry, the page you are looking for doesn't exist or has been moved.",
-      "notFound.button": "Back to home",
+      "common.button.backToHome": "Back to home",
     },
   }),
 }));
