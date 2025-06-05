@@ -80,4 +80,24 @@ describe("StatusPage Component", () => {
       defaultProps.message,
     );
   });
+
+  test("should render an image if image prop is provided", () => {
+    const imageProps = {
+      src: "/test-image.png",
+      alt: "Test Image Alt",
+      width: 50,
+      height: 50,
+    };
+    render(<StatusPage {...defaultProps} image={imageProps} />);
+    const imgElement = screen.getByAltText(imageProps.alt);
+    expect(imgElement).toBeInTheDocument();
+    expect(imgElement).toHaveAttribute("src", imageProps.src);
+    expect(imgElement).toHaveAttribute("width", imageProps.width.toString());
+    expect(imgElement).toHaveAttribute("height", imageProps.height.toString());
+  });
+
+  test("should not render an image if image prop is not provided", () => {
+    render(<StatusPage {...defaultProps} />);
+    expect(screen.queryByRole("img")).not.toBeInTheDocument();
+  });
 });
