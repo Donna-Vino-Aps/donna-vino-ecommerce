@@ -258,5 +258,17 @@
   "notFound.button": "Back to home",
   "faq.h1": "Customer FAQs",
   "faq.h1-mobile": "FAQs",
-  "faq.p": "Here you can find the most searched questions by our clients."
+  "faq.p": "Here you can find the most searched questions by our clients.",
+  "faq.question1": "What is the delivery time for my order?",
+  "faq.answer1": "We aim to deliver your order within 2–5 business days in the Copenhagen area. For other regions, please contact us for more details.",
+  "faq.question2": "Can I return a product?",
+  "faq.answer2": "Yes, you can return unused products within 14 days of receiving them. Please ensure they are in their original packaging and contact us to initiate the return process.",
+  "faq.question3": "What payment methods do you accept?",
+  "faq.answer3": "We accept MobilePay, Credit Card, and direct Bank Transfer. All transactions are processed securely.",
+  "faq.question4": "How can I contact customer support?",
+  "faq.answer4": "You can reach our customer support team via email at info@donnavino.dk",
+  "faq.question5": "Do you offer international shipping?",
+  "faq.answer5": "Currently, we do not offer international shipping. We only deliver within the Copenhagen area.",
+  "faq.question6": "How can I book a wine tasting event?",
+  "faq.answer6": "You can book a wine tasting event by visiting our Events page and selecting the date and number of seats you wish to reserve. Follow the prompts to complete your booking."
 }

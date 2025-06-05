@@ -1,14 +1,14 @@
 "use client";
 import React from "react";
 import { useLanguage } from "@/context/LanguageContext";
-import FAQ from "@/components/FAQ/Faq";
-import Image from "next/image";
+import FaqSection from "@/components/FAQ/FaqSection";
+// import Image from "next/image";
 
 const FrequentlyAskedQuestions = () => {
   const { translations } = useLanguage();
 
   return (
-    <div>
+    <div className="space-y-8">
       <section className="z-[1] flex flex-row bg-primary-light">
         <div className="mb-4 flex flex-col justify-center gap-6 px-8 text-center sm:mb-0 sm:w-[45%] md:text-start lg:w-[40%]">
           <h1 className="mt-8 text-displayMedium sm:mt-4 sm:max-w-full sm:text-displaySmall md:mt-0 lg:text-displayMedium">
@@ -24,7 +24,7 @@ const FrequentlyAskedQuestions = () => {
           />
         </figure>
       </section>
-      <FAQ />
+      <FaqSection />
     </div>
   );
 };
