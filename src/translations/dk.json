@@ -49,7 +49,7 @@
   "signUp.welcome.resend.noEmail": "Ingen e-mailadresse fundet. Prøv venligst at tilmelde dig igen.",
   "signUp.welcome.resend.maxAttempts": "Maksimalt antal forsøg nået. Kontakt venligst support, hvis du stadig ikke har modtaget e-mailen.",
   "signUp.welcome.resend.maxReached": "Maks. forsøg nået",
-  "signUp.verificationFailed.title": "Verifikation Mislykkedes",
+  "signUp.verificationFailed.title": "Verifikation mislykkedes",
   "signUp.verificationFailed.message": "Der opstod et problem med din verifikation. Prøv venligst at tilmelde dig igen eller kontakt vores supportteam, hvis problemet fortsætter.",
   "signUp.verificationFailed.signup.button": "Tilmeld igen",
   "signUp.canceled.title": "Registrering annulleret",
