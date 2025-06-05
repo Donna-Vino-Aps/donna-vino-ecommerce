@@ -24,7 +24,9 @@ const FrequentlyAskedQuestions = () => {
           />
         </figure>
       </section>
-      <FaqSection />
+      <div className="">
+        <FaqSection />
+      </div>
     </div>
   );
 };
