@@ -8,6 +8,7 @@ export const InStockDisplay = ({ inStock }) => {
       <Image
         width="20"
         height="20"
+        alt={inStock ? "In Stock" : "Out of Stock"}
         src={
           inStock
             ? "/icons/checkmark-circle-green.svg"

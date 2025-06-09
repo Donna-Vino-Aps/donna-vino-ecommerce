@@ -14,7 +14,7 @@ const WineDetails = ({ wine }) => {
       <div className="w-[32.625rem] rounded-lg bg-tertiary2-active p-6 font-barlow shadow-lg">
         <div className="flex flex-row items-center justify-between">
           <h1 className="mb-4 text-displayMedium font-normal">{wine.title}</h1>
-          <InStockDisplay inStock={false} />
+          <InStockDisplay inStock={wine.inStock} />
         </div>
         <RatingDisplay rating={wine.rating} />
         <p className="mt-6 text-titleMedium font-medium">{wine.description}</p>
@@ -44,5 +44,6 @@ WineDetails.propTypes = {
     rating: PropTypes.number.isRequired,
     imageUrl: PropTypes.string.isRequired,
     description: PropTypes.string.isRequired,
+    inStock: PropTypes.bool.isRequired,
   }).isRequired,
 };
