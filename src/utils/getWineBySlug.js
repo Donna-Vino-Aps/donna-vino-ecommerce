@@ -3,6 +3,8 @@ export async function getWineBySlug(slug) {
     {
       title: "Muga Reserva",
       slug: "muga-reserva",
+      description:
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi non erat quam. Vestibulum aliquam nibh dui, et aliquet nibh euismod quis.",
       price: 130.0,
       imageUrl: "/images/exampleImageWine.png",
       isNew: true,
@@ -11,6 +13,8 @@ export async function getWineBySlug(slug) {
     {
       title: "Barolo Terlo",
       slug: "barolo-terlo",
+      description:
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi non erat quam. Vestibulum aliquam nibh dui, et aliquet nibh euismod quis.",
       price: 121.0,
       imageUrl: "/images/exampleImageWine.png",
       isNew: true,
@@ -19,6 +23,8 @@ export async function getWineBySlug(slug) {
     {
       title: "Pinot Noir",
       slug: "pinot-noir",
+      description:
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi non erat quam. Vestibulum aliquam nibh dui, et aliquet nibh euismod quis.",
       price: 180.0,
       imageUrl: "/images/exampleImageWine.png",
       isNew: false,
@@ -27,6 +33,8 @@ export async function getWineBySlug(slug) {
     {
       title: "Vega Cicilia",
       slug: "vega-cicilia",
+      description:
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi non erat quam. Vestibulum aliquam nibh dui, et aliquet nibh euismod quis.",
       price: 210.0,
       imageUrl: "/images/exampleImageWine.png",
       isNew: false,
@@ -35,6 +43,8 @@ export async function getWineBySlug(slug) {
     {
       title: "Saviognese Merlot",
       slug: "saviognese-merlot",
+      description:
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi non erat quam. Vestibulum aliquam nibh dui, et aliquet nibh euismod quis.",
       price: 210.0,
       imageUrl: "/images/exampleImageWine.png",
       isNew: true,
@@ -43,6 +53,8 @@ export async function getWineBySlug(slug) {
     {
       title: "Pinot Grigio",
       slug: "pinot-grigio",
+      description:
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi non erat quam. Vestibulum aliquam nibh dui, et aliquet nibh euismod quis.",
       price: 210.0,
       imageUrl: "/images/exampleImageWine.png",
       isNew: false,
@@ -51,6 +63,8 @@ export async function getWineBySlug(slug) {
     {
       title: "Marques de Murrieta",
       slug: "marques-de-murrieta",
+      description:
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi non erat quam. Vestibulum aliquam nibh dui, et aliquet nibh euismod quis.",
       price: 210.0,
       imageUrl: "/images/exampleImageWine.png",
       isNew: false,
