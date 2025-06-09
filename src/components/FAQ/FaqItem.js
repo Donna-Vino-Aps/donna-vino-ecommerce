@@ -7,14 +7,16 @@ const FaqItem = ({ question, answer }) => {
   const isMobile = useIsMobile(768);
   return (
     <div
-      className={`mx-auto mb-3 flex cursor-pointer flex-col rounded-lg border-tertiary2-hover_normal bg-tertiary2-normal ${isMobile ? "h-[4.5rem] w-[18.5rem]" : "h-[3.25rem] w-[48.125rem]"}`}
+      className={`mx-auto mb-3 flex cursor-pointer flex-col rounded-lg border border-solid border-[#D9D9D9] ${isOpen ? "bg-transparent" : "bg-tertiary2-normal"} ${isMobile ? "w-[18.5rem]" : "w-[48.125rem]"}`}
       onClick={() => setIsOpen((prev) => !prev)}
     >
-      <div className="mt-4 flex w-full items-center justify-between px-4">
-        <h4 className="text-labelXLarge font-semibold">{question}</h4>
+      <div className="my-3 flex w-full items-center justify-between px-4 py-[3px]">
+        <h4 className="pr-2 text-labelLarge font-semibold md:text-labelXLarge">
+          {question}
+        </h4>
         <img src="/icons/chevron-down.svg" className="h-5 w-5" />
       </div>
-      {isOpen && <p className=" mt-2">{answer}</p>}
+      {isOpen && <p className="mb-4 px-4">{answer}</p>}
     </div>
   );
 };

@@ -1,18 +1,20 @@
 "use client";
 import React from "react";
 import { useLanguage } from "@/context/LanguageContext";
+import useIsMobile from "@/hooks/useIsMobile";
 import FaqSection from "@/components/FAQ/FaqSection";
 // import Image from "next/image";
 
 const FrequentlyAskedQuestions = () => {
   const { translations } = useLanguage();
+  const isMobile = useIsMobile(768);
 
   return (
-    <div className="space-y-8">
+    <div className={`${isMobile ? "mb-12 space-y-12" : "mb-14 space-y-14"}`}>
       <section className="z-[1] flex flex-row bg-primary-light">
         <div className="mb-4 flex flex-col justify-center gap-6 px-8 text-center sm:mb-0 sm:w-[45%] md:text-start lg:w-[40%]">
           <h1 className="mt-8 text-displayMedium sm:mt-4 sm:max-w-full sm:text-displaySmall md:mt-0 lg:text-displayMedium">
-            {translations["faq.h1"]}
+            {isMobile ? translations["faq.h1-mobile"] : translations["faq.h1"]}
           </h1>
           <p className="mb-4 text-bodyLarge sm:mb-0">{translations["faq.p"]}</p>
         </div>
@@ -24,7 +26,7 @@ const FrequentlyAskedQuestions = () => {
           />
         </figure>
       </section>
-      <div className="">
+      <div className="flex items-center justify-center">
         <FaqSection />
       </div>
     </div>
