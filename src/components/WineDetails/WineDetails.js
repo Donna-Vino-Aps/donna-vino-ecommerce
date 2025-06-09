@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { RatingDisplay } from "./RatingDisplay";
+import { InStockDisplay } from "./InStockDisplay";
 
 const WineDetails = ({ wine }) => {
   return (
@@ -11,7 +12,10 @@ const WineDetails = ({ wine }) => {
         className="mt-4 w-full max-w-md"
       />
       <div className="w-[32.625rem] rounded-lg bg-tertiary2-active p-6 font-barlow shadow-lg">
-        <h1 className="mb-4 text-displayMedium font-normal">{wine.title}</h1>
+        <div className="flex flex-row items-center justify-between">
+          <h1 className="mb-4 text-displayMedium font-normal">{wine.title}</h1>
+          <InStockDisplay inStock={false} />
+        </div>
         <RatingDisplay rating={wine.rating} />
         <p className="mt-6 text-titleMedium font-medium">{wine.description}</p>
         <div className=" text-end">

@@ -6,7 +6,7 @@ import WineDetails from "@/components/WineDetails/WineDetails";
 import { getWineBySlug } from "@/utils/getWineBySlug";
 
 export default async function WineSlugPage({ params }) {
-  const { slug } = params;
+  const slug = params.slug;
 
   // Fetch wine details (you can replace this with a real API call)
   const wine = await getWineBySlug(slug);
