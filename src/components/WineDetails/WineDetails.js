@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
+import { RatingDisplay } from "./RatingDisplay";
 
 const WineDetails = ({ wine }) => {
   return (
@@ -9,15 +10,16 @@ const WineDetails = ({ wine }) => {
         alt={wine.title}
         className="mt-4 w-full max-w-md"
       />
-      <div className="w-[32.625rem] bg-tertiary2-active rounded-lg p-6 shadow-lg font-barlow">
-        <h1 className="text-displayMedium font-normal">{wine.title}</h1>
-        <p className="mt-4 text-titleMedium font-medium">{wine.description}</p>
+      <div className="w-[32.625rem] rounded-lg bg-tertiary2-active p-6 font-barlow shadow-lg">
+        <h1 className="mb-4 text-displayMedium font-normal">{wine.title}</h1>
+        <RatingDisplay rating={wine.rating} />
+        <p className="mt-6 text-titleMedium font-medium">{wine.description}</p>
         <div className=" text-end">
           <p className="text-titleMedium text-tertiary2-hover_dark">
             each bottle:
           </p>
           <p className="text-headlineLarge font-normal">{wine.price} kr</p>
-          <p className="text-titleMedium text-tertiary1-normal font-medium">
+          <p className="text-titleMedium font-medium text-tertiary1-normal">
             (12% VAT excluded)
           </p>
           <p className="text-titleMedium text-tertiary2-hover_dark">
@@ -35,6 +37,7 @@ WineDetails.propTypes = {
   wine: PropTypes.shape({
     title: PropTypes.string.isRequired,
     price: PropTypes.number.isRequired,
+    rating: PropTypes.number.isRequired,
     imageUrl: PropTypes.string.isRequired,
     description: PropTypes.string.isRequired,
   }).isRequired,

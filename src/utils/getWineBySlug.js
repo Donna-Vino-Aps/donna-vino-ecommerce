@@ -6,6 +6,7 @@ export async function getWineBySlug(slug) {
       description:
         "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi non erat quam. Vestibulum aliquam nibh dui, et aliquet nibh euismod quis.",
       price: 130.0,
+      rating: 5.0,
       imageUrl: "/images/exampleImageWine.png",
       isNew: true,
       url: "/wines/muga-reserva",
@@ -16,6 +17,7 @@ export async function getWineBySlug(slug) {
       description:
         "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi non erat quam. Vestibulum aliquam nibh dui, et aliquet nibh euismod quis.",
       price: 121.0,
+      rating: 4.0,
       imageUrl: "/images/exampleImageWine.png",
       isNew: true,
       url: "/wines/barolo-terlo",
@@ -26,6 +28,7 @@ export async function getWineBySlug(slug) {
       description:
         "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi non erat quam. Vestibulum aliquam nibh dui, et aliquet nibh euismod quis.",
       price: 180.0,
+      rating: 4.5,
       imageUrl: "/images/exampleImageWine.png",
       isNew: false,
       url: "/wines/pinot-noir",
@@ -36,6 +39,7 @@ export async function getWineBySlug(slug) {
       description:
         "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi non erat quam. Vestibulum aliquam nibh dui, et aliquet nibh euismod quis.",
       price: 210.0,
+      rating: 3.5,
       imageUrl: "/images/exampleImageWine.png",
       isNew: false,
       url: "/wines/vega-cicilia",
@@ -46,6 +50,7 @@ export async function getWineBySlug(slug) {
       description:
         "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi non erat quam. Vestibulum aliquam nibh dui, et aliquet nibh euismod quis.",
       price: 210.0,
+      rating: 3.0,
       imageUrl: "/images/exampleImageWine.png",
       isNew: true,
       url: "/wines/saviognese-merlot",
@@ -56,6 +61,7 @@ export async function getWineBySlug(slug) {
       description:
         "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi non erat quam. Vestibulum aliquam nibh dui, et aliquet nibh euismod quis.",
       price: 210.0,
+      rating: 5.0,
       imageUrl: "/images/exampleImageWine.png",
       isNew: false,
       url: "/wines/pinot-grigio",
@@ -66,6 +72,7 @@ export async function getWineBySlug(slug) {
       description:
         "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi non erat quam. Vestibulum aliquam nibh dui, et aliquet nibh euismod quis.",
       price: 210.0,
+      rating: 5.0,
       imageUrl: "/images/exampleImageWine.png",
       isNew: false,
       url: "/wines/marques-de-murrieta",
