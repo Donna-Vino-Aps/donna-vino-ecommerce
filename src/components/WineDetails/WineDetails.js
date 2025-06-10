@@ -5,9 +5,11 @@ import { RatingDisplay } from "./RatingDisplay";
 import { InStockDisplay } from "./InStockDisplay";
 import { PriceDisplay } from "./PriceDisplay";
 import { QuantitySelector } from "./QuantitySelector";
+import Button from "../Button/Button";
 
 const WineDetails = ({ wine }) => {
   const [quantity, setQuantity] = useState(wine.quantity);
+  const [selectedSize, setSelectedSize] = React.useState("bottle");
 
   return (
     <article className="flex flex-col items-center justify-center gap-4 md:flex-row">
@@ -25,8 +27,31 @@ const WineDetails = ({ wine }) => {
         <p className="mb-3 mt-6 text-titleMedium font-medium">
           {wine.description}
         </p>
-        <PriceDisplay price={wine.price} volume={0.7} />
-        <QuantitySelector quantity={quantity} setQuantity={setQuantity} />
+        <PriceDisplay
+          price={wine.price}
+          casePrice={wine.casePrice}
+          volume={0.7}
+          setSelectedSize={setSelectedSize}
+          selectedSize={selectedSize}
+        />
+        <QuantitySelector
+          quantity={quantity}
+          setQuantity={setQuantity}
+          selectedSize={selectedSize}
+          setSelectedSize={setSelectedSize}
+        />
+        <Button
+          text="Add to Cart"
+          variant="roundedSmall"
+          border="primary"
+          icon="/icons/cart-white.svg"
+          color="primary"
+          size="md"
+          width="full"
+          extraStyle="font-medium mt-4"
+          ariaLabel="Add to Cart Button"
+          testId="add-to-cart-button"
+        />
       </div>
     </article>
   );
@@ -38,6 +63,8 @@ WineDetails.propTypes = {
   wine: PropTypes.shape({
     title: PropTypes.string.isRequired,
     price: PropTypes.number.isRequired,
+    volume: PropTypes.number.isRequired,
+    casePrice: PropTypes.number.isRequired,
     rating: PropTypes.number.isRequired,
     imageUrl: PropTypes.string.isRequired,
     description: PropTypes.string.isRequired,

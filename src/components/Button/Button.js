@@ -40,6 +40,7 @@ const COLORS = {
 const VARIANT = {
   outline: "border-2",
   rounded: "rounded-lg",
+  roundedSmall: "rounded-[0.375rem]",
   solid: "rounded-[0rem]",
 };
 

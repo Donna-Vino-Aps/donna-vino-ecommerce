@@ -22,14 +22,13 @@ export const QuantitySelector = ({
   };
 
   const [isOpen, setOpen] = React.useState(false);
-  const [selectedSize, setSelectedSize] = React.useState("bottle");
 
   return (
     <section>
       <p className="mb-2 ml-[2px] text-titleMedium font-medium text-tertiary1-dark">
         Quantity
       </p>
-      <div className="flex h-10 w-full items-center justify-center gap-2 rounded-lg border border-solid border-tertiary1-light md:h-9 md:w-[7.125rem]">
+      <div className="flex h-10 w-full items-center justify-center gap-2 rounded-md border border-solid border-tertiary1-light md:h-9 md:w-[7.125rem]">
         <button
           onClick={handleDecrement}
           disabled={quantity <= 1}
@@ -52,21 +51,27 @@ export const QuantitySelector = ({
         Select Size
       </p>
       <div
-        className="flex w-[18.5rem] flex-col items-center rounded-b-md text-titleMedium font-medium text-primary-light shadow-md md:w-[29.563rem]"
+        className="flex w-full flex-col items-center rounded-b-md text-titleMedium font-medium text-primary-light shadow-md md:w-[29.563rem]"
         onClick={() => setOpen((prev) => !prev)}
       >
         <div
-          className={`flex w-full items-center justify-between bg-primary-normal px-4 py-2 ${isOpen ? "rounded-t-lg" : "rounded-lg"} cursor-pointer`}
+          className={`flex w-full items-center justify-between bg-primary-normal px-4 py-2 ${isOpen ? "rounded-t-[10px]" : "rounded-[10px]"} cursor-pointer`}
         >
           <div className="flex gap-2">
             <Image
-              src="/icons/wine-bottle-white.svg"
+              src={
+                selectedSize === "bottle"
+                  ? "/icons/wine-bottle-white.svg"
+                  : "/icons/wine-case-white.svg"
+              }
               width="16"
               height="16"
-              alt="wine bottle"
+              alt={selectedSize === "bottle" ? "wine bottle" : "wine case"}
             />
             <p className="text-titleMedium font-medium text-primary-light">
-              Single bottle
+              {selectedSize === "bottle"
+                ? "Single bottle"
+                : "Wine case (6 bottles)"}
             </p>
           </div>
           <Image
@@ -84,7 +89,14 @@ export const QuantitySelector = ({
           <div
             className={`flex w-[18.5rem] flex-col bg-transparent text-tertiary2-darker md:w-[29.563rem]`}
           >
-            <div className="flex w-full items-start gap-1 border-2 border-solid border-primary-normal px-3 py-4">
+            <div
+              className={`flex w-full items-start gap-1 ${selectedSize === "bottle" ? "border-b-2 border-e-2 border-s-2 border-solid border-primary-normal" : ""} cursor-pointer px-3 py-4`}
+              onClick={(e) => {
+                e.stopPropagation();
+                setSelectedSize("bottle");
+                setOpen(false);
+              }}
+            >
               <Image
                 src="/icons/wine-bottle.svg"
                 width="16"
@@ -93,7 +105,14 @@ export const QuantitySelector = ({
               />
               <p className="text-labelMedium font-medium">Single bottle</p>
             </div>
-            <div className="flex w-full items-start gap-1 border-solid px-3 py-4">
+            <div
+              className={`flex w-full items-start gap-1 ${selectedSize === "case" ? "border-2 border-solid border-primary-normal" : ""} cursor-pointer border-solid px-3 py-4`}
+              onClick={(e) => {
+                e.stopPropagation();
+                setSelectedSize("case");
+                setOpen(false);
+              }}
+            >
               <Image
                 src="/icons/wine-case.svg"
                 width="16"

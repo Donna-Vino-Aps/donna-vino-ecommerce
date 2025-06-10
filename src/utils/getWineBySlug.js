@@ -5,7 +5,8 @@ export async function getWineBySlug(slug) {
       slug: "muga-reserva",
       description:
         "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi non erat quam. Vestibulum aliquam nibh dui, et aliquet nibh euismod quis.",
-      price: 130.0,
+      price: 24.5,
+      casePrice: 123,
       rating: 5.0,
       volume: 1.0,
       quantity: 5,
@@ -18,7 +19,8 @@ export async function getWineBySlug(slug) {
       slug: "barolo-terlo",
       description:
         "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi non erat quam. Vestibulum aliquam nibh dui, et aliquet nibh euismod quis.",
-      price: 121.0,
+      price: 24.5,
+      casePrice: 123,
       rating: 4.0,
       volume: 0.7,
       quantity: 10,
@@ -31,7 +33,8 @@ export async function getWineBySlug(slug) {
       slug: "pinot-noir",
       description:
         "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi non erat quam. Vestibulum aliquam nibh dui, et aliquet nibh euismod quis.",
-      price: 180.0,
+      price: 24.5,
+      casePrice: 123,
       rating: 4.5,
       volume: 1.0,
       quantity: 0,
@@ -44,7 +47,8 @@ export async function getWineBySlug(slug) {
       slug: "vega-cicilia",
       description:
         "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi non erat quam. Vestibulum aliquam nibh dui, et aliquet nibh euismod quis.",
-      price: 210.0,
+      price: 24.5,
+      casePrice: 123,
       rating: 3.5,
       volume: 1.0,
       quantity: 3,
@@ -57,7 +61,8 @@ export async function getWineBySlug(slug) {
       slug: "saviognese-merlot",
       description:
         "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi non erat quam. Vestibulum aliquam nibh dui, et aliquet nibh euismod quis.",
-      price: 210.0,
+      price: 24.5,
+      casePrice: 123,
       rating: 3.0,
       volume: 1.0,
       quantity: 25,
@@ -70,7 +75,8 @@ export async function getWineBySlug(slug) {
       slug: "pinot-grigio",
       description:
         "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi non erat quam. Vestibulum aliquam nibh dui, et aliquet nibh euismod quis.",
-      price: 210.0,
+      price: 24.5,
+      casePrice: 123,
       rating: 5.0,
       volume: 1.0,
       quantity: 35,
@@ -83,7 +89,8 @@ export async function getWineBySlug(slug) {
       slug: "marques-de-murrieta",
       description:
         "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi non erat quam. Vestibulum aliquam nibh dui, et aliquet nibh euismod quis.",
-      price: 210.0,
+      price: 24.5,
+      casePrice: 123,
       rating: 5.0,
       volume: 1.0,
       quantity: 7,
