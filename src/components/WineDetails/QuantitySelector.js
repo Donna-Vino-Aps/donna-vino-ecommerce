@@ -6,6 +6,11 @@ import Image from "next/image";
 export const QuantitySelector = ({
   quantity,
   setQuantity,
+  price,
+  casePrice,
+  selectedSize,
+  setSelectedSize,
+  volume,
   min = 1,
   max = 99,
 }) => {
@@ -87,41 +92,65 @@ export const QuantitySelector = ({
         </div>
         {isOpen && (
           <div
-            className={`flex w-[18.5rem] flex-col bg-transparent text-tertiary2-darker md:w-[29.563rem]`}
+            className={`flex w-full flex-col bg-transparent text-tertiary2-darker`}
           >
             <div
-              className={`flex w-full items-start gap-1 ${selectedSize === "bottle" ? "border-b-2 border-e-2 border-s-2 border-solid border-primary-normal" : ""} cursor-pointer px-3 py-4`}
+              className={`flex w-full items-start justify-between gap-1 ${selectedSize === "bottle" ? "border-b-2 border-e-2 border-s-2 border-solid border-primary-normal" : ""} h-[3.5rem] cursor-pointer`}
               onClick={(e) => {
                 e.stopPropagation();
                 setSelectedSize("bottle");
                 setOpen(false);
               }}
             >
-              <Image
-                src="/icons/wine-bottle.svg"
-                width="16"
-                height="16"
-                alt="wine bottle"
-              />
-              <p className="text-labelMedium font-medium">Single bottle</p>
+              <div className="flex flex-row gap-1 px-[0.875rem] py-5">
+                <Image
+                  src="/icons/wine-bottle.svg"
+                  width="16"
+                  height="16"
+                  alt="wine bottle"
+                />
+                <p className="text-labelMedium font-medium">Single bottle</p>
+              </div>
+              <div className="flex flex-col items-end self-start p-2 text-right">
+                <p
+                  className={`text-titleMedium font-semibold ${selectedSize === "bottle" ? "text-primary-normal" : "text-tertiary2-darker"}`}
+                >
+                  {price.toFixed(2)} kr
+                </p>
+                <p className="text-labelSmall text-tertiary2-darker">
+                  {price / volume} kr / L
+                </p>
+              </div>
             </div>
             <div
-              className={`flex w-full items-start gap-1 ${selectedSize === "case" ? "border-2 border-solid border-primary-normal" : ""} cursor-pointer border-solid px-3 py-4`}
+              className={`flex w-full items-start justify-between gap-1 ${selectedSize === "case" ? "border-2 border-solid border-primary-normal" : ""} h-[3.5rem] cursor-pointer border-solid`}
               onClick={(e) => {
                 e.stopPropagation();
                 setSelectedSize("case");
                 setOpen(false);
               }}
             >
-              <Image
-                src="/icons/wine-case.svg"
-                width="16"
-                height="16"
-                alt="wine case"
-              />
-              <p className="text-labelMedium font-medium">
-                Wine case (6 bottles)
-              </p>
+              <div className="flex flex-row gap-1 px-4 py-5">
+                <Image
+                  src="/icons/wine-case.svg"
+                  width="16"
+                  height="16"
+                  alt="wine case"
+                />
+                <p className="text-labelMedium font-medium">
+                  Wine case (6 bottles)
+                </p>
+              </div>
+              <div className="flex flex-col items-end self-start p-2 text-right">
+                <p
+                  className={`text-titleMedium font-semibold ${selectedSize === "case" ? "text-primary-normal" : "text-tertiary2-darker"}`}
+                >
+                  {casePrice.toFixed(2)} kr
+                </p>
+                <p className="text-labelSmall text-tertiary2-darker">
+                  {casePrice / (volume * 6)} kr / L
+                </p>
+              </div>
             </div>
           </div>
         )}
@@ -136,4 +165,9 @@ QuantitySelector.propTypes = {
   min: PropTypes.number,
   max: PropTypes.number,
   inStock: PropTypes.bool,
+  price: PropTypes.number.isRequired,
+  casePrice: PropTypes.number.isRequired,
+  selectedSize: PropTypes.string.isRequired,
+  setSelectedSize: PropTypes.func.isRequired,
+  volume: PropTypes.number.isRequired,
 };

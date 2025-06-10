@@ -12,7 +12,7 @@ export const InStockDisplay = ({ inStock }) => {
         src={
           inStock
             ? "/icons/checkmark-circle-green.svg"
-            : "/icons/cross-circle-red.svg"
+            : "/icons/cross-circle.svg"
         }
       />
       <p>{inStock ? "In Stock" : "Out of Stock"}</p>

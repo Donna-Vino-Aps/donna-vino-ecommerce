@@ -39,6 +39,9 @@ const WineDetails = ({ wine }) => {
           setQuantity={setQuantity}
           selectedSize={selectedSize}
           setSelectedSize={setSelectedSize}
+          price={wine.price}
+          casePrice={wine.casePrice}
+          volume={wine.volume}
         />
         <Button
           text="Add to Cart"
@@ -48,7 +51,7 @@ const WineDetails = ({ wine }) => {
           color="primary"
           size="md"
           width="full"
-          extraStyle="font-medium mt-4"
+          extraStyle="font-medium mt-8"
           ariaLabel="Add to Cart Button"
           testId="add-to-cart-button"
         />
