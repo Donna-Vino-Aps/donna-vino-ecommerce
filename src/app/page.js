@@ -1,8 +1,18 @@
 "use client";
 import React from "react";
-import TastingSession from "@/components/HeroSlider/HeroSlider";
-import ServicesBanner from "@/components/ServicesBanner/ServicesBanner";
-import SalesCards from "@/components/SalesCards/SalesCards";
+import dynamic from "next/dynamic";
+const TastingSession = dynamic(
+  () => import("@/components/HeroSlider/HeroSlider"),
+  {
+    ssr: true,
+    loading: () => <div>Loading...</div>,
+  },
+);
+const ServicesBanner = dynamic(
+  () => import("@/components/ServicesBanner/ServicesBanner"),
+);
+const SalesCards = dynamic(() => import("@/components/SalesCards/SalesCards"));
+
 export default function Home() {
   return (
     <div className="flex w-[100%]" data-testid="home-container">
