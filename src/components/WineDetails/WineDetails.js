@@ -5,6 +5,7 @@ import { RatingDisplay } from "./RatingDisplay";
 import { InStockDisplay } from "./InStockDisplay";
 import { PriceDisplay } from "./PriceDisplay";
 import { QuantitySelector } from "./QuantitySelector";
+import { ProductDetails } from "./ProductDetails";
 import Button from "../Button/Button";
 
 const WineDetails = ({ wine }) => {
@@ -55,6 +56,13 @@ const WineDetails = ({ wine }) => {
           ariaLabel="Add to Cart Button"
           testId="add-to-cart-button"
         />
+        <ProductDetails
+          country={wine.country}
+          region={wine.region}
+          vineyard={wine.vineyard}
+          wineColor={wine.wineColor}
+          grape={wine.grape}
+        />
       </div>
     </article>
   );
@@ -73,5 +81,10 @@ WineDetails.propTypes = {
     description: PropTypes.string.isRequired,
     inStock: PropTypes.bool.isRequired,
     quantity: PropTypes.number.isRequired,
+    country: PropTypes.string.isRequired,
+    region: PropTypes.string.isRequired,
+    vineyard: PropTypes.string.isRequired,
+    wineColor: PropTypes.string.isRequired,
+    grape: PropTypes.string.isRequired,
   }).isRequired,
 };
