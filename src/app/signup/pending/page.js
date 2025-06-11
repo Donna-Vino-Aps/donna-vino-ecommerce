@@ -9,7 +9,7 @@ import SEO from "@/components/SEO/SEO";
 const COOLDOWN_SECONDS = 60;
 const MAX_RESEND_ATTEMPTS = 5;
 
-const Welcome = () => {
+const Pending = () => {
   const { translations } = useLanguage();
 
   const [email, setEmail] = useState("");
@@ -216,4 +216,4 @@ const Welcome = () => {
   );
 };
 
-export default Welcome;
+export default Pending;

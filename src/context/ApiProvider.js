@@ -10,6 +10,8 @@ import {
 import React from "react";
 import PropTypes from "prop-types";
 import { useSession } from "next-auth/react";
+import { logError } from "@/utils/logging";
+import { useLanguage } from "@/context/LanguageContext";
 
 // Context to share API methods (get, post, put, del), loading state, and error handling
 const APIProviderContext = createContext(null);
@@ -46,6 +48,7 @@ export const APIProvider = ({ children }) => {
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [apiUrl, setApiUrl] = useState();
+  const { translations } = useLanguage();
 
   const { data: session, status } = useSession();
 
@@ -95,8 +98,11 @@ export const APIProvider = ({ children }) => {
   const processResponse = async (response) => {
     const data = await response.json();
     if (!response.ok || data.status === "error") {
-      setError(data.message || "Unknown error. Please try again later.");
+      const errorMessage = data.message || translations["api.error.default"];
+      setError(errorMessage);
+      return null;
     }
+    setError(null);
     return data;
   };
 
@@ -132,7 +138,28 @@ export const APIProvider = ({ children }) => {
 
         return await processResponse(res);
       } catch (err) {
-        setError(err);
+        logError(`API ${method} request to ${path} failed:`, err);
+
+        let errorMessage;
+
+        // Network connectivity issues
+        if (!navigator.onLine) {
+          errorMessage = translations["api.error.offline"];
+        }
+        // Server unreachable errors
+        else if (
+          err.message.includes("Failed to fetch") ||
+          err.message.includes("NetworkError") ||
+          err.message.includes("Network request failed")
+        ) {
+          errorMessage = translations["api.error.serverDown"];
+        }
+        // Any other network/connection errors
+        else {
+          errorMessage = translations["api.error.connectionFailed"];
+        }
+
+        setError(errorMessage);
         return null;
       } finally {
         setIsLoading(false);

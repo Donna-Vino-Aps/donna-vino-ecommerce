@@ -1,60 +1,16 @@
 "use client";
-import React, { Suspense } from "react";
+import React from "react";
 import Button from "@/components/Button/Button";
 import { useLanguage } from "@/context/LanguageContext";
-import { useRouter, useSearchParams } from "next/navigation";
 import SEO from "@/components/SEO/SEO";
+import { useRouter } from "next/navigation";
 
-const VerificationFailedContent = () => {
+const VerificationFailed = () => {
   const { translations } = useLanguage();
   const router = useRouter();
-  const searchParams = useSearchParams();
-
-  const type = searchParams.get("type") || "error";
-  const resent = searchParams.get("resent") === "true";
-
-  const getTitle = () => {
-    if (type === "expired" && resent) {
-      return translations["signUp.verificationFailed.expiredResent.title"];
-    }
-
-    if (type === "not_found") {
-      return translations["signUp.verificationFailed.notFound.title"];
-    }
-
-    return translations["signUp.verificationFailed.generic.title"];
-  };
-
-  const getMessage = () => {
-    if (type === "expired" && resent) {
-      return translations["signUp.verificationFailed.expiredResent.message"];
-    }
-
-    if (type === "not_found") {
-      return translations["signUp.verificationFailed.notFound.message"];
-    }
-
-    return translations["signUp.verificationFailed.generic.message"];
-  };
-
-  const getButtonText = () => {
-    if (type === "expired" && resent) {
-      return translations["signUp.verificationFailed.login.button"];
-    }
-
-    return translations["signUp.verificationFailed.signup.button"];
-  };
-
-  const getButtonAction = () => {
-    if (type === "expired" && resent) {
-      return "/login";
-    }
-
-    return "/signup";
-  };
 
   const handleButtonClick = () => {
-    router.push(getButtonAction());
+    router.push("/signup");
   };
 
   return (
@@ -69,44 +25,26 @@ const VerificationFailedContent = () => {
             id="verification-failed-title"
             className="mb-6 text-center text-titleLarge sm:mb-4 sm:text-headlineMedium"
           >
-            {getTitle()}
+            {translations["signUp.verificationFailed.title"]}
           </h1>
 
           <p
             className="mb-6 text-center text-bodyLarge sm:mb-4"
             data-testid="verification-failed-message"
           >
-            {getMessage()}
+            {translations["signUp.verificationFailed.message"]}
           </p>
 
           <Button
-            text={getButtonText()}
+            text={translations["signUp.verificationFailed.signup.button"]}
             width="full"
             onClick={handleButtonClick}
             testId="verification-action-button"
-            ariaLabel={getButtonText()}
+            ariaLabel={translations["signUp.verificationFailed.signup.button"]}
           />
         </div>
       </div>
     </section>
-  );
-};
-
-const VerificationFailed = () => {
-  return (
-    <Suspense
-      fallback={
-        <div className="flex min-h-[50vh] items-center justify-center">
-          <div className="p-4 text-center">
-            <div className="animate-pulse font-medium text-secondary-normal">
-              Loading...
-            </div>
-          </div>
-        </div>
-      }
-    >
-      <VerificationFailedContent />
-    </Suspense>
   );
 };
 

@@ -1,27 +1,34 @@
 "use client";
 
-import React, { useEffect } from "react";
+import React, { useEffect, Suspense } from "react";
 import Image from "next/image";
 import { useLanguage } from "@/context/LanguageContext";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { signIn } from "next-auth/react";
 import SEO from "@/components/SEO/SEO";
+import Spinner from "@/components/UI/Spinner";
 
-const VerificationCompleted = () => {
+const VerificationCompletedContent = () => {
   const { translations } = useLanguage();
   const router = useRouter();
+  const searchParams = useSearchParams();
 
   useEffect(() => {
-    const { accessToken, refreshToken } = router.query;
+    const accessToken = searchParams.get("accessToken");
+    const refreshToken = searchParams.get("refreshToken");
 
     if (accessToken && refreshToken) {
-      signIn("apiToken", {
-        accessToken,
-        refreshToken,
-        callbackUrl: "/",
-      });
+      const redirectTimer = setTimeout(() => {
+        signIn("apiToken", {
+          accessToken,
+          refreshToken,
+          callbackUrl: "/",
+        });
+      }, 3000);
+
+      return () => clearTimeout(redirectTimer);
     }
-  }, [router.query]);
+  }, [searchParams, router]);
 
   return (
     <section className="my-4 bg-primary-light bg-dots-sm bg-dots-size-sm sm:bg-dots-lg sm:bg-dots-size-lg">
@@ -47,12 +54,26 @@ const VerificationCompleted = () => {
           >
             {translations["signUp.verification-completed.title"]}
           </h1>
-          <p className="mb-6 text-left text-bodyLarge sm:mb-4">
+          <p className="mb-6 text-center text-bodyLarge sm:mb-4">
             {translations["signUp.verification-completed.message"]}
           </p>
         </div>
       </div>
     </section>
+  );
+};
+
+const VerificationCompleted = () => {
+  return (
+    <Suspense
+      fallback={
+        <div className="flex h-screen w-full items-center justify-center">
+          <Spinner size="large" />
+        </div>
+      }
+    >
+      <VerificationCompletedContent />
+    </Suspense>
   );
 };
 
