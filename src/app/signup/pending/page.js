@@ -4,6 +4,7 @@ import { useLanguage } from "@/context/LanguageContext";
 import useFetch from "@/hooks/api/useFetch";
 import { getSessionItem, SESSION_KEYS } from "@/utils/sessionStorage";
 import { logError, logInfo } from "@/utils/logging";
+import SEO from "@/components/SEO/SEO";
 
 const COOLDOWN_SECONDS = 60;
 const MAX_RESEND_ATTEMPTS = 5;
@@ -141,6 +142,10 @@ const Pending = () => {
 
   return (
     <section className="my-4 bg-primary-light bg-dots-sm bg-dots-size-sm sm:bg-dots-lg sm:bg-dots-size-lg">
+      <SEO
+        title={translations["signUp.welcome.seo.title"]}
+        description={translations["signUp.welcome.seo.description"]}
+      />
       <div className="mx-2 flex flex-col items-center justify-center py-8 sm:py-24">
         <div className="w-full max-w-[35rem] items-center justify-center rounded-lg bg-tertiary2-light px-5 py-8 sm:px-20 sm:py-10">
           <div className="mb-6 flex justify-center sm:mb-4">

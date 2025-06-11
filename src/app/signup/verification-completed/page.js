@@ -4,6 +4,7 @@ import React, { useEffect, Suspense } from "react";
 import { useLanguage } from "@/context/LanguageContext";
 import { useRouter, useSearchParams } from "next/navigation";
 import { signIn } from "next-auth/react";
+import SEO from "@/components/SEO/SEO";
 import Spinner from "@/components/UI/Spinner";
 import StatusPage from "@/components/StatusPage/StatusPage";
 
@@ -30,18 +31,26 @@ const VerificationCompletedContent = () => {
   }, [searchParams, router]);
 
   return (
-    <StatusPage
-      title={translations["signUp.verification-completed.title"]}
-      message={translations["signUp.verification-completed.message"]}
-      titleId="verification-completed-title"
-      dataTestId="verification-completed-message"
-      image={{
-        src: "/icons/message-check.svg",
-        alt: "verification completed",
-        width: 48,
-        height: 48,
-      }}
-    />
+    <div>
+      <SEO
+        title={translations["signUp.verification-completed.seo.title"]}
+        description={
+          translations["signUp.verification-completed.seo.description"]
+        }
+      />
+      <StatusPage
+        title={translations["signUp.verification-completed.title"]}
+        message={translations["signUp.verification-completed.message"]}
+        titleId="verification-completed-title"
+        dataTestId="verification-completed-message"
+        image={{
+          src: "/icons/message-check.svg",
+          alt: "verification completed",
+          width: 48,
+          height: 48,
+        }}
+      />
+    </div>
   );
 };
 
