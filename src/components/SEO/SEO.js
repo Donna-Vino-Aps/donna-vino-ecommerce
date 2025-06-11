@@ -30,7 +30,7 @@ SEO.propTypes = {
   title: PropTypes.string.isRequired,
   description: PropTypes.string.isRequired,
   url: PropTypes.string.isRequired,
-  robots: PropTypes.string,
+  robots: PropTypes.bool,
   includeOpenGraph: PropTypes.bool,
 };
 
