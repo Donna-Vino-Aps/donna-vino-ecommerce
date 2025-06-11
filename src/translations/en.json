@@ -45,7 +45,7 @@
   "signUp.welcome.paragraph1": "Your email has been registered successfully.",
   "signUp.welcome.paragraph2": "Check your inbox for a confirmation email.",
   "signUp.welcome.paragraph3": "Once you confirm, you’ll be able to access your profile, upload a photo, update your info, and complete the setup to make future orders easier and improve your shopping experience.",
-  "signUp.verification-completed.title": "E-mail verification completed",
+  "signUp.verification-completed.title": "E-mail Verification Completed",
   "signUp.verification-completed.message": "Thanks for verifying your e-mail! Everything’s all set — you can now enjoy full access to your account.",
   "signUp.welcome.resend": "Didn't receive the email?",
   "signUp.welcome.resend.button": "Resend",
@@ -60,6 +60,10 @@
   "signUp.verificationFailed.title": "Verification Failed",
   "signUp.verificationFailed.message": "There was a problem with your verification. Please try signing up again or contact our support team if the issue persists.",
   "signUp.verificationFailed.signup.button": "Sign Up Again",
+  "signUp.canceled.title": "Registration Canceled",
+  "signUp.canceled.message": "Your registration has been successfully canceled and all your pre-registration data has been removed from our system.",
+  "signUp.declineError.title": "Unable to Decline Email Verification",
+  "signUp.declineError.message": "We couldn't process your request to cancel your registration. The verification link may have expired or is invalid. If you still wish to cancel your registration, contact our support team.",
   "logIn.success": "Google login successful!",
   "logIn.button": "Log In",
   "logIn.signin-google": "Sign in with Google",
@@ -167,8 +171,6 @@
   "events.error.loading": "Failed to load events. Please try again later.",
   "events.title": "Events | Wine Tastings & More at Donna Vino",
   "events.description": "Discover upcoming wine tastings and special events hosted by Donna Vino. Taste new wines, meet fellow wine lovers, and enjoy relaxed, social experiences.",
-  "common.loading": "Loading...",
-  "common.submitting": "Submitting...",
   "events-header.h1": "Secure your spot for our upcoming events",
   "events-header.p": "Easily reserve one or more seats for our upcoming events, featuring freshly prepared Italian cuisine and wine tastings curated by our expert team.",
   "events-header.button-next": "Next step",
@@ -278,5 +280,8 @@
   "api.error.default": "Unknown error. Please try again later.",
   "api.error.offline": "You appear to be offline. Please check your internet connection and try again.",
   "api.error.serverDown": "Unable to reach the server. The service might be down or experiencing issues.",
-  "api.error.connectionFailed": "Connection to the server failed. Please try again later."
+  "api.error.connectionFailed": "Connection to the server failed. Please try again later.",
+  "common.loading": "Loading...",
+  "common.submitting": "Submitting...",
+  "common.button.backToHome": "Back to home"
 }
