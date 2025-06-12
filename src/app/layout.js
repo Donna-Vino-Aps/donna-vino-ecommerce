@@ -10,6 +10,7 @@ import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { UserContextProvider } from "@/context/UserContext";
 import { SessionProvider } from "next-auth/react";
 import APIProvider from "@/context/ApiProvider";
+import Script from "next/script";
 
 const RootLayout = ({ children }) => {
   return (
