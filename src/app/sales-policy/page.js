@@ -153,6 +153,19 @@ const SalesPolicy = () => {
               </p>
             </section>
 
+            <section id="event-cancellation">
+              <h2 className="my-6 text-displaySmall">
+                {translations["sales.cancellation.h2"]}
+              </h2>
+              <p>{translations["sales.cancellation.p1"]}</p>
+              <br />
+              <p>{translations["sales.cancellation.p2"]}</p>
+              <br />
+              <p>{translations["sales.cancellation.p3"]}</p>
+              <br />
+              <p>{translations["sales.cancellation.p4"]}</p>
+            </section>
+
             <section>
               <h2 className="my-6 text-displaySmall">
                 {translations["sales.rights.h2"]}
@@ -181,13 +194,10 @@ const SalesPolicy = () => {
                 </a>
                 .
               </p>
-            </section>
-
-            <section>
-              <h2 className="my-6 text-displaySmall">
-                {translations["sales.complaints.h2"]}
-              </h2>
-              <p>{translations["sales.complaints.p1"]}</p>
+              <br />
+              <p>
+                <strong>{translations["sales.complaints.p1"]}</strong>
+              </p>
               <ul className="mb-4 ml-6 mt-4 list-disc font-normal">
                 <li>
                   {translations["sales.complaints.li1"]}:{" "}
@@ -197,7 +207,7 @@ const SalesPolicy = () => {
               </ul>
               <p>{translations["sales.complaints.p2"]}</p>
             </section>
-            <section className="mb-4 mt-12">
+            <section className="mb-4 mt-14">
               <p>
                 <em>{translations["sales.footer"]}</em>
               </p>
