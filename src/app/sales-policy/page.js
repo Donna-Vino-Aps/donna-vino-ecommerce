@@ -5,10 +5,15 @@ import { useLanguage } from "@/context/LanguageContext";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import SEO from "@/components/SEO/SEO";
+import { useEffect } from "react";
 
 const SalesPolicy = () => {
   const { translations } = useLanguage();
+
   const router = useRouter();
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   return (
     <>
