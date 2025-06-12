@@ -236,7 +236,7 @@
   "sales.info.p6": "Adresse",
   "sales.payment.h2": "Betalingsmetoder",
   "sales.payment.p1": "Vi accepterer følgende betalingsmetoder:",
-  "sales.payment.p2": "Betalingstid:",
+  "sales.payment.p2": "Betalingstid: ",
   "sales.payment.p3": "Alle betalinger behandles sikkert. Betalingen vil blive trukket fra din konto efter modtagelse af ordrebekræftelsen.",
   "sales.delivery.h2": "Leveringsinformation",
   "sales.delivery.p1": "Vi bestræber os på at levere din ordre så hurtigt som muligt.",
