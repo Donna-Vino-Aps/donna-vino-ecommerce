@@ -7,8 +7,8 @@ const ServicesBanner = () => {
   const router = useRouter();
   const { translations } = useLanguage();
   return (
-    <div className="custom-services-banner flex w-full flex-col items-center justify-center gap-y-8 py-24 md:h-[20rem]">
-      <h1 className="mx-24 text-center font-roboto text-headlineLarge text-tertiary1-darker sm:mx-16 md:mx-0 md:text-start md:text-titleLarge lg:text-headlineMedium xl:text-displaySmall">
+    <div className="custom-services-banner flex w-full flex-col items-center justify-center gap-y-8 px-5 py-8 md:min-h-[20rem] md:py-20">
+      <h1 className="text-center text-headlineLarge text-tertiary1-darker md:text-displaySmall">
         {translations["services.heading"]}
       </h1>
       <section className="flex w-full flex-col justify-around space-y-4 text-titleLarge md:flex-row md:text-titleMedium lg:text-titleLarge">
