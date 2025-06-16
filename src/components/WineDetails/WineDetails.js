@@ -10,6 +10,8 @@ import Button from "../Button/Button";
 
 const WineDetails = ({ wine }) => {
   const [quantity, setQuantity] = useState(wine.quantity);
+  const [preSale, setPreSale] =
+    wine.inStock === false ? useState(true) : useState(false);
   const [selectedSize, setSelectedSize] = React.useState("bottle");
 
   return (
@@ -22,7 +24,11 @@ const WineDetails = ({ wine }) => {
       <div className="flex w-[32.625rem] flex-col rounded-lg bg-tertiary2-active p-6 font-barlow shadow-lg">
         <div className="flex flex-row items-center justify-between">
           <h1 className="mb-4 text-displayMedium font-normal">{wine.title}</h1>
-          <InStockDisplay inStock={wine.inStock} />
+          <InStockDisplay
+            inStock={wine.inStock}
+            preSale={preSale}
+            setPreSale={setPreSale}
+          />
         </div>
         <RatingDisplay rating={wine.rating} />
         <p className="mb-3 mt-6 text-titleMedium font-medium">
