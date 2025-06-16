@@ -49,8 +49,9 @@ const WineDetails = ({ wine }) => {
           price={wine.price}
           casePrice={wine.casePrice}
           volume={wine.volume}
+          preSale={preSale}
         />
-        {preOrder === false ? (
+        {preSale === false ? (
           <Button
             text="Add to Cart"
             variant="roundedSmall"
@@ -67,9 +68,9 @@ const WineDetails = ({ wine }) => {
           <Button
             text="Add Pre-Order to Cart"
             variant="roundedSmall"
-            border="secondary"
+            border=""
             icon="/icons/cart-white.svg"
-            color="primary"
+            color="secondary"
             size="md"
             width="full"
             extraStyle="font-medium mt-8"

@@ -11,16 +11,18 @@ export const QuantitySelector = ({
   selectedSize,
   setSelectedSize,
   volume,
+  preSale,
   min = 1,
   max = 99,
 }) => {
   const handleIncrement = () => {
-    if (quantity < max) {
+    if (preSale ? true : quantity < max) {
       setQuantity(quantity + 1);
     }
   };
 
   const handleDecrement = () => {
+    // Ensure quantity does not go below the minimum
     if (quantity > min) {
       setQuantity(quantity - 1);
     }
@@ -36,7 +38,7 @@ export const QuantitySelector = ({
       <div className="flex h-10 w-full items-center justify-center gap-2 rounded-md border border-solid border-tertiary1-light md:h-9 md:w-[7.125rem]">
         <button
           onClick={handleDecrement}
-          disabled={quantity <= 1}
+          disabled={preSale ? false : quantity <= 1}
           className="flex cursor-pointer items-center justify-center disabled:opacity-50"
         >
           <Image src="/icons/minus.svg" width="12" height="12" alt="Decrease" />
@@ -57,7 +59,7 @@ export const QuantitySelector = ({
       </p>
       <div
         className="flex w-full flex-col items-center rounded-b-md text-titleMedium font-medium text-primary-light shadow-md md:w-[29.563rem]"
-        onClick={() => setOpen((prev) => !prev)}
+        onClick={preSale ? () => setOpen((prev) => !prev) : () => {}}
       >
         <div
           className={`flex w-full items-center justify-between bg-primary-normal px-4 py-2 ${isOpen ? "rounded-t-[10px]" : "rounded-[10px]"} cursor-pointer`}
@@ -170,4 +172,5 @@ QuantitySelector.propTypes = {
   selectedSize: PropTypes.string.isRequired,
   setSelectedSize: PropTypes.func.isRequired,
   volume: PropTypes.number.isRequired,
+  preSale: PropTypes.bool.isRequired,
 };
