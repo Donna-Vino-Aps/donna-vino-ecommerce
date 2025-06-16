@@ -50,18 +50,33 @@ const WineDetails = ({ wine }) => {
           casePrice={wine.casePrice}
           volume={wine.volume}
         />
-        <Button
-          text="Add to Cart"
-          variant="roundedSmall"
-          border="primary"
-          icon="/icons/cart-white.svg"
-          color="primary"
-          size="md"
-          width="full"
-          extraStyle="font-medium mt-8"
-          ariaLabel="Add to Cart Button"
-          testId="add-to-cart-button"
-        />
+        {preOrder === false ? (
+          <Button
+            text="Add to Cart"
+            variant="roundedSmall"
+            border="primary"
+            icon="/icons/cart-white.svg"
+            color="primary"
+            size="md"
+            width="full"
+            extraStyle="font-medium mt-8"
+            ariaLabel="Add to Cart Button"
+            testId="add-to-cart-button"
+          />
+        ) : (
+          <Button
+            text="Add Pre-Order to Cart"
+            variant="roundedSmall"
+            border="secondary"
+            icon="/icons/cart-white.svg"
+            color="primary"
+            size="md"
+            width="full"
+            extraStyle="font-medium mt-8"
+            ariaLabel="Pre-Order Button"
+            testId="pre-order-button"
+          />
+        )}
         <ProductDetails
           country={wine.country}
           region={wine.region}
