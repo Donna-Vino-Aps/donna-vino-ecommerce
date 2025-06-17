@@ -4,7 +4,7 @@ import {
   getMetaobjectLabel,
   getMetaobjectFields,
   getMultipleReferencedMetaobjects,
-} from "../../../lib/shopify/metafield-utils";
+} from "@/lib/shopify/metafield-utils";
 
 describe("Shopify Metafield Utilities", () => {
   describe("getMetafieldValue", () => {
