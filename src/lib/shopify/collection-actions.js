@@ -54,6 +54,31 @@ export async function getWineCollection(language = "en") {
   return result;
 }
 
+export function reshapeCollectionResponse(
+  shopifyCollection,
+  productTransformerFn,
+) {
+  if (!shopifyCollection) {
+    logInfo(
+      "reshapeCollectionResponse received null or undefined shopifyCollection",
+    );
+    return null;
+  }
+
+  const products =
+    shopifyCollection.products?.edges?.map((edge) =>
+      productTransformerFn(edge.node),
+    ) || [];
+
+  return {
+    id: shopifyCollection.id,
+    handle: shopifyCollection.handle,
+    title: shopifyCollection.title,
+    description: shopifyCollection.description,
+    products,
+  };
+}
+
 export function transformShopifyEventProduct(product) {
   // Extract the variant
   const firstVariant = product.variants?.edges?.[0]?.node || null;
