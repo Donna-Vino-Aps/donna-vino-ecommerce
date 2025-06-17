@@ -1,4 +1,4 @@
-export const GET_COLLECTION_BY_HANDLE = `
+export const GET_EVENTS_COLLECTION_BY_HANDLE = `
   query GetCollectionByHandle($handle: String!, $language: LanguageCode!) @inContext(language: $language) {
     collection: collectionByHandle(handle: $handle) {
       id

@@ -1,12 +1,12 @@
 import { shopifyQuery } from "@/utils/shopify";
-import { GET_COLLECTION_BY_HANDLE } from "@/graphql/shopify-queries";
+import { GET_EVENTS_COLLECTION_BY_HANDLE } from "@/graphql/shopify-queries";
 import { logError } from "@/utils/logging";
 import { parseISO } from "date-fns";
 
 export async function getCollectionByHandle(handle, language = "en") {
   try {
     const response = await shopifyQuery(
-      GET_COLLECTION_BY_HANDLE,
+      GET_EVENTS_COLLECTION_BY_HANDLE,
       { handle },
       language,
     );
