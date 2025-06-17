@@ -7,6 +7,7 @@ import { PriceDisplay } from "./PriceDisplay";
 import { QuantitySelector } from "./QuantitySelector";
 import { ProductDetails } from "./ProductDetails";
 import Button from "../Button/Button";
+// import Image from "next/image";
 
 const WineDetails = ({ wine }) => {
   const [quantity, setQuantity] = useState(wine.quantity);
@@ -15,25 +16,35 @@ const WineDetails = ({ wine }) => {
   const [selectedSize, setSelectedSize] = React.useState("bottle");
 
   return (
-    <article className="flex flex-col items-center justify-center gap-4 md:flex-row">
+    <article className="relative flex flex-col items-center justify-center gap-6 md:flex-row md:gap-8 lg:gap-12">
       <img
         src={wine.imageUrl}
         alt={wine.title}
-        className="mt-4 w-full max-w-md"
+        className="mt-4 h-[18.75rem] w-[18rem] w-full md:h-[31rem] md:w-[30rem] lg:h-[40rem] lg:w-[38.75rem] "
       />
-      <div className="flex w-[32.625rem] flex-col rounded-lg bg-tertiary2-active p-6 font-barlow shadow-lg">
+      <div className="flex min-w-[18.75rem] flex-col rounded-lg bg-tertiary2-active p-6 font-barlow shadow-lg md:min-w-[25rem] lg:w-[32.625rem]">
         <div className="flex flex-row items-center justify-between">
-          <h1 className="mb-4 text-displayMedium font-normal">{wine.title}</h1>
+          <h1 className="mb-2 text-headlineMedium font-normal md:mb-4 md:text-displaySmall lg:text-displayMedium">
+            {wine.title}
+          </h1>
           <InStockDisplay
             inStock={wine.inStock}
             preSale={preSale}
             setPreSale={setPreSale}
           />
         </div>
-        <RatingDisplay rating={wine.rating} />
-        <p className="mb-3 mt-6 text-titleMedium font-medium">
-          {wine.description}
-        </p>
+        <div className="flex flex-col">
+          <div className="order-2 mb-8 md:order-1 md:mb-0">
+            <RatingDisplay
+              rating={wine.rating}
+              nrOfRatings={wine.nrOfRatings}
+              className="order-2 md:order-1"
+            />
+          </div>
+          <p className="order-1 mb-2 text-bodySmall font-normal md:order-2 md:mb-3 md:mt-6 md:text-titleMedium md:font-medium">
+            {wine.description}
+          </p>
+        </div>
         <PriceDisplay
           price={wine.price}
           casePrice={wine.casePrice}
@@ -99,6 +110,7 @@ WineDetails.propTypes = {
     volume: PropTypes.number.isRequired,
     casePrice: PropTypes.number.isRequired,
     rating: PropTypes.number.isRequired,
+    nrOfRatings: PropTypes.number.isRequired,
     imageUrl: PropTypes.string.isRequired,
     description: PropTypes.string.isRequired,
     inStock: PropTypes.bool.isRequired,

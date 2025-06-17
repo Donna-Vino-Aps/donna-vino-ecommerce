@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import Image from "next/image";
 
-export const RatingDisplay = ({ rating }) => {
+export const RatingDisplay = ({ rating, nrOfRatings }) => {
   const stars = Array.from({ length: 5 }, (_, index) => {
     const starPosition = index + 1;
     let src = "/icons/star-empty.svg"; // Default to empty
@@ -20,7 +20,7 @@ export const RatingDisplay = ({ rating }) => {
         alt="Star"
         width={18}
         height={18}
-        className="h-[1.125rem] w-[1.125rem]"
+        className="h-4 w-4 md:h-[1.125rem] md:w-[1.125rem]"
       />
     );
   });
@@ -28,8 +28,8 @@ export const RatingDisplay = ({ rating }) => {
   return (
     <div className="flex flex-row items-center space-x-2">
       <div className="flex space-x-1">{stars}</div>
-      <p className="text-titleMedium text-tertiary1-dark">
-        {rating.toFixed(2)} Rating
+      <p className="text-titleSmall text-tertiary1-dark md:text-titleMedium">
+        ({nrOfRatings} ratings)
       </p>
     </div>
   );
@@ -37,4 +37,5 @@ export const RatingDisplay = ({ rating }) => {
 
 RatingDisplay.propTypes = {
   rating: PropTypes.number.isRequired,
+  nrOfRatings: PropTypes.number.isRequired,
 };

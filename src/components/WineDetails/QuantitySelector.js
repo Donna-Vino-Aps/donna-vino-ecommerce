@@ -58,7 +58,7 @@ export const QuantitySelector = ({
         Select Size
       </p>
       <div
-        className="flex w-full flex-col items-center rounded-b-md text-titleMedium font-medium text-primary-light shadow-md md:w-[29.563rem]"
+        className="flex w-full flex-col items-center rounded-b-md text-titleMedium font-medium text-primary-light shadow-md lg:max-w-[29.563rem]"
         onClick={preSale ? () => setOpen((prev) => !prev) : () => {}}
       >
         <div

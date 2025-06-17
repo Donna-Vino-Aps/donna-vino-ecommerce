@@ -8,16 +8,16 @@ export const PriceDisplay = ({ price, casePrice, volume, selectedSize }) => {
 
   return (
     <div className="text-end">
-      <p className="text-titleMedium text-tertiary2-hover_dark">
+      <p className="text-titleSmall text-tertiary2-hover_dark md:text-titleMedium">
         each {selectedSize === "bottle" ? "bottle" : "case"}:
       </p>
-      <p className="text-headlineLarge font-normal">
+      <p className="text-headlineMedium font-normal md:text-headlineLarge">
         {selectedSize === "bottle" ? price.toFixed(2) : casePrice.toFixed(2)} kr
       </p>
-      <p className="text-titleMedium font-medium text-tertiary1-normal">
+      <p className="text-titleSmall font-medium text-tertiary1-normal md:text-titleMedium">
         (12% VAT excluded)
       </p>
-      <p className="text-titleMedium text-tertiary2-hover_dark">
+      <p className="text-titleSmall text-tertiary2-hover_dark md:text-titleMedium">
         ({pricePerLiter} kr / L)
       </p>
     </div>

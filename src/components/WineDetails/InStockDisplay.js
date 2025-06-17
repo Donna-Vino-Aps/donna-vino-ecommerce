@@ -16,7 +16,11 @@ export const InStockDisplay = ({ inStock, preSale, setPreSale }) => {
             : "/icons/cross-circle.svg"
         }
       />
-      <p>{inStock ? "In Stock" : "Out of Stock"}</p>
+      <p
+        className={`text-nowrap text-titleMedium ${inStock ? "text-[#34C759]" : "text-primary-normal"}`}
+      >
+        {inStock ? "In Stock" : "Out of Stock"}
+      </p>
       {inStock === false && (
         <Button
           text="Switch to Pre-Order"
@@ -38,7 +42,7 @@ export const InStockDisplay = ({ inStock, preSale, setPreSale }) => {
         alt="Pre Order"
         src="/icons/checkmark-circle-green.svg"
       />
-      <p>Pre-Order</p>
+      <p className="text-nowrap text-titleMedium text-[#34C759]">Pre-Order</p>
     </div>
   );
 };
