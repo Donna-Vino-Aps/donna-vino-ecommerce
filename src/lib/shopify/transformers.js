@@ -11,10 +11,16 @@ import {
 const formatDateTime = (utcTimeString) => {
   if (!utcTimeString) return null;
   try {
-    return parseISO(utcTimeString);
+    const parsedDate = parseISO(utcTimeString);
+    // Check if parseISO returned an Invalid Date object
+    if (isNaN(parsedDate.getTime())) {
+      logError("Invalid date-time string provided:", { utcTimeString });
+      return utcTimeString; // Return original string if date is invalid
+    }
+    return parsedDate;
   } catch (error) {
     logError("Error parsing date-time:", error, { utcTimeString });
-    return utcTimeString;
+    return utcTimeString; // Return original string on other errors too
   }
 };
 
@@ -103,15 +109,23 @@ export function transformShopifyWineProduct(product) {
   const currency = firstVariant?.price?.currencyCode || "DKK";
 
   let volumeParsed = null;
-  const volumeString = getMetafieldValue(product.volume); // Corrected: removed trailing slash
+  const volumeString = getMetafieldValue(product.volume);
   if (volumeString) {
     try {
-      volumeParsed = JSON.parse(volumeString);
+      let parsed = JSON.parse(volumeString);
+      if (typeof parsed === "number") {
+        // If JSON.parse results in a number, wrap it in the standard object
+        volumeParsed = { value: parsed, unit: "L" };
+      } else {
+        // Otherwise, assume it's already the correct object structure or null
+        volumeParsed = parsed;
+      }
     } catch (e) {
       logError("Error parsing volume JSON for wine product:", e, {
         productId: product.id,
         volumeString,
       });
+      // Fallback for when JSON.parse fails (e.g., not a valid JSON string at all)
       const numericValue = parseFloat(volumeString);
       if (!isNaN(numericValue)) {
         volumeParsed = { value: numericValue, unit: "L" }; // Default unit
