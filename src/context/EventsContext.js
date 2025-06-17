@@ -8,11 +8,7 @@ import React, {
 } from "react";
 import PropTypes from "prop-types";
 import { logError } from "@/utils/logging";
-import {
-  getEventsCollection,
-  getWineCollection,
-  transformShopifyProduct,
-} from "@/lib/shopify/collection-actions";
+import { getEventsCollection } from "@/lib/shopify/services";
 import { useLanguage } from "@/context/LanguageContext";
 
 const EventsContext = createContext();
@@ -37,25 +33,26 @@ export function EventsProvider({ children }) {
   useEffect(() => {
     async function fetchEvents() {
       try {
-        const collection = await getEventsCollection(language);
-        const wineCollection = await getWineCollection(language);
-
-        if (!collection || !collection.products || !collection.products.edges) {
+        const eventsResponse = await getEventsCollection(language);
+        if (eventsResponse && eventsResponse.products) {
+          setFormattedEvents(eventsResponse.products);
+        } else {
           setFormattedEvents([]);
-          return;
+          logError("Events data is missing or malformed after fetch", {
+            eventsResponse,
+          });
+          setError(
+            translations["events.error.loading"] ||
+              "Failed to load events. Please try again later.",
+          );
         }
-
-        const events = collection.products.edges.map(({ node }) =>
-          transformShopifyProduct(node),
-        );
-
-        setFormattedEvents(events);
       } catch (err) {
         logError("Error fetching events:", err);
         setError(
           translations["events.error.loading"] ||
             "Failed to load events. Please try again later.",
         );
+        setFormattedEvents([]);
       } finally {
         setIsLoading(false);
       }
