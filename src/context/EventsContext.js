@@ -10,6 +10,7 @@ import PropTypes from "prop-types";
 import { logError } from "@/utils/logging";
 import {
   getEventsCollection,
+  getWineCollection,
   transformShopifyProduct,
 } from "@/lib/shopify/collection-actions";
 import { useLanguage } from "@/context/LanguageContext";
@@ -37,6 +38,7 @@ export function EventsProvider({ children }) {
     async function fetchEvents() {
       try {
         const collection = await getEventsCollection(language);
+        const wineCollection = await getWineCollection(language);
 
         if (!collection || !collection.products || !collection.products.edges) {
           setFormattedEvents([]);
