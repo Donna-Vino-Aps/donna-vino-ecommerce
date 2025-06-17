@@ -1,28 +1,12 @@
 import React from "react";
 import { render, screen, waitFor } from "@testing-library/react";
 import { EventsProvider, useEvents } from "@/context/EventsContext";
-import {
-  getEventsCollection,
-  transformShopifyProduct,
-} from "@/lib/shopify/collection-actions";
+import { getEventsCollection } from "@/lib/shopify/services";
 import { useLanguage } from "@/context/LanguageContext";
 
 // Mock dependencies
-jest.mock("@/lib/shopify/collection-actions", () => ({
+jest.mock("@/lib/shopify/services", () => ({
   getEventsCollection: jest.fn(),
-  transformShopifyProduct: jest.fn((product) => {
-    const futureDate = new Date();
-    futureDate.setFullYear(futureDate.getFullYear() + 1);
-
-    return {
-      ...product,
-      transformed: true,
-      date: futureDate.toISOString().slice(0, 10),
-      timeStart: futureDate,
-      totalSeats: 10,
-      availableQuantity: 5,
-    };
-  }),
 }));
 
 jest.mock("@/context/LanguageContext", () => ({
@@ -57,7 +41,6 @@ const renderWithProvider = () =>
 describe("EventsContext", () => {
   beforeEach(() => {
     jest.clearAllMocks();
-
     useLanguage.mockReturnValue({
       language: "en",
       translations: {
@@ -67,24 +50,23 @@ describe("EventsContext", () => {
   });
 
   it("should show loading state initially", () => {
+    // Mock a promise that never resolves to keep it in a loading state
     getEventsCollection.mockImplementation(() => new Promise(() => {}));
-
     renderWithProvider();
-
     expect(screen.getByTestId("loading")).toBeInTheDocument();
   });
 
-  it("should fetch and transform events successfully", async () => {
-    const mockEvents = {
-      products: {
-        edges: [
-          { node: { id: "1", title: "Event 1" } },
-          { node: { id: "2", title: "Event 2" } },
-        ],
-      },
+  it("should fetch events successfully", async () => {
+    const futureDate = new Date();
+    futureDate.setFullYear(futureDate.getFullYear() + 1);
+    const mockEventsResponse = {
+      products: [
+        { id: "1", title: "Event 1", timeStart: futureDate },
+        { id: "2", title: "Event 2", timeStart: futureDate },
+      ],
     };
 
-    getEventsCollection.mockResolvedValue(mockEvents);
+    getEventsCollection.mockResolvedValue(mockEventsResponse);
 
     renderWithProvider();
 
@@ -94,16 +76,12 @@ describe("EventsContext", () => {
       expect(getEventsCollection).toHaveBeenCalledWith("en");
     });
 
-    expect(transformShopifyProduct).toHaveBeenCalledTimes(2);
-
     const eventItems = await screen.findAllByTestId("event-item");
     expect(eventItems).toHaveLength(2);
   });
 
   it("should handle empty events", async () => {
-    getEventsCollection.mockResolvedValue({
-      products: { edges: [] },
-    });
+    getEventsCollection.mockResolvedValue({ products: [] });
 
     renderWithProvider();
 
@@ -127,46 +105,19 @@ describe("EventsContext", () => {
   });
 
   it("should filter out past events", async () => {
-    transformShopifyProduct.mockReset();
+    const futureDate = new Date();
+    futureDate.setFullYear(futureDate.getFullYear() + 1);
+    const pastDate = new Date();
+    pastDate.setFullYear(pastDate.getFullYear() - 1);
 
-    transformShopifyProduct.mockImplementation((node) => {
-      if (node.id === "1") {
-        const futureDate = new Date();
-        futureDate.setFullYear(futureDate.getFullYear() + 1);
-        return {
-          id: "future-event",
-          title: "Future Event",
-          date: futureDate.toISOString().slice(0, 10),
-          timeStart: futureDate,
-          totalSeats: 10,
-          availableQuantity: 5,
-          transformed: true,
-        };
-      } else {
-        const pastDate = new Date();
-        pastDate.setFullYear(pastDate.getFullYear() - 1);
-        return {
-          id: "past-event",
-          title: "Past Event",
-          date: pastDate.toISOString().slice(0, 10),
-          timeStart: pastDate,
-          totalSeats: 10,
-          availableQuantity: 5,
-          transformed: true,
-        };
-      }
-    });
-
-    const mockEvents = {
-      products: {
-        edges: [
-          { node: { id: "1", title: "Should be future" } },
-          { node: { id: "2", title: "Should be past" } },
-        ],
-      },
+    const mockEventsResponse = {
+      products: [
+        { id: "future-event", title: "Future Event", timeStart: futureDate },
+        { id: "past-event", title: "Past Event", timeStart: pastDate },
+      ],
     };
 
-    getEventsCollection.mockResolvedValue(mockEvents);
+    getEventsCollection.mockResolvedValue(mockEventsResponse);
 
     renderWithProvider();
 
@@ -174,24 +125,13 @@ describe("EventsContext", () => {
       expect(screen.queryByTestId("loading")).not.toBeInTheDocument();
     });
 
-    expect(transformShopifyProduct).toHaveBeenCalledTimes(2);
-
     const futureEvent = screen.getByText("Future Event");
     expect(futureEvent).toBeInTheDocument();
     expect(screen.queryByText("Past Event")).not.toBeInTheDocument();
   });
 
   it("should refetch when language changes", async () => {
-    const mockEvents = {
-      products: {
-        edges: [
-          { node: { id: "1", title: "Event 1" } },
-          { node: { id: "2", title: "Event 2" } },
-        ],
-      },
-    };
-
-    getEventsCollection.mockResolvedValue(mockEvents);
+    getEventsCollection.mockResolvedValue({ products: [] });
 
     const { rerender } = renderWithProvider();
 
