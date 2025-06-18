@@ -14,6 +14,9 @@ const wineProductFragment = `
           }
           availableForSale
           quantityAvailable
+          isDefaultDisplayVariant: metafield(namespace: "wine", key: "default_display_variant") {
+            value
+          }
         }
       }
     }

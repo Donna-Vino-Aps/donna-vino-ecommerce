@@ -93,6 +93,9 @@ const mockShopifyWineProductSpecific = {
           },
           availableForSale: true,
           quantityAvailable: 0,
+          isDefaultDisplayVariant: {
+            value: "true",
+          },
         },
       },
       {
@@ -105,6 +108,9 @@ const mockShopifyWineProductSpecific = {
           },
           availableForSale: true,
           quantityAvailable: 0,
+          isDefaultDisplayVariant: {
+            value: "false",
+          },
         },
       },
     ],
@@ -334,6 +340,7 @@ describe("Shopify Data Transformers", () => {
             },
             availableForSale: true,
             quantityAvailable: 0,
+            isDefault: true,
           },
           {
             id: "gid://shopify/ProductVariant/51463087423834",
@@ -344,6 +351,7 @@ describe("Shopify Data Transformers", () => {
             },
             availableForSale: true,
             quantityAvailable: 0,
+            isDefault: false,
           },
         ],
         country: "Italy",

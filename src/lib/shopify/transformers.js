@@ -137,6 +137,7 @@ export function transformShopifyWineProduct(product) {
         },
         availableForSale: variantNode.availableForSale || false,
         quantityAvailable: variantNode.quantityAvailable || 0,
+        isDefault: variantNode.isDefaultDisplayVariant?.value === "true",
       };
     }) || [];
 
