@@ -3,6 +3,7 @@ import { render, screen, waitFor } from "@testing-library/react";
 import { EventsProvider, useEvents } from "@/context/EventsContext";
 import { getEventsCollection } from "@/lib/shopify/services";
 import { useLanguage } from "@/context/LanguageContext";
+import { logError } from "@/utils/logging";
 
 // Mock dependencies
 jest.mock("@/lib/shopify/services", () => ({
@@ -91,7 +92,7 @@ describe("EventsContext", () => {
     expect(screen.queryAllByTestId("event-item")).toHaveLength(0);
   });
 
-  it("should handle API errors", async () => {
+  it("should show an error message if fetching events fails", async () => {
     getEventsCollection.mockRejectedValue(new Error("Failed to fetch"));
 
     renderWithProvider();
@@ -101,6 +102,7 @@ describe("EventsContext", () => {
     });
 
     expect(screen.getByText("Failed to load events")).toBeInTheDocument();
+    expect(logError).toHaveBeenCalled();
   });
 
   it("should filter out past events", async () => {
