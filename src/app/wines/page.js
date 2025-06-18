@@ -2,49 +2,66 @@
 
 import React from "react";
 import SEO from "@/components/SEO/SEO";
-import {
-  PreSaleWinesProvider,
-  usePreSaleWines,
-} from "@/context/PreSaleWinesContext";
+import { usePreSaleWines } from "@/context/PreSaleWinesContext";
+import WineCardSmall from "@/components/Card/WineCardSmall";
+import Spinner from "@/components/UI/Spinner";
+import ErrorMessage from "@/components/UI/ErrorMessage";
 
-const WinesList = () => {
+const WinesPage = () => {
   const { wines, isLoading, error } = usePreSaleWines();
-
   if (isLoading) {
-    return <div>Loading wines...</div>;
+    return (
+      <div className="flex min-h-[25rem] items-center justify-center">
+        <Spinner size="medium" />
+      </div>
+    );
   }
 
   if (error) {
-    return <div>Error: {error}</div>;
+    return (
+      <div className="flex min-h-[25rem] items-center justify-center">
+        <ErrorMessage message={error} />
+      </div>
+    );
   }
 
   if (!wines || wines.length === 0) {
-    return <div>No pre-sale wines available at the moment.</div>;
+    return (
+      <div className="flex min-h-[25rem] items-center justify-center">
+        <p className="text-bodyLarge font-medium text-tertiary1-normal">
+          No pre-sale wines available at the moment.
+        </p>
+      </div>
+    );
   }
 
   return (
-    <div>
-      {wines.map((wine) => (
-        <div
-          key={wine.id}
-          style={{ border: "1px solid #ccc", margin: "10px", padding: "10px" }}
-        >
-          <pre>{JSON.stringify(wine, null, 2)}</pre>
-        </div>
-      ))}
-    </div>
-  );
-};
+    <>
+      <SEO
+        title="Pre-Sale Wines"
+        description="Browse our exclusive selection of pre-sale wines."
+      />
+      <div className="container mx-auto flex items-center justify-center px-4 py-8">
+        <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
+          {wines.map((wine) => {
+            const defaultVariant = wine.variants?.find(
+              (variant) => variant.isDefault,
+            );
+            const price = defaultVariant?.price?.amount;
+            const primaryImage = wine.images?.[0];
 
-const WinesPage = () => {
-  return (
-    <div>
-      <SEO title="Wines" description="A selection of our finest wines." />
-      <h1 className="text-center text-displayLarge">Pre-Sale Wines</h1>
-      <PreSaleWinesProvider>
-        <WinesList />
-      </PreSaleWinesProvider>
-    </div>
+            return (
+              <WineCardSmall
+                key={wine.id}
+                title={wine.title}
+                price={price}
+                imageUrl={primaryImage.url}
+              />
+            );
+          })}
+        </div>
+      </div>
+    </>
   );
 };
 
