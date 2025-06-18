@@ -4,8 +4,9 @@ import PropTypes from "prop-types";
 import Image from "next/image";
 
 export const QuantitySelector = ({
-  quantity,
-  setQuantity,
+  quantityInStock,
+  selectedQuantity,
+  setSelectedQuantity,
   price,
   casePrice,
   selectedSize,
@@ -13,18 +14,18 @@ export const QuantitySelector = ({
   volume,
   preSale,
   min = 1,
-  max = 99,
+  max = quantityInStock || 99,
 }) => {
   const handleIncrement = () => {
-    if (preSale ? true : quantity < max) {
-      setQuantity(quantity + 1);
+    if (preSale ? true : selectedQuantity < max) {
+      setSelectedQuantity(selectedQuantity + 1);
     }
   };
 
   const handleDecrement = () => {
     // Ensure quantity does not go below the minimum
-    if (quantity > min) {
-      setQuantity(quantity - 1);
+    if (selectedQuantity > min) {
+      setSelectedQuantity(selectedQuantity - 1);
     }
   };
 
@@ -38,17 +39,17 @@ export const QuantitySelector = ({
       <div className="flex h-10 w-full items-center justify-center gap-2 rounded-md border border-solid border-tertiary1-light md:h-9 md:w-[7.125rem]">
         <button
           onClick={handleDecrement}
-          disabled={preSale ? false : quantity <= 1}
+          disabled={preSale ? false : selectedQuantity <= 1}
           className="flex cursor-pointer items-center justify-center disabled:opacity-50"
         >
           <Image src="/icons/minus.svg" width="12" height="12" alt="Decrease" />
         </button>
         <span className="min-w-[55%] border-l border-r border-solid border-tertiary1-light px-4 py-1 text-center text-titleMedium font-semibold md:min-w-[3rem]">
-          {quantity}
+          {selectedQuantity}
         </span>
         <button
           onClick={handleIncrement}
-          disabled={quantity >= 99}
+          disabled={selectedQuantity >= max}
           className="flex cursor-pointer items-center justify-center disabled:opacity-50"
         >
           <Image src="/icons/plus.svg" width="12" height="12" alt="Increase" />
@@ -162,8 +163,9 @@ export const QuantitySelector = ({
 };
 
 QuantitySelector.propTypes = {
-  quantity: PropTypes.number.isRequired,
-  setQuantity: PropTypes.func.isRequired,
+  quantityInStock: PropTypes.number.isRequired,
+  setSelectedQuantity: PropTypes.func.isRequired,
+  selectedQuantity: PropTypes.number.isRequired,
   min: PropTypes.number,
   max: PropTypes.number,
   inStock: PropTypes.bool,

@@ -10,21 +10,22 @@ import Button from "../Button/Button";
 // import Image from "next/image";
 
 const WineDetails = ({ wine }) => {
-  const [quantity, setQuantity] = useState(wine.quantity);
+  const quantityInStock = wine.quantity;
   const [preSale, setPreSale] =
     wine.inStock === false ? useState(true) : useState(false);
   const [selectedSize, setSelectedSize] = React.useState("bottle");
+  const [selectedQuantity, setSelectedQuantity] = React.useState(1);
 
   return (
-    <article className="relative flex flex-col items-center justify-center gap-6 md:flex-row md:gap-8 lg:gap-12">
+    <article className="relative flex flex-col items-center justify-center gap-6 lg:flex-row md:gap-8 lg:gap-12">
       <img
         src={wine.imageUrl}
         alt={wine.title}
-        className="mt-4 h-[18.75rem] w-[18rem] w-full md:h-[31rem] md:w-[30rem] lg:h-[40rem] lg:w-[38.75rem] "
+        className="mt-4 h-[18.75rem] w-[18rem] md:h-[26rem] md:w-[25rem] lg:h-[31rem] lg:w-[30rem] xl:h-[40rem] xl:w-[38.75rem]"
       />
-      <div className="flex min-w-[18.75rem] flex-col rounded-lg bg-tertiary2-active p-6 font-barlow shadow-lg md:min-w-[25rem] lg:w-[32.625rem]">
+      <div className="flex min-w-[18.75rem] flex-col rounded-lg bg-tertiary2-active p-5 font-barlow shadow-lg md:min-w-[25rem] lg:w-[32.625rem]">
         <div className="flex flex-row items-center justify-between">
-          <h1 className="mb-2 text-headlineMedium font-normal md:mb-4 md:text-displaySmall lg:text-displayMedium">
+          <h1 className="mb-2 text-headlineMedium font-normal md:mb-4 lg:text-displaySmall xl:text-displayMedium">
             {wine.title}
           </h1>
           <InStockDisplay
@@ -41,7 +42,7 @@ const WineDetails = ({ wine }) => {
               className="order-2 md:order-1"
             />
           </div>
-          <p className="order-1 mb-2 text-bodySmall font-normal md:order-2 md:mb-3 md:mt-6 md:text-titleMedium md:font-medium">
+          <p className="order-1 mb-2 text-bodySmall font-normal md:order-2 md:mb-3 md:mt-6 md:text-titleSmall lg:text-titleMedium md:font-medium">
             {wine.description}
           </p>
         </div>
@@ -53,8 +54,9 @@ const WineDetails = ({ wine }) => {
           selectedSize={selectedSize}
         />
         <QuantitySelector
-          quantity={quantity}
-          setQuantity={setQuantity}
+          quantityInStock={quantityInStock}
+          selectedQuantity={selectedQuantity}
+          setSelectedQuantity={setSelectedQuantity}
           selectedSize={selectedSize}
           setSelectedSize={setSelectedSize}
           price={wine.price}
