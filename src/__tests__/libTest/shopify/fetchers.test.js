@@ -3,7 +3,6 @@ import { shopifyQuery } from "@/utils/shopify";
 import { logError } from "@/utils/logging";
 
 jest.mock("@/utils/shopify");
-jest.mock("@/utils/logging");
 
 const mockQuery = 'query TestQuery { collection(handle: "test") { id } }';
 const mockHandle = "test-collection";

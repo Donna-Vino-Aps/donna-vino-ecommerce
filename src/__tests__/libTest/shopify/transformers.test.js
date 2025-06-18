@@ -4,10 +4,9 @@ import {
   transformShopifyWineProduct,
 } from "@/lib/shopify/transformers";
 import * as metafieldUtils from "@/lib/shopify/metafield-utils";
-import * as logging from "@/utils/logging";
+import { logError } from "@/utils/logging";
 
 jest.mock("@/lib/shopify/metafield-utils");
-jest.mock("@/utils/logging");
 
 const mockShopifyProductBase = {
   id: "gid://shopify/Product/123",
@@ -242,7 +241,7 @@ describe("Shopify Data Transformers", () => {
       const mockTransformer = jest.fn();
       expect(reshapeCollectionResponse(null, mockTransformer)).toBeNull();
       expect(reshapeCollectionResponse(undefined, mockTransformer)).toBeNull();
-      expect(logging.logError).toHaveBeenCalledWith(
+      expect(logError).toHaveBeenCalledWith(
         "reshapeCollectionResponse received null or undefined shopifyCollection",
       );
     });
@@ -296,7 +295,7 @@ describe("Shopify Data Transformers", () => {
       };
       const result = transformShopifyEventProduct(productWithInvalidTime);
       expect(result.timeStart).toBe("invalid-date-string");
-      expect(logging.logError).toHaveBeenCalledWith(
+      expect(logError).toHaveBeenCalledWith(
         "Invalid date-time string provided:",
         { utcTimeString: "invalid-date-string" },
       );
@@ -305,7 +304,7 @@ describe("Shopify Data Transformers", () => {
     it("should return null if product is null or undefined", () => {
       expect(transformShopifyEventProduct(null)).toBeNull();
       expect(transformShopifyEventProduct(undefined)).toBeNull();
-      expect(logging.logError).toHaveBeenCalledWith(
+      expect(logError).toHaveBeenCalledWith(
         "transformShopifyEventProduct received null or undefined product",
       );
     });
@@ -413,7 +412,7 @@ describe("Shopify Data Transformers", () => {
     it("should return null if product is null or undefined", () => {
       expect(transformShopifyWineProduct(null)).toBeNull();
       expect(transformShopifyWineProduct(undefined)).toBeNull();
-      expect(logging.logError).toHaveBeenCalledWith(
+      expect(logError).toHaveBeenCalledWith(
         "transformShopifyWineProduct received null or undefined product",
       );
     });
@@ -427,7 +426,7 @@ describe("Shopify Data Transformers", () => {
         productWithInvalidTasteProfile,
       );
       expect(result.tasteProfile).toEqual([]);
-      expect(logging.logError).toHaveBeenCalledWith(
+      expect(logError).toHaveBeenCalledWith(
         expect.stringContaining("Error parsing JSON for tasteProfile"),
         expect.any(Error),
         expect.objectContaining({
@@ -444,7 +443,7 @@ describe("Shopify Data Transformers", () => {
       };
       const result = transformShopifyWineProduct(productWithInvalidVolume);
       expect(result.volume).toBeNull();
-      expect(logging.logError).toHaveBeenCalledWith(
+      expect(logError).toHaveBeenCalledWith(
         expect.stringContaining("Error parsing JSON for volume"),
         expect.any(Error),
         expect.objectContaining({
