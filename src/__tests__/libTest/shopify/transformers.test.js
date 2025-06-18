@@ -64,22 +64,126 @@ const mockShopifyEventProductSpecific = {
 };
 
 const mockShopifyWineProductSpecific = {
-  ...mockShopifyProductBase,
-  country: { value: "Country Name" },
-  region: { value: "Region Name" },
-  wineVariety: { value: "Variety Name" },
-  producer: { value: "Producer Name" },
-  vineyard: { value: "Vineyard Name" },
-  grape: { value: "Grape Name" },
-  alcoholContent: { value: "12.5%" },
-  vintage: { value: "2020" },
-  servingTemperature: { value: "16-18°C" },
-  tasteProfile: { value: "Bold and fruity" },
-  volume: { value: '{"value": 0.75, "unit": "L"}' },
-  softCrisp: { value: "5" },
-  drySmooth: { value: "5" },
-  velvetyAstringent: { value: "5" },
-  delicateBold: { value: "5" },
+  id: "gid://shopify/Product/10252479529306",
+  handle: "cantina-kurtatsch",
+  availableForSale: true,
+  title: "Cantina Kurtatsch",
+  description:
+    "Nuanced, berry flavor with hints of strawberries, wild raspberries, spices, blood orange, herbs and nuts.",
+  images: {
+    edges: [
+      {
+        node: {
+          url: "https://cdn.shopify.com/s/files/1/0944/0149/5386/files/catena-min.png?v=1750148316",
+          altText: null,
+          id: "gid://shopify/ProductImage/62288056615258",
+        },
+      },
+    ],
+  },
+  variants: {
+    edges: [
+      {
+        node: {
+          id: "gid://shopify/ProductVariant/51463087391066",
+          title: "Single Bottle",
+          price: {
+            amount: "169.0",
+            currencyCode: "DKK",
+          },
+          availableForSale: true,
+          quantityAvailable: 0,
+        },
+      },
+      {
+        node: {
+          id: "gid://shopify/ProductVariant/51463087423834",
+          title: "Case (6 Bottles)",
+          price: {
+            amount: "1014.0",
+            currencyCode: "DKK",
+          },
+          availableForSale: true,
+          quantityAvailable: 0,
+        },
+      },
+    ],
+  },
+  country: {
+    references: {
+      edges: [
+        {
+          node: {
+            name: {
+              value: "Italy",
+            },
+          },
+        },
+      ],
+    },
+  },
+  region: {
+    references: {
+      edges: [
+        {
+          node: {
+            name: {
+              value: "Alto Adige",
+            },
+          },
+        },
+      ],
+    },
+  },
+  wineVariety: {
+    references: {
+      edges: [
+        {
+          node: {
+            name: {
+              value: "Red",
+            },
+          },
+        },
+      ],
+    },
+  },
+  grape: {
+    value: "Pinot noir",
+  },
+  vineyard: {
+    value: "Cantina Kurtatsch",
+  },
+  tasteProfile: {
+    value: '[\"Nuanced\",\"Spicy\",\"Fruity\",\"Berries\",\"Acidic\"]',
+  },
+  alcoholContent: {
+    value: "13.5",
+  },
+  servingTemperature: {
+    value: "16-18",
+  },
+  vintage: {
+    value: "2024",
+  },
+  producer: {
+    value: "Cantina Kurtatsch",
+  },
+  volume: {
+    value: '{\"value\":0.75,\"unit\":\"LITERS\"}',
+  },
+  softCrisp: {
+    value: "0.5",
+  },
+  drySmooth: {
+    value: "0.25",
+  },
+  velvetyAstringent: {
+    value: "0.35",
+  },
+  delicateBold: {
+    value: "0.5",
+  },
 };
 
 describe("Shopify Data Transformers", () => {
@@ -94,13 +198,6 @@ describe("Shopify Data Transformers", () => {
     );
     metafieldUtils.getMetaobjectLabel.mockImplementation(
       (node) => node?.name?.value || node?.label?.value || null,
-    );
-    metafieldUtils.getMetaobjectFields.mockImplementation((node) => {
-      if (!node?.fields) return {};
-      return node.fields.reduce((acc, f) => ({ ...acc, [f.key]: f.value }), {});
-    });
-    metafieldUtils.getMultipleReferencedMetaobjects.mockImplementation(
-      (field) => field?.references?.edges?.map((e) => e.node) || [],
     );
   });
 
@@ -136,9 +233,10 @@ describe("Shopify Data Transformers", () => {
     });
 
     it("should return null if shopifyCollection is null or undefined", () => {
+      const mockTransformer = jest.fn();
       expect(reshapeCollectionResponse(null, mockTransformer)).toBeNull();
       expect(reshapeCollectionResponse(undefined, mockTransformer)).toBeNull();
-      expect(logging.logInfo).toHaveBeenCalledWith(
+      expect(logging.logError).toHaveBeenCalledWith(
         "reshapeCollectionResponse received null or undefined shopifyCollection",
       );
     });
@@ -197,140 +295,155 @@ describe("Shopify Data Transformers", () => {
         { utcTimeString: "invalid-date-string" },
       );
     });
+
+    it("should return null if product is null or undefined", () => {
+      expect(transformShopifyEventProduct(null)).toBeNull();
+      expect(transformShopifyEventProduct(undefined)).toBeNull();
+      expect(logging.logError).toHaveBeenCalledWith(
+        "transformShopifyEventProduct received null or undefined product",
+      );
+    });
   });
 
   describe("transformShopifyWineProduct", () => {
-    beforeEach(() => {
-      metafieldUtils.getMetafieldValue.mockImplementation(
-        (field) => field?.value || null,
-      );
-      metafieldUtils.getReferencedMetaobject.mockImplementation((field) => {
-        if (field === mockShopifyWineProductSpecific.country)
-          return mockShopifyWineProductSpecific.country;
-        if (field === mockShopifyWineProductSpecific.producer)
-          return mockShopifyWineProductSpecific.producer;
-        return field?.references?.edges?.[0]?.node || null;
-      });
-      metafieldUtils.getMetaobjectLabel.mockImplementation((node) => {
-        if (node === mockShopifyWineProductSpecific.country)
-          return "Mock Country Label";
-        return node?.name?.value || node?.label?.value || null;
-      });
-      metafieldUtils.getMetaobjectFields.mockImplementation((node) => {
-        if (node === mockShopifyWineProductSpecific.producer)
-          return { name: "Mock Producer Fields" };
-        if (node?.name === "Mock Grape 1 Fields")
-          return { name: "Mock Grape 1 Fields" };
-        if (node?.name === "Mock Grape 2 Fields")
-          return { name: "Mock Grape 2 Fields" };
-        if (!node?.fields) return {};
-        return node.fields.reduce(
-          (acc, f) => ({ ...acc, [f.key]: f.value }),
-          {},
-        );
-      });
-      metafieldUtils.getMultipleReferencedMetaobjects.mockImplementation(
-        (field) => {
-          if (field === mockShopifyWineProductSpecific.grape)
-            return [
-              { name: "Mock Grape 1 Fields" },
-              { name: "Mock Grape 2 Fields" },
-            ];
-          return field?.references?.edges?.map((e) => e.node) || [];
-        },
-      );
-    });
-
     it("should transform a raw Shopify wine product to the application shape", () => {
       const result = transformShopifyWineProduct(
         mockShopifyWineProductSpecific,
       );
 
-      expect(result.id).toBe(mockShopifyWineProductSpecific.id);
-      expect(result.title).toBe(mockShopifyWineProductSpecific.title);
-      expect(result.price).toBe(100.0);
-      expect(result.currency).toBe("DKK");
-      expect(result.volume).toEqual({ value: 0.75, unit: "L" });
-      expect(result.alcoholContent).toBe("12.5%");
-      expect(result.vintage).toBe("2020");
-
-      expect(metafieldUtils.getReferencedMetaobject).toHaveBeenCalledWith(
-        mockShopifyWineProductSpecific.country,
-      );
-      expect(metafieldUtils.getMetaobjectLabel).toHaveBeenCalledWith(
-        mockShopifyWineProductSpecific.country,
-      );
-      expect(result.country).toBe("Mock Country Label");
-
-      expect(metafieldUtils.getReferencedMetaobject).toHaveBeenCalledWith(
-        mockShopifyWineProductSpecific.producer,
-      );
-      expect(metafieldUtils.getMetaobjectFields).toHaveBeenCalledWith(
-        mockShopifyWineProductSpecific.producer,
-      );
-      expect(result.producer).toEqual({ name: "Mock Producer Fields" });
-
-      expect(
-        metafieldUtils.getMultipleReferencedMetaobjects,
-      ).toHaveBeenCalledWith(mockShopifyWineProductSpecific.grape);
-      expect(metafieldUtils.getMetaobjectFields).toHaveBeenCalledWith({
-        name: "Mock Grape 1 Fields",
+      expect(result).toEqual({
+        id: "gid://shopify/Product/10252479529306",
+        handle: "cantina-kurtatsch",
+        title: "Cantina Kurtatsch",
+        description:
+          "Nuanced, berry flavor with hints of strawberries, wild raspberries, spices, blood orange, herbs and nuts.",
+        images: [
+          {
+            url: "https://cdn.shopify.com/s/files/1/0944/0149/5386/files/catena-min.png?v=1750148316",
+            altText: "Cantina Kurtatsch", // Fallbacks to title if altText is null
+            id: "gid://shopify/ProductImage/62288056615258",
+          },
+        ],
+        variants: [
+          {
+            id: "gid://shopify/ProductVariant/51463087391066",
+            title: "Single Bottle",
+            price: {
+              amount: 169.0,
+              currencyCode: "DKK",
+            },
+            availableForSale: true,
+            quantityAvailable: 0,
+          },
+          {
+            id: "gid://shopify/ProductVariant/51463087423834",
+            title: "Case (6 Bottles)",
+            price: {
+              amount: 1014.0,
+              currencyCode: "DKK",
+            },
+            availableForSale: true,
+            quantityAvailable: 0,
+          },
+        ],
+        country: "Italy",
+        region: "Alto Adige",
+        wineVariety: "Red",
+        grape: "Pinot noir",
+        vineyard: "Cantina Kurtatsch",
+        tasteProfile: ["Nuanced", "Spicy", "Fruity", "Berries", "Acidic"],
+        alcoholContent: 13.5,
+        servingTemperature: "16-18",
+        vintage: "2024",
+        producer: "Cantina Kurtatsch",
+        volume: {
+          value: 0.75,
+          unit: "LITERS",
+        },
+        softCrisp: 0.5,
+        drySmooth: 0.25,
+        velvetyAstringent: 0.35,
+        delicateBold: 0.5,
       });
-      expect(metafieldUtils.getMetaobjectFields).toHaveBeenCalledWith({
-        name: "Mock Grape 2 Fields",
-      });
-      expect(result.grapes).toEqual([
-        { name: "Mock Grape 1 Fields" },
-        { name: "Mock Grape 2 Fields" },
-      ]);
-
-      expect(metafieldUtils.getMetafieldValue).toHaveBeenCalledWith(
-        mockShopifyWineProductSpecific.alcoholContent,
-      );
-      expect(metafieldUtils.getMetafieldValue).toHaveBeenCalledWith(
-        mockShopifyWineProductSpecific.vintage,
-      );
     });
 
     it("should handle missing optional fields gracefully for wine product", () => {
-      const minimalWineProduct = {
-        ...mockShopifyProductBase,
-        variants: { edges: [{ node: { id: "v1" } }] },
+      const minimalProductBase = {
+        id: "gid://shopify/Product/min123",
+        title: "Minimal Wine",
+        handle: "minimal-wine",
+        description: "Minimal description.",
+        images: { edges: [] },
+        variants: { edges: [] },
       };
+      // Ensure metafield util mocks return null for missing fields
       metafieldUtils.getMetafieldValue.mockReturnValue(null);
       metafieldUtils.getReferencedMetaobject.mockReturnValue(null);
-      metafieldUtils.getMultipleReferencedMetaobjects.mockReturnValue([]);
+      // getMetaobjectLabel will receive null and should return null based on its impl
 
-      const result = transformShopifyWineProduct(minimalWineProduct);
-      expect(result.price).toBeNull();
+      const result = transformShopifyWineProduct(minimalProductBase);
+
       expect(result.country).toBeNull();
-      expect(result.producer).toEqual({});
-      expect(result.grapes).toEqual([]);
+      expect(result.region).toBeNull();
+      expect(result.wineVariety).toBeNull();
+      expect(result.grape).toBeNull();
+      expect(result.vineyard).toBeNull();
+      expect(result.producer).toBeNull();
+      expect(result.vintage).toBeNull();
+      expect(result.servingTemperature).toBeNull();
+      expect(result.tasteProfile).toEqual([]); // Default to empty array
       expect(result.volume).toBeNull();
+      expect(result.alcoholContent).toBeNull();
+      expect(result.softCrisp).toBeNull();
+      expect(result.drySmooth).toBeNull();
+      expect(result.velvetyAstringent).toBeNull();
+      expect(result.delicateBold).toBeNull();
+      expect(result.variants).toEqual([]);
+      expect(result.images).toEqual([]);
     });
 
-    it("should parse volume from a JSON numeric string without logging an error", () => {
-      const productWithNumericJsonVolume = {
+    it("should return null if product is null or undefined", () => {
+      expect(transformShopifyWineProduct(null)).toBeNull();
+      expect(transformShopifyWineProduct(undefined)).toBeNull();
+      expect(logging.logError).toHaveBeenCalledWith(
+        "transformShopifyWineProduct received null or undefined product",
+      );
+    });
+
+    it("should log error and return an empty array for tasteProfile if JSON parsing fails", () => {
+      const productWithInvalidTasteProfile = {
         ...mockShopifyWineProductSpecific,
-        volume: { value: "0.5" },
+        tasteProfile: { value: "not a json array" },
       };
-      const result = transformShopifyWineProduct(productWithNumericJsonVolume);
-      expect(result.volume).toEqual({ value: 0.5, unit: "L" });
-      expect(logging.logError).not.toHaveBeenCalled();
+      const result = transformShopifyWineProduct(
+        productWithInvalidTasteProfile,
+      );
+      expect(result.tasteProfile).toEqual([]);
+      expect(logging.logError).toHaveBeenCalledWith(
+        expect.stringContaining("Error parsing JSON for tasteProfile"),
+        expect.any(Error),
+        expect.objectContaining({
+          productId: mockShopifyWineProductSpecific.id,
+          rawValue: "not a json array",
+        }),
+      );
     });
 
-    it("should store raw volume if JSON.parse and numeric parse fails", () => {
+    it("should log error and return null for volume if JSON parsing fails", () => {
       const productWithInvalidVolume = {
         ...mockShopifyWineProductSpecific,
-        volume: { value: "invalid-volume" },
+        volume: { value: "not a json object" },
       };
       const result = transformShopifyWineProduct(productWithInvalidVolume);
-      expect(result.volume).toEqual({
-        value: null,
-        unit: "L",
-        raw: "invalid-volume",
-      });
-      expect(logging.logError).toHaveBeenCalledTimes(1);
+      expect(result.volume).toBeNull();
+      expect(logging.logError).toHaveBeenCalledWith(
+        expect.stringContaining("Error parsing JSON for volume"),
+        expect.any(Error),
+        expect.objectContaining({
+          productId: mockShopifyWineProductSpecific.id,
+          rawValue: "not a json object",
+        }),
+      );
     });
   });
 });
