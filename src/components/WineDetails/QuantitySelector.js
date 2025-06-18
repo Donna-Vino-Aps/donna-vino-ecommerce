@@ -36,21 +36,23 @@ export const QuantitySelector = ({
       <p className="mb-2 ml-[2px] text-titleMedium font-medium text-tertiary1-dark">
         Quantity
       </p>
-      <div className="flex h-10 w-full items-center justify-center gap-2 rounded-md border border-solid border-tertiary1-light md:h-9 md:w-[7.125rem]">
+      <div className="grid h-10 w-full grid-cols-[20%_60%_20%] rounded-xl border border-solid border-tertiary1-light md:h-9 md:w-[7.125rem] md:grid-cols-[28%_44%_28%] md:rounded-md">
         <button
           onClick={handleDecrement}
           disabled={preSale ? false : selectedQuantity <= 1}
-          className="flex cursor-pointer items-center justify-center disabled:opacity-50"
+          className="flex items-center justify-center border-r border-tertiary1-light disabled:opacity-50"
         >
           <Image src="/icons/minus.svg" width="12" height="12" alt="Decrease" />
         </button>
-        <span className="min-w-[55%] border-l border-r border-solid border-tertiary1-light px-4 py-1 text-center text-titleMedium font-semibold md:min-w-[3rem]">
+
+        <span className="flex items-center justify-center border-x border-tertiary1-light px-4 text-center text-titleMedium font-semibold">
           {selectedQuantity}
         </span>
+
         <button
           onClick={handleIncrement}
           disabled={selectedQuantity >= max}
-          className="flex cursor-pointer items-center justify-center disabled:opacity-50"
+          className="flex items-center justify-center border-l border-tertiary1-light disabled:opacity-50"
         >
           <Image src="/icons/plus.svg" width="12" height="12" alt="Increase" />
         </button>

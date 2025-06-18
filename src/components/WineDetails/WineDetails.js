@@ -17,7 +17,7 @@ const WineDetails = ({ wine }) => {
   const [selectedQuantity, setSelectedQuantity] = React.useState(1);
 
   return (
-    <article className="relative flex flex-col items-center justify-center gap-6 lg:flex-row md:gap-8 lg:gap-12">
+    <article className="relative flex flex-col items-center justify-center gap-6 md:gap-8 lg:flex-row lg:gap-12">
       <img
         src={wine.imageUrl}
         alt={wine.title}
@@ -25,7 +25,7 @@ const WineDetails = ({ wine }) => {
       />
       <div className="flex min-w-[18.75rem] flex-col rounded-lg bg-tertiary2-active p-5 font-barlow shadow-lg md:min-w-[25rem] lg:w-[32.625rem]">
         <div className="flex flex-row items-center justify-between">
-          <h1 className="mb-2 text-headlineMedium font-normal md:mb-4 lg:text-displaySmall xl:text-displayMedium">
+          <h1 className="mb-2 text-headlineSmall font-normal sm:text-headlineMedium md:mb-4 lg:text-displaySmall xl:text-displayMedium">
             {wine.title}
           </h1>
           <InStockDisplay
@@ -35,14 +35,14 @@ const WineDetails = ({ wine }) => {
           />
         </div>
         <div className="flex flex-col">
-          <div className="order-2 mb-8 md:order-1 md:mb-0">
+          <div className="order-2 mb-8 lg:order-1 lg:mb-0">
             <RatingDisplay
               rating={wine.rating}
               nrOfRatings={wine.nrOfRatings}
               className="order-2 md:order-1"
             />
           </div>
-          <p className="order-1 mb-2 text-bodySmall font-normal md:order-2 md:mb-3 md:mt-6 md:text-titleSmall lg:text-titleMedium md:font-medium">
+          <p className="order-1 mb-2 text-bodySmall font-normal md:text-titleSmall md:font-medium lg:order-2 lg:mb-3 lg:mt-6 lg:text-titleMedium">
             {wine.description}
           </p>
         </div>
