@@ -5,9 +5,7 @@ export default {
     "^.+\\.(js|jsx|mjs)$": "babel-jest",
     "^.+\\.(ts|tsx)$": "babel-jest",
   },
-  transformIgnorePatterns: [
-    "/node_modules/(?!(swiper|ssr-window|dom7)/)"
-  ],
+  transformIgnorePatterns: ["/node_modules/(?!(swiper|ssr-window|dom7)/)"],
   moduleFileExtensions: ["js", "jsx", "mjs", "json", "node"],
   moduleNameMapper: {
     "^@/(.*)$": "<rootDir>/src/$1",
@@ -16,6 +14,7 @@ export default {
     "^swiper\\/css\\/.*$": "<rootDir>/src/__mock__/styleMock.js",
     "\\.(css|scss|sass)$": "<rootDir>/src/__mock__/styleMock.js",
   },
+  setupFiles: ["<rootDir>/jest.setup.js"],
   setupFilesAfterEnv: ["<rootDir>/setupTests.js"],
   collectCoverageFrom: ["src/**/*.{js,jsx,ts,tsx}"],
 };
