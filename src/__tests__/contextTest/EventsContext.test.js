@@ -50,7 +50,6 @@ describe("EventsContext", () => {
   });
 
   it("should show loading state initially", () => {
-    // Mock a promise that never resolves to keep it in a loading state
     getEventsCollection.mockImplementation(() => new Promise(() => {}));
     renderWithProvider();
     expect(screen.getByTestId("loading")).toBeInTheDocument();
