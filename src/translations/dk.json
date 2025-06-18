@@ -282,5 +282,6 @@
   "api.error.connectionFailed": "Forbindelse til serveren mislykkedes. Prøv venligst igen senere.",
   "common.loading": "Indlæser...",
   "common.submitting": "Indsender...",
-  "common.button.backToHome": "Tilbage til forsiden"
+  "common.button.backToHome": "Tilbage til forsiden",
+  "wines.error.loading": "Kunne ikke indlæse vin. Prøv venligst igen senere."
 }

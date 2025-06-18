@@ -24,13 +24,15 @@ export function PreSaleWinesProvider({ children }) {
             winesResponse,
           });
           setError(
-            translations["wines.error.loading"] || "Failed to load wines.",
+            translations["wines.error.loading"] ||
+              "Failed to load wines. Please try again later.",
           );
         }
       } catch (err) {
         logError("Error fetching pre-sale wines:", err);
         setError(
-          translations["wines.error.loading"] || "Failed to load wines.",
+          translations["wines.error.loading"] ||
+            "Failed to load wines. Please try again later.",
         );
         setWines([]);
       } finally {

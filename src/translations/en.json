@@ -283,5 +283,6 @@
   "api.error.connectionFailed": "Connection to the server failed. Please try again later.",
   "common.loading": "Loading...",
   "common.submitting": "Submitting...",
-  "common.button.backToHome": "Back to home"
+  "common.button.backToHome": "Back to home",
+  "wines.error.loading": "Failed to load wines. Please try again later."
 }
