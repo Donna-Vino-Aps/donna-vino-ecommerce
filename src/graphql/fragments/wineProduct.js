@@ -44,7 +44,7 @@ const wineProductFragment = `
         }
       }
     }
-    wineVariety: metafield(namespace: "shopify", key: "wine_variety") {
+    wineVariety: metafield(namespace: "shopify", key: "wine-variety") {
       references(first: 1) {
         edges {
           node {
