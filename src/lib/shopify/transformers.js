@@ -1,11 +1,9 @@
 import { parseISO } from "date-fns";
-import { logError, logInfo } from "@/utils/logging";
+import { logError } from "@/utils/logging";
 import {
   getMetafieldValue,
   getReferencedMetaobject,
   getMetaobjectLabel,
-  getMetaobjectFields,
-  getMultipleReferencedMetaobjects,
 } from "./metafield-utils";
 
 const formatDateTime = (utcTimeString) => {
@@ -15,13 +13,39 @@ const formatDateTime = (utcTimeString) => {
     // Check if parseISO returned an Invalid Date object
     if (isNaN(parsedDate.getTime())) {
       logError("Invalid date-time string provided:", { utcTimeString });
-      return utcTimeString; // Return original string if date is invalid
+      return utcTimeString;
     }
     return parsedDate;
   } catch (error) {
     logError("Error parsing date-time:", error, { utcTimeString });
-    return utcTimeString; // Return original string on other errors too
+    return utcTimeString;
   }
+};
+
+const getTransformedImages = (product) => {
+  return (
+    product.images?.edges.map((edge) => ({
+      id: edge.node.id,
+      url: edge.node.url,
+      altText: edge.node.altText || product.title,
+    })) || []
+  );
+};
+
+const parseJsonMetafield = (metafield, fieldName, productIdForLogging) => {
+  const rawValue = getMetafieldValue(metafield);
+  if (rawValue) {
+    try {
+      return JSON.parse(rawValue);
+    } catch (error) {
+      logError(`Error parsing JSON for ${fieldName}:`, error, {
+        productId: productIdForLogging,
+        rawValue,
+      });
+      return null;
+    }
+  }
+  return null;
 };
 
 export function reshapeCollectionResponse(
@@ -29,7 +53,7 @@ export function reshapeCollectionResponse(
   productTransformerFn,
 ) {
   if (!shopifyCollection) {
-    logInfo(
+    logError(
       "reshapeCollectionResponse received null or undefined shopifyCollection",
     );
     return null;
@@ -50,21 +74,21 @@ export function reshapeCollectionResponse(
 }
 
 export function transformShopifyEventProduct(product) {
+  if (!product) {
+    logError("transformShopifyEventProduct received null or undefined product");
+    return null;
+  }
+
   // Extract the variant
   const firstVariant = product.variants?.edges?.[0]?.node || null;
   const variantId = firstVariant?.id || null;
 
   // Extract image data
-  const images =
-    product.images?.edges.map((edge) => ({
-      id: edge.node.id,
-      url: edge.node.url,
-      altText: edge.node.altText || product.title,
-    })) || [];
+  const images = getTransformedImages(product);
 
   // Extract price data from variant
   const priceString = firstVariant?.price?.amount || null;
-  const price = priceString ? parseFloat(priceString.replace(",", ".")) : null;
+  const price = priceString ? parseFloat(priceString) : null;
   const currency = firstVariant?.price?.currencyCode || "DKK";
 
   // Extract available seats from variant
@@ -94,82 +118,65 @@ export function transformShopifyEventProduct(product) {
 }
 
 export function transformShopifyWineProduct(product) {
-  const firstVariant = product.variants?.edges?.[0]?.node || null;
-  const variantId = firstVariant?.id || null;
-
-  const images =
-    product.images?.edges.map((edge) => ({
-      id: edge.node.id,
-      url: edge.node.url,
-      altText: edge.node.altText || product.title,
-    })) || [];
-
-  const priceString = firstVariant?.price?.amount || null;
-  const price = priceString ? parseFloat(priceString.replace(",", ".")) : null;
-  const currency = firstVariant?.price?.currencyCode || "DKK";
-
-  let volumeParsed = null;
-  const volumeString = getMetafieldValue(product.volume);
-  if (volumeString) {
-    try {
-      let parsed = JSON.parse(volumeString);
-      if (typeof parsed === "number") {
-        // If JSON.parse results in a number, wrap it in the standard object
-        volumeParsed = { value: parsed, unit: "L" };
-      } else {
-        // Otherwise, assume it's already the correct object structure or null
-        volumeParsed = parsed;
-      }
-    } catch (e) {
-      logError("Error parsing volume JSON for wine product:", e, {
-        productId: product.id,
-        volumeString,
-      });
-      // Fallback for when JSON.parse fails (e.g., not a valid JSON string at all)
-      const numericValue = parseFloat(volumeString);
-      if (!isNaN(numericValue)) {
-        volumeParsed = { value: numericValue, unit: "L" }; // Default unit
-      } else {
-        volumeParsed = { value: null, unit: "L", raw: volumeString };
-      }
-    }
+  if (!product) {
+    logError("transformShopifyWineProduct received null or undefined product");
+    return null;
   }
+
+  const images = getTransformedImages(product);
+
+  const variants =
+    product.variants?.edges.map((edge) => {
+      const variantNode = edge.node;
+      return {
+        id: variantNode.id,
+        title: variantNode.title,
+        price: {
+          amount: parseFloat(variantNode.price?.amount) || null,
+          currencyCode: variantNode.price?.currencyCode || "DKK",
+        },
+        availableForSale: variantNode.availableForSale || false,
+        quantityAvailable: variantNode.quantityAvailable || 0,
+      };
+    }) || [];
 
   const countryRef = getReferencedMetaobject(product.country);
   const regionRef = getReferencedMetaobject(product.region);
   const wineVarietyRef = getReferencedMetaobject(product.wineVariety);
-  const producerRef = getReferencedMetaobject(product.producer);
-  const vineyardRef = getReferencedMetaobject(product.vineyard);
-  const grapeRefs = getMultipleReferencedMetaobjects(product.grape);
 
   return {
     id: product.id,
-    title: product.title,
     handle: product.handle,
-    variantId,
+    title: product.title,
     description: product.description,
-    price,
-    currency,
     images,
-    availableForSale: firstVariant?.availableForSale || false,
-    quantityAvailable: firstVariant?.quantityAvailable || 0,
+    variants,
 
-    // Wine specific fields
+    // Wine specific fields from metaobjects
     country: countryRef ? getMetaobjectLabel(countryRef) : null,
     region: regionRef ? getMetaobjectLabel(regionRef) : null,
     wineVariety: wineVarietyRef ? getMetaobjectLabel(wineVarietyRef) : null,
-    producer: producerRef ? getMetaobjectFields(producerRef) : {},
-    vineyard: vineyardRef ? getMetaobjectFields(vineyardRef) : {},
-    grapes: grapeRefs.map((ref) => getMetaobjectFields(ref)),
 
-    alcoholContent: getMetafieldValue(product.alcoholContent),
+    // Wine specific fields from direct value metafields
+    grape: getMetafieldValue(product.grape),
+    vineyard: getMetafieldValue(product.vineyard),
+    producer: getMetafieldValue(product.producer),
     vintage: getMetafieldValue(product.vintage),
     servingTemperature: getMetafieldValue(product.servingTemperature),
-    tasteProfile: getMetafieldValue(product.tasteProfile),
-    volume: volumeParsed,
-    softCrisp: getMetafieldValue(product.softCrisp),
-    drySmooth: getMetafieldValue(product.drySmooth),
-    velvetyAstringent: getMetafieldValue(product.velvetyAstringent),
-    delicateBold: getMetafieldValue(product.delicateBold),
+
+    // Parsed JSON metafields
+    tasteProfile:
+      parseJsonMetafield(product.tasteProfile, "tasteProfile", product.id) ||
+      [],
+    volume: parseJsonMetafield(product.volume, "volume", product.id),
+
+    // Parsed numeric metafields
+    alcoholContent:
+      parseFloat(getMetafieldValue(product.alcoholContent)) || null,
+    softCrisp: parseFloat(getMetafieldValue(product.softCrisp)) || null,
+    drySmooth: parseFloat(getMetafieldValue(product.drySmooth)) || null,
+    velvetyAstringent:
+      parseFloat(getMetafieldValue(product.velvetyAstringent)) || null,
+    delicateBold: parseFloat(getMetafieldValue(product.delicateBold)) || null,
   };
 }
