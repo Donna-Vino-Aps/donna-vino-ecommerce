@@ -7,9 +7,10 @@ import { PriceDisplay } from "./PriceDisplay";
 import { QuantitySelector } from "./QuantitySelector";
 import { ProductDetails } from "./ProductDetails";
 import Button from "../Button/Button";
-// import Image from "next/image";
+import { useLanguage } from "@/context/LanguageContext";
 
 const WineDetails = ({ wine }) => {
+  const { translations } = useLanguage();
   const quantityInStock = wine.quantity;
   const [preSale, setPreSale] =
     wine.inStock === false ? useState(true) : useState(false);
@@ -66,7 +67,7 @@ const WineDetails = ({ wine }) => {
         />
         {preSale === false ? (
           <Button
-            text="Add to Cart"
+            text={translations["wine-details.addtocart"]}
             variant="roundedSmall"
             border="primary"
             icon="/icons/cart-white.svg"
@@ -79,7 +80,7 @@ const WineDetails = ({ wine }) => {
           />
         ) : (
           <Button
-            text="Add Pre-Order to Cart"
+            text={translations["wine-details.addpreorder"]}
             variant="roundedSmall"
             border=""
             icon="/icons/cart-white.svg"

@@ -1,8 +1,10 @@
 import React from "react";
 import PropTypes from "prop-types";
 import Image from "next/image";
+import { useLanguage } from "@/context/LanguageContext";
 
 export const RatingDisplay = ({ rating, nrOfRatings }) => {
+  const { translations } = useLanguage();
   const stars = Array.from({ length: 5 }, (_, index) => {
     const starPosition = index + 1;
     let src = "/icons/star-empty.svg"; // Default to empty
@@ -29,7 +31,10 @@ export const RatingDisplay = ({ rating, nrOfRatings }) => {
     <div className="flex flex-row items-center space-x-2">
       <div className="flex space-x-1">{stars}</div>
       <p className="text-titleSmall text-tertiary1-dark md:text-titleMedium">
-        ({nrOfRatings} ratings)
+        {nrOfRatings}{" "}
+        {nrOfRatings === 1
+          ? translations["wine-details.rating"]
+          : translations["wine-details.ratings"]}
       </p>
     </div>
   );

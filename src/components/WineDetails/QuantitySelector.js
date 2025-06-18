@@ -2,6 +2,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import Image from "next/image";
+import { useLanguage } from "@/context/LanguageContext";
 
 export const QuantitySelector = ({
   quantityInStock,
@@ -16,6 +17,7 @@ export const QuantitySelector = ({
   min = 1,
   max = quantityInStock || 99,
 }) => {
+  const { translations } = useLanguage();
   const handleIncrement = () => {
     if (preSale ? true : selectedQuantity < max) {
       setSelectedQuantity(selectedQuantity + 1);
@@ -34,7 +36,7 @@ export const QuantitySelector = ({
   return (
     <section>
       <p className="mb-2 ml-[2px] text-titleMedium font-medium text-tertiary1-dark">
-        Quantity
+        {translations["wine-details.quantity"]}
       </p>
       <div className="grid h-10 w-full grid-cols-[20%_60%_20%] rounded-xl border border-solid border-tertiary1-light md:h-9 md:w-[7.125rem] md:grid-cols-[28%_44%_28%] md:rounded-md">
         <button
@@ -58,10 +60,10 @@ export const QuantitySelector = ({
         </button>
       </div>
       <p className="mb-2 ml-[2px] mt-5 text-titleMedium font-medium text-tertiary1-dark">
-        Select Size
+        {translations["wine-details.selectsize"]}
       </p>
       <div
-        className="flex w-full flex-col items-center rounded-b-md text-titleMedium font-medium text-primary-light shadow-md lg:max-w-[29.563rem]"
+        className="flex w-full max-w-full flex-col items-center rounded-b-md text-titleMedium font-medium text-primary-light shadow-md"
         onClick={preSale ? () => setOpen((prev) => !prev) : () => {}}
       >
         <div
@@ -80,8 +82,8 @@ export const QuantitySelector = ({
             />
             <p className="text-titleMedium font-medium text-primary-light">
               {selectedSize === "bottle"
-                ? "Single bottle"
-                : "Wine case (6 bottles)"}
+                ? translations["wine-details.singlebottle"]
+                : translations["wine-details.singlecase"]}
             </p>
           </div>
           <Image
@@ -114,7 +116,9 @@ export const QuantitySelector = ({
                   height="16"
                   alt="wine bottle"
                 />
-                <p className="text-labelMedium font-medium">Single bottle</p>
+                <p className="text-labelMedium font-medium">
+                  {translations["wine-details.singlebottle"]}
+                </p>
               </div>
               <div className="flex flex-col items-end self-start p-2 text-right">
                 <p
@@ -143,7 +147,7 @@ export const QuantitySelector = ({
                   alt="wine case"
                 />
                 <p className="text-labelMedium font-medium">
-                  Wine case (6 bottles)
+                  {translations["wine-details.singlecase"]}
                 </p>
               </div>
               <div className="flex flex-col items-end self-start p-2 text-right">

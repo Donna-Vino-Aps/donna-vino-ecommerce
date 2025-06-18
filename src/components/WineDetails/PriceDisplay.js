@@ -1,7 +1,9 @@
 import React from "react";
 import PropTypes from "prop-types";
+import { useLanguage } from "@/context/LanguageContext";
 
 export const PriceDisplay = ({ price, casePrice, volume, selectedSize }) => {
+  const { translations } = useLanguage();
   let pricePerLiter =
     selectedSize === "bottle" ? price / volume : casePrice / (volume * 6);
   pricePerLiter = pricePerLiter.toFixed(2); // Format to 2 decimal places
@@ -9,13 +11,17 @@ export const PriceDisplay = ({ price, casePrice, volume, selectedSize }) => {
   return (
     <div className="text-end">
       <p className="text-titleSmall text-tertiary2-hover_dark md:text-titleMedium">
-        each {selectedSize === "bottle" ? "bottle" : "case"}:
+        {translations["wine-details.each"]}{" "}
+        {selectedSize === "bottle"
+          ? translations["wine-details.bottle"]
+          : translations["wine-details.case"]}
+        :
       </p>
       <p className="text-headlineMedium font-normal md:text-headlineLarge">
         {selectedSize === "bottle" ? price.toFixed(2) : casePrice.toFixed(2)} kr
       </p>
       <p className="text-titleSmall font-medium text-tertiary1-normal md:text-titleMedium">
-        (12% VAT excluded)
+        ({translations["wine-details.vat"]})
       </p>
       <p className="text-titleSmall text-tertiary2-hover_dark md:text-titleMedium">
         ({pricePerLiter} kr / L)
