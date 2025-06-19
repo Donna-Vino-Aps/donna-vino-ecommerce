@@ -10,6 +10,7 @@ import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { UserContextProvider } from "@/context/UserContext";
 import { SessionProvider } from "next-auth/react";
 import APIProvider from "@/context/ApiProvider";
+import { PreSaleWinesProvider } from "@/context/PreSaleWinesContext";
 
 const RootLayout = ({ children }) => {
   return (
@@ -20,15 +21,17 @@ const RootLayout = ({ children }) => {
             <SessionProvider>
               <APIProvider>
                 <UserContextProvider>
-                  <Navbar />
-                  <main
-                    className="flex-grow"
-                    role="main"
-                    data-testid="main-content"
-                  >
-                    {children}
-                  </main>
-                  <Footer />
+                  <PreSaleWinesProvider>
+                    <Navbar />
+                    <main
+                      className="flex-grow"
+                      role="main"
+                      data-testid="main-content"
+                    >
+                      {children}
+                    </main>
+                    <Footer />
+                  </PreSaleWinesProvider>
                 </UserContextProvider>
               </APIProvider>
             </SessionProvider>
