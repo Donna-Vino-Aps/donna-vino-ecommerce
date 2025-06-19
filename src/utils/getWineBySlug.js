@@ -18,7 +18,7 @@ export async function getWineBySlug(slug) {
       grape: "Malbec",
       imageUrl: "/images/exampleImageWine.png",
       isNew: true,
-      url: "/wines/muga-reserva",
+      url: "/wine-details/muga-reserva",
     },
     {
       title: "Barolo Terlo",
@@ -38,7 +38,7 @@ export async function getWineBySlug(slug) {
       grape: "Malbec",
       imageUrl: "/images/exampleImageWine.png",
       isNew: true,
-      url: "/wines/barolo-terlo",
+      url: "/wine-details/barolo-terlo",
     },
     {
       title: "Pinot Noir",
@@ -58,7 +58,7 @@ export async function getWineBySlug(slug) {
       grape: "Malbec",
       imageUrl: "/images/exampleImageWine.png",
       isNew: false,
-      url: "/wines/pinot-noir",
+      url: "/wine-details/pinot-noir",
     },
     {
       title: "Vega Cicilia",
@@ -78,7 +78,7 @@ export async function getWineBySlug(slug) {
       grape: "Malbec",
       imageUrl: "/images/exampleImageWine.png",
       isNew: false,
-      url: "/wines/vega-cicilia",
+      url: "/wine-details/vega-cicilia",
     },
     {
       title: "Saviognese Merlot",
@@ -98,7 +98,7 @@ export async function getWineBySlug(slug) {
       grape: "Malbec",
       imageUrl: "/images/exampleImageWine.png",
       isNew: true,
-      url: "/wines/saviognese-merlot",
+      url: "/wine-details/saviognese-merlot",
     },
     {
       title: "Pinot Grigio",
@@ -118,7 +118,7 @@ export async function getWineBySlug(slug) {
       grape: "Malbec",
       imageUrl: "/images/exampleImageWine.png",
       isNew: false,
-      url: "/wines/pinot-grigio",
+      url: "/wine-details/pinot-grigio",
     },
     {
       title: "Marques de Murrieta",
@@ -138,7 +138,7 @@ export async function getWineBySlug(slug) {
       grape: "Malbec",
       imageUrl: "/images/exampleImageWine.png",
       isNew: false,
-      url: "/wines/marques-de-murrieta",
+      url: "/wine-details/marques-de-murrieta",
     },
   ];
 
