@@ -8,64 +8,64 @@ import "../../styles/slider/buttons.css";
 
 import WineCardSmall from "@/components/Card/WineCardSmall";
 
-const wineData = [
-  {
-    title: "Muga Reserva",
-    slug: "muga-reserva",
-    price: 130.0,
-    imageUrl: "/images/exampleImageWine.png",
-    isNew: true,
-    url: "/wine-details/muga-reserva",
-  },
-  {
-    title: "Barolo Terlo",
-    slug: "barolo-terlo",
-    price: 121.0,
-    imageUrl: "/images/exampleImageWine.png",
-    isNew: true,
-    url: "/wine-details/barolo-terlo",
-  },
-  {
-    title: "Pinot Noir",
-    slug: "pinot-noir",
-    price: 180.0,
-    imageUrl: "/images/exampleImageWine.png",
-    isNew: false,
-    url: "/wine-details/pinot-noir",
-  },
-  {
-    title: "Vega Cicilia",
-    slug: "vega-cicilia",
-    price: 210.0,
-    imageUrl: "/images/exampleImageWine.png",
-    isNew: false,
-    url: "/wine-details/vega-cicilia",
-  },
-  {
-    title: "Saviognese Merlot",
-    slug: "saviognese-merlot",
-    price: 210.0,
-    imageUrl: "/images/exampleImageWine.png",
-    isNew: true,
-    url: "/wine-details/saviognese-merlot",
-  },
-  {
-    title: "Pinot Grigio",
-    slug: "pinot-grigio",
-    price: 210.0,
-    imageUrl: "/images/exampleImageWine.png",
-    isNew: false,
-    url: "/wine-details/pinot-grigio",
-  },
-  {
-    title: "Marques de Murrieta",
-    slug: "marques-de-murrieta",
-    price: 210.0,
-    imageUrl: "/images/exampleImageWine.png",
-    isNew: false,
-    url: "/wine-details/marques-de-murrieta",
-  },
-];
+// const wineData = [
+//   {
+//     title: "Muga Reserva",
+//     slug: "muga-reserva",
+//     price: 130.0,
+//     imageUrl: "/images/exampleImageWine.png",
+//     isNew: true,
+//     url: "/wine-details/muga-reserva",
+//   },
+//   {
+//     title: "Barolo Terlo",
+//     slug: "barolo-terlo",
+//     price: 121.0,
+//     imageUrl: "/images/exampleImageWine.png",
+//     isNew: true,
+//     url: "/wine-details/barolo-terlo",
+//   },
+//   {
+//     title: "Pinot Noir",
+//     slug: "pinot-noir",
+//     price: 180.0,
+//     imageUrl: "/images/exampleImageWine.png",
+//     isNew: false,
+//     url: "/wine-details/pinot-noir",
+//   },
+//   {
+//     title: "Vega Cicilia",
+//     slug: "vega-cicilia",
+//     price: 210.0,
+//     imageUrl: "/images/exampleImageWine.png",
+//     isNew: false,
+//     url: "/wine-details/vega-cicilia",
+//   },
+//   {
+//     title: "Saviognese Merlot",
+//     slug: "saviognese-merlot",
+//     price: 210.0,
+//     imageUrl: "/images/exampleImageWine.png",
+//     isNew: true,
+//     url: "/wine-details/saviognese-merlot",
+//   },
+//   {
+//     title: "Pinot Grigio",
+//     slug: "pinot-grigio",
+//     price: 210.0,
+//     imageUrl: "/images/exampleImageWine.png",
+//     isNew: false,
+//     url: "/wine-details/pinot-grigio",
+//   },
+//   {
+//     title: "Marques de Murrieta",
+//     slug: "marques-de-murrieta",
+//     price: 210.0,
+//     imageUrl: "/images/exampleImageWine.png",
+//     isNew: false,
+//     url: "/wine-details/marques-de-murrieta",
+//   },
+// ];
 
 const TopWinesSection = () => {
   return (
