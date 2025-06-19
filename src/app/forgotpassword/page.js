@@ -2,6 +2,7 @@
 import React from "react";
 import Button from "@/components/Button/Button";
 import { useLanguage } from "@/context/LanguageContext";
+import SEO from "@/components/SEO/SEO";
 
 import Link from "next/link";
 const ForgotPassword = () => {
@@ -9,6 +10,10 @@ const ForgotPassword = () => {
 
   return (
     <div className="relative flex h-screen items-center justify-center bg-[#FDE8E9]">
+      <SEO
+        title={translations["forgotPassword.title"]}
+        description={translations["forgotPassword.description"]}
+      />
       <img
         src="/vector.svg"
         alt="Background Vector"

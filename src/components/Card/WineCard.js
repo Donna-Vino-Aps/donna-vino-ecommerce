@@ -25,7 +25,10 @@ const WineCard = ({ title, imageUrl, price, reviewsCount }) => {
           <p className="text-labelXLarge font-semibold text-tertiary2-darker">
             {reviewsCount} reviews
           </p>
-          <img src="/icons/star-fill.svg" />
+          <img
+            alt="Filled star icon, marks as favorite or rating."
+            src="/icons/star-fill.svg"
+          />
         </div>
       </div>
     </article>

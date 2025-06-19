@@ -98,11 +98,7 @@ const Button = ({
   );
 
   return linkUrl ? (
-    <Link
-      href={linkUrl}
-      data-testid={testId}
-      className={linkWidth || "w-full sm:w-[10.8rem]"}
-    >
+    <Link href={linkUrl} data-testid={testId} className={linkWidth}>
       {buttonContent}
     </Link>
   ) : (

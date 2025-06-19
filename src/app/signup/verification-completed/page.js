@@ -1,11 +1,12 @@
 "use client";
 
 import React, { useEffect, Suspense } from "react";
-import Image from "next/image";
 import { useLanguage } from "@/context/LanguageContext";
 import { useRouter, useSearchParams } from "next/navigation";
 import { signIn } from "next-auth/react";
+import SEO from "@/components/SEO/SEO";
 import Spinner from "@/components/UI/Spinner";
+import StatusPage from "@/components/StatusPage/StatusPage";
 
 const VerificationCompletedContent = () => {
   const { translations } = useLanguage();
@@ -30,29 +31,26 @@ const VerificationCompletedContent = () => {
   }, [searchParams, router]);
 
   return (
-    <section className="my-4 bg-primary-light bg-dots-sm bg-dots-size-sm sm:bg-dots-lg sm:bg-dots-size-lg">
-      <div className="mx-2 flex flex-col items-center justify-center py-4 sm:py-24">
-        <div className="w-full max-w-[35rem] items-center justify-center rounded-2xl bg-tertiary2-light px-5 py-8 shadow-lg sm:px-16 sm:py-10">
-          <div className="mb-4 flex justify-center">
-            <Image
-              src="/icons/message-check.svg"
-              alt=""
-              width={48}
-              height={48}
-            />
-          </div>
-          <h1
-            id="email-verification-title"
-            className="mb-6 text-center text-titleLarge sm:mb-4 sm:text-headlineMedium"
-          >
-            {translations["signUp.verification-completed.title"]}
-          </h1>
-          <p className="mb-6 text-center text-bodyLarge sm:mb-4">
-            {translations["signUp.verification-completed.message"]}
-          </p>
-        </div>
-      </div>
-    </section>
+    <div>
+      <SEO
+        title={translations["signUp.verification-completed.seo.title"]}
+        description={
+          translations["signUp.verification-completed.seo.description"]
+        }
+      />
+      <StatusPage
+        title={translations["signUp.verification-completed.title"]}
+        message={translations["signUp.verification-completed.message"]}
+        titleId="verification-completed-title"
+        dataTestId="verification-completed-message"
+        image={{
+          src: "/icons/message-check.svg",
+          alt: "verification completed",
+          width: 48,
+          height: 48,
+        }}
+      />
+    </div>
   );
 };
 
