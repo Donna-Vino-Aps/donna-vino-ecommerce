@@ -286,6 +286,10 @@
   "api.error.offline": "Du lader til at være offline. Kontroller venligst din internetforbindelse og prøv igen.",
   "api.error.serverDown": "Kan ikke få forbindelse til serveren. Tjenesten kan være nede.",
   "api.error.connectionFailed": "Forbindelse til serveren mislykkedes. Prøv venligst igen senere.",
+  "common.loading": "Indlæser...",
+  "common.submitting": "Indsender...",
+  "common.button.backToHome": "Tilbage til forsiden",
+  "wines.error.loading": "Kunne ikke indlæse vin. Prøv venligst igen senere.",
   "wine-details.instock": "På lager",
   "wine-details.outofstock": "Udsolgt",
   "wine-details.presale": "Forudbestil",
@@ -305,9 +309,5 @@
   "wine-details.productdetails": "Produktdetaljer",
   "wine-details.country-region": "Land/Region",
   "wine-details.winetype": "Vintype",
-  "wine-details.vineyard": "Vingård",
-  "common.loading": "Indlæser...",
-  "common.submitting": "Indsender...",
-  "common.button.backToHome": "Tilbage til forsiden",
-  "wines.error.loading": "Kunne ikke indlæse vin. Prøv venligst igen senere."
+  "wine-details.vineyard": "Vingård"
 }
