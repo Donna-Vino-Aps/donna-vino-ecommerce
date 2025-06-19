@@ -6,7 +6,7 @@ export const ProductDetails = ({
   country,
   region,
   vineyard,
-  wineColor,
+  wineVariety,
   grape,
 }) => {
   const { translations } = useLanguage();
@@ -30,7 +30,7 @@ export const ProductDetails = ({
             {translations["wine-details.winetype"]}
           </p>
           <p className="text-titleMedium font-medium">
-            {wineColor}, {grape}
+            {wineVariety}, {grape}
           </p>
         </div>
         <hr className="my-2" />
@@ -49,6 +49,6 @@ ProductDetails.propTypes = {
   country: PropTypes.string.isRequired,
   region: PropTypes.string.isRequired,
   vineyard: PropTypes.string.isRequired,
-  wineColor: PropTypes.string.isRequired,
+  wineVariety: PropTypes.string.isRequired,
   grape: PropTypes.string.isRequired,
 };

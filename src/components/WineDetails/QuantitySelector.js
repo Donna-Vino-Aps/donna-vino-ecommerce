@@ -5,7 +5,7 @@ import Image from "next/image";
 import { useLanguage } from "@/context/LanguageContext";
 
 export const QuantitySelector = ({
-  quantityInStock,
+  quantityAvailable,
   selectedQuantity,
   setSelectedQuantity,
   price,
@@ -15,7 +15,7 @@ export const QuantitySelector = ({
   volume,
   preSale,
   min = 1,
-  max = quantityInStock || 99,
+  max = quantityAvailable || 99,
 }) => {
   const { translations } = useLanguage();
   const handleIncrement = () => {
@@ -169,7 +169,7 @@ export const QuantitySelector = ({
 };
 
 QuantitySelector.propTypes = {
-  quantityInStock: PropTypes.number.isRequired,
+  quantityAvailable: PropTypes.number.isRequired,
   setSelectedQuantity: PropTypes.func.isRequired,
   selectedQuantity: PropTypes.number.isRequired,
   min: PropTypes.number,

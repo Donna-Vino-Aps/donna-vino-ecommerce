@@ -1,0 +1,60 @@
+"use client";
+
+import React from "react";
+import PropTypes from "prop-types";
+import { notFound } from "next/navigation";
+import WineDetails from "@/components/WineDetails/WineDetails";
+import { useParams } from "next/navigation";
+import { usePreSaleWines } from "@/context/PreSaleWinesContext";
+import { getWineBySlug } from "@/utils/getWineBySlug";
+import Spinner from "@/components/UI/Spinner";
+import ErrorMessage from "@/components/UI/ErrorMessage";
+
+export default function WineDetailPage() {
+  const { slug } = useParams();
+  const { wines, isLoading, error } = usePreSaleWines();
+
+  if (isLoading) {
+    return (
+      <div className="flex min-h-[25rem] items-center justify-center">
+        <Spinner size="medium" />
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="flex min-h-[25rem] items-center justify-center">
+        <ErrorMessage message={error} />
+      </div>
+    );
+  }
+
+  const wine = getWineBySlug(slug, wines);
+
+  if (!wine) {
+    return (
+      <div className="flex min-h-[25rem] items-center justify-center">
+        <p className="text-bodyLarge font-medium text-tertiary1-normal">
+          Wine not found.
+        </p>
+      </div>
+    );
+  }
+
+  if (!wine) {
+    notFound();
+  }
+
+  return (
+    <div className="px-8 py-12">
+      <WineDetails wine={wine} />
+    </div>
+  );
+}
+
+WineDetailPage.propTypes = {
+  params: PropTypes.shape({
+    slug: PropTypes.string.isRequired,
+  }).isRequired,
+};

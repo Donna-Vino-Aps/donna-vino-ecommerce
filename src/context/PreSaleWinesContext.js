@@ -17,7 +17,11 @@ export function PreSaleWinesProvider({ children }) {
       try {
         const winesResponse = await fetchPreSaleWines(language);
         if (winesResponse && winesResponse.products) {
-          setWines(winesResponse.products);
+          const parsedWines = winesResponse.products.map((product) => ({
+            ...product,
+            slug: product.handle, // Add slug based on product handle
+          }));
+          setWines(parsedWines);
         } else {
           setWines([]);
           logError("Pre-sale wines data is missing or malformed", {
