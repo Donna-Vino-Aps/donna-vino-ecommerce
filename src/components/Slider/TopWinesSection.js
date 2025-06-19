@@ -7,67 +7,99 @@ import "swiper/css/navigation";
 import "../../styles/slider/buttons.css";
 
 import WineCardSmall from "@/components/Card/WineCardSmall";
+import { usePreSaleWines } from "@/context/PreSaleWinesContext";
+import Spinner from "@/components/UI/Spinner";
+import ErrorMessage from "@/components/UI/ErrorMessage";
 
-// const wineData = [
-//   {
-//     title: "Muga Reserva",
-//     slug: "muga-reserva",
-//     price: 130.0,
-//     imageUrl: "/images/exampleImageWine.png",
-//     isNew: true,
-//     url: "/wine-details/muga-reserva",
-//   },
-//   {
-//     title: "Barolo Terlo",
-//     slug: "barolo-terlo",
-//     price: 121.0,
-//     imageUrl: "/images/exampleImageWine.png",
-//     isNew: true,
-//     url: "/wine-details/barolo-terlo",
-//   },
-//   {
-//     title: "Pinot Noir",
-//     slug: "pinot-noir",
-//     price: 180.0,
-//     imageUrl: "/images/exampleImageWine.png",
-//     isNew: false,
-//     url: "/wine-details/pinot-noir",
-//   },
-//   {
-//     title: "Vega Cicilia",
-//     slug: "vega-cicilia",
-//     price: 210.0,
-//     imageUrl: "/images/exampleImageWine.png",
-//     isNew: false,
-//     url: "/wine-details/vega-cicilia",
-//   },
-//   {
-//     title: "Saviognese Merlot",
-//     slug: "saviognese-merlot",
-//     price: 210.0,
-//     imageUrl: "/images/exampleImageWine.png",
-//     isNew: true,
-//     url: "/wine-details/saviognese-merlot",
-//   },
-//   {
-//     title: "Pinot Grigio",
-//     slug: "pinot-grigio",
-//     price: 210.0,
-//     imageUrl: "/images/exampleImageWine.png",
-//     isNew: false,
-//     url: "/wine-details/pinot-grigio",
-//   },
-//   {
-//     title: "Marques de Murrieta",
-//     slug: "marques-de-murrieta",
-//     price: 210.0,
-//     imageUrl: "/images/exampleImageWine.png",
-//     isNew: false,
-//     url: "/wine-details/marques-de-murrieta",
-//   },
-// ];
+const wineData = [
+  {
+    title: "Muga Reserva",
+    slug: "muga-reserva",
+    price: 130.0,
+    imageUrl: "/images/exampleImageWine.png",
+    isNew: true,
+    url: "/wine-details/muga-reserva",
+  },
+  {
+    title: "Barolo Terlo",
+    slug: "barolo-terlo",
+    price: 121.0,
+    imageUrl: "/images/exampleImageWine.png",
+    isNew: true,
+    url: "/wine-details/barolo-terlo",
+  },
+  {
+    title: "Pinot Noir",
+    slug: "pinot-noir",
+    price: 180.0,
+    imageUrl: "/images/exampleImageWine.png",
+    isNew: false,
+    url: "/wine-details/pinot-noir",
+  },
+  {
+    title: "Vega Cicilia",
+    slug: "vega-cicilia",
+    price: 210.0,
+    imageUrl: "/images/exampleImageWine.png",
+    isNew: false,
+    url: "/wine-details/vega-cicilia",
+  },
+  {
+    title: "Saviognese Merlot",
+    slug: "saviognese-merlot",
+    price: 210.0,
+    imageUrl: "/images/exampleImageWine.png",
+    isNew: true,
+    url: "/wine-details/saviognese-merlot",
+  },
+  {
+    title: "Pinot Grigio",
+    slug: "pinot-grigio",
+    price: 210.0,
+    imageUrl: "/images/exampleImageWine.png",
+    isNew: false,
+    url: "/wine-details/pinot-grigio",
+  },
+  {
+    title: "Marques de Murrieta",
+    slug: "marques-de-murrieta",
+    price: 210.0,
+    imageUrl: "/images/exampleImageWine.png",
+    isNew: false,
+    url: "/wine-details/marques-de-murrieta",
+  },
+];
 
 const TopWinesSection = () => {
+  const { wines, isLoading, error } = usePreSaleWines();
+
+  // Reused this from Natalias "/wines" page
+  if (isLoading) {
+    return (
+      <div className="flex min-h-[25rem] items-center justify-center">
+        <Spinner size="medium" />
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="flex min-h-[25rem] items-center justify-center">
+        <ErrorMessage message={error} />
+      </div>
+    );
+  }
+
+  if (!wines || wines.length === 0) {
+    return (
+      <div className="flex min-h-[25rem] items-center justify-center">
+        <p className="text-bodyLarge font-medium text-tertiary1-normal">
+          No Top Wines available at the moment.
+        </p>
+      </div>
+    );
+  }
+
   return (
     <section className="relative w-full bg-primary-light py-20 pb-24 text-center">
       <div className="mb-[-60px]">
