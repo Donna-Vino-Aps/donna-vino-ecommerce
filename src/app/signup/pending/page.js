@@ -1,7 +1,7 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import { useLanguage } from "@/context/LanguageContext";
-import useFetch from "@/hooks/api/useFetch";
+import { useAPI } from "@/context/ApiProvider";
 import { getSessionItem, SESSION_KEYS } from "@/utils/sessionStorage";
 import { logError, logInfo } from "@/utils/logging";
 import SEO from "@/components/SEO/SEO";
@@ -11,6 +11,7 @@ const MAX_RESEND_ATTEMPTS = 5;
 
 const Pending = () => {
   const { translations } = useLanguage();
+  const { post, isLoading, error: apiError } = useAPI();
 
   const [email, setEmail] = useState("");
   const [resendMsg, setResendMsg] = useState("");
@@ -19,53 +20,12 @@ const Pending = () => {
   const [cooldownRemaining, setCooldownRemaining] = useState(0);
   const [resendAttempts, setResendAttempts] = useState(0);
 
-  const onReceived = (response) => {
-    const { success, msg } = response;
-    logInfo(`Resend verification response: success=${success}, message=${msg}`);
-
-    if (success) {
-      handleMessage({
-        successStatus: true,
-        msg: translations["signUp.welcome.resend.success"],
-      });
-
-      const newAttemptCount = resendAttempts + 1;
-      setResendAttempts(newAttemptCount);
-
-      if (newAttemptCount < MAX_RESEND_ATTEMPTS) {
-        setCooldownRemaining(COOLDOWN_SECONDS);
-      } else if (newAttemptCount === MAX_RESEND_ATTEMPTS) {
-        setTimeout(() => {
-          handleMessage({
-            successStatus: false,
-            msg: translations["signUp.welcome.resend.maxAttempts"],
-          });
-        }, 3000);
-      }
-    } else {
-      logError(`Resend verification failed: ${msg}`);
-      handleMessage({
-        successStatus: false,
-        msg: msg,
-      });
-    }
-  };
-
-  const { performFetch, isLoading, error } = useFetch(
-    "/auth/resend-verification-email",
-    "GET",
-    {},
-    {},
-    onReceived,
-  );
-
   const handleMessage = ({ successStatus, msg }) => {
     setResendSuccess(successStatus);
     setResendMsg(msg);
     setShowResendMessage(true);
   };
 
-  // Effect to handle the cooldown timer
   useEffect(() => {
     let intervalId;
 
@@ -94,18 +54,18 @@ const Pending = () => {
   }, []);
 
   useEffect(() => {
-    if (error) {
+    if (apiError) {
       const errorMessage =
-        error.message || translations["signUp.welcome.resend.error"];
+        apiError || translations["signUp.welcome.resend.error"];
 
       handleMessage({
         successStatus: false,
         msg: errorMessage,
       });
     }
-  }, [error, translations]);
+  }, [apiError, translations]);
 
-  const handleResendVerification = () => {
+  const handleResendVerification = async () => {
     if (!email) {
       handleMessage({
         successStatus: false,
@@ -124,10 +84,33 @@ const Pending = () => {
 
     setShowResendMessage(false);
 
-    performFetch({
-      method: "GET",
-      params: { email },
+    const response = await post("/register/email/resend", {
+      payload: { email },
     });
+
+    if (response) {
+      logInfo(
+        `Resend verification response: success=${response.success}, message=${response.message}`,
+      );
+      handleMessage({
+        successStatus: true,
+        msg: translations["signUp.welcome.resend.success"],
+      });
+
+      const newAttemptCount = resendAttempts + 1;
+      setResendAttempts(newAttemptCount);
+
+      if (newAttemptCount < MAX_RESEND_ATTEMPTS) {
+        setCooldownRemaining(COOLDOWN_SECONDS);
+      } else if (newAttemptCount === MAX_RESEND_ATTEMPTS) {
+        setTimeout(() => {
+          handleMessage({
+            successStatus: false,
+            msg: translations["signUp.welcome.resend.maxAttempts"],
+          });
+        }, 3000);
+      }
+    }
   };
 
   const isResendDisabled =
@@ -187,13 +170,12 @@ const Pending = () => {
             >
               {getButtonText()}
             </button>
+            {cooldownRemaining > 0 && (
+              <span className="ml-2 text-bodySmall text-tertiary2-dark">
+                ({cooldownRemaining}s)
+              </span>
+            )}
           </div>
-
-          {cooldownRemaining > 0 && (
-            <span className="ml-2 text-bodySmall text-tertiary2-dark">
-              ({cooldownRemaining}s)
-            </span>
-          )}
 
           {showResendMessage && (
             <div className="mt-2">
