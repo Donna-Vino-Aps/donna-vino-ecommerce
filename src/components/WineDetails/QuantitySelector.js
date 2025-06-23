@@ -15,7 +15,7 @@ export const QuantitySelector = ({
   volume,
   preSale,
   min = 1,
-  max = quantityAvailable || 99,
+  max = quantityAvailable || 999,
 }) => {
   const { translations } = useLanguage();
   const handleIncrement = () => {
