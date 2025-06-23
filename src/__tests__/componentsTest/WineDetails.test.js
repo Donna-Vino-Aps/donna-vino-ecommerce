@@ -5,7 +5,7 @@ import WineDetails from "../../components/WineDetails/WineDetails";
 
 // Mock next/image as a simple img tag
 jest.mock("next/image", () => (props) => {
-  return <img {...props} alt={props.alt} />;
+  return <img {...props} alt="image" />;
 });
 
 // Mock useLanguage hook
@@ -22,7 +22,7 @@ jest.mock("@/context/LanguageContext", () => ({
 
 // Mock Button component
 jest.mock("../../components/Button/Button", () => (props) => (
-  <button {...props}>{props.text}</button>
+  <button {...props}>Add to Cart</button>
 ));
 
 // Minimal wine mock
