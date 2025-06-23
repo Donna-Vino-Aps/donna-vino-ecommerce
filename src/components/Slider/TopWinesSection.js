@@ -7,9 +7,6 @@ import "swiper/css/navigation";
 import "../../styles/slider/buttons.css";
 
 import WineCardSmall from "@/components/Card/WineCardSmall";
-import { usePreSaleWines } from "@/context/PreSaleWinesContext";
-import Spinner from "@/components/UI/Spinner";
-import ErrorMessage from "@/components/UI/ErrorMessage";
 
 const wineData = [
   {
@@ -71,35 +68,6 @@ const wineData = [
 ];
 
 const TopWinesSection = () => {
-  const { wines, isLoading, error } = usePreSaleWines();
-
-  // Reused this from Natalias "/wines" page
-  if (isLoading) {
-    return (
-      <div className="flex min-h-[25rem] items-center justify-center">
-        <Spinner size="medium" />
-      </div>
-    );
-  }
-
-  if (error) {
-    return (
-      <div className="flex min-h-[25rem] items-center justify-center">
-        <ErrorMessage message={error} />
-      </div>
-    );
-  }
-
-  if (!wines || wines.length === 0) {
-    return (
-      <div className="flex min-h-[25rem] items-center justify-center">
-        <p className="text-bodyLarge font-medium text-tertiary1-normal">
-          No Top Wines available at the moment.
-        </p>
-      </div>
-    );
-  }
-
   return (
     <section className="relative w-full bg-primary-light py-20 pb-24 text-center">
       <div className="mb-[-60px]">
