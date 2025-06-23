@@ -8,11 +8,12 @@ export const QuantitySelector = ({
   quantityAvailable,
   selectedQuantity,
   setSelectedQuantity,
-  price,
+  bottlePrice,
   casePrice,
   selectedSize,
   setSelectedSize,
-  volume,
+  pricePerLiterBottle,
+  pricePerLiterCase,
   preSale,
   min = 1,
   max = quantityAvailable || 999,
@@ -124,10 +125,10 @@ export const QuantitySelector = ({
                 <p
                   className={`text-titleMedium font-semibold ${selectedSize === "bottle" ? "text-primary-normal" : "text-tertiary2-darker"}`}
                 >
-                  {price.toFixed(2)} kr
+                  {bottlePrice.toFixed(2)} kr
                 </p>
                 <p className="text-labelSmall text-tertiary2-darker">
-                  {price / volume} kr / L
+                  {pricePerLiterBottle} kr / L
                 </p>
               </div>
             </div>
@@ -157,7 +158,7 @@ export const QuantitySelector = ({
                   {casePrice.toFixed(2)} kr
                 </p>
                 <p className="text-labelSmall text-tertiary2-darker">
-                  {casePrice / (volume * 6)} kr / L
+                  {pricePerLiterCase} kr / L
                 </p>
               </div>
             </div>
@@ -175,10 +176,11 @@ QuantitySelector.propTypes = {
   min: PropTypes.number,
   max: PropTypes.number,
   inStock: PropTypes.bool,
-  price: PropTypes.number.isRequired,
+  bottlePrice: PropTypes.number.isRequired,
   casePrice: PropTypes.number.isRequired,
   selectedSize: PropTypes.string.isRequired,
   setSelectedSize: PropTypes.func.isRequired,
-  volume: PropTypes.number.isRequired,
+  pricePerLiterBottle: PropTypes.number.isRequired,
+  pricePerLiterCase: PropTypes.number.isRequired,
   preSale: PropTypes.bool.isRequired,
 };

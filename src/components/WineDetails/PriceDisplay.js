@@ -2,18 +2,20 @@ import React from "react";
 import PropTypes from "prop-types";
 import { useLanguage } from "@/context/LanguageContext";
 
-export const PriceDisplay = ({ price, casePrice, volume, selectedSize }) => {
+export const PriceDisplay = ({
+  bottlePrice,
+  casePrice,
+  selectedSize,
+  pricePerLiterBottle,
+  pricePerLiterCase,
+}) => {
   const { translations } = useLanguage();
 
-  const safeVolume = volume && volume > 0 ? volume : 1;
-  const safePrice = typeof price === "number" ? price : 0;
+  const safePrice = typeof bottlePrice === "number" ? bottlePrice : 0;
   const safeCasePrice = typeof casePrice === "number" ? casePrice : 0;
 
   let pricePerLiter =
-    selectedSize === "bottle"
-      ? safePrice / safeVolume
-      : safeCasePrice / (safeVolume * 6);
-  pricePerLiter = pricePerLiter.toFixed(2); // Format to 2 decimal places
+    selectedSize === "bottle" ? pricePerLiterBottle : pricePerLiterCase;
 
   return (
     <div className="text-end">
@@ -41,8 +43,9 @@ export const PriceDisplay = ({ price, casePrice, volume, selectedSize }) => {
 };
 
 PriceDisplay.propTypes = {
-  price: PropTypes.number.isRequired,
+  bottlePrice: PropTypes.number.isRequired,
   casePrice: PropTypes.number.isRequired,
   selectedSize: PropTypes.string.isRequired,
-  volume: PropTypes.number.isRequired,
+  pricePerLiterBottle: PropTypes.number.isRequired,
+  pricePerLiterCase: PropTypes.number.isRequired,
 };

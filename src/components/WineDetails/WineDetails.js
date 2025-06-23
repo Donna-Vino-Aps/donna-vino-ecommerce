@@ -28,9 +28,15 @@ let WineDetails = ({ wine }) => {
   const defaultVariant = variantMap.bottle;
   const caseVariant = variantMap.case;
 
-  const price = defaultVariant?.price?.amount ?? 0;
+  const bottlePrice = defaultVariant?.price?.amount ?? 0;
   const casePrice = caseVariant?.price?.amount ?? 0;
   const quantityAvailable = defaultVariant?.quantityAvailable || 0;
+
+  const volume = wine.volume.value;
+  const pricePerLiterBottle = volume ? (bottlePrice / volume).toFixed(2) : null;
+  const pricePerLiterCase = volume
+    ? (casePrice / (volume * 6)).toFixed(2)
+    : null;
 
   const [selectedQuantity, setSelectedQuantity] = React.useState(1);
   const primaryImage = wine.images?.[0];
@@ -38,7 +44,7 @@ let WineDetails = ({ wine }) => {
   const normalizedWine = {
     id: wine.id,
     title: wine.title,
-    bottlePrice: price,
+    bottlePrice: bottlePrice,
     casePrice: casePrice,
     imageUrl: primaryImage?.url,
     description: wine.description,
@@ -85,11 +91,12 @@ let WineDetails = ({ wine }) => {
           </p>
         </div>
         <PriceDisplay
-          price={normalizedWine.bottlePrice}
+          bottlePrice={normalizedWine.bottlePrice}
           casePrice={normalizedWine.casePrice}
-          volume={0.7}
           setSelectedSize={setSelectedSize}
           selectedSize={selectedSize}
+          pricePerLiterBottle={pricePerLiterBottle}
+          pricePerLiterCase={pricePerLiterCase}
         />
         <QuantitySelector
           quantityAvailable={quantityAvailable}
@@ -97,9 +104,11 @@ let WineDetails = ({ wine }) => {
           setSelectedQuantity={setSelectedQuantity}
           selectedSize={selectedSize}
           setSelectedSize={setSelectedSize}
-          price={normalizedWine.price}
+          bottlePrice={normalizedWine.bottlePrice}
           casePrice={normalizedWine.casePrice}
           volume={normalizedWine.volume}
+          pricePerLiterBottle={pricePerLiterBottle}
+          pricePerLiterCase={pricePerLiterCase}
           preSale={preSale}
         />
         {preSale === false ? (
