@@ -63,7 +63,7 @@ let WineDetails = ({ wine }) => {
       <img
         src={normalizedWine.imageUrl}
         alt={normalizedWine.title}
-        className="mt-4 h-[18.75rem] w-[18rem] md:h-[26rem] md:w-[25rem] lg:h-[31rem] lg:w-[30rem] xl:h-[40rem] xl:w-[38.75rem]"
+        className="mt-4 h-[18.75rem] w-[18rem] object-contain md:h-[26rem] md:w-[25rem] lg:h-[31rem] lg:w-[30rem] xl:h-[40rem] xl:w-[38.75rem]"
       />
       <div className="flex min-w-[18.75rem] flex-col rounded-lg bg-tertiary2-active p-5 font-barlow shadow-lg md:min-w-[25rem] lg:w-[32.625rem]">
         <div className="flex flex-row items-center justify-between">
