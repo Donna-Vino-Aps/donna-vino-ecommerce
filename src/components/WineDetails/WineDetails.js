@@ -13,12 +13,8 @@ let WineDetails = ({ wine }) => {
   const variants = wine.variants || [];
 
   const variantMap = {
-    bottle: variants.find((v) =>
-      v.title.toLowerCase().includes("single bottle"),
-    ),
-    case: variants.find((v) =>
-      v.title.toLowerCase().includes("case (6 bottles)"),
-    ),
+    bottle: variants[0],
+    case: variants[1],
   };
 
   const { translations } = useLanguage();
@@ -89,7 +85,7 @@ let WineDetails = ({ wine }) => {
           </p>
         </div>
         <PriceDisplay
-          price={normalizedWine.price}
+          price={normalizedWine.bottlePrice}
           casePrice={normalizedWine.casePrice}
           volume={0.7}
           setSelectedSize={setSelectedSize}
