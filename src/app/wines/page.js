@@ -6,6 +6,8 @@ import { usePreSaleWines } from "@/context/PreSaleWinesContext";
 import WineCardSmall from "@/components/Card/WineCardSmall";
 import Spinner from "@/components/UI/Spinner";
 import ErrorMessage from "@/components/UI/ErrorMessage";
+import { getWineUrl } from "@/utils/getWineUrl";
+import Link from "next/link";
 
 const WinesPage = () => {
   const { wines, isLoading, error } = usePreSaleWines();
@@ -48,14 +50,17 @@ const WinesPage = () => {
             );
             const price = defaultVariant?.price?.amount;
             const primaryImage = wine.images?.[0];
+            const handle = wine.handle || wine.id;
 
             return (
-              <WineCardSmall
-                key={wine.id}
-                title={wine.title}
-                price={price}
-                imageUrl={primaryImage.url}
-              />
+              <Link href={getWineUrl(handle)} key={wine.id}>
+                <WineCardSmall
+                  key={wine.id}
+                  title={wine.title}
+                  price={price}
+                  imageUrl={primaryImage.url}
+                />
+              </Link>
             );
           })}
         </div>

@@ -60,6 +60,12 @@ const Navbar = () => {
       label: translations["navbar.events"],
       dropdown: false,
     },
+    {
+      id: "wines",
+      href: "/wines",
+      label: translations["navbar.wines"],
+      dropdown: false,
+    },
     // {
     //   id: "wines",
     //   href: "/wines",
