@@ -28,24 +28,16 @@ let WineDetails = ({ wine }) => {
     if (variantMap.case) return "case";
     return "bottle"; // fallback
   });
+
   const defaultVariant = variantMap.bottle;
   const caseVariant = variantMap.case;
-
-  const selectedVariant =
-    selectedSize === "case" ? caseVariant : defaultVariant;
-  const [selectedQuantity, setSelectedQuantity] = React.useState(1);
-
-  // const defaultVariant =
-  //   wine.variants?.find((variant) => variant.isDefault) || wine.variants?.[0];
-  // const caseVariant = wine.variants?.find((variant) =>
-  //   variant.title.toLowerCase().includes("case"),
-  // );
-
-  const primaryImage = wine.images?.[0];
 
   const price = defaultVariant?.price?.amount ?? 0;
   const casePrice = caseVariant?.price?.amount ?? 0;
   const quantityAvailable = defaultVariant?.quantityAvailable || 0;
+
+  const [selectedQuantity, setSelectedQuantity] = React.useState(1);
+  const primaryImage = wine.images?.[0];
 
   const normalizedWine = {
     id: wine.id,
@@ -62,15 +54,8 @@ let WineDetails = ({ wine }) => {
     region: wine.region,
     wineVariety: wine.wineVariety,
     volume: wine.volume?.value,
-    rating: 3.0,
+    rating: 4.0,
     nrOfRatings: 10,
-  };
-
-  const handleSizeChange = (size) => {
-    setSelectedSize(size);
-    const currentPrice = selectedVariant?.price?.amount;
-    const currentQuantityAvailable = selectedVariant?.quantityAvailable || 0;
-    const currentInStock = currentQuantityAvailable > 0;
   };
 
   return (
@@ -165,6 +150,18 @@ export default WineDetails;
 WineDetails.propTypes = {
   wine: PropTypes.shape({
     id: PropTypes.string.isRequired,
+    variants: PropTypes.arrayOf(
+      PropTypes.shape({
+        id: PropTypes.string.isRequired,
+        title: PropTypes.string.isRequired,
+        price: PropTypes.shape({
+          amount: PropTypes.number.isRequired,
+          currencyCode: PropTypes.string.isRequired,
+        }).isRequired,
+        availableForSale: PropTypes.bool.isRequired,
+        quantityAvailable: PropTypes.number.isRequired,
+      }),
+    ),
     title: PropTypes.string.isRequired,
     price: PropTypes.number.isRequired,
     volume: PropTypes.number.isRequired,
