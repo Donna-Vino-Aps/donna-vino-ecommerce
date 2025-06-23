@@ -75,7 +75,7 @@ const wineMock = {
 describe("WineDetails simple render test", () => {
   test("renders WineDetails without crashing", () => {
     render(<WineDetails wine={wineMock} />);
-    // Check for something basic that should appear when inStock is true:
+
     expect(screen.getByText(/Test Wine/i)).toBeInTheDocument();
   });
 });
