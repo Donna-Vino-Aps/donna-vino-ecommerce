@@ -1,19 +1,31 @@
 "use client";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import dynamic from "next/dynamic";
+import RootLoading from "./loading";
+
 const TastingSession = dynamic(
   () => import("@/components/HeroSlider/HeroSlider"),
-  {
-    ssr: true,
-    loading: () => <div>Loading...</div>,
-  },
+  { ssr: false },
 );
 const ServicesBanner = dynamic(
   () => import("@/components/ServicesBanner/ServicesBanner"),
+  { ssr: false },
 );
-const SalesCards = dynamic(() => import("@/components/SalesCards/SalesCards"));
+const SalesCards = dynamic(() => import("@/components/SalesCards/SalesCards"), {
+  ssr: false,
+});
 
 export default function Home() {
+  const [loaded, setLoaded] = useState(false);
+
+  useEffect(() => {
+    setLoaded(true);
+  }, []);
+
+  if (!loaded) {
+    return <RootLoading />;
+  }
+
   return (
     <div className="flex w-[100%]" data-testid="home-container">
       <main

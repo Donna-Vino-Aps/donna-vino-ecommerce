@@ -10,8 +10,19 @@ import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { UserContextProvider } from "@/context/UserContext";
 import { SessionProvider } from "next-auth/react";
 import APIProvider from "@/context/ApiProvider";
+import { useEffect } from "react";
 
 const RootLayout = ({ children }) => {
+  useEffect(() => {
+    import("webfontloader").then((WebFont) => {
+      WebFont.load({
+        google: {
+          families: ["Barlow:300,400,500,600,700", "Roboto:300,700"],
+        },
+      });
+    });
+  }, []);
+
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>
       <html lang="en">
