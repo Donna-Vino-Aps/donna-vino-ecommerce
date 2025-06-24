@@ -2,33 +2,28 @@
 import React from "react";
 import Button from "@/components/Button/Button";
 import { useLanguage } from "@/context/LanguageContext";
-import Head from "next/head";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
+import SEO from "@/components/SEO/SEO";
+import { useEffect } from "react";
 
 const SalesPolicy = () => {
   const { translations } = useLanguage();
+
   const router = useRouter();
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   return (
     <>
-      <Head>
-        <title>{translations["sales.title"]} - Donna Vino</title>
-        <meta
-          name="description"
-          content="Read Donna Vino's sales policy regarding payment, shipments, complaints and more."
-        />
-        <meta name="robots" content="index, follow" />
-        <meta property="og:title" content="Sales Policy | Donna Vino" />
-        <meta
-          property="og:description"
-          content="Learn about Donna Vino's sales policies."
-        />
-        <meta
-          property="og:url"
-          content="https://shop.donnavino.dk/sales-policy"
-        />
-      </Head>
+      <SEO
+        title={translations["sales.title"]}
+        description={translations["sales.description"]}
+        url="https://shop.donnavino.dk/sales-policy"
+        includeOpenGraph={true}
+      />
+
       <main className="flex w-full flex-col gap-3 bg-white font-barlow text-tertiary1-darker">
         <section className="px-2 pt-4 sm:mx-8">
           <Button
@@ -163,6 +158,19 @@ const SalesPolicy = () => {
               </p>
             </section>
 
+            <section id="event-cancellation">
+              <h2 className="my-6 text-displaySmall">
+                {translations["sales.cancellation.h2"]}
+              </h2>
+              <p>{translations["sales.cancellation.p1"]}</p>
+              <br />
+              <p>{translations["sales.cancellation.p2"]}</p>
+              <br />
+              <p>{translations["sales.cancellation.p3"]}</p>
+              <br />
+              <p>{translations["sales.cancellation.p4"]}</p>
+            </section>
+
             <section>
               <h2 className="my-6 text-displaySmall">
                 {translations["sales.rights.h2"]}
@@ -191,13 +199,10 @@ const SalesPolicy = () => {
                 </a>
                 .
               </p>
-            </section>
-
-            <section>
-              <h2 className="my-6 text-displaySmall">
-                {translations["sales.complaints.h2"]}
-              </h2>
-              <p>{translations["sales.complaints.p1"]}</p>
+              <br />
+              <p>
+                <strong>{translations["sales.complaints.p1"]}</strong>
+              </p>
               <ul className="mb-4 ml-6 mt-4 list-disc font-normal">
                 <li>
                   {translations["sales.complaints.li1"]}:{" "}
@@ -207,7 +212,7 @@ const SalesPolicy = () => {
               </ul>
               <p>{translations["sales.complaints.p2"]}</p>
             </section>
-            <section className="mb-4 mt-12">
+            <section className="mb-4 mt-14">
               <p>
                 <em>{translations["sales.footer"]}</em>
               </p>
