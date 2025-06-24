@@ -108,15 +108,15 @@ const HeroSlider = () => {
                       <source src={slide.media} type="video/mp4" />
                       Your browser does not support the video tag.
                     </video>
-                  ) : (
+                  ) : (                 
                     <div className="relative mt-4 h-[22.5rem] w-full md:h-[43.75rem]">
                       <Image
                         src="/images/hero-tasting-resized.jpg"
-                        alt="Fallback image"
+                        alt="Guests at a wine tasting event sampling different wines in a warm, elegant setting."
                         fill
                         priority={index === 0}
                         loading={index === 0 ? undefined : "lazy"}
-                        className="rounded-br-[0rem] rounded-tr-[0rem] object-cover md:rounded-br-[0.5rem] md:rounded-tr-[8rem]"
+                        className="mt-4 max-h-[22.5rem] w-full rounded-br-[0rem] rounded-tr-[0rem] object-cover md:absolute md:inset-0 md:mt-0 md:min-h-[43.75rem] md:rounded-br-[0.5rem] md:rounded-tr-[8rem]"
                         sizes={{ width: "auto", height: "auto" }}
                       />
                     </div>

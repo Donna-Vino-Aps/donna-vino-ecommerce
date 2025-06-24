@@ -1,3 +1,5 @@
+jest.unmock("@/utils/logging");
+
 import { logInfo, logWarning, logError } from "@/utils/logging";
 
 describe("Logging Utilities", () => {
