@@ -181,9 +181,7 @@ const Pending = () => {
             <div className="mt-2">
               <p
                 className={`text-center text-bodySmall ${
-                  resendSuccess
-                    ? "text-secondary-normal"
-                    : "text-primary-normal"
+                  success ? "text-others-confirm" : "text-others-negative"
                 }`}
                 aria-live="polite"
                 data-testid="resend-message"
