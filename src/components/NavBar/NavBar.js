@@ -19,6 +19,8 @@ const Navbar = () => {
     grapeszones: false,
   });
 
+  const quantityInCart = 2; // This should be replaced with actual cart state
+
   const toggleDropdown = (id) => {
     setOpenDropdowns((prev) => {
       // If the clicked dropdown is already open, close it
@@ -311,7 +313,7 @@ const Navbar = () => {
         <div className="relative bottom-[2px] flex items-center gap-3 md:mr-6 lg:gap-5">
           <SearchButton />
           <UserDropdown />
-          <ShoppingCart />
+          <ShoppingCart quantityInCart={quantityInCart} />
           <div className="relative top-[1px] ml-2 mr-8 h-[1.5rem] w-[1.5rem] lg:hidden">
             <button
               onClick={toggleMenu}
