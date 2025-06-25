@@ -7,7 +7,7 @@ import { logError, logInfo } from "@/utils/logging";
 import SEO from "@/components/SEO/SEO";
 
 const COOLDOWN_SECONDS = 60;
-const MAX_RESEND_ATTEMPTS = 5;
+const MAX_RESEND_ATTEMPTS = 3;
 
 const Pending = () => {
   const { translations } = useLanguage();
