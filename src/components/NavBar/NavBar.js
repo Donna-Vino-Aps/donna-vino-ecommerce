@@ -8,9 +8,33 @@ import { useLanguage } from "@/context/LanguageContext";
 import SearchButton from "./SearchButton";
 import UserDropdown from "./UserDropdown/UserDropdown";
 import ShoppingCart from "./ShoppingCart";
-import CartModal from "./CartModal";
+import CartModal from "../Cart/CartModal";
 
 const Navbar = () => {
+  const mockCartItems = [
+    {
+      id: 1,
+      name: "Cantina Kurtatsch",
+      image: "/images/wine-example.jpg",
+      price: 24.99,
+      quantity: 2,
+    },
+    {
+      id: 2,
+      name: "Fructuositas Primitivo",
+      image: "/images/wine-example.jpg",
+      price: 19.99,
+      quantity: 1,
+    },
+    {
+      id: 3,
+      name: "Alamos Malbec",
+      image: "/images/wine-example.jpg",
+      price: 21.99,
+      quantity: 3,
+    },
+  ];
+
   const { translations } = useLanguage();
   const pathname = usePathname();
 
@@ -21,8 +45,9 @@ const Navbar = () => {
   });
 
   const [isCartOpen, setIsCartOpen] = useState(false);
-
-  const quantityInCart = 0; // This should be replaced with actual cart state
+  const [quantityInCart, setQuantityInCart] = useState(
+    mockCartItems.reduce((sum, item) => sum + item.quantity, 0),
+  );
 
   const toggleDropdown = (id) => {
     setOpenDropdowns((prev) => {
@@ -318,6 +343,7 @@ const Navbar = () => {
           <UserDropdown />
           <ShoppingCart
             quantityInCart={quantityInCart}
+            setQuantityInCart={setQuantityInCart}
             onClick={() => setIsCartOpen(!isCartOpen)}
           />
           <div className="relative top-[1px] ml-2 mr-8 h-[1.5rem] w-[1.5rem] lg:hidden">
@@ -345,7 +371,13 @@ const Navbar = () => {
           navLinks={navLinksSidebar}
         />
       </div>
-      {isCartOpen && <CartModal onClose={() => setIsCartOpen(false)} />}
+      {isCartOpen && (
+        <CartModal
+          onClose={() => setIsCartOpen(false)}
+          cartItems={mockCartItems}
+          setQuantityInCart={setQuantityInCart}
+        />
+      )}
     </nav>
   );
 };
