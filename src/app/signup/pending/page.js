@@ -63,14 +63,6 @@ const Pending = () => {
       return;
     }
 
-    if (resendAttempts >= MAX_RESEND_ATTEMPTS) {
-      setMsg(translations["signUp.welcome.resend.maxAttempts"]);
-      setSuccessStatus(false);
-      return;
-    }
-
-    setMsg("");
-
     const response = await post("/register/email/resend", {
       payload: { email },
     });

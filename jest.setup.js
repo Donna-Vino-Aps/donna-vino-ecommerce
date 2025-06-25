@@ -1,7 +1,10 @@
+process.env.NEXT_PUBLIC_API_URL_LOCAL = "http://localhost:3000";
+
+// Mock logging utility
 jest.mock("@/utils/logging", () => ({
+  logError: jest.fn(),
   logInfo: jest.fn(),
   logWarning: jest.fn(),
-  logError: jest.fn(),
 }));
 
 // Mock Shopify configuration to provide default values and prevent errors
