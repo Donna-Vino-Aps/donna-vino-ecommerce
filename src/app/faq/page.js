@@ -18,13 +18,15 @@ const FrequentlyAskedQuestions = () => {
             src="/design-elements/dotted-shape.svg"
             width="50"
             height="50"
-            className="absolute left-0 top-[16.3rem] md:top-[41rem]"
+            alt="Dotted shape"
+            className="absolute left-0 top-[15.5rem] sm:top-[29rem] md:top-[40.25rem]"
           />
           <Image
             src="/design-elements/dotted-shape.svg"
             width="50"
             height="50"
-            className="absolute right-0 top-[7.3rem] md:top-60"
+            alt="Dotted shape"
+            className="absolute right-0 top-[7.5rem] sm:hidden"
           />
         </div>
         <div className="mb-4 flex flex-col justify-center gap-6 px-8 text-center sm:mb-0 sm:w-[45%] md:text-start lg:w-[40%]">
