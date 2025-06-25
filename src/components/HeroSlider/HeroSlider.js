@@ -1,12 +1,13 @@
 import React, { useState, useRef } from "react";
 import Button from "../Button/Button";
-import { Swiper, SwiperSlide } from "swiper/react";
-import { A11y } from "swiper/modules";
-import "swiper/css";
-import "swiper/css/navigation";
-import "swiper/css/pagination";
+import dynamic from "next/dynamic";
+const SwiperClient = dynamic(() => import("../Swiper/SwiperClient"), {
+  ssr: false,
+});
+import { SwiperSlide } from "swiper/react";
 import ComingSoonModal from "../Modal/ComingSoonModal";
 import { useLanguage } from "@/context/LanguageContext";
+import Image from "next/image";
 
 const HeroSlider = () => {
   const { translations } = useLanguage();
@@ -16,6 +17,7 @@ const HeroSlider = () => {
 
   const slides = [
     {
+      id: "video-slide",
       type: "video",
       subheading: "tasting.subheading1",
       heading: "tasting.heading1",
@@ -27,6 +29,7 @@ const HeroSlider = () => {
       url: "/events",
     },
     {
+      id: "wine-image",
       type: "image",
       subheading: "tasting.subheading2",
       heading: "tasting.heading2",
@@ -37,6 +40,7 @@ const HeroSlider = () => {
       url: "", // blank for now until the webshop is ready
     },
     {
+      id: "newsletter-image",
       type: "image",
       subheading: "tasting.subheading3",
       heading: "tasting.heading3",
@@ -75,16 +79,15 @@ const HeroSlider = () => {
           />
         </div>
       )}
-      <Swiper
+      <SwiperClient
         onSwiper={(swiper) => (swiperRef.current = swiper)}
-        modules={[A11y]}
         className="h-full w-full"
         onSlideChange={(swiper) => setCurrentImageIndex(swiper.activeIndex)}
         initialSlide={0}
-        loop={true}
+        loop={false}
       >
         {slides.map((slide, index) => (
-          <SwiperSlide key={index}>
+          <SwiperSlide key={slide.id}>
             <section
               className={`relative flex flex-col-reverse md:w-full ${index === 0 ? "md:flex-row" : "md:flex-row-reverse"} min-h-[43.75rem] justify-between bg-tertiary2-light`}
             >
@@ -100,22 +103,32 @@ const HeroSlider = () => {
                       aria-label="Background video for TastingSession Section"
                       aria-hidden="true"
                       data-testid="hero-video"
+                      preload="none"
                     >
                       <source src={slide.media} type="video/mp4" />
                       Your browser does not support the video tag.
                     </video>
                   ) : (
-                    <img
-                      src="/images/hero-tasting-resized.jpg"
-                      className="mt-4 max-h-[22.5rem] w-full rounded-br-[0rem] rounded-tr-[0rem] object-cover md:absolute md:inset-0 md:mt-0 md:min-h-[43.75rem] md:rounded-br-[0.5rem] md:rounded-tr-[8rem]"
-                      data-testid="fallback-image"
-                      alt="Guests at a wine tasting event sampling different wines in a warm, elegant setting."
-                    />
+                    <div className="relative mt-4 h-[22.5rem] w-full md:h-[43.75rem]">
+                      <Image
+                        src="/images/hero-tasting-resized.jpg"
+                        alt="Guests at a wine tasting event sampling different wines in a warm, elegant setting."
+                        fill
+                        priority={index === 0}
+                        loading={index === 0 ? undefined : "lazy"}
+                        className="mt-4 max-h-[22.5rem] w-full rounded-br-[0rem] rounded-tr-[0rem] object-cover md:absolute md:inset-0 md:mt-0 md:min-h-[43.75rem] md:rounded-br-[0.5rem] md:rounded-tr-[8rem]"
+                        sizes={{ width: "auto", height: "auto" }}
+                      />
+                    </div>
                   )
                 ) : (
-                  <img
+                  <Image
                     src={slide.media}
                     alt="Slide media"
+                    width={1920}
+                    height={700}
+                    priority={index === 0}
+                    loading={index === 0 ? undefined : "lazy"}
                     className="mt-4 max-h-[22.5rem] w-full rounded-br-[0rem] rounded-tr-[0rem] object-cover md:absolute md:inset-0 md:mt-0 md:min-h-[43.75rem] md:rounded-bl-xl md:rounded-tl-[8rem]"
                   />
                 )}
@@ -175,7 +188,7 @@ const HeroSlider = () => {
             </section>
           </SwiperSlide>
         ))}
-      </Swiper>
+      </SwiperClient>
       <div className="relative bottom-8 mx-auto flex min-h-[2rem] justify-center py-2 md:hidden">
         {slides.map((_, index) => (
           <button

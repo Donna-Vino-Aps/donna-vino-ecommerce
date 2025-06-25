@@ -45,7 +45,7 @@ jest.mock("@/components/Button/Button", () =>
 );
 
 describe("HeroSlider Component", () => {
-  test("renders the component correctly", () => {
+  test("renders the component correctly", async () => {
     render(<HeroSlider />);
 
     // expect(screen.getByText(/Events/)).toBeInTheDocument();
@@ -58,8 +58,8 @@ describe("HeroSlider Component", () => {
     // expect(
     //   screen.getByRole("button", { name: /Book a tasting session/i }),
     // ).toBeInTheDocument();
-
-    expect(screen.getByText(/Store/)).toBeInTheDocument();
+    const element = await screen.findByText(/Store/);
+    expect(element).toBeInTheDocument();
     expect(screen.getByText(/Find the perfect wine/)).toBeInTheDocument();
     expect(
       screen.getByText(
