@@ -63,7 +63,7 @@ const Navbar = () => {
     {
       id: "wines",
       href: "/wines",
-      label: translations["navbar.wines"],
+      label: translations["navbar.presale-wines"],
       dropdown: false,
     },
     // {
@@ -134,6 +134,13 @@ const Navbar = () => {
       href: "/events",
       label: translations["navbar.events"],
       icon: "/icons/calendar1.svg",
+      dropdown: false,
+    },
+    {
+      id: "wines",
+      href: "/wines",
+      label: translations["navbar.presale-wines"],
+      icon: "/icons/wine-bottle.svg",
       dropdown: false,
     },
     // {
