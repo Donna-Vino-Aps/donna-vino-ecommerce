@@ -23,16 +23,16 @@ const ModalCartItem = ({ item, onRemove, setQuantityInCart }) => {
   };
 
   return (
-    <div className="flex items-center justify-between mb-4 font-barlow">
+    <div className="mb-4 flex items-center justify-between font-barlow">
       <div className="flex items-center">
         <img
           src={item.image}
           alt={item.name}
           className="h-20 w-20 object-cover"
         />
-        <div className="flex flex-col gap-1 ml-4 mt-1">
+        <div className="ml-4 mt-1 flex flex-col gap-1">
           <h3 className="text-titleMedium font-medium">{item.name}</h3>
-          <div className="grid border border-solid border-tertiary1-light h-9 w-[7.125rem] grid-cols-[28%_44%_28%] rounded-md">
+          <div className="grid h-9 w-[7.125rem] grid-cols-[28%_44%_28%] rounded-md border border-solid border-tertiary1-light">
             <button
               onClick={handleDecrement}
               disabled={selectedQuantity <= 1}
@@ -65,7 +65,7 @@ const ModalCartItem = ({ item, onRemove, setQuantityInCart }) => {
           </div>
         </div>
       </div>
-      <div className="flex flex-col justify-center gap-1 ml-2 mt-1">
+      <div className="ml-2 mt-1 flex flex-col justify-center gap-1">
         <button onClick={() => onRemove(item.id)} className="flex justify-end">
           <Image
             src="/icons/trash-can.svg"
@@ -74,7 +74,7 @@ const ModalCartItem = ({ item, onRemove, setQuantityInCart }) => {
             alt="trash can icon"
           />
         </button>
-        <p className="text-titleMedium text-tertiary1-dark font-medium">
+        <p className="text-titleMedium font-medium text-tertiary1-dark">
           ${item.price.toFixed(2)}
         </p>
       </div>
@@ -93,4 +93,5 @@ ModalCartItem.propTypes = {
     quantity: PropTypes.number.isRequired,
   }).isRequired,
   onRemove: PropTypes.func.isRequired,
+  setQuantityInCart: PropTypes.func.isRequired,
 };

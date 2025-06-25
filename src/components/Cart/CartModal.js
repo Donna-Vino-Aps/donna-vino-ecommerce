@@ -6,8 +6,8 @@ import ModalCartItem from "./ModalCartItem.js";
 const CartModal = ({ onClose, cartItems, setQuantityInCart }) => {
   return (
     <div className="fixed inset-0 z-50 flex items-start justify-end">
-      <div className="relative right-2 top-40 w-[22.5rem] md:w-[26.25rem] rounded-b-lg bg-white p-6 shadow-lg">
-        <div className="flex items-center justify-between mb-2">
+      <div className="relative right-2 top-40 w-[22.5rem] rounded-b-lg bg-white p-6 shadow-lg md:w-[26.25rem]">
+        <div className="mb-2 flex items-center justify-between">
           <h2 className="text-headlineLarge font-normal">Shopping cart</h2>
           <Image
             onClick={onClose}
@@ -48,5 +48,6 @@ CartModal.propTypes = {
       quantity: PropTypes.number.isRequired,
     }),
   ).isRequired,
+  setQuantityInCart: PropTypes.func.isRequired,
 };
 export default CartModal;
