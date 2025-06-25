@@ -8,6 +8,7 @@ import { useLanguage } from "@/context/LanguageContext";
 import SearchButton from "./SearchButton";
 import UserDropdown from "./UserDropdown/UserDropdown";
 import ShoppingCart from "./ShoppingCart";
+import CartModal from "./CartModal";
 
 const Navbar = () => {
   const { translations } = useLanguage();
@@ -19,7 +20,9 @@ const Navbar = () => {
     grapeszones: false,
   });
 
-  const quantityInCart = 2; // This should be replaced with actual cart state
+  const [isCartOpen, setIsCartOpen] = useState(false);
+
+  const quantityInCart = 0; // This should be replaced with actual cart state
 
   const toggleDropdown = (id) => {
     setOpenDropdowns((prev) => {
@@ -313,7 +316,10 @@ const Navbar = () => {
         <div className="relative bottom-[2px] flex items-center gap-3 md:mr-6 lg:gap-5">
           <SearchButton />
           <UserDropdown />
-          <ShoppingCart quantityInCart={quantityInCart} />
+          <ShoppingCart
+            quantityInCart={quantityInCart}
+            onClick={() => setIsCartOpen(!isCartOpen)}
+          />
           <div className="relative top-[1px] ml-2 mr-8 h-[1.5rem] w-[1.5rem] lg:hidden">
             <button
               onClick={toggleMenu}
@@ -339,6 +345,7 @@ const Navbar = () => {
           navLinks={navLinksSidebar}
         />
       </div>
+      {isCartOpen && <CartModal onClose={() => setIsCartOpen(false)} />}
     </nav>
   );
 };
