@@ -155,7 +155,7 @@ const Pending = () => {
             <p>{translations["signUp.welcome.paragraph3"]}</p>
           </div>
 
-          <div className="flex justify-center gap-2 text-bodyLarge sm:justify-start">
+          <div className="flex items-baseline justify-center gap-2 text-bodyLarge sm:justify-start">
             <span>{translations["signUp.welcome.resend"]}</span>
             <button
               className={`inline-block font-medium underline ${
@@ -171,7 +171,7 @@ const Pending = () => {
               {getButtonText()}
             </button>
             {cooldownRemaining > 0 && (
-              <span className="ml-2 text-bodySmall text-tertiary2-dark">
+              <span className="text-bodySmall text-tertiary2-dark">
                 ({cooldownRemaining}s)
               </span>
             )}
