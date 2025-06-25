@@ -155,7 +155,7 @@ const Pending = () => {
             <p>{translations["signUp.welcome.paragraph3"]}</p>
           </div>
 
-          <div className="flex items-baseline justify-center gap-2 text-bodyLarge sm:justify-start">
+          <div className="flex flex-wrap items-baseline justify-center gap-2 text-bodyLarge sm:justify-start">
             <span>{translations["signUp.welcome.resend"]}</span>
             <button
               className={`inline-block font-medium underline ${
