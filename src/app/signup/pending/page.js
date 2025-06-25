@@ -3,7 +3,6 @@ import React, { useState, useEffect } from "react";
 import { useLanguage } from "@/context/LanguageContext";
 import { useAPI } from "@/context/ApiProvider";
 import { getSessionItem, SESSION_KEYS } from "@/utils/sessionStorage";
-import { logError, logInfo } from "@/utils/logging";
 import SEO from "@/components/SEO/SEO";
 
 const COOLDOWN_SECONDS = 60;
@@ -14,17 +13,10 @@ const Pending = () => {
   const { post, isLoading, error: apiError } = useAPI();
 
   const [email, setEmail] = useState("");
-  const [resendMsg, setResendMsg] = useState("");
-  const [resendSuccess, setResendSuccess] = useState(null);
-  const [showResendMessage, setShowResendMessage] = useState(false);
+  const [msg, setMsg] = useState("");
+  const [success, setSuccessStatus] = useState(false);
   const [cooldownRemaining, setCooldownRemaining] = useState(0);
   const [resendAttempts, setResendAttempts] = useState(0);
-
-  const handleMessage = ({ successStatus, msg }) => {
-    setResendSuccess(successStatus);
-    setResendMsg(msg);
-    setShowResendMessage(true);
-  };
 
   useEffect(() => {
     let intervalId;
@@ -56,60 +48,48 @@ const Pending = () => {
   useEffect(() => {
     if (apiError) {
       const errorMessage =
-        apiError || translations["signUp.welcome.resend.error"];
-
-      handleMessage({
-        successStatus: false,
-        msg: errorMessage,
-      });
+        typeof apiError === "string"
+          ? apiError
+          : apiError.message || translations["signUp.welcome.resend.error"];
+      setMsg(errorMessage);
+      setSuccessStatus(false);
     }
   }, [apiError, translations]);
 
   const handleResendVerification = async () => {
     if (!email) {
-      handleMessage({
-        successStatus: false,
-        msg: translations["signUp.welcome.resend.noEmail"],
-      });
+      setMsg(translations["signUp.welcome.resend.noEmail"]);
+      setSuccessStatus(false);
       return;
     }
 
     if (resendAttempts >= MAX_RESEND_ATTEMPTS) {
-      handleMessage({
-        successStatus: false,
-        msg: translations["signUp.welcome.resend.maxAttempts"],
-      });
+      setMsg(translations["signUp.welcome.resend.maxAttempts"]);
+      setSuccessStatus(false);
       return;
     }
 
-    setShowResendMessage(false);
+    setMsg("");
 
     const response = await post("/register/email/resend", {
       payload: { email },
     });
 
-    if (response) {
-      logInfo(
-        `Resend verification response: success=${response.success}, message=${response.message}`,
-      );
-      handleMessage({
-        successStatus: true,
-        msg: translations["signUp.welcome.resend.success"],
-      });
+    if (response && response.success) {
+      setMsg(translations["signUp.welcome.resend.success"]);
+      setSuccessStatus(true);
 
       const newAttemptCount = resendAttempts + 1;
       setResendAttempts(newAttemptCount);
 
       if (newAttemptCount < MAX_RESEND_ATTEMPTS) {
         setCooldownRemaining(COOLDOWN_SECONDS);
-      } else if (newAttemptCount === MAX_RESEND_ATTEMPTS) {
-        setTimeout(() => {
-          handleMessage({
-            successStatus: false,
-            msg: translations["signUp.welcome.resend.maxAttempts"],
-          });
-        }, 3000);
       }
+    } else {
+      const errorMessage =
+        response?.message || translations["signUp.welcome.resend.error"];
+      setMsg(errorMessage);
+      setSuccessStatus(false);
     }
   };
 
@@ -177,7 +157,7 @@ const Pending = () => {
             )}
           </div>
 
-          {showResendMessage && (
+          {msg && (
             <div className="mt-2">
               <p
                 className={`text-center text-bodySmall ${
@@ -186,7 +166,7 @@ const Pending = () => {
                 aria-live="polite"
                 data-testid="resend-message"
               >
-                {resendMsg}
+                {msg}
               </p>
             </div>
           )}
