@@ -10,10 +10,10 @@ const ShoppingCart = ({ quantityInCart, onClick }) => {
       <img
         src={quantityInCart > 0 ? "/icons/cart-full.svg" : "/icons/cart.svg"}
         alt="Cart icon"
-        className="h-6 w-6 object-contain cursor-pointer hover:opacity-85"
+        className="h-6 w-6 cursor-pointer object-contain hover:opacity-85"
       />
       <span
-        className={`relative right-0 -top-5 flex items-center justify-center rounded-full ${quantityInCart > 0 ? "bg-primary-normal" : "bg-tertiary1-dark"} h-4 w-4 px-1 text-labelSmall text-tertiary2-light`}
+        className={`relative -top-5 right-0 flex items-center justify-center rounded-full ${quantityInCart > 0 ? "bg-primary-normal" : "bg-tertiary1-dark"} h-4 w-4 px-1 text-labelSmall text-tertiary2-light`}
       >
         {quantityInCart || 0}
       </span>
