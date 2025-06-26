@@ -21,7 +21,7 @@ export const InStockDisplay = ({ inStock, preSale, setPreSale }) => {
             ? "/icons/checkmark-circle-green.svg"
             : "/icons/cross-circle.svg"
         }
-        className="w-5 h-5"
+        className="h-5 w-5"
       />
       <p
         className={`text-nowrap text-titleMedium ${inStock ? "text-calendar-open" : "text-primary-normal"}`}
@@ -50,7 +50,7 @@ export const InStockDisplay = ({ inStock, preSale, setPreSale }) => {
         height={20}
         alt="Pre Order"
         src="/icons/checkmark-circle-green.svg"
-        className="w-5 h-5"
+        className="h-5 w-5"
       />
       <p className="text-nowrap text-titleMedium text-calendar-open">
         {translations["wine-details.presale"]}

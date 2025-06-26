@@ -50,7 +50,7 @@ export const QuantitySelector = ({
             width={12}
             height={12}
             alt="Decrease"
-            className="w-3 h-3"
+            className="h-3 w-3"
           />
         </button>
 
@@ -68,7 +68,7 @@ export const QuantitySelector = ({
             width={12}
             height={12}
             alt="Increase"
-            className="w-3 h-3"
+            className="h-3 w-3"
           />
         </button>
       </div>
@@ -92,7 +92,7 @@ export const QuantitySelector = ({
               width="16"
               height="16"
               alt={selectedSize === "bottle" ? "wine bottle" : "wine case"}
-              className="w-4 h-4"
+              className="h-4 w-4"
             />
             <p className="text-titleMedium font-medium text-primary-light">
               {selectedSize === "bottle"
@@ -109,7 +109,7 @@ export const QuantitySelector = ({
             width="20"
             height="20"
             alt="Toggle Size Selector"
-            className="w-5 h-5"
+            className="h-5 w-5"
           />
         </div>
         {isOpen && (
@@ -130,7 +130,7 @@ export const QuantitySelector = ({
                   width="16"
                   height="16"
                   alt="wine bottle"
-                  className="w-4 h-4"
+                  className="h-4 w-4"
                 />
                 <p className="text-labelMedium font-medium">
                   {translations["wine-details.singlebottle"]}
@@ -161,7 +161,7 @@ export const QuantitySelector = ({
                   width="16"
                   height="16"
                   alt="wine case"
-                  className="w-4 h-4"
+                  className="h-4 w-4"
                 />
                 <p className="text-labelMedium font-medium">
                   {translations["wine-details.singlecase"]}
