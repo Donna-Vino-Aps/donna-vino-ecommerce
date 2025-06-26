@@ -8,6 +8,7 @@ import { QuantitySelector } from "./QuantitySelector";
 import { ProductDetails } from "./ProductDetails";
 import Button from "../Button/Button";
 import { useLanguage } from "@/context/LanguageContext";
+import Image from "next/image";
 
 const WineDetails = ({ wine }) => {
   const variants = wine.variants || [];
@@ -62,10 +63,14 @@ const WineDetails = ({ wine }) => {
 
   return (
     <article className="relative flex flex-col items-center justify-center gap-6 md:gap-8 lg:flex-row lg:gap-12">
-      <img
+      <Image
         src={normalizedWine.imageUrl}
         alt={normalizedWine.title}
+        width={620}
+        height={640}
         className="mt-4 h-[18.75rem] w-[18rem] object-contain md:h-[26rem] md:w-[25rem] lg:h-[31rem] lg:w-[30rem] xl:h-[40rem] xl:w-[38.75rem]"
+        unoptimized
+        priority
       />
       <div className="flex min-w-[18.75rem] flex-col rounded-lg bg-tertiary2-active p-5 font-barlow shadow-lg md:min-w-[25rem] lg:w-[32.625rem]">
         <div className="flex flex-row items-center justify-between">
