@@ -6,7 +6,7 @@ import { notFound } from "next/navigation";
 import WineDetails from "@/components/WineDetails/WineDetails";
 import { useParams } from "next/navigation";
 import { usePreSaleWines } from "@/context/PreSaleWinesContext";
-import { getWineBySlug } from "@/utils/getWineBySlug";
+import { getWineBySlug } from "@/utils/wineUtils";
 import Spinner from "@/components/UI/Spinner";
 import ErrorMessage from "@/components/UI/ErrorMessage";
 

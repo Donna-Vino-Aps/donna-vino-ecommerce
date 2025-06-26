@@ -37,3 +37,11 @@ export const normalizeWineData = (wine) => {
     variantMap,
   };
 };
+
+// this utility function retrieves a wine by its slug from a list of wines
+export const getWineBySlug = (slug, wines) => {
+  return wines.find((wine) => wine.slug === slug);
+};
+
+// this utility function generates a URL for a wine based on its handle
+export const getWineUrl = (handle) => `/pre-sale/${handle}`;

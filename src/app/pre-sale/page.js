@@ -6,7 +6,7 @@ import { usePreSaleWines } from "@/context/PreSaleWinesContext";
 import WineCardSmall from "@/components/Card/WineCardSmall";
 import Spinner from "@/components/UI/Spinner";
 import ErrorMessage from "@/components/UI/ErrorMessage";
-import { getWineUrl } from "@/utils/getWineUrl";
+import { getWineUrl } from "@/utils/wineUtils";
 import Link from "next/link";
 
 const WinesPage = () => {

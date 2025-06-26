@@ -9,7 +9,7 @@ import { ProductDetails } from "./ProductDetails";
 import Button from "../Button/Button";
 import { useLanguage } from "@/context/LanguageContext";
 import Image from "next/image";
-import { normalizeWineData } from "@/utils/normalizeWineData";
+import { normalizeWineData } from "@/utils/wineUtils";
 
 const WineDetails = ({ wine }) => {
   const { translations } = useLanguage();
