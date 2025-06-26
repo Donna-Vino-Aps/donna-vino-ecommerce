@@ -9,26 +9,24 @@ import { ProductDetails } from "./ProductDetails";
 import Button from "../Button/Button";
 import { useLanguage } from "@/context/LanguageContext";
 import Image from "next/image";
-import { normalizeWineData } from "@/utils/wineUtils";
 
 const WineDetails = ({ wine }) => {
   const { translations } = useLanguage();
-  const normalizedWine = normalizeWineData(wine);
 
   const [selectedSize, setSelectedSize] = useState(() => {
-    if (normalizedWine.variantMap.bottle) return "bottle";
-    if (normalizedWine.variantMap.case) return "case";
+    if (wine.variantMap.bottle) return "bottle";
+    if (wine.variantMap.case) return "case";
     return "bottle"; // fallback
   });
 
-  const [preSale, setPreSale] = useState(!normalizedWine.inStock);
+  const [preSale, setPreSale] = useState(!wine.inStock);
   const [selectedQuantity, setSelectedQuantity] = React.useState(1);
 
   return (
     <article className="relative flex flex-col items-center justify-center gap-6 md:gap-8 lg:flex-row lg:gap-12">
       <Image
-        src={normalizedWine.imageUrl}
-        alt={normalizedWine.title}
+        src={wine.imageUrl}
+        alt={wine.title}
         width={620}
         height={640}
         className="mt-4 h-[18.75rem] w-[18rem] object-contain md:h-[26rem] md:w-[25rem] lg:h-[31rem] lg:w-[30rem] xl:h-[40rem] xl:w-[38.75rem]"
@@ -38,10 +36,10 @@ const WineDetails = ({ wine }) => {
       <div className="flex min-w-[18.75rem] flex-col rounded-lg bg-tertiary2-active p-5 font-barlow shadow-lg md:min-w-[25rem] lg:w-[32.625rem]">
         <div className="flex flex-row items-center justify-between">
           <h1 className="mb-2 text-headlineSmall font-normal sm:text-headlineMedium md:mb-4 lg:text-displaySmall xl:text-displayMedium">
-            {normalizedWine.title}
+            {wine.title}
           </h1>
           <InStockDisplay
-            inStock={normalizedWine.inStock}
+            inStock={wine.inStock}
             preSale={preSale}
             setPreSale={setPreSale}
           />
@@ -49,34 +47,34 @@ const WineDetails = ({ wine }) => {
         <div className="flex flex-col">
           <div className="order-2 mb-8 lg:order-1 lg:mb-0">
             <RatingDisplay
-              rating={normalizedWine.rating}
-              nrOfRatings={normalizedWine.nrOfRatings}
+              rating={wine.rating}
+              nrOfRatings={wine.nrOfRatings}
               className="order-2 md:order-1"
             />
           </div>
           <p className="order-1 mb-2 text-bodySmall font-normal md:text-titleSmall md:font-medium lg:order-2 lg:mb-3 lg:mt-6 lg:text-titleMedium">
-            {normalizedWine.description}
+            {wine.description}
           </p>
         </div>
         <PriceDisplay
-          bottlePrice={normalizedWine.bottlePrice}
-          casePrice={normalizedWine.casePrice}
+          bottlePrice={wine.bottlePrice}
+          casePrice={wine.casePrice}
           setSelectedSize={setSelectedSize}
           selectedSize={selectedSize}
-          pricePerLiterBottle={normalizedWine.pricePerLiterBottle}
-          pricePerLiterCase={normalizedWine.pricePerLiterCase}
+          pricePerLiterBottle={wine.pricePerLiterBottle}
+          pricePerLiterCase={wine.pricePerLiterCase}
         />
         <QuantitySelector
-          quantityAvailable={normalizedWine.quantityAvailable}
+          quantityAvailable={wine.quantityAvailable}
           selectedQuantity={selectedQuantity}
           setSelectedQuantity={setSelectedQuantity}
           selectedSize={selectedSize}
           setSelectedSize={setSelectedSize}
-          bottlePrice={normalizedWine.bottlePrice}
-          casePrice={normalizedWine.casePrice}
-          volume={normalizedWine.volume}
-          pricePerLiterBottle={normalizedWine.pricePerLiterBottle}
-          pricePerLiterCase={normalizedWine.pricePerLiterCase}
+          bottlePrice={wine.bottlePrice}
+          casePrice={wine.casePrice}
+          volume={wine.volume}
+          pricePerLiterBottle={wine.pricePerLiterBottle}
+          pricePerLiterCase={wine.pricePerLiterCase}
           preSale={preSale}
         />
         {preSale === false ? (
@@ -107,11 +105,11 @@ const WineDetails = ({ wine }) => {
           />
         )}
         <ProductDetails
-          country={normalizedWine.country}
-          region={normalizedWine.region}
-          vineyard={normalizedWine.vineyard}
-          wineVariety={normalizedWine.wineVariety}
-          grape={normalizedWine.grape}
+          country={wine.country}
+          region={wine.region}
+          vineyard={wine.vineyard}
+          wineVariety={wine.wineVariety}
+          grape={wine.grape}
         />
       </div>
     </article>
@@ -123,37 +121,26 @@ export default WineDetails;
 WineDetails.propTypes = {
   wine: PropTypes.shape({
     id: PropTypes.string.isRequired,
-    variants: PropTypes.arrayOf(
-      PropTypes.shape({
-        id: PropTypes.string.isRequired,
-        title: PropTypes.string.isRequired,
-        price: PropTypes.shape({
-          amount: PropTypes.number.isRequired,
-          currencyCode: PropTypes.string.isRequired,
-        }).isRequired,
-        availableForSale: PropTypes.bool.isRequired,
-        quantityAvailable: PropTypes.number.isRequired,
-      }),
-    ),
     title: PropTypes.string.isRequired,
-    price: PropTypes.number.isRequired,
-    volume: PropTypes.number.isRequired,
-    casePrice: PropTypes.number.isRequired,
-    rating: PropTypes.number.isRequired,
-    nrOfRatings: PropTypes.number.isRequired,
-    imageUrl: PropTypes.string.isRequired,
-    images: PropTypes.arrayOf(
-      PropTypes.shape({
-        url: PropTypes.string.isRequired,
-      }),
-    ),
     description: PropTypes.string.isRequired,
+    imageUrl: PropTypes.string.isRequired,
     inStock: PropTypes.bool.isRequired,
     quantityAvailable: PropTypes.number.isRequired,
+    bottlePrice: PropTypes.number.isRequired,
+    casePrice: PropTypes.number.isRequired,
+    pricePerLiterBottle: PropTypes.number.isRequired,
+    pricePerLiterCase: PropTypes.number.isRequired,
+    rating: PropTypes.number.isRequired,
+    nrOfRatings: PropTypes.number.isRequired,
+    volume: PropTypes.number.isRequired,
     country: PropTypes.string.isRequired,
     region: PropTypes.string.isRequired,
     vineyard: PropTypes.string.isRequired,
     wineVariety: PropTypes.string.isRequired,
     grape: PropTypes.string.isRequired,
+    variantMap: PropTypes.shape({
+      bottle: PropTypes.object,
+      case: PropTypes.object,
+    }).isRequired,
   }).isRequired,
 };

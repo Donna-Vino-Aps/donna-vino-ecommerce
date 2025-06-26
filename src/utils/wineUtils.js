@@ -17,6 +17,7 @@ export const normalizeWineData = (wine) => {
 
   return {
     id: wine.id,
+    slug: wine.handle, // Using handle as slug
     title: wine.title,
     bottlePrice,
     casePrice,
@@ -47,5 +48,5 @@ export const getWineBySlug = (slug, wines) => {
   return wines.find((wine) => wine.slug === slug);
 };
 
-// this utility function generates a URL for a wine based on its handle
-export const getWineUrl = (handle) => `/pre-sale/${handle}`;
+// this utility function generates a URL for a wine based on its slug
+export const getWineUrl = (slug) => `/pre-sale/${slug}`;

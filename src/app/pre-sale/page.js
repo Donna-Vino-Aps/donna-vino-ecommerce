@@ -50,10 +50,10 @@ const WinesPage = () => {
             );
             const price = defaultVariant?.price?.amount;
             const primaryImage = wine.imageUrl;
-            const handle = wine.handle || wine.id;
+            const slug = wine.slug;
 
             return (
-              <Link href={getWineUrl(handle)} key={wine.id}>
+              <Link href={getWineUrl(slug)} key={wine.id}>
                 <WineCardSmall
                   key={wine.id}
                   title={wine.title}
