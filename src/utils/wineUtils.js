@@ -38,6 +38,10 @@ export const normalizeWineData = (wine) => {
   };
 };
 
+// This utility function normalizes a list of wines by mapping each wine object
+export const normalizeWineList = (wines) =>
+  wines.map((wine) => normalizeWineData({ ...wine, slug: wine.handle }));
+
 // this utility function retrieves a wine by its slug from a passed list of wines
 export const getWineBySlug = (slug, wines) => {
   return wines.find((wine) => wine.slug === slug);
