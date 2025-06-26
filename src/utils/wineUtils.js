@@ -38,7 +38,7 @@ export const normalizeWineData = (wine) => {
   };
 };
 
-// this utility function retrieves a wine by its slug from a list of wines
+// this utility function retrieves a wine by its slug from a passed list of wines
 export const getWineBySlug = (slug, wines) => {
   return wines.find((wine) => wine.slug === slug);
 };
