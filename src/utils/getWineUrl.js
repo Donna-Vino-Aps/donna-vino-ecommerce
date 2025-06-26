@@ -1,1 +1,1 @@
-export const getWineUrl = (handle) => `/wines/${handle}`;
+export const getWineUrl = (handle) => `/pre-sale/${handle}`;
