@@ -9,8 +9,8 @@ export const InStockDisplay = ({ inStock, preSale, setPreSale }) => {
   return preSale === false ? (
     <div className="flex flex-row gap-2">
       <Image
-        width="20"
-        height="20"
+        width={20}
+        height={20}
         alt={
           inStock
             ? translations["wine-details.instock"]
@@ -21,6 +21,7 @@ export const InStockDisplay = ({ inStock, preSale, setPreSale }) => {
             ? "/icons/checkmark-circle-green.svg"
             : "/icons/cross-circle.svg"
         }
+        className="w-5 h-5"
       />
       <p
         className={`text-nowrap text-titleMedium ${inStock ? "text-calendar-open" : "text-primary-normal"}`}
@@ -45,10 +46,11 @@ export const InStockDisplay = ({ inStock, preSale, setPreSale }) => {
   ) : (
     <div className="flex flex-row gap-2">
       <Image
-        width="20"
-        height="20"
+        width={20}
+        height={20}
         alt="Pre Order"
         src="/icons/checkmark-circle-green.svg"
+        className="w-5 h-5"
       />
       <p className="text-nowrap text-titleMedium text-calendar-open">
         {translations["wine-details.presale"]}

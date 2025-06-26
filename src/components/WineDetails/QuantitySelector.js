@@ -45,7 +45,13 @@ export const QuantitySelector = ({
           disabled={preSale ? false : selectedQuantity <= 1}
           className="flex items-center justify-center border-r border-tertiary1-light disabled:opacity-50"
         >
-          <Image src="/icons/minus.svg" width="12" height="12" alt="Decrease" />
+          <Image
+            src="/icons/minus.svg"
+            width={12}
+            height={12}
+            alt="Decrease"
+            className="w-3 h-3"
+          />
         </button>
 
         <span className="flex items-center justify-center border-x border-tertiary1-light px-4 text-center text-titleMedium font-semibold">
@@ -57,7 +63,13 @@ export const QuantitySelector = ({
           disabled={selectedQuantity >= max}
           className="flex items-center justify-center border-l border-tertiary1-light disabled:opacity-50"
         >
-          <Image src="/icons/plus.svg" width="12" height="12" alt="Increase" />
+          <Image
+            src="/icons/plus.svg"
+            width={12}
+            height={12}
+            alt="Increase"
+            className="w-3 h-3"
+          />
         </button>
       </div>
       <p className="mb-2 ml-[2px] mt-5 text-titleMedium font-medium text-tertiary1-dark">
@@ -80,6 +92,7 @@ export const QuantitySelector = ({
               width="16"
               height="16"
               alt={selectedSize === "bottle" ? "wine bottle" : "wine case"}
+              className="w-4 h-4"
             />
             <p className="text-titleMedium font-medium text-primary-light">
               {selectedSize === "bottle"
@@ -96,6 +109,7 @@ export const QuantitySelector = ({
             width="20"
             height="20"
             alt="Toggle Size Selector"
+            className="w-5 h-5"
           />
         </div>
         {isOpen && (
@@ -116,6 +130,7 @@ export const QuantitySelector = ({
                   width="16"
                   height="16"
                   alt="wine bottle"
+                  className="w-4 h-4"
                 />
                 <p className="text-labelMedium font-medium">
                   {translations["wine-details.singlebottle"]}
@@ -146,6 +161,7 @@ export const QuantitySelector = ({
                   width="16"
                   height="16"
                   alt="wine case"
+                  className="w-4 h-4"
                 />
                 <p className="text-labelMedium font-medium">
                   {translations["wine-details.singlecase"]}
