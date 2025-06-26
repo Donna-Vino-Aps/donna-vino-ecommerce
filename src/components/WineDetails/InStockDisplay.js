@@ -6,31 +6,53 @@ import { useLanguage } from "@/context/LanguageContext";
 
 export const InStockDisplay = ({ inStock, preSale, setPreSale }) => {
   const { translations } = useLanguage();
-  return preSale === false ? (
+
+  // If the wine is in pre-sale, the pre-sale indicator is shown
+  if (preSale) {
+    return (
+      <div className="flex flex-row gap-2">
+        <Image
+          width={20}
+          height={20}
+          alt="Pre Order"
+          src="/icons/checkmark-circle-green.svg"
+          className="h-5 w-5"
+        />
+        <p className="text-nowrap text-titleMedium text-calendar-open">
+          {translations["wine-details.presale"]}
+        </p>
+      </div>
+    );
+  }
+
+  const iconSrc = inStock
+    ? "/icons/checkmark-circle-green.svg"
+    : "/icons/cross-circle.svg";
+
+  const iconAlt = inStock
+    ? translations["wine-details.instock"]
+    : translations["wine-details.outofstock"];
+
+  const textColor = inStock ? "text-calendar-open" : "text-primary-normal";
+  const statusText = inStock
+    ? translations["wine-details.instock"]
+    : translations["wine-details.outofstock"];
+
+  // if the wine is not in pre-sale, show the in-stock or out-of-stock status
+  // If a non pre-sale wine goes out of stock, the user can switch to pre-order via a button
+  return (
     <div className="flex flex-row gap-2">
       <Image
         width={20}
         height={20}
-        alt={
-          inStock
-            ? translations["wine-details.instock"]
-            : translations["wine-details.outofstock"]
-        }
-        src={
-          inStock
-            ? "/icons/checkmark-circle-green.svg"
-            : "/icons/cross-circle.svg"
-        }
+        alt={iconAlt}
+        src={iconSrc}
         className="h-5 w-5"
       />
-      <p
-        className={`text-nowrap text-titleMedium ${inStock ? "text-calendar-open" : "text-primary-normal"}`}
-      >
-        {inStock
-          ? translations["wine-details.instock"]
-          : translations["wine-details.outofstock"]}
+      <p className={`text-nowrap text-titleMedium ${textColor}`}>
+        {statusText}
       </p>
-      {inStock === false && (
+      {!inStock && (
         <Button
           text={translations["wine-details.switch-preorder"]}
           variant="rounded"
@@ -42,19 +64,6 @@ export const InStockDisplay = ({ inStock, preSale, setPreSale }) => {
           onClick={() => setPreSale(true)}
         />
       )}
-    </div>
-  ) : (
-    <div className="flex flex-row gap-2">
-      <Image
-        width={20}
-        height={20}
-        alt="Pre Order"
-        src="/icons/checkmark-circle-green.svg"
-        className="h-5 w-5"
-      />
-      <p className="text-nowrap text-titleMedium text-calendar-open">
-        {translations["wine-details.presale"]}
-      </p>
     </div>
   );
 };
