@@ -49,7 +49,7 @@ const WinesPage = () => {
               (variant) => variant.isDefault,
             );
             const price = defaultVariant?.price?.amount;
-            const primaryImage = wine.images?.[0];
+            const primaryImage = wine.imageUrl;
             const handle = wine.handle || wine.id;
 
             return (
@@ -58,7 +58,7 @@ const WinesPage = () => {
                   key={wine.id}
                   title={wine.title}
                   price={price}
-                  imageUrl={primaryImage.url}
+                  imageUrl={primaryImage}
                 />
               </Link>
             );
