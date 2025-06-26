@@ -7,11 +7,12 @@ import { PriceDisplay } from "./PriceDisplay";
 import { QuantitySelector } from "./QuantitySelector";
 import { ProductDetails } from "./ProductDetails";
 import Button from "../Button/Button";
-// import { useLanguage } from "@/context/LanguageContext";
+import { useLanguage } from "@/context/LanguageContext";
 import Image from "next/image";
 import { normalizeWineData } from "@/utils/normalizeWineData";
 
 const WineDetails = ({ wine }) => {
+  const { translations } = useLanguage();
   const normalizedWine = normalizeWineData(wine);
 
   const [selectedSize, setSelectedSize] = useState(() => {
@@ -62,11 +63,11 @@ const WineDetails = ({ wine }) => {
           casePrice={normalizedWine.casePrice}
           setSelectedSize={setSelectedSize}
           selectedSize={selectedSize}
-          pricePerLiterBottle={pricePerLiterBottle}
-          pricePerLiterCase={pricePerLiterCase}
+          pricePerLiterBottle={normalizedWine.pricePerLiterBottle}
+          pricePerLiterCase={normalizedWine.pricePerLiterCase}
         />
         <QuantitySelector
-          quantityAvailable={quantityAvailable}
+          quantityAvailable={normalizedWine.quantityAvailable}
           selectedQuantity={selectedQuantity}
           setSelectedQuantity={setSelectedQuantity}
           selectedSize={selectedSize}
@@ -74,8 +75,8 @@ const WineDetails = ({ wine }) => {
           bottlePrice={normalizedWine.bottlePrice}
           casePrice={normalizedWine.casePrice}
           volume={normalizedWine.volume}
-          pricePerLiterBottle={pricePerLiterBottle}
-          pricePerLiterCase={pricePerLiterCase}
+          pricePerLiterBottle={normalizedWine.pricePerLiterBottle}
+          pricePerLiterCase={normalizedWine.pricePerLiterCase}
           preSale={preSale}
         />
         {preSale === false ? (
