@@ -2,6 +2,7 @@
 import React from "react";
 import { render, screen } from "@testing-library/react";
 import WineDetails from "../../components/WineDetails/WineDetails";
+import { normalizeWineData } from "../../utils/wineUtils";
 
 // Mock next/image as a simple img tag
 jest.mock("next/image", () => (props) => {
@@ -26,7 +27,7 @@ jest.mock("../../components/Button/Button", () => (props) => (
 ));
 
 // Minimal wine mock
-const wineMock = {
+const rawWineMock = {
   id: "gid://shopify/Product/10252479529306",
   title: "Test Wine",
   description:
@@ -71,6 +72,8 @@ const wineMock = {
   grape: "Pinot noir",
   vineyard: "Cantina Kurtatsch",
 };
+
+const wineMock = normalizeWineData(rawWineMock);
 
 describe("WineDetails simple render test", () => {
   test("renders WineDetails without crashing", () => {
