@@ -7,59 +7,21 @@ import { PriceDisplay } from "./PriceDisplay";
 import { QuantitySelector } from "./QuantitySelector";
 import { ProductDetails } from "./ProductDetails";
 import Button from "../Button/Button";
-import { useLanguage } from "@/context/LanguageContext";
+// import { useLanguage } from "@/context/LanguageContext";
 import Image from "next/image";
+import { normalizeWineData } from "@/utils/normalizeWineData";
 
 const WineDetails = ({ wine }) => {
-  const variants = wine.variants || [];
+  const normalizedWine = normalizeWineData(wine);
 
-  const variantMap = {
-    bottle: variants[0],
-    case: variants[1],
-  };
-
-  const { translations } = useLanguage();
-  const [preSale, setPreSale] = useState(!wine.inStock);
   const [selectedSize, setSelectedSize] = useState(() => {
-    if (variantMap.bottle) return "bottle";
-    if (variantMap.case) return "case";
+    if (normalizedWine.variantMap.bottle) return "bottle";
+    if (normalizedWine.variantMap.case) return "case";
     return "bottle"; // fallback
   });
 
-  const defaultVariant = variantMap.bottle;
-  const caseVariant = variantMap.case;
-
-  const bottlePrice = defaultVariant?.price?.amount ?? 0;
-  const casePrice = caseVariant?.price?.amount ?? 0;
-  const quantityAvailable = defaultVariant?.quantityAvailable || 0;
-
-  const volume = wine.volume.value;
-  const pricePerLiterBottle = volume ? (bottlePrice / volume).toFixed(2) : null;
-  const pricePerLiterCase = volume
-    ? (casePrice / (volume * 6)).toFixed(2)
-    : null;
-
+  const [preSale, setPreSale] = useState(!normalizedWine.inStock);
   const [selectedQuantity, setSelectedQuantity] = React.useState(1);
-  const primaryImage = wine.images?.[0];
-
-  const normalizedWine = {
-    id: wine.id,
-    title: wine.title,
-    bottlePrice: bottlePrice,
-    casePrice: casePrice,
-    imageUrl: primaryImage?.url,
-    description: wine.description,
-    inStock: quantityAvailable > 0,
-    quantityAvailable: quantityAvailable,
-    grape: wine.grape,
-    vineyard: wine.vineyard,
-    country: wine.country,
-    region: wine.region,
-    wineVariety: wine.wineVariety,
-    volume: wine.volume?.value,
-    rating: 4.0,
-    nrOfRatings: 10,
-  };
 
   return (
     <article className="relative flex flex-col items-center justify-center gap-6 md:gap-8 lg:flex-row lg:gap-12">
