@@ -21,10 +21,10 @@ export const ProductDetails = ({
             {translations["wine-details.country-region"]}
           </p>
           <p className="text-titleMedium font-medium">
-            {country}/{region}
+            {country} - {region}
           </p>
         </div>
-        <hr className="my-2" />
+        <hr className="my-2 border-t border-tertiary1-darker" />
         <div className="flex flex-row justify-between">
           <p className="text-titleMedium font-medium">
             {translations["wine-details.winetype"]}
@@ -33,7 +33,7 @@ export const ProductDetails = ({
             {wineVariety}, {grape}
           </p>
         </div>
-        <hr className="my-2" />
+        <hr className="my-2 border-t border-tertiary1-darker" />
         <div className="flex flex-row  justify-between">
           <p className="text-titleMedium font-medium">
             {translations["wine-details.vineyard"]}

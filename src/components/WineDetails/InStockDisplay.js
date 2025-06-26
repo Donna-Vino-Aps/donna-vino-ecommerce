@@ -23,7 +23,7 @@ export const InStockDisplay = ({ inStock, preSale, setPreSale }) => {
         }
       />
       <p
-        className={`text-nowrap text-titleMedium ${inStock ? "text-[#34C759]" : "text-primary-normal"}`}
+        className={`text-nowrap text-titleMedium ${inStock ? "text-calendar-open" : "text-primary-normal"}`}
       >
         {inStock
           ? translations["wine-details.instock"]
@@ -32,7 +32,7 @@ export const InStockDisplay = ({ inStock, preSale, setPreSale }) => {
       {inStock === false && (
         <Button
           text={translations["wine-details.switch-preorder"]}
-          variant="roundedSmall"
+          variant="rounded"
           border="primary"
           icon="/icons/cart-white.svg"
           color="primary"
@@ -50,7 +50,7 @@ export const InStockDisplay = ({ inStock, preSale, setPreSale }) => {
         alt="Pre Order"
         src="/icons/checkmark-circle-green.svg"
       />
-      <p className="text-nowrap text-titleMedium text-[#34C759]">
+      <p className="text-nowrap text-titleMedium text-calendar-open">
         {translations["wine-details.presale"]}
       </p>
     </div>

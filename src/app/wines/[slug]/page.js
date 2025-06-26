@@ -33,16 +33,6 @@ export default function WineDetailPage() {
   const wine = getWineBySlug(slug, wines);
 
   if (!wine) {
-    return (
-      <div className="flex min-h-[25rem] items-center justify-center">
-        <p className="text-bodyLarge font-medium text-tertiary1-normal">
-          Wine not found.
-        </p>
-      </div>
-    );
-  }
-
-  if (!wine) {
     notFound();
   }
 

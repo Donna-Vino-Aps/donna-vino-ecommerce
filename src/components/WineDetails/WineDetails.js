@@ -9,7 +9,7 @@ import { ProductDetails } from "./ProductDetails";
 import Button from "../Button/Button";
 import { useLanguage } from "@/context/LanguageContext";
 
-let WineDetails = ({ wine }) => {
+const WineDetails = ({ wine }) => {
   const variants = wine.variants || [];
 
   const variantMap = {
@@ -114,7 +114,7 @@ let WineDetails = ({ wine }) => {
         {preSale === false ? (
           <Button
             text={translations["wine-details.addtocart"]}
-            variant="roundedSmall"
+            variant="rounde"
             border="primary"
             icon="/icons/cart-white.svg"
             color="primary"
@@ -127,7 +127,7 @@ let WineDetails = ({ wine }) => {
         ) : (
           <Button
             text={translations["wine-details.addpreorder"]}
-            variant="roundedSmall"
+            variant="rounded"
             border=""
             icon="/icons/cart-white.svg"
             color="secondary"

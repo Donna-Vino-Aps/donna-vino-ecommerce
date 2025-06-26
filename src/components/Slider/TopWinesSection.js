@@ -15,7 +15,7 @@ const wineData = [
     price: 130.0,
     imageUrl: "/images/exampleImageWine.png",
     isNew: true,
-    url: "/wine-details/muga-reserva",
+    url: "/wines/muga-reserva",
   },
   {
     title: "Barolo Terlo",
@@ -23,7 +23,7 @@ const wineData = [
     price: 121.0,
     imageUrl: "/images/exampleImageWine.png",
     isNew: true,
-    url: "/wine-details/barolo-terlo",
+    url: "/wines/barolo-terlo",
   },
   {
     title: "Pinot Noir",
@@ -31,7 +31,7 @@ const wineData = [
     price: 180.0,
     imageUrl: "/images/exampleImageWine.png",
     isNew: false,
-    url: "/wine-details/pinot-noir",
+    url: "/wines/pinot-noir",
   },
   {
     title: "Vega Cicilia",
@@ -39,7 +39,7 @@ const wineData = [
     price: 210.0,
     imageUrl: "/images/exampleImageWine.png",
     isNew: false,
-    url: "/wine-details/vega-cicilia",
+    url: "/wines/vega-cicilia",
   },
   {
     title: "Saviognese Merlot",
@@ -47,7 +47,7 @@ const wineData = [
     price: 210.0,
     imageUrl: "/images/exampleImageWine.png",
     isNew: true,
-    url: "/wine-details/saviognese-merlot",
+    url: "/wines/saviognese-merlot",
   },
   {
     title: "Pinot Grigio",
@@ -55,7 +55,7 @@ const wineData = [
     price: 210.0,
     imageUrl: "/images/exampleImageWine.png",
     isNew: false,
-    url: "/wine-details/pinot-grigio",
+    url: "/wines/pinot-grigio",
   },
   {
     title: "Marques de Murrieta",
@@ -63,7 +63,7 @@ const wineData = [
     price: 210.0,
     imageUrl: "/images/exampleImageWine.png",
     isNew: false,
-    url: "/wine-details/marques-de-murrieta",
+    url: "/wines/marques-de-murrieta",
   },
 ];
 
