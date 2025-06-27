@@ -6,50 +6,42 @@ import { useLanguage } from "@/context/LanguageContext";
 export const AvailabilityDisplay = ({ inStock, preSale }) => {
   const { translations } = useLanguage();
 
-  // If the wine is in pre-sale, the pre-sale indicator is shown
+  let config;
+
   if (preSale) {
-    return (
-      <div className="flex flex-row items-center gap-2">
-        <Image
-          width={20}
-          height={20}
-          alt="Pre Order indicator"
-          src="/icons/checkmark-circle-green.svg"
-          className="h-5 w-5"
-        />
-        <p className="text-nowrap text-titleMedium text-calendar-open">
-          {translations["wine-details.presale"]}
-        </p>
-      </div>
-    );
+    config = {
+      iconSrc: "/icons/checkmark-circle-green.svg",
+      iconAlt: "Pre Order indicator",
+      textColor: "text-calendar-open",
+      statusText: translations["wine-details.presale"],
+    };
+  } else if (inStock) {
+    config = {
+      iconSrc: "/icons/checkmark-circle-green.svg",
+      iconAlt: translations["wine-details.instock"],
+      textColor: "text-calendar-open",
+      statusText: translations["wine-details.instock"],
+    };
+  } else {
+    config = {
+      iconSrc: "/icons/cross-circle.svg",
+      iconAlt: translations["wine-details.outofstock"],
+      textColor: "text-primary-normal",
+      statusText: translations["wine-details.outofstock"],
+    };
   }
 
-  const iconSrc = inStock
-    ? "/icons/checkmark-circle-green.svg"
-    : "/icons/cross-circle.svg";
-
-  const iconAlt = inStock
-    ? translations["wine-details.instock"]
-    : translations["wine-details.outofstock"];
-
-  const textColor = inStock ? "text-calendar-open" : "text-primary-normal";
-  const statusText = inStock
-    ? translations["wine-details.instock"]
-    : translations["wine-details.outofstock"];
-
-  // if the wine is not in pre-sale, show the in-stock or out-of-stock status
-  // If a non pre-sale wine goes out of stock, the user can switch to pre-order via a button
   return (
-    <div className="flex flex-row gap-2">
+    <div className="flex flex-row items-center gap-2">
       <Image
         width={20}
         height={20}
-        alt={iconAlt}
-        src={iconSrc}
+        alt={config.iconAlt}
+        src={config.iconSrc}
         className="h-5 w-5"
       />
-      <p className={`text-nowrap text-titleMedium ${textColor}`}>
-        {statusText}
+      <p className={`text-nowrap text-titleMedium ${config.textColor}`}>
+        {config.statusText}
       </p>
     </div>
   );
@@ -58,5 +50,4 @@ export const AvailabilityDisplay = ({ inStock, preSale }) => {
 AvailabilityDisplay.propTypes = {
   inStock: PropTypes.bool.isRequired,
   preSale: PropTypes.bool.isRequired,
-  setPreSale: PropTypes.func.isRequired,
 };
