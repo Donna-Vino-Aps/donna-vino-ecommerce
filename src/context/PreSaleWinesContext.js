@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import { logError } from "@/utils/logging";
 import { fetchPreSaleWines } from "@/lib/shopify/services";
 import { useLanguage } from "@/context/LanguageContext";
+import { normalizeWineList } from "@/utils/wineUtils";
 
 const PreSaleWinesContext = createContext();
 
@@ -17,7 +18,12 @@ export function PreSaleWinesProvider({ children }) {
       try {
         const winesResponse = await fetchPreSaleWines(language);
         if (winesResponse && winesResponse.products) {
-          setWines(winesResponse.products);
+          const parsedWines = winesResponse.products.map((product) => ({
+            ...product,
+            slug: product.handle, // Add slug based on product handle
+          }));
+          const normalizedWines = normalizeWineList(parsedWines);
+          setWines(normalizedWines);
         } else {
           setWines([]);
           logError("Pre-sale wines data is missing or malformed", {
