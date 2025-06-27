@@ -45,12 +45,8 @@ const WinesPage = () => {
       <div className="container mx-auto flex items-center justify-center px-4 py-8">
         <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
           {wines.map((wine) => {
-            const defaultVariant = wine.variants?.find(
-              (variant) => variant.isDefault,
-            );
-            const price = defaultVariant?.price?.amount;
+            const price = wine.bottlePrice;
             const primaryImage = wine.imageUrl;
-            const slug = wine.slug;
 
             return (
               <Link href={getWineUrl(wine)} key={wine.id}>
