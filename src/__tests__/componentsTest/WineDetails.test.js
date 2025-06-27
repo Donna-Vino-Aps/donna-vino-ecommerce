@@ -1,7 +1,6 @@
-// src/__tests__/componentsTest/WineDetails.test.js
 import React from "react";
 import { render, screen } from "@testing-library/react";
-import WineDetails from "../../components/WineDetails/WineInfo";
+import WineInfo from "../../components/WineDetails/WineInfo";
 import { normalizeWineData } from "../../utils/wineUtils";
 
 // Mock next/image as a simple img tag
@@ -75,9 +74,9 @@ const rawWineMock = {
 
 const wineMock = normalizeWineData(rawWineMock);
 
-describe("WineDetails simple render test", () => {
-  test("renders WineDetails without crashing", () => {
-    render(<WineDetails wine={wineMock} />);
+describe("WineInfo simple render test", () => {
+  test("renders WineInfo without crashing", () => {
+    render(<WineInfo wine={wineMock} />);
 
     expect(screen.getByText(/Test Wine/i)).toBeInTheDocument();
   });
