@@ -42,17 +42,20 @@ export const InStockDisplay = ({ inStock, preSale, setPreSale }) => {
   // If a non pre-sale wine goes out of stock, the user can switch to pre-order via a button
   return (
     <div className="flex flex-row gap-2">
-      <Image
-        width={20}
-        height={20}
-        alt={iconAlt}
-        src={iconSrc}
-        className="h-5 w-5"
-      />
-      <p className={`text-nowrap text-titleMedium ${textColor}`}>
-        {statusText}
-      </p>
-      {!inStock && (
+      {inStock ? (
+        <>
+          <Image
+            width={20}
+            height={20}
+            alt={iconAlt}
+            src={iconSrc}
+            className="h-5 w-5"
+          />
+          <p className={`text-nowrap text-titleMedium ${textColor}`}>
+            {statusText}
+          </p>
+        </>
+      ) : (
         <Button
           text={translations["wine-details.switch-preorder"]}
           variant="rounded"
