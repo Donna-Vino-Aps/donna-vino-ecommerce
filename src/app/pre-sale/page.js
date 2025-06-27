@@ -53,7 +53,7 @@ const WinesPage = () => {
             const slug = wine.slug;
 
             return (
-              <Link href={getWineUrl(slug)} key={wine.id}>
+              <Link href={getWineUrl(wine)} key={wine.id}>
                 <WineCardSmall
                   key={wine.id}
                   title={wine.title}
