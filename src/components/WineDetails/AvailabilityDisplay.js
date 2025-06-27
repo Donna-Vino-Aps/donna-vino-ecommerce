@@ -1,10 +1,9 @@
 import React from "react";
 import PropTypes from "prop-types";
 import Image from "next/image";
-import Button from "../Button/Button";
 import { useLanguage } from "@/context/LanguageContext";
 
-export const AvailabilityDisplay = ({ inStock, preSale, setPreSale }) => {
+export const AvailabilityDisplay = ({ inStock, preSale }) => {
   const { translations } = useLanguage();
 
   // If the wine is in pre-sale, the pre-sale indicator is shown
@@ -14,7 +13,7 @@ export const AvailabilityDisplay = ({ inStock, preSale, setPreSale }) => {
         <Image
           width={20}
           height={20}
-          alt="Pre Order"
+          alt="Pre Order indicator"
           src="/icons/checkmark-circle-green.svg"
           className="h-5 w-5"
         />
@@ -42,31 +41,16 @@ export const AvailabilityDisplay = ({ inStock, preSale, setPreSale }) => {
   // If a non pre-sale wine goes out of stock, the user can switch to pre-order via a button
   return (
     <div className="flex flex-row gap-2">
-      {inStock ? (
-        <>
-          <Image
-            width={20}
-            height={20}
-            alt={iconAlt}
-            src={iconSrc}
-            className="h-5 w-5"
-          />
-          <p className={`text-nowrap text-titleMedium ${textColor}`}>
-            {statusText}
-          </p>
-        </>
-      ) : (
-        <Button
-          text={translations["wine-details.switch-preorder"]}
-          variant="rounded"
-          border="primary"
-          icon="/icons/cart-white.svg"
-          color="primary"
-          size="sm"
-          width="auto"
-          onClick={() => setPreSale(true)}
-        />
-      )}
+      <Image
+        width={20}
+        height={20}
+        alt={iconAlt}
+        src={iconSrc}
+        className="h-5 w-5"
+      />
+      <p className={`text-nowrap text-titleMedium ${textColor}`}>
+        {statusText}
+      </p>
     </div>
   );
 };
