@@ -3,18 +3,11 @@ import React from "react";
 import PropTypes from "prop-types";
 import Image from "next/image";
 import { useLanguage } from "@/context/LanguageContext";
-import { SizeSelector } from "./SizeSelector";
 
 export const QuantitySelector = ({
   quantityAvailable,
   selectedQuantity,
   setSelectedQuantity,
-  bottlePrice,
-  casePrice,
-  selectedSize,
-  setSelectedSize,
-  pricePerLiterBottle,
-  pricePerLiterCase,
   preSale,
   min = 1,
   max = quantityAvailable || 999,
@@ -36,8 +29,6 @@ export const QuantitySelector = ({
       setSelectedQuantity(selectedQuantity - 1);
     }
   };
-
-  // const [isOpen, setOpen] = React.useState(false);
 
   return (
     <section>
@@ -77,15 +68,6 @@ export const QuantitySelector = ({
           />
         </button>
       </div>
-      <SizeSelector
-        selectedSize={selectedSize}
-        setSelectedSize={setSelectedSize}
-        bottlePrice={bottlePrice}
-        casePrice={casePrice}
-        pricePerLiterBottle={pricePerLiterBottle}
-        pricePerLiterCase={pricePerLiterCase}
-        preSale={preSale}
-      />
     </section>
   );
 };

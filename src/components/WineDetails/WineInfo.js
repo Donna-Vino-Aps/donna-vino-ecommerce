@@ -5,6 +5,7 @@ import { RatingDisplay } from "./RatingDisplay";
 import { InStockDisplay } from "./AvailabilityDisplay";
 import { PriceDisplay } from "./PriceDisplay";
 import { QuantitySelector } from "./QuantitySelector";
+import { SizeSelector } from "./SizeSelector";
 import { ProductDetails } from "./ProductDetails";
 import Button from "../Button/Button";
 import { useLanguage } from "@/context/LanguageContext";
@@ -73,6 +74,15 @@ const WineDetails = ({ wine }) => {
           bottlePrice={wine.bottlePrice}
           casePrice={wine.casePrice}
           volume={wine.volume}
+          pricePerLiterBottle={wine.pricePerLiterBottle}
+          pricePerLiterCase={wine.pricePerLiterCase}
+          preSale={preSale}
+        />
+        <SizeSelector
+          selectedSize={selectedSize}
+          setSelectedSize={setSelectedSize}
+          bottlePrice={wine.bottlePrice}
+          casePrice={wine.casePrice}
           pricePerLiterBottle={wine.pricePerLiterBottle}
           pricePerLiterCase={wine.pricePerLiterCase}
           preSale={preSale}
