@@ -27,7 +27,7 @@ export const SizeSelector = ({
         <div
           className={`flex w-full items-center justify-between bg-primary-normal px-4 py-2 ${isOpen ? "rounded-t-[10px]" : "rounded-[10px]"} cursor-pointer`}
         >
-          <div className="flex gap-2 items-center">
+          <div className="flex items-center gap-2">
             <Image
               src={
                 selectedSize === "bottle"
