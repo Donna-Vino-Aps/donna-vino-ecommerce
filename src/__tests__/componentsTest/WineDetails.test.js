@@ -1,7 +1,7 @@
 // src/__tests__/componentsTest/WineDetails.test.js
 import React from "react";
 import { render, screen } from "@testing-library/react";
-import WineDetails from "../../components/WineDetails/WineDetails";
+import WineDetails from "../../components/WineDetails/WineInfo";
 import { normalizeWineData } from "../../utils/wineUtils";
 
 // Mock next/image as a simple img tag

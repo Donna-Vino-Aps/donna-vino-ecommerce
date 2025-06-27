@@ -5,14 +5,21 @@ import { useLanguage } from "@/context/LanguageContext";
 
 export const RatingDisplay = ({ rating, nrOfRatings }) => {
   const { translations } = useLanguage();
+
+  const STAR_ICONS = {
+    EMPTY: "/icons/star-empty.svg",
+    HALF: "/icons/star-half.svg",
+    FULL: "/icons/star-fill.svg",
+  };
+
   const stars = Array.from({ length: 5 }, (_, index) => {
     const starPosition = index + 1;
-    let src = "/icons/star-empty.svg"; // Default to empty
+    let src = STAR_ICONS.EMPTY; // Default to empty
 
     if (rating >= starPosition) {
-      src = "/icons/star-fill.svg"; // Full star
+      src = STAR_ICONS.FULL; // Full star
     } else if (rating >= starPosition - 0.5) {
-      src = "/icons/star-half.svg"; // Half star
+      src = STAR_ICONS.HALF; // Half star
     }
 
     return (

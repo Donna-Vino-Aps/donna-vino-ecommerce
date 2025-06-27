@@ -1,9 +1,8 @@
 "use client";
 
 import React from "react";
-// import PropTypes from "prop-types";
 import { notFound } from "next/navigation";
-import WineDetails from "@/components/WineDetails/WineDetails";
+import WineDetails from "@/components/WineDetails/WineInfo";
 import { useParams } from "next/navigation";
 import { usePreSaleWines } from "@/context/PreSaleWinesContext";
 import { getWineBySlug } from "@/utils/wineUtils";
@@ -42,9 +41,3 @@ export default function WineDetailPage() {
     </div>
   );
 }
-
-// WineDetailPage.propTypes = {
-//   params: PropTypes.shape({
-//     slug: PropTypes.string.isRequired,
-//   }).isRequired,
-// };

@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
 import { RatingDisplay } from "./RatingDisplay";
-import { InStockDisplay } from "./InStockDisplay";
+import { InStockDisplay } from "./AvailabilityDisplay";
 import { PriceDisplay } from "./PriceDisplay";
 import { QuantitySelector } from "./QuantitySelector";
 import { ProductDetails } from "./ProductDetails";

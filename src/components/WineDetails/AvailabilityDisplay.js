@@ -10,7 +10,7 @@ export const InStockDisplay = ({ inStock, preSale, setPreSale }) => {
   // If the wine is in pre-sale, the pre-sale indicator is shown
   if (preSale) {
     return (
-      <div className="flex flex-row gap-2">
+      <div className="flex flex-row items-center gap-2">
         <Image
           width={20}
           height={20}
