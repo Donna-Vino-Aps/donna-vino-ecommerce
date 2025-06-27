@@ -39,7 +39,7 @@ export const QuantitySelector = ({
         <button
           onClick={handleDecrement}
           disabled={isDecrementDisabled}
-          className="flex items-center justify-center border-r border-tertiary1-light disabled:opacity-50"
+          className="flex items-center justify-center disabled:opacity-50"
         >
           <Image
             src="/icons/minus.svg"
@@ -57,7 +57,7 @@ export const QuantitySelector = ({
         <button
           onClick={handleIncrement}
           disabled={isIncrementDisabled}
-          className="flex items-center justify-center border-l border-tertiary1-light disabled:opacity-50"
+          className="flex items-center justify-center disabled:opacity-50"
         >
           <Image
             src="/icons/plus.svg"
