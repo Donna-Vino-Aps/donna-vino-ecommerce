@@ -49,4 +49,4 @@ export const getWineBySlug = (slug, wines) => {
 };
 
 // this utility function generates a URL for a wine based on its slug
-export const getWineUrl = (wine) => `/pre-sale/${wine.slug}`;
+export const getWineUrl = (wine) => `/wines/pre-sale/${wine.slug}`;

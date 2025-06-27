@@ -62,7 +62,7 @@ const Navbar = () => {
     },
     {
       id: "pre-sale",
-      href: "/pre-sale",
+      href: "/wines/pre-sale",
       label: translations["navbar.presale-wines"],
       dropdown: false,
     },
@@ -138,7 +138,7 @@ const Navbar = () => {
     },
     {
       id: "pre-sale",
-      href: "/pre-sale",
+      href: "/wines/pre-sale",
       label: translations["navbar.presale-wines"],
       icon: "/icons/wine-bottle.svg",
       dropdown: false,
