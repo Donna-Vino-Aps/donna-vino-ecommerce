@@ -78,15 +78,17 @@ const WineDetails = ({ wine }) => {
           pricePerLiterCase={wine.pricePerLiterCase}
           preSale={preSale}
         />
-        <SizeSelector
-          selectedSize={selectedSize}
-          setSelectedSize={setSelectedSize}
-          bottlePrice={wine.bottlePrice}
-          casePrice={wine.casePrice}
-          pricePerLiterBottle={wine.pricePerLiterBottle}
-          pricePerLiterCase={wine.pricePerLiterCase}
-          preSale={preSale}
-        />
+        {preSale && (
+          <SizeSelector
+            selectedSize={selectedSize}
+            setSelectedSize={setSelectedSize}
+            bottlePrice={wine.bottlePrice}
+            casePrice={wine.casePrice}
+            pricePerLiterBottle={wine.pricePerLiterBottle}
+            pricePerLiterCase={wine.pricePerLiterCase}
+            preSale={preSale}
+          />
+        )}
         {preSale === false ? (
           <Button
             text={translations["wine-details.addtocart"]}
