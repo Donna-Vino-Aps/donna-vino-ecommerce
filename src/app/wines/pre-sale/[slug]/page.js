@@ -2,7 +2,7 @@
 
 import React from "react";
 import { notFound } from "next/navigation";
-import WineDetails from "@/components/WineDetails/WineInfo";
+import WineInfo from "@/components/WineDetails/WineInfo";
 import { useParams } from "next/navigation";
 import { usePreSaleWines } from "@/context/PreSaleWinesContext";
 import { getWineBySlug } from "@/utils/wineUtils";
@@ -37,7 +37,7 @@ export default function WineDetailPage() {
 
   return (
     <div className="px-8 py-12">
-      <WineDetails wine={wine} />
+      <WineInfo wine={wine} />
     </div>
   );
 }

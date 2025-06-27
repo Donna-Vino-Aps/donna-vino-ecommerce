@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
 import { RatingDisplay } from "./RatingDisplay";
-import { InStockDisplay } from "./AvailabilityDisplay";
+import { AvailabilityDisplay } from "./AvailabilityDisplay";
 import { PriceDisplay } from "./PriceDisplay";
 import { QuantitySelector } from "./QuantitySelector";
 import { SizeSelector } from "./SizeSelector";
@@ -11,7 +11,7 @@ import Button from "../Button/Button";
 import { useLanguage } from "@/context/LanguageContext";
 import Image from "next/image";
 
-const WineDetails = ({ wine }) => {
+const WineInfo = ({ wine }) => {
   const { translations } = useLanguage();
 
   const [selectedSize, setSelectedSize] = useState(() => {
@@ -39,7 +39,7 @@ const WineDetails = ({ wine }) => {
           <h1 className="mb-2 text-headlineSmall font-normal sm:text-headlineMedium md:mb-4 lg:text-displaySmall xl:text-displayMedium">
             {wine.title}
           </h1>
-          <InStockDisplay
+          <AvailabilityDisplay
             inStock={wine.inStock}
             preSale={preSale}
             setPreSale={setPreSale}
@@ -128,9 +128,9 @@ const WineDetails = ({ wine }) => {
   );
 };
 
-export default WineDetails;
+export default WineInfo;
 
-WineDetails.propTypes = {
+WineInfo.propTypes = {
   wine: PropTypes.shape({
     id: PropTypes.string.isRequired,
     title: PropTypes.string.isRequired,

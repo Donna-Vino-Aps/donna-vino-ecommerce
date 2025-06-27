@@ -4,7 +4,7 @@ import Image from "next/image";
 import Button from "../Button/Button";
 import { useLanguage } from "@/context/LanguageContext";
 
-export const InStockDisplay = ({ inStock, preSale, setPreSale }) => {
+export const AvailabilityDisplay = ({ inStock, preSale, setPreSale }) => {
   const { translations } = useLanguage();
 
   // If the wine is in pre-sale, the pre-sale indicator is shown
@@ -71,7 +71,7 @@ export const InStockDisplay = ({ inStock, preSale, setPreSale }) => {
   );
 };
 
-InStockDisplay.propTypes = {
+AvailabilityDisplay.propTypes = {
   inStock: PropTypes.bool.isRequired,
   preSale: PropTypes.bool.isRequired,
   setPreSale: PropTypes.func.isRequired,
