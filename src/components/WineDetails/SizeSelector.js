@@ -10,11 +10,10 @@ export const SizeSelector = ({
   casePrice,
   pricePerLiterBottle,
   pricePerLiterCase,
-  preSale,
+  //   preSale,
 }) => {
   const { translations } = useLanguage();
-  const [isOpen, setOpen] = React.useState(false);
-
+  const isOpen = true;
   return (
     <>
       <p className="mb-2 ml-[2px] mt-5 text-titleMedium font-medium text-tertiary1-dark">
@@ -22,7 +21,7 @@ export const SizeSelector = ({
       </p>
       <div
         className="flex w-full max-w-full flex-col items-center rounded-b-md text-titleMedium font-medium text-primary-light shadow-md"
-        onClick={preSale ? () => setOpen((prev) => !prev) : () => {}}
+        // onClick={preSale ? () => setOpen((prev) => !prev) : () => {}}
       >
         <div
           className={`flex w-full items-center justify-between bg-primary-normal px-4 py-2 ${isOpen ? "rounded-t-[10px]" : "rounded-[10px]"} cursor-pointer`}
@@ -45,7 +44,7 @@ export const SizeSelector = ({
                 : translations["wine-details.singlecase"]}
             </p>
           </div>
-          <Image
+          {/* <Image
             src={
               isOpen
                 ? "/icons/chevron-up-white.svg"
@@ -55,7 +54,7 @@ export const SizeSelector = ({
             height="20"
             alt="Toggle Size Selector"
             className="h-5 w-5"
-          />
+          /> */}
         </div>
         {isOpen && (
           <div
@@ -66,7 +65,7 @@ export const SizeSelector = ({
               onClick={(e) => {
                 e.stopPropagation();
                 setSelectedSize("bottle");
-                setOpen(false);
+                // setOpen(false);
               }}
             >
               <div className="flex flex-row gap-1 px-[0.875rem] py-5">
@@ -97,7 +96,7 @@ export const SizeSelector = ({
               onClick={(e) => {
                 e.stopPropagation();
                 setSelectedSize("case");
-                setOpen(false);
+                // setOpen(false);
               }}
             >
               <div className="flex flex-row gap-1 px-4 py-5">
