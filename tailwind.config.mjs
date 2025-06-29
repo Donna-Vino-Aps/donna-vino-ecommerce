@@ -110,6 +110,7 @@ export default {
           today_ring: "#F37277",
         },
         others: {
+          confirm: "#34C759",
           negative: "#FF3B30",
         },
       },

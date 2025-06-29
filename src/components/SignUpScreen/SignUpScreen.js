@@ -10,6 +10,7 @@ import dayjs from "dayjs";
 import { createSignUpSchema } from "@/validation/signUpSchema";
 import { useRouter } from "next/navigation";
 import { useAPI } from "@/context/ApiProvider";
+import { setSessionItem, SESSION_KEYS } from "@/utils/sessionStorage";
 
 const SignUpScreen = () => {
   const { translations } = useLanguage();
@@ -59,6 +60,7 @@ const SignUpScreen = () => {
 
     if (responseData) {
       setSuccessStatus(true);
+      setSessionItem(SESSION_KEYS.PENDING_USER_EMAIL, values.email);
       router.push("/signup/pending");
     }
   };
