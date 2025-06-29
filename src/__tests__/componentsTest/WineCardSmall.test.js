@@ -1,6 +1,7 @@
 import React from "react";
 import { render, screen } from "@testing-library/react";
 import WineCardSmall from "@/components/Card/WineCardSmall";
+import { LanguageProvider } from "@/context/LanguageContext";
 
 describe("WineCardSmall Component", () => {
   const mockProps = {
@@ -10,7 +11,11 @@ describe("WineCardSmall Component", () => {
   };
 
   test("renders WineCardSmall with title, price, and image", () => {
-    render(<WineCardSmall {...mockProps} />);
+    render(
+      <LanguageProvider>
+        <WineCardSmall {...mockProps} />
+      </LanguageProvider>,
+    );
 
     expect(screen.getByTestId("wine-title")).toHaveTextContent(mockProps.title);
     expect(screen.getByTestId("wine-price")).toHaveTextContent(mockProps.price);
@@ -18,7 +23,12 @@ describe("WineCardSmall Component", () => {
   });
 
   test("renders 'New' badge when isNew is true", () => {
-    render(<WineCardSmall {...mockProps} isNew={true} />);
+    render(
+      <LanguageProvider>
+        <WineCardSmall {...mockProps} isNew={true} />
+      </LanguageProvider>,
+    );
+
     expect(screen.getByText("New")).toBeInTheDocument();
   });
 });
