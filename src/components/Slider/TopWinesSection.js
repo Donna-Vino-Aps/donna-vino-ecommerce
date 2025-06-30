@@ -97,15 +97,15 @@ const TopWinesSection = () => {
             1024: { slidesPerView: 3, spaceBetween: 10 },
             1440: { slidesPerView: 4, spaceBetween: 12 },
           }}
-          className="relative z-10 w-full"
+          className="relative z-10 flex h-full w-full"
         >
           {wineData.map((wine, index) => (
-            <SwiperSlide
-              key={index}
-              className="flex items-center justify-center overflow-visible px-3"
-            >
-              <div className="group flex items-center justify-center overflow-visible px-5 py-5 transition-all duration-300">
-                <Link href={wine.url} className="w-full">
+            <SwiperSlide key={index} className=" m-3  h-full overflow-visible ">
+              <div className="group h-full overflow-visible transition-all duration-300">
+                <Link
+                  href={wine.url}
+                  className="flex h-full w-full items-center justify-center"
+                >
                   <WineCardSmall
                     data-testid="wine-card"
                     {...wine}

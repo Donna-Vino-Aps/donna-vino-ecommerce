@@ -43,7 +43,7 @@ const WinesPage = () => {
         description="Browse our exclusive selection of pre-sale wines."
       />
       <div className="container mx-auto flex items-center justify-center px-4 py-8">
-        <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
+        <div className="grid grid-cols-1 gap-8 lg:grid-cols-2 xl:grid-cols-3">
           {wines.map((wine) => {
             const price = wine.bottlePrice;
             const primaryImage = wine.imageUrl;
@@ -55,6 +55,7 @@ const WinesPage = () => {
                   title={wine.title}
                   price={price}
                   imageUrl={primaryImage}
+                  variant={"pre-sale"}
                 />
               </Link>
             );

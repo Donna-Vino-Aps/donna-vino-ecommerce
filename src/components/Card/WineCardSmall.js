@@ -3,6 +3,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import Button from "../Button/Button.js";
 import { useLanguage } from "@/context/LanguageContext";
+import useIsMobile from "@/hooks/useIsMobile.js";
 
 const WineCardSmall = ({
   title,
@@ -12,8 +13,11 @@ const WineCardSmall = ({
   buttons,
   rating,
   reviews,
+  variant,
 }) => {
   const { translations } = useLanguage();
+  const responsiveStyles = variant === "pre-sale" ? stylesPreSale : {};
+  const isMobile = useIsMobile();
 
   const handleAddToCart = (e) => {
     e.stopPropagation();
@@ -24,9 +28,9 @@ const WineCardSmall = ({
   return (
     <section
       data-testid="wine-card"
-      className="group  flex  w-[386px] cursor-pointer flex-col items-center justify-center gap-2 rounded-lg bg-tertiary2-light p-5 shadow-lg transition-transform duration-300 hover:scale-105"
+      className={`group mx-3 flex cursor-pointer  flex-col items-center justify-center gap-2 rounded-lg bg-tertiary2-light p-4  shadow-lg transition-transform duration-300 hover:scale-105 ${responsiveStyles.section}`}
     >
-      <div className="relative h-6 w-full">
+      <div className="relative h-5 w-full">
         {isNew && (
           <span className="absolute right-0 top-0  rounded-full bg-primary-light px-3 py-1  text-labelMedium font-medium  text-tertiary1-dark">
             New
@@ -34,17 +38,19 @@ const WineCardSmall = ({
         )}
       </div>
 
-      <div className="relative mt-5 flex h-[360px] w-[343px] flex-col items-center justify-center">
+      <div
+        className={`relative mt-5 flex h-[283px] w-[270px]  flex-col items-center justify-center ${responsiveStyles.image}`}
+      >
         <img
           src={imageUrl}
-          alt={title}
+          alt={`Image of wine: ${title}`}
           className="h-full w-full object-contain"
           data-testid="wine-image"
         />
 
         <div
           data-testid="wine-buttons"
-          className="absolute bottom-[50px] left-1/2 flex -translate-x-1/2 gap-3 opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+          className={`absolute bottom-[100px] left-1/2 flex -translate-x-1/2 gap-3 opacity-0 transition-opacity duration-300 group-hover:opacity-100 ${responsiveStyles.buttons}`}
         >
           {buttons.map((button, index) => (
             <div key={index} className="relative">
@@ -57,6 +63,7 @@ const WineCardSmall = ({
                     src={button.icon}
                     className="h-6 w-6 text-tertiary1-darker transition-all duration-300 group-hover/button:brightness-0 group-hover/button:invert"
                     alt={button.tooltip}
+                    role="tooltip"
                   />
                 </button>
                 <div
@@ -76,17 +83,21 @@ const WineCardSmall = ({
         <div className="flex items-center justify-between self-stretch">
           <h3
             data-testid="wine-title"
-            className="max-w-[200px] flex-1 overflow-hidden text-ellipsis whitespace-nowrap text-headlineLarge text-tertiary1-dark"
+            className={`max-w-[200px] flex-1 overflow-hidden text-ellipsis whitespace-nowrap text-start text-headlineSmall text-tertiary1-dark ${responsiveStyles.title}`}
           >
             {title}
           </h3>
           <div className="flex flex-shrink-0 items-center  justify-between gap-2 ">
             <div className=" flex items-center gap-1">
-              <p className="text-headlineSmall text-tertiary2-darker">
+              <p
+                className={`text-labelXLarge text-tertiary2-darker ${responsiveStyles.rating}`}
+              >
                 {rating.toFixed(1)}
               </p>
-              <img src="/icons/star-fill.svg" alt="Star" className="h-6 w-6" />
-              <p className="text-labelXLarge  font-medium text-tertiary2-darker">
+              <img src="/icons/star-fill.svg" alt="Star" className="h-5 w-5" />
+              <p
+                className={`text-labelLarge font-medium text-tertiary2-darker ${responsiveStyles.reviews}`}
+              >
                 ({reviews})
               </p>
             </div>
@@ -99,7 +110,7 @@ const WineCardSmall = ({
         </div>
         <p
           data-testid="wine-price"
-          className="mt-1 flex-1 text-titleLarge font-semibold text-tertiary1-dark"
+          className={`flex-1 text-start text-titleMedium font-medium text-tertiary1-dark ${responsiveStyles.price}`}
         >
           Kr. {price.toFixed(2)}
         </p>
@@ -107,19 +118,19 @@ const WineCardSmall = ({
           <p
             data-testid="wineCard-viewDetails"
             aria-label="Go to home"
-            className="cursor-pointer text-bodyMedium text-black underline"
+            className={`cursor-pointer text-bodySmall text-black underline ${responsiveStyles.details}`}
           >
             {translations["wineCard.viewDetails"]}
           </p>
           <Button
             text={translations["wineCard.addToCart"]}
             onClick={handleAddToCart}
-            size="lg"
-            width="lg"
+            size={variant === "pre-sale" && !isMobile ? "lg" : "md"}
+            width={variant === "pre-sale" && !isMobile ? "lg" : "md"}
             ariaLabel="Add wine to cart"
             testId="addToCart-button"
             icon={"/icons/card/cart-white.svg"}
-            extraStyle="px-5 py-3 text-nowrap text-white text-titleMedium font-medium"
+            extraStyle={`px-4 py-2 text-nowrap text-white text-titleMedium font-medium ${responsiveStyles.button}`}
           />
         </div>
       </div>
@@ -134,6 +145,7 @@ WineCardSmall.defaultProps = {
   isNew: true,
   rating: 5.0,
   reviews: 24,
+  variant: "top-wines",
   buttons: [
     {
       icon: "/icons/card/cart.svg",
@@ -167,6 +179,19 @@ WineCardSmall.propTypes = {
   ),
   rating: PropTypes.number.isRequired,
   reviews: PropTypes.number.isRequired,
+  variant: PropTypes.oneOf(["pre-sale", "top-wines"]),
+};
+
+const stylesPreSale = {
+  section: "sm:w-[384px] sm:p-5",
+  image: "sm:h-[360px] sm:w-[343px]",
+  title: "sm:max-w-[240px] sm:text-headlineLarge",
+  rating: "sm:text-headlineSmall",
+  reviews: "sm:text-titleMedium",
+  price: "sm:font-semibold sm:text-titleLarge",
+  details: "sm:text-bodyMedium",
+  button: "sm:px-5 sm:py-3",
+  buttons: "sm:bottom-[120px]",
 };
 
 export default WineCardSmall;
