@@ -2,6 +2,7 @@
 
 import React, { createContext, useContext, useState } from "react";
 import PropTypes from "prop-types";
+import { logInfo } from "@/utils/logging";
 
 const CartContext = createContext();
 
@@ -12,6 +13,7 @@ export const CartProvider = ({ children }) => {
 
   const addToCart = (item) => {
     setCartItems((prevItems) => [...prevItems, item]);
+    logInfo(`${item.title} added to cart`);
   };
 
   return (

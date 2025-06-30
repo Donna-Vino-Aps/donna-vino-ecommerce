@@ -9,10 +9,12 @@ import { SizeSelector } from "./SizeSelector";
 import { ProductDetails } from "./ProductDetails";
 import Button from "../Button/Button";
 import { useLanguage } from "@/context/LanguageContext";
+import { useCart } from "@/context/CartContext";
 import Image from "next/image";
 
 const WineInfo = ({ wine }) => {
   const { translations } = useLanguage();
+  const { addToCart } = useCart();
 
   const [selectedSize, setSelectedSize] = useState(() => {
     if (wine.variantMap.bottle) return "bottle";
@@ -92,7 +94,7 @@ const WineInfo = ({ wine }) => {
         {preSale === false ? (
           <Button
             text={translations["wine-details.addtocart"]}
-            variant="rounde"
+            variant="rounded"
             border="primary"
             icon="/icons/cart-white.svg"
             color="primary"
@@ -104,6 +106,7 @@ const WineInfo = ({ wine }) => {
           />
         ) : (
           <Button
+            onClick={() => addToCart(wine)}
             text={translations["wine-details.addpreorder"]}
             variant="rounded"
             border=""
