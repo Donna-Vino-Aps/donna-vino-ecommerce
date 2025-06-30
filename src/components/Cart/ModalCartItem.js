@@ -34,7 +34,7 @@ const ModalCartItem = ({
           />
         </div>
       </div>
-      <div className="mt-3 flex flex-col justify-center gap-2 relative right-4">
+      <div className="relative right-4 mt-3 flex flex-col justify-center gap-2">
         <button
           onClick={() => removeCartItem(item.id)}
           className="flex justify-end"

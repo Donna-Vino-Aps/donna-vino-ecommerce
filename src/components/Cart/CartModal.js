@@ -71,12 +71,12 @@ const CartModal = ({
             width="24"
             height="24"
             alt="closing button"
-            className="cursor-pointer relative bottom-1 right-1"
+            className="relative bottom-1 right-1 cursor-pointer"
           />
         </div>
         {cartItems.length > 0 ? (
           <section>
-            <div className="flex-col flex-1 overflow-y-auto max-h-[35vh]">
+            <div className="max-h-[35vh] flex-1 flex-col overflow-y-auto">
               {cartItems.map((item) => (
                 <div className="my-1" key={item.id}>
                   <ModalCartItem
@@ -152,7 +152,7 @@ const CartModal = ({
             </div>
           </section>
         ) : (
-          <div className="mt-6 mb-2">
+          <div className="mb-2 mt-6">
             <p>No items in your cart, yet. </p>
             <br />
             <p>Come back when you are ready to checkout!</p>
