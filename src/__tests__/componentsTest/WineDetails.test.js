@@ -2,6 +2,8 @@ import React from "react";
 import { render, screen } from "@testing-library/react";
 import WineInfo from "../../components/WineDetails/WineInfo";
 import { normalizeWineData } from "../../utils/wineUtils";
+import LanguageProvider from "../../context/LanguageContext";
+import { CartProvider } from "../../context/CartContext";
 
 // Mock next/image as a simple img tag
 jest.mock("next/image", () => (props) => {
@@ -9,7 +11,9 @@ jest.mock("next/image", () => (props) => {
 });
 
 // Mock useLanguage hook
-jest.mock("@/context/LanguageContext", () => ({
+jest.mock("../../context/LanguageContext", () => ({
+  __esModule: true, // This is important for mocking ES modules
+  default: ({ children }) => <>{children}</>,
   useLanguage: () => ({
     translations: {
       "wine-details.instock": "In Stock",
@@ -75,8 +79,14 @@ const rawWineMock = {
 const wineMock = normalizeWineData(rawWineMock);
 
 describe("WineInfo simple render test", () => {
-  test("renders WineInfo without crashing", () => {
-    render(<WineInfo wine={wineMock} />);
+  it("renders WineInfo without crashing", () => {
+    render(
+      <LanguageProvider>
+        <CartProvider>
+          <WineInfo wine={wineMock} />
+        </CartProvider>
+      </LanguageProvider>,
+    );
 
     expect(screen.getByText(/Test Wine/i)).toBeInTheDocument();
   });
