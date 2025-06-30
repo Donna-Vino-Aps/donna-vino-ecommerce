@@ -358,13 +358,13 @@ const Navbar = () => {
       </div>
 
       <div className="flex w-full items-center justify-end gap-14">
-        <div className="relative bottom-[2px] flex items-center gap-3 md:mr-6 lg:gap-5">
+        <div className="relative bottom-[2px] z-[9999] flex items-center gap-3 md:mr-6 lg:gap-5">
           <SearchButton />
           <UserDropdown />
           <ShoppingCart
             totalQuantityInCart={totalQuantityInCart}
             setTotalQuantityInCart={setTotalQuantityInCart}
-            onClick={() => setIsCartOpen(!isCartOpen)}
+            onClick={() => setIsCartOpen((prev) => !prev)}
           />
           <div className="relative top-[1px] ml-2 mr-8 h-[1.5rem] w-[1.5rem] lg:hidden">
             <button

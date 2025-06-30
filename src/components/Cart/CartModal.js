@@ -44,8 +44,8 @@ const CartModal = ({
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-start justify-end">
-      <div className="relative right-2 top-40 w-[22.5rem] rounded-b-lg bg-white p-6 shadow-lg md:w-[26.25rem]">
+    <div className="fixed inset-0 z-40 flex items-start justify-end">
+      <div className="relative right-2 z-[60] top-40 w-[22.5rem] rounded-b-lg bg-white p-6 shadow-lg md:w-[26.25rem]">
         <div className="mb-2 flex items-center justify-between">
           <h2 className="text-headlineLarge font-normal mb-4">Shopping cart</h2>
           <Image
