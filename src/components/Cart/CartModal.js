@@ -45,9 +45,9 @@ const CartModal = ({
 
   return (
     <div className="fixed inset-0 z-40 flex items-start justify-end">
-      <div className="relative right-2 z-[60] top-40 w-[22.5rem] rounded-b-lg bg-white p-6 shadow-lg md:w-[26.25rem]">
+      <div className="relative right-2 top-40 z-[60] w-[22.5rem] rounded-b-lg bg-white p-6 shadow-lg md:w-[26.25rem]">
         <div className="mb-2 flex items-center justify-between">
-          <h2 className="text-headlineLarge font-normal mb-4">Shopping cart</h2>
+          <h2 className="mb-4 text-headlineLarge font-normal">Shopping cart</h2>
           <Image
             onClick={onClose}
             src="/icons/cross-circle.svg"
@@ -70,8 +70,8 @@ const CartModal = ({
                 </div>
               ))}
             </div>
-            <hr className="border-t border-tertiary2-darker mt-2" />
-            <div className="flex items-center justify-between mt-8">
+            <hr className="mt-2 border-t border-tertiary2-darker" />
+            <div className="mt-8 flex items-center justify-between">
               <h3 className="text-titleLarge font-normal">Subtotal</h3>
               <h3 className="text-titleLarge font-normal">{totalPrice} kr</h3>
             </div>
@@ -105,7 +105,7 @@ const CartModal = ({
               testId="continue-shopping-button"
               onClick={onClose}
             />
-            <div className="flex flex-col items-end mt-6 mb-2 gap-4 px-1">
+            <div className="mb-2 mt-6 flex flex-col items-end gap-4 px-1">
               <p className="text-titleMedium text-tertiary2-darker">
                 Secured Payment By
               </p>

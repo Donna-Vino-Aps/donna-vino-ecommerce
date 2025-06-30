@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 const ShoppingCart = ({ totalQuantityInCart, onClick }) => {
   return (
     <div
-      className="relative flex items-center justify-center cursor-pointer"
+      className="relative flex cursor-pointer items-center justify-center"
       onClick={onClick}
     >
       <img
