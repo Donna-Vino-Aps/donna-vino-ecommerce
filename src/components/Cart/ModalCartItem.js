@@ -22,7 +22,9 @@ const ModalCartItem = ({
           className="relative top-1 h-20 w-20 object-cover"
         />
         <div className="ml-5 mt-1 flex flex-col gap-1">
-          <h3 className="text-titleMedium font-medium">{item.name}</h3>
+          <h3 className="text-titleSmall font-medium md:text-titleMedium">
+            {item.name}
+          </h3>
           <ItemQuantitySelector
             item={item}
             quantityAvailable={item.quantityAvailable}
