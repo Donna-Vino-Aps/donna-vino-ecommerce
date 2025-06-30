@@ -3,7 +3,12 @@ import PropTypes from "prop-types";
 import Image from "next/image";
 import { ItemQuantitySelector } from "./ItemQuantitySelector";
 
-const ModalCartItem = ({ item, onRemove, setTotalQuantityInCart }) => {
+const ModalCartItem = ({
+  item,
+  removeCartItem,
+  setTotalQuantityInCart,
+  updateCartItemQuantity,
+}) => {
   const [selectedQuantity, setSelectedQuantity] = React.useState(
     item.quantitySelected,
   );
@@ -19,16 +24,21 @@ const ModalCartItem = ({ item, onRemove, setTotalQuantityInCart }) => {
         <div className="ml-5 mt-1 flex flex-col gap-1">
           <h3 className="text-titleMedium font-medium">{item.name}</h3>
           <ItemQuantitySelector
+            item={item}
             quantityAvailable={item.quantityAvailable}
             selectedQuantity={selectedQuantity}
             setSelectedQuantity={setSelectedQuantity}
             setTotalQuantityInCart={setTotalQuantityInCart}
+            updateCartItemQuantity={updateCartItemQuantity}
             preSale={item.preSale}
           />
         </div>
       </div>
-      <div className="ml-2 mt-3 flex flex-col justify-center gap-2">
-        <button onClick={() => onRemove(item.id)} className="flex justify-end">
+      <div className="mt-3 flex flex-col justify-center gap-2 relative right-4">
+        <button
+          onClick={() => removeCartItem(item.id)}
+          className="flex justify-end"
+        >
           <Image
             src="/icons/trash-can.svg"
             width="24"
@@ -37,7 +47,7 @@ const ModalCartItem = ({ item, onRemove, setTotalQuantityInCart }) => {
           />
         </button>
         <p className="text-titleMedium font-medium text-tertiary1-dark">
-          {item.price.toFixed(2)} kr
+          {item.quantitySelected * item.price.toFixed(2)} kr
         </p>
       </div>
     </div>
@@ -56,6 +66,7 @@ ModalCartItem.propTypes = {
     quantitySelected: PropTypes.number.isRequired,
     preSale: PropTypes.bool,
   }).isRequired,
-  onRemove: PropTypes.func.isRequired,
+  removeCartItem: PropTypes.func.isRequired,
   setTotalQuantityInCart: PropTypes.func.isRequired,
+  updateCartItemQuantity: PropTypes.func.isRequired,
 };

@@ -4,13 +4,15 @@ import PropTypes from "prop-types";
 import Image from "next/image";
 
 export const ItemQuantitySelector = ({
+  item,
   quantityAvailable,
   selectedQuantity,
   setSelectedQuantity,
   setTotalQuantityInCart,
+  updateCartItemQuantity,
   preSale,
   min = 1,
-  max = quantityAvailable || 999,
+  max = preSale ? 999 : quantityAvailable,
 }) => {
   const isDecrementDisabled = selectedQuantity <= min;
   const isIncrementDisabled = selectedQuantity >= max;
@@ -61,10 +63,17 @@ export const ItemQuantitySelector = ({
 };
 
 ItemQuantitySelector.propTypes = {
+  item: PropTypes.shape({
+    id: PropTypes.number.isRequired,
+    name: PropTypes.string.isRequired,
+    price: PropTypes.number.isRequired,
+    image: PropTypes.string.isRequired,
+  }).isRequired,
   quantityAvailable: PropTypes.number,
   selectedQuantity: PropTypes.number.isRequired,
   setSelectedQuantity: PropTypes.func.isRequired,
   setTotalQuantityInCart: PropTypes.func.isRequired,
+  updateCartItemQuantity: PropTypes.func.isRequired,
   preSale: PropTypes.bool,
   min: PropTypes.number,
   max: PropTypes.number,

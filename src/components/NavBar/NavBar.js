@@ -16,7 +16,7 @@ const Navbar = () => {
       id: 1,
       name: "Cantina Kurtatsch",
       image: "/images/wine-example.jpg",
-      price: 24.99,
+      price: 249,
       quantityAvailable: 2,
       quantitySelected: 1,
       preSale: true,
@@ -25,7 +25,7 @@ const Navbar = () => {
       id: 2,
       name: "Fructuositas Primitivo",
       image: "/images/wine-example.jpg",
-      price: 19.99,
+      price: 119,
       quantityAvailable: 1,
       quantitySelected: 1,
       preSale: true,
@@ -34,8 +34,26 @@ const Navbar = () => {
       id: 3,
       name: "Alamos Malbec",
       image: "/images/wine-example.jpg",
-      price: 21.99,
+      price: 219,
       quantityAvailable: 3,
+      quantitySelected: 1,
+      preSale: true,
+    },
+    {
+      id: 4,
+      name: "Balamos Balbec",
+      image: "/images/wine-example.jpg",
+      price: 229,
+      quantityAvailable: 5,
+      quantitySelected: 1,
+      preSale: true,
+    },
+    {
+      id: 5,
+      name: "Calamos Calbec",
+      image: "/images/wine-example.jpg",
+      price: 229,
+      quantityAvailable: 5,
       quantitySelected: 1,
       preSale: true,
     },
@@ -397,6 +415,7 @@ const Navbar = () => {
           cartItems={cartItems}
           setCartItems={setCartItems}
           setTotalQuantityInCart={setTotalQuantityInCart}
+          totalQuantityInCart={totalQuantityInCart}
         />
       )}
     </nav>
