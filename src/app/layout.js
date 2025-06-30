@@ -11,6 +11,7 @@ import { UserContextProvider } from "@/context/UserContext";
 import { SessionProvider } from "next-auth/react";
 import APIProvider from "@/context/ApiProvider";
 import { PreSaleWinesProvider } from "@/context/PreSaleWinesContext";
+import { CartProvider } from "@/context/CartContext";
 
 const RootLayout = ({ children }) => {
   return (
@@ -22,15 +23,17 @@ const RootLayout = ({ children }) => {
               <APIProvider>
                 <UserContextProvider>
                   <PreSaleWinesProvider>
-                    <Navbar />
-                    <main
-                      className="flex-grow"
-                      role="main"
-                      data-testid="main-content"
-                    >
-                      {children}
-                    </main>
-                    <Footer />
+                    <CartProvider>
+                      <Navbar />
+                      <main
+                        className="flex-grow"
+                        role="main"
+                        data-testid="main-content"
+                      >
+                        {children}
+                      </main>
+                      <Footer />
+                    </CartProvider>
                   </PreSaleWinesProvider>
                 </UserContextProvider>
               </APIProvider>
