@@ -1,9 +1,8 @@
+"use client";
 import React, { useState, useRef } from "react";
 import Button from "../Button/Button";
 import dynamic from "next/dynamic";
-const SwiperClient = dynamic(() => import("../Swiper/SwiperClient"), {
-  ssr: false,
-});
+const SwiperClient = dynamic(() => import("../Swiper/SwiperClient"), {});
 import { SwiperSlide } from "swiper/react";
 import ComingSoonModal from "../Modal/ComingSoonModal";
 import { useLanguage } from "@/context/LanguageContext";
@@ -70,7 +69,7 @@ const HeroSlider = () => {
   };
 
   return (
-    <section className="relative">
+    <section>
       {isModalOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
           <ComingSoonModal
@@ -84,12 +83,12 @@ const HeroSlider = () => {
         className="h-full w-full"
         onSlideChange={(swiper) => setCurrentImageIndex(swiper.activeIndex)}
         initialSlide={0}
-        loop={false}
+        loop={true}
       >
         {slides.map((slide, index) => (
           <SwiperSlide key={slide.id}>
             <section
-              className={`relative flex flex-col-reverse md:w-full ${index === 0 ? "md:flex-row" : "md:flex-row-reverse"} min-h-[43.75rem] justify-between bg-tertiary2-light`}
+              className={`relative flex min-h-[43.75rem] flex-col-reverse md:w-full ${index === 0 ? "md:flex-row" : "md:flex-row-reverse"} min-h-[43.75rem] justify-between bg-tertiary2-light`}
             >
               <div className="mb-4 min-h-[20rem] w-full items-center md:relative md:mb-0 md:w-[50%]">
                 {slide.type === "video" ? (
@@ -116,24 +115,26 @@ const HeroSlider = () => {
                         fill
                         priority={index === 0}
                         loading={index === 0 ? undefined : "lazy"}
-                        className="mt-4 max-h-[22.5rem] w-full rounded-br-[0rem] rounded-tr-[0rem] object-cover md:absolute md:inset-0 md:mt-0 md:min-h-[43.75rem] md:rounded-br-[0.5rem] md:rounded-tr-[8rem]"
-                        sizes={{ width: "auto", height: "auto" }}
+                        sizes="(min-width: 768px) 100vw, 100vw"
+                        className="object-cover object-center md:rounded-br-[0.5rem] md:rounded-tr-[8rem]"
                       />
                     </div>
                   )
                 ) : (
-                  <Image
-                    src={slide.media}
-                    alt="Slide media"
-                    width={1920}
-                    height={700}
-                    priority={index === 0}
-                    loading={index === 0 ? undefined : "lazy"}
-                    className="mt-4 max-h-[22.5rem] w-full rounded-br-[0rem] rounded-tr-[0rem] object-cover md:absolute md:inset-0 md:mt-0 md:min-h-[43.75rem] md:rounded-bl-xl md:rounded-tl-[8rem]"
-                  />
+                  <div className="relative mt-4 h-[22.5rem] w-full md:h-[43.75rem] md:w-[100%]">
+                    <Image
+                      src={slide.media}
+                      alt="Slide media"
+                      fill
+                      priority={index === 0}
+                      loading={index === 0 ? undefined : "lazy"}
+                      sizes="(min-width: 768px) 100vw, 100vw"
+                      className="object-cover object-center md:rounded-br-[0.5rem] md:rounded-tr-[8rem]"
+                    />
+                  </div>
                 )}
               </div>
-              <div className="mb-3 flex min-h-[20rem] flex-col items-start justify-center px-12 font-barlow font-regular sm:px-20 md:max-w-[50%] md:items-start md:px-6 lg:px-10 xl:px-14">
+              <div className="flex h-[22.5rem] w-full flex-col justify-center px-6 text-center font-barlow font-regular md:max-w-[50%] md:items-start md:px-6 lg:px-10 xl:px-14">
                 <div>
                   <p className="text-left text-headlineSmall text-primary-normal">
                     {translations[slide.subheading]}

@@ -7,15 +7,14 @@ import { useLanguage } from "@/context/LanguageContext";
 
 const TastingSession = dynamic(
   () => import("@/components/HeroSlider/HeroSlider"),
-  { ssr: false },
 );
 const ServicesBanner = dynamic(
   () => import("@/components/ServicesBanner/ServicesBanner"),
-  { ssr: false },
 );
-const SalesCards = dynamic(() => import("@/components/SalesCards/SalesCards"), {
-  ssr: false,
-});
+const SalesCards = dynamic(
+  () => import("@/components/SalesCards/SalesCards"),
+  {},
+);
 
 export default function Home() {
   const [loaded, setLoaded] = useState(false);
