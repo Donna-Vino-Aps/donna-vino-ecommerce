@@ -310,5 +310,15 @@
   "wine-details.productdetails": "Product Details",
   "wine-details.country-region": "Country/Region",
   "wine-details.winetype": "Wine type",
-  "wine-details.vineyard": "Vineyard"
+  "wine-details.vineyard": "Vineyard",
+  "cart.title": "Shopping Cart",
+  "cart.subtotal": "Subtotal",
+  "cart.info1": "Shipping, taxes, & discounts are calculated during checkout.",
+  "cart.info2": "Pick up and hand delivery options are available.",
+  "cart.info3": "Estimated delivery time will be shown in the next steps.",
+  "cart.payment": "Secured Payment By",
+  "cart.no-items1": "No items in your cart yet.",
+  "cart.no-items2": "Come back when you are ready to checkout!",
+  "cart.button-checkout": "Go to Checkout",
+  "cart.button-continue-shopping": "Continue Shopping"
 }

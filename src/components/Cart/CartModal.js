@@ -62,9 +62,11 @@ const CartModal = ({
 
   return (
     <div className="fixed inset-0 z-40 flex items-start justify-end">
-      <div className="relative right-2 top-36 z-[60] w-[22.5rem] rounded-b-lg bg-white p-6 shadow-lg md:w-[26.25rem] ">
+      <div className="relative right-2 top-24 z-[60] w-[22.5rem] rounded-b-lg bg-white p-6 shadow-lg md:top-36 md:w-[26.25rem] ">
         <div className="mb-2 flex items-center justify-between">
-          <h2 className="mb-4 text-headlineLarge font-normal">Shopping cart</h2>
+          <h2 className="mb-4 text-headlineLarge font-normal">
+            {translations["cart.title"]}
+          </h2>
           <Image
             onClick={onClose}
             src="/icons/cross-circle.svg"
@@ -89,20 +91,20 @@ const CartModal = ({
               ))}
             </div>
             <div className="sticky bottom-0">
-              <hr className="mt-2 border-t border-tertiary2-darker" />
-              <div className="mt-8 flex items-center justify-between">
-                <h3 className="text-titleLarge font-normal">Subtotal</h3>
+              <hr className="mt-1 border-t border-tertiary2-darker" />
+              <div className="mt-6 flex items-center justify-between">
+                <h3 className="text-titleLarge font-normal">
+                  {translations["cart.subtotal"]}
+                </h3>
                 <h3 className="text-titleLarge font-normal">{totalPrice} kr</h3>
               </div>
               <div className="mt-3 text-labelSmall font-medium text-tertiary2-darker">
-                <p>
-                  Shipping, taxes, & discounts are calculated during checkout.
-                </p>
-                <p>Pick up and hand delivery options are available.</p>{" "}
-                <p>Estimated delivery time will be shown in the next steps.</p>
+                <p>{translations["cart.info1"]}</p>
+                <p>{translations["cart.info2"]}</p>{" "}
+                <p>{translations["cart.info3"]}</p>
               </div>
               <Button
-                text="Go to Checkout"
+                text={translations["cart.button-checkout"]}
                 variant="rounded"
                 border="primary"
                 color="primary"
@@ -113,7 +115,7 @@ const CartModal = ({
                 testId="go-to-checkout-button"
               />
               <Button
-                text="Continue Shopping"
+                text={translations["cart.button-continue-shopping"]}
                 variant="rounded"
                 border="secondary"
                 color="secondary"
@@ -124,9 +126,9 @@ const CartModal = ({
                 testId="continue-shopping-button"
                 onClick={onClose}
               />
-              <div className="mb-1 mt-5 flex flex-col items-end gap-4 px-1">
+              <div className="mb-2 mt-5 flex flex-col items-end gap-4 px-1">
                 <p className="text-titleMedium font-medium text-tertiary2-darker">
-                  Secured Payment By
+                  {translations["cart.payment"]}
                 </p>
                 <div className="flex flex-row gap-3">
                   <Image
@@ -153,9 +155,9 @@ const CartModal = ({
           </section>
         ) : (
           <div className="mb-2 mt-6">
-            <p>No items in your cart, yet. </p>
+            <p>{translations["cart.no-items1"]}</p>
             <br />
-            <p>Come back when you are ready to checkout!</p>
+            <p>{translations["cart.no-items2"]}</p>
           </div>
         )}
       </div>
