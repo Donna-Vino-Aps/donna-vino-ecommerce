@@ -17,21 +17,27 @@ const Navbar = () => {
       name: "Cantina Kurtatsch",
       image: "/images/wine-example.jpg",
       price: 24.99,
-      quantity: 2,
+      quantityAvailable: 2,
+      quantitySelected: 1,
+      preSale: true,
     },
     {
       id: 2,
       name: "Fructuositas Primitivo",
       image: "/images/wine-example.jpg",
       price: 19.99,
-      quantity: 1,
+      quantityAvailable: 1,
+      quantitySelected: 1,
+      preSale: true,
     },
     {
       id: 3,
       name: "Alamos Malbec",
       image: "/images/wine-example.jpg",
       price: 21.99,
-      quantity: 3,
+      quantityAvailable: 3,
+      quantitySelected: 1,
+      preSale: true,
     },
   ];
 
@@ -45,8 +51,9 @@ const Navbar = () => {
   });
 
   const [isCartOpen, setIsCartOpen] = useState(false);
-  const [quantityInCart, setQuantityInCart] = useState(
-    mockCartItems.reduce((sum, item) => sum + item.quantity, 0),
+  const [cartItems, setCartItems] = useState(mockCartItems);
+  const [totalQuantityInCart, setTotalQuantityInCart] = useState(
+    mockCartItems.reduce((sum, item) => sum + item.quantitySelected, 0),
   );
 
   const toggleDropdown = (id) => {
@@ -355,8 +362,8 @@ const Navbar = () => {
           <SearchButton />
           <UserDropdown />
           <ShoppingCart
-            quantityInCart={quantityInCart}
-            setQuantityInCart={setQuantityInCart}
+            totalQuantityInCart={totalQuantityInCart}
+            setTotalQuantityInCart={setTotalQuantityInCart}
             onClick={() => setIsCartOpen(!isCartOpen)}
           />
           <div className="relative top-[1px] ml-2 mr-8 h-[1.5rem] w-[1.5rem] lg:hidden">
@@ -387,8 +394,9 @@ const Navbar = () => {
       {isCartOpen && (
         <CartModal
           onClose={() => setIsCartOpen(false)}
-          cartItems={mockCartItems}
-          setQuantityInCart={setQuantityInCart}
+          cartItems={cartItems}
+          setCartItems={setCartItems}
+          setTotalQuantityInCart={setTotalQuantityInCart}
         />
       )}
     </nav>
