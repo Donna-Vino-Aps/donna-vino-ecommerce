@@ -90,6 +90,12 @@ const Navbar = () => {
       label: translations["navbar.events"],
       dropdown: false,
     },
+    {
+      id: "pre-sale",
+      href: "/wines/pre-sale",
+      label: translations["navbar.presale-wines"],
+      dropdown: false,
+    },
     // {
     //   id: "wines",
     //   href: "/wines",
@@ -158,6 +164,13 @@ const Navbar = () => {
       href: "/events",
       label: translations["navbar.events"],
       icon: "/icons/calendar1.svg",
+      dropdown: false,
+    },
+    {
+      id: "pre-sale",
+      href: "/wines/pre-sale",
+      label: translations["navbar.presale-wines"],
+      icon: "/icons/wine-bottle.svg",
       dropdown: false,
     },
     // {

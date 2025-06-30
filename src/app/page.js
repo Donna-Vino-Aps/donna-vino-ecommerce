@@ -5,6 +5,7 @@ import ServicesBanner from "@/components/ServicesBanner/ServicesBanner";
 import SalesCards from "@/components/SalesCards/SalesCards";
 import SEO from "@/components/SEO/SEO";
 import { useLanguage } from "@/context/LanguageContext";
+import TopWinesSection from "@/components/Slider/TopWinesSection";
 export default function Home() {
   const { translations } = useLanguage();
   return (
@@ -19,6 +20,7 @@ export default function Home() {
       >
         <TastingSession />
         <ServicesBanner />
+        <TopWinesSection />
         <SalesCards />
       </main>
     </div>
