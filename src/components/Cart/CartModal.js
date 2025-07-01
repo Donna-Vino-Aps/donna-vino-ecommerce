@@ -64,7 +64,7 @@ const CartModal = ({
 
   return (
     <div className="fixed inset-0 z-40 flex items-start justify-end">
-      <div className="relative right-2 top-24 z-[60] w-[22.5rem] rounded-b-lg bg-white p-6 shadow-lg md:top-36 md:w-[26.25rem] ">
+      <div className="relative top-24 z-[60] mx-auto w-[22.5rem] rounded-b-lg bg-white p-6 shadow-lg md:top-36 md:mx-2 md:w-[26.25rem] ">
         <div className="mb-2 flex items-center justify-between">
           <h2 className="mb-4 text-headlineLarge font-normal">
             {translations["cart.title"]}
@@ -102,7 +102,7 @@ const CartModal = ({
                 <h3
                   className={`text-titleLarge font-normal ${nrOfCartItems > 2 ? "relative right-2" : ""}`}
                 >
-                  {totalPrice} kr
+                  {totalPrice.toFixed(2).replace(".", ",")} kr
                 </h3>
               </div>
               <div className="mt-3 text-labelSmall font-medium text-tertiary2-darker">
@@ -143,21 +143,18 @@ const CartModal = ({
                     width="106"
                     height="21"
                     alt="MobilePay payment option"
-                    className="h-[106px] w-[21px]"
                   />
                   <Image
                     src="/icons/visa-logo.svg"
                     width="49"
                     height="15"
                     alt="Visa payment option"
-                    className="h-[49px] w-[15px]"
                   />
                   <Image
                     src="/icons/mastercard-logo.svg"
                     width="27"
                     height="16"
                     alt="Mastercard payment option"
-                    className="h-[27px] w-[16px]"
                   />
                 </div>
               </div>

@@ -52,7 +52,7 @@ const ModalCartItem = ({
           />
         </button>
         <p className="text-titleMedium font-medium text-tertiary1-dark">
-          {item.quantitySelected * item.price.toFixed(2)} kr
+          {(item.quantitySelected * item.price).toFixed(2).replace(".", ",")} kr
         </p>
       </div>
     </div>
