@@ -31,7 +31,7 @@ const FaqSection = () => {
     },
   ];
   return (
-    <div className="">
+    <div>
       {QuestionsArray.map((item, index) => (
         <FaqItem key={index} question={item.question} answer={item.answer} />
       ))}

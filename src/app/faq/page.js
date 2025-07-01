@@ -29,8 +29,8 @@ const FrequentlyAskedQuestions = () => {
             className="absolute right-0 top-[7.5rem] sm:hidden"
           />
         </div>
-        <div className="mb-4 flex flex-col justify-center gap-6 px-8 text-center sm:mb-0 sm:w-[45%] md:text-start lg:w-[40%]">
-          <h1 className="mt-8 text-displayMedium sm:mt-4 sm:max-w-full sm:text-displaySmall md:mt-0 lg:text-displayMedium">
+        <div className="mb-4 flex w-full flex-col justify-center gap-6 px-8 text-center sm:mb-0 md:w-[45%] md:text-start lg:w-[40%] lg:px-12">
+          <h1 className="mt-8 text-center text-displayMedium sm:mt-4 sm:max-w-full sm:text-displaySmall md:mt-0 md:text-start lg:text-displayMedium">
             {isMobile ? translations["faq.h1-mobile"] : translations["faq.h1"]}
           </h1>
           <p className="mb-4 text-bodyLarge sm:mb-0">{translations["faq.p"]}</p>
