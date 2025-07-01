@@ -2,11 +2,40 @@
 
 import React, { createContext, useContext, useReducer } from "react";
 import PropTypes from "prop-types";
-import { logInfo } from "@/utils/logging";
 
-const CartContext = createContext();
+const CartContext = createContext({
+  items: [],
+  addItemToCart: () => {},
+});
 
-export const useCart = () => useContext(CartContext);
+const shoppingCartReducer = (state, action) => {
+  if (action.type === "ADD_ITEM") {
+    const newItem = action.payload;
+    const updatedItems = [...state.items];
+
+    const existingCartItemIndex = updatedItems.findIndex(
+      (item) => item.variantId === newItem.variantId,
+    );
+
+    const existingCartItem = updatedItems[existingCartItemIndex];
+
+    if (existingCartItem) {
+      const updatedItem = {
+        ...existingCartItem,
+        quantity: existingCartItem.quantity + newItem.quantity,
+      };
+      updatedItems[existingCartItemIndex] = updatedItem;
+    } else {
+      updatedItems.push(newItem);
+    }
+    return {
+      ...state,
+      items: updatedItems,
+    };
+  }
+
+  return state;
+};
 
 export const CartProvider = ({ children }) => {
   const [shoppingCartState, shoppingCartDispatch] = useReducer(
@@ -27,11 +56,11 @@ export const CartProvider = ({ children }) => {
   };
 
   return (
-    <CartContext.Provider value={{ cartItems, addToCart }}>
-      {children}
-    </CartContext.Provider>
+    <CartContext.Provider value={contextValue}>{children}</CartContext.Provider>
   );
 };
+
+export const useCart = () => useContext(CartContext);
 
 CartProvider.propTypes = {
   children: PropTypes.node.isRequired,
