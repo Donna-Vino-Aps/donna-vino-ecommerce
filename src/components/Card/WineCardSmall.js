@@ -39,7 +39,7 @@ const WineCardSmall = ({
       </div>
 
       <div
-        className={`relative mt-5 flex h-[283px] w-[270px]  flex-col items-center justify-center ${responsiveStyles.image}`}
+        className={`relative flex h-[283px] w-[270px]  flex-col items-center justify-center ${responsiveStyles.image}`}
       >
         <img
           src={imageUrl}
@@ -88,15 +88,15 @@ const WineCardSmall = ({
             {title}
           </h3>
           <div className="flex flex-shrink-0 items-center  justify-between gap-2 ">
-            <div className=" flex items-center gap-1">
+            <div className="flex h-5 items-center gap-1">
               <p
-                className={`text-labelXLarge text-tertiary2-darker ${responsiveStyles.rating}`}
+                className={`text-labelXLarge  leading-none text-tertiary2-darker ${responsiveStyles.rating}`}
               >
                 {rating.toFixed(1)}
               </p>
               <img src="/icons/star-fill.svg" alt="Star" className="h-5 w-5" />
               <p
-                className={`text-labelLarge font-medium text-tertiary2-darker ${responsiveStyles.reviews}`}
+                className={`text-labelLarge font-medium leading-none text-tertiary2-darker ${responsiveStyles.reviews}`}
               >
                 ({reviews})
               </p>
@@ -110,30 +110,31 @@ const WineCardSmall = ({
         </div>
         <p
           data-testid="wine-price"
-          className={`flex-1 text-start text-titleMedium font-medium text-tertiary1-dark ${responsiveStyles.price}`}
+          className={`mt-1 flex-1 text-start text-titleMedium font-medium text-tertiary1-dark ${responsiveStyles.price}`}
         >
-          Kr. {price.toFixed(2)}
+          Kr. {price.toFixed(2).replace('.', ',')}
         </p>
-        <div className="flex flex-row items-end justify-between">
-          <p
-            data-testid="wineCard-viewDetails"
-            aria-label="Go to home"
-            className={`cursor-pointer text-bodySmall text-black underline ${responsiveStyles.details}`}
-          >
-            {translations["wineCard.viewDetails"]}
-          </p>
-          <Button
-            text={translations["wineCard.addToCart"]}
-            onClick={handleAddToCart}
-            size={variant === "pre-sale" && !isMobile ? "lg" : "md"}
-            width={variant === "pre-sale" && !isMobile ? "lg" : "md"}
-            ariaLabel="Add wine to cart"
-            testId="addToCart-button"
-            icon={"/icons/card/cart-white.svg"}
-            extraStyle={`px-4 py-2 text-nowrap text-white text-titleMedium font-medium ${responsiveStyles.button}`}
-          />
-        </div>
       </div>
+      <div className="flex w-full items-end justify-between">
+        <p
+          data-testid="wineCard-viewDetails"
+          aria-label="Go to home"
+          className={`cursor-pointer text-bodySmall text-black underline ${responsiveStyles.details}`}
+        >
+          {translations["wineCard.viewDetails"]}
+        </p>
+        <Button
+          text={translations["wineCard.addToCart"]}
+          onClick={handleAddToCart}
+          size={variant === "pre-sale" && !isMobile ? "lg" : "md"}
+          width={variant === "pre-sale" && !isMobile ? "lg" : "md"}
+          ariaLabel="Add wine to cart"
+          testId="addToCart-button"
+          icon={"/icons/card/cart-white.svg"}
+          extraStyle={`px-4 py-2 text-nowrap text-white text-titleMedium font-medium ${responsiveStyles.button}`}
+        />
+      </div>
+
     </section>
   );
 };
@@ -187,7 +188,7 @@ const stylesPreSale = {
   image: "sm:h-[360px] sm:w-[343px]",
   title: "sm:max-w-[240px] sm:text-headlineLarge",
   rating: "sm:text-headlineSmall",
-  reviews: "sm:text-titleMedium",
+  reviews: "sm:text-labelXLarge",
   price: "sm:font-semibold sm:text-titleLarge",
   details: "sm:text-bodyMedium",
   button: "sm:px-5 sm:py-3",

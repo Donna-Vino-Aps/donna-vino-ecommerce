@@ -83,7 +83,7 @@ const TopWinesSection = () => {
         </p>
       </div>
 
-      <div className="relative mx-auto h-auto w-full max-w-7xl overflow-visible px-4 md:h-[660px]">
+      <div className="relative mx-auto mt-[100px] h-auto w-full max-w-7xl overflow-visible px-4 sm:mt-0 md:h-[660px]">
         <Swiper
           slidesPerView={1}
           spaceBetween={5}
@@ -100,7 +100,7 @@ const TopWinesSection = () => {
           className="relative z-10 flex h-full w-full"
         >
           {wineData.map((wine, index) => (
-            <SwiperSlide key={index} className=" m-3  h-full overflow-visible ">
+            <SwiperSlide key={index} className="h-full overflow-visible ">
               <div className="group h-full overflow-visible transition-all duration-300">
                 <Link
                   href={wine.url}
