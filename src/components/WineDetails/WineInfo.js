@@ -11,10 +11,11 @@ import Button from "../Button/Button";
 import { useLanguage } from "@/context/LanguageContext";
 import { useCart } from "@/context/ShoppingCartContext";
 import Image from "next/image";
+import { logError, logInfo } from "@/utils/logging";
 
 const WineInfo = ({ wine }) => {
   const { translations } = useLanguage();
-  const { addToCart } = useCart();
+  const { addItemToCart } = useCart();
 
   const [selectedSize, setSelectedSize] = useState(() => {
     if (wine.variantMap.bottle) return "bottle";
@@ -24,6 +25,27 @@ const WineInfo = ({ wine }) => {
 
   const [preSale, setPreSale] = useState(!wine.inStock);
   const [selectedQuantity, setSelectedQuantity] = React.useState(1);
+
+  const handleAddToCart = () => {
+    const selectedVariant = wine.variantMap[selectedSize];
+
+    if (!selectedVariant) {
+      logError(
+        `Variant "${selectedSize}" not found for product "${wine.title}".`,
+      );
+      return;
+    }
+
+    const itemToAdd = {
+      variantId: selectedVariant.id,
+      variantTitle: selectedVariant.title,
+      price: selectedVariant.price.amount,
+      currencyCode: selectedVariant.price.currencyCode,
+      quantity: selectedQuantity,
+    };
+    logInfo("Adding item to cart:", itemToAdd);
+    addItemToCart(itemToAdd);
+  };
 
   return (
     <article className="relative flex flex-col items-center justify-center gap-6 md:gap-8 lg:flex-row lg:gap-12">
@@ -93,7 +115,7 @@ const WineInfo = ({ wine }) => {
         )}
         {preSale === false ? (
           <Button
-            onClick={() => addToCart(wine)}
+            onClick={handleAddToCart}
             text={translations["wine-details.addtocart"]}
             variant="rounded"
             border="primary"
@@ -107,7 +129,7 @@ const WineInfo = ({ wine }) => {
           />
         ) : (
           <Button
-            onClick={() => addToCart(wine)}
+            onClick={handleAddToCart}
             text={translations["wine-details.addpreorder"]}
             variant="rounded"
             border=""
