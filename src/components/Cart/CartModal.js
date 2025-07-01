@@ -80,7 +80,7 @@ const CartModal = ({
         </div>
         {cartItems.length > 0 ? (
           <section>
-            <div className="max-h-[35vh] flex-1 flex-col overflow-y-auto overscroll-contain">
+            <div className="max-h-[32vh] flex-1 flex-col overflow-y-auto overscroll-contain md:max-h-[35vh]">
               {cartItems.map((item) => (
                 <div className="my-1" key={item.id}>
                   <ModalCartItem
