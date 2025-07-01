@@ -66,7 +66,7 @@ const CartModal = ({
     <div className="fixed inset-0 z-40 flex items-start justify-end">
       <div className="relative top-24 z-[60] mx-auto w-[22.5rem] rounded-b-lg bg-white p-6 shadow-lg md:top-36 md:mx-2 md:w-[26.25rem] ">
         <div className="mb-2 flex items-center justify-between">
-          <h2 className="mb-4 text-headlineMedium font-normal md:text-headlineLarge">
+          <h2 className="mb-2 text-headlineMedium font-normal md:mb-4 md:text-headlineLarge">
             {translations["cart.title"]}
           </h2>
           <Image
@@ -95,7 +95,7 @@ const CartModal = ({
             </div>
             <div className="sticky bottom-0">
               <hr className="mt-1 border-t border-tertiary2-darker" />
-              <div className="mt-6 flex items-center justify-between">
+              <div className="mt-3 flex items-center justify-between md:mt-6">
                 <h3 className="text-titleLarge font-normal">
                   {translations["cart.subtotal"]}
                 </h3>
