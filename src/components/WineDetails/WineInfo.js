@@ -93,6 +93,7 @@ const WineInfo = ({ wine }) => {
         )}
         {preSale === false ? (
           <Button
+            onClick={() => addToCart(wine)}
             text={translations["wine-details.addtocart"]}
             variant="rounded"
             border="primary"
