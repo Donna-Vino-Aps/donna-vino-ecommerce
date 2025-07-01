@@ -143,18 +143,21 @@ const CartModal = ({
                     width="106"
                     height="21"
                     alt="MobilePay payment option"
+                    className="h-[21px] w-[106px]"
                   />
                   <Image
                     src="/icons/visa-logo.svg"
                     width="49"
                     height="15"
                     alt="Visa payment option"
+                    className="h-[15px] w-[49px]"
                   />
                   <Image
                     src="/icons/mastercard-logo.svg"
                     width="27"
                     height="16"
                     alt="Mastercard payment option"
+                    className="h-[16px] w-[27px]"
                   />
                 </div>
               </div>
