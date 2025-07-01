@@ -8,6 +8,7 @@ const ModalCartItem = ({
   removeCartItem,
   setTotalQuantityInCart,
   updateCartItemQuantity,
+  nrOfCartItems,
 }) => {
   const [selectedQuantity, setSelectedQuantity] = React.useState(
     item.quantitySelected,
@@ -36,7 +37,9 @@ const ModalCartItem = ({
           />
         </div>
       </div>
-      <div className="relative right-4 mt-3 flex flex-col justify-center gap-2">
+      <div
+        className={`${nrOfCartItems > 2 ? "relative right-4" : ""} mt-3 flex flex-col justify-center gap-2`}
+      >
         <button
           onClick={() => removeCartItem(item.id)}
           className="flex justify-end"
@@ -71,4 +74,5 @@ ModalCartItem.propTypes = {
   removeCartItem: PropTypes.func.isRequired,
   setTotalQuantityInCart: PropTypes.func.isRequired,
   updateCartItemQuantity: PropTypes.func.isRequired,
+  nrOfCartItems: PropTypes.number.isRequired,
 };

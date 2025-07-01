@@ -14,6 +14,8 @@ const CartModal = ({
 }) => {
   const { translations } = useLanguage();
 
+  const nrOfCartItems = cartItems.length;
+
   // Initialize total price in cart
   const [totalPrice, setTotalPrice] = useState(
     cartItems.reduce(
@@ -83,6 +85,7 @@ const CartModal = ({
                 <div className="my-1" key={item.id}>
                   <ModalCartItem
                     item={item}
+                    nrOfCartItems={nrOfCartItems}
                     updateCartItemQuantity={updateCartItemQuantity}
                     removeCartItem={removeCartItem}
                     setTotalQuantityInCart={setTotalQuantityInCart}
@@ -96,7 +99,11 @@ const CartModal = ({
                 <h3 className="text-titleLarge font-normal">
                   {translations["cart.subtotal"]}
                 </h3>
-                <h3 className="text-titleLarge font-normal">{totalPrice} kr</h3>
+                <h3
+                  className={`text-titleLarge font-normal ${nrOfCartItems > 2 ? "relative right-2" : ""}`}
+                >
+                  {totalPrice} kr
+                </h3>
               </div>
               <div className="mt-3 text-labelSmall font-medium text-tertiary2-darker">
                 <p>{translations["cart.info1"]}</p>
@@ -135,19 +142,22 @@ const CartModal = ({
                     src="/icons/mobilepay-logo.svg"
                     width="106"
                     height="21"
-                    alt="Visa payment option"
+                    alt="MobilePay payment option"
+                    className="h-[106px] w-[21px]"
                   />
                   <Image
                     src="/icons/visa-logo.svg"
                     width="49"
                     height="15"
                     alt="Visa payment option"
+                    className="h-[49px] w-[15px]"
                   />
                   <Image
                     src="/icons/mastercard-logo.svg"
                     width="27"
                     height="16"
                     alt="Mastercard payment option"
+                    className="h-[27px] w-[16px]"
                   />
                 </div>
               </div>
