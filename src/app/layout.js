@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useEffect } from "react";
 import PropTypes from "prop-types";
 import "./globals.css";
 import Footer from "../components/Footer/Footer.js";
@@ -14,6 +14,16 @@ import { PreSaleWinesProvider } from "@/context/PreSaleWinesContext";
 import { CartProvider } from "@/context/ShoppingCartContext";
 
 const RootLayout = ({ children }) => {
+  useEffect(() => {
+    import("webfontloader").then((WebFont) => {
+      WebFont.load({
+        google: {
+          families: ["Barlow:300,400,500,600,700", "Roboto:300,700"],
+        },
+      });
+    });
+  }, []);
+
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>
       <html lang="en">
