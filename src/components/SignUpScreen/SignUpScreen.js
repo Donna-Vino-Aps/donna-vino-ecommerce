@@ -10,6 +10,7 @@ import dayjs from "dayjs";
 import { createSignUpSchema } from "@/validation/signUpSchema";
 import { useRouter } from "next/navigation";
 import { useAPI } from "@/context/ApiProvider";
+import Image from "next/image";
 
 const SignUpScreen = () => {
   const { translations } = useLanguage();
@@ -67,9 +68,11 @@ const SignUpScreen = () => {
     <section className="my-4 bg-primary-light bg-dots-sm bg-dots-size-sm sm:bg-dots-lg sm:bg-dots-size-lg">
       <div className="flex w-full flex-grow flex-col items-center justify-center p-2">
         <div className="my-8 w-full max-w-[47.75rem] items-center justify-center rounded-2xl bg-tertiary2-light p-4 shadow-lg sm:my-20 sm:p-8">
-          <img
+          <Image
             src="/images/donna-vino-logo-transparent.png"
             alt="Donna Vino logo"
+            width={100}
+            height={69}
             className="mx-auto my-2 h-[4.31rem] w-[6.25rem]"
           />
           <h2
