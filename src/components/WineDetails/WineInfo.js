@@ -9,7 +9,7 @@ import { SizeSelector } from "./SizeSelector";
 import { ProductDetails } from "./ProductDetails";
 import Button from "../Button/Button";
 import { useLanguage } from "@/context/LanguageContext";
-import { useCart } from "@/context/CartContext";
+import { useCart } from "@/context/ShoppingCartContext";
 import Image from "next/image";
 
 const WineInfo = ({ wine }) => {

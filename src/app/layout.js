@@ -11,7 +11,7 @@ import { UserContextProvider } from "@/context/UserContext";
 import { SessionProvider } from "next-auth/react";
 import APIProvider from "@/context/ApiProvider";
 import { PreSaleWinesProvider } from "@/context/PreSaleWinesContext";
-import { CartProvider } from "@/context/CartContext";
+import { CartProvider } from "@/context/ShoppingCartContext";
 
 const RootLayout = ({ children }) => {
   return (

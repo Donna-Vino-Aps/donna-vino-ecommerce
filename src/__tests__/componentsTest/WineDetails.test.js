@@ -3,7 +3,7 @@ import { render, screen } from "@testing-library/react";
 import WineInfo from "../../components/WineDetails/WineInfo";
 import { normalizeWineData } from "../../utils/wineUtils";
 import LanguageProvider from "../../context/LanguageContext";
-import { CartProvider } from "../../context/CartContext";
+import { CartProvider } from "../../context/ShoppingCartContext";
 
 // Mock next/image as a simple img tag
 jest.mock("next/image", () => (props) => {
