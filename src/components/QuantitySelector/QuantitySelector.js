@@ -51,7 +51,7 @@ export const QuantitySelector = ({
       <button
         onClick={handleDecrement}
         disabled={isDecrementDisabled}
-        className="flex items-center justify-center border-r border-tertiary1-light disabled:opacity-50"
+        className="flex items-center justify-center border-tertiary1-light disabled:opacity-50"
         aria-label="Decrease quantity"
       >
         <Image
@@ -70,7 +70,7 @@ export const QuantitySelector = ({
       <button
         onClick={handleIncrement}
         disabled={isIncrementDisabled}
-        className="flex items-center justify-center border-l border-tertiary1-light disabled:opacity-50"
+        className="flex items-center justify-center border-tertiary1-light disabled:opacity-50"
         aria-label="Increase quantity"
       >
         <Image

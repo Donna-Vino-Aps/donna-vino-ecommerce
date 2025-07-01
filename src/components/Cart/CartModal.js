@@ -93,7 +93,7 @@ const CartModal = ({
                 </div>
               ))}
             </div>
-            <div className="sticky bottom-0">
+            <div className="bottom-0">
               <hr className="mt-1 border-t border-tertiary2-darker" />
               <div className="mt-3 flex items-center justify-between md:mt-6">
                 <h3 className="text-titleLarge font-normal">
@@ -117,7 +117,7 @@ const CartModal = ({
                 color="primary"
                 size="md"
                 width="full"
-                extraStyle="font-medium my-3 md:my-5"
+                extraStyle="font-medium my-4 md:my-5"
                 ariaLabel="Go to Checkout Button"
                 testId="go-to-checkout-button"
               />
