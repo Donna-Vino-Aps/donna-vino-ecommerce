@@ -66,7 +66,7 @@ const CartModal = ({
     <div className="fixed inset-0 z-40 flex items-start justify-end">
       <div className="relative top-24 z-[60] mx-auto w-[22.5rem] rounded-b-lg bg-white p-6 shadow-lg md:top-36 md:mx-2 md:w-[26.25rem] ">
         <div className="mb-2 flex items-center justify-between">
-          <h2 className="mb-4 text-headlineLarge font-normal">
+          <h2 className="mb-4 text-headlineMedium font-normal md:text-headlineLarge">
             {translations["cart.title"]}
           </h2>
           <Image
@@ -80,7 +80,7 @@ const CartModal = ({
         </div>
         {cartItems.length > 0 ? (
           <section>
-            <div className="max-h-[35vh] flex-1 flex-col overflow-y-auto">
+            <div className="max-h-[35vh] flex-1 flex-col overflow-y-auto overscroll-contain">
               {cartItems.map((item) => (
                 <div className="my-1" key={item.id}>
                   <ModalCartItem
@@ -117,7 +117,7 @@ const CartModal = ({
                 color="primary"
                 size="md"
                 width="full"
-                extraStyle="font-medium my-5"
+                extraStyle="font-medium my-3 md:my-5"
                 ariaLabel="Go to Checkout Button"
                 testId="go-to-checkout-button"
               />
@@ -133,7 +133,7 @@ const CartModal = ({
                 testId="continue-shopping-button"
                 onClick={onClose}
               />
-              <div className="mb-2 mt-5 flex flex-col items-end gap-4 px-1">
+              <div className="mb-1 mt-4 flex flex-col items-end gap-4 px-1 md:mb-2 md:mt-5">
                 <p className="text-titleMedium font-medium text-tertiary2-darker">
                   {translations["cart.payment"]}
                 </p>
