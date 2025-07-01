@@ -6,6 +6,8 @@ import { usePreSaleWines } from "@/context/PreSaleWinesContext";
 import WineCardSmall from "@/components/Card/WineCardSmall";
 import Spinner from "@/components/UI/Spinner";
 import ErrorMessage from "@/components/UI/ErrorMessage";
+import { getWineUrl } from "@/utils/wineUtils";
+import Link from "next/link";
 
 const WinesPage = () => {
   const { wines, isLoading, error } = usePreSaleWines();
@@ -34,7 +36,6 @@ const WinesPage = () => {
       </div>
     );
   }
-
   return (
     <>
       <SEO
@@ -44,19 +45,18 @@ const WinesPage = () => {
       <div className="container mx-auto flex items-center justify-center px-4 py-8">
         <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
           {wines.map((wine) => {
-            const defaultVariant = wine.variants?.find(
-              (variant) => variant.isDefault,
-            );
-            const price = defaultVariant?.price?.amount;
-            const primaryImage = wine.images?.[0];
+            const price = wine.bottlePrice;
+            const primaryImage = wine.imageUrl;
 
             return (
-              <WineCardSmall
-                key={wine.id}
-                title={wine.title}
-                price={price}
-                imageUrl={primaryImage.url}
-              />
+              <Link href={getWineUrl(wine)} key={wine.id}>
+                <WineCardSmall
+                  key={wine.id}
+                  title={wine.title}
+                  price={price}
+                  imageUrl={primaryImage}
+                />
+              </Link>
             );
           })}
         </div>

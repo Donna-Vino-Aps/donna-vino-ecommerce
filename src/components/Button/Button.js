@@ -32,14 +32,14 @@ const COLORS = {
     "bg-transparent hover:bg-primary-hover text-primary-active_normal",
   secondaryDark: "bg-secondary-darker hover:bg-secondary-hover_dark text-white",
   secondary:
-    "bg-secondary-normal hover:bg-secondary-hover_normal text-white font-barlow font-semibold",
+    "bg-secondary-normal hover:bg-secondary-hover_normal text-white font-barlow",
   disabled:
     "bg-primary-disabled hover:bg-primary-disabled text-primary-disabled_dark cursor-not-allowed",
 };
 
 const VARIANT = {
   outline: "border-2",
-  rounded: "rounded-lg",
+  rounded: "rounded-md",
   solid: "rounded-[0rem]",
 };
 
@@ -71,8 +71,8 @@ const Button = ({
     WIDTHS[width],
     VARIANT[variant],
     BORDERS[border],
-    extraStyle,
     disabled || isLoading ? COLORS.disabled : COLORS[color],
+    extraStyle,
   );
   const buttonContent = (
     <button

@@ -1,6 +1,7 @@
 import Link from "next/link";
 import React from "react";
 import PropTypes from "prop-types";
+import Image from "next/image";
 
 export default function Card({
   src,
@@ -13,7 +14,16 @@ export default function Card({
   return (
     <div className="flex h-full w-full flex-col justify-between rounded-2xl border border-primary-active bg-white px-2 pb-4 pt-2 md:px-4 md:pb-6 md:pt-4">
       <div className="flex items-center gap-4 px-4">
-        <img className="size-8 md:size-12" src={src} alt="cardImg" />
+        <div className="relative size-8 md:size-12">
+          <Image
+            src={src}
+            alt="cardImg"
+            fill
+            className="object-contain"
+            sizes="(max-width: 768px) 2rem, 3rem"
+            priority
+          />
+        </div>
         <p className="py-2 text-titleMedium md:text-headlineSmall">{title}</p>
       </div>
       <div className="my-4 flex flex-col gap-4 px-4 text-bodySmall text-tertiary1-darker md:my-8 md:text-bodyLarge">
