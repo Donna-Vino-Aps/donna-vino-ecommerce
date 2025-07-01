@@ -112,7 +112,7 @@ const WineCardSmall = ({
           data-testid="wine-price"
           className={`mt-1 flex-1 text-start text-titleMedium font-medium text-tertiary1-dark ${responsiveStyles.price}`}
         >
-          Kr. {price.toFixed(2).replace('.', ',')}
+          Kr. {price.toFixed(2).replace(".", ",")}
         </p>
       </div>
       <div className="flex w-full items-end justify-between">
@@ -134,7 +134,6 @@ const WineCardSmall = ({
           extraStyle={`px-4 py-2 text-nowrap text-white text-titleMedium font-medium ${responsiveStyles.button}`}
         />
       </div>
-
     </section>
   );
 };
