@@ -3,34 +3,45 @@ import React from "react";
 import PropTypes from "prop-types";
 import Image from "next/image";
 
-export const ItemQuantitySelector = ({
-  item,
-  quantityAvailable,
+export const QuantitySelector = ({
+  item = null,
+  quantityAvailable = 999,
   selectedQuantity,
   setSelectedQuantity,
-  setTotalQuantityInCart,
-  updateCartItemQuantity,
-  preSale,
+  setTotalQuantityInCart = null,
+  updateCartItemQuantity = null,
+  preSale = false,
   min = 1,
-  max = preSale ? 999 : quantityAvailable,
+  max,
 }) => {
+  const resolvedMax = max ?? (preSale ? 999 : quantityAvailable);
   const isDecrementDisabled = selectedQuantity <= min;
-  const isIncrementDisabled = selectedQuantity >= max;
+  const isIncrementDisabled = selectedQuantity >= resolvedMax;
 
   const handleIncrement = () => {
-    if (!preSale && selectedQuantity >= max) {
-      return;
+    if (selectedQuantity >= resolvedMax) return;
+
+    setSelectedQuantity((prev) => prev + 1);
+
+    if (item && updateCartItemQuantity) {
+      updateCartItemQuantity(item.id, +1);
     }
-    setSelectedQuantity(selectedQuantity + 1);
-    updateCartItemQuantity(item.id, +1);
-    setTotalQuantityInCart((prev) => prev + 1);
+
+    if (setTotalQuantityInCart) {
+      setTotalQuantityInCart((prev) => prev + 1);
+    }
   };
 
   const handleDecrement = () => {
-    // Ensure quantity does not go below the minimum
-    if (selectedQuantity > min) {
-      setSelectedQuantity(selectedQuantity - 1);
+    if (selectedQuantity <= min) return;
+
+    setSelectedQuantity((prev) => prev - 1);
+
+    if (item && updateCartItemQuantity) {
       updateCartItemQuantity(item.id, -1);
+    }
+
+    if (setTotalQuantityInCart) {
       setTotalQuantityInCart((prev) => prev - 1);
     }
   };
@@ -74,18 +85,18 @@ export const ItemQuantitySelector = ({
   );
 };
 
-ItemQuantitySelector.propTypes = {
+QuantitySelector.propTypes = {
   item: PropTypes.shape({
     id: PropTypes.number.isRequired,
-    name: PropTypes.string.isRequired,
-    price: PropTypes.number.isRequired,
-    image: PropTypes.string.isRequired,
-  }).isRequired,
+    name: PropTypes.string,
+    price: PropTypes.number,
+    image: PropTypes.string,
+  }),
   quantityAvailable: PropTypes.number,
   selectedQuantity: PropTypes.number.isRequired,
   setSelectedQuantity: PropTypes.func.isRequired,
-  setTotalQuantityInCart: PropTypes.func.isRequired,
-  updateCartItemQuantity: PropTypes.func.isRequired,
+  setTotalQuantityInCart: PropTypes.func,
+  updateCartItemQuantity: PropTypes.func,
   preSale: PropTypes.bool,
   min: PropTypes.number,
   max: PropTypes.number,

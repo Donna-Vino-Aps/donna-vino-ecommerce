@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import Image from "next/image";
-import { ItemQuantitySelector } from "./ItemQuantitySelector";
+import { QuantitySelector } from "../QuantitySelector/QuantitySelector";
 
 const ModalCartItem = ({
   item,
@@ -26,7 +26,7 @@ const ModalCartItem = ({
           <h3 className="text-titleSmall font-medium md:text-titleMedium">
             {item.name}
           </h3>
-          <ItemQuantitySelector
+          <QuantitySelector
             item={item}
             quantityAvailable={item.quantityAvailable}
             selectedQuantity={selectedQuantity}
