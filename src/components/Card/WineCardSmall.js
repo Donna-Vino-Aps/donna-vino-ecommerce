@@ -45,7 +45,7 @@ const WineCardSmall = ({
           <img
             src={imageUrl}
             alt={title}
-            className="mx-auto block h-auto w-[100%] object-contain"
+            className="h-full w-full object-contain"
             data-testid="wine-image"
           />
 

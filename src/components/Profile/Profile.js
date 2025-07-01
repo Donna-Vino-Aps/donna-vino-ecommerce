@@ -22,6 +22,7 @@ const Profile = () => {
         <img
           src="/icons/Edit profile pic.svg"
           className="relative bottom-[2.125rem] left-[6.8rem] h-6 w-6"
+          alt="Edit profile picture icon."
         />
       </div>
       <h2 className="text-displaySmall">Davide Rossi</h2>
@@ -144,7 +145,9 @@ const Profile = () => {
                 }
                 onClick={handleSubmit}
                 icon="/icons/pencil.svg"
-                variant="greenEdit"
+                color="secondary"
+                width="full"
+                extraStyle="py-3 min-h-[3.125rem]"
                 disabled={isSubmitting}
                 data-testid="edit-button"
                 aria-label="Edit Profile Page"

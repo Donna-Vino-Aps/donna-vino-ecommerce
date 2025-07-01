@@ -1,6 +1,7 @@
 import React from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation } from "swiper/modules";
+import Link from "next/link";
 import "swiper/css";
 import "swiper/css/navigation";
 import "../../styles/slider/buttons.css";
@@ -10,45 +11,59 @@ import WineCardSmall from "@/components/Card/WineCardSmall";
 const wineData = [
   {
     title: "Muga Reserva",
+    slug: "muga-reserva",
     price: 130.0,
     imageUrl: "/images/exampleImageWine.png",
     isNew: true,
+    url: "/wines/muga-reserva",
   },
   {
     title: "Barolo Terlo",
+    slug: "barolo-terlo",
     price: 121.0,
     imageUrl: "/images/exampleImageWine.png",
     isNew: true,
+    url: "/wines/barolo-terlo",
   },
   {
     title: "Pinot Noir",
+    slug: "pinot-noir",
     price: 180.0,
     imageUrl: "/images/exampleImageWine.png",
     isNew: false,
+    url: "/wines/pinot-noir",
   },
   {
     title: "Vega Cicilia",
+    slug: "vega-cicilia",
     price: 210.0,
     imageUrl: "/images/exampleImageWine.png",
     isNew: false,
+    url: "/wines/vega-cicilia",
   },
   {
     title: "Saviognese Merlot",
+    slug: "saviognese-merlot",
     price: 210.0,
     imageUrl: "/images/exampleImageWine.png",
     isNew: true,
+    url: "/wines/saviognese-merlot",
   },
   {
     title: "Pinot Grigio",
+    slug: "pinot-grigio",
     price: 210.0,
     imageUrl: "/images/exampleImageWine.png",
     isNew: false,
+    url: "/wines/pinot-grigio",
   },
   {
     title: "Marques de Murrieta",
+    slug: "marques-de-murrieta",
     price: 210.0,
     imageUrl: "/images/exampleImageWine.png",
     isNew: false,
+    url: "/wines/marques-de-murrieta",
   },
 ];
 
@@ -90,11 +105,13 @@ const TopWinesSection = () => {
               className="flex items-center justify-center overflow-visible px-3"
             >
               <div className="group flex items-center justify-center overflow-visible px-5 py-5 transition-all duration-300">
-                <WineCardSmall
-                  data-testid="wine-card"
-                  {...wine}
-                  className="shadow-lg transition-transform duration-300 group-hover:scale-105 group-hover:overflow-visible"
-                />
+                <Link href={wine.url} className="w-full">
+                  <WineCardSmall
+                    data-testid="wine-card"
+                    {...wine}
+                    className="shadow-lg transition-transform duration-300 group-hover:scale-105 group-hover:overflow-visible"
+                  />
+                </Link>
               </div>
             </SwiperSlide>
           ))}

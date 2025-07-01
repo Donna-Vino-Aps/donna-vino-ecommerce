@@ -49,7 +49,11 @@ const CalendarMonthPicker = () => {
         aria-label="Previous Month"
         className="relative left-6 md:left-10 lg:left-20"
       >
-        <img src="/icons/arrow-left-small.svg" className="h-4 w-4" />
+        <img
+          src="/icons/arrow-left-small.svg"
+          alt="Left arrow on calendar, go to previous month."
+          className="h-4 w-4"
+        />
       </button>
       {months[currentMonth - 1]} {currentYear}
       <button
@@ -57,7 +61,11 @@ const CalendarMonthPicker = () => {
         aria-label="Next Month"
         className="relative right-6 md:right-10 lg:right-20"
       >
-        <img src="/icons/arrow-right-small.svg" className="h-4 w-4" />
+        <img
+          src="/icons/arrow-right-small.svg"
+          alt="Right arrow on calendar, go to next month."
+          className="h-4 w-4"
+        />
       </button>
     </div>
   );
