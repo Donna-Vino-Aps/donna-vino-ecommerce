@@ -39,7 +39,7 @@ const WineInfo = ({ wine }) => {
     const itemToAdd = {
       title: wine.title,
       variantId: selectedVariant.id,
-      variantTitle: selectedVariant.title,
+      size: selectedSize,
       price: selectedVariant.price.amount,
       currencyCode: selectedVariant.price.currencyCode,
       quantity: selectedQuantity,

@@ -3,9 +3,13 @@ import PropTypes from "prop-types";
 import Image from "next/image";
 import { QuantitySelector } from "../QuantitySelector/QuantitySelector";
 import { useCart } from "@/context/ShoppingCartContext";
+import { useLanguage } from "@/context/LanguageContext";
 
 const ModalCartItem = ({ item }) => {
   const { items, removeItemFromCart, updateItemQuantity } = useCart();
+  const { translations } = useLanguage();
+
+  const variantText = translations[`cart.${item.size}`] || item.size;
 
   return (
     <div className="mb-4 flex items-center justify-between font-barlow">
@@ -17,7 +21,7 @@ const ModalCartItem = ({ item }) => {
         />
         <div className="ml-5 mt-1 flex flex-col gap-1">
           <h3 className="text-titleSmall font-medium md:text-titleMedium">
-            {`${item.title} - ${item.variantTitle}`}
+            {`${item.title} - ${variantText}`}
           </h3>
           <QuantitySelector
             selectedQuantity={item.quantity}
@@ -56,7 +60,7 @@ ModalCartItem.propTypes = {
   item: PropTypes.shape({
     variantId: PropTypes.string.isRequired,
     title: PropTypes.string.isRequired,
-    variantTitle: PropTypes.string.isRequired,
+    size: PropTypes.string.isRequired,
     price: PropTypes.number.isRequired,
     imageUrl: PropTypes.string.isRequired,
     quantity: PropTypes.number.isRequired,
