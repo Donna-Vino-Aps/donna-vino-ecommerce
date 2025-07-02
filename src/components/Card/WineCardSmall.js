@@ -5,16 +5,7 @@ import Button from "../Button/Button.js";
 import { useLanguage } from "@/context/LanguageContext";
 import useIsMobile from "@/hooks/useIsMobile.js";
 
-const WineCardSmall = ({
-  title,
-  price,
-  imageUrl,
-  isNew,
-  buttons,
-  rating,
-  reviews,
-  variant,
-}) => {
+const WineCardSmall = ({ title, price, imageUrl, isNew, variant }) => {
   const { translations } = useLanguage();
   const responsiveStyles = variant === "pre-sale" ? stylesPreSale : {};
   const isMobile = useIsMobile();
@@ -47,7 +38,8 @@ const WineCardSmall = ({
           className="h-full w-full object-contain"
           data-testid="wine-image"
         />
-
+        {/* overlay with buttons */}
+        {/*
         <div
           data-testid="wine-buttons"
           className={`absolute bottom-[100px] left-1/2 flex -translate-x-1/2 gap-3 opacity-0 transition-opacity duration-300 group-hover:opacity-100 ${responsiveStyles.buttons}`}
@@ -77,16 +69,18 @@ const WineCardSmall = ({
             </div>
           ))}
         </div>
+*/}
       </div>
-
       <div className="flex w-full flex-grow flex-col ">
         <div className="flex items-center justify-between self-stretch">
           <h3
             data-testid="wine-title"
-            className={`max-w-[200px] flex-1 overflow-hidden text-ellipsis whitespace-nowrap text-start text-headlineSmall text-tertiary1-dark ${responsiveStyles.title}`}
+            className={`flex-1 overflow-hidden text-ellipsis whitespace-nowrap text-start text-headlineSmall text-tertiary1-dark ${responsiveStyles.title}`}
           >
             {title}
           </h3>
+          {/* rating and favorite */}
+          {/*
           <div className="flex flex-shrink-0 items-center  justify-between gap-2 ">
             <div className="flex h-5 items-center gap-1">
               <p
@@ -107,6 +101,7 @@ const WineCardSmall = ({
               alt="heart"
             />
           </div>
+*/}
         </div>
         <p
           data-testid="wine-price"
@@ -185,7 +180,7 @@ WineCardSmall.propTypes = {
 const stylesPreSale = {
   section: "sm:w-[384px] sm:p-5",
   image: "sm:h-[360px] sm:w-[343px]",
-  title: "sm:max-w-[240px] sm:text-headlineLarge",
+  title: "sm:text-headlineLarge",
   rating: "sm:text-headlineSmall",
   reviews: "sm:text-labelXLarge",
   price: "sm:font-semibold sm:text-titleLarge",
