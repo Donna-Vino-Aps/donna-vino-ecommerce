@@ -16,26 +16,24 @@ const shoppingCartReducer = (state, action) => {
   switch (action.type) {
     case "ADD_ITEM": {
       const newItem = action.payload;
-      const updatedItems = [...state.items];
-
-      const existingCartItemIndex = updatedItems.findIndex(
+      const existingItem = state.items.find(
         (item) => item.variantId === newItem.variantId,
       );
 
-      const existingCartItem = updatedItems[existingCartItemIndex];
-
-      if (existingCartItem) {
-        const updatedItem = {
-          ...existingCartItem,
-          quantity: existingCartItem.quantity + newItem.quantity,
+      if (existingItem) {
+        return {
+          ...state,
+          items: state.items.map((item) =>
+            item.variantId === newItem.variantId
+              ? { ...item, quantity: item.quantity + newItem.quantity }
+              : item,
+          ),
         };
-        updatedItems[existingCartItemIndex] = updatedItem;
-      } else {
-        updatedItems.push(newItem);
       }
+
       return {
         ...state,
-        items: updatedItems,
+        items: [...state.items, newItem],
       };
     }
 
