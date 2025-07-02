@@ -42,11 +42,7 @@ const CartModal = ({ onClose }) => {
             <div className="max-h-[27vh] flex-1 flex-col overflow-y-auto overscroll-contain md:max-h-[29vh]">
               {cartItems.map((item) => (
                 <div className="my-1" key={item.variantId}>
-                  <ModalCartItem
-                    item={item}
-                    updateCartItemQuantity={updateItemQuantity}
-                    removeCartItem={removeItemFromCart}
-                  />
+                  <ModalCartItem item={item} />
                 </div>
               ))}
             </div>

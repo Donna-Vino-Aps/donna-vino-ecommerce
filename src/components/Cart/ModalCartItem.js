@@ -21,12 +21,10 @@ const ModalCartItem = ({ item }) => {
           </h3>
           <QuantitySelector
             item={item}
-            quantityAvailable={item.quantityAvailable || 999}
             selectedQuantity={item.quantity}
             setSelectedQuantity={(newQuantity) =>
               updateItemQuantity(item.variantId, newQuantity)
             }
-            preSale={item.preSale}
           />
         </div>
       </div>
@@ -60,8 +58,6 @@ ModalCartItem.propTypes = {
     variantTitle: PropTypes.string.isRequired,
     price: PropTypes.number.isRequired,
     imageUrl: PropTypes.string.isRequired,
-    quantityAvailable: PropTypes.number,
     quantity: PropTypes.number.isRequired,
-    preSale: PropTypes.bool,
   }).isRequired,
 };
