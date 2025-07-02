@@ -1,7 +1,15 @@
-import React from "react";
+import React, { useMemo } from "react";
 import PropTypes from "prop-types";
+import { useCart } from "@/context/ShoppingCartContext";
 
-const ShoppingCart = ({ totalQuantityInCart, onClick }) => {
+const ShoppingCart = ({ onClick }) => {
+  const { items } = useCart();
+
+  const totalQuantityInCart = useMemo(
+    () => items.reduce((sum, item) => sum + item.quantity, 0),
+    [items],
+  );
+
   return (
     <div
       className="relative flex cursor-pointer items-center justify-center"
@@ -26,6 +34,5 @@ const ShoppingCart = ({ totalQuantityInCart, onClick }) => {
 export default ShoppingCart;
 
 ShoppingCart.propTypes = {
-  totalQuantityInCart: PropTypes.number.isRequired,
   onClick: PropTypes.func.isRequired,
 };
