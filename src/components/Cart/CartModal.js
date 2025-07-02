@@ -12,12 +12,7 @@ import { logError } from "@/utils/logging.js";
 
 const CartModal = ({ onClose }) => {
   const { translations } = useLanguage();
-  const { items: cartItems } = useCart();
-
-  const totalPrice = cartItems.reduce(
-    (acc, item) => acc + item.price * item.quantity,
-    0,
-  );
+  const { items: cartItems, totalPrice } = useCart();
 
   const handleCheckout = () => {
     try {

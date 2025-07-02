@@ -1,22 +1,17 @@
 "use client";
 
-import React, { useMemo, useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import { useCart } from "@/context/ShoppingCartContext";
 
 const ShoppingCart = ({ onClick }) => {
-  const { items } = useCart();
+  const { cartCount } = useCart();
   const [isClient, setIsClient] = useState(false);
 
   // Only show dynamic content after client-side hydration is complete
   useEffect(() => {
     setIsClient(true);
   }, []);
-
-  const totalQuantityInCart = useMemo(
-    () => items.reduce((sum, item) => sum + item.quantity, 0),
-    [items],
-  );
 
   return (
     <div
@@ -25,17 +20,15 @@ const ShoppingCart = ({ onClick }) => {
     >
       <img
         src={
-          isClient && totalQuantityInCart > 0
-            ? "/icons/cart-full.svg"
-            : "/icons/cart.svg"
+          isClient && cartCount > 0 ? "/icons/cart-full.svg" : "/icons/cart.svg"
         }
         alt="Cart icon"
         className="h-6 w-6 object-contain hover:opacity-85"
       />
       <span
-        className={`relative -top-5 right-0 flex items-center justify-center rounded-full ${isClient && totalQuantityInCart > 0 ? "bg-primary-normal" : "bg-tertiary1-dark"} h-4 w-4 px-1 text-labelSmall text-tertiary2-light`}
+        className={`relative -top-5 right-0 flex items-center justify-center rounded-full ${isClient && cartCount > 0 ? "bg-primary-normal" : "bg-tertiary1-dark"} h-4 w-4 px-1 text-labelSmall text-tertiary2-light`}
       >
-        {isClient ? totalQuantityInCart || 0 : 0}
+        {isClient ? cartCount || 0 : 0}
       </span>
     </div>
   );
