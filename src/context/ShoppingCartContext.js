@@ -1,7 +1,9 @@
 "use client";
 
-import React, { createContext, useContext, useReducer } from "react";
+import React, { createContext, useContext, useReducer, useEffect } from "react";
 import PropTypes from "prop-types";
+import { getLocalItem, setLocalItem, LOCAL_KEYS } from "@/utils/localStorage";
+import { logError } from "@/utils/logging";
 
 const CartContext = createContext({
   items: [],
@@ -36,6 +38,7 @@ const shoppingCartReducer = (state, action) => {
         items: updatedItems,
       };
     }
+
     case "UPDATE_ITEM_QUANTITY": {
       const updatedItems = [...state.items];
       const updatedItemIndex = updatedItems.findIndex(
@@ -49,6 +52,7 @@ const shoppingCartReducer = (state, action) => {
         items: updatedItems,
       };
     }
+
     case "REMOVE_ITEM": {
       const updatedItems = [...state.items];
       const updatedItemIndex = updatedItems.findIndex(
@@ -67,11 +71,26 @@ const shoppingCartReducer = (state, action) => {
   }
 };
 
+const loadCartFromLocalStorage = () => {
+  try {
+    const savedItems = getLocalItem(LOCAL_KEYS.SHOPPING_CART, true);
+    return { items: savedItems || [] };
+  } catch (error) {
+    logError("Error loading cart from localStorage:", error);
+    return { items: [] };
+  }
+};
+
 export const CartProvider = ({ children }) => {
   const [shoppingCartState, shoppingCartDispatch] = useReducer(
     shoppingCartReducer,
-    { items: [] },
+    null,
+    loadCartFromLocalStorage,
   );
+
+  useEffect(() => {
+    setLocalItem(LOCAL_KEYS.SHOPPING_CART, shoppingCartState.items);
+  }, [shoppingCartState.items]);
 
   function handleAddItemToCart(item) {
     shoppingCartDispatch({
