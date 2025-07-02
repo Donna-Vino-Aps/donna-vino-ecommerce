@@ -49,7 +49,19 @@ const shoppingCartReducer = (state, action) => {
         items: updatedItems,
       };
     }
-    
+    case "REMOVE_ITEM": {
+      const updatedItems = [...state.items];
+      const updatedItemIndex = updatedItems.findIndex(
+        (item) => item.variantId === action.payload.variantId,
+      );
+      if (updatedItemIndex !== -1) {
+        updatedItems.splice(updatedItemIndex, 1);
+      }
+      return {
+        ...state,
+        items: updatedItems,
+      };
+    }
     default:
       return state;
   }
