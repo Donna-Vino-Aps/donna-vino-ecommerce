@@ -42,6 +42,7 @@ const WineInfo = ({ wine }) => {
       price: selectedVariant.price.amount,
       currencyCode: selectedVariant.price.currencyCode,
       quantity: selectedQuantity,
+      imageUrl: wine.imageUrl,
     };
     logInfo("Adding item to cart:", itemToAdd);
     addItemToCart(itemToAdd);
