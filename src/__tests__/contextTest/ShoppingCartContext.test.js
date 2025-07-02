@@ -112,4 +112,37 @@ describe("ShoppingCartContext", () => {
     );
     expect(screen.getByTestId("cart-item-123")).toBeInTheDocument();
   });
+
+  test("should add new item to cart", async () => {
+    const testItem = {
+      variantId: "123",
+      variantTitle: "Test Wine",
+      price: 100,
+      quantity: 1,
+      imageUrl: "/test.jpg",
+    };
+
+    let addItemFunction;
+
+    render(
+      <CartProvider>
+        <TestComponent
+          onTestAction={({ addItemToCart }) => {
+            addItemFunction = () => addItemToCart(testItem);
+          }}
+        />
+      </CartProvider>,
+    );
+
+    const button = screen.getByTestId("test-action-button");
+    await user.click(button);
+
+    await act(async () => {
+      addItemFunction();
+    });
+
+    expect(screen.getByTestId("cart-items-count").textContent).toBe("1");
+    expect(screen.getByTestId("cart-total-quantity").textContent).toBe("1");
+    expect(localStorage.setLocalItem).toHaveBeenCalled();
+  });
 });
