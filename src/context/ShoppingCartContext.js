@@ -6,35 +6,53 @@ import PropTypes from "prop-types";
 const CartContext = createContext({
   items: [],
   addItemToCart: () => {},
+  updateItemQuantity: () => {},
+  removeItemFromCart: () => {},
 });
 
 const shoppingCartReducer = (state, action) => {
-  if (action.type === "ADD_ITEM") {
-    const newItem = action.payload;
-    const updatedItems = [...state.items];
+  switch (action.type) {
+    case "ADD_ITEM": {
+      const newItem = action.payload;
+      const updatedItems = [...state.items];
 
-    const existingCartItemIndex = updatedItems.findIndex(
-      (item) => item.variantId === newItem.variantId,
-    );
+      const existingCartItemIndex = updatedItems.findIndex(
+        (item) => item.variantId === newItem.variantId,
+      );
 
-    const existingCartItem = updatedItems[existingCartItemIndex];
+      const existingCartItem = updatedItems[existingCartItemIndex];
 
-    if (existingCartItem) {
-      const updatedItem = {
-        ...existingCartItem,
-        quantity: existingCartItem.quantity + newItem.quantity,
+      if (existingCartItem) {
+        const updatedItem = {
+          ...existingCartItem,
+          quantity: existingCartItem.quantity + newItem.quantity,
+        };
+        updatedItems[existingCartItemIndex] = updatedItem;
+      } else {
+        updatedItems.push(newItem);
+      }
+      return {
+        ...state,
+        items: updatedItems,
       };
-      updatedItems[existingCartItemIndex] = updatedItem;
-    } else {
-      updatedItems.push(newItem);
     }
-    return {
-      ...state,
-      items: updatedItems,
-    };
+    case "UPDATE_ITEM_QUANTITY": {
+      const updatedItems = [...state.items];
+      const updatedItemIndex = updatedItems.findIndex(
+        (item) => item.variantId === action.payload.variantId,
+      );
+      if (updatedItemIndex !== -1) {
+        updatedItems[updatedItemIndex].quantity = action.payload.quantity;
+      }
+      return {
+        ...state,
+        items: updatedItems,
+      };
+    }
+    
+    default:
+      return state;
   }
-
-  return state;
 };
 
 export const CartProvider = ({ children }) => {
