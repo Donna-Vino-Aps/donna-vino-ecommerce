@@ -1,6 +1,6 @@
 import React from "react";
 import { render, screen } from "@testing-library/react";
-import WineCardSmall from "@/components/Card/WineCardSmall";
+import WineCard from "@/components/Card/WineCard";
 import { LanguageProvider } from "@/context/LanguageContext";
 
 describe("WineCardSmall Component", () => {
@@ -13,7 +13,7 @@ describe("WineCardSmall Component", () => {
   test("renders WineCardSmall with title, price, and image", () => {
     render(
       <LanguageProvider>
-        <WineCardSmall {...mockProps} />
+        <WineCard {...mockProps} />
       </LanguageProvider>,
     );
 
@@ -25,7 +25,7 @@ describe("WineCardSmall Component", () => {
   test("renders 'New' badge when isNew is true", () => {
     render(
       <LanguageProvider>
-        <WineCardSmall {...mockProps} isNew={true} />
+        <WineCard {...mockProps} isNew={true} />
       </LanguageProvider>,
     );
 

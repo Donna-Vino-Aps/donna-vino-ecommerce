@@ -5,8 +5,7 @@ import Link from "next/link";
 import "swiper/css";
 import "swiper/css/navigation";
 import "../../styles/slider/buttons.css";
-
-import WineCardSmall from "@/components/Card/WineCardSmall";
+import WineCard from "@/components/Card/WineCard";
 
 const wineData = [
   {
@@ -106,7 +105,7 @@ const TopWinesSection = () => {
                   href={wine.url}
                   className="flex h-full w-full items-center justify-center"
                 >
-                  <WineCardSmall
+                  <WineCard
                     data-testid="wine-card"
                     {...wine}
                     className="shadow-lg transition-transform duration-300 group-hover:scale-105 group-hover:overflow-visible"

@@ -20,7 +20,7 @@ describe("TopWinesSection", () => {
     ).toBeInTheDocument();
   });
 
-  test("renders at least one WineCardSmall", () => {
+  test("renders at least one WineCard", () => {
     render(
       <LanguageProvider>
         <TopWinesSection />

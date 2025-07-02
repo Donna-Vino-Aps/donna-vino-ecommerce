@@ -3,7 +3,7 @@
 import React from "react";
 import SEO from "@/components/SEO/SEO";
 import { usePreSaleWines } from "@/context/PreSaleWinesContext";
-import WineCardSmall from "@/components/Card/WineCardSmall";
+import WineCard from "@/components/Card/WineCard";
 import Spinner from "@/components/UI/Spinner";
 import ErrorMessage from "@/components/UI/ErrorMessage";
 import { getWineUrl } from "@/utils/wineUtils";
@@ -50,7 +50,7 @@ const WinesPage = () => {
 
             return (
               <Link href={getWineUrl(wine)} key={wine.id}>
-                <WineCardSmall
+                <WineCard
                   key={wine.id}
                   title={wine.title}
                   price={price}
