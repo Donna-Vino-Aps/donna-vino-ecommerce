@@ -29,7 +29,7 @@ const FilterSelector = () => {
   return (
     <div className="flex flex-col gap-3">
       {filterData.map((filter) => (
-        <div key={filter.id}>
+        <div key={filter.title}>
           <FilterDropdown filter={filter} />
         </div>
       ))}

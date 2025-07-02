@@ -21,7 +21,8 @@ const DualRangeSlider = ({
       <div
         className="absolute h-1 rounded-full bg-[#290000]"
         style={{
-          left: `${getPercent(selectedMinimum)}%`,
+          left: 0,
+          right: `${100 - getPercent(selectedMaximum)}%`,
           width: `${getPercent(selectedMaximum) - getPercent(selectedMinimum)}%`,
         }}
       ></div>
@@ -31,7 +32,7 @@ const DualRangeSlider = ({
         type="range"
         aria-label="Minimum value"
         min={min}
-        max={max}
+        max={selectedMaximum - step}
         step={step}
         value={selectedMinimum}
         onChange={(e) =>
@@ -39,14 +40,25 @@ const DualRangeSlider = ({
             Math.min(Number(e.target.value), selectedMaximum - step),
           )
         }
-        className="pointer-events-auto absolute z-20 w-full appearance-none bg-transparent"
+        className="pointer-events-auto absolute z-20 appearance-none bg-transparent"
+        style={{
+          position: "absolute",
+          WebkitAppearance: "none",
+          appearance: "none",
+          background: "transparent",
+          height: "1rem",
+          cursor: "pointer",
+          width: `${getPercent(selectedMaximum)}%`,
+          left: 0,
+          zIndex: 10,
+        }}
       />
 
       {/* Max Thumb */}
       <input
         type="range"
         aria-label="Maximum value"
-        min={min}
+        min={selectedMinimum + step}
         max={max}
         step={step}
         value={selectedMaximum}
@@ -55,7 +67,18 @@ const DualRangeSlider = ({
             Math.max(Number(e.target.value), selectedMinimum + step),
           )
         }
-        className="pointer-events-auto absolute z-10 w-full appearance-none bg-transparent"
+        className="pointer-events-auto absolute z-10 appearance-none bg-transparent"
+        style={{
+          position: "absolute",
+          WebkitAppearance: "none",
+          appearance: "none",
+          background: "transparent",
+          height: "1rem",
+          cursor: "pointer",
+          width: `${100 - getPercent(selectedMinimum)}%`,
+          right: 0,
+          zIndex: 20,
+        }}
       />
     </div>
   );
