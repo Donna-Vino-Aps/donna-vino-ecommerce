@@ -89,7 +89,11 @@ export const CartProvider = ({ children }) => {
   );
 
   useEffect(() => {
-    setLocalItem(LOCAL_KEYS.SHOPPING_CART, shoppingCartState.items);
+    try {
+      setLocalItem(LOCAL_KEYS.SHOPPING_CART, shoppingCartState.items);
+    } catch (error) {
+      logError("Error saving cart to localStorage:", error);
+    }
   }, [shoppingCartState.items]);
 
   function handleAddItemToCart(item) {
