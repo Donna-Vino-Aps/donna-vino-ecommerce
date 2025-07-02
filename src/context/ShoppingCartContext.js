@@ -42,7 +42,7 @@ const shoppingCartReducer = (state, action) => {
         (item) => item.variantId === action.payload.variantId,
       );
       if (updatedItemIndex !== -1) {
-        updatedItems[updatedItemIndex].quantity = action.payload.quantity;
+        updatedItems[updatedItemIndex].quantity = action.payload.newQuantity;
       }
       return {
         ...state,
