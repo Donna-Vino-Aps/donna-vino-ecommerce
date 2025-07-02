@@ -175,4 +175,34 @@ describe("ShoppingCartContext", () => {
 
     expect(localStorage.setLocalItem).toHaveBeenCalled();
   });
+
+  test("should remove item from cart", async () => {
+    const mockItems = [
+      {
+        variantId: "123",
+        variantTitle: "Test Wine",
+        price: 100,
+        quantity: 1,
+        imageUrl: "/test.jpg",
+      },
+    ];
+
+    localStorage.getLocalItem.mockReturnValue(mockItems);
+
+    render(
+      <CartProvider>
+        <TestComponent onTestAction={() => {}} />
+      </CartProvider>,
+    );
+
+    expect(screen.getByTestId("cart-items-count").textContent).toBe("1");
+
+    await user.click(screen.getByTestId("remove-123"));
+
+    await waitFor(() => {
+      expect(screen.getByTestId("cart-items-count").textContent).toBe("0");
+    });
+
+    expect(localStorage.setLocalItem).toHaveBeenCalled();
+  });
 });
