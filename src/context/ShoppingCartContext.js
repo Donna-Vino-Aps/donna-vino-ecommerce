@@ -1,6 +1,12 @@
 "use client";
 
-import React, { createContext, useContext, useReducer, useEffect } from "react";
+import React, {
+  createContext,
+  useContext,
+  useReducer,
+  useEffect,
+  useMemo,
+} from "react";
 import PropTypes from "prop-types";
 import { getLocalItem, setLocalItem, LOCAL_KEYS } from "@/utils/localStorage";
 import { logError } from "@/utils/logging";
@@ -117,12 +123,26 @@ export const CartProvider = ({ children }) => {
     });
   }
 
-  const contextValue = {
-    items: shoppingCartState.items,
-    addItemToCart: handleAddItemToCart,
-    updateItemQuantity: handleUpdateItemQuantity,
-    removeItemFromCart: handleRemoveItemFromCart,
-  };
+  const contextValue = useMemo(() => {
+    const cartCount = shoppingCartState.items.reduce(
+      (count, item) => count + item.quantity,
+      0,
+    );
+
+    const totalPrice = shoppingCartState.items.reduce(
+      (total, item) => total + item.quantity * item.price,
+      0,
+    );
+
+    return {
+      items: shoppingCartState.items,
+      addItemToCart: handleAddItemToCart,
+      updateItemQuantity: handleUpdateItemQuantity,
+      removeItemFromCart: handleRemoveItemFromCart,
+      cartCount,
+      totalPrice,
+    };
+  }, [shoppingCartState.items]);
 
   return (
     <CartContext.Provider value={contextValue}>{children}</CartContext.Provider>

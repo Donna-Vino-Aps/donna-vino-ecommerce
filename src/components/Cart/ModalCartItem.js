@@ -24,6 +24,7 @@ const ModalCartItem = ({ item }) => {
             setSelectedQuantity={(newQuantity) =>
               updateItemQuantity(item.variantId, newQuantity)
             }
+            min={0}
           />
         </div>
       </div>
