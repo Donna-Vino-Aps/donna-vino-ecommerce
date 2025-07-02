@@ -38,16 +38,22 @@ const shoppingCartReducer = (state, action) => {
     }
 
     case "UPDATE_ITEM_QUANTITY": {
-      const updatedItems = [...state.items];
-      const updatedItemIndex = updatedItems.findIndex(
-        (item) => item.variantId === action.payload.variantId,
-      );
-      if (updatedItemIndex !== -1) {
-        updatedItems[updatedItemIndex].quantity = action.payload.newQuantity;
+      const { variantId, newQuantity } = action.payload;
+
+      if (newQuantity <= 0) {
+        return {
+          ...state,
+          items: state.items.filter((item) => item.variantId !== variantId),
+        };
       }
+
       return {
         ...state,
-        items: updatedItems,
+        items: state.items.map((item) =>
+          item.variantId === variantId
+            ? { ...item, quantity: newQuantity }
+            : item,
+        ),
       };
     }
 
