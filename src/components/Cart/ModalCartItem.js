@@ -12,12 +12,12 @@ const ModalCartItem = ({ item }) => {
       <div className="flex items-center">
         <img
           src={item.imageUrl}
-          alt={item.variantTitle}
+          alt={item.title}
           className="relative top-1 size-20 object-contain"
         />
         <div className="ml-5 mt-1 flex flex-col gap-1">
           <h3 className="text-titleSmall font-medium md:text-titleMedium">
-            {item.variantTitle}
+            {`${item.title} - ${item.variantTitle}`}
           </h3>
           <QuantitySelector
             selectedQuantity={item.quantity}
@@ -55,6 +55,7 @@ export default ModalCartItem;
 ModalCartItem.propTypes = {
   item: PropTypes.shape({
     variantId: PropTypes.string.isRequired,
+    title: PropTypes.string.isRequired,
     variantTitle: PropTypes.string.isRequired,
     price: PropTypes.number.isRequired,
     imageUrl: PropTypes.string.isRequired,
