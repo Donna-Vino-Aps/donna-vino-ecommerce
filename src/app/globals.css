@@ -32,7 +32,7 @@ footer {
   background-color: rgba(253, 232, 233, 0.3);
 }
 
-input[type="range"] {
+/* input[type="range"] {
   -webkit-appearance: none;
   appearance: none;
   background: transparent;
@@ -51,7 +51,7 @@ input[type="range"]::-webkit-slider-thumb {
   background: #290000;
   border-radius: 50%;
   cursor: pointer;
-  margin-top: -0.35rem; /* to vertically center */
+  margin-top: -0.35rem; 
   position: relative;
   z-index: 3;
   box-shadow: 0 0 2px rgba(0, 0, 0, 0.5);
@@ -66,4 +66,4 @@ input[type="range"]::-moz-range-thumb {
   position: relative;
   z-index: 3;
   box-shadow: 0 0 2px rgba(0, 0, 0, 0.5);
-}
+} */

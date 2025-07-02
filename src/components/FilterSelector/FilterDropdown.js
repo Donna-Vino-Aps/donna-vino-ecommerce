@@ -29,9 +29,9 @@ const FilterDropdown = ({ filter }) => {
       {isFilterOpen &&
         (filter.variant === "regular" ? (
           <div className="mb-2 h-auto gap-3 rounded-b-lg py-3 shadow-lg">
-            {filter.map((option, index) => (
+            {filter.options.map((option) => (
               <div
-                key={index}
+                key={option}
                 className="flex flex-row items-center justify-start px-3 py-1"
               >
                 <input
@@ -79,19 +79,11 @@ const FilterDropdown = ({ filter }) => {
 export default FilterDropdown;
 
 FilterDropdown.propTypes = {
-  isFilterOpen: PropTypes.func.isRequired,
-  setIsFilterOpen: PropTypes.func.isRequired,
-  selectedMinimum: PropTypes.number.isRequired,
-  selectedMaximum: PropTypes.number.isRequired,
-  setSelectedMinimum: PropTypes.func.isRequired,
-  setSelectedMaximum: PropTypes.func.isRequired,
-  step: PropTypes.number,
-  filter: PropTypes.arrayOf(
+  filter: PropTypes.shape(
     PropTypes.shape({
-      id: PropTypes.number.isRequired,
-      name: PropTypes.string.isRequired,
-      price: PropTypes.number.isRequired,
-      quantitySelected: PropTypes.number.isRequired,
+      variant: PropTypes.string.isRequired,
+      title: PropTypes.string.isRequired,
+      options: PropTypes.arrayOf(PropTypes.string),
     }),
   ).isRequired,
 };
