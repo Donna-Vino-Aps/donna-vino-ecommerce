@@ -80,9 +80,25 @@ export const CartProvider = ({ children }) => {
     });
   }
 
+  function handleUpdateItemQuantity(variantId, newQuantity) {
+    shoppingCartDispatch({
+      type: "UPDATE_ITEM_QUANTITY",
+      payload: { variantId, newQuantity },
+    });
+  }
+
+  function handleRemoveItemFromCart(variantId) {
+    shoppingCartDispatch({
+      type: "REMOVE_ITEM",
+      payload: { variantId },
+    });
+  }
+
   const contextValue = {
     items: shoppingCartState.items,
     addItemToCart: handleAddItemToCart,
+    updateItemQuantity: handleUpdateItemQuantity,
+    removeItemFromCart: handleRemoveItemFromCart,
   };
 
   return (
