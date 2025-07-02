@@ -11,7 +11,7 @@ import Button from "../Button/Button";
 import { useLanguage } from "@/context/LanguageContext";
 import { useCart } from "@/context/ShoppingCartContext";
 import Image from "next/image";
-import { logError, logInfo } from "@/utils/logging";
+import { logError } from "@/utils/logging";
 
 const WineInfo = ({ wine }) => {
   const { translations } = useLanguage();
@@ -44,7 +44,6 @@ const WineInfo = ({ wine }) => {
       quantity: selectedQuantity,
       imageUrl: wine.imageUrl,
     };
-    logInfo("Adding item to cart:", itemToAdd);
     addItemToCart(itemToAdd);
   };
 

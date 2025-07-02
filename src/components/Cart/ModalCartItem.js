@@ -20,7 +20,6 @@ const ModalCartItem = ({ item }) => {
             {item.variantTitle}
           </h3>
           <QuantitySelector
-            item={item}
             selectedQuantity={item.quantity}
             setSelectedQuantity={(newQuantity) =>
               updateItemQuantity(item.variantId, newQuantity)
