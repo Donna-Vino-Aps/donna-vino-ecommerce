@@ -4,15 +4,16 @@ import Image from "next/image";
 import { QuantitySelector } from "../QuantitySelector/QuantitySelector";
 import { useCart } from "@/context/ShoppingCartContext";
 
-const ModalCartItem = ({ item, removeCartItem, updateCartItemQuantity }) => {
-  const { items } = useCart();
+const ModalCartItem = ({ item }) => {
+  const { items, removeItemFromCart, updateItemQuantity } = useCart();
+
   return (
     <div className="mb-4 flex items-center justify-between font-barlow">
       <div className="flex items-center">
         <img
           src={item.imageUrl}
           alt={item.variantTitle}
-          className="relative top-1 h-20 w-20 object-cover"
+          className="relative top-1 size-20 object-contain"
         />
         <div className="ml-5 mt-1 flex flex-col gap-1">
           <h3 className="text-titleSmall font-medium md:text-titleMedium">
@@ -20,9 +21,11 @@ const ModalCartItem = ({ item, removeCartItem, updateCartItemQuantity }) => {
           </h3>
           <QuantitySelector
             item={item}
-            quantityAvailable={item.quantityAvailable}
+            quantityAvailable={item.quantityAvailable || 999}
             selectedQuantity={item.quantity}
-            updateCartItemQuantity={updateCartItemQuantity}
+            setSelectedQuantity={(newQuantity) =>
+              updateItemQuantity(item.variantId, newQuantity)
+            }
             preSale={item.preSale}
           />
         </div>
@@ -31,7 +34,7 @@ const ModalCartItem = ({ item, removeCartItem, updateCartItemQuantity }) => {
         className={`${items.length > 2 ? "relative right-4" : ""} mt-3 flex flex-col justify-center gap-2`}
       >
         <button
-          onClick={() => removeCartItem(item.variantId)}
+          onClick={() => removeItemFromCart(item.variantId)}
           className="flex justify-end"
         >
           <Image
@@ -53,14 +56,12 @@ export default ModalCartItem;
 
 ModalCartItem.propTypes = {
   item: PropTypes.shape({
-    variantId: PropTypes.number.isRequired,
+    variantId: PropTypes.string.isRequired,
     variantTitle: PropTypes.string.isRequired,
     price: PropTypes.number.isRequired,
     imageUrl: PropTypes.string.isRequired,
-    quantityAvailable: PropTypes.number.isRequired,
+    quantityAvailable: PropTypes.number,
     quantity: PropTypes.number.isRequired,
     preSale: PropTypes.bool,
   }).isRequired,
-  removeCartItem: PropTypes.func.isRequired,
-  updateCartItemQuantity: PropTypes.func.isRequired,
 };
