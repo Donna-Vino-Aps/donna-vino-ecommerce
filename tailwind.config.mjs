@@ -112,6 +112,9 @@ export default {
         others: {
           confirm: "#34C759",
           negative: "#FF3B30",
+          gray: "#637381",
+          bordergray: "#DFE4EA",
+          dark: "#111928",
         },
       },
       screens: {

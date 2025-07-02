@@ -8,6 +8,7 @@ import Spinner from "@/components/UI/Spinner";
 import ErrorMessage from "@/components/UI/ErrorMessage";
 import { getWineUrl } from "@/utils/wineUtils";
 import Link from "next/link";
+import FilterSelector from "@/components/FilterSelector/FilterSelector";
 
 const WinesPage = () => {
   const { wines, isLoading, error } = usePreSaleWines();
@@ -43,6 +44,7 @@ const WinesPage = () => {
         description="Browse our exclusive selection of pre-sale wines."
       />
       <div className="container mx-auto flex items-center justify-center px-4 py-8">
+        <FilterSelector />
         <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
           {wines.map((wine) => {
             const price = wine.bottlePrice;
