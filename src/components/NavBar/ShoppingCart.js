@@ -1,18 +1,31 @@
 import React from "react";
+import PropTypes from "prop-types";
 
-const ShoppingCart = () => {
+const ShoppingCart = ({ totalQuantityInCart, onClick }) => {
   return (
-    <div>
+    <div
+      className="relative flex cursor-pointer items-center justify-center"
+      onClick={onClick}
+    >
       <img
-        src="/icons/cart.svg"
-        alt="Search icon"
-        className="cursor-pointer hover:opacity-85"
+        src={
+          totalQuantityInCart > 0 ? "/icons/cart-full.svg" : "/icons/cart.svg"
+        }
+        alt="Cart icon"
+        className="h-6 w-6 object-contain hover:opacity-85"
       />
-      {/* <span className="absolute -top-1 -right-1 bg-primary-normal text-white text-xs rounded-full px-1">
-        0
-      </span> */}
+      <span
+        className={`relative -top-5 right-0 flex items-center justify-center rounded-full ${totalQuantityInCart > 0 ? "bg-primary-normal" : "bg-tertiary1-dark"} h-4 w-4 px-1 text-labelSmall text-tertiary2-light`}
+      >
+        {totalQuantityInCart || 0}
+      </span>
     </div>
   );
 };
 
 export default ShoppingCart;
+
+ShoppingCart.propTypes = {
+  totalQuantityInCart: PropTypes.number.isRequired,
+  onClick: PropTypes.func.isRequired,
+};

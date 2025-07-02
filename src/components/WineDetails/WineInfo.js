@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 import { RatingDisplay } from "./RatingDisplay";
 import { AvailabilityDisplay } from "./AvailabilityDisplay";
 import { PriceDisplay } from "./PriceDisplay";
-import { QuantitySelector } from "./QuantitySelector";
+import { QuantitySelector } from "../QuantitySelector/QuantitySelector";
 import { SizeSelector } from "./SizeSelector";
 import { ProductDetails } from "./ProductDetails";
 import Button from "../Button/Button";
@@ -65,18 +65,14 @@ const WineInfo = ({ wine }) => {
           pricePerLiterBottle={wine.pricePerLiterBottle}
           pricePerLiterCase={wine.pricePerLiterCase}
         />
+        <p className="mb-2 ml-[2px] text-titleMedium font-medium text-tertiary1-dark">
+          {translations["wine-details.quantity"]}
+        </p>
         <QuantitySelector
-          quantityAvailable={wine.quantityAvailable}
           selectedQuantity={selectedQuantity}
           setSelectedQuantity={setSelectedQuantity}
-          selectedSize={selectedSize}
-          setSelectedSize={setSelectedSize}
-          bottlePrice={wine.bottlePrice}
-          casePrice={wine.casePrice}
-          volume={wine.volume}
-          pricePerLiterBottle={wine.pricePerLiterBottle}
-          pricePerLiterCase={wine.pricePerLiterCase}
-          preSale={preSale}
+          quantityAvailable={wine.quantityAvailable}
+          preSale={true}
         />
         {preSale && (
           <SizeSelector
@@ -92,7 +88,7 @@ const WineInfo = ({ wine }) => {
         {preSale === false ? (
           <Button
             text={translations["wine-details.addtocart"]}
-            variant="rounde"
+            variant="rounded"
             border="primary"
             icon="/icons/cart-white.svg"
             color="primary"
