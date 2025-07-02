@@ -7,6 +7,8 @@ import ModalCartItem from "./ModalCartItem.js";
 import Button from "../Button/Button.js";
 import { useLanguage } from "@/context/LanguageContext.js";
 import { useCart } from "@/context/ShoppingCartContext.js";
+import { createCartCheckoutUrl } from "@/lib/shopify/checkout.js";
+import { logError } from "@/utils/logging.js";
 
 const CartModal = ({ onClose }) => {
   const { translations } = useLanguage();
@@ -16,6 +18,18 @@ const CartModal = ({ onClose }) => {
     (acc, item) => acc + item.price * item.quantity,
     0,
   );
+
+  const handleCheckout = () => {
+    try {
+      if (cartItems.length === 0) return;
+
+      const checkoutUrl = createCartCheckoutUrl(cartItems);
+
+      window.open(checkoutUrl, "_blank");
+    } catch (error) {
+      logError("Checkout error:", error);
+    }
+  };
 
   return (
     <div className="fixed inset-0 z-40 flex items-start justify-end">
@@ -69,6 +83,7 @@ const CartModal = ({ onClose }) => {
                 extraStyle="font-medium my-4 md:my-5"
                 ariaLabel="Go to Checkout Button"
                 testId="go-to-checkout-button"
+                onClick={handleCheckout}
               />
               <Button
                 text={translations["cart.button-continue-shopping"]}
