@@ -10,11 +10,7 @@ import { useCart } from "@/context/ShoppingCartContext.js";
 
 const CartModal = ({ onClose }) => {
   const { translations } = useLanguage();
-  const {
-    items: cartItems,
-    removeItemFromCart,
-    updateItemQuantity,
-  } = useCart();
+  const { items: cartItems } = useCart();
 
   const totalPrice = cartItems.reduce(
     (acc, item) => acc + item.price * item.quantity,
