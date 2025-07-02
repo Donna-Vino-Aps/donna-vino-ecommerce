@@ -205,4 +205,45 @@ describe("ShoppingCartContext", () => {
 
     expect(localStorage.setLocalItem).toHaveBeenCalled();
   });
+
+  test("should merge quantities when adding same product variant again", async () => {
+    const testItem = {
+      variantId: "123",
+      variantTitle: "Test Wine",
+      price: 100,
+      quantity: 1,
+      imageUrl: "/test.jpg",
+    };
+
+    localStorage.getLocalItem.mockReturnValue([testItem]);
+
+    let addItemFunction;
+
+    render(
+      <CartProvider>
+        <TestComponent
+          onTestAction={({ addItemToCart }) => {
+            addItemFunction = () => addItemToCart(testItem);
+          }}
+        />
+      </CartProvider>,
+    );
+
+    const button = screen.getByTestId("test-action-button");
+    await user.click(button);
+
+    expect(screen.getByTestId("cart-items-count").textContent).toBe("1");
+    expect(screen.getByTestId("cart-total-quantity").textContent).toBe("1");
+
+    await act(async () => {
+      addItemFunction();
+    });
+
+    await waitFor(() => {
+      expect(screen.getByTestId("cart-items-count").textContent).toBe("1");
+      expect(screen.getByTestId("cart-total-quantity").textContent).toBe("2");
+    });
+
+    expect(localStorage.setLocalItem).toHaveBeenCalled();
+  });
 });
