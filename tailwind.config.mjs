@@ -115,6 +115,8 @@ export default {
           gray: "#637381",
           bordergray: "#DFE4EA",
           dark: "#111928",
+          sliderburgundy: "#2E0607",
+          sliderbackground: "#d1d5db",
         },
       },
       screens: {
