@@ -328,5 +328,7 @@
   "cart.no-items1": "Ingen varer i din kurv endnu.",
   "cart.no-items2": "Kom tilbage, når du er klar til at gå til kassen!",
   "cart.button-checkout": "Gå til kassen",
-  "cart.button-continue-shopping": "Fortsæt Shopping"
+  "cart.button-continue-shopping": "Fortsæt Shopping",
+  "wineCard.viewDetails": "Se detaljer",
+  "wineCard.addToCart": "Læg i indkøbskurv"
 }
