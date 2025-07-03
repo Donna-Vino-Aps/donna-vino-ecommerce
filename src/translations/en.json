@@ -312,6 +312,7 @@
   "wine-details.winetype": "Wine type",
   "wine-details.vineyard": "Vineyard",
   "more-info.title": "More information about this wine",
+  "more-info.title-short": "More information",
   "more-info.grape": "Grape",
   "more-info.vintage": "Vintage",
   "more-info.origin": "Origin",
