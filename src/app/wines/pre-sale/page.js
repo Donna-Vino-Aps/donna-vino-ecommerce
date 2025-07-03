@@ -11,10 +11,8 @@ const PreSaleWinesPage = () => {
         title="Pre-Sale Wines"
         description="Browse our exclusive selection of pre-sale wines."
       />
-      <div className="container mx-auto px-4 py-8">
-        <div className="flex items-center justify-center">
-          <PreSaleWineGrid />
-        </div>
+      <div className="container mx-auto flex items-center justify-center px-4 py-8">
+        <PreSaleWineGrid />
       </div>
     </>
   );
