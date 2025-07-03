@@ -14,6 +14,7 @@ jest.mock("@/context/LanguageContext", () => ({
       "topwinesection.button-more": "See full catalog",
     },
   }),
+  LanguageProvider: ({ children }) => children,
 }));
 
 jest.mock("@/context/PreSaleWinesContext", () => ({
@@ -25,6 +26,8 @@ jest.mock("@/context/PreSaleWinesContext", () => ({
         title: "Roccapietra Blanc De Noirs Brut - SCUROPASSO 1",
         imageUrl:
           "/images/https://cdn.shopify.com/s/files/1/0944/0149/5386/files/RoccaPietra_BlancDeNoirs_MedotoClassico.png?v=1751443154.jpg",
+        rating: 4.5,
+        reviews: 10,
       },
     ],
     isLoading: false,
@@ -56,6 +59,9 @@ describe("TopWinesSection", () => {
     );
     const wineCards = screen.getAllByTestId("wine-card");
     expect(wineCards.length).toBeGreaterThan(0);
+    expect(wineCards[0]).toHaveTextContent(
+      "Roccapietra Blanc De Noirs Brut - SCUROPASSO 1",
+    );
   });
 
   test("renders the navigation buttons", () => {

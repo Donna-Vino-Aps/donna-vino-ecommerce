@@ -64,7 +64,6 @@ const TopWinesSection = () => {
               <div className="group flex items-center justify-center overflow-visible px-5 py-5 transition-all duration-300">
                 <Link href={getWineUrl(wine)} className="w-full">
                   <WineCard
-                    data-testid="wine-card"
                     key={wine.id}
                     price={wine.bottlePrice}
                     title={wine.title}
