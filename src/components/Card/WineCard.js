@@ -30,7 +30,7 @@ const WineCard = ({ title, price, imageUrl, isNew, variant }) => {
       </div>
 
       <div
-        className={`relative flex h-[283px] w-[270px]  flex-col items-center justify-center ${responsiveStyles.image}`}
+        className={`relative flex h-[283px] w-[288px]  flex-col items-center justify-center ${responsiveStyles.image}`}
       >
         <img
           src={imageUrl}

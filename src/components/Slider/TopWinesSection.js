@@ -82,7 +82,7 @@ const TopWinesSection = () => {
         </p>
       </div>
 
-      <div className="relative mx-auto mt-[100px] h-auto w-full max-w-7xl overflow-visible px-4 sm:mt-0 md:h-[660px]">
+      <div className="relative mx-auto mt-[100px] h-auto w-full max-w-[1350px] overflow-visible px-4 sm:mt-0 md:h-[660px]">
         <Swiper
           slidesPerView={1}
           spaceBetween={5}
