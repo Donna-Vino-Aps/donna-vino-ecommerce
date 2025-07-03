@@ -310,5 +310,13 @@
   "wine-details.productdetails": "Product Details",
   "wine-details.country-region": "Country/Region",
   "wine-details.winetype": "Wine type",
-  "wine-details.vineyard": "Vineyard"
+  "wine-details.vineyard": "Vineyard",
+  "more-info.title": "More information about this wine",
+  "more-info.grape": "Grape",
+  "more-info.vintage": "Vintage",
+  "more-info.origin": "Origin",
+  "more-info.producer": "Producer",
+  "more-info.servingTemp": "Serving Temperature",
+  "more-info.alcoholContent": "Alcohol Content",
+  "more-info.volume": "Volume"
 }

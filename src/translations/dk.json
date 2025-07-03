@@ -310,5 +310,13 @@
   "wine-details.productdetails": "Produktdetaljer",
   "wine-details.country-region": "Land/Region",
   "wine-details.winetype": "Vintype",
-  "wine-details.vineyard": "Vingård"
+  "wine-details.vineyard": "Vingård",
+  "more-info.title": "Mere information om denne vin",
+  "more-info.grape": "Drue",
+  "more-info.vintage": "Årgang",
+  "more-info.origin": "Oprindelse",
+  "more-info.producer": "Producent",
+  "more-info.servingtemp": "Serveringstemperatur",
+  "more-info.alcoholcontent": "Alkoholindhold",
+  "more-info.volume": "Volumen"
 }
