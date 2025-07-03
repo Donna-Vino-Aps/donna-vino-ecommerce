@@ -3,12 +3,6 @@
 import React from "react";
 import SEO from "@/components/SEO/SEO";
 import PreSaleWineGrid from "@/components/WineGrid/PreSaleWineGrid";
-import { usePreSaleWines } from "@/context/PreSaleWinesContext";
-import WineCard from "@/components/Card/WineCard";
-import Spinner from "@/components/UI/Spinner";
-import ErrorMessage from "@/components/UI/ErrorMessage";
-import { getWineUrl } from "@/utils/wineUtils";
-import Link from "next/link";
 
 const PreSaleWinesPage = () => {
   return (
