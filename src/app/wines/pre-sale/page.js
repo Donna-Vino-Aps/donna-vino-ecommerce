@@ -3,7 +3,7 @@
 import React from "react";
 import SEO from "@/components/SEO/SEO";
 import { usePreSaleWines } from "@/context/PreSaleWinesContext";
-import WineCardSmall from "@/components/Card/WineCardSmall";
+import WineCard from "@/components/Card/WineCard";
 import Spinner from "@/components/UI/Spinner";
 import ErrorMessage from "@/components/UI/ErrorMessage";
 import { getWineUrl } from "@/utils/wineUtils";
@@ -43,18 +43,19 @@ const WinesPage = () => {
         description="Browse our exclusive selection of pre-sale wines."
       />
       <div className="container mx-auto flex items-center justify-center px-4 py-8">
-        <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
+        <div className="grid grid-cols-1 gap-8 lg:grid-cols-2 xl:grid-cols-3">
           {wines.map((wine) => {
             const price = wine.bottlePrice;
             const primaryImage = wine.imageUrl;
 
             return (
               <Link href={getWineUrl(wine)} key={wine.id}>
-                <WineCardSmall
+                <WineCard
                   key={wine.id}
                   title={wine.title}
                   price={price}
                   imageUrl={primaryImage}
+                  variant={"pre-sale"}
                 />
               </Link>
             );

@@ -7,10 +7,10 @@ import "swiper/css/navigation";
 import "../../styles/slider/buttons.css";
 import Button from "../Button/Button";
 import { useLanguage } from "@/context/LanguageContext";
-import WineCardSmall from "@/components/Card/WineCardSmall";
 import { usePreSaleWines } from "@/context/PreSaleWinesContext";
 import { getWineUrl } from "@/utils/wineUtils";
 import ErrorMessage from "@/components/UI/ErrorMessage";
+import WineCard from "@/components/Card/WineCard";
 
 const TopWinesSection = () => {
   const { translations } = useLanguage();
@@ -40,7 +40,7 @@ const TopWinesSection = () => {
         </p>
       </div>
 
-      <div className="relative mx-auto h-auto w-full max-w-7xl overflow-visible px-4 md:h-[660px]">
+      <div className="relative mx-auto mt-[100px] h-auto w-full max-w-[1350px] overflow-visible px-4 sm:mt-0 md:h-[660px]">
         <Swiper
           slidesPerView={1}
           spaceBetween={5}
@@ -54,7 +54,7 @@ const TopWinesSection = () => {
             1024: { slidesPerView: 3, spaceBetween: 10 },
             1440: { slidesPerView: 4, spaceBetween: 12 },
           }}
-          className="relative z-10 w-full"
+          className="relative z-10 flex h-full w-full"
         >
           {wines.map((wine, index) => (
             <SwiperSlide
@@ -63,7 +63,7 @@ const TopWinesSection = () => {
             >
               <div className="group flex items-center justify-center overflow-visible px-5 py-5 transition-all duration-300">
                 <Link href={getWineUrl(wine)} className="w-full">
-                  <WineCardSmall
+                  <WineCard
                     data-testid="wine-card"
                     key={wine.id}
                     price={wine.bottlePrice}
