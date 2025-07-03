@@ -93,7 +93,7 @@ const MoreInfoDropdown = ({ wine }) => {
                 {key === "producer" ? (
                   <Link
                     href=""
-                    className={`text-bodyMedium text-[#637381] ${isMobile ? "sm:text-bodyLarge" : "underline"}`}
+                    className={`text-bodyMedium text-[#637381] underline sm:text-bodyLarge`}
                   >
                     {value}
                   </Link>
