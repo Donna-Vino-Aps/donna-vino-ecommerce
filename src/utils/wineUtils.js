@@ -14,6 +14,28 @@ export const normalizeWineData = (wine) => {
   const casePrice = caseVariant?.price?.amount ?? 0;
   const quantityAvailable = defaultVariant?.quantityAvailable || 0;
   const volume = wine.volume?.value;
+  const tasteValues = [
+    {
+      left: "Delicate",
+      right: "Bold",
+      value: Math.round((wine.delicateBold ?? 0) * 100),
+    },
+    {
+      left: "Velvety",
+      right: "Astringent",
+      value: Math.round((wine.velvetyAstringent ?? 0) * 100),
+    },
+    {
+      left: "Dry",
+      right: "Smooth",
+      value: Math.round((wine.drySmooth ?? 0) * 100),
+    },
+    {
+      left: "Soft",
+      right: "Crisp",
+      value: Math.round((wine.softCrisp ?? 0) * 100),
+    },
+  ];
 
   return {
     id: wine.id,
@@ -36,6 +58,8 @@ export const normalizeWineData = (wine) => {
     pricePerLiterBottle: volume ? (bottlePrice / volume).toFixed(2) : null,
     pricePerLiterCase: volume ? (casePrice / (volume * 6)).toFixed(2) : null,
     variantMap,
+    tasteProfile: wine.tasteProfile,
+    tasteValues,
   };
 };
 

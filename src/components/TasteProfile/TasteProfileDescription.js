@@ -1,21 +1,30 @@
 "use client";
 
 import React from "react";
+import PropTypes from "prop-types";
 
-const taste = ["Exotic", "Spicy", "Earthy", "Crisp", "Astringent"];
-const dottedString = taste.join(" ・ ");
+export default function TasteProfileDescription({ wine }) {
+  const dottedString = Array.isArray(wine.tasteProfile)
+    ? wine.tasteProfile.join(" ・ ")
+    : "–";
 
-export default function TasteProfileDescription() {
   return (
-    <div>
-      <h1 className="items-center font-barlow text-displayMedium">
-        Taste Profile: Wine name
+    <div className="mx-14 flex w-full flex-col items-center justify-center text-center lg:mx-0">
+      <h1 className="font-barlow text-headlineMedium text-tertiary1-active_dark md:text-displayMedium">
+        Taste Profile: {wine.title}
       </h1>
-      <div className="mt-8 flex justify-center">
-        <span className="font-barlow text-titleLarge text-primary-darker">
+      <div className="mt-8">
+        <span className="font-barlow text-bodyLarge text-primary-darker md:text-titleLarge">
           {dottedString}
         </span>
       </div>
     </div>
   );
 }
+
+TasteProfileDescription.propTypes = {
+  wine: PropTypes.shape({
+    title: PropTypes.string,
+    tasteProfile: PropTypes.arrayOf(PropTypes.string),
+  }).isRequired,
+};
