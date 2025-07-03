@@ -54,7 +54,6 @@
   "signUp.welcome.resend.success": "Bekræftelsesmail sendt igen! Hvis du stadig ikke kan se e-mailen, bedes du tjekke din spam-mappe",
   "signUp.welcome.resend.error": "Kunne ikke sende bekræftelsesmailen igen. Prøv venligst igen.",
   "signUp.welcome.resend.noEmail": "Ingen e-mailadresse fundet. Prøv venligst at tilmelde dig igen.",
-  "signUp.welcome.resend.maxAttempts": "Maksimalt antal forsøg nået. Kontakt venligst support, hvis du stadig ikke har modtaget e-mailen.",
   "signUp.welcome.resend.maxReached": "Maks. forsøg nået",
   "signUp.welcome.seo.title": "Bekræft din e-mail | Fuldfør opsætningen af din konto",
   "signUp.welcome.seo.description": "Tjek venligst din indbakke, og klik på bekræftelseslinket for at aktivere din konto.",
@@ -320,7 +319,5 @@
   "cart.no-items1": "Ingen varer i din kurv endnu.",
   "cart.no-items2": "Kom tilbage, når du er klar til at gå til kassen!",
   "cart.button-checkout": "Gå til kassen",
-  "cart.button-continue-shopping": "Fortsæt Shopping",
-  "wineCard.viewDetails": "Se detaljer",
-  "wineCard.addToCart": "Læg i indkøbskurv"
+  "cart.button-continue-shopping": "Fortsæt Shopping"
 }

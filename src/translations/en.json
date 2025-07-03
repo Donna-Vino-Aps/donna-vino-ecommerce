@@ -54,7 +54,6 @@
   "signUp.welcome.resend.success": "Verification email has been resent successfully! If you still don't see the email, please check your spam folder.",
   "signUp.welcome.resend.error": "Failed to resend the verification email. Please try again.",
   "signUp.welcome.resend.noEmail": "No email address found. Please try signing up again.",
-  "signUp.welcome.resend.maxAttempts": "Maximum resend attempts reached. Please contact support if you still haven't received the email.",
   "signUp.welcome.resend.maxReached": "Max attempts reached",
   "signUp.welcome.seo.title": "Verify Your Email | Complete Your Account Setup",
   "signUp.welcome.seo.description": "Please check your inbox and click the verification link to activate your account.",
@@ -320,7 +319,5 @@
   "cart.no-items1": "No items in your cart yet.",
   "cart.no-items2": "Come back when you are ready to checkout!",
   "cart.button-checkout": "Go to Checkout",
-  "cart.button-continue-shopping": "Continue Shopping",
-  "wineCard.viewDetails": "View details",
-  "wineCard.addToCart": "Add to cart"
+  "cart.button-continue-shopping": "Continue Shopping"
 }
