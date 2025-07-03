@@ -310,5 +310,9 @@
   "wine-details.productdetails": "Produktdetaljer",
   "wine-details.country-region": "Land/Region",
   "wine-details.winetype": "Vintype",
-  "wine-details.vineyard": "Vingård"
+  "wine-details.vineyard": "Vingård",
+  "topwinesection.button-more": "Se hele kataloget",
+  "topwinesection.title": "Mest populære produkter",
+  "topwinesection.headline": "Vores bedste vine",
+  "topwinesection.description": "Vores eksklusive udvalg af de fineste vine, håndplukket til dig Opdag vores vinsortiment"
 }

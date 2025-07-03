@@ -5,81 +5,38 @@ import Link from "next/link";
 import "swiper/css";
 import "swiper/css/navigation";
 import "../../styles/slider/buttons.css";
-
+import Button from "../Button/Button";
+import { useLanguage } from "@/context/LanguageContext";
 import WineCardSmall from "@/components/Card/WineCardSmall";
-
-const wineData = [
-  {
-    title: "Muga Reserva",
-    slug: "muga-reserva",
-    price: 130.0,
-    imageUrl: "/images/exampleImageWine.png",
-    isNew: true,
-    url: "/wines/muga-reserva",
-  },
-  {
-    title: "Barolo Terlo",
-    slug: "barolo-terlo",
-    price: 121.0,
-    imageUrl: "/images/exampleImageWine.png",
-    isNew: true,
-    url: "/wines/barolo-terlo",
-  },
-  {
-    title: "Pinot Noir",
-    slug: "pinot-noir",
-    price: 180.0,
-    imageUrl: "/images/exampleImageWine.png",
-    isNew: false,
-    url: "/wines/pinot-noir",
-  },
-  {
-    title: "Vega Cicilia",
-    slug: "vega-cicilia",
-    price: 210.0,
-    imageUrl: "/images/exampleImageWine.png",
-    isNew: false,
-    url: "/wines/vega-cicilia",
-  },
-  {
-    title: "Saviognese Merlot",
-    slug: "saviognese-merlot",
-    price: 210.0,
-    imageUrl: "/images/exampleImageWine.png",
-    isNew: true,
-    url: "/wines/saviognese-merlot",
-  },
-  {
-    title: "Pinot Grigio",
-    slug: "pinot-grigio",
-    price: 210.0,
-    imageUrl: "/images/exampleImageWine.png",
-    isNew: false,
-    url: "/wines/pinot-grigio",
-  },
-  {
-    title: "Marques de Murrieta",
-    slug: "marques-de-murrieta",
-    price: 210.0,
-    imageUrl: "/images/exampleImageWine.png",
-    isNew: false,
-    url: "/wines/marques-de-murrieta",
-  },
-];
+import { usePreSaleWines } from "@/context/PreSaleWinesContext";
+import { getWineUrl } from "@/utils/wineUtils";
+import ErrorMessage from "@/components/UI/ErrorMessage";
 
 const TopWinesSection = () => {
+  const { translations } = useLanguage();
+  const { wines, isLoading, error } = usePreSaleWines();
+
+  if (isLoading) {
+    return <div data-testid="loading">Loading...</div>;
+  }
+  if (error) {
+    return <ErrorMessage message={error} />;
+  }
+  if (!wines || wines.length === 0) {
+    return <div>No top wines available at the moment.</div>;
+  }
+
   return (
     <section className="relative w-full bg-primary-light py-6 pb-24 text-center">
       <div className="mb-[-60px]">
         <h3 className="text-titleMedium font-semibold">
-          Most Popular Products
+          {translations["topwinesection.title"]}
         </h3>
         <h2 className="py-6 text-displayLarge font-regular text-tertiary1-dark">
-          Our Top Wines
+          {translations["topwinesection.headline"]}
         </h2>
         <p className="mb-6 text-bodyLarge font-regular text-tertiary1-dark">
-          Our Exclusive Selection of Finest Wines, Handpicked for You Discover
-          our wine selection
+          {translations["topwinesection.description"]}
         </p>
       </div>
 
@@ -89,7 +46,7 @@ const TopWinesSection = () => {
           spaceBetween={5}
           navigation={{ nextEl: ".next-btn", prevEl: ".prev-btn" }}
           loop={true}
-          loopAdditionalSlides={2}
+          loopAdditionalSlides={0}
           modules={[Navigation]}
           breakpoints={{
             640: { slidesPerView: 1, spaceBetween: 5 },
@@ -99,16 +56,19 @@ const TopWinesSection = () => {
           }}
           className="relative z-10 w-full"
         >
-          {wineData.map((wine, index) => (
+          {wines.map((wine, index) => (
             <SwiperSlide
               key={index}
               className="flex items-center justify-center overflow-visible px-3"
             >
               <div className="group flex items-center justify-center overflow-visible px-5 py-5 transition-all duration-300">
-                <Link href={wine.url} className="w-full">
+                <Link href={getWineUrl(wine)} className="w-full">
                   <WineCardSmall
                     data-testid="wine-card"
-                    {...wine}
+                    key={wine.id}
+                    price={wine.bottlePrice}
+                    title={wine.title}
+                    imageUrl={wine.imageUrl}
                     className="shadow-lg transition-transform duration-300 group-hover:scale-105 group-hover:overflow-visible"
                   />
                 </Link>
@@ -139,6 +99,18 @@ const TopWinesSection = () => {
             className="h-4 w-4 invert md:h-5 md:w-5"
           />
         </button>
+        <div className="flex justify-center">
+          <Button
+            text={translations["topwinesection.button-more"]}
+            color="white"
+            width="large"
+            size="lg"
+            variant="outlineThin"
+            border="primaryNormal"
+            linkUrl="/wines/pre-sale"
+            aria-label={translations["topwinesection.button-more"]}
+          />
+        </div>
       </div>
     </section>
   );

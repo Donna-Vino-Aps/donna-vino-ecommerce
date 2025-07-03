@@ -35,9 +35,12 @@ const COLORS = {
     "bg-secondary-normal hover:bg-secondary-hover_normal text-white font-barlow",
   disabled:
     "bg-primary-disabled hover:bg-primary-disabled text-primary-disabled_dark cursor-not-allowed",
+  white:
+    "bg-tertiary2-light hover:bg-tertiary2-light text-primary-normal text-titleMedium",
 };
 
 const VARIANT = {
+  outlineThin: "border-[1px]",
   outline: "border-2",
   rounded: "rounded-md",
   solid: "rounded-[0rem]",
@@ -46,6 +49,7 @@ const VARIANT = {
 const BORDERS = {
   primary: "border-primary-active_normal",
   secondary: "border-secondary-normal",
+  primaryNormal: "border-primary-normal",
 };
 
 const Button = ({

@@ -310,5 +310,9 @@
   "wine-details.productdetails": "Product Details",
   "wine-details.country-region": "Country/Region",
   "wine-details.winetype": "Wine type",
-  "wine-details.vineyard": "Vineyard"
+  "wine-details.vineyard": "Vineyard",
+  "topwinesection.button-more": "See full catalog",
+  "topwinesection.title": "Most Popular Products",
+  "topwinesection.headline": "Our Top Wines",
+  "topwinesection.description": "Our Exclusive Selection of Finest Wines, Handpicked for You Discover our wine selection"
 }
