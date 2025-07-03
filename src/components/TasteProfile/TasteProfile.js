@@ -6,7 +6,7 @@ import TasteProfileDescription from "@/components/TasteProfile/TasteProfileDescr
 
 export default function TasteProfile({ wine }) {
   return (
-    <section className="my-10 flex min-h-[26.5625rem] flex-col-reverse items-center justify-center gap-10 px-5 py-6 md:px-10 lg:my-20 lg:flex-row lg:gap-10 lg:px-28 xl:gap-20">
+    <section className="my-10 flex min-h-[26.5625rem] flex-col-reverse items-center justify-center gap-10 px-5 py-6 md:gap-20 md:px-10 lg:my-20 lg:flex-row lg:px-28 xl:gap-20">
       <TasteProfilePercentage wine={wine} />
       <TasteProfileDescription wine={wine} />
     </section>

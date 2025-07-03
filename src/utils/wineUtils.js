@@ -1,5 +1,6 @@
 // This utility function takes a raw wine object and normalizes it into a more usable format
-export const normalizeWineData = (wine) => {
+
+export const normalizeWineData = (wine, translations) => {
   const variants = wine.variants || [];
 
   const variantMap = {
@@ -14,25 +15,26 @@ export const normalizeWineData = (wine) => {
   const casePrice = caseVariant?.price?.amount ?? 0;
   const quantityAvailable = defaultVariant?.quantityAvailable || 0;
   const volume = wine.volume?.value;
+
   const tasteValues = [
     {
-      left: "Delicate",
-      right: "Bold",
+      left: translations["tasteProfile.delicate"],
+      right: translations["tasteProfile.bold"],
       value: Math.round((wine.delicateBold ?? 0) * 100),
     },
     {
-      left: "Velvety",
-      right: "Astringent",
+      left: translations["tasteProfile.velvety"],
+      right: translations["tasteProfile.astringent"],
       value: Math.round((wine.velvetyAstringent ?? 0) * 100),
     },
     {
-      left: "Dry",
-      right: "Smooth",
+      left: translations["tasteProfile.dry"],
+      right: translations["tasteProfile.smooth"],
       value: Math.round((wine.drySmooth ?? 0) * 100),
     },
     {
-      left: "Soft",
-      right: "Crisp",
+      left: translations["tasteProfile.soft"],
+      right: translations["tasteProfile.crisp"],
       value: Math.round((wine.softCrisp ?? 0) * 100),
     },
   ];
@@ -64,8 +66,10 @@ export const normalizeWineData = (wine) => {
 };
 
 // This utility function normalizes a list of wines by mapping each wine object
-export const normalizeWineList = (wines) =>
-  wines.map((wine) => normalizeWineData({ ...wine, slug: wine.handle }));
+export const normalizeWineList = (wines, translations) =>
+  wines.map((wine) =>
+    normalizeWineData({ ...wine, slug: wine.handle }, translations),
+  );
 
 // this utility function retrieves a wine by its slug from a passed list of wines
 export const getWineBySlug = (slug, wines) => {

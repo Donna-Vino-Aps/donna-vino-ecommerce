@@ -9,9 +9,9 @@ export default function TasteProfilePercentage({ wine }) {
   return (
     <div className="flex w-full max-w-[39.1875rem] flex-col gap-6">
       {pairs.map((pair, index) => (
-        <div className="mt-9 flex items-center gap-4" key={index}>
+        <div className="mt-9 flex items-center gap-6" key={index}>
           <div className="flex w-12 text-bodyMedium">
-            <span className="w-20 shrink-0 truncate text-bodySmall md:text-bodyMedium">
+            <span className="w-20 shrink-0 text-bodySmall md:text-bodyMedium">
               {pair.left}
             </span>
           </div>
@@ -29,7 +29,7 @@ export default function TasteProfilePercentage({ wine }) {
             </div>
           </div>
           <div className="flex justify-between text-bodyMedium">
-            <span className="w-20 shrink-0 truncate text-left text-bodySmall md:text-bodyMedium">
+            <span className="w-20 shrink-0 text-left text-bodySmall md:text-bodyMedium">
               {pair.right}
             </span>
           </div>
