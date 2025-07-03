@@ -1,9 +1,9 @@
 import React from "react";
 import { render, screen } from "@testing-library/react";
 import WineInfo from "../../components/WineDetails/WineInfo";
-import { normalizeWineData } from "../../utils/wineUtils";
-import LanguageProvider from "../../context/LanguageContext";
-import { CartProvider } from "../../context/ShoppingCartContext";
+import { LanguageProvider } from "@/context/LanguageContext";
+import { CartProvider } from "@/context/ShoppingCartContext";
+import { normalizeWineData } from "@/utils/wineUtils";
 
 // Mock next/image as a simple img tag
 jest.mock("next/image", () => (props) => {
@@ -20,6 +20,16 @@ jest.mock("../../context/LanguageContext", () => ({
       "wine-details.outofstock": "Out of Stock",
       "wine-details.switch-preorder": "Switch to Pre-Order",
       "wine-details.presale": "Pre Order",
+
+      // taste profile translations
+      "tasteProfile.delicate": "Delicate",
+      "tasteProfile.bold": "Bold",
+      "tasteProfile.velvety": "Velvety",
+      "tasteProfile.astringent": "Astringent",
+      "tasteProfile.dry": "Dry",
+      "tasteProfile.smooth": "Smooth",
+      "tasteProfile.soft": "Soft",
+      "tasteProfile.crisp": "Crisp",
     },
   }),
 }));
@@ -74,9 +84,30 @@ const rawWineMock = {
   wineVariety: "Red",
   grape: "Pinot noir",
   vineyard: "Cantina Kurtatsch",
+  delicateBold: 0.5,
+  velvetyAstringent: 0.35,
+  drySmooth: 0.25,
+  softCrisp: 0.5,
 };
 
-const wineMock = normalizeWineData(rawWineMock);
+// Mock translations object matching the hook
+const testTranslations = {
+  "wine-details.instock": "In Stock",
+  "wine-details.outofstock": "Out of Stock",
+  "wine-details.switch-preorder": "Switch to Pre-Order",
+  "wine-details.presale": "Pre Order",
+
+  "tasteProfile.delicate": "Delicate",
+  "tasteProfile.bold": "Bold",
+  "tasteProfile.velvety": "Velvety",
+  "tasteProfile.astringent": "Astringent",
+  "tasteProfile.dry": "Dry",
+  "tasteProfile.smooth": "Smooth",
+  "tasteProfile.soft": "Soft",
+  "tasteProfile.crisp": "Crisp",
+};
+
+const wineMock = normalizeWineData(rawWineMock, testTranslations);
 
 describe("WineInfo simple render test", () => {
   it("renders WineInfo without crashing", () => {
