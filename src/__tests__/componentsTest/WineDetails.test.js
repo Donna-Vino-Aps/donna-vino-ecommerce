@@ -1,7 +1,7 @@
 import React from "react";
 import { render, screen } from "@testing-library/react";
 import WineInfo from "../../components/WineDetails/WineInfo";
-import { LanguageProvider } from "@/context/LanguageContext";
+import LanguageProvider from "../../context/LanguageContext";
 import { CartProvider } from "@/context/ShoppingCartContext";
 import { normalizeWineData } from "@/utils/wineUtils";
 
