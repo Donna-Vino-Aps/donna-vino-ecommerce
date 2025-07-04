@@ -9,7 +9,7 @@ export default function TasteProfileDescription({ wine }) {
     : "–";
 
   return (
-    <div className="flex w-full flex-col items-center justify-center text-center lg:mx-0">
+    <div className="mx-14 flex w-full flex-col items-center justify-center text-center lg:mx-0">
       <h2 className="font-barlow text-headlineMedium text-tertiary1-active_dark md:text-displayMedium">
         Taste Profile: {wine.title}
       </h2>
