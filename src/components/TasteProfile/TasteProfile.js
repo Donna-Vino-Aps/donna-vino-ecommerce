@@ -3,6 +3,7 @@
 import React from "react";
 import TasteProfilePercentage from "@/components/TasteProfile/TasteProfilePercentage";
 import TasteProfileDescription from "@/components/TasteProfile/TasteProfileDescription";
+import PropTypes from "prop-types";
 
 export default function TasteProfile({ wine }) {
   return (
@@ -12,8 +13,6 @@ export default function TasteProfile({ wine }) {
     </section>
   );
 }
-
-import PropTypes from "prop-types";
 
 TasteProfile.propTypes = {
   wine: PropTypes.shape({
