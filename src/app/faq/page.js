@@ -4,7 +4,6 @@ import { useLanguage } from "@/context/LanguageContext";
 import useIsMobile from "@/hooks/useIsMobile";
 import FaqSection from "@/components/FAQ/FaqSection";
 import Image from "next/image";
-// import Image from "next/image";
 
 const FrequentlyAskedQuestions = () => {
   const { translations } = useLanguage();
@@ -30,10 +29,12 @@ const FrequentlyAskedQuestions = () => {
           />
         </div>
         <div className="mb-4 flex w-full flex-col justify-center gap-6 px-8 text-center sm:mb-0 md:w-[45%] md:text-start lg:w-[40%] lg:px-12">
-          <h1 className="mt-8 text-center text-displayMedium sm:mt-4 sm:max-w-full sm:text-displaySmall md:mt-0 md:text-start lg:text-displayMedium">
+          <h1 className="mt-8 text-center text-displaySmall sm:mt-4 sm:max-w-full md:mt-0 md:text-start lg:text-displayMedium">
             {isMobile ? translations["faq.h1-mobile"] : translations["faq.h1"]}
           </h1>
-          <p className="mb-4 text-bodyLarge sm:mb-0">{translations["faq.p"]}</p>
+          <p className="mb-4 text-bodySmall sm:mb-0 md:text-bodyLarge">
+            {translations["faq.p"]}
+          </p>
         </div>
         <figure className="hidden overflow-hidden object-right sm:flex sm:min-w-[55%] lg:min-w-[60%]">
           <img
