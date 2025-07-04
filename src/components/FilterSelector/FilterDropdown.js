@@ -2,11 +2,21 @@ import React, { useState } from "react";
 import Image from "next/image";
 import DualRangeSlider from "./DualRangeSlider";
 import PropTypes from "prop-types";
+import CheckboxField from "../FormFields/CheckboxField";
 
 const FilterDropdown = ({ filter }) => {
   const [isFilterOpen, setIsFilterOpen] = useState(false);
   const [selectedMinimum, setSelectedMinimum] = useState(1);
   const [selectedMaximum, setSelectedMaximum] = useState(2000);
+  const [selectedOptions, setSelectedOptions] = useState([]);
+
+  const handleCheckboxChange = (option) => {
+    setSelectedOptions((prevSelected) =>
+      prevSelected.includes(option)
+        ? prevSelected.filter((item) => item !== option)
+        : [...prevSelected, option],
+    );
+  };
   return (
     <div className="flex flex-col gap-1">
       <div
@@ -34,11 +44,12 @@ const FilterDropdown = ({ filter }) => {
                 key={option}
                 className="flex flex-row items-center justify-start px-3 py-1"
               >
-                <input
-                  type="checkbox"
-                  className=" h-[2.125rem] w-[2.125rem] rounded-lg border-others-bordergray"
-                ></input>
-                <p className="ml-3 text-bodyLarge">{option}</p>
+                <CheckboxField
+                  name={option}
+                  label={option}
+                  checked={selectedOptions.includes(option)}
+                  onChange={() => handleCheckboxChange(option)}
+                />
               </div>
             ))}
           </div>
