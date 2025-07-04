@@ -7,7 +7,7 @@ export default function TasteProfilePercentage({ wine }) {
   const pairs = wine?.tasteValues ?? [];
 
   return (
-    <div className="flex w-full max-w-[39.1875rem] flex-col gap-6">
+    <div className="flex w-full flex-col gap-6">
       {pairs.map((pair, index) => (
         <div className="mt-9 flex items-center gap-6" key={index}>
           <div className="flex w-12 text-bodyMedium">

@@ -7,9 +7,11 @@ import PropTypes from "prop-types";
 
 export default function TasteProfile({ wine }) {
   return (
-    <section className="my-10 flex min-h-[26.5625rem] flex-col-reverse items-center justify-center gap-10 px-5 py-6 md:gap-20 md:px-10 lg:my-20 lg:flex-row lg:px-28 xl:gap-20">
-      <TasteProfilePercentage wine={wine} />
-      <TasteProfileDescription wine={wine} />
+    <section className="flex w-full items-center justify-center">
+      <div className="my-10 flex min-h-[26.5625rem] max-w-7xl flex-col-reverse items-center justify-center gap-10 py-6 md:gap-16 lg:my-20 lg:flex-row xl:gap-20">
+        <TasteProfilePercentage wine={wine} />
+        <TasteProfileDescription wine={wine} />
+      </div>
     </section>
   );
 }
