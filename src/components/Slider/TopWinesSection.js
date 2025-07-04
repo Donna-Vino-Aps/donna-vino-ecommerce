@@ -5,8 +5,7 @@ import Link from "next/link";
 import "swiper/css";
 import "swiper/css/navigation";
 import "../../styles/slider/buttons.css";
-
-import WineCardSmall from "@/components/Card/WineCardSmall";
+import WineCard from "@/components/Card/WineCard";
 
 const wineData = [
   {
@@ -83,7 +82,7 @@ const TopWinesSection = () => {
         </p>
       </div>
 
-      <div className="relative mx-auto h-auto w-full max-w-7xl overflow-visible px-4 md:h-[660px]">
+      <div className="relative mx-auto mt-[100px] h-auto w-full max-w-[1350px] overflow-visible px-4 sm:mt-0 md:h-[660px]">
         <Swiper
           slidesPerView={1}
           spaceBetween={5}
@@ -97,16 +96,16 @@ const TopWinesSection = () => {
             1024: { slidesPerView: 3, spaceBetween: 10 },
             1440: { slidesPerView: 4, spaceBetween: 12 },
           }}
-          className="relative z-10 w-full"
+          className="relative z-10 flex h-full w-full"
         >
           {wineData.map((wine, index) => (
-            <SwiperSlide
-              key={index}
-              className="flex items-center justify-center overflow-visible px-3"
-            >
-              <div className="group flex items-center justify-center overflow-visible px-5 py-5 transition-all duration-300">
-                <Link href={wine.url} className="w-full">
-                  <WineCardSmall
+            <SwiperSlide key={index} className="h-full overflow-visible ">
+              <div className="group h-full overflow-visible transition-all duration-300">
+                <Link
+                  href={wine.url}
+                  className="flex h-full w-full items-center justify-center"
+                >
+                  <WineCard
                     data-testid="wine-card"
                     {...wine}
                     className="shadow-lg transition-transform duration-300 group-hover:scale-105 group-hover:overflow-visible"

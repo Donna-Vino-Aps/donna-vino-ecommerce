@@ -319,5 +319,9 @@
   "cart.no-items1": "No items in your cart yet.",
   "cart.no-items2": "Come back when you are ready to checkout!",
   "cart.button-checkout": "Go to Checkout",
-  "cart.button-continue-shopping": "Continue Shopping"
+  "cart.button-continue-shopping": "Continue Shopping",
+  "cart.bottle": "Single bottle",
+  "cart.case": "Case (6 bottles)",
+  "wineCard.viewDetails": "View details",
+  "wineCard.addToCart": "Add to cart"
 }

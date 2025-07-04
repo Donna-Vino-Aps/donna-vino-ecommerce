@@ -4,12 +4,9 @@ import PropTypes from "prop-types";
 import Image from "next/image";
 
 export const QuantitySelector = ({
-  item = null,
   quantityAvailable = 999,
   selectedQuantity,
   setSelectedQuantity,
-  setTotalQuantityInCart = null,
-  updateCartItemQuantity = null,
   preSale = false,
   min = 1,
   max,
@@ -20,30 +17,12 @@ export const QuantitySelector = ({
 
   const handleIncrement = () => {
     if (selectedQuantity >= resolvedMax) return;
-
-    setSelectedQuantity((prev) => prev + 1);
-
-    if (item && updateCartItemQuantity) {
-      updateCartItemQuantity(item.id, +1);
-    }
-
-    if (setTotalQuantityInCart) {
-      setTotalQuantityInCart((prev) => prev + 1);
-    }
+    setSelectedQuantity(selectedQuantity + 1);
   };
 
   const handleDecrement = () => {
     if (selectedQuantity <= min) return;
-
-    setSelectedQuantity((prev) => prev - 1);
-
-    if (item && updateCartItemQuantity) {
-      updateCartItemQuantity(item.id, -1);
-    }
-
-    if (setTotalQuantityInCart) {
-      setTotalQuantityInCart((prev) => prev - 1);
-    }
+    setSelectedQuantity(selectedQuantity - 1);
   };
 
   return (
@@ -86,17 +65,9 @@ export const QuantitySelector = ({
 };
 
 QuantitySelector.propTypes = {
-  item: PropTypes.shape({
-    id: PropTypes.number.isRequired,
-    name: PropTypes.string,
-    price: PropTypes.number,
-    image: PropTypes.string,
-  }),
   quantityAvailable: PropTypes.number,
   selectedQuantity: PropTypes.number.isRequired,
   setSelectedQuantity: PropTypes.func.isRequired,
-  setTotalQuantityInCart: PropTypes.func,
-  updateCartItemQuantity: PropTypes.func,
   preSale: PropTypes.bool,
   min: PropTypes.number,
   max: PropTypes.number,

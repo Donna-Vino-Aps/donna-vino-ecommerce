@@ -9,10 +9,13 @@ import { SizeSelector } from "./SizeSelector";
 import { ProductDetails } from "./ProductDetails";
 import Button from "../Button/Button";
 import { useLanguage } from "@/context/LanguageContext";
+import { useCart } from "@/context/ShoppingCartContext";
 import Image from "next/image";
+import { logError } from "@/utils/logging";
 
 const WineInfo = ({ wine }) => {
   const { translations } = useLanguage();
+  const { addItemToCart } = useCart();
 
   const [selectedSize, setSelectedSize] = useState(() => {
     if (wine.variantMap.bottle) return "bottle";
@@ -22,6 +25,28 @@ const WineInfo = ({ wine }) => {
 
   const [preSale, setPreSale] = useState(!wine.inStock);
   const [selectedQuantity, setSelectedQuantity] = React.useState(1);
+
+  const handleAddToCart = () => {
+    const selectedVariant = wine.variantMap[selectedSize];
+
+    if (!selectedVariant) {
+      logError(
+        `Variant "${selectedSize}" not found for product "${wine.title}".`,
+      );
+      return;
+    }
+
+    const itemToAdd = {
+      title: wine.title,
+      variantId: selectedVariant.id,
+      size: selectedSize,
+      price: selectedVariant.price.amount,
+      currencyCode: selectedVariant.price.currencyCode,
+      quantity: selectedQuantity,
+      imageUrl: wine.imageUrl,
+    };
+    addItemToCart(itemToAdd);
+  };
 
   return (
     <article className="relative flex flex-col items-center justify-center gap-6 md:gap-8 lg:flex-row lg:gap-12">
@@ -87,6 +112,7 @@ const WineInfo = ({ wine }) => {
         )}
         {preSale === false ? (
           <Button
+            onClick={handleAddToCart}
             text={translations["wine-details.addtocart"]}
             variant="rounded"
             border="primary"
@@ -100,6 +126,7 @@ const WineInfo = ({ wine }) => {
           />
         ) : (
           <Button
+            onClick={handleAddToCart}
             text={translations["wine-details.addpreorder"]}
             variant="rounded"
             border=""
