@@ -1,65 +1,29 @@
-import React, { useState, useEffect } from "react";
+"use client";
+
+import React from "react";
 import PropTypes from "prop-types";
 import Image from "next/image";
 import ModalCartItem from "./ModalCartItem.js";
 import Button from "../Button/Button.js";
 import { useLanguage } from "@/context/LanguageContext.js";
+import { useCart } from "@/context/ShoppingCartContext.js";
+import { createCartCheckoutUrl } from "@/lib/shopify/checkout.js";
+import { logError } from "@/utils/logging.js";
 
-const CartModal = ({
-  onClose,
-  cartItems,
-  setCartItems,
-  totalQuantityInCart,
-  setTotalQuantityInCart,
-}) => {
+const CartModal = ({ onClose }) => {
   const { translations } = useLanguage();
+  const { items: cartItems, totalPrice } = useCart();
 
-  const nrOfCartItems = cartItems.length;
+  const handleCheckout = () => {
+    try {
+      if (cartItems.length === 0) return;
 
-  // Initialize total price in cart
-  const [totalPrice, setTotalPrice] = useState(
-    cartItems.reduce(
-      (acc, item) => acc + item.price * item.quantitySelected,
-      0,
-    ),
-  );
+      const checkoutUrl = createCartCheckoutUrl(cartItems);
 
-  // function for updating the total Price
-  useEffect(() => {
-    const newTotal = cartItems.reduce(
-      (acc, item) => acc + item.price * item.quantitySelected,
-      0,
-    );
-    setTotalPrice(newTotal);
-  }, [cartItems]);
-
-  // function to update the quantity of an item in the cart
-  const updateCartItemQuantity = (itemId, delta) => {
-    let updatedItems = cartItems.map((item) =>
-      item.id === itemId
-        ? {
-            ...item,
-            quantitySelected: Math.max(1, item.quantitySelected + delta),
-          }
-        : item,
-    );
-    setCartItems(updatedItems);
-  };
-
-  const removeCartItem = (itemId) => {
-    const itemToRemove = cartItems.find((item) => item.id === itemId);
-    if (!itemToRemove) return;
-
-    const newTotalQuantity =
-      totalQuantityInCart - itemToRemove.quantitySelected;
-    const newTotalPrice =
-      totalPrice - itemToRemove.price * itemToRemove.quantitySelected;
-    const updatedCartItems = cartItems.filter((item) => item.id !== itemId);
-
-    setCartItems(updatedCartItems);
-    setTotalQuantityInCart(newTotalQuantity);
-    // Update total price after removing an item
-    setTotalPrice(newTotalPrice);
+      window.open(checkoutUrl, "_blank");
+    } catch (error) {
+      logError("Checkout error:", error);
+    }
   };
 
   return (
@@ -82,14 +46,8 @@ const CartModal = ({
           <section>
             <div className="max-h-[27vh] flex-1 flex-col overflow-y-auto overscroll-contain md:max-h-[29vh]">
               {cartItems.map((item) => (
-                <div className="my-1" key={item.id}>
-                  <ModalCartItem
-                    item={item}
-                    nrOfCartItems={nrOfCartItems}
-                    updateCartItemQuantity={updateCartItemQuantity}
-                    removeCartItem={removeCartItem}
-                    setTotalQuantityInCart={setTotalQuantityInCart}
-                  />
+                <div className="my-1" key={item.variantId}>
+                  <ModalCartItem item={item} />
                 </div>
               ))}
             </div>
@@ -100,7 +58,7 @@ const CartModal = ({
                   {translations["cart.subtotal"]}
                 </h3>
                 <h3
-                  className={`text-titleLarge font-normal ${nrOfCartItems > 2 ? "relative right-2" : ""}`}
+                  className={`text-titleLarge font-normal ${cartItems.length > 2 ? "relative right-2" : ""}`}
                 >
                   {totalPrice.toFixed(2).replace(".", ",")} kr
                 </h3>
@@ -120,6 +78,7 @@ const CartModal = ({
                 extraStyle="font-medium my-4 md:my-5"
                 ariaLabel="Go to Checkout Button"
                 testId="go-to-checkout-button"
+                onClick={handleCheckout}
               />
               <Button
                 text={translations["cart.button-continue-shopping"]}
@@ -177,18 +136,6 @@ const CartModal = ({
 
 CartModal.propTypes = {
   onClose: PropTypes.func.isRequired,
-  cartItems: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.number.isRequired,
-      name: PropTypes.string.isRequired,
-      price: PropTypes.number.isRequired,
-      quantitySelected: PropTypes.number.isRequired,
-    }),
-  ).isRequired,
-  totalQuantityInCart: PropTypes.number.isRequired,
-  setTotalQuantityInCart: PropTypes.func.isRequired,
-  setCartItems: PropTypes.func.isRequired,
-  updateCartItemQuantity: PropTypes.func,
 };
 
 export default CartModal;

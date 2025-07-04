@@ -320,6 +320,8 @@
   "cart.no-items2": "Kom tilbage, når du er klar til at gå til kassen!",
   "cart.button-checkout": "Gå til kassen",
   "cart.button-continue-shopping": "Fortsæt Shopping",
+  "cart.bottle": "Enkelt flaske",
+  "cart.case": "Kasse (6 flasker)",
   "wineCard.viewDetails": "Se detaljer",
   "wineCard.addToCart": "Læg i indkøbskurv"
 }
