@@ -112,6 +112,8 @@ export default {
         others: {
           confirm: "#34C759",
           negative: "#FF3B30",
+          stroke: "#DFE4EA",
+          primaryText: "#637381"
         },
       },
       screens: {

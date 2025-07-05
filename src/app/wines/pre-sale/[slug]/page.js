@@ -8,6 +8,7 @@ import { usePreSaleWines } from "@/context/PreSaleWinesContext";
 import { getWineBySlug } from "@/utils/wineUtils";
 import Spinner from "@/components/UI/Spinner";
 import ErrorMessage from "@/components/UI/ErrorMessage";
+import MoreInfoDropdown from "@/components/WineDetails/MoreInformationDropdown";
 import TasteProfile from "@/components/TasteProfile/TasteProfile";
 
 export default function WineDetailPage() {
@@ -38,6 +39,7 @@ export default function WineDetailPage() {
 
   return (
     <div className="px-8 py-12">
+      <MoreInfoDropdown wine={wine} />
       <WineInfo wine={wine} />
       <TasteProfile wine={wine} />
     </div>
