@@ -20,7 +20,7 @@ const Events = () => {
         <EventContent>
           {({ processedEvents }) => (
             <>
-              <section className="mx-8 mb-8 flex flex-col justify-center gap-8 xl:mb-12 xl:flex-row xl:gap-12">
+              <section className="mx-8 mb-8 flex flex-col justify-center gap-8 xl:mx-1 xl:mb-12 xl:flex-row xl:gap-2 2xl:gap-12">
                 <SEO
                   title={translations["events.title"]}
                   description={translations["events.description"]}
