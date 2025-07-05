@@ -15,6 +15,11 @@ export const normalizeWineData = (wine) => {
   const quantityAvailable = defaultVariant?.quantityAvailable || 0;
   const volume = wine.volume?.value;
 
+  const vintage = wine.vintage ?? "-";
+  const producer = wine.producer ?? "-";
+  const servingTemperature = wine.servingTemperature ?? "-";
+  const alcoholContent = wine.alcoholContent ?? "-";
+
   return {
     id: wine.id,
     slug: wine.handle, // Using handle as slug
@@ -36,6 +41,10 @@ export const normalizeWineData = (wine) => {
     pricePerLiterBottle: volume ? (bottlePrice / volume).toFixed(2) : null,
     pricePerLiterCase: volume ? (casePrice / (volume * 6)).toFixed(2) : null,
     variantMap,
+    vintage,
+    producer,
+    servingTemperature,
+    alcoholContent,
   };
 };
 
