@@ -39,9 +39,9 @@ export default function WineDetailPage() {
 
   return (
     <div className="px-8 py-12">
+      <MoreInfoDropdown wine={wine} />
       <WineInfo wine={wine} />
       <TasteProfile wine={wine} />
-      <MoreInfoDropdown wine={wine} />
     </div>
   );
 }
