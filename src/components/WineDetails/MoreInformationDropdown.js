@@ -4,7 +4,6 @@ import PropTypes from "prop-types";
 import { useLanguage } from "@/context/LanguageContext";
 import Image from "next/image";
 import useIsMobile from "@/hooks/useIsMobile";
-import Link from "next/link";
 
 const MoreInfoDropdown = ({ wine }) => {
   const { translations } = useLanguage();
@@ -34,20 +33,20 @@ const MoreInfoDropdown = ({ wine }) => {
   return (
     <article className=" w-full ">
       <div
-        className={`mx-auto my-4 w-[300px] ${!isMobile && "rounded-b-lg"}  sm:w-[1250px]  ${isOpen && !isMobile && "shadow-md"}`}
+        className={`mx-auto my-4 w-11/12 min-w-[270px] max-w-[1250px] ${!isMobile && "rounded-b-lg"} ${isOpen && !isMobile && "shadow-md"}`}
       >
         <button
           onClick={() => setIsOpen(!isOpen)}
-          className={`rounded-lg ${
+          className={`w-full rounded-lg ${
             isOpen
               ? isMobile
-                ? "rounded-none border-b-[1px] border-[#DFE4EA]"
+                ? "rounded-none border-b-[1px] border-others-stroke"
                 : "rounded-b-none rounded-t-xl border-0 shadow-sm"
               : "border-[1px] border-tertiary1-light"
           }
             `}
         >
-          <div className="flex h-[57px] w-[300px] items-center  justify-between px-6 sm:h-[95px] sm:w-[1250px]">
+          <div className="flex h-[57px] w-full items-center  justify-between px-6 sm:h-[95px] ">
             <h4 className="text-titleLarge text-tertiary1-dark sm:text-headlineSmall">
               {isMobile
                 ? translations["more-info.title-short"]
@@ -74,8 +73,8 @@ const MoreInfoDropdown = ({ wine }) => {
               <div
                 className={`
                   flex items-center gap-4 
-                  ${isMobile ? "px-6 py-2" : "ps-4"} 
-                  ${key !== "volume" && isMobile ? "border-b border-[#DFE4EA]" : ""}
+                  ${isMobile ? "py-2 ps-6" : "ps-4"} 
+                  ${key !== "volume" && isMobile ? "border-b border-others-stroke" : ""}
                 `}
               >
                 <Image
@@ -90,26 +89,17 @@ const MoreInfoDropdown = ({ wine }) => {
                   {translations[`more-info.${key}`]}:
                 </h5>
 
-                {key === "producer" ? (
-                  <Link
-                    href=""
-                    className={`text-bodyMedium text-[#637381] underline sm:text-bodyLarge`}
-                  >
-                    {value}
-                  </Link>
-                ) : (
-                  <p className="text-bodyMedium text-[#637381] sm:text-bodyLarge">
-                    {value}
-                    {key === "servingTemp" && "°C"}
-                    {key === "alcoholContent" && "%"}
-                    {key === "volume" && " cl"}
-                  </p>
-                )}
+                <p className="text-bodyMedium text-others-primaryText sm:text-bodyLarge">
+                  {value}
+                  {key === "servingTemp" && "°C"}
+                  {key === "alcoholContent" && "%"}
+                  {key === "volume" && " cl"}
+                </p>
               </div>
 
               {!isMobile && (
                 <div
-                  className={`my-5 w-full ${key === "volume" ? "" : "border-t-2 border-[#DFE4EA]"}`}
+                  className={`my-5 w-full ${key === "volume" ? "" : "border-t-2 border-others-stroke"}`}
                 />
               )}
             </div>
@@ -150,7 +140,7 @@ MoreInfoDropdown.propTypes = {
 
 const icons = {
   grape: "grape.svg",
-  vintage: "calender.svg",
+  vintage: "calendar.svg",
   origin: "world.svg",
   producer: "factory.svg",
   servingTemp: "term.svg",
