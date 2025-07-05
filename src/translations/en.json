@@ -319,6 +319,14 @@
   "more-info.servingTemperature": "Serving Temperature",
   "more-info.alcoholContent": "Alcohol Content",
   "more-info.volume": "Volume",
+  "tasteProfile.delicate": "Delicate",
+  "tasteProfile.bold": "Bold",
+  "tasteProfile.velvety": "Velvety",
+  "tasteProfile.astringent": "Astringent",
+  "tasteProfile.dry": "Dry",
+  "tasteProfile.smooth": "Smooth",
+  "tasteProfile.soft": "Soft",
+  "tasteProfile.crisp": "Crisp",
   "cart.title": "Shopping Cart",
   "cart.subtotal": "Subtotal",
   "cart.info1": "Shipping, taxes, & discounts are calculated during checkout.",
@@ -329,6 +337,8 @@
   "cart.no-items2": "Come back when you are ready to checkout!",
   "cart.button-checkout": "Go to Checkout",
   "cart.button-continue-shopping": "Continue Shopping",
+  "cart.bottle": "Single bottle",
+  "cart.case": "Case (6 bottles)",
   "wineCard.viewDetails": "View details",
   "wineCard.addToCart": "Add to cart"
 }
