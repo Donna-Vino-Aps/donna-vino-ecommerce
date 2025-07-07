@@ -2,38 +2,26 @@ import React from "react";
 import { useLanguage } from "@/context/LanguageContext";
 import FaqItem from "./FaqItem";
 
+const FAQ_DATA = [
+  { id: "q1", questionKey: "faq.question1", answerKey: "faq.answer1" },
+  { id: "q2", questionKey: "faq.question2", answerKey: "faq.answer2" },
+  { id: "q3", questionKey: "faq.question3", answerKey: "faq.answer3" },
+  { id: "q4", questionKey: "faq.question4", answerKey: "faq.answer4" },
+  { id: "q5", questionKey: "faq.question5", answerKey: "faq.answer5" },
+  { id: "q6", questionKey: "faq.question6", answerKey: "faq.answer6" },
+];
+
 const FaqSection = () => {
   const { translations } = useLanguage();
-  const QuestionsArray = [
-    {
-      question: translations["faq.question1"],
-      answer: translations["faq.answer1"],
-    },
-    {
-      question: translations["faq.question2"],
-      answer: translations["faq.answer2"],
-    },
-    {
-      question: translations["faq.question3"],
-      answer: translations["faq.answer3"],
-    },
-    {
-      question: translations["faq.question4"],
-      answer: translations["faq.answer4"],
-    },
-    {
-      question: translations["faq.question5"],
-      answer: translations["faq.answer5"],
-    },
-    {
-      question: translations["faq.question6"],
-      answer: translations["faq.answer6"],
-    },
-  ];
+
   return (
     <div>
-      {QuestionsArray.map((item, index) => (
-        <FaqItem key={index} question={item.question} answer={item.answer} />
+      {FAQ_DATA.map((item) => (
+        <FaqItem
+          key={item.id}
+          question={translations[item.questionKey]}
+          answer={translations[item.answerKey]}
+        />
       ))}
     </div>
   );

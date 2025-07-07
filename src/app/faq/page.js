@@ -37,10 +37,12 @@ const FrequentlyAskedQuestions = () => {
           </p>
         </div>
         <figure className="hidden overflow-hidden object-right sm:flex sm:min-w-[55%] lg:min-w-[60%]">
-          <img
-            src="/images/events-header-unsplash.jpg"
+          <Image
+            src="/images/kelsey-knight-unsplash.jpg"
+            width={870}
+            height={469}
             className="min-h-[22.5rem] w-full object-cover sm:max-h-[25.313rem] sm:min-w-[54.375rem] sm:rounded-tl-[11.531rem] md:max-h-[29.313rem]"
-            alt="Hands pouring a glass of wine at a wine tasting"
+            alt="Hands toasting their wine glasses at a wine tasting"
           />
         </figure>
       </section>
