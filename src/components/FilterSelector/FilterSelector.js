@@ -1,5 +1,7 @@
 import React from "react";
 import FilterDropdown from "./FilterDropdown";
+import SortBy from "./SortBy";
+import useIsMobile from "@/hooks/useIsMobile";
 
 const FilterSelector = () => {
   const filterMockData = [
@@ -25,9 +27,11 @@ const FilterSelector = () => {
   ];
 
   const filterData = filterMockData;
+  const isMobile = useIsMobile(768);
 
   return (
     <div className="flex flex-col gap-3">
+      {!isMobile && <SortBy />}
       {filterData.map((filter) => (
         <div key={filter.title}>
           <FilterDropdown filter={filter} />
