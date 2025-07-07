@@ -36,7 +36,7 @@ const PreSaleWinesPage = () => {
       {/* Modal */}
       {isFilterModalOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-60">
-          <div className="relative max-h-[90vh] max-w-[23rem] overflow-y-auto rounded-lg bg-white p-6">
+          <div className="relative max-h-[90vh] max-w-[24rem] overflow-y-auto rounded-lg bg-white p-8">
             <Image
               src="/icons/Handle.svg"
               alt="handle icon"
@@ -44,7 +44,7 @@ const PreSaleWinesPage = () => {
               height={4}
               className="relative bottom-3 mx-auto h-1 w-[30px]"
             />
-            <p className="mb-3 text-headlineSmall">Filter by:</p>
+            <p className="mb-3 mt-2 text-headlineSmall">Filter by:</p>
             <button
               onClick={() => setIsFilterModalOpen(false)}
               className="absolute right-4 top-4"
@@ -54,6 +54,7 @@ const PreSaleWinesPage = () => {
                 alt="Close"
                 width={24}
                 height={24}
+                className="relative right-1 top-1 h-6 w-6"
               />
             </button>
             <div className="ml-2">
