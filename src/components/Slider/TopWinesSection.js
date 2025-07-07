@@ -27,7 +27,7 @@ const TopWinesSection = () => {
   }
 
   return (
-    <section className="relative h-[900px] w-full bg-primary-light py-6 pb-24 text-center">
+    <section className="relative h-[880px] w-full bg-primary-light py-6 pb-24 text-center">
       <div className="flex flex-col items-center px-4 text-center sm:mb-[-60px]">
         <h3 className="text-headlineSmall sm:text-titleMedium sm:font-semibold">
           {translations["topwinesection.title"]}
@@ -40,7 +40,7 @@ const TopWinesSection = () => {
         </p>
       </div>
 
-      <div className="relative top-5 mx-auto h-[500px] h-auto w-full  max-w-[1410px] overflow-visible px-4 sm:top-0 sm:mt-0 md:h-[660px]">
+      <div className="relative top-4 mx-auto h-[520px] h-auto w-full  max-w-[1410px] overflow-visible px-4 sm:top-0 sm:mt-0 md:h-[660px]">
         <Swiper
           slidesPerView={1}
           spaceBetween={5}
