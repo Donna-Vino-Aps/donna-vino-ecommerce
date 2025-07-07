@@ -331,5 +331,6 @@
   "cart.bottle": "Single bottle",
   "cart.case": "Case (6 bottles)",
   "wineCard.viewDetails": "View details",
-  "wineCard.addToCart": "Add to cart"
+  "wineCard.addToCart": "Add to cart",
+  "wineCard.addedToCart": "Added to Cart!"
 }

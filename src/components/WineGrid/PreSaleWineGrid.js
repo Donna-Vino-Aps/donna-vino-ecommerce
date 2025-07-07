@@ -39,22 +39,11 @@ const PreSaleWineGrid = () => {
 
   return (
     <div className="grid grid-cols-1 gap-8 lg:grid-cols-2 xl:grid-cols-3">
-      {wines.map((wine) => {
-        const price = wine.bottlePrice;
-        const primaryImage = wine.imageUrl;
-
-        return (
-          <Link href={getWineUrl(wine)} key={wine.id}>
-            <WineCard
-              key={wine.id}
-              title={wine.title}
-              price={price}
-              imageUrl={primaryImage}
-              variant={"pre-sale"}
-            />
-          </Link>
-        );
-      })}
+      {wines.map((wine) => (
+        <Link href={getWineUrl(wine)} key={wine.id}>
+          <WineCard key={wine.id} wine={wine} context={"pre-sale"} />
+        </Link>
+      ))}
     </div>
   );
 };

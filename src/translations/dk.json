@@ -331,5 +331,6 @@
   "cart.bottle": "Enkelt flaske",
   "cart.case": "Kasse (6 flasker)",
   "wineCard.viewDetails": "Se detaljer",
-  "wineCard.addToCart": "Læg i indkøbskurv"
+  "wineCard.addToCart": "Læg i indkøbskurv",
+  "wineCard.addedToCart": "Tilføjet til kurven!"
 }
