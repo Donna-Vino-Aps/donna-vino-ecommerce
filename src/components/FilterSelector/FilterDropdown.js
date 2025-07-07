@@ -4,7 +4,7 @@ import DualRangeSlider from "./DualRangeSlider";
 import PropTypes from "prop-types";
 import CheckboxField from "../FormFields/CheckboxField";
 
-const FilterDropdown = ({ filter }) => {
+const FilterDropdown = ({ filter, isFilterModalOpen }) => {
   const [isFilterOpen, setIsFilterOpen] = useState(false);
   const [selectedMinimum, setSelectedMinimum] = useState(1);
   const [selectedMaximum, setSelectedMaximum] = useState(2000);
@@ -20,7 +20,7 @@ const FilterDropdown = ({ filter }) => {
   return (
     <div className="flex flex-col gap-1">
       <div
-        className={`flex cursor-pointer items-center justify-between px-3 md:px-5 ${isFilterOpen ? "rounded-t-lg" : "rounded-lg"} h-[3.75rem] w-[19.5rem] shadow-lg md:w-[26rem]`}
+        className={`flex cursor-pointer items-center justify-between px-3 md:px-5 ${isFilterOpen ? "rounded-t-lg" : "rounded-lg"} h-[3.75rem] shadow-lg ${isFilterModalOpen ? "w-[19.5rem]" : "w-[26rem]"}`}
         onClick={() => setIsFilterOpen((prev) => !prev)}
       >
         <p className="font-barlow text-headlineSmall font-normal text-tertiary2-darker md:text-titleLarge">
@@ -49,6 +49,7 @@ const FilterDropdown = ({ filter }) => {
                   label={option}
                   checked={selectedOptions.includes(option)}
                   onChange={() => handleCheckboxChange(option)}
+                  isFilter={true}
                 />
               </div>
             ))}
@@ -90,6 +91,7 @@ const FilterDropdown = ({ filter }) => {
 export default FilterDropdown;
 
 FilterDropdown.propTypes = {
+  isFilterModalOpen: PropTypes.func.isRequired,
   filter: PropTypes.shape(
     PropTypes.shape({
       variant: PropTypes.string.isRequired,

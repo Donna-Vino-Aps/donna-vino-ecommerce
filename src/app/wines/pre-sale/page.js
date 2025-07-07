@@ -44,9 +44,11 @@ const PreSaleWinesPage = () => {
 
       {/* Desktop layout */}
       <div className="container mx-auto flex flex-col items-start gap-8 px-4 py-8 md:flex-row">
-        <div className="hidden md:block">
-          <FilterSelector />
-        </div>
+        {!isFilterModalOpen && (
+          <div className="hidden md:block">
+            <FilterSelector isFilterModalOpen={false} />
+          </div>
+        )}
         <div className="w-full">
           <PreSaleWineGrid />
         </div>

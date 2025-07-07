@@ -16,7 +16,7 @@ const FilterModal = ({ isOpen, onClose }) => {
           height={4}
           className="relative bottom-3 mx-auto h-1 w-[30px]"
         />
-        <p className="mb-3 mt-2 text-headlineSmall">Filter by:</p>
+        <p className="mb-3 mt-2 text-headlineSmall underline">Filter by:</p>
         <button onClick={onClose} className="absolute right-4 top-4">
           <Image
             src="/icons/close.svg"
@@ -27,7 +27,7 @@ const FilterModal = ({ isOpen, onClose }) => {
           />
         </button>
         <div className="ml-2">
-          <FilterSelector />
+          <FilterSelector isFilterModalOpen={isOpen} />
         </div>
       </div>
     </div>

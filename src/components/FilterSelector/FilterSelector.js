@@ -3,7 +3,7 @@ import FilterDropdown from "./FilterDropdown";
 import SortBy from "./SortBy";
 import useIsMobile from "@/hooks/useIsMobile";
 
-const FilterSelector = () => {
+const FilterSelector = (isFilterModalOpen) => {
   const filterMockData = [
     {
       variant: "regular",
@@ -34,7 +34,10 @@ const FilterSelector = () => {
       {!isMobile && <SortBy />}
       {filterData.map((filter) => (
         <div key={filter.title}>
-          <FilterDropdown filter={filter} />
+          <FilterDropdown
+            filter={filter}
+            isFilterModalOpen={isFilterModalOpen}
+          />
         </div>
       ))}
     </div>
