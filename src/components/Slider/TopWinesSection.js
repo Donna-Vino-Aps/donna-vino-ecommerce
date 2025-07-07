@@ -27,20 +27,20 @@ const TopWinesSection = () => {
   }
 
   return (
-    <section className="relative w-full bg-primary-light py-6 pb-24 text-center">
-      <div className="mb-[-60px]">
-        <h3 className="text-titleMedium font-semibold">
+    <section className="relative h-[900px] w-full bg-primary-light py-6 pb-24 text-center">
+      <div className="flex flex-col items-center px-4 text-center sm:mb-[-60px]">
+        <h3 className="text-headlineSmall sm:text-titleMedium sm:font-semibold">
           {translations["topwinesection.title"]}
         </h3>
-        <h2 className="py-6 text-displayLarge font-regular text-tertiary1-dark">
+        <h2 className="mt-2 py-6 text-displayLarge font-regular text-tertiary1-dark sm:mt-0">
           {translations["topwinesection.headline"]}
         </h2>
-        <p className="mb-6 text-bodyLarge font-regular text-tertiary1-dark">
+        <p className="text-bodyLarge font-regular text-tertiary1-dark sm:mb-6">
           {translations["topwinesection.description"]}
         </p>
       </div>
 
-      <div className="relative mx-auto mt-[100px] h-auto w-full max-w-[1350px] overflow-visible px-4 sm:mt-0 md:h-[660px]">
+      <div className="relative top-5 mx-auto h-[500px] h-auto w-full  max-w-[1410px] overflow-visible px-4 sm:top-0 sm:mt-0 md:h-[660px]">
         <Swiper
           slidesPerView={1}
           spaceBetween={5}
@@ -50,25 +50,26 @@ const TopWinesSection = () => {
           modules={[Navigation]}
           breakpoints={{
             640: { slidesPerView: 1, spaceBetween: 5 },
-            768: { slidesPerView: 2, spaceBetween: 8 },
-            1024: { slidesPerView: 3, spaceBetween: 10 },
-            1440: { slidesPerView: 4, spaceBetween: 12 },
+            768: { slidesPerView: 2, spaceBetween: 0 },
+            1024: { slidesPerView: 3, spaceBetween: 0 },
+            1440: { slidesPerView: 4, spaceBetween: 0 },
           }}
           className="relative z-10 flex h-full w-full"
         >
           {wines.map((wine, index) => (
-            <SwiperSlide
-              key={index}
-              className="flex items-center justify-center overflow-visible px-3"
-            >
-              <div className="group flex items-center justify-center overflow-visible px-5 py-5 transition-all duration-300">
-                <Link href={getWineUrl(wine)} className="w-full">
+            <SwiperSlide key={index} className="w-full overflow-visible ">
+              <div className="group flex h-full items-center justify-center overflow-visible transition-all duration-300">
+                <Link
+                  href={getWineUrl(wine)}
+                  className="flex h-full w-full items-center justify-center"
+                >
                   <WineCard
                     key={wine.id}
-                    price={wine.bottlePrice}
                     title={wine.title}
+                    price={wine.bottlePrice}
                     imageUrl={wine.imageUrl}
-                    className="shadow-lg transition-transform duration-300 group-hover:scale-105 group-hover:overflow-visible"
+                    variant={"top-wines"}
+                    className="h-full shadow-lg transition-transform duration-300 group-hover:scale-105 group-hover:overflow-visible"
                   />
                 </Link>
               </div>
@@ -84,21 +85,21 @@ const TopWinesSection = () => {
           <img
             src="/icons/slider/arrow-left.svg"
             alt="Previous"
-            className="h-4 w-4 invert md:h-5 md:w-5"
+            className="h-5 w-5 invert"
           />
         </button>
         <button
           aria-label="Next Slide"
           /* eslint-disable-next-line tailwindcss/no-custom-classname */
-          className="next-btn nav-button nav-button-next bg-primary-normal hover:bg-primary-dark"
+          className="next-btn nav-button nav-button-next bg-primary-normal hover:bg-primary-dark sm:pl-2"
         >
           <img
             src="/icons/slider/arrow-right.svg"
             alt="Next"
-            className="h-4 w-4 invert md:h-5 md:w-5"
+            className="h-5 w-5 invert"
           />
         </button>
-        <div className="flex justify-center">
+        <div className="flex hidden justify-center sm:inline-flex">
           <Button
             text={translations["topwinesection.button-more"]}
             color="white"
