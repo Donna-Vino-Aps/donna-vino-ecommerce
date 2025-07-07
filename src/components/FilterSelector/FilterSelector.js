@@ -1,9 +1,16 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import FilterDropdown from "./FilterDropdown";
 import SortBy from "./SortBy";
 import useIsMobile from "@/hooks/useIsMobile";
 
 const FilterSelector = (isFilterModalOpen) => {
+  const [isMounted, setIsMounted] = useState(false);
+  const isMobile = useIsMobile(768);
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
   const filterMockData = [
     {
       variant: "regular",
@@ -25,9 +32,9 @@ const FilterSelector = (isFilterModalOpen) => {
       title: "Price Range",
     },
   ];
-
   const filterData = filterMockData;
-  const isMobile = useIsMobile(768);
+
+  if (!isMounted) return null;
 
   return (
     <div className="flex flex-col gap-3">

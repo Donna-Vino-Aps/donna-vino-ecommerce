@@ -92,11 +92,9 @@ export default FilterDropdown;
 
 FilterDropdown.propTypes = {
   isFilterModalOpen: PropTypes.func.isRequired,
-  filter: PropTypes.shape(
-    PropTypes.shape({
-      variant: PropTypes.string.isRequired,
-      title: PropTypes.string.isRequired,
-      options: PropTypes.arrayOf(PropTypes.string),
-    }),
-  ).isRequired,
+  filter: PropTypes.shape({
+    variant: PropTypes.string.isRequired,
+    title: PropTypes.string.isRequired,
+    options: PropTypes.arrayOf(PropTypes.string),
+  }).isRequired,
 };
