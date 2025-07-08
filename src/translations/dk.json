@@ -314,6 +314,14 @@
   "topwinesection.title": "Mest populære produkter",
   "topwinesection.headline": "Vores bedste vine",
   "topwinesection.description": "Vores eksklusive udvalg af de fineste vine, håndplukket til dig Opdag vores vinsortiment",
+  "tasteProfile.delicate": "Delikat",
+  "tasteProfile.bold": "Kraftig",
+  "tasteProfile.velvety": "Fløjlsblød",
+  "tasteProfile.astringent": "Astringerende",
+  "tasteProfile.dry": "Tør",
+  "tasteProfile.smooth": "Blød",
+  "tasteProfile.soft": "Mild",
+  "tasteProfile.crisp": "Sprød",
   "cart.title": "Indkøbskurv",
   "cart.subtotal": "Subtotal",
   "cart.info1": "Forsendelse, skatter og rabatter beregnes ved betaling.",
@@ -324,6 +332,8 @@
   "cart.no-items2": "Kom tilbage, når du er klar til at gå til kassen!",
   "cart.button-checkout": "Gå til kassen",
   "cart.button-continue-shopping": "Fortsæt Shopping",
+  "cart.bottle": "Enkelt flaske",
+  "cart.case": "Kasse (6 flasker)",
   "wineCard.viewDetails": "Se detaljer",
   "wineCard.addToCart": "Læg i indkøbskurv"
 }

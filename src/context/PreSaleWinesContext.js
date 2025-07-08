@@ -22,7 +22,7 @@ export function PreSaleWinesProvider({ children }) {
             ...product,
             slug: product.handle, // Add slug based on product handle
           }));
-          const normalizedWines = normalizeWineList(parsedWines);
+          const normalizedWines = normalizeWineList(parsedWines, translations);
           setWines(normalizedWines);
         } else {
           setWines([]);

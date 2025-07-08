@@ -30,3 +30,24 @@ export function createCheckoutUrl(variantId, quantity = 1) {
     throw error;
   }
 }
+
+export function createCartCheckoutUrl(cartItems) {
+  try {
+    if (!cartItems || !cartItems.length) {
+      throw new Error("Cart items are required");
+    }
+
+    // Format: {variant_id}:{quantity},{variant_id}:{quantity}
+    const itemsString = cartItems
+      .map((item) => {
+        const numericId = extractNumericId(item.variantId);
+        return `${numericId}:${item.quantity}`;
+      })
+      .join(",");
+
+    return `https://${SHOPIFY_STORE_DOMAIN}/cart/${itemsString}?access_token=${SHOPIFY_STOREFRONT_ACCESS_TOKEN}&storefront=true`;
+  } catch (error) {
+    logError("Error creating cart checkout URL:", error);
+    throw error;
+  }
+}
