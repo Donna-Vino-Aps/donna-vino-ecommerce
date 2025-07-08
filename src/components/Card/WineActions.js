@@ -31,7 +31,6 @@ const WineActions = ({ wine, isPreSale }) => {
     };
 
     addItemToCart(itemToAdd);
-    console.warn(e);
     setTimeout(() => setIsClicked(false), 3000);
   };
 
