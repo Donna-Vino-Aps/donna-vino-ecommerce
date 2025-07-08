@@ -56,7 +56,7 @@ const FilterDropdown = ({ filter, isFilterModalOpen }) => {
           </div>
         ) : (
           <div className="flex h-[8.375rem] flex-col rounded-b-lg border-b border-l border-r border-tertiary1-light shadow-md md:h-[10.5rem]">
-            <div className="flex justify-between px-12 py-8">
+            <div className="flex justify-between px-8 py-8">
               <div className="flex flex-col">
                 <p className="text-titleSmall text-others-gray">
                   Minimum Price

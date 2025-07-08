@@ -31,7 +31,7 @@ const SortBy = () => {
   return (
     <section className="relative flex gap-4">
       <div
-        className={`relative w-[15rem] border border-tertiary1-light rounded-md min-h-[3.5rem]
+        className={`relative w-[17rem] border border-tertiary1-light rounded-md min-h-[3.5rem]
       ${isOpen ? "rounded-b-none border-b-0" : ""}`}
       >
         {/* Make the header and dropdown consistent in padding and alignment */}

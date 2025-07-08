@@ -38,7 +38,7 @@ const FilterSelector = (isFilterModalOpen) => {
 
   return (
     <div className="flex flex-col gap-3">
-      {!isMobile && <SortBy />}
+      {!isMobile && !isFilterModalOpen && <SortBy />}
       {filterData.map((filter) => (
         <div key={filter.title}>
           <FilterDropdown
