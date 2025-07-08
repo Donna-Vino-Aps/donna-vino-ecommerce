@@ -1,11 +1,12 @@
 import React from "react";
 import Image from "next/image";
+import PropTypes from "prop-types";
 
-const FilterIcon = () => {
+const FilterIcon = ({ onClick }) => {
   return (
     <button
       className="flex h-[3.5rem] w-[3.5rem] items-center justify-center rounded-lg border border-tertiary1-light"
-      onClick={() => setIsFilterModalOpen(true)}
+      onClick={onClick}
     >
       <Image
         src="/icons/filterslider.svg"
@@ -19,3 +20,7 @@ const FilterIcon = () => {
 };
 
 export default FilterIcon;
+
+FilterIcon.propTypes = {
+  onClick: PropTypes.func.isRequired,
+};

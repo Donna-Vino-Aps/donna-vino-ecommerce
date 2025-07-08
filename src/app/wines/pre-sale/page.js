@@ -19,11 +19,11 @@ const PreSaleWinesPage = () => {
         description="Browse our exclusive selection of pre-sale wines."
       />
       {/* Filters for Mobile */}
-      <div className="flex flex-col justify-center gap-2 mt-4 md:mt-1">
+      <div className="mt-4 flex flex-col justify-center gap-2 md:mt-1">
         <SearchBar />
-        <div className="flex items-center justify-center gap-4 mt-3 mr-4 md:hidden">
+        <div className="mr-4 mt-3 flex items-center justify-center gap-4 md:hidden">
           <SortBy />
-          <FilterIcon />
+          <FilterIcon onClick={() => setIsFilterModalOpen((prev) => !prev)} />
         </div>
       </div>
 
