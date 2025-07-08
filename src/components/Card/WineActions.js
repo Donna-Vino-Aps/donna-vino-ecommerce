@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import Button from "../Button/Button.js";
 import { useLanguage } from "@/context/LanguageContext";
@@ -10,6 +10,7 @@ const WineActions = ({ wine, isPreSale }) => {
   const { translations } = useLanguage();
   const { addItemToCart } = useCart();
   const [isClicked, setIsClicked] = useState(false);
+  const [isPressing, setIsPressing] = useState(false);
   const isMobile = useIsMobile();
 
   const handleAddToCart = (e) => {
@@ -30,8 +31,18 @@ const WineActions = ({ wine, isPreSale }) => {
     };
 
     addItemToCart(itemToAdd);
+    console.warn(e);
     setTimeout(() => setIsClicked(false), 3000);
   };
+
+  const triggerPressAnimation = () => {
+    setIsPressing(true);
+    setTimeout(() => setIsPressing(false), 200);
+  };
+
+  useEffect(() => {
+    triggerPressAnimation();
+  }, [isClicked]);
 
   return (
     <div className="flex w-full items-end justify-between">
@@ -59,7 +70,13 @@ const WineActions = ({ wine, isPreSale }) => {
         ariaLabel={"Add wine to cart"}
         testId="addToCart-button"
         icon={"/icons/card/cart-white.svg"}
-        extraStyle={`px-4 py-2 text-nowrap text-white text-titleMedium font-medium transition-transform duration-150 ease-in-out  ${isClicked ? " bg-others-confirm hover:bg-others-confirm " : ""} active:scale-95 ${isPreSale && " sm:px-5 sm:py-3 "}`}
+        extraStyle={`
+          px-4 py-2 text-nowrap cursor-pointer text-white text-titleMedium font-medium
+          transition-all duration-250 ease-in-out
+          ${isClicked ? "bg-others-confirm" : ""}
+          ${isPreSale ? "sm:px-5 sm:py-3" : ""}
+          ${isPressing ? "press-animation" : ""}
+        `}
       />
     </div>
   );
