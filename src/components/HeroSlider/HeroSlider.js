@@ -1,7 +1,9 @@
 "use client";
+
 import React, { useState, useRef } from "react";
 import Button from "../Button/Button";
 import dynamic from "next/dynamic";
+
 const SwiperClient = dynamic(() => import("../Swiper/SwiperClient"), {});
 import { SwiperSlide } from "swiper/react";
 import ComingSoonModal from "../Modal/ComingSoonModal";
@@ -12,7 +14,7 @@ const HeroSlider = () => {
   const { translations } = useLanguage();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const hasCredits = false;
-  const swiperRef = useRef();
+  const swiperRef = useRef(null);
 
   const slides = [
     {
@@ -134,27 +136,31 @@ const HeroSlider = () => {
                   </div>
                 )}
               </div>
-              <div className="flex h-[22.5rem] w-full flex-col justify-center px-6 text-center font-barlow font-regular md:max-w-[50%] md:items-start md:px-6 lg:px-10 xl:px-14">
-                <div>
-                  <p className="text-left text-headlineSmall text-primary-normal">
-                    {translations[slide.subheading]}
+              <div className="flex h-[22.5rem] w-full flex-col justify-between px-6 md:max-w-[50%] md:items-start md:px-6 lg:px-10 xl:px-14">
+                <div className="flex min-h-[43.75rem] flex-col justify-center text-center font-barlow font-regular">
+                  <div>
+                    <p className="text-left text-headlineSmall text-primary-normal">
+                      {translations[slide.subheading]}
+                    </p>
+                  </div>
+                  <h2 className="my-4 mr-8 text-left text-displayMedium text-tertiary1-dark md:my-2 md:text-left md:text-headlineLarge lg:text-displaySmall xl:text-displayMedium">
+                    {translations[slide.heading]}
+                  </h2>
+                  <p className="mb-4 mr-10 mt-2 text-start text-bodyMedium sm:mb-7 sm:mt-2 md:mb-5 md:mt-2 md:text-start md:text-bodyMedium xl:mb-10 xl:text-bodyLarge">
+                    {translations[slide.paragraph]}
                   </p>
+                  <Button
+                    text={translations[slide.buttonText]}
+                    icon={slide.buttonIcon}
+                    width="wide"
+                    aria-label={translations[slide.buttonText]}
+                    data-testid="book-tasting-button"
+                    linkUrl={slide.url}
+                    onClick={
+                      index === 1 ? () => setIsModalOpen(true) : undefined
+                    }
+                  />
                 </div>
-                <h2 className="my-4 mr-8 text-left text-displayMedium text-tertiary1-dark md:my-2 md:text-left md:text-headlineLarge lg:text-displaySmall xl:text-displayMedium">
-                  {translations[slide.heading]}
-                </h2>
-                <p className="mb-4 mr-10 mt-2 text-start text-bodyMedium sm:mb-7 sm:mt-2 md:mb-5 md:mt-2 md:text-start md:text-bodyMedium xl:mb-10 xl:text-bodyLarge">
-                  {translations[slide.paragraph]}
-                </p>
-                <Button
-                  text={translations[slide.buttonText]}
-                  icon={slide.buttonIcon}
-                  width="wide"
-                  aria-label={translations[slide.buttonText]}
-                  data-testid="book-tasting-button"
-                  linkUrl={slide.url}
-                  onClick={index === 1 ? () => setIsModalOpen(true) : undefined}
-                ></Button>
                 <div
                   className={`mt-4 hidden md:absolute md:bottom-8 md:flex lg:bottom-10 xl:bottom-14 ${index === 0 ? "md:right-8 lg:right-10 xl:right-12" : "md:left-[37.5%]"}`}
                 >
