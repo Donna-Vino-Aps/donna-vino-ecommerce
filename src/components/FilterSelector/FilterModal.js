@@ -8,7 +8,7 @@ const FilterModal = ({ isOpen, onClose }) => {
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-60">
-      <div className="relative max-h-[90vh] max-w-[24rem] overflow-y-auto rounded-lg bg-white p-8">
+      <div className="relative max-h-[90vh] w-full overflow-y-auto rounded-lg bg-white p-8">
         <Image
           src="/icons/Handle.svg"
           alt="handle icon"
@@ -16,7 +16,7 @@ const FilterModal = ({ isOpen, onClose }) => {
           height={4}
           className="relative bottom-3 mx-auto h-1 w-[30px]"
         />
-        <p className="mb-3 mt-2 text-headlineSmall underline">Filter by:</p>
+        <p className="mb-5 mt-2 text-headlineSmall">Filter by:</p>
         <button onClick={onClose} className="absolute right-4 top-4">
           <Image
             src="/icons/close.svg"

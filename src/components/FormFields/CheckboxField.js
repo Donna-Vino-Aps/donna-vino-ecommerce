@@ -32,7 +32,7 @@ const CheckboxField = ({
 
           {/* Custom checkbox appearance */}
           <div
-            className={`relative flex h-4 w-4 items-center justify-center rounded border transition-all duration-200 md:h-5 md:w-5 ${isFilter ? "h-5 w-5" : "h-4 w-4 md:h-5 md:w-5"}
+            className={`relative flex items-center justify-center rounded border transition-all duration-200 ${isFilter ? "h-8 w-8" : "h-4 w-4 md:h-5 md:w-5"}
             ${
               error
                 ? "border-others-negative peer-focus:border-others-negative"
