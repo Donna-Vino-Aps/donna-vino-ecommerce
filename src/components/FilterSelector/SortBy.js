@@ -7,19 +7,19 @@ const SortBy = () => {
 
   const sortingMockData = [
     {
-      id: "price",
-      title: "Price (low -> high)",
-      display: "price",
-    },
-    {
       id: "newest",
       title: "Newest",
-      display: "newest",
+      display: "Newest",
+    },
+    {
+      id: "price",
+      title: "Price (low->high)",
+      display: "Price",
     },
     {
       id: "winetype",
       title: "Wine Type",
-      display: "wine type",
+      display: "Wine type",
     },
   ];
 
@@ -31,7 +31,7 @@ const SortBy = () => {
   return (
     <section className="relative flex gap-4">
       <div
-        className={`relative w-[17rem] border border-tertiary1-light rounded-md min-h-[3.5rem]
+        className={`relative w-[17rem] md:w-[9.625rem] border border-tertiary1-light rounded-md min-h-[3.5rem] md:min-h-[2.75rem] md:ml-4
       ${isOpen ? "rounded-b-none border-b-0" : ""}`}
       >
         {/* Make the header and dropdown consistent in padding and alignment */}
@@ -40,8 +40,8 @@ const SortBy = () => {
           onClick={() => setIsOpen((prev) => !prev)}
         >
           <div className="flex items-center justify-between">
-            <p className="text-labelLarge font-semibold md:text-titleMedium">
-              Sort by {selectedSorting ? selectedTitle : ""}
+            <p className="text-titleMedium font-medium md:text-titleMedium">
+              {selectedSorting ? selectedTitle : "Newest"}
             </p>
             <Image
               src={isOpen ? "/icons/chevron-up.svg" : "/icons/chevron-down.svg"}

@@ -19,9 +19,9 @@ const PreSaleWinesPage = () => {
         description="Browse our exclusive selection of pre-sale wines."
       />
       {/* Filters for Mobile */}
-      <div className="flex flex-col justify-center mx-8 gap-2">
+      <div className="flex flex-col justify-center gap-2 mt-4 md:mt-1">
         <SearchBar />
-        <div className="flex items-center justify-center gap-4 px-4 py-4 md:hidden">
+        <div className="flex items-center justify-center gap-4 mt-3 mr-4 md:hidden">
           <SortBy />
           <FilterIcon />
         </div>
@@ -36,7 +36,7 @@ const PreSaleWinesPage = () => {
       )}
 
       {/* Desktop layout */}
-      <div className="container mx-auto flex flex-col items-start gap-8 px-4 py-8 md:flex-row">
+      <div className="container mx-auto flex flex-col items-start gap-4 px-4 py-8 md:flex-row">
         {!isFilterModalOpen && (
           <div className="hidden md:block">
             <FilterSelector isFilterModalOpen={false} />

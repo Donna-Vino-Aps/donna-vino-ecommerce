@@ -1,13 +1,10 @@
 import React from "react";
 import Image from "next/image";
-import useIsMobile from "@/hooks/useIsMobile";
 
 const SearchButtonFilter = () => {
-  const isMobile = useIsMobile(768);
-
   return (
     <button
-      className={`flex h-[3.5rem] w-[3.5rem] items-center justify-center rounded-lg bg-primary-normal mx-4`}
+      className={`flex h-[3.5rem] w-[3.5rem] md:h-[2.875rem] md:w-[2.875rem] items-center justify-center rounded-lg bg-primary-normal mx-4 md:mx-6`}
       onClick={() => setIsFilterModalOpen(true)}
     >
       <Image

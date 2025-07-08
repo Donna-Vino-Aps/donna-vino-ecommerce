@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import useIsMobile from "@/hooks/useIsMobile";
 import SearchButtonFilter from "./SearchButtonFilter";
+import SortBy from "../FilterSelector/SortBy";
 
 const SearchBar = () => {
   const [isMounted, setIsMounted] = useState(false);
@@ -13,13 +14,19 @@ const SearchBar = () => {
   if (!isMounted) return null;
 
   return (
-    <div
-      className={`flex justify-between items-center mx-6 border border-tertiary1-light rounded-lg ${isMobile ? "h-[3.5rem]" : "w-full h-[5.625rem]"}`}
-    >
-      <p className="text-bodyLarge text-tertiary2-darker mx-4">
-        Search any wine
-      </p>
-      {!isMobile && <SearchButtonFilter />}
+    <div className="flex justify-center">
+      <div
+        className={`flex items-center justify-between rounded-lg border border-tertiary1-light focus:outline-none md:mx-7 ${isMobile ? "h-[3.5rem] w-[17rem]" : "h-[5.625rem] w-[88%]"}`}
+      >
+        {!isMobile && <SortBy />}
+        <input
+          type="text"
+          className="mx-4 h-[75%] w-[90%] px-4 text-bodyLarge text-tertiary2-darker md:h-[50%] md:w-[70%]"
+          placeholder={isMobile ? "Search any wine" : ""}
+        ></input>
+        {!isMobile && <SearchButtonFilter />}
+      </div>
+      {isMobile && <SearchButtonFilter />}
     </div>
   );
 };
