@@ -37,7 +37,7 @@ const EventList = ({ events, onEventClick }) => {
       return (
         <div
           className={`flex flex-col items-center ${
-            isMobile ? "" : "mx-auto sm:min-w-[34rem] xl:mx-0"
+            isMobile ? "" : "mx-auto sm:min-w-[40.2rem] xl:mx-0"
           }`}
         >
           {!isMobile && <MonthHeader />}
@@ -99,7 +99,7 @@ const EventList = ({ events, onEventClick }) => {
     }
 
     return (
-      <div className="mx-auto flex flex-col overflow-hidden sm:min-w-[34rem] xl:mx-0 xl:h-[31rem]">
+      <div className="mx-auto flex flex-col overflow-hidden sm:min-w-[40.2rem] xl:mx-0 xl:h-[31rem]">
         <MonthHeader />
 
         <div className="flex flex-row gap-2 rounded-t bg-tertiary2-active p-3 pb-7 text-titleMedium font-medium text-tertiary1-active_dark">
