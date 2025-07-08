@@ -23,17 +23,20 @@ const MoreInfoDropdown = ({ wine }) => {
     { key: "producer", value: wine.producer, icon: "factory.svg" },
     {
       key: "servingTemperature",
-      value: wine.servingTemperature,
+      value: wine.servingTemperature + "°C",
       icon: "term.svg",
     },
     {
       key: "alcoholContent",
-      value: wine.alcoholContent,
+      value: wine.alcoholContent + "%",
       icon: "wine-glass.svg",
     },
     {
       key: "volume",
-      value: wine.volume < 1 ? Math.round(wine.volume * 100) : wine.volume,
+      value:
+        wine.volume < 1
+          ? `${Math.round(wine.volume * 100)} cl`
+          : `${wine.volume} L`,
       icon: "wine-bottle.svg",
     },
   ];
@@ -102,19 +105,6 @@ const MoreInfoDropdown = ({ wine }) => {
       </div>
     </article>
   );
-};
-
-MoreInfoDropdown.defaultProps = {
-  wine: {
-    grape: "Primitivo",
-    vintage: "2023",
-    region: "Puglia",
-    country: "Italia",
-    producer: "Tenuta Romana",
-    servingTemperature: "16-18",
-    alcoholContent: 13.5,
-    volume: 0.75,
-  },
 };
 
 export default MoreInfoDropdown;

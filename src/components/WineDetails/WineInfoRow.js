@@ -14,7 +14,7 @@ const WineInfoRow = ({ detail, isMobile, isLast }) => {
         className={`
 					flex items-center gap-4 
 					${isMobile ? "py-2 ps-6" : "ps-4"} 
-					${key !== "volume" && isMobile ? "border-b border-others-stroke" : ""}
+					${!isLast && isMobile ? "border-b border-others-stroke" : ""}
 				`}
       >
         <Image
@@ -31,9 +31,6 @@ const WineInfoRow = ({ detail, isMobile, isLast }) => {
 
         <p className="text-bodyMedium text-others-primaryText sm:text-bodyLarge">
           {value}
-          {key === "servingTemperature" && "°C"}
-          {key === "alcoholContent" && "%"}
-          {key === "volume" && " cl"}
         </p>
       </div>
 

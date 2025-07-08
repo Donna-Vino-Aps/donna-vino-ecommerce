@@ -40,8 +40,8 @@ export default function WineDetailPage() {
   return (
     <div className="px-8 py-12">
       <WineInfo wine={wine} />
-      <TasteProfile wine={wine} />
       <MoreInfoDropdown wine={wine} />
+      <TasteProfile wine={wine} />
     </div>
   );
 }
