@@ -20,7 +20,7 @@ const FilterDropdown = ({ filter }) => {
   return (
     <div className="flex flex-col">
       <div
-        className={`flex cursor-pointer items-center justify-between border border-tertiary1-light px-3 md:px-5 ${isFilterOpen ? "rounded-t-lg" : "rounded-lg shadow-md"} h-[3.75rem] md:w-[19rem] lg:w-[23rem]`}
+        className={`flex cursor-pointer items-center justify-between border border-tertiary1-light px-3 md:px-5 ${isFilterOpen ? "rounded-t-lg" : "rounded-lg shadow-md"} h-[3.75rem] md:w-[19rem] lg:w-[23rem] 3xl:w-[26rem]`}
         onClick={() => setIsFilterOpen((prev) => !prev)}
       >
         <p className="font-barlow text-headlineSmall font-normal text-tertiary2-darker md:text-titleLarge">

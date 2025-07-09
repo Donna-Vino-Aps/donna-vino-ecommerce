@@ -117,6 +117,8 @@ export default {
           dark: "#111928",
           sliderburgundy: "#2E0607",
           sliderbackground: "#d1d5db",
+          stroke: "#DFE4EA",
+          primaryText: "#637381",
         },
       },
       screens: {

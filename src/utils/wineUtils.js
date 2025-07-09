@@ -16,6 +16,10 @@ export const normalizeWineData = (wine, translations) => {
   const quantityAvailable = defaultVariant?.quantityAvailable || 0;
   const volume = wine.volume?.value;
 
+  const vintage = wine.vintage ?? "-";
+  const producer = wine.producer ?? "-";
+  const servingTemperature = wine.servingTemperature ?? "-";
+  const alcoholContent = wine.alcoholContent ?? "-";
   const tasteValues = [
     {
       left: translations["tasteProfile.delicate"],
@@ -60,6 +64,10 @@ export const normalizeWineData = (wine, translations) => {
     pricePerLiterBottle: volume ? (bottlePrice / volume).toFixed(2) : null,
     pricePerLiterCase: volume ? (casePrice / (volume * 6)).toFixed(2) : null,
     variantMap,
+    vintage,
+    producer,
+    servingTemperature,
+    alcoholContent,
     tasteProfile: wine.tasteProfile,
     tasteValues,
   };
