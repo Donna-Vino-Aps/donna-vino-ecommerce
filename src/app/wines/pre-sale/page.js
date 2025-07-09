@@ -19,8 +19,8 @@ const PreSaleWinesPage = () => {
         description="Browse our exclusive selection of pre-sale wines."
       />
       {/* Search & Mobile Filter Header */}
-      <div className="mt-4 w-full md:container md:mx-auto md:mt-1">
-        <div className="flex flex-col gap-2 rounded-lg border border-tertiary1-light py-6 shadow-sm md:border-none md:shadow-none">
+      <div className="mt-4 w-full md:container md:mx-auto md:-mt-4">
+        <div className="flex flex-col gap-2 rounded-lg border border-tertiary1-light py-6 shadow-sm md:border-none md:py-0 md:shadow-none">
           <SearchBar />
           <div className="mr-4 mt-3 flex items-center justify-center gap-4 md:hidden">
             <SortBy />
@@ -48,7 +48,7 @@ const PreSaleWinesPage = () => {
 
         {/* Grid aligned to the right and fills available space */}
         <div className="flex w-full justify-center md:justify-end lg:justify-center xl:justify-end 2xl:justify-center 2.5xl:justify-end">
-          <div className="grid grid-cols-1 sm:grid-cols-1 lg:grid-cols-1 xl:grid-cols-2 xl:gap-6 2xl:gap-4 2.5xl:grid-cols-3 2.5xl:gap-2 3xl:gap-6">
+          <div className="grid grid-cols-1 gap-6 sm:grid-cols-1 lg:grid-cols-1 xl:grid-cols-2 xl:gap-6 2xl:gap-4 2.5xl:grid-cols-3 2.5xl:gap-2 3xl:gap-6">
             <PreSaleWineGrid />
           </div>
         </div>
