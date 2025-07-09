@@ -19,15 +19,17 @@ const PreSaleWinesPage = () => {
         description="Browse our exclusive selection of pre-sale wines."
       />
       {/* Filter header */}
-      <div className="mt-4 flex flex-col justify-center gap-2 rounded-lg border border-tertiary1-light py-9 shadow-sm md:mt-1 md:border-none md:shadow-none">
-        <SearchBar />
-        <div className="mr-4 mt-3 flex items-center justify-center gap-4 md:hidden">
-          <SortBy />
-          <FilterIcon onClick={() => setIsFilterModalOpen((prev) => !prev)} />
+      <div className="mx-auto mt-4 flex flex-col justify-center gap-2 rounded-lg border border-tertiary1-light py-9 shadow-sm md:mt-1 md:border-none md:shadow-none">
+        <div className="flex flex-col gap-1">
+          <SearchBar />
+          <div className="mr-4 mt-3 flex items-center justify-center gap-4 md:hidden">
+            <SortBy />
+            <FilterIcon onClick={() => setIsFilterModalOpen((prev) => !prev)} />
+          </div>
         </div>
       </div>
 
-      {/* Modal */}
+      {/* Mobile Filter Modal */}
       {isFilterModalOpen && (
         <FilterModal
           isOpen={isFilterModalOpen}
@@ -42,7 +44,7 @@ const PreSaleWinesPage = () => {
             <FilterSelector isFilterModalOpen={false} />
           </div>
         )}
-        <div className="w-full">
+        <div className="flex-grow">
           <PreSaleWineGrid />
         </div>
       </div>

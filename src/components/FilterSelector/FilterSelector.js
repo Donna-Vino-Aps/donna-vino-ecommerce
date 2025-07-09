@@ -38,7 +38,7 @@ const FilterSelector = ({ isFilterModalOpen }) => {
   if (!isMounted) return null;
 
   return (
-    <div className="left-full flex flex-col gap-3">
+    <div className="ml-10 flex flex-col gap-3">
       {filterData.map((filter) => (
         <div key={filter.title}>
           {isMobile && isFilterModalOpen ? (
