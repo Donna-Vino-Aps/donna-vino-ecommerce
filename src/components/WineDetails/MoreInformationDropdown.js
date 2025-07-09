@@ -42,7 +42,7 @@ const MoreInfoDropdown = ({ wine }) => {
   ];
 
   return (
-    <article className=" w-full ">
+    <article className="mt-32 w-full">
       <div
         className={`mx-auto my-4 w-11/12 min-w-[270px] max-w-[1250px] ${!isMobile && "rounded-b-lg"} ${isOpen && !isMobile && "shadow-md"}`}
       >
