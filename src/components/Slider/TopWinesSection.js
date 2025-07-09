@@ -11,7 +11,7 @@ const wineData = [
   {
     title: "Muga Reserva",
     slug: "muga-reserva",
-    price: 130.0,
+    bottlePrice: 130.0,
     imageUrl: "/images/exampleImageWine.png",
     isNew: true,
     url: "/wines/muga-reserva",
@@ -19,7 +19,7 @@ const wineData = [
   {
     title: "Barolo Terlo",
     slug: "barolo-terlo",
-    price: 121.0,
+    bottlePrice: 121.0,
     imageUrl: "/images/exampleImageWine.png",
     isNew: true,
     url: "/wines/barolo-terlo",
@@ -27,7 +27,7 @@ const wineData = [
   {
     title: "Pinot Noir",
     slug: "pinot-noir",
-    price: 180.0,
+    bottlePrice: 180.0,
     imageUrl: "/images/exampleImageWine.png",
     isNew: false,
     url: "/wines/pinot-noir",
@@ -35,7 +35,7 @@ const wineData = [
   {
     title: "Vega Cicilia",
     slug: "vega-cicilia",
-    price: 210.0,
+    bottlePrice: 210.0,
     imageUrl: "/images/exampleImageWine.png",
     isNew: false,
     url: "/wines/vega-cicilia",
@@ -43,7 +43,7 @@ const wineData = [
   {
     title: "Saviognese Merlot",
     slug: "saviognese-merlot",
-    price: 210.0,
+    bottlePrice: 210.0,
     imageUrl: "/images/exampleImageWine.png",
     isNew: true,
     url: "/wines/saviognese-merlot",
@@ -51,7 +51,7 @@ const wineData = [
   {
     title: "Pinot Grigio",
     slug: "pinot-grigio",
-    price: 210.0,
+    bottlePrice: 210.0,
     imageUrl: "/images/exampleImageWine.png",
     isNew: false,
     url: "/wines/pinot-grigio",
@@ -59,7 +59,7 @@ const wineData = [
   {
     title: "Marques de Murrieta",
     slug: "marques-de-murrieta",
-    price: 210.0,
+    bottlePrice: 210.0,
     imageUrl: "/images/exampleImageWine.png",
     isNew: false,
     url: "/wines/marques-de-murrieta",
@@ -107,7 +107,7 @@ const TopWinesSection = () => {
                 >
                   <WineCard
                     data-testid="wine-card"
-                    {...wine}
+                    wine={wine}
                     className="shadow-lg transition-transform duration-300 group-hover:scale-105 group-hover:overflow-visible"
                   />
                 </Link>
