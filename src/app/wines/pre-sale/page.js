@@ -18,11 +18,11 @@ const PreSaleWinesPage = () => {
         title="Pre-Sale Wines"
         description="Browse our exclusive selection of pre-sale wines."
       />
-      {/* Filter header */}
-      <div className="mx-auto mt-4 flex flex-col justify-center gap-2 rounded-lg border border-tertiary1-light py-9 shadow-sm md:mt-1 md:border-none md:shadow-none">
-        <div className="flex flex-col gap-1">
+      {/* Search & Mobile Filter Header */}
+      <div className="container mx-auto mt-4 md:mt-1">
+        <div className="flex flex-col gap-2 rounded-lg border border-tertiary1-light py-6 shadow-sm md:border-none md:shadow-none">
           <SearchBar />
-          <div className="mr-4 mt-3 flex items-center justify-center gap-4 md:hidden">
+          <div className="mt-3 flex items-center justify-center gap-4 md:hidden">
             <SortBy />
             <FilterIcon onClick={() => setIsFilterModalOpen((prev) => !prev)} />
           </div>
@@ -37,15 +37,20 @@ const PreSaleWinesPage = () => {
         />
       )}
 
-      {/* Desktop layout */}
-      <div className="container mx-auto flex flex-col items-start gap-4 px-4 md:flex-row">
+      {/* Main Layout */}
+      <div className="container mx-auto mt-6 flex flex-col gap-4 px-4 md:flex-row">
+        {/* Filter sidebar (hidden on mobile) */}
         {!isFilterModalOpen && (
-          <div className="hidden md:block">
+          <div className="hidden md:block md:min-w-[250px] md:max-w-[300px]">
             <FilterSelector isFilterModalOpen={false} />
           </div>
         )}
-        <div className="flex-grow">
-          <PreSaleWineGrid />
+
+        {/* Grid aligned to the right and fills available space */}
+        <div className="flex w-full justify-center md:justify-end">
+          <div className="grid grid-cols-1 gap-2 sm:grid-cols-1 lg:grid-cols-1 xl:grid-cols-2 2.5xl:grid-cols-3">
+            <PreSaleWineGrid />
+          </div>
         </div>
       </div>
     </>

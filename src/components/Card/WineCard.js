@@ -19,7 +19,7 @@ const WineCard = ({ title, price, imageUrl, isNew, variant }) => {
   return (
     <section
       data-testid="wine-card"
-      className={`group mx-3 flex cursor-pointer  flex-col items-center justify-center gap-2 rounded-lg bg-tertiary2-light p-4  shadow-lg transition-transform duration-300 hover:scale-105 ${responsiveStyles.section}`}
+      className={`group mx-3 flex cursor-pointer  flex-col items-center justify-center gap-2 rounded-lg bg-tertiary2-light p-4 shadow-lg transition-transform duration-300 hover:scale-105 ${responsiveStyles.section}`}
     >
       <div className="relative h-5 w-full">
         {isNew && (

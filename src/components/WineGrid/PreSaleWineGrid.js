@@ -38,7 +38,7 @@ const PreSaleWineGrid = () => {
   }
 
   return (
-    <div className="grid grid-cols-1 gap-8 lg:grid-cols-2 xl:grid-cols-3">
+    <>
       {wines.map((wine) => {
         const price = wine.bottlePrice;
         const primaryImage = wine.imageUrl;
@@ -55,7 +55,7 @@ const PreSaleWineGrid = () => {
           </Link>
         );
       })}
-    </div>
+    </>
   );
 };
 

@@ -125,6 +125,7 @@ export default {
         lg: "1024px",
         xl: "1280px",
         "2xl": "1536px",
+        "2.5xl": "1680px",
         "3xl": "1780px",
       },
       backgroundImage: {
