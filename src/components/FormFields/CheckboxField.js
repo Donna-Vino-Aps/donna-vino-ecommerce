@@ -45,7 +45,7 @@ const CheckboxField = ({
             {checked && (
               <svg
                 className={`text-tertiary2-light ${
-                  isFilter ? "h-3.5 w-3.5" : "h-3 w-3 md:h-3.5 md:w-3.5"
+                  isFilter ? "h-5 w-5" : "h-3 w-3 md:h-3.5 md:w-3.5"
                 }`}
                 viewBox="0 0 20 20"
                 fill="none"
