@@ -7,9 +7,9 @@ const FilterModal = ({ isOpen, onClose }) => {
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-60 transition-opacity duration-300">
+    <div className="fixed inset-0 z-50 flex items-end justify-center bg-black bg-opacity-60 transition-opacity duration-300">
       <div
-        className={`relative top-[15rem] h-full w-full transform overflow-y-auto rounded-lg bg-white p-8 transition-transform duration-300 ease-in-out ${
+        className={`relative top-[14rem] h-full w-full transform overflow-y-auto rounded-lg bg-white p-7 shadow-lg transition-transform duration-300 ease-out ${
           isOpen ? "translate-y-0 opacity-100" : "translate-y-full opacity-0"
         }`}
       >
@@ -20,7 +20,7 @@ const FilterModal = ({ isOpen, onClose }) => {
           height={4}
           className="relative bottom-3 mx-auto h-1 w-[30px]"
         />
-        <p className="mb-5 mt-2 text-headlineSmall">Filter by:</p>
+        <p className="mb-4 mt-5 text-headlineSmall">Filter by:</p>
         <button onClick={onClose} className="absolute right-4 top-4">
           <Image
             src="/icons/close.svg"

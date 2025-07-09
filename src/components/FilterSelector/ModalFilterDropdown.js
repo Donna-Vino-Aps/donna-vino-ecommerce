@@ -20,10 +20,10 @@ const ModalFilterDropdown = ({ filter }) => {
   return (
     <div className="flex flex-col">
       <div
-        className={`flex cursor-pointer items-center justify-between px-3 md:px-5 ${isFilterOpen ? "rounded-t-lg" : "rounded-lg"} h-[3.75rem] w-full`}
+        className={`flex cursor-pointer items-center justify-between px-5 ${isFilterOpen ? "rounded-t-lg" : "rounded-lg"} h-[3.75rem] w-full`}
         onClick={() => setIsFilterOpen((prev) => !prev)}
       >
-        <p className="font-barlow text-headlineSmall font-normal text-tertiary2-darker md:text-titleLarge">
+        <p className="font-barlow text-headlineSmall font-normal text-others-dark md:text-titleLarge">
           {filter.title}
         </p>
         <Image
@@ -38,7 +38,7 @@ const ModalFilterDropdown = ({ filter }) => {
       </div>
       {isFilterOpen &&
         (filter.variant === "regular" ? (
-          <div className="mb-2 h-auto gap-3 rounded-b-lg border-b border-l border-r border-tertiary1-light py-3 shadow-sm">
+          <div className="h-auto gap-3 border-t border-tertiary1-light py-3">
             {filter.options.map((option) => (
               <div
                 key={option}
@@ -55,7 +55,7 @@ const ModalFilterDropdown = ({ filter }) => {
             ))}
           </div>
         ) : (
-          <div className="flex h-[8.375rem] flex-col rounded-b-lg border-b border-l border-r border-tertiary1-light shadow-md md:h-[10.5rem]">
+          <div className="flex h-[8.375rem] flex-col rounded-b-lg border-t border-tertiary1-light">
             <div className="flex justify-between px-8 py-8">
               <div className="flex flex-col">
                 <p className="text-titleSmall text-others-gray">
