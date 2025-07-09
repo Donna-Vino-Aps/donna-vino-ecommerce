@@ -4,7 +4,7 @@ import DualRangeSlider from "./DualRangeSlider";
 import PropTypes from "prop-types";
 import CheckboxField from "../FormFields/CheckboxField";
 
-const FilterDropdown = ({ filter, isFilterModalOpen }) => {
+const FilterDropdown = ({ filter }) => {
   const [isFilterOpen, setIsFilterOpen] = useState(false);
   const [selectedMinimum, setSelectedMinimum] = useState(1);
   const [selectedMaximum, setSelectedMaximum] = useState(2000);
@@ -20,7 +20,7 @@ const FilterDropdown = ({ filter, isFilterModalOpen }) => {
   return (
     <div className="flex flex-col">
       <div
-        className={`flex cursor-pointer items-center justify-between border border-tertiary1-light px-3 md:px-5 ${isFilterOpen ? "rounded-t-lg" : "rounded-lg shadow-sm"} h-[3.75rem]  ${isFilterModalOpen ? "w-[19.5rem]" : "w-[26rem]"}`}
+        className={`flex cursor-pointer items-center justify-between border border-tertiary1-light px-3 md:px-5 ${isFilterOpen ? "rounded-t-lg" : "rounded-lg shadow-md"} h-[3.75rem] md:w-[19rem] lg:w-[26rem]`}
         onClick={() => setIsFilterOpen((prev) => !prev)}
       >
         <p className="font-barlow text-headlineSmall font-normal text-tertiary2-darker md:text-titleLarge">

@@ -7,8 +7,12 @@ const FilterModal = ({ isOpen, onClose }) => {
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-60">
-      <div className="relative max-h-[90vh] w-full overflow-y-auto rounded-lg bg-white p-8">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-60 transition-opacity duration-300">
+      <div
+        className={`relative top-[15rem] h-full w-full transform overflow-y-auto rounded-lg bg-white p-8 transition-transform duration-300 ease-in-out ${
+          isOpen ? "translate-y-0 opacity-100" : "translate-y-full opacity-0"
+        }`}
+      >
         <Image
           src="/icons/Handle.svg"
           alt="handle icon"

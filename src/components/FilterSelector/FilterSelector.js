@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
 import FilterDropdown from "./FilterDropdown";
-import SortBy from "./SortBy";
 import useIsMobile from "@/hooks/useIsMobile";
+import ModalFilterDropdown from "./ModalFilterDropdown";
+import PropTypes from "prop-types";
 
-const FilterSelector = (isFilterModalOpen) => {
+const FilterSelector = ({ isFilterModalOpen }) => {
   const [isMounted, setIsMounted] = useState(false);
   const isMobile = useIsMobile(768);
 
@@ -37,14 +38,14 @@ const FilterSelector = (isFilterModalOpen) => {
   if (!isMounted) return null;
 
   return (
-    <div className="flex flex-col gap-3">
-      {!isMobile && !isFilterModalOpen && <SortBy />}
+    <div className="left-full flex flex-col gap-3">
       {filterData.map((filter) => (
         <div key={filter.title}>
-          <FilterDropdown
-            filter={filter}
-            isFilterModalOpen={isFilterModalOpen}
-          />
+          {isMobile && isFilterModalOpen ? (
+            <ModalFilterDropdown filter={filter} />
+          ) : (
+            <FilterDropdown filter={filter} />
+          )}
         </div>
       ))}
     </div>
@@ -52,3 +53,7 @@ const FilterSelector = (isFilterModalOpen) => {
 };
 
 export default FilterSelector;
+
+FilterSelector.propTypes = {
+  isFilterModalOpen: PropTypes.func.isRequired,
+};

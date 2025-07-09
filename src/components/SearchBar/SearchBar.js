@@ -21,7 +21,7 @@ const SearchBar = () => {
         {!isMobile && <SortBy />}
         <input
           type="text"
-          className="mx-4 h-[75%] w-[90%] px-4 text-bodyLarge text-tertiary2-darker md:h-[50%] md:w-[70%]"
+          className="mx-4 h-[75%] w-[90%] px-1 text-bodyLarge text-tertiary2-darker md:h-[50%] md:w-[70%]"
           placeholder={isMobile ? "Search any wine" : ""}
         ></input>
         {!isMobile && <SearchButtonFilter />}
