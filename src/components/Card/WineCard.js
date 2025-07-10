@@ -19,7 +19,7 @@ const WineCard = ({ title, price, imageUrl, isNew, variant }) => {
   return (
     <section
       data-testid="wine-card"
-      className={`group mx-3 flex min-w-[320px] cursor-pointer flex-col items-center justify-center gap-2 rounded-lg bg-tertiary2-light p-4 shadow-lg transition-transform duration-300 hover:scale-105 ${responsiveStyles.section}`}
+      className={`group mx-3 flex min-w-[270px] cursor-pointer flex-col items-center justify-center gap-2 rounded-lg bg-tertiary2-light p-4 shadow-lg transition-transform duration-300 hover:scale-105 sm:min-w-[320px] ${responsiveStyles.section}`}
     >
       <div className="relative h-5 w-full">
         {isNew && (
@@ -30,7 +30,7 @@ const WineCard = ({ title, price, imageUrl, isNew, variant }) => {
       </div>
 
       <div
-        className={`relative flex h-[283px] w-[288px] flex-col items-center justify-center ${responsiveStyles.image}`}
+        className={`relative flex h-[283px] min-w-[270px] flex-col items-center justify-center ${responsiveStyles.image}`}
       >
         <img
           src={imageUrl}

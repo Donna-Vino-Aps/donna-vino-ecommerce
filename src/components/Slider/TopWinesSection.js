@@ -27,12 +27,12 @@ const TopWinesSection = () => {
   }
 
   return (
-    <section className="relative h-[880px] w-full bg-primary-light py-6 pb-24 text-center">
+    <section className="relative w-full bg-primary-light py-6 pb-24 text-center sm:h-[880px]">
       <div className="flex flex-col items-center px-4 text-center sm:mb-[-60px]">
-        <h3 className="text-headlineSmall sm:text-titleMedium sm:font-semibold">
+        <h3 className="mt-2 text-headlineSmall sm:mt-0 sm:text-titleMedium sm:font-semibold">
           {translations["topwinesection.title"]}
         </h3>
-        <h2 className="mt-2 py-6 text-displayLarge font-regular text-tertiary1-dark sm:mt-0">
+        <h2 className="mt-2 pb-3 pt-6 text-displayMedium font-regular text-tertiary1-dark sm:mt-0 sm:py-6 sm:text-displayLarge">
           {translations["topwinesection.headline"]}
         </h2>
         <p className="text-bodyLarge font-regular text-tertiary1-dark sm:mb-6">
@@ -58,10 +58,10 @@ const TopWinesSection = () => {
         >
           {wines.map((wine, index) => (
             <SwiperSlide key={index} className="w-full overflow-visible ">
-              <div className="group flex h-full items-center justify-center overflow-visible transition-all duration-300">
+              <div className="group relative bottom-3 flex h-full items-center justify-center overflow-visible transition-all duration-300 sm:bottom-0">
                 <Link
                   href={getWineUrl(wine)}
-                  className="flex h-full w-full items-center justify-center"
+                  className="flex w-full items-center justify-center"
                 >
                   <WineCard
                     key={wine.id}
@@ -99,7 +99,7 @@ const TopWinesSection = () => {
             className="h-5 w-5 invert"
           />
         </button>
-        <div className="flex hidden justify-center sm:inline-flex">
+        <div className="relative bottom-8 z-50 flex hidden justify-center sm:inline-flex">
           <Button
             text={translations["topwinesection.button-more"]}
             color="white"
