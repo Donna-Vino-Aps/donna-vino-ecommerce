@@ -9,6 +9,7 @@ const CheckboxField = ({
   label,
   error,
   labelComponent,
+  isFilter,
 }) => {
   const inputId = `checkbox-${name}`;
 
@@ -31,7 +32,8 @@ const CheckboxField = ({
 
           {/* Custom checkbox appearance */}
           <div
-            className={`relative flex h-4 w-4 items-center justify-center rounded border transition-all duration-200 md:h-5 md:w-5 ${
+            className={`relative flex items-center justify-center rounded border transition-all duration-200 ${isFilter ? "h-8 w-8" : "h-4 w-4 md:h-5 md:w-5"}
+            ${
               error
                 ? "border-others-negative peer-focus:border-others-negative"
                 : checked
@@ -42,7 +44,9 @@ const CheckboxField = ({
             {/* Checkmark */}
             {checked && (
               <svg
-                className="h-3 w-3 text-tertiary2-light md:h-3.5 md:w-3.5"
+                className={`text-tertiary2-light ${
+                  isFilter ? "h-5 w-5" : "h-3 w-3 md:h-3.5 md:w-3.5"
+                }`}
                 viewBox="0 0 20 20"
                 fill="none"
                 xmlns="http://www.w3.org/2000/svg"
@@ -60,14 +64,24 @@ const CheckboxField = ({
         </div>
 
         {labelComponent || (
-          <span className="text-labelSmall text-secondary-dark sm:text-bodyLarge">
+          <span
+            className={`${
+              isFilter ? "text-bodyLarge" : "text-labelSmall sm:text-bodyLarge"
+            }text-secondary-dark`}
+          >
             {label}
           </span>
         )}
       </label>
 
       {error && (
-        <div className="mx-0.5 text-labelSmall text-others-negative sm:text-labelMedium">
+        <div
+          className={`mx-0.5 ${
+            isFilter
+              ? "text-labelMedium"
+              : "text-labelSmall sm:text-labelMedium"
+          } text-others-negative`}
+        >
           {error}
         </div>
       )}
@@ -83,6 +97,7 @@ CheckboxField.propTypes = {
   label: PropTypes.string,
   error: PropTypes.string,
   labelComponent: PropTypes.node,
+  isFilter: PropTypes.bool,
 };
 
 CheckboxField.defaultProps = {
@@ -91,6 +106,7 @@ CheckboxField.defaultProps = {
   label: "",
   error: null,
   labelComponent: null,
+  isFilter: false,
 };
 
 export default CheckboxField;
