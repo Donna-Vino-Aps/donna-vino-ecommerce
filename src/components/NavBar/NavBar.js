@@ -8,6 +8,7 @@ import { useLanguage } from "@/context/LanguageContext";
 import SearchButton from "./SearchButton";
 import UserDropdown from "./UserDropdown/UserDropdown";
 import ShoppingCart from "./ShoppingCart";
+import CartModal from "../Cart/CartModal";
 
 const Navbar = () => {
   const { translations } = useLanguage();
@@ -18,6 +19,8 @@ const Navbar = () => {
     wines: false,
     grapeszones: false,
   });
+
+  const [isCartOpen, setIsCartOpen] = useState(false);
 
   const toggleDropdown = (id) => {
     setOpenDropdowns((prev) => {
@@ -58,6 +61,12 @@ const Navbar = () => {
       id: "events",
       href: "/events",
       label: translations["navbar.events"],
+      dropdown: false,
+    },
+    {
+      id: "pre-sale",
+      href: "/wines/pre-sale",
+      label: translations["navbar.presale-wines"],
       dropdown: false,
     },
     // {
@@ -128,6 +137,13 @@ const Navbar = () => {
       href: "/events",
       label: translations["navbar.events"],
       icon: "/icons/calendar1.svg",
+      dropdown: false,
+    },
+    {
+      id: "pre-sale",
+      href: "/wines/pre-sale",
+      label: translations["navbar.presale-wines"],
+      icon: "/icons/wine-bottle.svg",
       dropdown: false,
     },
     // {
@@ -308,10 +324,10 @@ const Navbar = () => {
       </div>
 
       <div className="flex w-full items-center justify-end gap-14">
-        <div className="relative bottom-[2px] flex items-center gap-3 md:mr-6 lg:gap-5">
+        <div className="relative bottom-[2px] z-[9999] flex items-center gap-3 md:mr-6 lg:gap-5">
           <SearchButton />
           <UserDropdown />
-          <ShoppingCart />
+          <ShoppingCart onClick={() => setIsCartOpen(true)} />
           <div className="relative top-[1px] ml-2 mr-8 h-[1.5rem] w-[1.5rem] lg:hidden">
             <button
               onClick={toggleMenu}
@@ -337,6 +353,7 @@ const Navbar = () => {
           navLinks={navLinksSidebar}
         />
       </div>
+      <CartModal isOpen={isCartOpen} onClose={() => setIsCartOpen(false)} />
     </nav>
   );
 };

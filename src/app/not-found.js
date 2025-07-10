@@ -2,12 +2,19 @@
 import React from "react";
 import { useLanguage } from "@/context/LanguageContext";
 import Button from "@/components/Button/Button";
+import SEO from "@/components/SEO/SEO";
 
 export default function NotFound() {
   const { translations } = useLanguage();
 
   return (
     <div className="custom-services-banner flex min-h-[50vh] flex-col items-center justify-center px-4 text-center">
+      <SEO
+        title={translations["notFound.seo.title"]}
+        description={translations["notFound.seo.description"]}
+        robots={false}
+      />
+
       <h1 className="mb-4 text-headlineMedium text-tertiary1-darker md:text-headlineLarge">
         {translations["notFound.title"]}
       </h1>
@@ -16,10 +23,10 @@ export default function NotFound() {
       </p>
       <div>
         <Button
-          text={translations["notFound.button"]}
-          variant="redFullText"
+          text={translations["common.button.backToHome"]}
+          width="wide"
           linkUrl="/"
-          aria-label={translations["notFound.button"]}
+          aria-label={translations["common.button.backToHome"]}
         />
       </div>
     </div>

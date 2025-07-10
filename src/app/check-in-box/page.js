@@ -2,12 +2,17 @@
 import React from "react";
 import Button from "@/components/Button/Button";
 import { useLanguage } from "@/context/LanguageContext";
+import SEO from "@/components/SEO/SEO";
 import Link from "next/link";
 
 const CheckInbox = () => {
   const { translations } = useLanguage();
   return (
     <div className="relative flex h-screen items-center justify-center bg-[#FDE8E9]">
+      <SEO
+        title={translations["forgotPassword.check-inbox.title"]}
+        description={translations["forgotPassword.check-inbox.description"]}
+      />
       <img
         src="/vector.svg"
         alt="Background Vector"
@@ -33,7 +38,7 @@ const CheckInbox = () => {
         <div className="mb-4 mt-2 w-full">
           <Button
             text={translations["forgotPassword.button"]}
-            variant="redWide"
+            width="full"
             data-testid="forgot-password-send-reset-link-button"
             aria-label="forgot password send reset link button"
           />
