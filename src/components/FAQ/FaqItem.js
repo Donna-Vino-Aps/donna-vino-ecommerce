@@ -6,10 +6,10 @@ const FaqItem = ({ question, answer }) => {
   const [isOpen, setIsOpen] = useState(false);
   return (
     <div
-      className={`mx-auto mb-3 flex flex-col rounded-lg border border-solid border-tertiary2-hover_normal ${isOpen ? "bg-transparent" : "bg-tertiary2-normal"} w-[18.5rem] md:w-[42.125rem] lg:w-[48.125rem]`}
+      className={`mx-auto flex flex-col rounded-lg border border-solid border-tertiary2-hover_normal ${isOpen ? "bg-transparent" : "bg-tertiary2-normal"} w-full sm:max-w-[48.125rem] max-w-[18.5rem] sm:min-w-[18.5rem] sm:mx-8 px-4`}
     >
       <article
-        className="my-3 flex w-full cursor-pointer items-center justify-between px-4 py-[3px]"
+        className="my-3 flex w-full cursor-pointer items-center justify-between py-[3px]"
         onClick={() => setIsOpen((prev) => !prev)}
       >
         <h4 className="pr-2 text-labelLarge font-semibold md:text-labelXLarge">
@@ -23,7 +23,7 @@ const FaqItem = ({ question, answer }) => {
           className="h-5 w-5"
         />
       </article>
-      {isOpen && <p className="mb-4 px-4">{answer}</p>}
+      {isOpen && <p className="mb-4">{answer}</p>}
     </div>
   );
 };

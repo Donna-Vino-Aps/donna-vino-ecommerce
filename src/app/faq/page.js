@@ -46,9 +46,7 @@ const FrequentlyAskedQuestions = () => {
           />
         </figure>
       </section>
-      <div className="flex items-center justify-center">
-        <FaqSection />
-      </div>
+      <FaqSection />
     </div>
   );
 };

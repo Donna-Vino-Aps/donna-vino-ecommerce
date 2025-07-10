@@ -15,14 +15,16 @@ const FaqSection = () => {
   const { translations } = useLanguage();
 
   return (
-    <div>
-      {FAQ_DATA.map((item) => (
-        <FaqItem
-          key={item.id}
-          question={translations[item.questionKey]}
-          answer={translations[item.answerKey]}
-        />
-      ))}
+    <div className="w-full px-4 sm:px-10 lg:px-12">
+      <div className="flex flex-col items-center gap-3">
+        {FAQ_DATA.map((item) => (
+          <FaqItem
+            key={item.id}
+            question={translations[item.questionKey]}
+            answer={translations[item.answerKey]}
+          />
+        ))}
+      </div>
     </div>
   );
 };
