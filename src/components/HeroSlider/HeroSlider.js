@@ -136,14 +136,14 @@ const HeroSlider = () => {
                   </div>
                 )}
               </div>
-              <div className="flex h-[22.5rem] w-full flex-col justify-between px-6 md:max-w-[50%] md:items-start md:px-6 lg:px-10 xl:px-14">
-                <div className="flex min-h-[43.75rem] flex-col justify-center text-center font-barlow font-regular">
+              <div className="flex w-full flex-col justify-between px-6 py-6 md:h-[43.75rem] md:max-w-[50%] md:items-start md:px-6 lg:px-10 xl:px-14">
+                <div className="flex flex-col justify-items-start text-center font-barlow font-regular sm:justify-center md:min-h-[43.75rem]">
                   <div>
                     <p className="text-left text-headlineSmall text-primary-normal">
                       {translations[slide.subheading]}
                     </p>
                   </div>
-                  <h2 className="my-4 mr-8 text-left text-displayMedium text-tertiary1-dark md:my-2 md:text-left md:text-headlineLarge lg:text-displaySmall xl:text-displayMedium">
+                  <h2 className="my-4 mr-8 text-left text-displaySmall text-tertiary1-dark md:my-2 md:text-left xl:text-displayMedium">
                     {translations[slide.heading]}
                   </h2>
                   <p className="mb-4 mr-10 mt-2 text-start text-bodyMedium sm:mb-7 sm:mt-2 md:mb-5 md:mt-2 md:text-start md:text-bodyMedium xl:mb-10 xl:text-bodyLarge">
