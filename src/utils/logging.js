@@ -8,35 +8,39 @@
 /**
  * logInfo should be used to log anything that can be used for debugging but is not a problem
  */
-export const logInfo = (message) => {
+export const logInfo = (...args) => {
   if (process.env.NODE_ENV !== "production") {
-    console.log(message); // Only log in non-production environments
+    console.log(...args); // Only log in non-production environments
   }
 };
 
 /**
  * logWarning should be used to log anything that signals a problem that is not app breaking
  */
-export const logWarning = (message) => {
+export const logWarning = (...args) => {
   if (process.env.NODE_ENV !== "production") {
-    console.warn(message); // Only log in non-production environments
+    console.warn(...args); // Only log in non-production environments
   }
 };
 
 /**
  * logError should be used to log anything that is app breaking
  */
-export const logError = (error) => {
+export const logError = (error, ...additionalInfo) => {
   if (process.env.NODE_ENV !== "production") {
     if (error instanceof Error) {
-      console.error(error.message, error.stack);
+      console.error(error.message, error.stack, ...additionalInfo);
       if (error.innerError) {
         console.error("Inner Error: ", error.innerError);
       }
     } else if (typeof error === "object") {
-      console.error("ERROR: ", JSON.stringify(error, null, 2));
+      console.error(
+        "ERROR: ",
+        JSON.stringify(error, null, 2),
+        ...additionalInfo,
+      );
     } else {
-      console.error("ERROR: ", error);
+      console.error("ERROR: ", error, ...additionalInfo);
     }
   }
 };

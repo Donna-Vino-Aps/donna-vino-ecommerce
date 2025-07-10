@@ -2,6 +2,7 @@
 import React from "react";
 import Button from "@/components/Button/Button";
 import { useLanguage } from "@/context/LanguageContext";
+import SEO from "@/components/SEO/SEO";
 
 import Link from "next/link";
 const ForgotPassword = () => {
@@ -9,6 +10,10 @@ const ForgotPassword = () => {
 
   return (
     <div className="relative flex h-screen items-center justify-center bg-[#FDE8E9]">
+      <SEO
+        title={translations["forgotPassword.title"]}
+        description={translations["forgotPassword.description"]}
+      />
       <img
         src="/vector.svg"
         alt="Background Vector"
@@ -19,7 +24,10 @@ const ForgotPassword = () => {
           <Button
             text={translations["button.go-back"]}
             icon="/icons/arrow-left.svg"
-            variant="redLine"
+            variant="outline"
+            border="primary"
+            color="transparent"
+            width="medium"
             ariaLabel="Go back"
             testId="go-back-button"
             onClick={() => {
@@ -44,7 +52,7 @@ const ForgotPassword = () => {
           <Link href="/check-in-box">
             <Button
               text={translations["forgotPassword.button"]}
-              variant="redWide"
+              width="full"
               data-testid="forgot-password-send-reset-link-button"
               aria-label="forgot password send reset link button"
             />{" "}

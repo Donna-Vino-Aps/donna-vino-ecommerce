@@ -90,7 +90,15 @@ function EventTicketReservation({ eventDetails = {}, onClose }) {
             className="mr-2 size-5 rounded accent-secondary-normal"
           />
           <label htmlFor="agree" className="text-bodyLarge">
-            {translations["event.reservation.acceptTerms"]}
+            {translations["event.reservation.acceptTerms1"]}
+            <a
+              className="underline"
+              href="https://shop.donnavino.dk/sales-policy"
+              role="navigation"
+              aria-label="Link to Sales Policy"
+            >
+              {translations["event.reservation.acceptTerms2"]}
+            </a>
           </label>
         </div>
         <div className="mb-4 flex w-full flex-col md:flex-row md:items-center md:justify-between">
@@ -98,7 +106,7 @@ function EventTicketReservation({ eventDetails = {}, onClose }) {
             <div className="w-full md:flex-1">
               <Button
                 text={translations["event.reservation.close"]}
-                variant="redWide"
+                width="full"
                 onClick={onClose}
                 ariaLabel={translations["event.reservation.close"]}
                 testId="close-reservation-button"

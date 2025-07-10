@@ -1,12 +1,12 @@
+"use client";
 import React, { useState, useRef } from "react";
 import Button from "../Button/Button";
-import { Swiper, SwiperSlide } from "swiper/react";
-import { A11y } from "swiper/modules";
-import "swiper/css";
-import "swiper/css/navigation";
-import "swiper/css/pagination";
+import dynamic from "next/dynamic";
+const SwiperClient = dynamic(() => import("../Swiper/SwiperClient"), {});
+import { SwiperSlide } from "swiper/react";
 import ComingSoonModal from "../Modal/ComingSoonModal";
 import { useLanguage } from "@/context/LanguageContext";
+import Image from "next/image";
 
 const HeroSlider = () => {
   const { translations } = useLanguage();
@@ -16,6 +16,7 @@ const HeroSlider = () => {
 
   const slides = [
     {
+      id: "video-slide",
       type: "video",
       subheading: "tasting.subheading1",
       heading: "tasting.heading1",
@@ -27,6 +28,7 @@ const HeroSlider = () => {
       url: "/events",
     },
     {
+      id: "wine-image",
       type: "image",
       subheading: "tasting.subheading2",
       heading: "tasting.heading2",
@@ -37,6 +39,7 @@ const HeroSlider = () => {
       url: "", // blank for now until the webshop is ready
     },
     {
+      id: "newsletter-image",
       type: "image",
       subheading: "tasting.subheading3",
       heading: "tasting.heading3",
@@ -66,7 +69,7 @@ const HeroSlider = () => {
   };
 
   return (
-    <section className="relative">
+    <section>
       {isModalOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
           <ComingSoonModal
@@ -75,24 +78,23 @@ const HeroSlider = () => {
           />
         </div>
       )}
-      <Swiper
+      <SwiperClient
         onSwiper={(swiper) => (swiperRef.current = swiper)}
-        modules={[A11y]}
         className="h-full w-full"
         onSlideChange={(swiper) => setCurrentImageIndex(swiper.activeIndex)}
         initialSlide={0}
         loop={true}
       >
         {slides.map((slide, index) => (
-          <SwiperSlide key={index}>
+          <SwiperSlide key={slide.id}>
             <section
-              className={`relative flex flex-col-reverse md:w-full ${index === 0 ? "md:flex-row" : "md:flex-row-reverse"} min-h-[43.75rem] justify-between bg-tertiary2-light`}
+              className={`relative flex min-h-[43.75rem] flex-col-reverse md:w-full ${index === 0 ? "md:flex-row" : "md:flex-row-reverse"} min-h-[43.75rem] justify-between bg-tertiary2-light`}
             >
               <div className="mb-4 min-h-[20rem] w-full items-center md:relative md:mb-0 md:w-[50%]">
                 {slide.type === "video" ? (
                   process.env.NODE_ENV === "production" && hasCredits ? (
                     <video
-                      className="iimd:mt-0 mt-4 max-h-[22.5rem] w-full rounded-br-[0rem] rounded-tr-[0rem] object-cover md:absolute md:inset-0 md:min-h-[43.75rem] md:rounded-br-xl md:rounded-tr-[8rem]"
+                      className="iimd:mt-0 mt-4 min-h-[22.5rem] w-full rounded-br-[0rem] rounded-tr-[0rem] object-cover md:absolute md:inset-0 md:min-h-[43.75rem] md:rounded-br-xl md:rounded-tr-[8rem]"
                       autoPlay
                       loop
                       muted
@@ -100,26 +102,39 @@ const HeroSlider = () => {
                       aria-label="Background video for TastingSession Section"
                       aria-hidden="true"
                       data-testid="hero-video"
+                      preload="none"
                     >
                       <source src={slide.media} type="video/mp4" />
                       Your browser does not support the video tag.
                     </video>
                   ) : (
-                    <img
-                      src="/images/hero-tasting-resized.jpg"
-                      className="mt-4 max-h-[22.5rem] w-full rounded-br-[0rem] rounded-tr-[0rem] object-cover md:absolute md:inset-0 md:mt-0 md:min-h-[43.75rem] md:rounded-br-[0.5rem] md:rounded-tr-[8rem]"
-                      data-testid="fallback-image"
-                    />
+                    <div className="relative mt-4 h-[22.5rem] w-full md:h-[43.75rem]">
+                      <Image
+                        src="/images/hero-tasting-resized.jpg"
+                        alt="Guests at a wine tasting event sampling different wines in a warm, elegant setting."
+                        fill
+                        priority={index === 0}
+                        loading={index === 0 ? undefined : "lazy"}
+                        sizes="(min-width: 768px) 100vw, 100vw"
+                        className="object-cover object-center md:rounded-br-[0.5rem] md:rounded-tr-[8rem]"
+                      />
+                    </div>
                   )
                 ) : (
-                  <img
-                    src={slide.media}
-                    alt="Slide media"
-                    className="mt-4 max-h-[22.5rem] w-full rounded-br-[0rem] rounded-tr-[0rem] object-cover md:absolute md:inset-0 md:mt-0 md:min-h-[43.75rem] md:rounded-bl-xl md:rounded-tl-[8rem]"
-                  />
+                  <div className="relative mt-4 h-[22.5rem] w-full md:h-[43.75rem] md:w-[100%]">
+                    <Image
+                      src={slide.media}
+                      alt="Slide media"
+                      fill
+                      priority={index === 0}
+                      loading={index === 0 ? undefined : "lazy"}
+                      sizes="(min-width: 768px) 100vw, 100vw"
+                      className="object-cover object-center md:rounded-br-[0.5rem] md:rounded-tr-[8rem]"
+                    />
+                  </div>
                 )}
               </div>
-              <div className="mb-3 flex min-h-[20rem] flex-col items-start justify-center px-12 font-barlow font-regular sm:px-20 md:max-w-[50%] md:items-start md:px-6 lg:px-10 xl:px-14">
+              <div className="flex h-[22.5rem] w-full flex-col justify-center px-6 text-center font-barlow font-regular md:max-w-[50%] md:items-start md:px-6 lg:px-10 xl:px-14">
                 <div>
                   <p className="text-left text-headlineSmall text-primary-normal">
                     {translations[slide.subheading]}
@@ -134,7 +149,7 @@ const HeroSlider = () => {
                 <Button
                   text={translations[slide.buttonText]}
                   icon={slide.buttonIcon}
-                  variant="redFullText"
+                  width="wide"
                   aria-label={translations[slide.buttonText]}
                   data-testid="book-tasting-button"
                   linkUrl={slide.url}
@@ -174,7 +189,7 @@ const HeroSlider = () => {
             </section>
           </SwiperSlide>
         ))}
-      </Swiper>
+      </SwiperClient>
       <div className="relative bottom-8 mx-auto flex min-h-[2rem] justify-center py-2 md:hidden">
         {slides.map((_, index) => (
           <button
