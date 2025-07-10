@@ -112,16 +112,23 @@ export default {
         others: {
           confirm: "#34C759",
           negative: "#FF3B30",
+          gray: "#637381",
+          bordergray: "#DFE4EA",
+          dark: "#111928",
+          sliderburgundy: "#2E0607",
+          sliderbackground: "#d1d5db",
           stroke: "#DFE4EA",
-          primaryText: "#637381"
+          primaryText: "#637381",
         },
       },
       screens: {
+        xs: "368px",
         sm: "640px",
         md: "768px",
         lg: "1024px",
         xl: "1280px",
         "2xl": "1536px",
+        "2.5xl": "1680px",
         "3xl": "1780px",
       },
       backgroundImage: {
