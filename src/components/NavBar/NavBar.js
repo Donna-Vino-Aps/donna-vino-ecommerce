@@ -11,54 +11,6 @@ import ShoppingCart from "./ShoppingCart";
 import CartModal from "../Cart/CartModal";
 
 const Navbar = () => {
-  const mockCartItems = [
-    {
-      id: 1,
-      name: "Cantina Kurtatsch",
-      image: "/images/wine-example.jpg",
-      price: 249,
-      quantityAvailable: 2,
-      quantitySelected: 1,
-      preSale: true,
-    },
-    {
-      id: 2,
-      name: "Fructuositas Primitivo",
-      image: "/images/wine-example.jpg",
-      price: 119,
-      quantityAvailable: 1,
-      quantitySelected: 1,
-      preSale: true,
-    },
-    {
-      id: 3,
-      name: "Alamos Malbec",
-      image: "/images/wine-example.jpg",
-      price: 219,
-      quantityAvailable: 3,
-      quantitySelected: 1,
-      preSale: true,
-    },
-    {
-      id: 4,
-      name: "Balamos Balbec",
-      image: "/images/wine-example.jpg",
-      price: 229,
-      quantityAvailable: 5,
-      quantitySelected: 1,
-      preSale: true,
-    },
-    {
-      id: 5,
-      name: "Calamos Calbec",
-      image: "/images/wine-example.jpg",
-      price: 229,
-      quantityAvailable: 5,
-      quantitySelected: 1,
-      preSale: true,
-    },
-  ];
-
   const { translations } = useLanguage();
   const pathname = usePathname();
 
@@ -69,10 +21,6 @@ const Navbar = () => {
   });
 
   const [isCartOpen, setIsCartOpen] = useState(false);
-  const [cartItems, setCartItems] = useState(mockCartItems);
-  const [totalQuantityInCart, setTotalQuantityInCart] = useState(
-    mockCartItems.reduce((sum, item) => sum + item.quantitySelected, 0),
-  );
 
   const toggleDropdown = (id) => {
     setOpenDropdowns((prev) => {
@@ -379,11 +327,7 @@ const Navbar = () => {
         <div className="relative bottom-[2px] z-[9999] flex items-center gap-3 md:mr-6 lg:gap-5">
           <SearchButton />
           <UserDropdown />
-          <ShoppingCart
-            totalQuantityInCart={totalQuantityInCart}
-            setTotalQuantityInCart={setTotalQuantityInCart}
-            onClick={() => setIsCartOpen((prev) => !prev)}
-          />
+          <ShoppingCart onClick={() => setIsCartOpen(true)} />
           <div className="relative top-[1px] ml-2 mr-8 h-[1.5rem] w-[1.5rem] lg:hidden">
             <button
               onClick={toggleMenu}
@@ -409,15 +353,7 @@ const Navbar = () => {
           navLinks={navLinksSidebar}
         />
       </div>
-      {isCartOpen && (
-        <CartModal
-          onClose={() => setIsCartOpen(false)}
-          cartItems={cartItems}
-          setCartItems={setCartItems}
-          setTotalQuantityInCart={setTotalQuantityInCart}
-          totalQuantityInCart={totalQuantityInCart}
-        />
-      )}
+      <CartModal isOpen={isCartOpen} onClose={() => setIsCartOpen(false)} />
     </nav>
   );
 };
