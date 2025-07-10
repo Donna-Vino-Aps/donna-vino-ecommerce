@@ -29,27 +29,33 @@ const SortBy = () => {
     sortingData.find((item) => item.id === selectedSorting)?.display || "…";
 
   return (
-    <section className="relative flex gap-4">
+    <section className="relative flex-shrink gap-4">
       <div
-        className={`relative w-[17rem] md:w-[9.625rem] border border-tertiary1-light rounded-md min-h-[3.5rem] md:min-h-[2.75rem] md:ml-4
+        className={`relative w-[13rem] xs:w-[17rem] md:w-[9.625rem] border border-tertiary1-light rounded-md min-h-[3.5rem] md:min-h-[2.75rem] md:ml-4
       ${isOpen ? "rounded-b-none border-b-0" : ""}`}
       >
         {/* Make the header and dropdown consistent in padding and alignment */}
         <div
-          className="cursor-pointer px-4 pb-2 pt-4 md:pt-3"
+          className="cursor-pointer px-4 pb-2 pt-4 md:px-6 md:pt-2"
           onClick={() => setIsOpen((prev) => !prev)}
         >
-          <div className="flex items-center justify-between">
-            <p className="text-titleMedium font-medium md:text-titleMedium">
+          <div className="flex items-center justify-between font-barlow">
+            <p className="text-labelLarge font-medium md:text-titleMedium">
               {selectedSorting ? selectedTitle : "Newest"}
             </p>
-            <Image
-              src={isOpen ? "/icons/chevron-up.svg" : "/icons/chevron-down.svg"}
-              alt={isOpen ? "Close sorting dropdown" : "Open sorting dropdown"}
-              width={20}
-              height={20}
-              className="h-5 w-5 md:h-7 md:w-7"
-            />
+            <div className="md:relative md:top-[1px]">
+              <Image
+                src={
+                  isOpen ? "/icons/chevron-up.svg" : "/icons/chevron-down.svg"
+                }
+                alt={
+                  isOpen ? "Close sorting dropdown" : "Open sorting dropdown"
+                }
+                width={14}
+                height={14}
+                className="h-[5] w-5 md:h-[14px] md:w-[14px]"
+              />
+            </div>
           </div>
         </div>
         {isOpen && (

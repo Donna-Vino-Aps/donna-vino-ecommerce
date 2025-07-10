@@ -9,7 +9,7 @@ const FilterModal = ({ isOpen, onClose }) => {
   return (
     <div className="fixed inset-0 z-50 flex items-end justify-center bg-black bg-opacity-60 transition-opacity duration-300">
       <div
-        className={`relative top-[14rem] h-full w-full transform overflow-y-auto rounded-lg bg-white p-7 shadow-lg transition-transform duration-300 ease-out ${
+        className={`relative top-[14rem] h-full w-full transform overflow-y-auto overscroll-contain rounded-lg bg-white p-7 shadow-lg transition-transform duration-300 ease-out ${
           isOpen ? "translate-y-0 opacity-100" : "translate-y-full opacity-0"
         }`}
       >

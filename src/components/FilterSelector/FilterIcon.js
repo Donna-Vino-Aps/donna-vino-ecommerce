@@ -5,7 +5,7 @@ import PropTypes from "prop-types";
 const FilterIcon = ({ onClick }) => {
   return (
     <button
-      className="flex h-[3.5rem] w-[3.5rem] items-center justify-center rounded-lg border border-tertiary1-light"
+      className="flex min-h-[3.5rem] min-w-[3.5rem] items-center justify-center rounded-lg border border-tertiary1-light"
       onClick={onClick}
     >
       <Image

@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import SEO from "@/components/SEO/SEO";
 import PreSaleWineGrid from "@/components/WineGrid/PreSaleWineGrid";
 import FilterSelector from "@/components/FilterSelector/FilterSelector";
@@ -11,6 +11,20 @@ import SearchBar from "@/components/SearchBar/SearchBar";
 
 const PreSaleWinesPage = () => {
   const [isFilterModalOpen, setIsFilterModalOpen] = useState(false);
+
+  // Code that prevents scrolling when filterModal is open
+  useEffect(() => {
+    if (isFilterModalOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "auto";
+    }
+
+    // Clean up in case the component unmounts while modal is open
+    return () => {
+      document.body.style.overflow = "auto";
+    };
+  }, [isFilterModalOpen]);
 
   return (
     <>

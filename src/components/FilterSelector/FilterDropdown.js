@@ -46,7 +46,7 @@ const FilterDropdown = ({ filter }) => {
             {filter.options.map((option) => (
               <div
                 key={option}
-                className="flex flex-row items-center justify-start px-3 py-1"
+                className="flex flex-row items-center justify-start px-6 py-1"
               >
                 <CheckboxField
                   name={option}
