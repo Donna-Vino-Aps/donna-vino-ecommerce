@@ -1,12 +1,16 @@
 import React, { useState } from "react";
 import { logInfo } from "@/utils/logging";
+import { useUser } from "@/context/UserContext";
+import { useAPI } from "@/context/ApiProvider";
 
 export default function UserInfoMobile() {
+  const { userData, setUserData } = useUser();
   const [imageUrl, setImageUrl] = useState(
     userData?.profileImageUrl || "/images/Avatar.png",
   );
   const [uploading, setUploading] = useState(false);
-  const { userData, setUserData } = useUser();
+
+  const { post } = useAPI();
 
   const handleFileUpload = async (file) => {
     if (!file) {

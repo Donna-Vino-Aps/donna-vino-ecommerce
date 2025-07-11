@@ -5,6 +5,7 @@ import React, { useState } from "react";
 import LanguageSwitch from "../NavBar/LanguageSwitch";
 import SideBar from "../SideBar/SideBar";
 import { useLanguage } from "@/context/LanguageContext";
+import { useSession } from "next-auth/react";
 import SearchButton from "./SearchButton";
 import UserDropdown from "./UserDropdown/UserDropdown";
 import ShoppingCart from "./ShoppingCart";
@@ -49,6 +50,10 @@ const Navbar = () => {
     }
     return result;
   };
+
+  const { data: session } = useSession();
+
+  const isAuthenticated = !!session;
 
   const navLinks = [
     {
@@ -171,7 +176,7 @@ const Navbar = () => {
     // },
     {
       id: "account",
-      href: "/user/profile",
+      href: isAuthenticated ? "/user/profile" : "/login",
       label: translations["navbar.account"],
       icon: "/icons/user-alt-2.svg",
       dropdown: false,
