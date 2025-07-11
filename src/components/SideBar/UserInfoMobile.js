@@ -1,57 +1,18 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { logInfo } from "@/utils/logging";
-import useFetch from "@/hooks/api/useFetch";
 
 export default function UserInfoMobile() {
   const [imageUrl, setImageUrl] = useState(
-    "/images/courtney-cook-unsplash.jpg",
+    userData?.profileImageUrl || "/images/Avatar.png",
   );
   const [uploading, setUploading] = useState(false);
-  const [userData, setUserData] = useState(null);
+  const { userData, setUserData } = useUser();
 
-  // Load user from localStorage on mount
-  useEffect(() => {
-    const storedUser = localStorage.getItem("user");
-    if (storedUser) {
-      try {
-        const parsedUser = JSON.parse(storedUser);
-        setUserData(parsedUser);
-        if (parsedUser.profileImageUrl) {
-          setImageUrl(parsedUser.profileImageUrl);
-        }
-      } catch (error) {
-        console.error("Failed to parse user from localStorage:", error);
-      }
-    }
-  }, []);
-
-  const { performFetch } = useFetch(
-    "/upload/profile-logo",
-    "POST",
-    null,
-    {},
-    (data) => {
-      const url = data?.cloudinaryUrl || data?.url;
-      if (url) {
-        setImageUrl(url);
-
-        // Update localStorage with new profile image
-        const updatedUser = { ...userData, profileImageUrl: url };
-        localStorage.setItem("user", JSON.stringify(updatedUser));
-        setUserData(updatedUser);
-      }
-      alert("✅ Image uploaded successfully!");
-    },
-  );
-
-  const handleImageChange = async (e) => {
-    const file = e.target.files[0];
-
+  const handleFileUpload = async (file) => {
     if (!file) {
       alert("No file selected");
       return;
     }
-
     logInfo("Selected file:", file);
 
     const formData = new FormData();
@@ -63,15 +24,34 @@ export default function UserInfoMobile() {
 
     try {
       setUploading(true);
-      await performFetch({}, undefined, formData);
+
+      // Pass formData as body and explicitly provide empty headers object
+      // so the APIProvider won't set Content-Type (browser handles it)
+      const data = await post("/upload/profile-logo", {
+        body: formData,
+        headers: {}, // Important: no 'Content-Type' header here!
+      });
+
+      const url = data?.cloudinaryUrl || data?.url;
+      if (url && user) {
+        setUserData({ ...userData, profileImageUrl: url });
+        setImageUrl(url);
+        alert("✅ Image uploaded successfully!");
+      }
     } catch (error) {
       console.error(
         "Upload failed:",
         error?.response || error?.message || error,
       );
+      alert("Upload failed, please try again.");
     } finally {
       setUploading(false);
     }
+  };
+
+  const handleImageChange = async (e) => {
+    const file = e.target.files[0];
+    handleFileUpload(file);
   };
 
   return (
