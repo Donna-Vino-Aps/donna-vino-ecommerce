@@ -132,8 +132,8 @@ export const APIProvider = ({ children }) => {
       try {
         const res = await fetch(makeUrl(apiUrl, path), {
           method: method,
-          body: body ? JSON.stringify(body) : undefined,
-          headers: headers,
+          body: body instanceof FormData ? body : JSON.stringify(body),
+          headers,
         });
 
         return await processResponse(res);
