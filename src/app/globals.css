@@ -27,7 +27,3 @@ footer {
 .opacity-transition {
   animation: opacity 800ms;
 }
-
-.custom-services-banner {
-  background-color: rgba(253, 232, 233, 0.3);
-}

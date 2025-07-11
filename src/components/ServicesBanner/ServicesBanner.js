@@ -9,22 +9,16 @@ const services = [
     icon: "/icons/services-icon1.svg",
     altKey: "services.p1",
     linkTestId: "/wines/pre-sale",
-    className:
-      "relative flex flex-col items-center justify-center gap-x-2 gap-y-4 text-tertiary1-darker md:left-2 md:ml-4 md:flex-row lg:left-1 lg:ml-5 xl:left-6 xl:gap-x-4",
   },
   {
     icon: "/icons/services-icon2.svg",
     altKey: "services.p2",
     linkTestId: "/sales-policy#shipping",
-    className:
-      "flex flex-col items-center justify-center gap-x-4 gap-y-4 text-tertiary1-darker md:flex-row",
   },
   {
     icon: "/icons/services-icon3.svg",
     altKey: "services.p3",
     linkTestId: "/events",
-    className:
-      "relative flex flex-col items-center justify-center gap-x-4 gap-y-4 text-tertiary1-darker md:right-2 md:mr-4 md:flex-row lg:right-1 lg:mr-5 xl:right-6",
   },
 ];
 
@@ -32,15 +26,15 @@ const ServicesBanner = () => {
   const { translations } = useLanguage();
 
   return (
-    <div className="custom-services-banner flex w-full flex-col items-center justify-center gap-y-8 px-5 py-8 md:min-h-[20rem] md:py-20">
+    <div className="flex w-full flex-col items-center justify-center bg-[#FDE8E94D] px-6 py-8 md:min-h-[20rem] md:px-12 md:py-20 lg:px-20">
       <h1 className="text-center text-headlineLarge text-tertiary1-darker md:text-displaySmall">
         {translations["services.heading"]}
       </h1>
-      <section className="flex w-full flex-col justify-around space-y-4 text-titleLarge md:flex-row md:text-titleMedium lg:text-titleLarge">
+      <section className="mt-16 flex w-full max-w-7xl flex-col justify-between gap-16 text-titleLarge md:mt-8 md:flex-row md:text-titleMedium lg:gap-8 lg:text-titleLarge">
         {services.map((service, index) => (
           <Link
             key={index}
-            className={service.className}
+            className="flex flex-col items-center gap-x-4 gap-y-4 text-tertiary1-darker md:flex-row"
             aria-label={translations[service.altKey]}
             data-testid={service.linkTestId}
             href={service.linkTestId}
