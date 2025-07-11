@@ -5,6 +5,7 @@ import RootLoading from "./loading";
 import SEO from "@/components/SEO/SEO";
 import { useLanguage } from "@/context/LanguageContext";
 import TopWinesSection from "@/components/Slider/TopWinesSection";
+import { PreSaleWinesProvider } from "@/context/PreSaleWinesContext";
 
 const TastingSession = dynamic(
   () => import("@/components/HeroSlider/HeroSlider"),
@@ -41,7 +42,9 @@ export default function Home() {
       >
         <TastingSession />
         <ServicesBanner />
-        <TopWinesSection />
+        <PreSaleWinesProvider>
+          <TopWinesSection />
+        </PreSaleWinesProvider>
         <SalesCards />
       </main>
     </div>
