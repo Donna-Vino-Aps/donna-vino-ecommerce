@@ -90,13 +90,13 @@ const HeroSlider = () => {
         {slides.map((slide, index) => (
           <SwiperSlide key={slide.id}>
             <section
-              className={`relative flex min-h-[43.75rem] flex-col-reverse md:w-full ${index === 0 ? "md:flex-row" : "md:flex-row-reverse"} min-h-[43.75rem] justify-between bg-tertiary2-light`}
+              className={`relative flex flex-col-reverse md:w-full ${index === 0 ? "md:flex-row" : "md:flex-row-reverse"} justify-between bg-tertiary2-light md:min-h-[43.75rem]`}
             >
-              <div className="mb-4 min-h-[20rem] w-full items-center md:relative md:mb-0 md:w-[50%]">
+              <div className="mb-4 min-h-[22rem] w-full items-center md:relative md:mb-0 md:w-[50%]">
                 {slide.type === "video" ? (
                   hasCredits ? (
                     <video
-                      className="iimd:mt-0 mt-4 min-h-[22.5rem] w-full rounded-br-[0rem] rounded-tr-[0rem] object-cover md:absolute md:inset-0 md:min-h-[43.75rem] md:rounded-br-xl md:rounded-tr-[8rem]"
+                      className="mt-4 min-h-[22rem] w-full rounded-br-[0rem] rounded-tr-[0rem] object-cover md:absolute md:inset-0 md:mt-0 md:min-h-[43.75rem] md:rounded-br-xl md:rounded-tr-[8rem]"
                       autoPlay
                       loop
                       muted
@@ -110,7 +110,7 @@ const HeroSlider = () => {
                       Your browser does not support the video tag.
                     </video>
                   ) : (
-                    <div className="relative mt-4 h-[22.5rem] w-full md:h-[43.75rem]">
+                    <div className="relative mt-4 min-h-[22rem] w-full md:min-h-[43.75rem]">
                       <Image
                         src="/images/hero-tasting-resized.jpg"
                         alt="Guests at a wine tasting event sampling different wines in a warm, elegant setting."
@@ -123,7 +123,7 @@ const HeroSlider = () => {
                     </div>
                   )
                 ) : (
-                  <div className="relative mt-4 h-[22.5rem] w-full md:h-[43.75rem] md:w-[100%]">
+                  <div className="relative mt-4 min-h-[22rem] w-full md:min-h-[43.75rem] md:w-[100%]">
                     <Image
                       src={slide.media}
                       alt="Slide media"
@@ -166,7 +166,7 @@ const HeroSlider = () => {
                 >
                   <button
                     onClick={handlePrevious}
-                    className="mr-[8px] flex items-center justify-center rounded-full active:bg-primary-hover_normal md:h-[2rem] md:w-[2rem] lg:h-[2.25rem] lg:w-[2.25rem] xl:h-[2.625rem] xl:w-[2.625rem]"
+                    className="mr-2 flex items-center justify-center rounded-full active:bg-primary-hover_normal md:h-[2rem] md:w-[2rem] lg:h-[2.25rem] lg:w-[2.25rem] xl:h-[2.625rem] xl:w-[2.625rem]"
                     aria-label="Previous image"
                     data-testid="carousel-previous-button-large"
                   >
