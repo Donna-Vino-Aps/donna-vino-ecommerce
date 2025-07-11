@@ -8,7 +8,7 @@ export default function NotFound() {
   const { translations } = useLanguage();
 
   return (
-    <div className="flex min-h-[50vh] flex-col items-center justify-center bg-[#FDE8E94D] px-4 text-center">
+    <div className="flex min-h-[50vh] flex-col items-center justify-center bg-primary-light px-4 text-center">
       <SEO
         title={translations["notFound.seo.title"]}
         description={translations["notFound.seo.description"]}

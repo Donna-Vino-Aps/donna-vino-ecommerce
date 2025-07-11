@@ -26,7 +26,7 @@ const ServicesBanner = () => {
   const { translations } = useLanguage();
 
   return (
-    <div className="flex w-full flex-col items-center justify-center bg-[#FDE8E94D] px-6 py-8 md:min-h-[20rem] md:px-12 md:py-20 lg:px-20">
+    <div className="flex w-full flex-col items-center justify-center bg-primary-light px-6 py-8 md:min-h-[20rem] md:px-12 md:py-20 lg:px-20">
       <h1 className="text-center text-headlineLarge text-tertiary1-darker md:text-displaySmall">
         {translations["services.heading"]}
       </h1>
