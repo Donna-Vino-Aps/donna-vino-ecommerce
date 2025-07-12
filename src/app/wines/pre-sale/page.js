@@ -61,7 +61,7 @@ const PreSaleWinesPage = () => {
         )}
 
         {/* Grid aligned to the right and fills available space */}
-        <div className="flex w-full justify-center md:justify-end lg:justify-center xl:justify-end 2xl:justify-center 2.5xl:justify-end">
+        <div className="mb-10 flex w-full justify-center md:justify-end lg:justify-center xl:justify-end 2xl:justify-center 2.5xl:justify-end">
           <div className="grid grid-cols-1 gap-6 sm:grid-cols-1 lg:grid-cols-1 xl:grid-cols-2 xl:gap-6 2xl:gap-4 2.5xl:grid-cols-3 2.5xl:gap-2 3xl:gap-6">
             <PreSaleWineGrid />
           </div>

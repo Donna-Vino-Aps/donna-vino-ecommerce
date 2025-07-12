@@ -3,20 +3,39 @@ import Image from "next/image";
 import DualRangeSlider from "./DualRangeSlider";
 import PropTypes from "prop-types";
 import CheckboxField from "../FormFields/CheckboxField";
+import { usePreSaleWines } from "@/context/PreSaleWinesContext";
+import { useLanguage } from "@/context/LanguageContext";
 
 const ModalFilterDropdown = ({ filter }) => {
   const [isFilterOpen, setIsFilterOpen] = useState(false);
-  const [selectedMinimum, setSelectedMinimum] = useState(1);
-  const [selectedMaximum, setSelectedMaximum] = useState(2000);
-  const [selectedOptions, setSelectedOptions] = useState([]);
+  const { setActiveFilters, activeFilters } = usePreSaleWines();
+  const [selectedOptions, setSelectedOptions] = useState(
+    activeFilters.find((f) => f.key == filter.key)?.options ?? [],
+  );
+  const { translations } = useLanguage();
 
   const handleCheckboxChange = (option) => {
-    setSelectedOptions((prevSelected) =>
-      prevSelected.includes(option)
-        ? prevSelected.filter((item) => item !== option)
-        : [...prevSelected, option],
-    );
+    const nextSelectedOptions = selectedOptions.includes(option)
+      ? selectedOptions.filter((item) => item !== option)
+      : [...selectedOptions, option];
+
+    setSelectedOptions(nextSelectedOptions);
+
+    setActiveFilters((prev) => {
+      // optionally replace existing entry for this filter
+      const filtered = prev.filter((f) => f.key !== filter.key);
+      if (nextSelectedOptions.length > 0) {
+        return [...filtered, { ...filter, options: nextSelectedOptions }];
+      }
+      return filtered; // if nothing is selected, remove this filter
+    });
   };
+
+  const bottlePriceFilter = activeFilters.find((f) => f.key === "bottlePrice");
+
+  const minPrice = bottlePriceFilter?.min ?? filter.min;
+  const maxPrice = bottlePriceFilter?.max ?? filter.max;
+
   return (
     <div className="flex flex-col">
       <div
@@ -24,7 +43,7 @@ const ModalFilterDropdown = ({ filter }) => {
         onClick={() => setIsFilterOpen((prev) => !prev)}
       >
         <p className="font-barlow text-headlineSmall font-normal text-others-dark md:text-titleLarge">
-          {filter.title}
+          {translations[`presale-filter.${filter.key}`]}
         </p>
         <Image
           src={
@@ -59,28 +78,59 @@ const ModalFilterDropdown = ({ filter }) => {
             <div className="flex justify-between px-8 py-8">
               <div className="flex flex-col">
                 <p className="text-titleSmall text-others-gray">
-                  Minimum Price
+                  {translations["presale-filter.minPrice"]}
                 </p>
                 <p className="text-labelXLarge text-others-dark">
-                  {selectedMinimum.toFixed(2).replace(".", ",")} kr
+                  {minPrice.toFixed(2).replace(".", ",")} kr
                 </p>
               </div>
               <div className="flex flex-col">
                 <p className="text-titleSmall text-others-gray">
-                  Maximum Price
+                  {translations["presale-filter.minPrice"]}
                 </p>
                 <p className="text-labelXLarge text-others-dark">
-                  {selectedMaximum.toFixed(2).replace(".", ",")} kr
+                  {maxPrice.toFixed(2).replace(".", ",")} kr
                 </p>
               </div>
             </div>
             <DualRangeSlider
-              min={1}
-              max={2000}
-              selectedMinimum={selectedMinimum}
-              selectedMaximum={selectedMaximum}
-              setSelectedMinimum={setSelectedMinimum}
-              setSelectedMaximum={setSelectedMaximum}
+              min={filter.min ?? 1}
+              max={filter.max ?? 2000}
+              step={1}
+              selectedMinimum={minPrice}
+              selectedMaximum={maxPrice}
+              setSelectedMinimum={(newMin) => {
+                setActiveFilters((prev) => {
+                  const prevBottlePrice = prev.find(
+                    (f) => f.key == "bottlePrice",
+                  );
+                  const filtered = prev.filter((f) => f.key !== filter.key);
+                  return [
+                    ...filtered,
+                    {
+                      ...filter,
+                      min: newMin,
+                      max: prevBottlePrice?.max ?? filter.max,
+                    },
+                  ];
+                });
+              }}
+              setSelectedMaximum={(newMax) => {
+                setActiveFilters((prev) => {
+                  const prevBottlePrice = prev.find(
+                    (f) => f.key == "bottlePrice",
+                  );
+                  const filtered = prev.filter((f) => f.key !== filter.key);
+                  return [
+                    ...filtered,
+                    {
+                      ...filter,
+                      min: prevBottlePrice?.min ?? filter.min,
+                      max: newMax,
+                    },
+                  ];
+                });
+              }}
             />
           </div>
         ))}
@@ -91,10 +141,11 @@ const ModalFilterDropdown = ({ filter }) => {
 export default ModalFilterDropdown;
 
 ModalFilterDropdown.propTypes = {
-  isFilterModalOpen: PropTypes.func.isRequired,
   filter: PropTypes.shape({
     variant: PropTypes.string.isRequired,
-    title: PropTypes.string.isRequired,
     options: PropTypes.arrayOf(PropTypes.string),
+    min: PropTypes.number,
+    max: PropTypes.number,
+    key: PropTypes.string.isRequired,
   }).isRequired,
 };
