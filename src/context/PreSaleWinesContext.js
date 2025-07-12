@@ -1,14 +1,25 @@
-import React, { createContext, useContext, useState, useEffect } from "react";
+import React, {
+  createContext,
+  useContext,
+  useState,
+  useEffect,
+  useMemo,
+} from "react";
 import PropTypes from "prop-types";
 import { logError } from "@/utils/logging";
 import { fetchPreSaleWines } from "@/lib/shopify/services";
 import { useLanguage } from "@/context/LanguageContext";
-import { normalizeWineList } from "@/utils/wineUtils";
+import {
+  extractFilters,
+  normalizeWineList,
+  matchesFilter,
+} from "@/utils/wineUtils";
 
 const PreSaleWinesContext = createContext();
 
 export function PreSaleWinesProvider({ children }) {
-  const [wines, setWines] = useState([]);
+  const [activeFilters, setActiveFilters] = useState([]);
+  const [allWines, setAllWines] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
   const { language, translations } = useLanguage();
@@ -23,9 +34,9 @@ export function PreSaleWinesProvider({ children }) {
             slug: product.handle, // Add slug based on product handle
           }));
           const normalizedWines = normalizeWineList(parsedWines, translations);
-          setWines(normalizedWines);
+          setAllWines(normalizedWines);
         } else {
-          setWines([]);
+          setAllWines([]);
           logError("Pre-sale wines data is missing or malformed", {
             winesResponse,
           });
@@ -40,7 +51,7 @@ export function PreSaleWinesProvider({ children }) {
           translations["wines.error.loading"] ||
             "Failed to load wines. Please try again later.",
         );
-        setWines([]);
+        setAllWines([]);
       } finally {
         setIsLoading(false);
       }
@@ -49,8 +60,27 @@ export function PreSaleWinesProvider({ children }) {
     loadWines();
   }, [language, translations]);
 
+  const availableFilters = useMemo(() => extractFilters(allWines), [allWines]);
+
+  const wines = useMemo(
+    () =>
+      allWines.filter((wine) =>
+        activeFilters.every((filter) => matchesFilter(wine, filter)),
+      ),
+    [allWines, activeFilters],
+  );
+
   return (
-    <PreSaleWinesContext.Provider value={{ wines, isLoading, error }}>
+    <PreSaleWinesContext.Provider
+      value={{
+        wines,
+        availableFilters,
+        activeFilters,
+        setActiveFilters,
+        isLoading,
+        error,
+      }}
+    >
       {children}
     </PreSaleWinesContext.Provider>
   );
@@ -61,5 +91,11 @@ PreSaleWinesProvider.propTypes = {
 };
 
 export function usePreSaleWines() {
-  return useContext(PreSaleWinesContext);
+  const context = useContext(PreSaleWinesContext);
+  if (!context) {
+    throw new Error(
+      "usePreSaleWines must be used within a PreSaleWinesProvider",
+    );
+  }
+  return context;
 }
