@@ -37,7 +37,7 @@ export default function UserInfoMobile() {
       });
 
       const url = data?.cloudinaryUrl || data?.url;
-      if (url && user) {
+      if (url && userData) {
         setUserData({ ...userData, profileImageUrl: url });
         setImageUrl(url);
         alert("✅ Image uploaded successfully!");
