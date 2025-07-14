@@ -75,12 +75,13 @@ export const APIProvider = ({ children }) => {
    * @returns {object} - Updated headers.
    */
   const updateMandatoryHeaders = useCallback(
-    (headers) => {
+    (headers, body) => {
       if (!headers["Authorization"] && status === "authenticated") {
         headers["Authorization"] = `Bearer ${session.accessToken}`;
       }
 
-      if (!headers["Content-Type"]) {
+      // Only set Content-Type if not already set and body is not FormData
+      if (!headers["Content-Type"] && !(body instanceof FormData)) {
         headers["Content-Type"] = "application/json";
       }
 
@@ -96,14 +97,28 @@ export const APIProvider = ({ children }) => {
    * @returns {Promise<any>} - The parsed JSON response.
    */
   const processResponse = async (response) => {
-    const data = await response.json();
-    if (!response.ok || data.status === "error") {
-      const errorMessage = data.message || translations["api.error.default"];
-      setError(errorMessage);
-      return null;
+    const contentType = response.headers.get("content-type") || "";
+
+    if (contentType.includes("application/json")) {
+      const data = await response.json();
+      if (!response.ok || data.status === "error") {
+        const errorMessage = data.message || translations["api.error.default"];
+        setError(errorMessage);
+        return null;
+      }
+      setError(null);
+      return data;
+    } else {
+      // Non-JSON response handling
+      const text = await response.text();
+
+      if (!response.ok) {
+        setError(text || translations["api.error.default"]);
+        return null;
+      }
+      setError(null);
+      return text;
     }
-    setError(null);
-    return data;
   };
 
   /**
@@ -127,7 +142,7 @@ export const APIProvider = ({ children }) => {
       const body = options.payload || options.body;
       const headers = options.headers || {};
 
-      updateMandatoryHeaders(headers);
+      updateMandatoryHeaders(headers, body);
 
       try {
         const res = await fetch(makeUrl(apiUrl, path), {

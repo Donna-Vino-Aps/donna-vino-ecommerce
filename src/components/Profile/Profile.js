@@ -1,20 +1,37 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Formik } from "formik";
 import TextInput from "../TextInput/TextInput";
 import Button from "../Button/Button";
 import { useLanguage } from "@/context/LanguageContext";
 import { logInfo } from "@/utils/logging";
 import { useUser } from "@/context/UserContext";
+import { useSession } from "next-auth/react";
 import { useAPI } from "@/context/ApiProvider";
 
 const Profile = () => {
   const { translations } = useLanguage();
 
-  const [imageUrl, setImageUrl] = useState(
-    userData?.profileImageUrl || "/images/Avatar.png",
-  );
-  const [uploading, setUploading] = useState(false);
   const { userData, setUserData } = useUser();
+
+  const { data: session } = useSession();
+  const accessToken = session?.accessToken;
+
+  if (!accessToken) {
+    alert("You must be logged in to upload a profile picture.");
+    return;
+  }
+
+  const [imageUrl, setImageUrl] = useState(
+    userData?.picture || "/images/Avatar.png",
+  );
+
+  useEffect(() => {
+    if (userData?.picture) {
+      setImageUrl(userData.picture);
+    }
+  }, [userData?.picture]);
+
+  const [uploading, setUploading] = useState(false);
 
   const { post } = useAPI();
 
@@ -35,16 +52,14 @@ const Profile = () => {
     try {
       setUploading(true);
 
-      // Pass formData as body and explicitly provide empty headers object
-      // so the APIProvider won't set Content-Type (browser handles it)
-      const data = await post("/upload/profile-logo", {
+      const data = await post("http://localhost:5001/api/upload/profile-logo", {
         body: formData,
-        headers: {}, // Important: no 'Content-Type' header here!
+        headers: { Authorization: `Bearer ${accessToken}` },
       });
 
       const url = data?.cloudinaryUrl || data?.url;
-      if (url && user) {
-        setUserData({ ...userData, profileImageUrl: url });
+      if (url && userData) {
+        setUserData({ ...userData, picture: url });
         setImageUrl(url);
         alert("✅ Image uploaded successfully!");
       }
