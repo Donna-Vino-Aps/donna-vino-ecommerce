@@ -10,30 +10,25 @@ import { useAPI } from "@/context/ApiProvider";
 
 const Profile = () => {
   const { translations } = useLanguage();
-
-  const { userData, setUserData } = useUser();
-
+  const { userInfo, setUserInfo } = useUser();
   const { data: session } = useSession();
   const accessToken = session?.accessToken;
+  const { post } = useAPI();
 
-  if (!accessToken) {
-    alert("You must be logged in to upload a profile picture.");
-    return;
-  }
-
-  const [imageUrl, setImageUrl] = useState(
-    userData?.picture || "/images/Avatar.png",
-  );
-
-  useEffect(() => {
-    if (userData?.picture) {
-      setImageUrl(userData.picture);
-    }
-  }, [userData?.picture]);
-
+  const [imageUrl, setImageUrl] = useState(userInfo?.picture);
   const [uploading, setUploading] = useState(false);
 
-  const { post } = useAPI();
+  useEffect(() => {
+    setImageUrl(userInfo?.picture || "/images/Avatar.png");
+  }, [userInfo]);
+
+  if (!accessToken) {
+    return (
+      <div className="my-8 p-6">
+        <p>Please log in to upload a profile picture.</p>
+      </div>
+    );
+  }
 
   const handleFileUpload = async (file) => {
     if (!file) {
@@ -58,8 +53,10 @@ const Profile = () => {
       });
 
       const url = data?.cloudinaryUrl || data?.url;
-      if (url && userData) {
-        setUserData({ ...userData, picture: url });
+      if (url && userInfo) {
+        setUserInfo((prev) => ({ ...prev, picture: url }));
+        logInfo("updated userInfo: ", userInfo);
+        logInfo("updated url: ", url);
         setImageUrl(url);
         alert("✅ Image uploaded successfully!");
       }
@@ -95,6 +92,7 @@ const Profile = () => {
       <div>
         <div className="relative h-[9.375rem] w-[9.375rem]">
           <img
+            key={imageUrl}
             src={imageUrl}
             alt="Profile picture"
             className="h-[9.375rem] w-[9.375rem] rounded-full object-cover"
@@ -122,22 +120,22 @@ const Profile = () => {
       </div>
 
       <h2 className="text-displaySmall">
-        {userData?.firstName} {userData?.lastName}
+        {userInfo?.firstName} {userInfo?.lastName}
       </h2>
       <p className="mb-5 mt-2 text-labelLarge md:mb-7 md:mt-4">
-        {userData?.country || "Unknown Country"}
+        {userInfo?.country || "Unknown Country"}
       </p>
 
       <h3 className="mb-4 self-start text-headlineSmall">Personal Details</h3>
       <Formik
         enableReinitialize
         initialValues={{
-          firstName: userData?.firstName || "",
-          lastName: userData?.lastName || "",
-          email: userData?.email || "",
+          firstName: userInfo?.firstName || "",
+          lastName: userInfo?.lastName || "",
+          email: userInfo?.email || "",
           password: "", // Don't pre-fill password
-          address: userData?.address || "",
-          country: userData?.country || "",
+          address: userInfo?.address || "",
+          country: userInfo?.country || "",
         }}
         onSubmit={(values, { setSubmitting }) => {
           handleSignup(values, setSubmitting);
