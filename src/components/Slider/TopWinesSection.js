@@ -27,8 +27,8 @@ const TopWinesSection = () => {
   }
 
   return (
-    <section className="relative w-full bg-primary-light py-6 pb-24 text-center sm:h-[880px]">
-      <div className="flex flex-col items-center px-4 text-center sm:mb-[-60px]">
+    <section className="relative w-full bg-primary-light py-6 pb-24 text-center md:h-[880px]">
+      <div className="flex flex-col items-center px-4 text-center md:mb-[-60px]">
         <h3 className="mt-2 text-headlineSmall sm:mt-0 sm:text-titleMedium sm:font-semibold">
           {translations["topwinesection.title"]}
         </h3>
@@ -40,25 +40,28 @@ const TopWinesSection = () => {
         </p>
       </div>
 
-      <div className="relative top-4 mx-auto h-[520px] w-full  max-w-[1410px] overflow-visible px-4 sm:top-0 sm:mt-0 md:h-[660px]">
+      <div className="relative top-4 mx-auto box-border h-[520px] w-full max-w-screen-2xl overflow-visible px-6 sm:top-0 sm:mt-0 md:h-[660px]">
         <Swiper
           slidesPerView={1}
-          spaceBetween={5}
+          spaceBetween={24}
           navigation={{ nextEl: ".next-btn", prevEl: ".prev-btn" }}
           loop={true}
-          loopAdditionalSlides={0}
           modules={[Navigation]}
           breakpoints={{
-            640: { slidesPerView: 1, spaceBetween: 5 },
-            768: { slidesPerView: 2, spaceBetween: 0 },
-            1024: { slidesPerView: 3, spaceBetween: 0 },
-            1440: { slidesPerView: 4, spaceBetween: 0 },
+            640: { slidesPerView: 1, spaceBetween: 24 },
+            768: { slidesPerView: 2, spaceBetween: 24 },
+            1024: { slidesPerView: 3, spaceBetween: 24 },
+            1440: { slidesPerView: 4, spaceBetween: 24 },
           }}
-          className="relative z-10 flex h-full w-full"
+          className="relative z-10 flex h-full w-full overflow-visible xxs:!p-[10px] xs:!p-[18px] md:!p-[10px]"
+          centeredSlides={false}
         >
           {wines.map((wine, index) => (
-            <SwiperSlide key={index} className="w-full overflow-visible ">
-              <div className="group relative bottom-3 flex h-full items-center justify-center overflow-visible transition-all duration-300 sm:bottom-0">
+            <SwiperSlide
+              key={index}
+              className="box-border flex h-auto items-stretch overflow-visible"
+            >
+              <div className="group relative bottom-3 flex h-full w-full items-center justify-center transition-all duration-300 md:bottom-0">
                 <Link
                   href={getWineUrl(wine)}
                   className="flex w-full items-center justify-center"
@@ -68,8 +71,7 @@ const TopWinesSection = () => {
                     title={wine.title}
                     price={wine.bottlePrice}
                     imageUrl={wine.imageUrl}
-                    variant={"top-wines"}
-                    className="h-full shadow-lg transition-transform duration-300 group-hover:scale-105 group-hover:overflow-visible"
+                    variant="top-wines"
                   />
                 </Link>
               </div>
@@ -99,7 +101,8 @@ const TopWinesSection = () => {
             className="h-5 w-5 invert"
           />
         </button>
-        <div className="relative bottom-8 z-50 flex hidden justify-center sm:inline-flex">
+
+        <div className="relative bottom-8 z-50 flex hidden justify-center md:inline-flex lg:inline-flex">
           <Button
             text={translations["topwinesection.button-more"]}
             color="white"
