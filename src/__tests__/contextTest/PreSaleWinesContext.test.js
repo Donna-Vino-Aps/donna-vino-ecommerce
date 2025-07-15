@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { render, screen, waitFor } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import {
@@ -87,5 +87,54 @@ describe("PreSaleWinesContext", () => {
     expect(screen.queryByTestId("loading")).not.toBeInTheDocument();
     expect(screen.queryByTestId("wines-list")).not.toBeInTheDocument();
     expect(logError).toHaveBeenCalled();
+  });
+
+  it("should filter wines based on activeFilters", async () => {
+    const mockWinesResponse = {
+      products: [
+        { id: "1", title: "Wine A", wineVariety: "Red" },
+        { id: "2", title: "Wine B", wineVariety: "White" },
+      ],
+    };
+
+    fetchPreSaleWines.mockResolvedValue(mockWinesResponse);
+
+    const FilteredTestComponent = () => {
+      const { wines, isLoading, setActiveFilters } = usePreSaleWines();
+
+      useEffect(() => {
+        // apply filter after initial load
+        setActiveFilters([
+          { key: "wineVariety", options: ["Red"], variant: "regular" },
+        ]);
+      }, [setActiveFilters]);
+
+      if (isLoading) return <div data-testid="loading">Loading...</div>;
+
+      return (
+        <div data-testid="wines-list">
+          {wines.map((wine) => (
+            <div key={wine.id}>{wine.title}</div>
+          ))}
+        </div>
+      );
+    };
+
+    render(
+      <PreSaleWinesProvider>
+        <FilteredTestComponent />
+      </PreSaleWinesProvider>,
+    );
+
+    await waitFor(() => {
+      expect(screen.queryByTestId("loading")).not.toBeInTheDocument();
+    });
+
+    const winesList = screen.getByTestId("wines-list");
+    expect(winesList).toBeInTheDocument();
+
+    // Only Red wine should be rendered
+    expect(screen.getByText("Wine A")).toBeInTheDocument();
+    expect(screen.queryByText("Wine B")).not.toBeInTheDocument();
   });
 });
