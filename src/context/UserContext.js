@@ -78,10 +78,10 @@ export const UserContextProvider = ({ children }) => {
       setUserInfo(null);
       return;
     }
-    if (!userId) return;
-
     setUserId(session?.user?.id);
+  }, [status, session]);
 
+  useEffect(() => {
     const fetchUserInfo = async () => {
       if (!userId) return;
 
@@ -93,7 +93,7 @@ export const UserContextProvider = ({ children }) => {
       }
     };
     fetchUserInfo();
-  }, [userId, status]);
+  }, [userId]);
 
   const logout = useCallback(() => {
     signOut({ callbackUrl: "/" });
