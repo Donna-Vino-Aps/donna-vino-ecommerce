@@ -1,17 +1,16 @@
 "use client";
 import React, { useState } from "react";
 import PropTypes from "prop-types";
-import { RatingDisplay } from "./RatingDisplay";
 import { AvailabilityDisplay } from "./AvailabilityDisplay";
 import { PriceDisplay } from "./PriceDisplay";
 import { QuantitySelector } from "../QuantitySelector/QuantitySelector";
 import { SizeSelector } from "./SizeSelector";
 import { ProductDetails } from "./ProductDetails";
-import Button from "../Button/Button";
 import { useLanguage } from "@/context/LanguageContext";
 import { useCart } from "@/context/ShoppingCartContext";
 import Image from "next/image";
 import { logError } from "@/utils/logging";
+import AnimatedButton from "../Button/AnimatedButton";
 
 const WineInfo = ({ wine }) => {
   const { translations } = useLanguage();
@@ -64,18 +63,13 @@ const WineInfo = ({ wine }) => {
           <h1 className="mb-2 text-headlineSmall font-normal sm:text-headlineMedium md:mb-4 lg:text-displaySmall xl:text-displayMedium">
             {wine.title}
           </h1>
-          <AvailabilityDisplay
-            inStock={wine.inStock}
-            preSale={preSale}
-            setPreSale={setPreSale}
-          />
         </div>
         <div className="flex flex-col">
           <div className="order-2 mb-8 lg:order-1 lg:mb-0">
-            <RatingDisplay
-              rating={wine.rating}
-              nrOfRatings={wine.nrOfRatings}
-              className="order-2 md:order-1"
+            <AvailabilityDisplay
+              inStock={wine.inStock}
+              preSale={preSale}
+              setPreSale={setPreSale}
             />
           </div>
           <p className="order-1 mb-2 text-bodySmall font-normal md:text-titleSmall md:font-medium lg:order-2 lg:mb-3 lg:mt-6 lg:text-titleMedium">
@@ -111,11 +105,12 @@ const WineInfo = ({ wine }) => {
           />
         )}
         {preSale === false ? (
-          <Button
+          <AnimatedButton
             onClick={handleAddToCart}
-            text={translations["wine-details.addtocart"]}
+            textBefore={translations["wineCard.addToCart"]}
+            textAfter={translations["wineCard.addedToCart"]}
+            styleAfter={"bg-others-confirm"}
             variant="rounded"
-            border="primary"
             icon="/icons/cart-white.svg"
             color="primary"
             size="md"
@@ -125,18 +120,19 @@ const WineInfo = ({ wine }) => {
             testId="add-to-cart-button"
           />
         ) : (
-          <Button
+          <AnimatedButton
             onClick={handleAddToCart}
-            text={translations["wine-details.addpreorder"]}
+            textBefore={translations["wine-details.addPreOrder"]}
+            textAfter={translations["wine-details.addedPreOrder"]}
+            color={"primary"}
+            clickedStyle={" bg-others-confirm "}
             variant="rounded"
-            border=""
             icon="/icons/cart-white.svg"
-            color="secondary"
             size="md"
             width="full"
-            extraStyle="font-medium mt-8"
-            ariaLabel="Pre-Order Button"
-            testId="pre-order-button"
+            extraStyle="font-medium mt-8 text-white"
+            ariaLabel="Add to Cart Button"
+            testId="add-to-cart-button"
           />
         )}
         <ProductDetails
