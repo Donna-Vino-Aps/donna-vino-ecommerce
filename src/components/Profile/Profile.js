@@ -19,7 +19,11 @@ const Profile = () => {
   const [uploading, setUploading] = useState(false);
 
   useEffect(() => {
-    setImageUrl(userInfo?.picture || "/images/Avatar.png");
+    if (userInfo?.picture) {
+      setImageUrl(userInfo.picture);
+    } else {
+      setImageUrl("/images/Avatar.png");
+    }
   }, [userInfo]);
 
   if (!accessToken) {
@@ -35,7 +39,9 @@ const Profile = () => {
       alert("No file selected");
       return;
     }
-    logInfo("Selected file:", file);
+    if (process.env.NODE_ENV === "development") {
+      logInfo("Selected file:", file);
+    }
 
     const formData = new FormData();
     formData.append("file", file);
@@ -54,9 +60,13 @@ const Profile = () => {
 
       const url = data?.cloudinaryUrl || data?.url;
       if (url && userInfo) {
-        setUserInfo((prev) => ({ ...prev, picture: url }));
-        logInfo("updated userInfo: ", userInfo);
-        logInfo("updated url: ", url);
+        setUserInfo((prev) => {
+          const updated = { ...prev, picture: url };
+          if (process.env.NODE_ENV === "development") {
+            logInfo("Setting updated userInfo:", updated);
+          }
+          return updated;
+        });
         setImageUrl(url);
         alert("✅ Image uploaded successfully!");
       }
@@ -78,7 +88,9 @@ const Profile = () => {
 
   const handleSignup = async (values, setSubmitting) => {
     // Replace with real API call if needed
-    logInfo("Submitting updated user:", values);
+    if (process.env.NODE_ENV === "development") {
+      logInfo("Submitting updated user:", values);
+    }
     setSubmitting(false);
   };
 
