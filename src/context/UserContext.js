@@ -86,7 +86,7 @@ export const UserContextProvider = ({ children }) => {
       if (!userId) return;
 
       try {
-        const data = await get(`/user/${userId}`);
+        const data = await get(`user/${userId}`);
         if (!error) setUserInfo(data);
       } catch (error) {
         logError("Failed to fetch user info", error);

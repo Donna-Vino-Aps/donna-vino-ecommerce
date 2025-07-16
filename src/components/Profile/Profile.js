@@ -13,26 +13,49 @@ const Profile = () => {
   const { userInfo, setUserInfo } = useUser();
   const { data: session } = useSession();
   const accessToken = session?.accessToken;
-  const { post } = useAPI();
+  const { post, get } = useAPI();
 
   const [imageUrl, setImageUrl] = useState(userInfo?.picture);
   const [uploading, setUploading] = useState(false);
 
+  const userId = userInfo?.id || session?.user?.id;
+
+  const fetchUserInfo = async () => {
+    try {
+      const response = await get(`/user/${userId}`, {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      });
+      setUserInfo(response.user); // Update context with fresh user data
+    } catch (error) {
+      console.error("Error fetching user info", error);
+    }
+  };
+
   useEffect(() => {
-    if (userInfo?.picture) {
+    if (!accessToken) return;
+
+    const timer = setTimeout(() => {
+      fetchUserInfo();
+    }, 25); // delay of 25ms
+
+    return () => clearTimeout(timer); // Cleanup timer if component unmounts or accessToken changes
+  }, [accessToken, userId]);
+
+  useEffect(() => {
+    if (!userInfo) {
+      logInfo("No user info available, skipping image URL update.");
+      return;
+    }
+
+    if (userInfo.picture) {
+      logInfo("userInfo", userInfo);
       setImageUrl(userInfo.picture);
     } else {
       setImageUrl("/images/Avatar.png");
     }
   }, [userInfo]);
-
-  if (!accessToken) {
-    return (
-      <div className="my-8 p-6">
-        <p>Please log in to upload a profile picture.</p>
-      </div>
-    );
-  }
 
   const handleFileUpload = async (file) => {
     if (!file) {
@@ -59,17 +82,15 @@ const Profile = () => {
       });
 
       const url = data?.cloudinaryUrl || data?.url;
-      if (url && userInfo) {
-        setUserInfo((prev) => {
-          const updated = { ...prev, picture: url };
-          if (process.env.NODE_ENV === "development") {
-            logInfo("Setting updated userInfo:", updated);
-          }
-          return updated;
-        });
+
+      if (data?.user) {
+        setUserInfo(data.user); // Use fresh data from backend
+        setImageUrl(data.user.picture);
+      } else if (url) {
+        setUserInfo((prev) => ({ ...prev, picture: url }));
         setImageUrl(url);
-        alert("✅ Image uploaded successfully!");
       }
+      alert("✅ Image uploaded successfully!");
     } catch (error) {
       console.error(
         "Upload failed:",
@@ -104,7 +125,6 @@ const Profile = () => {
       <div>
         <div className="relative h-[9.375rem] w-[9.375rem]">
           <img
-            key={imageUrl}
             src={imageUrl}
             alt="Profile picture"
             className="h-[9.375rem] w-[9.375rem] rounded-full object-cover"
@@ -230,12 +250,12 @@ const Profile = () => {
                 isDropdown={true}
                 options={[
                   {
-                    label: translations["profile.country.sweden"],
-                    value: "se",
-                  },
-                  {
                     label: translations["profile.country.denmark"],
                     value: "dk",
+                  },
+                  {
+                    label: translations["profile.country.sweden"],
+                    value: "se",
                   },
                 ]}
                 data-testid="input-country"
