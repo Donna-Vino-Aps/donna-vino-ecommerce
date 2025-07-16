@@ -61,7 +61,10 @@ const TopWinesSection = () => {
               key={index}
               className="box-border flex h-auto items-stretch overflow-visible"
             >
-              <div id="topWineCard" className="group relative bottom-3 flex h-full w-full items-center justify-center transition-all duration-300 md:bottom-0">
+              <div
+                id="topWineCard"
+                className="group relative bottom-3 flex h-full w-full items-center justify-center transition-all duration-300 md:bottom-0"
+              >
                 <Link
                   href={getWineUrl(wine)}
                   className="flex w-full items-center justify-center"
