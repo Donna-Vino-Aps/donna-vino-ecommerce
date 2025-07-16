@@ -31,6 +31,11 @@ footer {
 .custom-services-banner {
   background-color: rgba(253, 232, 233, 0.3);
 }
+@media (min-width: 516px) and (max-width: 767.98px) {
+  #topWineCard {
+    padding: 24px !important;
+  }
+}
 
 /* input[type="range"] {
   -webkit-appearance: none;

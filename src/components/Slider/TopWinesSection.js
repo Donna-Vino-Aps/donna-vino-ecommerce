@@ -53,7 +53,7 @@ const TopWinesSection = () => {
             1024: { slidesPerView: 3, spaceBetween: 24 },
             1440: { slidesPerView: 4, spaceBetween: 24 },
           }}
-          className="relative z-10 flex h-full w-full overflow-visible xxs:!p-[10px] xs:!p-[18px] md:!p-[10px]"
+          className="relative z-10 flex h-full w-full overflow-visible !p-[10px]"
           centeredSlides={false}
         >
           {wines.map((wine, index) => (
@@ -61,7 +61,7 @@ const TopWinesSection = () => {
               key={index}
               className="box-border flex h-auto items-stretch overflow-visible"
             >
-              <div className="group relative bottom-3 flex h-full w-full items-center justify-center transition-all duration-300 md:bottom-0">
+              <div id="topWineCard" className="group relative bottom-3 flex h-full w-full items-center justify-center transition-all duration-300 md:bottom-0">
                 <Link
                   href={getWineUrl(wine)}
                   className="flex w-full items-center justify-center"
