@@ -66,7 +66,7 @@ const generateMenuItems = (translations, logout) => [
 export const UserContextProvider = ({ children }) => {
   const { translations } = useLanguage();
   const { data: session, status } = useSession();
-  const { get, error } = useAPI();
+  const { get } = useAPI();
 
   const [menuItems, setMenuItems] = useState([]);
   const [userInfo, setUserInfo] = useState(null);
@@ -87,7 +87,7 @@ export const UserContextProvider = ({ children }) => {
 
       try {
         const data = await get(`user/${userId}`);
-        if (!error) setUserInfo(data);
+        if (data.user) setUserInfo(data.user);
       } catch (error) {
         logError("Failed to fetch user info", error);
       }

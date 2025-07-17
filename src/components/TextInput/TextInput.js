@@ -13,6 +13,7 @@ const TextInput = ({
   value,
   onChange,
   onBlur,
+  disabled,
   icon,
   showPasswordToggle = false,
   isDate = false,
@@ -97,6 +98,7 @@ const TextInput = ({
               value={value}
               onChange={onChange}
               onBlur={onBlur}
+              disabled={disabled}
               aria-labelledby={labelId}
               aria-label={visuallyHiddenLabel ? displayLabel : undefined}
               data-testid={`input-${name}`}
@@ -146,6 +148,7 @@ const TextInput = ({
             value={value}
             onChange={onChange}
             onBlur={onBlur}
+            disabled={disabled}
             aria-labelledby={labelId}
             aria-label={visuallyHiddenLabel ? displayLabel : undefined}
             data-testid={`dropdown-${name}`}
@@ -322,6 +325,7 @@ TextInput.propTypes = {
   ]),
   onChange: PropTypes.func.isRequired,
   onBlur: PropTypes.func,
+  disabled: PropTypes.bool,
   icon: PropTypes.element,
   showPasswordToggle: PropTypes.bool,
   isDate: PropTypes.bool,
@@ -340,6 +344,7 @@ TextInput.defaultProps = {
   placeholder: "",
   value: "",
   onBlur: () => {},
+  disabled: false,
   icon: null,
   showPasswordToggle: false,
   isDate: false,

@@ -3,116 +3,48 @@ import { Formik } from "formik";
 import TextInput from "../TextInput/TextInput";
 import Button from "../Button/Button";
 import { useLanguage } from "@/context/LanguageContext";
-import { logInfo } from "@/utils/logging";
 import { useUser } from "@/context/UserContext";
-import { useSession } from "next-auth/react";
 import { useAPI } from "@/context/ApiProvider";
+import { uploadProfileImage, submitUserUpdates } from "@/utils/profileUtils";
 
 const Profile = () => {
   const { translations } = useLanguage();
   const { userInfo, setUserInfo } = useUser();
-  const { data: session } = useSession();
-  const accessToken = session?.accessToken;
-  const { post, get } = useAPI();
+  const { post } = useAPI();
 
   const [imageUrl, setImageUrl] = useState(userInfo?.picture);
   const [uploading, setUploading] = useState(false);
-
-  const userId = userInfo?.id || session?.user?.id;
-
-  const fetchUserInfo = async () => {
-    try {
-      const response = await get(`/user/${userId}`, {
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-        },
-      });
-      setUserInfo(response.user); // Update context with fresh user data
-    } catch (error) {
-      console.error("Error fetching user info", error);
-    }
-  };
-
-  useEffect(() => {
-    if (!accessToken) return;
-
-    const timer = setTimeout(() => {
-      fetchUserInfo();
-    }, 25); // delay of 25ms
-
-    return () => clearTimeout(timer); // Cleanup timer if component unmounts or accessToken changes
-  }, [accessToken, userId]);
+  const [isEditing, setIsEditing] = useState(false);
 
   useEffect(() => {
     if (!userInfo) {
-      logInfo("No user info available, skipping image URL update.");
       return;
     }
-
     if (userInfo.picture) {
-      logInfo("userInfo", userInfo);
       setImageUrl(userInfo.picture);
     } else {
       setImageUrl("/images/Avatar.png");
     }
   }, [userInfo]);
 
-  const handleFileUpload = async (file) => {
-    if (!file) {
-      alert("No file selected");
-      return;
-    }
-    if (process.env.NODE_ENV === "development") {
-      logInfo("Selected file:", file);
-    }
-
-    const formData = new FormData();
-    formData.append("file", file);
-
-    for (let pair of formData.entries()) {
-      logInfo(pair[0], pair[1]);
-    }
-
-    try {
-      setUploading(true);
-
-      const data = await post("http://localhost:5001/api/upload/profile-logo", {
-        body: formData,
-        headers: { Authorization: `Bearer ${accessToken}` },
-      });
-
-      const url = data?.cloudinaryUrl || data?.url;
-
-      if (data?.user) {
-        setUserInfo(data.user); // Use fresh data from backend
-        setImageUrl(data.user.picture);
-      } else if (url) {
-        setUserInfo((prev) => ({ ...prev, picture: url }));
-        setImageUrl(url);
-      }
-      alert("✅ Image uploaded successfully!");
-    } catch (error) {
-      console.error(
-        "Upload failed:",
-        error?.response || error?.message || error,
-      );
-      alert("Upload failed, please try again.");
-    } finally {
-      setUploading(false);
-    }
-  };
-
   const handleImageChange = async (e) => {
     const file = e.target.files[0];
-    handleFileUpload(file);
+    uploadProfileImage({ file, post, setUserInfo, setImageUrl, setUploading });
   };
 
-  const handleSignup = async (values, setSubmitting) => {
-    // Replace with real API call if needed
-    if (process.env.NODE_ENV === "development") {
-      logInfo("Submitting updated user:", values);
+  const handleSubmit = async (values, setSubmitting) => {
+    try {
+      await submitUserUpdates({
+        values,
+        userId: userInfo.id,
+        put: put,
+        setUserInfo,
+      });
+    } catch (error) {
+      console.error("Error updating user:", error);
+    } finally {
+      setSubmitting(false);
     }
-    setSubmitting(false);
   };
 
   return (
@@ -131,7 +63,7 @@ const Profile = () => {
           />
           {uploading && (
             <div className="absolute inset-0 flex items-center justify-center rounded-full bg-black bg-opacity-50 text-sm text-white">
-              Uploading...
+              {translations["common.uploading"]}
             </div>
           )}
         </div>
@@ -155,7 +87,7 @@ const Profile = () => {
         {userInfo?.firstName} {userInfo?.lastName}
       </h2>
       <p className="mb-5 mt-2 text-labelLarge md:mb-7 md:mt-4">
-        {userInfo?.country || "Unknown Country"}
+        {userInfo?.email || ""}
       </p>
 
       <h3 className="mb-4 self-start text-headlineSmall">Personal Details</h3>
@@ -165,13 +97,10 @@ const Profile = () => {
           firstName: userInfo?.firstName || "",
           lastName: userInfo?.lastName || "",
           email: userInfo?.email || "",
-          password: "", // Don't pre-fill password
           address: userInfo?.address || "",
           country: userInfo?.country || "",
         }}
-        onSubmit={(values, { setSubmitting }) => {
-          handleSignup(values, setSubmitting);
-        }}
+        onSubmit={handleSubmit}
       >
         {({
           handleChange,
@@ -191,6 +120,7 @@ const Profile = () => {
                 value={values.firstName}
                 onChange={handleChange}
                 onBlur={handleBlur}
+                disabled={!isEditing}
                 data-testid="input-first-name"
                 aria-label="First Name"
                 error={touched.firstName && errors.firstName}
@@ -202,10 +132,13 @@ const Profile = () => {
                 value={values.lastName}
                 onChange={handleChange}
                 onBlur={handleBlur}
+                disabled={!isEditing}
                 data-testid="input-last-name"
                 aria-label="Last Name"
                 error={touched.lastName && errors.lastName}
               />
+              {/*
+              Commented this because email should not be editable by the user in the profile-page.
               <TextInput
                 type="email"
                 name="email"
@@ -216,19 +149,7 @@ const Profile = () => {
                 data-testid="input-email"
                 aria-label="Email"
                 error={touched.email && errors.email}
-              />
-              <TextInput
-                type="password"
-                name="password"
-                placeholder={translations["profile.placeholder.password"]}
-                value={values.password}
-                onChange={handleChange}
-                onBlur={handleBlur}
-                showPasswordToggle={true}
-                data-testid="input-password"
-                aria-label="Password"
-                error={touched.password && errors.password}
-              />
+              /> */}
               <TextInput
                 name="address"
                 type="text"
@@ -236,6 +157,7 @@ const Profile = () => {
                 value={values.address}
                 onChange={handleChange}
                 onBlur={handleBlur}
+                disabled={!isEditing}
                 data-testid="input-address"
                 aria-label="Address"
                 error={touched.address && errors.address}
@@ -247,6 +169,7 @@ const Profile = () => {
                 value={values.country}
                 onChange={handleChange}
                 onBlur={handleBlur}
+                disabled={!isEditing}
                 isDropdown={true}
                 options={[
                   {
@@ -265,13 +188,24 @@ const Profile = () => {
             </div>
             <div className="relative top-1 mt-4 w-full md:top-2">
               <Button
+                type="submit"
                 text={
-                  isSubmitting
-                    ? translations["common.submitting"]
+                  isEditing
+                    ? translations["common.save"]
                     : translations["profile.button.edit"]
                 }
-                onClick={handleSubmit}
-                icon="/icons/pencil.svg"
+                onClick={() => {
+                  if (!isEditing) {
+                    setIsEditing(true);
+                  } else {
+                    setIsEditing(false);
+                  }
+                }}
+                icon={
+                  isEditing
+                    ? "/icons/checkmark-circle-white.svg"
+                    : "/icons/pencil.svg"
+                }
                 color="secondary"
                 width="full"
                 extraStyle="py-3 min-h-[3.125rem]"

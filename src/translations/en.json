@@ -289,6 +289,8 @@
   "common.loading": "Loading...",
   "common.submitting": "Submitting...",
   "common.button.backToHome": "Back to home",
+  "common.save": "Save Changes",
+  "common.uploading": "Uploading...",
   "wines.error.loading": "Failed to load wines. Please try again later.",
   "wine-details.instock": "In stock",
   "wine-details.outofstock": "Out of stock",
