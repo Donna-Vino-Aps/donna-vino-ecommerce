@@ -137,4 +137,51 @@ describe("PreSaleWinesContext", () => {
     expect(screen.getByText("Wine A")).toBeInTheDocument();
     expect(screen.queryByText("Wine B")).not.toBeInTheDocument();
   });
+
+  it("should filter wines by search query value (title match)", async () => {
+    const mockWinesResponse = {
+      products: [
+        { id: "1", title: "Wine A", wineVariety: "Red" },
+        { id: "2", title: "Wine B", wineVariety: "White" },
+      ],
+    };
+
+    fetchPreSaleWines.mockResolvedValue(mockWinesResponse);
+
+    const FilteredTestComponent = () => {
+      const { wines, isLoading, setSearchQuery } = usePreSaleWines();
+
+      useEffect(() => {
+        // apply filter after initial load
+        setSearchQuery("Wine A");
+      }, [setSearchQuery]);
+
+      if (isLoading) return <div data-testid="loading">Loading...</div>;
+
+      return (
+        <div data-testid="wines-list">
+          {wines.map((wine) => (
+            <div key={wine.id}>{wine.title}</div>
+          ))}
+        </div>
+      );
+    };
+
+    render(
+      <PreSaleWinesProvider>
+        <FilteredTestComponent />
+      </PreSaleWinesProvider>,
+    );
+
+    await waitFor(() => {
+      expect(screen.queryByTestId("loading")).not.toBeInTheDocument();
+    });
+
+    const winesList = screen.getByTestId("wines-list");
+    expect(winesList).toBeInTheDocument();
+
+    // Only Red wine should be rendered
+    expect(screen.getByText("Wine A")).toBeInTheDocument();
+    expect(screen.queryByText("Wine B")).not.toBeInTheDocument();
+  });
 });

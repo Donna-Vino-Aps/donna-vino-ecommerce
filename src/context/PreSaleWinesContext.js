@@ -19,6 +19,7 @@ const PreSaleWinesContext = createContext();
 
 export function PreSaleWinesProvider({ children }) {
   const [activeFilters, setActiveFilters] = useState([]);
+  const [searchQuery, setSearchQuery] = useState("");
   const [allWines, setAllWines] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -64,10 +65,20 @@ export function PreSaleWinesProvider({ children }) {
 
   const wines = useMemo(
     () =>
-      allWines.filter((wine) =>
-        activeFilters.every((filter) => matchesFilter(wine, filter)),
-      ),
-    [allWines, activeFilters],
+      allWines
+        .filter((wine) =>
+          activeFilters.every((filter) => matchesFilter(wine, filter)),
+        )
+        .filter((wine) => {
+          const query = searchQuery.toLowerCase();
+          return (
+            wine.title?.toLowerCase().includes(query) ||
+            wine.region?.toLowerCase().includes(query) ||
+            wine.grape?.toLowerCase().includes(query) ||
+            wine.wineVariety?.toLowerCase().includes(query)
+          );
+        }),
+    [allWines, activeFilters, searchQuery],
   );
 
   return (
@@ -79,6 +90,8 @@ export function PreSaleWinesProvider({ children }) {
         setActiveFilters,
         isLoading,
         error,
+        searchQuery,
+        setSearchQuery,
       }}
     >
       {children}
