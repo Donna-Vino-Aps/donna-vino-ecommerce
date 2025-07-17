@@ -6,14 +6,15 @@ export const uploadProfileImage = async ({
   setUploading,
   setUserInfo,
   setImageUrl,
+  showMessage,
 }) => {
   if (!file) {
-    alert("No file selected");
+    showMessage("No file selected", "warning");
     return;
   }
 
   if (!(file instanceof File)) {
-    alert("Invalid file.");
+    showMessage?.("Invalid file.", "error");
     return;
   }
 
@@ -35,10 +36,10 @@ export const uploadProfileImage = async ({
       setUserInfo((prev) => ({ ...prev, picture: url }));
       setImageUrl(url);
     }
-    alert("✅ Image uploaded successfully!");
+    showMessage?.("Image uploaded successfully!", "success");
   } catch (error) {
     logError("Upload failed", error);
-    alert("Upload failed, please try again.");
+    showMessage?.("Upload failed, please try again.", "error");
   } finally {
     setUploading(false);
   }

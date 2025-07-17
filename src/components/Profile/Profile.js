@@ -6,6 +6,7 @@ import { useLanguage } from "@/context/LanguageContext";
 import { useUser } from "@/context/UserContext";
 import { useAPI } from "@/context/ApiProvider";
 import { uploadProfileImage, submitUserUpdates } from "@/utils/profileUtils";
+import InfoPopup from "../InfoPopup/InfoPopup";
 
 const Profile = () => {
   const { translations } = useLanguage();
@@ -15,6 +16,16 @@ const Profile = () => {
   const [imageUrl, setImageUrl] = useState(userInfo?.picture);
   const [uploading, setUploading] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
+
+  const [snack, setSnack] = useState({
+    open: false,
+    message: "",
+    severity: "info",
+  });
+
+  const showMessage = (message, severity = "info") => {
+    setSnack({ open: true, message, severity });
+  };
 
   useEffect(() => {
     if (!userInfo) {
@@ -29,7 +40,14 @@ const Profile = () => {
 
   const handleImageChange = async (e) => {
     const file = e.target.files[0];
-    uploadProfileImage({ file, post, setUserInfo, setImageUrl, setUploading });
+    uploadProfileImage({
+      file,
+      post,
+      setUserInfo,
+      setImageUrl,
+      setUploading,
+      showMessage,
+    });
   };
 
   const handleSubmit = async (values, setSubmitting) => {
@@ -217,6 +235,12 @@ const Profile = () => {
           </form>
         )}
       </Formik>
+      <InfoPopup
+        open={snack.open}
+        onClose={() => setSnack({ ...snack, open: false })}
+        message={snack.message}
+        severity={snack.severity}
+      />
     </div>
   );
 };
