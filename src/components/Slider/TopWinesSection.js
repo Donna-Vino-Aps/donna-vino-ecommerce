@@ -5,6 +5,7 @@ import Link from "next/link";
 import "swiper/css";
 import "swiper/css/navigation";
 import "../../styles/slider/buttons.css";
+import "../../styles/slider/slider.css";
 import Button from "../Button/Button";
 import { useLanguage } from "@/context/LanguageContext";
 import { usePreSaleWines } from "@/context/PreSaleWinesContext";
