@@ -1,7 +1,9 @@
 "use client";
+
 import React, { useState, useRef } from "react";
 import Button from "../Button/Button";
 import dynamic from "next/dynamic";
+
 const SwiperClient = dynamic(() => import("../Swiper/SwiperClient"), {});
 import { SwiperSlide } from "swiper/react";
 import ComingSoonModal from "../Modal/ComingSoonModal";
@@ -12,7 +14,7 @@ const HeroSlider = () => {
   const { translations } = useLanguage();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const hasCredits = false;
-  const swiperRef = useRef();
+  const swiperRef = useRef(null);
 
   const slides = [
     {
@@ -88,13 +90,13 @@ const HeroSlider = () => {
         {slides.map((slide, index) => (
           <SwiperSlide key={slide.id}>
             <section
-              className={`relative flex min-h-[43.75rem] flex-col-reverse md:w-full ${index === 0 ? "md:flex-row" : "md:flex-row-reverse"} min-h-[43.75rem] justify-between bg-tertiary2-light`}
+              className={`relative flex flex-col-reverse md:w-full ${index === 0 ? "md:flex-row" : "md:flex-row-reverse"} justify-between bg-tertiary2-light md:min-h-[43.75rem]`}
             >
-              <div className="mb-4 min-h-[20rem] w-full items-center md:relative md:mb-0 md:w-[50%]">
+              <div className="mb-4 min-h-[22rem] w-full items-center md:relative md:mb-0 md:w-[50%]">
                 {slide.type === "video" ? (
                   hasCredits ? (
                     <video
-                      className="iimd:mt-0 mt-4 min-h-[22.5rem] w-full rounded-br-[0rem] rounded-tr-[0rem] object-cover md:absolute md:inset-0 md:min-h-[43.75rem] md:rounded-br-xl md:rounded-tr-[8rem]"
+                      className="mt-4 min-h-[22rem] w-full rounded-br-[0rem] rounded-tr-[0rem] object-cover md:absolute md:inset-0 md:mt-0 md:min-h-[43.75rem] md:rounded-br-xl md:rounded-tr-[8rem]"
                       autoPlay
                       loop
                       muted
@@ -108,7 +110,7 @@ const HeroSlider = () => {
                       Your browser does not support the video tag.
                     </video>
                   ) : (
-                    <div className="relative mt-4 h-[22.5rem] w-full md:h-[43.75rem]">
+                    <div className="relative mt-4 min-h-[22rem] w-full md:min-h-[43.75rem]">
                       <Image
                         src="/images/hero-tasting-resized.jpg"
                         alt="Guests at a wine tasting event sampling different wines in a warm, elegant setting."
@@ -121,7 +123,7 @@ const HeroSlider = () => {
                     </div>
                   )
                 ) : (
-                  <div className="relative mt-4 h-[22.5rem] w-full md:h-[43.75rem] md:w-[100%]">
+                  <div className="relative mt-4 min-h-[22rem] w-full md:min-h-[43.75rem] md:w-[100%]">
                     <Image
                       src={slide.media}
                       alt="Slide media"
@@ -134,33 +136,37 @@ const HeroSlider = () => {
                   </div>
                 )}
               </div>
-              <div className="flex h-[22.5rem] w-full flex-col justify-center px-6 text-center font-barlow font-regular xxs:h-[30rem] xs:h-[27rem] md:max-w-[50%] md:items-start md:px-6 lg:px-10 xl:px-14">
-                <div>
-                  <p className="text-left text-headlineSmall text-primary-normal">
-                    {translations[slide.subheading]}
+              <div className="flex w-full flex-col justify-between px-6 py-6 md:h-[43.75rem] md:max-w-[50%] md:items-start md:px-6 lg:px-10 xl:px-14">
+                <div className="flex flex-col justify-items-start text-center font-barlow font-regular sm:justify-center md:min-h-[43.75rem]">
+                  <div>
+                    <p className="text-left text-headlineSmall text-primary-normal">
+                      {translations[slide.subheading]}
+                    </p>
+                  </div>
+                  <h2 className="my-4 mr-8 text-left text-displaySmall text-tertiary1-dark md:my-2 md:text-left xl:text-displayMedium">
+                    {translations[slide.heading]}
+                  </h2>
+                  <p className="mb-4 mr-10 mt-2 text-start text-bodyMedium sm:mb-7 sm:mt-2 md:mb-5 md:mt-2 md:text-start md:text-bodyMedium xl:mb-10 xl:text-bodyLarge">
+                    {translations[slide.paragraph]}
                   </p>
+                  <Button
+                    text={translations[slide.buttonText]}
+                    icon={slide.buttonIcon}
+                    width="wide"
+                    aria-label={translations[slide.buttonText]}
+                    data-testid="book-tasting-button"
+                    linkUrl={slide.url}
+                    onClick={
+                      index === 1 ? () => setIsModalOpen(true) : undefined
+                    }
+                  />
                 </div>
-                <h2 className="my-4 mr-8 text-left text-displayMedium text-tertiary1-dark md:my-2 md:text-left md:text-headlineLarge lg:text-displaySmall xl:text-displayMedium">
-                  {translations[slide.heading]}
-                </h2>
-                <p className="mb-4 mr-10 mt-2 text-start text-bodyMedium sm:mb-7 sm:mt-2 md:mb-5 md:mt-2 md:text-start md:text-bodyMedium xl:mb-10 xl:text-bodyLarge">
-                  {translations[slide.paragraph]}
-                </p>
-                <Button
-                  text={translations[slide.buttonText]}
-                  icon={slide.buttonIcon}
-                  width="wide"
-                  aria-label={translations[slide.buttonText]}
-                  data-testid="book-tasting-button"
-                  linkUrl={slide.url}
-                  onClick={index === 1 ? () => setIsModalOpen(true) : undefined}
-                ></Button>
                 <div
                   className={`mt-4 hidden md:absolute md:bottom-8 md:flex lg:bottom-10 xl:bottom-14 ${index === 0 ? "md:right-8 lg:right-10 xl:right-12" : "md:left-[37.5%]"}`}
                 >
                   <button
                     onClick={handlePrevious}
-                    className="mr-[8px] flex items-center justify-center rounded-full active:bg-primary-hover_normal md:h-[2rem] md:w-[2rem] lg:h-[2.25rem] lg:w-[2.25rem] xl:h-[2.625rem] xl:w-[2.625rem]"
+                    className="mr-2 flex items-center justify-center rounded-full active:bg-primary-hover_normal md:h-[2rem] md:w-[2rem] lg:h-[2.25rem] lg:w-[2.25rem] xl:h-[2.625rem] xl:w-[2.625rem]"
                     aria-label="Previous image"
                     data-testid="carousel-previous-button-large"
                   >

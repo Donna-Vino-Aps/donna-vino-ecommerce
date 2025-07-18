@@ -51,7 +51,7 @@ input[type="range"]::-webkit-slider-thumb {
   background: #290000;
   border-radius: 50%;
   cursor: pointer;
-  margin-top: -0.35rem; 
+  margin-top: -0.35rem;
   position: relative;
   z-index: 3;
   box-shadow: 0 0 2px rgba(0, 0, 0, 0.5);
