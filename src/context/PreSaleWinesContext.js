@@ -13,6 +13,7 @@ import {
   extractFilters,
   normalizeWineList,
   matchesFilter,
+  sortWines,
 } from "@/utils/wineUtils";
 
 const PreSaleWinesContext = createContext();
@@ -20,6 +21,7 @@ const PreSaleWinesContext = createContext();
 export function PreSaleWinesProvider({ children }) {
   const [activeFilters, setActiveFilters] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
+  const [selectedSort, setSelectedSort] = useState("newest");
   const [allWines, setAllWines] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -63,23 +65,22 @@ export function PreSaleWinesProvider({ children }) {
 
   const availableFilters = useMemo(() => extractFilters(allWines), [allWines]);
 
-  const wines = useMemo(
-    () =>
-      allWines
-        .filter((wine) =>
-          activeFilters.every((filter) => matchesFilter(wine, filter)),
-        )
-        .filter((wine) => {
-          const query = searchQuery.toLowerCase();
-          return (
-            wine.title?.toLowerCase().includes(query) ||
-            wine.region?.toLowerCase().includes(query) ||
-            wine.grape?.toLowerCase().includes(query) ||
-            wine.wineVariety?.toLowerCase().includes(query)
-          );
-        }),
-    [allWines, activeFilters, searchQuery],
-  );
+  const wines = useMemo(() => {
+    const filtered = allWines
+      .filter((wine) =>
+        activeFilters.every((filter) => matchesFilter(wine, filter)),
+      )
+      .filter((wine) => {
+        const query = searchQuery.toLowerCase();
+        return (
+          wine.title?.toLowerCase().includes(query) ||
+          wine.region?.toLowerCase().includes(query) ||
+          wine.grape?.toLowerCase().includes(query) ||
+          wine.wineVariety?.toLowerCase().includes(query)
+        );
+      });
+    return sortWines(filtered, selectedSort);
+  }, [allWines, activeFilters, searchQuery, selectedSort]);
 
   return (
     <PreSaleWinesContext.Provider
@@ -92,6 +93,8 @@ export function PreSaleWinesProvider({ children }) {
         error,
         searchQuery,
         setSearchQuery,
+        selectedSort,
+        setSelectedSort,
       }}
     >
       {children}

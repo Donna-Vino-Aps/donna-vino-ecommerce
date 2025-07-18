@@ -152,7 +152,7 @@ describe("PreSaleWinesContext", () => {
       const { wines, isLoading, setSearchQuery } = usePreSaleWines();
 
       useEffect(() => {
-        // apply filter after initial load
+        // set search query to "Wine A"
         setSearchQuery("Wine A");
       }, [setSearchQuery]);
 
@@ -180,8 +180,97 @@ describe("PreSaleWinesContext", () => {
     const winesList = screen.getByTestId("wines-list");
     expect(winesList).toBeInTheDocument();
 
-    // Only Red wine should be rendered
     expect(screen.getByText("Wine A")).toBeInTheDocument();
     expect(screen.queryByText("Wine B")).not.toBeInTheDocument();
   });
+
+  // This test verifies sorting behavior for multiple sort options
+  it.each([
+    {
+      sortKey: "name-desc",
+      products: [
+        { id: "1", title: "Alpha Wine", variants: [{}] },
+        { id: "2", title: "Zebra Wine", variants: [{}] },
+      ],
+      expectedOrder: ["Zebra Wine", "Alpha Wine"],
+    },
+    {
+      sortKey: "price-desc",
+      products: [
+        {
+          id: "1",
+          title: "Cheap Wine",
+          variants: [{ price: { amount: 10 } }],
+        },
+        {
+          id: "2",
+          title: "Expensive Wine",
+          variants: [{ price: { amount: 50 } }],
+        },
+      ],
+      expectedOrder: ["Expensive Wine", "Cheap Wine"],
+    },
+    {
+      sortKey: "price-asc",
+      products: [
+        {
+          id: "1",
+          title: "Cheap Wine",
+          variants: [{ price: { amount: 10 } }],
+        },
+        {
+          id: "2",
+          title: "Expensive Wine",
+          variants: [{ price: { amount: 50 } }],
+        },
+      ],
+      expectedOrder: ["Cheap Wine", "Expensive Wine"],
+    },
+    {
+      sortKey: "newest",
+      products: [
+        { id: "1", title: "Old Red", vintage: "1990", variants: [{}] },
+        { id: "2", title: "Young White", vintage: "2023", variants: [{}] },
+      ],
+      expectedOrder: ["Young White", "Old Red"],
+    },
+  ])(
+    "should sort wines by $sortKey correctly",
+    async ({ sortKey, products, expectedOrder }) => {
+      fetchPreSaleWines.mockResolvedValue({ products });
+
+      const SortTestComponent = ({ sortKey }) => {
+        const { wines, isLoading, setSelectedSort } = usePreSaleWines();
+
+        useEffect(() => {
+          setSelectedSort(sortKey);
+        }, [sortKey, setSelectedSort]);
+
+        if (isLoading) return <div data-testid="loading">Loading...</div>;
+
+        return (
+          <div data-testid="wines-list">
+            {wines.map((wine) => (
+              <div key={wine.id} data-testid="wine-title">
+                {wine.title}
+              </div>
+            ))}
+          </div>
+        );
+      };
+
+      render(
+        <PreSaleWinesProvider>
+          <SortTestComponent sortKey={sortKey} />
+        </PreSaleWinesProvider>,
+      );
+
+      await waitFor(() => {
+        const titles = screen
+          .getAllByTestId("wine-title")
+          .map((el) => el.textContent);
+        expect(titles).toEqual(expectedOrder);
+      });
+    },
+  );
 });

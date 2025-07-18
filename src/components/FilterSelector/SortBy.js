@@ -1,32 +1,48 @@
 import React, { useState } from "react";
 import Image from "next/image";
+import { usePreSaleWines } from "@/context/PreSaleWinesContext";
 
 const SortBy = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [selectedSorting, setSelectedSorting] = useState(null);
+  const { selectedSort, setSelectedSort } = usePreSaleWines();
 
   const sortingMockData = [
+    {
+      id: "winetype",
+      title: "Wine Type",
+      display: "Wine type",
+    },
     {
       id: "newest",
       title: "Newest",
       display: "Newest",
     },
     {
-      id: "price",
-      title: "Price (low->high)",
+      id: "price-asc",
+      title: "Price (low-->high)",
       display: "Price",
     },
     {
-      id: "winetype",
-      title: "Wine Type",
-      display: "Wine type",
+      id: "price-desc",
+      title: "Price (high-->low)",
+      display: "Price",
+    },
+    {
+      id: "name-asc",
+      title: "Name (A->Z)",
+      display: "Name",
+    },
+    {
+      id: "name-desc",
+      title: "Name (Z->A)",
+      display: "Name",
     },
   ];
 
   const sortingData = sortingMockData;
 
   const selectedTitle =
-    sortingData.find((item) => item.id === selectedSorting)?.display || "…";
+    sortingData.find((item) => item.id === selectedSort)?.display || "Newest";
 
   return (
     <section className="relative flex-shrink gap-4">
@@ -41,7 +57,7 @@ const SortBy = () => {
         >
           <div className="flex items-center justify-between font-barlow">
             <p className="text-labelLarge font-medium md:text-titleMedium">
-              {selectedSorting ? selectedTitle : "Newest"}
+              {selectedSort ? selectedTitle : "Newest"}
             </p>
             <div className="md:relative md:top-[1px]">
               <Image
@@ -65,7 +81,7 @@ const SortBy = () => {
                 key={item.id}
                 className="cursor-pointer px-4 py-2 hover:rounded-sm hover:bg-tertiary2-dark"
                 onClick={() => {
-                  setSelectedSorting(item.id);
+                  setSelectedSort(item.id);
                   setIsOpen(false);
                 }}
               >
