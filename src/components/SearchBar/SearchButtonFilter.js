@@ -1,11 +1,12 @@
 import React from "react";
 import Image from "next/image";
+import PropTypes from "prop-types";
 
-const SearchButtonFilter = () => {
+const SearchButtonFilter = ({ onClick }) => {
   return (
     <button
       className={`mx-4 flex h-[3.5rem] w-[3.5rem] items-center justify-center rounded-lg bg-primary-normal md:mx-6 md:h-[2.875rem] md:w-[3.086rem]`}
-      onClick={() => setIsFilterModalOpen(true)}
+      onClick={onClick}
     >
       <Image
         src="/icons/search-alt-white.svg"
@@ -16,6 +17,10 @@ const SearchButtonFilter = () => {
       />
     </button>
   );
+};
+
+SearchButtonFilter.propTypes = {
+  onClick: PropTypes.func,
 };
 
 export default SearchButtonFilter;

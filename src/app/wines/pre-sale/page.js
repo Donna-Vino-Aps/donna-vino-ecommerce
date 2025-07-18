@@ -35,7 +35,7 @@ const PreSaleWinesPage = () => {
       {/* Search & Mobile Filter Header */}
       <div className="mt-4 w-full md:container md:mx-auto md:-mt-4">
         <div className="flex flex-col gap-2 rounded-lg border border-tertiary1-light py-6 shadow-sm md:border-none md:py-0 md:shadow-none">
-          <SearchBar />
+          <SearchBar onSearchButtonClick={() => setIsFilterModalOpen(true)} />
           <div className="mr-4 mt-3 flex items-center justify-center gap-4 md:hidden">
             <SortBy />
             <FilterIcon onClick={() => setIsFilterModalOpen((prev) => !prev)} />
