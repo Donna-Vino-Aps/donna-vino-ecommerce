@@ -19,22 +19,22 @@ const SortBy = () => {
     },
     {
       id: "price-asc",
-      title: "Price (low-->high)",
+      title: "Price (low → high)",
       display: "Price",
     },
     {
       id: "price-desc",
-      title: "Price (high-->low)",
+      title: "Price (high → low)",
       display: "Price",
     },
     {
       id: "name-asc",
-      title: "Name (A->Z)",
+      title: "Name (A → Z)",
       display: "Name",
     },
     {
       id: "name-desc",
-      title: "Name (Z->A)",
+      title: "Name (Z → A)",
       display: "Name",
     },
   ];
