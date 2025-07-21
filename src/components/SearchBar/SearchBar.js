@@ -58,6 +58,11 @@ const SearchBar = () => {
         <input
           type="text"
           value={inputText}
+          onFocus={() => {
+            if (inputText.trim() !== "" && searchSuggestions.length > 0) {
+              setShowSuggestions(true);
+            }
+          }}
           onChange={(e) => {
             setInputText(e.target.value);
             setShowSuggestions(true);
