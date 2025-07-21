@@ -7,6 +7,7 @@ import { useUser } from "@/context/UserContext";
 import { useAPI } from "@/context/ApiProvider";
 import { uploadProfileImage, submitUserUpdates } from "@/utils/profileUtils";
 import InfoPopup from "../InfoPopup/InfoPopup";
+import { logInfo } from "@/utils/logging";
 
 const Profile = () => {
   const { translations } = useLanguage();
@@ -37,6 +38,8 @@ const Profile = () => {
       setImageUrl("/images/Avatar.png");
     }
   }, [userInfo]);
+
+  logInfo("User Info:", userInfo);
 
   const handleImageChange = async (e) => {
     const file = e.target.files[0];

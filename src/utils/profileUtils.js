@@ -1,4 +1,5 @@
 import { logInfo, logError } from "@/utils/logging";
+import { getSession } from "next-auth/react";
 
 export const uploadProfileImage = async ({
   file,
@@ -23,10 +24,20 @@ export const uploadProfileImage = async ({
   const formData = new FormData();
   formData.append("file", file);
 
+  const session = await getSession();
+  const token = session?.accessToken;
+
   try {
     setUploading(true);
 
-    const data = await post("/upload/profile-logo", { body: formData });
+    const data = await post("/upload/profile-logo", {
+      body: formData,
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    logInfo("Upload response data:", data);
+
     const url = data?.cloudinaryUrl || data?.url;
 
     if (data?.user) {
