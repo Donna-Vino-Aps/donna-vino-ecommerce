@@ -10,6 +10,7 @@ const SearchBar = () => {
   const isMobile = useIsMobile(768);
   const { wines, searchQuery, setSearchQuery } = usePreSaleWines();
   const [searchSuggestions, setSearchSuggestions] = useState([]);
+  const [showSuggestions, setShowSuggestions] = useState(false);
   const [inputText, setInputText] = useState(searchQuery);
 
   useEffect(() => {
@@ -57,7 +58,10 @@ const SearchBar = () => {
         <input
           type="text"
           value={inputText}
-          onChange={(e) => setInputText(e.target.value)}
+          onChange={(e) => {
+            setInputText(e.target.value);
+            setShowSuggestions(true);
+          }}
           onKeyDown={(e) => e.key === "Enter" && handleSearch()}
           className="ml-6 h-[75%] w-[90%] text-bodyLarge text-tertiary2-darker focus:outline-none md:h-[50%] md:w-[50%] lg:h-[50%] lg:w-[70%]"
           placeholder={isMobile ? "Search any wine" : ""}
@@ -65,7 +69,7 @@ const SearchBar = () => {
         {!isMobile && <SearchButtonFilter onClick={handleSearch} />}
 
         {/* Dropdown for suggestions */}
-        {searchSuggestions.length > 0 && (
+        {showSuggestions && searchSuggestions.length > 0 && (
           <ul className="absolute left-0 top-full z-50 mt-1 w-full rounded-md border border-gray-200 bg-white shadow-md">
             {searchSuggestions.map((suggestion, index) => (
               <li
@@ -74,6 +78,7 @@ const SearchBar = () => {
                   setSearchQuery(suggestion);
                   setInputText(suggestion);
                   setSearchSuggestions([]);
+                  setShowSuggestions(false);
                 }}
                 className="cursor-pointer px-4 py-2 text-sm hover:bg-gray-100"
               >
