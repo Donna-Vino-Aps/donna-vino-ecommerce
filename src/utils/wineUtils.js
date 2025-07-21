@@ -86,3 +86,61 @@ export const getWineBySlug = (slug, wines) => {
 
 // this utility function generates a URL for a wine based on its slug
 export const getWineUrl = (wine) => `/wines/pre-sale/${wine.slug}`;
+
+// this utility extracts filters from wines that are currently available
+export function extractFilters(wines) {
+  if (!Array.isArray(wines) || wines.length === 0) {
+    return [];
+  }
+
+  const uniqueWineVarieties = [
+    ...new Set(wines.map((p) => p.wineVariety).filter(Boolean)),
+  ].sort();
+  const uniqueGrapes = [
+    ...new Set(wines.map((p) => p.grape).filter(Boolean)),
+  ].sort();
+  const uniqueRegions = [
+    ...new Set(wines.map((p) => p.region).filter(Boolean)),
+  ].sort();
+  const bottlePrices = wines.map((w) => w.bottlePrice).filter((p) => p != null);
+
+  const minPrice = Math.floor(Math.min(...bottlePrices));
+  const maxPrice = Math.round(Math.max(...bottlePrices));
+
+  return [
+    {
+      key: "wineVariety",
+      variant: "regular",
+      options: uniqueWineVarieties,
+    },
+    {
+      key: "grape",
+      variant: "regular",
+      options: uniqueGrapes,
+    },
+    {
+      key: "region",
+      variant: "regular",
+      options: uniqueRegions,
+    },
+    {
+      key: "bottlePrice",
+      variant: "price",
+      min: minPrice,
+      max: maxPrice,
+    },
+  ];
+}
+
+// this utility checks for given wine whether it matches the filter
+export function matchesFilter(wine, filter) {
+  const value = wine?.[filter.key];
+
+  if (value == null) return false;
+
+  if (filter.key === "bottlePrice") {
+    return value >= filter.min && value <= filter.max;
+  }
+
+  return Array.isArray(filter.options) && filter.options.includes(value);
+}

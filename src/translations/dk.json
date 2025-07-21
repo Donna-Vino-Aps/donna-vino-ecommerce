@@ -340,5 +340,14 @@
   "cart.button-continue-shopping": "Fortsæt Shopping",
   "wineCard.viewDetails": "Se detaljer",
   "wineCard.addToCart": "Læg i indkøbskurv",
-  "wineCard.addedToCart": "Tilføjet til kurven!"
+  "wineCard.addedToCart": "Tilføjet til kurven!",
+  "presale.no-wine-matches-filter": "Ingen forsalgs-vine matcher dine filtre.",
+  "presale.no-wine": "Ingen forsalgs-vine tilgængelige i øjeblikket.",
+  "presale-filter.wineVariety": "Vintype",
+  "presale-filter.grape": "Druesort",
+  "presale-filter.region": "Region",
+  "presale-filter.bottlePrice": "Pris",
+  "presale-filter.minPrice": "Laveste pris",
+  "presale-filter.maxPrice": "Højeste pris",
+  "presale-filter.filterBy": "Filtrer efter"
 }
