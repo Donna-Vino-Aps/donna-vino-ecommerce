@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import PropTypes from "prop-types";
 import useIsMobile from "@/hooks/useIsMobile";
 import SearchButtonFilter from "./SearchButtonFilter";
 import SortBy from "../FilterSelector/SortBy";
