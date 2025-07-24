@@ -71,7 +71,8 @@ export function PreSaleWinesProvider({ children }) {
         activeFilters.every((filter) => matchesFilter(wine, filter)),
       )
       .filter((wine) => {
-        const query = searchQuery.toLowerCase();
+        const query =
+          typeof searchQuery === "string" ? searchQuery.toLowerCase() : "";
         return (
           wine.title?.toLowerCase().includes(query) ||
           wine.region?.toLowerCase().includes(query) ||

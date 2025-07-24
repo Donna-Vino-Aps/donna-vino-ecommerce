@@ -1,35 +1,19 @@
 import React, { useState, useEffect } from "react";
+import { FiX } from "react-icons/fi";
 import useIsMobile from "@/hooks/useIsMobile";
 import SearchButtonFilter from "./SearchButtonFilter";
 import SortBy from "../FilterSelector/SortBy";
 import { usePreSaleWines } from "@/context/PreSaleWinesContext";
 
 const SearchBar = () => {
-  const [isMounted, setIsMounted] = useState(false);
   const isMobile = useIsMobile(768);
   const { wines, searchQuery, setSearchQuery } = usePreSaleWines();
   const [searchSuggestions, setSearchSuggestions] = useState([]);
   const [showSuggestions, setShowSuggestions] = useState(false);
-  const [inputText, setInputText] = useState(searchQuery);
 
+  // search suggestions logic
   useEffect(() => {
-    setIsMounted(true);
-  }, []);
-
-  //search suggestions logic
-
-  useEffect(() => {
-    setInputText(searchQuery);
-  }, [searchQuery]);
-
-  useEffect(() => {
-    if (inputText.trim() === "") {
-      setSearchQuery("");
-    }
-  }, [inputText]);
-
-  useEffect(() => {
-    const trimmed = inputText.trim().toLowerCase();
+    const trimmed = searchQuery.trim().toLowerCase();
     if (trimmed.length > 0) {
       const allTitles = wines
         .filter((wine) => wine.title?.toLowerCase().includes(trimmed))
@@ -40,36 +24,57 @@ const SearchBar = () => {
     } else {
       setSearchSuggestions([]);
     }
-  }, [inputText, wines]);
+  }, [searchQuery, wines]);
 
   const handleSearch = () => {
-    setSearchQuery(inputText);
+    setShowSuggestions(false);
   };
 
-  if (!isMounted) return null;
+  const clearSearch = () => {
+    setSearchQuery("");
+    setSearchSuggestions([]);
+    setShowSuggestions(false);
+  };
 
   return (
     <div className="flex justify-center">
       <div
-        className={`relative flex items-center justify-between rounded-lg border border-tertiary1-light focus:outline-none md:mx-7 ${isMobile ? "h-[3.5rem] w-[13rem] xs:w-[17rem]" : "h-[5.625rem] w-full"}`}
+        className={`relative flex items-center justify-between rounded-lg border border-tertiary1-light focus:outline-none md:mx-7 ${isMobile ? "h-auto w-[17rem]" : "h-[5.625rem] w-full"}`}
       >
         {!isMobile && <SortBy />}
-        <input
-          type="text"
-          value={inputText}
-          onFocus={() => {
-            if (inputText.trim() !== "" && searchSuggestions.length > 0) {
+        <div className="relative w-full max-w-xs md:max-w-none">
+          <input
+            type="text"
+            value={searchQuery}
+            onFocus={() => {
+              if (searchQuery && searchSuggestions.length > 0) {
+                setShowSuggestions(true);
+              }
+            }}
+            onChange={(e) => {
+              setSearchQuery(e.target.value.trimStart());
               setShowSuggestions(true);
-            }
-          }}
-          onChange={(e) => {
-            setInputText(e.target.value);
-            setShowSuggestions(true);
-          }}
-          onKeyDown={(e) => e.key === "Enter" && handleSearch()}
-          className="ml-6 h-[75%] w-[90%] text-bodyLarge text-tertiary2-darker focus:outline-none md:h-[50%] md:w-[50%] lg:h-[50%] lg:w-[70%]"
-          placeholder={isMobile ? "Search any wine" : ""}
-        />
+            }}
+            onBlur={() => setTimeout(() => setShowSuggestions(false), 100)}
+            onKeyDown={(e) => e.key === "Enter" && handleSearch()}
+            className={`rounded-md bg-white text-sm text-tertiary2-darker placeholder-gray-400 focus:outline-none px-3 ${
+              isMobile
+                ? "h-10 w-full pr-8"
+                : "text-bodyLarge h-[50%] w-[60%] md:w-[70%] pr-10"
+            }`}
+            placeholder={isMobile ? "Search any wine" : ""}
+          />
+          {searchQuery && (
+            <button
+              onClick={clearSearch}
+              className="absolute right-3 top-1/2 -translate-y-1/2 p-1 text-gray-400 hover:text-gray-600 "
+              aria-label="Clear search"
+            >
+              <FiX className="w-4 h-4 md:w-5 md:h-5" />
+            </button>
+          )}
+        </div>
+
         {!isMobile && <SearchButtonFilter onClick={handleSearch} />}
 
         {/* Dropdown for suggestions */}
@@ -78,10 +83,9 @@ const SearchBar = () => {
             {searchSuggestions.map((suggestion, index) => (
               <li
                 key={index}
-                onClick={() => {
+                onMouseDown={(e) => {
+                  e.preventDefault();
                   setSearchQuery(suggestion);
-                  setInputText(suggestion);
-                  setSearchSuggestions([]);
                   setShowSuggestions(false);
                 }}
                 className="cursor-pointer px-4 py-2 text-sm hover:bg-gray-100"
@@ -96,7 +100,5 @@ const SearchBar = () => {
     </div>
   );
 };
-
-SearchBar.propTypes = {};
 
 export default SearchBar;
