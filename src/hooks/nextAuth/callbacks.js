@@ -86,7 +86,7 @@ export async function jwt({ token, user, account }) {
  */
 export async function session({ session, token }) {
   if (token.expired) {
-    return null; // Session invalidated
+    return {}; // Session invalidated
   }
 
   session.user.id = token.id;
