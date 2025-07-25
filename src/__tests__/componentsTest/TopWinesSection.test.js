@@ -17,8 +17,8 @@ jest.mock("@/context/LanguageContext", () => ({
   LanguageProvider: ({ children }) => children,
 }));
 
-jest.mock("@/context/PreSaleWinesContext", () => ({
-  usePreSaleWines: () => ({
+jest.mock("@/context/TopWinesContext", () => ({
+  useTopWines: () => ({
     wines: [
       {
         id: 1,

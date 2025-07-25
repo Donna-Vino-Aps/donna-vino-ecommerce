@@ -1,5 +1,10 @@
-@media (min-width: 516px) and (max-width: 767.98px) {
+@media (min-width: 400px) and (max-width: 767.98px) {
   #topWineCard {
-    padding: 60px !important;
+    padding-left: clamp(16px, 6vw, 80px);
+    padding-right: clamp(16px, 6vw, 80px);
+    max-width: 580px;
+    margin-left: auto;
+    margin-right: auto;
+    box-sizing: border-box;
   }
 }

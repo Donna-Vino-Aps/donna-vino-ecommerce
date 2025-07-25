@@ -8,23 +8,38 @@ import "../../styles/slider/buttons.css";
 import "../../styles/slider/slider.css";
 import Button from "../Button/Button";
 import { useLanguage } from "@/context/LanguageContext";
-import { usePreSaleWines } from "@/context/PreSaleWinesContext";
+import { useTopWines } from "@/context/TopWinesContext";
 import { getWineUrl } from "@/utils/wineUtils";
 import ErrorMessage from "@/components/UI/ErrorMessage";
 import WineCard from "@/components/Card/WineCard";
 
 const TopWinesSection = () => {
   const { translations } = useLanguage();
-  const { wines, isLoading, error } = usePreSaleWines();
+  const { wines, isLoading, error } = useTopWines();
 
   if (isLoading) {
-    return <div data-testid="loading">Loading...</div>;
+    return (
+      <div className="min-h-[20px] text-center" data-testid="loading">
+        {translations["topwinesection.loadWines"]}
+      </div>
+    );
   }
-  if (error) {
-    return <ErrorMessage message={error} />;
-  }
-  if (!wines || wines.length === 0) {
-    return <div>No top wines available at the moment.</div>;
+
+  if (error || !wines || wines.length === 0) {
+    return (
+      <div className="min-h-[40px] px-2 text-center">
+        <h2 className="mt-2 pb-3 pt-6 text-displayMedium font-regular text-tertiary1-dark sm:mt-0 sm:py-6 sm:text-displayLarge">
+          {translations["topwinesection.headline"]}
+        </h2>
+        <div className="mb-6 mt-4 text-bodyLarge font-regular text-tertiary1-dark">
+          {error ? (
+            <ErrorMessage message={error} />
+          ) : (
+            translations["topwinesection.noWines"]
+          )}
+        </div>
+      </div>
+    );
   }
 
   return (

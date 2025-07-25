@@ -314,6 +314,8 @@
   "topwinesection.title": "Most Popular Products",
   "topwinesection.headline": "Our Top Wines",
   "topwinesection.description": "Our Exclusive Selection of Finest Wines, Handpicked for You Discover our wine selection",
+  "topwinesection.loadWines": "Loading...",
+  "topwinesection.noWines": "No top wines available at the moment.",
   "more-info.title": "More information about this wine",
   "more-info.title-short": "More information",
   "more-info.grape": "Grape",
