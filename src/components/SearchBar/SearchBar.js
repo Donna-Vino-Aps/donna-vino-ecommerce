@@ -69,7 +69,7 @@ const SearchBar = () => {
           {searchQuery && (
             <button
               onClick={clearSearch}
-              className="absolute right-3 top-1/2 -translate-y-1/2 p-1 text-gray-400 hover:text-gray-600 "
+              className="absolute top-1/2 right-3 -translate-y-1/2 p-1 text-gray-400 hover:text-gray-600 "
               aria-label="Clear search"
             >
               <FiX className="w-4 h-4 md:w-5 md:h-5" />
