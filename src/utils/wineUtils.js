@@ -144,3 +144,31 @@ export function matchesFilter(wine, filter) {
 
   return Array.isArray(filter.options) && filter.options.includes(value);
 }
+
+// this utility function sorts a list of wines based on the selected sort option
+export function sortWines(wines, sortingKey) {
+  switch (sortingKey) {
+    case "newest":
+      return wines.slice().sort((a, b) => {
+        const yearA = parseInt(a.vintage) || 0;
+        const yearB = parseInt(b.vintage) || 0;
+        return yearB - yearA;
+      });
+    case "price-asc":
+      return [...wines].sort((a, b) => a.bottlePrice - b.bottlePrice);
+    case "price-desc":
+      return [...wines].sort((a, b) => b.bottlePrice - a.bottlePrice);
+    case "name-asc":
+      return [...wines].sort((a, b) => a.title.localeCompare(b.title));
+    case "name-desc":
+      return [...wines].sort((a, b) =>
+        b.title.localeCompare(a.title, undefined, { sensitivity: "base" }),
+      );
+    case "winetype":
+      return [...wines].sort((a, b) =>
+        (a.wineVariety || "").localeCompare(b.wineVariety || ""),
+      );
+    default:
+      return wines;
+  }
+}
