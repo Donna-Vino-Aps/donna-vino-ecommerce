@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { FiX } from "react-icons/fi";
 import useIsMobile from "@/hooks/useIsMobile";
-import SearchButtonFilter from "./SearchButtonFilter";
+import SearchIcon from "./SearchIcon";
 import SortBy from "../FilterSelector/SortBy";
 import { usePreSaleWines } from "@/context/PreSaleWinesContext";
 
@@ -39,9 +39,11 @@ const SearchBar = () => {
   return (
     <div className="flex justify-center">
       <div
-        className={`relative flex items-center justify-between rounded-lg border border-tertiary1-light focus:outline-none md:mx-7 ${isMobile ? "h-auto w-[17rem]" : "h-[5.625rem] w-full"}`}
+        className={`relative flex items-center justify-between rounded-lg border border-tertiary1-light focus:outline-none md:mx-7 ${isMobile ? "h-auto w-[21.50rem]" : "h-[5.625rem] w-full"}`}
       >
         {!isMobile && <SortBy />}
+        {!isMobile && <SearchIcon />}
+        {isMobile && <SearchIcon />}
         <div className="relative w-full max-w-xs md:max-w-none">
           <input
             type="text"
@@ -75,8 +77,6 @@ const SearchBar = () => {
           )}
         </div>
 
-        {!isMobile && <SearchButtonFilter onClick={handleSearch} />}
-
         {/* Dropdown for suggestions */}
         {showSuggestions && searchSuggestions.length > 0 && (
           <ul className="absolute left-0 top-full z-50 mt-1 w-full rounded-md border border-gray-200 bg-white shadow-md">
@@ -96,7 +96,6 @@ const SearchBar = () => {
           </ul>
         )}
       </div>
-      {isMobile && <SearchButtonFilter onClick={handleSearch} />}
     </div>
   );
 };
