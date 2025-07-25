@@ -2,47 +2,46 @@ import React, { useState } from "react";
 import Image from "next/image";
 import { usePreSaleWines } from "@/context/PreSaleWinesContext";
 
+const sortingOptions = [
+  {
+    id: "winetype",
+    title: "Wine Type",
+    display: "Wine type",
+  },
+  {
+    id: "newest",
+    title: "Newest",
+    display: "Newest",
+  },
+  {
+    id: "price-asc",
+    title: "Price (low → high)",
+    display: "Price",
+  },
+  {
+    id: "price-desc",
+    title: "Price (high → low)",
+    display: "Price",
+  },
+  {
+    id: "name-asc",
+    title: "Name (A → Z)",
+    display: "Name",
+  },
+  {
+    id: "name-desc",
+    title: "Name (Z → A)",
+    display: "Name",
+  },
+];
+
 const SortBy = () => {
   const [isOpen, setIsOpen] = useState(false);
   const { selectedSort, setSelectedSort } = usePreSaleWines();
 
-  const sortingMockData = [
-    {
-      id: "winetype",
-      title: "Wine Type",
-      display: "Wine type",
-    },
-    {
-      id: "newest",
-      title: "Newest",
-      display: "Newest",
-    },
-    {
-      id: "price-asc",
-      title: "Price (low → high)",
-      display: "Price",
-    },
-    {
-      id: "price-desc",
-      title: "Price (high → low)",
-      display: "Price",
-    },
-    {
-      id: "name-asc",
-      title: "Name (A → Z)",
-      display: "Name",
-    },
-    {
-      id: "name-desc",
-      title: "Name (Z → A)",
-      display: "Name",
-    },
-  ];
-
-  const sortingData = sortingMockData;
-
   const selectedTitle =
-    sortingData.find((item) => item.id === selectedSort)?.display || "Newest";
+    sortingOptions.find((item) => item.id === selectedSort)?.display ||
+    "Newest";
 
   return (
     <section className="relative flex-shrink gap-4">
@@ -76,7 +75,7 @@ const SortBy = () => {
         </div>
         {isOpen && (
           <div className="absolute -left-[1px] top-full z-50 box-border w-[calc(100%+2px)] rounded-b-md border-b border-l border-r border-tertiary1-light bg-white">
-            {sortingData.map((item) => (
+            {sortingOptions.map((item) => (
               <div
                 key={item.id}
                 className="cursor-pointer px-4 py-2 hover:rounded-sm hover:bg-tertiary2-dark"
