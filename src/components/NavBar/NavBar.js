@@ -327,7 +327,7 @@ const Navbar = () => {
         <div className="relative bottom-[2px] z-[9999] flex items-center gap-3 md:mr-6 lg:gap-5">
           <SearchButton />
           <UserDropdown />
-          <ShoppingCart onClick={() => setIsCartOpen((prev) => !prev)} />
+          <ShoppingCart onClick={() => setIsCartOpen(true)} />
           <div className="relative top-[1px] ml-2 mr-8 h-[1.5rem] w-[1.5rem] lg:hidden">
             <button
               onClick={toggleMenu}
@@ -353,7 +353,7 @@ const Navbar = () => {
           navLinks={navLinksSidebar}
         />
       </div>
-      {isCartOpen && <CartModal onClose={() => setIsCartOpen(false)} />}
+      <CartModal isOpen={isCartOpen} onClose={() => setIsCartOpen(false)} />
     </nav>
   );
 };

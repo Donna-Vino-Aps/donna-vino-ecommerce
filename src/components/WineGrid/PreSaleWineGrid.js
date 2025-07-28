@@ -7,9 +7,11 @@ import Spinner from "@/components/UI/Spinner";
 import ErrorMessage from "@/components/UI/ErrorMessage";
 import { getWineUrl } from "@/utils/wineUtils";
 import Link from "next/link";
+import { useLanguage } from "@/context/LanguageContext";
 
 const PreSaleWineGrid = () => {
-  const { wines, isLoading, error } = usePreSaleWines();
+  const { wines, isLoading, error, activeFilters } = usePreSaleWines();
+  const { translations } = useLanguage();
 
   if (isLoading) {
     return (
@@ -31,20 +33,24 @@ const PreSaleWineGrid = () => {
     return (
       <div className="flex min-h-[25rem] items-center justify-center">
         <p className="text-bodyLarge font-medium text-tertiary1-normal">
-          No pre-sale wines available at the moment.
+          {activeFilters.length == 0
+            ? translations["presale.no-wine"]
+            : translations["presale.no-wine-matches-filter"]}
         </p>
       </div>
     );
   }
 
   return (
-    <div className="grid grid-cols-1 gap-8 lg:grid-cols-2 xl:grid-cols-3">
-      {wines.map((wine) => (
-        <Link href={getWineUrl(wine)} key={wine.id}>
-          <WineCard key={wine.id} wine={wine} context={"pre-sale"} />
-        </Link>
-      ))}
-    </div>
+    <>
+      {wines.map((wine) => {
+        return (
+          <Link href={getWineUrl(wine)} key={wine.id}>
+            <WineCard key={wine.id} wine={wine} context={"pre-sale"} />
+          </Link>
+        );
+      })}
+    </>
   );
 };
 
