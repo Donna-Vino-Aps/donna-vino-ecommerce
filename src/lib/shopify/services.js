@@ -30,3 +30,7 @@ export async function getWinesCollection(collectionHandle, language = "en") {
 export async function fetchPreSaleWines(language = "en") {
   return await getWinesCollection("pre-sale-wines", language);
 }
+
+export async function fetchTopWines(language = "en") {
+  return await getWinesCollection("top-wines", language);
+}
