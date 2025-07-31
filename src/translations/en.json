@@ -349,5 +349,10 @@
   "presale-filter.bottlePrice": "Price",
   "presale-filter.minPrice": "Minimum Price",
   "presale-filter.maxPrice": "Maximum Price",
-  "presale-filter.filterBy": "Filter by"
+  "presale-filter.filterBy": "Filter by",
+  "presale-filter.newest": "Newest",
+  "presale-filter.price-asc": "Price (low → high)",
+  "presale-filter.price-desc": "Price (high → low)",
+  "presale-filter.name-asc": "Name (A → Z)",
+  "presale-filter.name-desc": "Name (Z → A)"
 }

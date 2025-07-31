@@ -1,52 +1,35 @@
 import React, { useState } from "react";
 import Image from "next/image";
 import { usePreSaleWines } from "@/context/PreSaleWinesContext";
+import { useLanguage } from "@/context/LanguageContext";
 
 const sortingOptions = [
-  {
-    id: "winetype",
-    title: "Wine Type",
-    display: "Wine type",
-  },
-  {
-    id: "newest",
-    title: "Newest",
-    display: "Newest",
-  },
-  {
-    id: "price-asc",
-    title: "Price (low → high)",
-    display: "Price",
-  },
-  {
-    id: "price-desc",
-    title: "Price (high → low)",
-    display: "Price",
-  },
-  {
-    id: "name-asc",
-    title: "Name (A → Z)",
-    display: "Name",
-  },
-  {
-    id: "name-desc",
-    title: "Name (Z → A)",
-    display: "Name",
-  },
+  { id: "wineVariety" },
+  { id: "newest" },
+  { id: "price-asc" },
+  { id: "price-desc" },
+  { id: "name-asc" },
+  { id: "name-desc" },
 ];
 
 const SortBy = () => {
   const [isOpen, setIsOpen] = useState(false);
   const { selectedSort, setSelectedSort } = usePreSaleWines();
+  const { translations } = useLanguage();
 
-  const selectedTitle =
-    sortingOptions.find((item) => item.id === selectedSort)?.display ||
-    "Newest";
+  const getLabel = (id) => {
+    return (
+      translations[`presale-filter.${id}`] ||
+      sortingOptions.find((item) => item.id === id)?.id
+    );
+  };
+
+  const selectedTitle = getLabel(selectedSort) || getLabel("newest");
 
   return (
     <section className="relative flex-shrink gap-4">
       <div
-        className={`relative min-h-[3.5rem] w-[13rem] rounded-md border border-tertiary1-light xs:w-[17rem] md:ml-4 md:min-h-[2.75rem] md:w-[10rem]
+        className={`relative min-h-[3.5rem] w-[13rem] rounded-md border border-tertiary1-light xs:w-[17rem] md:ml-4 md:min-h-[2.75rem] md:w-[12.25rem]
       ${isOpen ? "rounded-b-none border-b-0" : ""}`}
       >
         {/* Make the header and dropdown consistent in padding and alignment */}
@@ -84,7 +67,7 @@ const SortBy = () => {
                   setIsOpen(false);
                 }}
               >
-                {item.title}
+                {getLabel(item.id)}
               </div>
             ))}
           </div>
