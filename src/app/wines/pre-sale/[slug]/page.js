@@ -10,6 +10,7 @@ import Spinner from "@/components/UI/Spinner";
 import ErrorMessage from "@/components/UI/ErrorMessage";
 import MoreInfoDropdown from "@/components/WineDetails/MoreInformationDropdown";
 import TasteProfile from "@/components/TasteProfile/TasteProfile";
+import TasteProfileCards from "@/components/TasteProfile/TasteProfileCards";
 
 export default function WineDetailPage() {
   const { slug } = useParams();
@@ -42,6 +43,7 @@ export default function WineDetailPage() {
       <WineInfo wine={wine} />
       <MoreInfoDropdown wine={wine} />
       <TasteProfile wine={wine} />
+      <TasteProfileCards/>
     </div>
   );
 }
