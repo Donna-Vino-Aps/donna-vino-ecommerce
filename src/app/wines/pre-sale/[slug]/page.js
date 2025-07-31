@@ -43,7 +43,7 @@ export default function WineDetailPage() {
       <WineInfo wine={wine} />
       <MoreInfoDropdown wine={wine} />
       <TasteProfile wine={wine} />
-      <TasteProfileCards/>
+      <TasteProfileCards />
     </div>
   );
 }
