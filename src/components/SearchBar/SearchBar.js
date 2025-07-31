@@ -59,20 +59,20 @@ const SearchBar = () => {
             }}
             onBlur={() => setTimeout(() => setShowSuggestions(false), 100)}
             onKeyDown={(e) => e.key === "Enter" && handleSearch()}
-            className={`rounded-md bg-white text-sm text-tertiary2-darker placeholder-gray-400 focus:outline-none px-3 ${
+            className={`rounded-md bg-white px-3 text-sm text-tertiary2-darker placeholder-gray-400 focus:outline-none ${
               isMobile
                 ? "h-10 w-full pr-8"
-                : "text-bodyLarge h-[50%] w-[60%] md:w-[70%] pr-10"
+                : "h-[50%] w-[60%] pr-10 text-bodyLarge md:w-[70%]"
             }`}
             placeholder={isMobile ? "Search any wine" : ""}
           />
           {searchQuery && (
             <button
               onClick={clearSearch}
-              className="absolute top-1/2 right-3 -translate-y-1/2 p-1 text-gray-400 hover:text-gray-600 "
+              className="absolute right-3 top-1/2 -translate-y-1/2 p-1 text-gray-400 hover:text-gray-600 "
               aria-label="Clear search"
             >
-              <FiX className="w-4 h-4 md:w-5 md:h-5" />
+              <FiX className="h-4 w-4 md:h-5 md:w-5" />
             </button>
           )}
         </div>
