@@ -349,5 +349,10 @@
   "presale-filter.bottlePrice": "Pris",
   "presale-filter.minPrice": "Laveste pris",
   "presale-filter.maxPrice": "Højeste pris",
-  "presale-filter.filterBy": "Filtrer efter"
+  "presale-filter.filterBy": "Filtrer efter",
+  "presale-filter.newest": "Nyeste",
+  "presale-filter.price-asc": "Pris (lav → høj)",
+  "presale-filter.price-desc": "Pris (høj → lav)",
+  "presale-filter.name-asc": "Navn (A → Z)",
+  "presale-filter.name-desc": "Navn (Z → A)"
 }
