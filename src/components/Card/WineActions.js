@@ -47,7 +47,7 @@ const WineActions = ({ wine, isPreSale }) => {
     <div className="flex w-full items-end justify-between">
       <p
         data-testid="wineCard-viewDetails"
-        aria-label="Go to home"
+        aria-label="View wine details"
         className={`cursor-pointer  text-bodySmall text-black underline ${isPreSale && "sm:text-bodyMedium"}`}
       >
         {translations["wineCard.viewDetails"]}
