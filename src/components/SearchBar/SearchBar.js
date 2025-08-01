@@ -1,3 +1,4 @@
+"use client";
 import React, { useState, useEffect } from "react";
 import { FiX } from "react-icons/fi";
 import useIsMobile from "@/hooks/useIsMobile";
