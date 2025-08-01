@@ -20,13 +20,6 @@ export default function TasteProfilePercentage({ wine }) {
               className="absolute inset-y-0 left-0 rounded-full bg-primary-active_dark"
               style={{ width: `${pair.value}%` }}
             ></div>
-            <div
-              className="absolute -top-9 -translate-x-1/2 transform rounded-md bg-primary-active_dark px-3 py-1 text-labelSmall text-tertiary2-light md:text-labelLarge"
-              style={{ left: `${pair.value}%` }}
-            >
-              {pair.value}%
-              <div className="absolute -bottom-1 left-1/2 h-0 w-0 -translate-x-1/2 border-x-4 border-t-4 border-x-transparent border-t-primary-active_dark"></div>
-            </div>
           </div>
           <div className="flex justify-between text-bodyMedium">
             <span className="w-20 shrink-0 text-left text-bodySmall md:text-bodyMedium">

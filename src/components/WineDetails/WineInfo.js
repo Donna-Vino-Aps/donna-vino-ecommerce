@@ -1,4 +1,5 @@
 "use client";
+
 import React, { useState } from "react";
 import PropTypes from "prop-types";
 import { AvailabilityDisplay } from "./AvailabilityDisplay";
@@ -11,11 +12,16 @@ import { useCart } from "@/context/ShoppingCartContext";
 import Image from "next/image";
 import { logError } from "@/utils/logging";
 import AnimatedButton from "../Button/AnimatedButton";
+import CartModal from "@/components/Cart/CartModal";
+import CartModalMobile from "@/components/Cart/CartModalMobile";
+import useIsMobile from "@/hooks/useIsMobile";
 
 const WineInfo = ({ wine }) => {
   const { translations } = useLanguage();
   const { addItemToCart } = useCart();
+  const isMobile = useIsMobile();
 
+  const [showCart, setShowCart] = useState(false);
   const [selectedSize, setSelectedSize] = useState(() => {
     if (wine.variantMap.bottle) return "bottle";
     if (wine.variantMap.case) return "case";
@@ -23,7 +29,7 @@ const WineInfo = ({ wine }) => {
   });
 
   const [preSale, setPreSale] = useState(!wine.inStock);
-  const [selectedQuantity, setSelectedQuantity] = React.useState(1);
+  const [selectedQuantity, setSelectedQuantity] = useState(1);
 
   const handleAddToCart = () => {
     const selectedVariant = wine.variantMap[selectedSize];
@@ -45,6 +51,8 @@ const WineInfo = ({ wine }) => {
       imageUrl: wine.imageUrl,
     };
     addItemToCart(itemToAdd);
+    setShowCart(true);
+    setTimeout(() => setShowCart(false), 3000);
   };
 
   return (
@@ -143,6 +151,22 @@ const WineInfo = ({ wine }) => {
           grape={wine.grape}
         />
       </div>
+      {isMobile ? (
+        <CartModalMobile
+          isOpen={showCart}
+          wine={{
+            imageUrl: wine.imageUrl,
+            title: wine.title,
+            vintage: wine.vintage,
+            size: selectedSize,
+            quantity: selectedQuantity,
+            totalPrice:
+              wine.variantMap[selectedSize].price.amount * selectedQuantity,
+          }}
+        />
+      ) : (
+        <CartModal isOpen={showCart} onClose={() => setShowCart(false)} />
+      )}
     </article>
   );
 };
@@ -168,6 +192,7 @@ WineInfo.propTypes = {
     region: PropTypes.string.isRequired,
     vineyard: PropTypes.string.isRequired,
     wineVariety: PropTypes.string.isRequired,
+    vintage: PropTypes.string,
     grape: PropTypes.string.isRequired,
     variantMap: PropTypes.shape({
       bottle: PropTypes.object,
