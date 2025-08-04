@@ -7,11 +7,11 @@ const FaqItem = ({ question, answer }) => {
   const [isOpen, setIsOpen] = useState(false);
   return (
     <div
-      className={`mx-auto flex flex-col rounded-lg border border-solid border-tertiary2-hover_normal ${isOpen ? "bg-transparent" : "bg-tertiary2-normal"} w-full px-4 sm:mx-8 sm:min-w-[18.5rem] sm:max-w-[48.125rem]`}
+      className={`mx-auto flex flex-col rounded-lg border border-solid border-tertiary2-hover_normal ${isOpen ? "bg-transparent" : "bg-tertiary2-normal"} w-full px-4 transition-all duration-500 ease-in-out sm:mx-8 sm:min-w-[18.5rem] sm:max-w-[48.125rem]`}
     >
       <div
-        className={`flex w-full cursor-pointer items-center justify-between py-[3px] 
-          ${isOpen ? "mt-3 mb-1" : "my-3"}`}
+        className={`flex w-full cursor-pointer items-center justify-between py-[3px]  
+          ${isOpen ? "mb-1 mt-3" : "my-3"}`}
         onClick={() => setIsOpen((prev) => !prev)}
       >
         <h4 className="pr-2 text-labelLarge font-medium md:text-titleMedium">
