@@ -25,7 +25,7 @@ const FrequentlyAskedQuestions = () => {
             width="50"
             height="50"
             alt="Dotted shape"
-            className="absolute right-0 top-[7.5rem] sm:hidden"
+            className="absolute right-0 top-[7.5rem] sm:left-[50%] sm:top-[7.35rem] md:left-[42.5%] md:top-[14.5rem]"
           />
         </div>
         <div className="mb-4 flex w-full flex-col justify-center gap-6 px-8 text-center sm:mb-0 md:w-[45%] md:text-start lg:w-[40%] lg:px-12">
