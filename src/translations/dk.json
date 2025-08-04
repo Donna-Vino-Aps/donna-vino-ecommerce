@@ -366,5 +366,10 @@
   "faq.question5": "Kan jeg få anbefalinger baseret på mine præferencer?",
   "faq.answer5": "Ja, vi hjælper dig gerne! Kontakt os via e-mail eller under dit besøg i vores kælder, så kan vi anbefale vine, der passer til dine smagspræferencer og behov til lejligheden.",
   "faq.question6": "Hvilke betalingsmetoder accepterer I?",
-  "faq.answer6": "Vi accepterer de fleste kredit- og betalingskort, MobilePay samt sikre online betalingsmetoder ved checkout for din bekvemmelighed."
+  "faq.answer6": "Vi accepterer de fleste kredit- og betalingskort, MobilePay samt sikre online betalingsmetoder ved checkout for din bekvemmelighed.",
+  "presale-filter.newest": "Nyeste",
+  "presale-filter.price-asc": "Pris (lav → høj)",
+  "presale-filter.price-desc": "Pris (høj → lav)",
+  "presale-filter.name-asc": "Navn (A → Z)",
+  "presale-filter.name-desc": "Navn (Z → A)"
 }
