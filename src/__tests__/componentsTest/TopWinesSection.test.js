@@ -7,11 +7,11 @@ import { LanguageProvider } from "@/context/LanguageContext";
 jest.mock("@/context/LanguageContext", () => ({
   useLanguage: () => ({
     translations: {
-      "topwinesection.title": "Most Popular Products",
-      "topwinesection.headline": "Our Top Wines",
-      "topwinesection.description":
+      "topwineSection.title": "Most Popular Products",
+      "topwineSection.headline": "Our Top Wines",
+      "topwineSection.description":
         "Our Exclusive Selection of Finest Wines, Handpicked for You Discover our wine selection",
-      "topwinesection.button-more": "See full catalog",
+      "topwineSection.button-more": "See full catalog",
     },
   }),
   LanguageProvider: ({ children }) => children,
