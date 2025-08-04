@@ -306,7 +306,8 @@
   "wine-details.singlebottle": "Single bottle",
   "wine-details.singlecase": "Case (6 bottles)",
   "wine-details.addtocart": "Add to Cart",
-  "wine-details.addpreorder": "Add Pre-Order to Cart",
+  "wine-details.addPreOrder": "Add Pre-Order to Cart",
+  "wine-details.addedPreOrder": "Added Pre-Order to Cart",
   "wine-details.productdetails": "Product Details",
   "wine-details.country-region": "Country/Region",
   "wine-details.winetype": "Wine type",
@@ -341,6 +342,8 @@
   "cart.bottle": "Single bottle",
   "cart.case": "Case (6 bottles)",
   "wineCard.viewDetails": "View details",
+  "wineCard.addToCart": "Add to cart",
+  "wineCard.addedToCart": "Added to cart",
   "presale.no-wine-matches-filter": "No pre-sale wines match your filters.",
   "presale.no-wine": "No pre-sale wines available at the moment.",
   "presale-filter.wineVariety": "Wine Type",
@@ -365,5 +368,10 @@
   "faq.question5": "Can I get recommendations based on my preferences?",
   "faq.answer5": "Yes, we are happy to guide you! Reach out via email or during your visit to our cellar, and we can recommend wines that match your taste preferences and occasion needs.",
   "faq.question6": "What payment methods do you accept?",
-  "faq.answer6": "We accept major credit and debit cards, MobilePay, and secure online payment methods during checkout for your convenience."
+  "faq.answer6": "We accept major credit and debit cards, MobilePay, and secure online payment methods during checkout for your convenience.",
+  "presale-filter.newest": "Newest",
+  "presale-filter.price-asc": "Price (low → high)",
+  "presale-filter.price-desc": "Price (high → low)",
+  "presale-filter.name-asc": "Name (A → Z)",
+  "presale-filter.name-desc": "Name (Z → A)"
 }

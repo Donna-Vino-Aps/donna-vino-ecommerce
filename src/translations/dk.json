@@ -306,7 +306,8 @@
   "wine-details.singlebottle": "Enkelt flaske",
   "wine-details.singlecase": "Kasse (6 flasker)",
   "wine-details.addtocart": "Tilføj til Kurv",
-  "wine-details.addpreorder": "Tilføj Forudbestilling til Kurv",
+  "wine-details.addPreOrder": "Tilføj Forudbestilling til Kurv",
+  "wine-details.addedPreOrder": "Tilføjet Forudbestilling til Kurv",
   "wine-details.productdetails": "Produktdetaljer",
   "wine-details.country-region": "Land/Region",
   "wine-details.winetype": "Vintype",
@@ -339,6 +340,8 @@
   "cart.button-checkout": "Gå til kassen",
   "cart.button-continue-shopping": "Fortsæt Shopping",
   "wineCard.viewDetails": "Se detaljer",
+  "wineCard.addToCart": "Læg i indkøbskurv",
+  "wineCard.addedToCart": "Tilføjet til kurven!",
   "presale.no-wine-matches-filter": "Ingen forsalgs-vine matcher dine filtre.",
   "presale.no-wine": "Ingen forsalgs-vine tilgængelige i øjeblikket.",
   "presale-filter.wineVariety": "Vintype",
@@ -363,5 +366,10 @@
   "faq.question5": "Kan jeg få anbefalinger baseret på mine præferencer?",
   "faq.answer5": "Ja, vi hjælper dig gerne! Kontakt os via e-mail eller under dit besøg i vores kælder, så kan vi anbefale vine, der passer til dine smagspræferencer og behov til lejligheden.",
   "faq.question6": "Hvilke betalingsmetoder accepterer I?",
-  "faq.answer6": "Vi accepterer de fleste kredit- og betalingskort, MobilePay samt sikre online betalingsmetoder ved checkout for din bekvemmelighed."
+  "faq.answer6": "Vi accepterer de fleste kredit- og betalingskort, MobilePay samt sikre online betalingsmetoder ved checkout for din bekvemmelighed.",
+  "presale-filter.newest": "Nyeste",
+  "presale-filter.price-asc": "Pris (lav → høj)",
+  "presale-filter.price-desc": "Pris (høj → lav)",
+  "presale-filter.name-asc": "Navn (A → Z)",
+  "presale-filter.name-desc": "Navn (Z → A)"
 }
