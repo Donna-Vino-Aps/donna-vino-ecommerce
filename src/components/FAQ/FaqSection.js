@@ -1,3 +1,4 @@
+"use client";
 import React from "react";
 import { useLanguage } from "@/context/LanguageContext";
 import FaqItem from "./FaqItem";
@@ -16,7 +17,7 @@ const FaqSection = () => {
 
   return (
     <div className="w-full px-4 sm:px-10 lg:px-12">
-      <div className="flex flex-col items-center gap-3">
+      <div className="flex flex-col items-center gap-4">
         {FAQ_DATA.map((item) => (
           <FaqItem
             key={item.id}
