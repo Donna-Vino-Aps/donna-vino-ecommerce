@@ -21,7 +21,7 @@ export default function TastingCard({
         height={160}
       />
       <h3 className="text-center text-headlineSmall sm:text-headlineLarge">
-        {translations["tasting-info." + event.title]}
+        {translations["tasting-info." + title]}
       </h3>
       <div className="flex h-32 flex-col justify-between px-3 sm:h-44">
         <p
