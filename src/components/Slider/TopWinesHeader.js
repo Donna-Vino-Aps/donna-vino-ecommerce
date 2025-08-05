@@ -1,5 +1,7 @@
+"use client";
 import React from "react";
 import { useLanguage } from "@/context/LanguageContext";
+
 const TopWinesHeader = () => {
   const { translations } = useLanguage();
 
