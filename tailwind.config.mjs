@@ -62,6 +62,7 @@ export default {
           darker: "#530A0D",
           disabled: "#E5E7EB",
           disabled_dark: "#6B7280",
+          text_color: "#637381",
         },
         secondary: {
           light: "#E8ECE9",
