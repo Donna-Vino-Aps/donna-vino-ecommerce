@@ -12,16 +12,13 @@ import { useCart } from "@/context/ShoppingCartContext";
 import Image from "next/image";
 import { logError } from "@/utils/logging";
 import AnimatedButton from "../Button/AnimatedButton";
-import CartModal from "@/components/Cart/CartModal";
-import CartModalMobile from "@/components/Cart/CartModalMobile";
-import useIsMobile from "@/hooks/useIsMobile";
+import WineAddedPopup from "@/components/Cart/WineAddedPopup";
 
 const WineInfo = ({ wine }) => {
   const { translations } = useLanguage();
   const { addItemToCart } = useCart();
-  const isMobile = useIsMobile();
 
-  const [showCart, setShowCart] = useState(false);
+  const [showPopup, setShowPopup] = useState(false);
   const [selectedSize, setSelectedSize] = useState(() => {
     if (wine.variantMap.bottle) return "bottle";
     if (wine.variantMap.case) return "case";
@@ -51,12 +48,12 @@ const WineInfo = ({ wine }) => {
       imageUrl: wine.imageUrl,
     };
     addItemToCart(itemToAdd);
-    setShowCart(true);
-    setTimeout(() => setShowCart(false), 3000);
+    setShowPopup(true);
+    setTimeout(() => setShowPopup(false), 3000);
   };
 
   return (
-    <article className="relative flex flex-col items-center justify-center gap-6 md:gap-8 lg:flex-row lg:gap-12">
+    <div className="relative flex flex-col items-center justify-center gap-6 md:gap-8 lg:flex-row lg:gap-12">
       <Image
         src={wine.imageUrl}
         alt={wine.title}
@@ -151,23 +148,19 @@ const WineInfo = ({ wine }) => {
           grape={wine.grape}
         />
       </div>
-      {isMobile ? (
-        <CartModalMobile
-          isOpen={showCart}
-          wine={{
-            imageUrl: wine.imageUrl,
-            title: wine.title,
-            vintage: wine.vintage,
-            size: selectedSize,
-            quantity: selectedQuantity,
-            totalPrice:
-              wine.variantMap[selectedSize].price.amount * selectedQuantity,
-          }}
-        />
-      ) : (
-        <CartModal isOpen={showCart} onClose={() => setShowCart(false)} />
-      )}
-    </article>
+      <WineAddedPopup
+        isOpen={showPopup}
+        wine={{
+          imageUrl: wine.imageUrl,
+          title: wine.title,
+          vintage: wine.vintage,
+          size: String(selectedSize),
+          quantity: selectedQuantity,
+          totalPrice:
+            wine.variantMap[selectedSize].price.amount * selectedQuantity,
+        }}
+      />
+    </div>
   );
 };
 

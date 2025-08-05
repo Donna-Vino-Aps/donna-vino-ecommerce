@@ -341,6 +341,7 @@
   "wineCard.viewDetails": "Se detaljer",
   "wineCard.addToCart": "Læg i indkøbskurv",
   "wineCard.addedToCart": "Tilføjet til kurven!",
+  "wineCard.addedToYourCart": "Tilføjet til din kurv!",
   "presale.no-wine-matches-filter": "Ingen forsalgs-vine matcher dine filtre.",
   "presale.no-wine": "Ingen forsalgs-vine tilgængelige i øjeblikket.",
   "presale-filter.wineVariety": "Vintype",
