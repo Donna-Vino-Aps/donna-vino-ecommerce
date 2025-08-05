@@ -54,6 +54,7 @@ WineCard.propTypes = {
     imageUrl: PropTypes.string.isRequired,
     bottlePrice: PropTypes.number.isRequired,
     rating: PropTypes.number.isRequired,
+    vintage: PropTypes.number.isRequired,
     nrOfRatings: PropTypes.number.isRequired,
     variantMap: PropTypes.shape({
       bottle: PropTypes.object,
