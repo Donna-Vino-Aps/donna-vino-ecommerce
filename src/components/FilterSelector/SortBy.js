@@ -1,37 +1,36 @@
+"use client";
 import React, { useState } from "react";
 import Image from "next/image";
+import { usePreSaleWines } from "@/context/PreSaleWinesContext";
+import { useLanguage } from "@/context/LanguageContext";
+
+const sortingOptions = [
+  { id: "wineVariety" },
+  { id: "newest" },
+  { id: "price-asc" },
+  { id: "price-desc" },
+  { id: "name-asc" },
+  { id: "name-desc" },
+];
 
 const SortBy = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [selectedSorting, setSelectedSorting] = useState(null);
+  const { selectedSort, setSelectedSort } = usePreSaleWines();
+  const { translations } = useLanguage();
 
-  const sortingMockData = [
-    {
-      id: "newest",
-      title: "Newest",
-      display: "Newest",
-    },
-    {
-      id: "price",
-      title: "Price (low->high)",
-      display: "Price",
-    },
-    {
-      id: "winetype",
-      title: "Wine Type",
-      display: "Wine type",
-    },
-  ];
+  const getLabel = (id) => {
+    return (
+      translations[`presale-filter.${id}`] ||
+      sortingOptions.find((item) => item.id === id)?.id
+    );
+  };
 
-  const sortingData = sortingMockData;
-
-  const selectedTitle =
-    sortingData.find((item) => item.id === selectedSorting)?.display || "…";
+  const selectedTitle = getLabel(selectedSort) || getLabel("newest");
 
   return (
     <section className="relative flex-shrink gap-4">
       <div
-        className={`relative min-h-[3.5rem] w-[13rem] rounded-md border border-tertiary1-light xs:w-[17rem] md:ml-4 md:min-h-[2.75rem] md:w-[9.625rem]
+        className={`relative min-h-[3.5rem] w-[13rem] rounded-md border border-tertiary1-light xs:w-[17rem] md:ml-4 md:min-h-[2.75rem] md:w-[12.25rem]
       ${isOpen ? "rounded-b-none border-b-0" : ""}`}
       >
         {/* Make the header and dropdown consistent in padding and alignment */}
@@ -41,7 +40,7 @@ const SortBy = () => {
         >
           <div className="flex items-center justify-between font-barlow">
             <p className="text-labelLarge font-medium md:text-titleMedium">
-              {selectedSorting ? selectedTitle : "Newest"}
+              {selectedSort ? selectedTitle : "Newest"}
             </p>
             <div className="md:relative md:top-[1px]">
               <Image
@@ -60,16 +59,16 @@ const SortBy = () => {
         </div>
         {isOpen && (
           <div className="absolute -left-[1px] top-full z-50 box-border w-[calc(100%+2px)] rounded-b-md border-b border-l border-r border-tertiary1-light bg-white">
-            {sortingData.map((item) => (
+            {sortingOptions.map((item) => (
               <div
                 key={item.id}
                 className="cursor-pointer px-4 py-2 hover:rounded-sm hover:bg-tertiary2-dark"
                 onClick={() => {
-                  setSelectedSorting(item.id);
+                  setSelectedSort(item.id);
                   setIsOpen(false);
                 }}
               >
-                {item.title}
+                {getLabel(item.id)}
               </div>
             ))}
           </div>

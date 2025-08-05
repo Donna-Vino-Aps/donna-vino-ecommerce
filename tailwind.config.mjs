@@ -139,6 +139,9 @@ export default {
         "dots-size-lg": "35px 35px",
         "dots-size-sm": "25px 25px",
       },
+      boxShadow: {
+        card: '0 1px 4px 0 rgba(0, 0, 0, 0.25)',
+      },
     },
   },
   darkMode: "class", // Enable dark mode using a class
