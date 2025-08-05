@@ -13,10 +13,12 @@ export default function Pairing({ title, imageUrl, description }) {
         />
       </div>
       <div>
-        <p className="mb-4 mt-10 font-barlow text-labelXLarge font-semibold">
+        <p className="mb-4 mt-10 font-barlow text-labelXLarge text-tertiary1-active_dark">
           {title}
         </p>
-        <p className="text-bodyLarge">{description}</p>
+        <p className="text-bodyLarge text-primary-text_color md:text-tertiary1-dark">
+          {description}
+        </p>
       </div>
     </div>
   );

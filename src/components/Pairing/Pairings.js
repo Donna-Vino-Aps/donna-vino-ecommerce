@@ -8,10 +8,10 @@ export default function Pairings({ pairingSet }) {
   return (
     <section className="my-28 w-full px-4 md:px-8">
       <div>
-        <h1 className="font-barlow text-displayMedium">
+        <h1 className="text-center font-barlow text-headlineMedium md:text-left md:text-displayMedium">
           Your Wine at the Table
         </h1>
-        <p className="mt-2 text-bodyLarge">
+        <p className="mt-2 text-center text-bodyLarge text-tertiary1-hover_dark md:text-left">
           Enhance the flavors with the perfect pairings. This Alamos Malbec
           pairs beautifully with:
         </p>
