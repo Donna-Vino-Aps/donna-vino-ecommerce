@@ -1,5 +1,5 @@
 "use client";
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation } from "swiper/modules";
 import Link from "next/link";
@@ -13,12 +13,15 @@ import { getWineUrl } from "@/utils/wineUtils";
 import ErrorMessage from "@/components/UI/ErrorMessage";
 import WineCard from "@/components/Card/WineCard";
 import TopWinesHeader from "./TopWinesHeader";
+import WineAddedPopup from "../Cart/WineAddedPopup";
 
 const TopWinesSection = () => {
   const { translations } = useLanguage();
   const { wines, isLoading, error } = useTopWines();
   const prevRef = useRef(null);
   const nextRef = useRef(null);
+  const [showPopup, setShowPopup] = useState(false);
+  const [popupWine, setPopupWine] = useState();
 
   if (isLoading) {
     return (
@@ -95,11 +98,12 @@ const TopWinesSection = () => {
                   className="flex w-full items-center justify-center"
                 >
                   <WineCard
+                    data-testid="wine-card"
+                    wine={wine}
                     key={wine.id}
-                    title={wine.title}
-                    price={wine.bottlePrice}
-                    imageUrl={wine.imageUrl}
                     variant="top-wines"
+                    setShowPopup={setShowPopup}
+                    setPopupWine={setPopupWine}
                   />
                 </Link>
               </div>
@@ -143,6 +147,19 @@ const TopWinesSection = () => {
           />
         </div>
       </div>
+      {showPopup && (
+        <WineAddedPopup
+          isOpen={showPopup}
+          wine={{
+            imageUrl: popupWine.imageUrl,
+            title: popupWine.title,
+            vintage: popupWine.vintage,
+            size: "bottle",
+            quantity: 1,
+            totalPrice: popupWine.variantMap.bottle.price.amount,
+          }}
+        />
+      )}
     </section>
   );
 };

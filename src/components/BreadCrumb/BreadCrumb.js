@@ -35,7 +35,7 @@ const Breadcrumb = () => {
       <div className="container">
         <div className="mb-8 w-full">
           {/* eslint-disable-next-line tailwindcss/no-custom-classname */}
-          <div className="border-light dark:bg-dark-2 dark:border-dark-3 shadow-1 dark:shadow-card rounded-lg border bg-white px-4 py-4 sm:px-6 md:px-8 md:py-5">
+          <div className="border-light dark:bg-dark-2 dark:border-dark-3 shadow-1 rounded-lg border bg-white px-4 py-4 dark:shadow-card sm:px-6 md:px-8 md:py-5">
             <ul className="flex items-center">
               {breadcrumbs.map((breadcrumb, index) => (
                 <li key={index} className="flex items-center">

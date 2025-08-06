@@ -130,7 +130,7 @@ const WineInfo = ({ wine }) => {
             textBefore={translations["wine-details.addPreOrder"]}
             textAfter={translations["wine-details.addedPreOrder"]}
             color={"primary"}
-            clickedStyle={" bg-others-confirm "}
+            clickedStyle={"bg-others-confirm"}
             variant="rounded"
             icon="/icons/cart-white.svg"
             size="md"
