@@ -14,7 +14,7 @@ const WineCard = ({ wine, isNew, context }) => {
       role="button"
       tabIndex={0}
       className={`
-        group mx-3 flex max-w-[300px] cursor-pointer flex-col items-center 
+        group mx-3 box-border flex h-full w-full max-w-[300px] cursor-pointer flex-col items-center 
         justify-center gap-2 rounded-lg bg-tertiary2-light p-4  shadow-lg 
         transition-transform duration-300 hover:scale-105 ${isPreSale && "sm:max-w-[384px] sm:p-5"}
       `}
