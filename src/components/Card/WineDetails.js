@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 
 const WineDetails = ({ title, bottlePrice, isPreSale }) => {
   return (
-    <div className="flex w-full flex-grow flex-col ">
+    <div className="flex w-full flex-grow flex-col">
       <div className="flex items-center justify-between self-stretch">
         <h3
           data-testid="wine-title"

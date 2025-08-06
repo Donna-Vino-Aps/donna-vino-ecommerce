@@ -4,8 +4,7 @@ import PropTypes from "prop-types";
 import WineActions from "./WineActions.js";
 import WineDetails from "./WineDetails.js";
 
-const WineCard = ({ wine, isNew, context, setShowPopup }) => {
-  const { title, imageUrl } = wine;
+const WineCard = ({ wine, isNew, context, setShowPopup, setPopupWine }) => {
   const isPreSale = context === "pre-sale";
 
   return (
@@ -31,8 +30,8 @@ const WineCard = ({ wine, isNew, context, setShowPopup }) => {
         className={`relative flex h-[283px] max-w-[288px]  flex-col items-center justify-center ${isPreSale && "sm:h-[360px] sm:w-[343px]"}`}
       >
         <img
-          src={imageUrl}
-          alt={`Image of wine: ${title}`}
+          src={wine.imageUrl}
+          alt={`Image of wine: ${wine.title}`}
           className="h-full w-full object-contain"
           data-testid="wine-image"
         />
@@ -48,6 +47,7 @@ const WineCard = ({ wine, isNew, context, setShowPopup }) => {
         context={context}
         isPreSale={isPreSale}
         setShowPopup={setShowPopup}
+        setPopupWine={setPopupWine}
       />
     </section>
   );
@@ -66,15 +66,9 @@ WineCard.propTypes = {
     }).isRequired,
   }).isRequired,
   isNew: PropTypes.bool,
-  buttons: PropTypes.arrayOf(
-    PropTypes.shape({
-      icon: PropTypes.string.isRequired,
-      tooltip: PropTypes.string.isRequired,
-      onClick: PropTypes.func.isRequired,
-    }),
-  ),
   context: PropTypes.oneOf(["pre-sale", "top-wines"]),
   setShowPopup: PropTypes.func.isRequired,
+  setPopupWine: PropTypes.func.isRequired,
 };
 
 export default WineCard;

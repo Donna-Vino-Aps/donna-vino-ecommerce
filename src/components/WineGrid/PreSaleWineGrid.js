@@ -14,6 +14,7 @@ const PreSaleWineGrid = () => {
   const { wines, isLoading, error, activeFilters } = usePreSaleWines();
   const { translations } = useLanguage();
   const [showPopup, setShowPopup] = useState(false);
+  const [popupWine, setPopupWine] = useState();
 
   if (isLoading) {
     return (
@@ -53,6 +54,7 @@ const PreSaleWineGrid = () => {
               wine={wine}
               context={"pre-sale"}
               setShowPopup={setShowPopup}
+              setPopupWine={setPopupWine}
             />
           </Link>
         );
@@ -61,12 +63,12 @@ const PreSaleWineGrid = () => {
         <WineAddedPopup
           isOpen={showPopup}
           wine={{
-            imageUrl: showPopup.imageUrl,
-            title: showPopup.title,
-            vintage: showPopup.vintage,
+            imageUrl: popupWine.imageUrl,
+            title: popupWine.title,
+            vintage: popupWine.vintage,
             size: "bottle",
             quantity: 1,
-            totalPrice: showPopup.variantMap.bottle.price.amount,
+            totalPrice: popupWine.variantMap.bottle.price.amount,
           }}
         />
       )}

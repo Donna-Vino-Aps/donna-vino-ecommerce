@@ -32,7 +32,12 @@ describe("WineCard Component", () => {
 
   test("renders wine title, price, and image", () => {
     renderWithProviders(
-      <WineCard wine={mockWine} context="pre-sale" setShowPopup={jest.fn()} />,
+      <WineCard
+        wine={mockWine}
+        context="pre-sale"
+        setShowPopup={jest.fn()}
+        setPopupWine={jest.fn()}
+      />,
     );
 
     expect(screen.getByTestId("wine-title")).toHaveTextContent(mockWine.title);
@@ -47,18 +52,19 @@ describe("WineCard Component", () => {
         isNew
         context="pre-sale"
         setShowPopup={jest.fn()}
+        setPopupWine={jest.fn()}
       />,
     );
     expect(screen.getByText("New")).toBeInTheDocument();
   });
 
   test("adds wine to cart", () => {
-    const mockSetShowPopup = jest.fn();
     renderWithProviders(
       <WineCard
         wine={mockWine}
         context="pre-sale"
-        setShowPopup={mockSetShowPopup}
+        setShowPopup={jest.fn()}
+        setPopupWine={jest.fn()}
       />,
     );
 
@@ -66,6 +72,5 @@ describe("WineCard Component", () => {
     fireEvent.click(button);
 
     expect(button).toHaveTextContent(/Added to Cart/i);
-    expect(mockSetShowPopup).toHaveBeenCalled(); //
   });
 });

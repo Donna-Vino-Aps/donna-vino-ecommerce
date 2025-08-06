@@ -21,6 +21,7 @@ const TopWinesSection = () => {
   const prevRef = useRef(null);
   const nextRef = useRef(null);
   const [showPopup, setShowPopup] = useState(false);
+  const [popupWine, setPopupWine] = useState();
 
   if (isLoading) {
     return (
@@ -102,6 +103,7 @@ const TopWinesSection = () => {
                     key={wine.id}
                     variant="top-wines"
                     setShowPopup={setShowPopup}
+                    setPopupWine={setPopupWine}
                   />
                 </Link>
               </div>
@@ -149,12 +151,12 @@ const TopWinesSection = () => {
         <WineAddedPopup
           isOpen={showPopup}
           wine={{
-            imageUrl: showPopup.imageUrl,
-            title: showPopup.title,
-            vintage: showPopup.vintage,
+            imageUrl: popupWine.imageUrl,
+            title: popupWine.title,
+            vintage: popupWine.vintage,
             size: "bottle",
             quantity: 1,
-            totalPrice: showPopup.variantMap.bottle.price.amount,
+            totalPrice: popupWine.variantMap.bottle.price.amount,
           }}
         />
       )}
