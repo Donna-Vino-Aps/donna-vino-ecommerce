@@ -10,7 +10,7 @@ const FaqItem = ({ question, answer }) => {
       className={`mx-auto flex flex-col rounded-lg border border-solid border-tertiary2-hover_normal ${isOpen ? "bg-transparent" : "bg-tertiary2-normal"} w-full px-4 transition-all duration-700 ease-in-out sm:mx-8 sm:min-w-[18.5rem] sm:max-w-[48.125rem]`}
     >
       <div
-        className={`my-3 flex w-full cursor-pointer items-center justify-between py-[3px]`}
+        className={`${isOpen ? "mt-3" : "my-3"} flex w-full cursor-pointer items-center justify-between py-[3px] transition-all duration-300 ease-in-out`}
         onClick={() => setIsOpen((prev) => !prev)}
       >
         <h4 className="pr-2 text-labelLarge font-medium md:text-titleMedium">
