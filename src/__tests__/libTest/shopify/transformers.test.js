@@ -162,6 +162,15 @@ const mockShopifyWineProductSpecific = {
   tasteProfile: {
     value: '[\"Nuanced\",\"Spicy\",\"Fruity\",\"Berries\",\"Acidic\"]',
   },
+  tastesFruits: {
+    value: '[\"Pineapple\",\"mango\",\"passion fruit\"]',
+  },
+  tastesSpices: {
+    value: '[\"Black pepper\",\"cloves\",\"thyme\"]',
+  },
+  tastesNotes: {
+    value: '[\"Truffles\",\"undergrowth\",\"mushrooms\"]',
+  },
   alcoholContent: {
     value: "13.5",
   },
@@ -359,6 +368,9 @@ describe("Shopify Data Transformers", () => {
         grape: "Pinot noir",
         vineyard: "Cantina Kurtatsch",
         tasteProfile: ["Nuanced", "Spicy", "Fruity", "Berries", "Acidic"],
+        tastesFruits: ["Pineapple", "mango", "passion fruit"],
+        tastesSpices: ["Black pepper", "cloves", "thyme"],
+        tastesNotes: ["Truffles", "undergrowth", "mushrooms"],
         alcoholContent: 13.5,
         servingTemperature: "16-18",
         vintage: "2024",
