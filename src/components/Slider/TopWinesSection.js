@@ -1,5 +1,5 @@
 "use client";
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation } from "swiper/modules";
 import Link from "next/link";
@@ -13,12 +13,14 @@ import { getWineUrl } from "@/utils/wineUtils";
 import ErrorMessage from "@/components/UI/ErrorMessage";
 import WineCard from "@/components/Card/WineCard";
 import TopWinesHeader from "./TopWinesHeader";
+import WineAddedPopup from "../Cart/WineAddedPopup";
 
 const TopWinesSection = () => {
   const { translations } = useLanguage();
   const { wines, isLoading, error } = useTopWines();
   const prevRef = useRef(null);
   const nextRef = useRef(null);
+  const [showPopup, setShowPopup] = useState(false);
 
   if (isLoading) {
     return (
@@ -99,6 +101,7 @@ const TopWinesSection = () => {
                     wine={wine}
                     key={wine.id}
                     variant="top-wines"
+                    setShowPopup={setShowPopup}
                   />
                 </Link>
               </div>
@@ -142,6 +145,19 @@ const TopWinesSection = () => {
           />
         </div>
       </div>
+      {showPopup && (
+        <WineAddedPopup
+          isOpen={showPopup}
+          wine={{
+            imageUrl: showPopup.imageUrl,
+            title: showPopup.title,
+            vintage: showPopup.vintage,
+            size: "bottle",
+            quantity: 1,
+            totalPrice: showPopup.variantMap.bottle.price.amount,
+          }}
+        />
+      )}
     </section>
   );
 };

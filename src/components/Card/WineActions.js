@@ -6,7 +6,7 @@ import { useCart } from "@/context/ShoppingCartContext.js";
 import useIsMobile from "@/hooks/useIsMobile.js";
 import AnimatedButton from "../Button/AnimatedButton.js";
 
-const WineActions = ({ wine, isPreSale }) => {
+const WineActions = ({ wine, isPreSale, setShowPopup }) => {
   const { translations } = useLanguage();
   const { addItemToCart } = useCart();
   const isMobile = useIsMobile();
@@ -25,6 +25,8 @@ const WineActions = ({ wine, isPreSale }) => {
     };
 
     addItemToCart(itemToAdd);
+    setShowPopup(wine);
+    setTimeout(() => setShowPopup(null), 3000);
   };
 
   return (
@@ -40,11 +42,7 @@ const WineActions = ({ wine, isPreSale }) => {
       <AnimatedButton
         textBefore={translations["wineCard.addToCart"]}
         textAfter={translations["wineCard.addedToCart"]}
-        onClick={
-          isPreSale
-            ? handleAddToCart
-            : () => console.warn("Pressed add to cart in TopWines section")
-        }
+        onClick={handleAddToCart}
         clickedStyle={"bg-others-confirm"}
         size={isPreSale && !isMobile ? "lg" : "md"}
         width={isPreSale && !isMobile ? "lg" : "md"}
@@ -73,6 +71,7 @@ WineActions.propTypes = {
     }).isRequired,
   }).isRequired,
   isPreSale: PropTypes.bool.isRequired,
+  setShowPopup: PropTypes.func.isRequired,
 };
 
 export default WineActions;

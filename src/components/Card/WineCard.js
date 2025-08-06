@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 import WineActions from "./WineActions.js";
 import WineDetails from "./WineDetails.js";
 
-const WineCard = ({ wine, isNew, context }) => {
+const WineCard = ({ wine, isNew, context, setShowPopup }) => {
   const { title, imageUrl } = wine;
   const isPreSale = context === "pre-sale";
 
@@ -43,7 +43,12 @@ const WineCard = ({ wine, isNew, context }) => {
         bottlePrice={wine.bottlePrice}
         isPreSale={isPreSale}
       />
-      <WineActions wine={wine} context={context} isPreSale={isPreSale} />
+      <WineActions
+        wine={wine}
+        context={context}
+        isPreSale={isPreSale}
+        setShowPopup={setShowPopup}
+      />
     </section>
   );
 };
@@ -69,6 +74,7 @@ WineCard.propTypes = {
     }),
   ),
   context: PropTypes.oneOf(["pre-sale", "top-wines"]),
+  setShowPopup: PropTypes.func.isRequired,
 };
 
 export default WineCard;

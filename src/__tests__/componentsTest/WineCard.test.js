@@ -31,7 +31,9 @@ describe("WineCard Component", () => {
   };
 
   test("renders wine title, price, and image", () => {
-    renderWithProviders(<WineCard wine={mockWine} context="pre-sale" />);
+    renderWithProviders(
+      <WineCard wine={mockWine} context="pre-sale" setShowPopup={jest.fn()} />,
+    );
 
     expect(screen.getByTestId("wine-title")).toHaveTextContent(mockWine.title);
     expect(screen.getByTestId("wine-price")).toHaveTextContent("Kr. 150,00");
@@ -39,31 +41,31 @@ describe("WineCard Component", () => {
   });
 
   test("renders 'New' badge when isNew is true", () => {
-    renderWithProviders(<WineCard wine={mockWine} isNew context="pre-sale" />);
+    renderWithProviders(
+      <WineCard
+        wine={mockWine}
+        isNew
+        context="pre-sale"
+        setShowPopup={jest.fn()}
+      />,
+    );
     expect(screen.getByText("New")).toBeInTheDocument();
   });
 
-  test("disables add-to-cart in top-wines context", () => {
-    const consoleWarnSpy = jest
-      .spyOn(console, "warn")
-      .mockImplementation(() => {});
-    renderWithProviders(<WineCard wine={mockWine} context="top-wines" />);
-
-    const button = screen.getByTestId("addToCart-button");
-    fireEvent.click(button);
-
-    expect(consoleWarnSpy).toHaveBeenCalledWith(
-      "Pressed add to cart in TopWines section",
+  test("adds wine to cart", () => {
+    const mockSetShowPopup = jest.fn();
+    renderWithProviders(
+      <WineCard
+        wine={mockWine}
+        context="pre-sale"
+        setShowPopup={mockSetShowPopup}
+      />,
     );
 
-    consoleWarnSpy.mockRestore();
-  });
-
-  test("adds wine to cart in pre-sale context", () => {
-    renderWithProviders(<WineCard wine={mockWine} context="pre-sale" />);
     const button = screen.getByTestId("addToCart-button");
     fireEvent.click(button);
 
     expect(button).toHaveTextContent(/Added to Cart/i);
+    expect(mockSetShowPopup).toHaveBeenCalled(); //
   });
 });
