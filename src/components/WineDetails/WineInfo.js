@@ -1,4 +1,5 @@
 "use client";
+
 import React, { useState } from "react";
 import PropTypes from "prop-types";
 import { AvailabilityDisplay } from "./AvailabilityDisplay";
@@ -11,11 +12,13 @@ import { useCart } from "@/context/ShoppingCartContext";
 import Image from "next/image";
 import { logError } from "@/utils/logging";
 import AnimatedButton from "../Button/AnimatedButton";
+import WineAddedPopup from "@/components/Cart/WineAddedPopup";
 
 const WineInfo = ({ wine }) => {
   const { translations } = useLanguage();
   const { addItemToCart } = useCart();
 
+  const [showPopup, setShowPopup] = useState(false);
   const [selectedSize, setSelectedSize] = useState(() => {
     if (wine.variantMap.bottle) return "bottle";
     if (wine.variantMap.case) return "case";
@@ -23,7 +26,7 @@ const WineInfo = ({ wine }) => {
   });
 
   const [preSale, setPreSale] = useState(!wine.inStock);
-  const [selectedQuantity, setSelectedQuantity] = React.useState(1);
+  const [selectedQuantity, setSelectedQuantity] = useState(1);
 
   const handleAddToCart = () => {
     const selectedVariant = wine.variantMap[selectedSize];
@@ -45,10 +48,12 @@ const WineInfo = ({ wine }) => {
       imageUrl: wine.imageUrl,
     };
     addItemToCart(itemToAdd);
+    setShowPopup(true);
+    setTimeout(() => setShowPopup(false), 3000);
   };
 
   return (
-    <article className="relative flex flex-col items-center justify-center gap-6 md:gap-8 lg:flex-row lg:gap-12">
+    <div className="relative flex flex-col items-center justify-center gap-6 md:gap-8 lg:flex-row lg:gap-12">
       <Image
         src={wine.imageUrl}
         alt={wine.title}
@@ -143,7 +148,19 @@ const WineInfo = ({ wine }) => {
           grape={wine.grape}
         />
       </div>
-    </article>
+      <WineAddedPopup
+        isOpen={showPopup}
+        wine={{
+          imageUrl: wine.imageUrl,
+          title: wine.title,
+          vintage: wine.vintage,
+          size: String(selectedSize),
+          quantity: selectedQuantity,
+          totalPrice:
+            wine.variantMap[selectedSize].price.amount * selectedQuantity,
+        }}
+      />
+    </div>
   );
 };
 
@@ -168,6 +185,7 @@ WineInfo.propTypes = {
     region: PropTypes.string.isRequired,
     vineyard: PropTypes.string.isRequired,
     wineVariety: PropTypes.string.isRequired,
+    vintage: PropTypes.string,
     grape: PropTypes.string.isRequired,
     variantMap: PropTypes.shape({
       bottle: PropTypes.object,

@@ -123,7 +123,8 @@ export default {
         },
       },
       screens: {
-        xs: "368px",
+        xxs: "320px",
+        xs: "360px",
         sm: "640px",
         md: "768px",
         lg: "1024px",
@@ -139,6 +140,9 @@ export default {
       backgroundSize: {
         "dots-size-lg": "35px 35px",
         "dots-size-sm": "25px 25px",
+      },
+      boxShadow: {
+        card: '0 1px 4px 0 rgba(0, 0, 0, 0.25)',
       },
     },
   },

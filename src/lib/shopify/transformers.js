@@ -169,6 +169,14 @@ export function transformShopifyWineProduct(product) {
     tasteProfile:
       parseJsonMetafield(product.tasteProfile, "tasteProfile", product.id) ||
       [],
+    tastesFruits:
+      parseJsonMetafield(product.tastesFruits, "tastesFruits", product.id) ||
+      [],
+    tastesSpices:
+      parseJsonMetafield(product.tastesSpices, "tastesSpices", product.id) ||
+      [],
+    tastesNotes:
+      parseJsonMetafield(product.tastesNotes, "tastesNotes", product.id) || [],
     volume: parseJsonMetafield(product.volume, "volume", product.id),
 
     // Parsed numeric metafields

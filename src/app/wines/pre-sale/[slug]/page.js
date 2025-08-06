@@ -39,7 +39,7 @@ export default function WineDetailPage() {
   }
 
   return (
-    <div className="px-8 py-12">
+    <div className="flex flex-col gap-6 px-8 py-12 sm:gap-8">
       <WineInfo wine={wine} />
       <MoreInfoDropdown wine={wine} />
       <TasteProfile wine={wine} />
