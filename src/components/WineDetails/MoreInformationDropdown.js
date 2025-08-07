@@ -42,9 +42,9 @@ const MoreInfoDropdown = ({ wine }) => {
   ];
 
   return (
-    <article className="mt-2 w-full sm:mt-7 md:mt-10 lg:mt-20">
+    <article className="mt-8 w-full md:mt-12">
       <div
-        className={`mx-auto my-4 w-11/12 min-w-[270px] max-w-[1250px] ${!isMobile && "rounded-b-lg"} ${isOpen && !isMobile && "shadow-md"}`}
+        className={`mx-auto my-4 w-full min-w-[270px] max-w-[1298px] ${!isMobile && "rounded-b-lg"} ${isOpen && !isMobile && "shadow-md"}`}
       >
         <button
           onClick={() => setIsOpen(!isOpen)}

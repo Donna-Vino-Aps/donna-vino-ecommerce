@@ -2,30 +2,41 @@
 import React from "react";
 import TasteCard from "@/components/TasteCard/TasteCard";
 import { useLanguage } from "@/context/LanguageContext";
-export default function TasteProfileCards() {
+import PropTypes from "prop-types";
+
+export default function TasteProfileCards({ wine }) {
   const { translations } = useLanguage();
+
   return (
     <section className="flex w-full items-center justify-center">
-      <div className="grid w-full max-w-[1440px] auto-rows-min grid-cols-1 justify-items-center gap-x-10 gap-y-12 pt-8 sm:grid-cols-2 sm:gap-x-14 sm:px-20 lg:grid-cols-3 lg:pt-0">
+      <div className="px-4 grid w-full max-w-[1440px] auto-rows-min grid-cols-1 justify-items-center gap-x-10 gap-y-12 pt-10 sm:pt-12 sm:grid-cols-2 sm:gap-x-14 sm:px-20 lg:grid-cols-3">
         <TasteCard
           icon="/icons/tasteCard/grape.svg"
           title={translations["tasteProfile.tasteCard.fruitsTitle"]}
           bgColor="bg-primary-darker"
-          description="Exotic fruits: Pineapple, mango, passion fruit"
+          description={wine?.tastesFruits?.join(", ")}
         />
         <TasteCard
           icon="/icons/tasteCard/ph_plant.svg"
           title={translations["tasteProfile.tasteCard.spicesTitle"]}
           bgColor="bg-others-oliveGold"
-          description="Spicy spices: Black pepper, cloves"
+          description={wine?.tastesSpices?.join(", ")}
         />
         <TasteCard
           icon="/icons/tasteCard/streamline_log.svg"
           title={translations["tasteProfile.tasteCard.balsamicEarthTitle"]}
           bgColor="bg-secondary-dark"
-          description="Earthy: Truffles, undergrowth, mushrooms"
+          description={wine?.tastesNotes?.join(", ")}
         />
       </div>
     </section>
   );
 }
+
+TasteProfileCards.propTypes = {
+  wine: PropTypes.shape({
+    tastesFruits: PropTypes.arrayOf(PropTypes.string).isRequired,
+    tastesSpices: PropTypes.arrayOf(PropTypes.string).isRequired,
+    tastesNotes: PropTypes.arrayOf(PropTypes.string).isRequired,
+  }).isRequired,
+};
