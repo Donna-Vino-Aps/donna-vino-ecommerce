@@ -9,7 +9,7 @@ export default function TasteProfileCards({ wine }) {
 
   return (
     <section className="flex w-full items-center justify-center">
-      <div className="px-4 grid w-full max-w-[1440px] auto-rows-min grid-cols-1 justify-items-center gap-x-10 gap-y-12 pt-10 sm:pt-12 sm:grid-cols-2 sm:gap-x-14 sm:px-20 lg:grid-cols-3">
+      <div className="px-4 grid w-full max-w-[1440px] auto-rows-min grid-cols-1 justify-items-center gap-x-10 gap-y-12 pt-10 sm:pt-12 md:grid-cols-1 sm:gap-x-14 sm:px-20 lg:grid-cols-3">
         <TasteCard
           icon="/icons/tasteCard/grape.svg"
           title={translations["tasteProfile.tasteCard.fruitsTitle"]}
