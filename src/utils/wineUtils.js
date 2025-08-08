@@ -70,6 +70,9 @@ export const normalizeWineData = (wine, translations) => {
     alcoholContent,
     tasteProfile: wine.tasteProfile,
     tasteValues,
+    tastesFruits: wine.tastesFruits,
+    tastesSpices: wine.tastesSpices,
+    tastesNotes: wine.tastesNotes,
   };
 };
 

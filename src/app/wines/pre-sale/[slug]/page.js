@@ -10,6 +10,7 @@ import Spinner from "@/components/UI/Spinner";
 import ErrorMessage from "@/components/UI/ErrorMessage";
 import MoreInfoDropdown from "@/components/WineDetails/MoreInformationDropdown";
 import TasteProfile from "@/components/TasteProfile/TasteProfile";
+import TasteProfileCards from "@/components/TasteProfile/TasteProfileCards";
 
 export default function WineDetailPage() {
   const { slug } = useParams();
@@ -40,8 +41,9 @@ export default function WineDetailPage() {
   return (
     <div className="flex flex-col gap-6 px-8 py-12 sm:gap-8">
       <WineInfo wine={wine} />
-      <MoreInfoDropdown wine={wine} />
       <TasteProfile wine={wine} />
+      <TasteProfileCards wine={wine} />
+      <MoreInfoDropdown wine={wine} />
     </div>
   );
 }
