@@ -14,7 +14,7 @@ export default function TasteCard({
     >
       <div className="mb-6 ml-1 mt-1 flex items-center gap-2 lg:ml-3">
         <img src={icon} alt="TasteCard icon" />
-        <span className="pl-1 text-titleMedium sm:text-titleLarge lg:pl-0">
+        <span className="pl-1 text-titleMedium min-[400px]:text-titleLarge lg:pl-0">
           {title}
         </span>
       </div>
