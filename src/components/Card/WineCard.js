@@ -180,7 +180,7 @@ WineCard.propTypes = {
 const stylesPreSale = {
   section: "sm:w-[384px] sm:p-5",
   image: "sm:h-[360px] sm:w-[343px]",
-  title: "sm:text-headlineLarge",
+  title: "sm:text-headlineSmall",
   rating: "sm:text-headlineSmall",
   reviews: "sm:text-labelXLarge",
   price: "sm:font-semibold sm:text-titleLarge",
