@@ -13,7 +13,7 @@ const WineCard = ({ wine, isNew, context, setShowPopup, setPopupWine }) => {
       role="button"
       tabIndex={0}
       className={`
-        group mx-3 box-border flex h-full w-full max-w-[300px] cursor-pointer flex-col items-center 
+        group box-border flex h-full w-full cursor-pointer flex-col items-center 
         justify-center gap-2 rounded-lg bg-tertiary2-light p-4  shadow-lg 
         transition-transform duration-300 hover:scale-105 ${isPreSale && "sm:max-w-[384px] sm:p-5"}
       `}
@@ -27,7 +27,7 @@ const WineCard = ({ wine, isNew, context, setShowPopup, setPopupWine }) => {
       </div>
 
       <div
-        className={`relative flex h-[283px] max-w-[288px]  flex-col items-center justify-center ${isPreSale && "sm:h-[360px] sm:w-[343px]"}`}
+        className={`relative flex h-[283px] flex-col items-center justify-center ${isPreSale && "sm:h-[360px] sm:w-[343px]"}`}
       >
         <img
           src={wine.imageUrl}
