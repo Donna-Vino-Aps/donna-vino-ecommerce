@@ -129,8 +129,8 @@ const WineInfo = ({ wine }) => {
             onClick={handleAddToCart}
             textBefore={translations["wine-details.addPreOrder"]}
             textAfter={translations["wine-details.addedPreOrder"]}
-            color={"secondary"}
-            clickedStyle={" bg-others-confirm "}
+            color={"primary"}
+            clickedStyle={"bg-others-confirm"}
             variant="rounded"
             icon="/icons/cart-white.svg"
             size="md"

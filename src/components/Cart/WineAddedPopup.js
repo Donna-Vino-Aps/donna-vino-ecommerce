@@ -11,7 +11,7 @@ export default function WineAddedPopup({ wine, isOpen }) {
   if (!isOpen) return null;
 
   return (
-    <section className="fixed top-0 z-50 flex h-[16rem] w-full flex-col items-center justify-between rounded-lg bg-tertiary2-light p-6 shadow-lg transition-opacity duration-300 lg:right-0 lg:top-0 lg:w-[24rem]">
+    <section className="fixed right-0 top-0 z-50 flex h-[16rem] w-full flex-col items-center justify-between rounded-lg bg-tertiary2-light p-6 shadow-lg transition-opacity duration-300 lg:top-0 lg:w-[24rem]">
       <div>
         <p className="font-barlow text-headlineSmall text-tertiary1-darker">
           {translations["wineCard.addedToYourCart"]}
