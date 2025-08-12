@@ -113,7 +113,8 @@ export default {
           confirm: "#34C759",
           negative: "#FF3B30",
           stroke: "#DFE4EA",
-          primaryText: "#637381"
+          primaryText: "#637381",
+          darkDark: '#111928'
         },
       },
       screens: {
