@@ -180,7 +180,7 @@ const Navbar = () => {
 
   return (
     <nav
-      className="z-50 flex h-[7.18rem] w-full items-center justify-between gap-2 py-6 md:h-[14.37rem]"
+      className="z-50 flex h-[7.18rem] w-full items-center justify-between gap-2 py-6 lg:h-[14.37rem]"
       aria-label="Main Navigation"
     >
       <Link
@@ -324,23 +324,25 @@ const Navbar = () => {
       </div>
 
       <div className="flex w-full items-center justify-end gap-14">
-        <div className="relative bottom-[2px] z-[9999] flex items-center gap-3 md:mr-6 lg:gap-5">
-          <SearchButton />
-          <UserDropdown />
-          <ShoppingCart onClick={() => setIsCartOpen(true)} />
-          <div className="relative top-[1px] ml-2 mr-8 h-[1.5rem] w-[1.5rem] lg:hidden">
-            <button
-              onClick={toggleMenu}
-              aria-expanded={isMenuOpen}
-              aria-controls="mobile-menu"
-              aria-label={isMenuOpen ? "Close menu" : "Open menu"}
-              data-testid="menu-toggle"
-              className="hover:opacity-85"
-            >
-              <img src="/icons/menu.svg" alt="menu" />
-            </button>
+        {!isMenuOpen && (
+          <div className="relative bottom-[2px] z-[9999] flex items-center gap-3 md:mr-6 lg:gap-5">
+            <SearchButton />
+            <UserDropdown />
+            <ShoppingCart onClick={() => setIsCartOpen(true)} />
+            <div className="relative top-[1px] ml-2 mr-8 h-[1.5rem] w-[1.5rem] lg:hidden">
+              <button
+                onClick={toggleMenu}
+                aria-expanded={isMenuOpen}
+                aria-controls="mobile-menu"
+                aria-label={isMenuOpen ? "Close menu" : "Open menu"}
+                data-testid="menu-toggle"
+                className="hover:opacity-85"
+              >
+                <img src="/icons/menu.svg" alt="menu" />
+              </button>
+            </div>
           </div>
-        </div>
+        )}
 
         <div className="hidden h-[2.87rem] w-[5.12rem] lg:block">
           <LanguageSwitch />
