@@ -117,7 +117,6 @@ const Profile = () => {
         initialValues={{
           firstName: userInfo?.firstName || "",
           lastName: userInfo?.lastName || "",
-          email: userInfo?.email || "",
           address: userInfo?.address || "",
           country: userInfo?.country || "",
         }}
