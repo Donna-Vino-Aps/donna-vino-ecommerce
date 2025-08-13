@@ -1,6 +1,5 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { logInfo } from "@/utils/logging";
-import useFetch from "@/hooks/api/useFetch";
 
 export default function UserInfoMobile() {
   const { translations } = useLanguage();
