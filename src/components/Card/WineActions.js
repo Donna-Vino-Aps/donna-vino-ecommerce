@@ -47,6 +47,7 @@ const WineActions = ({ wine, isPreSale, setShowPopup, setPopupWine }) => {
         textBefore={translations["wineCard.addToCart"]}
         textAfter={translations["wineCard.addedToCart"]}
         onClick={handleAddToCart}
+        color="secondary"
         clickedStyle={"bg-others-confirm"}
         size={isPreSale && !isMobile ? "lg" : "md"}
         width={isPreSale && !isMobile ? "lg" : "md"}
