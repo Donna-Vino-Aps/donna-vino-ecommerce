@@ -1,33 +1,60 @@
-import React, { useState, useEffect } from "react";
-import { useUser } from "@/context/UserContext";
-import { useAPI } from "@/context/ApiProvider";
-import { useLanguage } from "@/context/LanguageContext";
-import { uploadProfileImage } from "@/utils/profileUtils";
+import React, { useEffect, useState } from "react";
+import { logInfo } from "@/utils/logging";
+import useFetch from "@/hooks/api/useFetch";
 
 export default function UserInfoMobile() {
   const { translations } = useLanguage();
   const { userInfo, setUserInfo } = useUser();
   const [imageUrl, setImageUrl] = useState(
-    userInfo?.picture || "/images/Avatar.png",
+    userData?.profileImageUrl || "/images/Avatar.png",
   );
   const [uploading, setUploading] = useState(false);
+  const { userData, setUserData } = useUser();
 
-  const { post } = useAPI();
-
-  useEffect(() => {
-    if (!userInfo) {
+  const handleFileUpload = async (file) => {
+    if (!file) {
+      alert("No file selected");
       return;
     }
-    if (userInfo.picture) {
-      setImageUrl(userInfo.picture);
-    } else {
-      setImageUrl("/images/Avatar.png");
+    logInfo("Selected file:", file);
+
+    const formData = new FormData();
+    formData.append("file", file);
+
+    for (let pair of formData.entries()) {
+      logInfo(pair[0], pair[1]);
     }
-  }, [userInfo]);
+
+    try {
+      setUploading(true);
+
+      // Pass formData as body and explicitly provide empty headers object
+      // so the APIProvider won't set Content-Type (browser handles it)
+      const data = await post("/upload/profile-logo", {
+        body: formData,
+        headers: {}, // Important: no 'Content-Type' header here!
+      });
+
+      const url = data?.cloudinaryUrl || data?.url;
+      if (url && user) {
+        setUserData({ ...userData, profileImageUrl: url });
+        setImageUrl(url);
+        alert("✅ Image uploaded successfully!");
+      }
+    } catch (error) {
+      console.error(
+        "Upload failed:",
+        error?.response || error?.message || error,
+      );
+      alert("Upload failed, please try again.");
+    } finally {
+      setUploading(false);
+    }
+  };
 
   const handleImageChange = async (e) => {
     const file = e.target.files[0];
-    uploadProfileImage({ file, post, setUserInfo, setImageUrl, setUploading });
+    handleFileUpload(file);
   };
 
   return (
