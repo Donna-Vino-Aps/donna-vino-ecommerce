@@ -33,7 +33,7 @@ export default function HeroSection() {
                 {translations["tasting-info." + event.title]}:
               </h2>
               <p
-                className={`text-bodyLarge sm:text-bodySmall ${event.title == "tastingClassHeader" && "text-primary-normal"}`}
+                className={`text-bodyLarge sm:text-bodySmall`}
                 dangerouslySetInnerHTML={{
                   __html: translations["tasting-info." + event.description],
                 }}
