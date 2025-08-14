@@ -30,8 +30,8 @@ const FrequentlyAskedQuestions = () => {
                 ? "/design-elements/dotted-shape-4x3.svg"
                 : "/design-elements/dotted-shape-top.svg"
             }
-            width={isMobile ? "55" : "50"}
-            height={isMobile ? "55" : "40"}
+            width={isMobile ? "55" : "60"}
+            height={isMobile ? "55" : "55"}
             alt="Dotted shape"
             className="absolute right-0 top-[7.3rem] sm:left-[55%] sm:top-[7.35rem] md:left-[42.5%] md:top-[14.35rem]"
           />
