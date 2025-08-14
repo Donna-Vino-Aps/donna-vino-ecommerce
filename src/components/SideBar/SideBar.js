@@ -52,8 +52,8 @@ const SideBar = ({ isMenuOpen, toggleMenu, navLinks }) => {
       aria-labelledby="menu-heading"
       inert={!isMenuOpen}
     >
-      <div className="flex h-full flex-col gap-8 p-8">
-        <div className="flex items-center justify-between">
+      <div className="flex h-full flex-col gap-7 p-8">
+        <div className="flex items-center justify-end">
           {session && <UserInfoMobile />}
           <button
             role="button"
