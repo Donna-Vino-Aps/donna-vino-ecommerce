@@ -9,7 +9,6 @@ import SearchButton from "./SearchButton";
 import UserDropdown from "./UserDropdown/UserDropdown";
 import ShoppingCart from "./ShoppingCart";
 import CartModal from "../Cart/CartModal";
-import { useSession } from "next-auth/react";
 
 const Navbar = () => {
   const { translations } = useLanguage();
@@ -20,8 +19,6 @@ const Navbar = () => {
     wines: false,
     grapeszones: false,
   });
-
-  const { data: session } = useSession();
 
   const [isCartOpen, setIsCartOpen] = useState(false);
 
@@ -327,7 +324,7 @@ const Navbar = () => {
       </div>
 
       <div className="flex w-full items-center justify-end gap-14">
-        {!(session && isMenuOpen) && (
+        {!isMenuOpen && (
           <div className="relative bottom-[2px] z-[9999] flex items-center gap-3 md:mr-6 lg:gap-5">
             <SearchButton />
             <UserDropdown />
