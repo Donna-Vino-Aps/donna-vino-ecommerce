@@ -1,5 +1,8 @@
 import React, { useState } from "react";
 import { logInfo } from "@/utils/logging";
+import { useLanguage } from "@/context/LanguageContext";
+import { useUser } from "@/context/UserContext";
+import { useAPI } from "@/context/ApiProvider";
 
 export default function UserInfoMobile() {
   const { translations } = useLanguage();
