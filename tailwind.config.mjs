@@ -119,6 +119,7 @@ export default {
           sliderbackground: "#d1d5db",
           stroke: "#DFE4EA",
           primaryText: "#637381",
+          oliveGold: "#7B6A30",
         },
       },
       screens: {
