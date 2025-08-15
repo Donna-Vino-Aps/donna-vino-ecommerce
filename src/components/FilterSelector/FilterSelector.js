@@ -20,7 +20,7 @@ const FilterSelector = ({ isFilterModalOpen }) => {
 
   return (
     <div
-      className={`flex flex-col ${isMobile && isFilterModalOpen ? "gap-1" : "ml-3 gap-3"}`}
+      className={`flex flex-col ${isMobile && isFilterModalOpen ? "gap-1" : "gap-3"}`}
     >
       {filterData.map((filter) => (
         <div key={filter.key}>
