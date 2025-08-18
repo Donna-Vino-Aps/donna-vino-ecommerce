@@ -1,3 +1,4 @@
+"use client";
 import { useLanguage } from "@/context/LanguageContext";
 import PropTypes from "prop-types";
 import React from "react";
@@ -11,32 +12,35 @@ export default function TastingCard({
   buttonTitle,
 }) {
   const { translations } = useLanguage();
+
   return (
-    <div className="flex w-72 flex-col gap-5 rounded-[2rem] bg-white pb-5 sm:w-96 sm:rounded-[3rem]">
+    <div className="w-72 rounded-[2rem] bg-white sm:w-96 sm:rounded-[3rem]">
       <img
         src={"/images/" + image}
         alt={translations["tasting-info." + title] + " image"}
-        className="h-40 w-96"
+        className="h-32 w-full sm:h-40"
       />
-      <h3 className="text-center text-headlineSmall sm:text-headlineLarge">
-        {translations["tasting-info." + title]}
-      </h3>
-      <div className="flex h-32 flex-col justify-between px-3 sm:h-44">
-        <p
-          className="text-center text-labelSmall sm:text-bodyLarge"
-          dangerouslySetInnerHTML={{
-            __html: translations["tasting-info-card." + body],
-          }}
+      <div className="flex flex-col gap-y-4 px-4 py-8 lg:p-4">
+        <h3 className="text-center text-headlineSmall text-tertiary1-darker sm:text-headlineLarge">
+          {translations["tasting-info." + title]}
+        </h3>
+        <div className="flex h-32 flex-col justify-between sm:h-44 lg:h-[10.5rem]">
+          <p
+            className="text-center text-labelSmall text-tertiary1-normal sm:text-bodyLarge"
+            dangerouslySetInnerHTML={{
+              __html: translations["tasting-info-card." + body],
+            }}
+          />
+          <p className="text-center text-labelSmall sm:text-bodyLarge">
+            {translations["tasting-info-card." + engagement]}
+          </p>
+        </div>
+        <Button
+          text={translations["tasting-info-card." + buttonTitle]}
+          linkUrl={"/events"}
+          extraStyle="mx-auto min-w-max h-8 text-bodyMedium sm:h-[2.5rem] sm:text-titleMedium px-3 hover:bg-primary-hover_normal"
         />
-        <p className="text-center text-labelSmall sm:text-bodyLarge">
-          {translations["tasting-info-card." + engagement]}
-        </p>
       </div>
-      <Button
-        text={translations["tasting-info-card." + buttonTitle]}
-        linkUrl={"/events"}
-        extraStyle="mx-auto min-w-max h-[2rem] text-bodyMedium sm:h-[2.5rem] sm:text-titleMedium px-3"
-      />
     </div>
   );
 }

@@ -33,19 +33,19 @@ export default function CardsSection() {
 
   return (
     <section className="flex w-full items-center justify-center pb-40">
-      <div className=" max-w-7xl">
-        <h1 className="mb-6 text-center font-roboto text-headlineSmall sm:mb-8 sm:text-displaySmall">
+      <div className="max-w-7xl">
+        <h2 className="mb-6 text-center font-roboto text-headlineSmall text-black sm:mb-8 sm:text-displaySmall">
           {translations["tasting-info.cardsHeader"]}
-        </h1>
+        </h2>
         <Image
           src={"/icons/chevron-down.svg"}
           height={20}
           width={20}
           className="visible mx-auto mb-6 sm:invisible"
-          alt=""
+          alt="chevron-down"
           aria-hidden="true"
         />
-        <div className="flex flex-col items-center justify-center gap-7 xl:flex-row">
+        <div className="flex flex-col items-center justify-center gap-6 xl:flex-row">
           {events.map((event) => (
             <TastingCard key={event.title} {...event} />
           ))}

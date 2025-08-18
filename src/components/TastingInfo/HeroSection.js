@@ -16,24 +16,22 @@ export default function HeroSection() {
     <section className="flex w-full items-center justify-center pb-4 pt-10">
       <div className="flex max-w-7xl flex-col-reverse items-center gap-8 lg:flex-row  xl:gap-16">
         <div className="m-5 max-w-[80%] lg:max-w-[40rem] xl:max-w-[45rem]">
-          <h1
-            className={`text-center font-roboto text-displaySmall text-tertiary1-dark sm:text-start md:text-displayLarge`}
-          >
+          <h1 className="text-center font-roboto text-displaySmall text-tertiary1-dark sm:text-start md:text-displayLarge">
             {translations["tasting-info.heroHeader"]}
           </h1>
           <p
-            className={`mt-2 text-center text-bodySmall text-tertiary1-dark sm:text-start md:text-bodyLarge`}
+            className="mt-2 text-center text-bodySmall text-tertiary1-dark sm:text-start md:text-bodyLarge"
             dangerouslySetInnerHTML={{
               __html: translations["tasting-info.heroBody"],
             }}
           ></p>
           {events.map((event) => (
-            <div key={event.title} className="mt-5 flex flex-row items-start">
+            <div key={event.title} className="mt-4 flex items-start">
               <h2 className="me-2 flex-shrink-0 text-bodyMedium font-bold text-primary-normal sm:text-bodyLarge">
                 {translations["tasting-info." + event.title]}:
               </h2>
               <p
-                className={`text-bodyLarge sm:text-bodySmall`}
+                className="text-bodySmall sm:text-bodyLarge"
                 dangerouslySetInnerHTML={{
                   __html: translations["tasting-info." + event.description],
                 }}
@@ -63,8 +61,7 @@ export default function HeroSection() {
             width={280}
             height={370}
             alt="glow"
-            className="h-36 w-28 sm:h-48 sm:w-36 xl:h-80 xl:w-64"
-            style={{ mixBlendMode: "overlay" }}
+            className="h-36 w-28 mix-blend-overlay sm:h-48 sm:w-36 xl:h-80 xl:w-64"
           />
         </div>
       </div>
