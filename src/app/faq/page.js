@@ -13,32 +13,28 @@ const FrequentlyAskedQuestions = () => {
     <div className={`mb-20 ${isMobile ? "space-y-12" : "space-y-20"}`}>
       <section className="z-[1] flex flex-row bg-primary-light">
         <div>
-          <div className="absolute left-1 top-[15.25rem] sm:top-[28.5rem] md:left-0 md:top-[41rem]">
-            <Image
-              src={
-                isMobile
-                  ? "/design-elements/dotted-shape-3x4.svg"
-                  : "/design-elements/dotted-shape-bottom.svg"
-              }
-              width={35}
-              height={35}
-              alt="Dotted shape"
-              style={{ height: "auto", width: "auto" }}
-            />
-          </div>
-          <div className="absolute right-[0.2rem] top-[7.35rem] sm:left-[55%] sm:top-[7.35rem] md:left-[42.5%] md:top-[14.35rem]">
-            <Image
-              src={
-                isMobile
-                  ? "/design-elements/dotted-shape-4x3.svg"
-                  : "/design-elements/dotted-shape-top.svg"
-              }
-              width={60}
-              height={55}
-              alt="Dotted shape"
-              style={{ height: "auto", width: "auto" }}
-            />
-          </div>
+          <Image
+            src={
+              isMobile
+                ? "/design-elements/dotted-shape-3x4.svg"
+                : "/design-elements/dotted-shape-bottom.svg"
+            }
+            width={isMobile ? "35" : "35"}
+            height={isMobile ? "35" : "35"}
+            alt="Dotted shape"
+            className="absolute left-1 top-[15.25rem] sm:top-[28.5rem] md:left-0 md:top-[40.85rem]"
+          />
+          <Image
+            src={
+              isMobile
+                ? "/design-elements/dotted-shape-4x3.svg"
+                : "/design-elements/dotted-shape-top.svg"
+            }
+            width={isMobile ? "55" : "60"}
+            height={isMobile ? "55" : "55"}
+            alt="Dotted shape"
+            className="absolute right-0 top-[7.3rem] sm:left-[55%] sm:top-[7.35rem] md:left-[42.5%] md:top-[14.35rem]"
+          />
         </div>
         <div className="mb-4 flex w-full flex-col justify-center gap-6 px-8 text-center sm:mb-0 md:w-[45%] md:text-start lg:w-[40%] lg:px-12">
           <h1 className="mt-8 text-center text-displaySmall sm:mt-4 sm:max-w-full md:mt-0 md:text-start lg:text-displayMedium">
