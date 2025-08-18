@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import Review from "@/components/Reviews/Review";
+import ReviewItem from "@/components/Reviews/ReviewItem";
 import PropTypes from "prop-types";
 import Button from "@/components/Button/Button";
 
@@ -35,21 +35,37 @@ const reviewsMockData = [
   },
 ];
 
-export default function ReviewsCard() {
+export default function ReviewList() {
   if (!reviewsMockData.length) {
     return <p>No reviews yet.</p>;
   }
 
   return (
-    <section className="mx-14 mb-14 mt-20 flex flex-col gap-6">
-      {reviewsMockData.map((review, id) => (
-        <Review key={id} {...review} />
-      ))}
-      <Button text="Show more reviews" color="white" />
+    <section className="flex w-full items-center justify-center">
+      <div className="mx-14 mt-20 flex w-full max-w-7xl flex-col ">
+        <div className="flex flex-col gap-6">
+          {reviewsMockData.map((review, id) => (
+            <ReviewItem key={id} {...review} />
+          ))}
+        </div>
+        <div className="mb-10 mt-20 flex justify-center gap-2">
+          <Button
+            text="Show more reviews"
+            width="extraWide"
+            icon="/reviews/showMore.svg"
+            iconPosition="left"
+            data-testid="show-more-reviews-button"
+            aria-label="Show more reviews"
+            variant="outlineThin"
+            border="darkest"
+            color="primaryLight"
+          />
+        </div>
+      </div>
     </section>
   );
 }
 
-ReviewsCard.propTypes = {
-  reviews: PropTypes.arrayOf(PropTypes.shape(Review.propTypes)).isRequired,
+ReviewList.propTypes = {
+  review: PropTypes.arrayOf(PropTypes.shape(ReviewItem.propTypes)).isRequired,
 };

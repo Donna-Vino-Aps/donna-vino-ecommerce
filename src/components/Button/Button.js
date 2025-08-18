@@ -16,10 +16,12 @@ const SIZES = {
 };
 
 const WIDTHS = {
+  xs: "w-[5.347rem]",
   small: "w-[7.375rem]",
   medium: "w-[8.3rem]",
   large: "w-[10.8rem]",
   wide: "w-[15.4rem]",
+  extraWide: "w-[16.875rem]",
   auto: "w-auto",
   full: "w-full",
 };
@@ -28,6 +30,8 @@ const COLORS = {
   primary: "bg-primary-normal hover:bg-primary-hover_normal text-primary-light",
   primaryActive:
     "bg-primary-active hover:bg-primary-normal hover:bg-opacity-40 text-primary-active_dark font-semibold",
+  primaryLight:
+    "bg-tertiary2-light hover:border-primary-active_normal hover:text-primary-active_normal text-primary-darkest font-medium transition-all duration-300 ease-in-out",
   transparent:
     "bg-transparent hover:bg-primary-hover text-primary-active_normal",
   secondaryDark: "bg-secondary-darker hover:bg-secondary-hover_dark text-white",
@@ -40,7 +44,7 @@ const COLORS = {
 };
 
 const VARIANT = {
-  outlineThin: "border-[1px]",
+  outlineThin: "border",
   outline: "border-2",
   rounded: "rounded-md",
   solid: "rounded-[0rem]",
@@ -49,6 +53,7 @@ const VARIANT = {
 const BORDERS = {
   primary: "border-primary-active_normal",
   secondary: "border-secondary-normal",
+  darkest: "border-primary-darkest",
   primaryNormal: "border-primary-normal",
 };
 

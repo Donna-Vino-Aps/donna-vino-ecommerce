@@ -10,7 +10,7 @@ import Spinner from "@/components/UI/Spinner";
 import ErrorMessage from "@/components/UI/ErrorMessage";
 import MoreInfoDropdown from "@/components/WineDetails/MoreInformationDropdown";
 import TasteProfile from "@/components/TasteProfile/TasteProfile";
-import ReviewsCard from "@/components/Reviews/ReviewsCard";
+import ReviewList from "@/components/Reviews/ReviewList";
 import TasteProfileCards from "@/components/TasteProfile/TasteProfileCards";
 
 export default function WineDetailPage() {
@@ -45,7 +45,7 @@ export default function WineDetailPage() {
       <MoreInfoDropdown wine={wine} />
       <TasteProfile wine={wine} />
       <TasteProfileCards wine={wine} />
-      <ReviewsCard />
+      <ReviewList />
     </div>
   );
 }
