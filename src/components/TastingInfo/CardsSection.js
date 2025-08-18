@@ -32,9 +32,9 @@ export default function CardsSection() {
   const { translations } = useLanguage();
 
   return (
-    <section className="flex w-full items-center justify-center pb-20">
+    <section className="flex w-full items-center justify-center pb-40">
       <div className=" max-w-7xl">
-        <h1 className="mb-6 text-center font-roboto text-headlineSmall sm:mb-16 sm:text-displaySmall">
+        <h1 className="mb-6 text-center font-roboto text-headlineSmall sm:mb-8 sm:text-displaySmall">
           {translations["tasting-info.cardsHeader"]}
         </h1>
         <Image

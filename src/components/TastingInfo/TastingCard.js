@@ -1,5 +1,4 @@
 import { useLanguage } from "@/context/LanguageContext";
-import Image from "next/image";
 import PropTypes from "prop-types";
 import React from "react";
 import Button from "../Button/Button";
@@ -14,11 +13,10 @@ export default function TastingCard({
   const { translations } = useLanguage();
   return (
     <div className="flex w-72 flex-col gap-5 rounded-[2rem] bg-white pb-5 sm:w-96 sm:rounded-[3rem]">
-      <Image
+      <img
         src={"/images/" + image}
         alt={translations["tasting-info." + title] + " image"}
-        width={384}
-        height={160}
+        className="h-40 w-96"
       />
       <h3 className="text-center text-headlineSmall sm:text-headlineLarge">
         {translations["tasting-info." + title]}

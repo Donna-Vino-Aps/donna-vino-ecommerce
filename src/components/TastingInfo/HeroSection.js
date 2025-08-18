@@ -55,6 +55,7 @@ export default function HeroSection() {
             height={318}
             className="absolute h-36 w-32 rounded-lg sm:h-48 sm:w-40 xl:h-[318px] xl:w-[265px]"
             alt="wines"
+            priority
           />
 
           <Image
