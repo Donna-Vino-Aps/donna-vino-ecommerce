@@ -3,6 +3,17 @@ import React from "react";
 import Button from "@/components/Button/Button";
 import PropTypes from "prop-types";
 
+function formatDate(dateString) {
+  const date = new Date(dateString);
+  return date
+    .toLocaleDateString("en-GB", {
+      day: "2-digit",
+      month: "short",
+      year: "numeric",
+    })
+    .replace(/([A-Za-z]{3})/, "$1.");
+}
+
 export default function ReviewItem({
   userName,
   imageUrl,
@@ -23,7 +34,7 @@ export default function ReviewItem({
               {userName}
             </div>
             <div className="font-barlow text-bodySmall text-others-primaryText">
-              {reviewDate}
+              {formatDate(reviewDate)}
             </div>
           </div>
         </div>
