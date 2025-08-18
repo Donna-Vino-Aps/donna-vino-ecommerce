@@ -24,6 +24,7 @@ const DualRangeSlider = ({
         min={min}
         max={max}
         onChange={handleChange}
+        /* eslint-disable react/prop-types */
         renderTrack={({ props, children }) => (
           <div
             className="flex h-9 w-full"

@@ -239,6 +239,7 @@ describe("PreSaleWinesContext", () => {
     async ({ sortKey, products, expectedOrder }) => {
       fetchPreSaleWines.mockResolvedValue({ products });
 
+      // eslint-disable-next-line react/prop-types
       const SortTestComponent = ({ sortKey }) => {
         const { wines, isLoading, setSelectedSort } = usePreSaleWines();
 
