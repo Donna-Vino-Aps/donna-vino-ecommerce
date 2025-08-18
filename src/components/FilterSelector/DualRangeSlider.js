@@ -24,30 +24,29 @@ const DualRangeSlider = ({
         min={min}
         max={max}
         onChange={handleChange}
-        /* eslint-disable react/prop-types */
-        renderTrack={({ props, children }) => (
+        renderTrack={({ props: trackProps, children }) => (
           <div
             className="flex h-9 w-full"
-            onMouseDown={props.onMouseDown}
-            onTouchStart={props.onTouchStart}
+            onMouseDown={trackProps.onMouseDown}
+            onTouchStart={trackProps.onTouchStart}
             style={{
-              ...props.style,
+              ...trackProps.style,
             }}
           >
             <div
               className="h-[6px] w-full self-center rounded-sm bg-others-sliderbackground"
-              ref={props.ref}
+              ref={trackProps.ref}
             >
               {children}
             </div>
           </div>
         )}
-        renderThumb={({ props }) => (
+        renderThumb={({ props: thumbProps }) => (
           <div
             className="flex h-4 w-4 items-center justify-center rounded-[50%] bg-others-sliderburgundy focus:outline-none focus:ring-2 focus:ring-primary-light md:h-5 md:w-5"
-            {...props}
+            {...thumbProps}
             style={{
-              ...props.style,
+              ...thumbProps.style,
               boxShadow: "0 0 0 1px #fff",
               top: "calc(50% - 2px)",
               transform: "translateY(-50%)",
