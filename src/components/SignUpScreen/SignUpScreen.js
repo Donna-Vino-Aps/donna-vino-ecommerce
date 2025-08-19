@@ -12,25 +12,25 @@ import { useRouter } from "next/navigation";
 import { useAPI } from "@/context/ApiProvider";
 import { setSessionItem, SESSION_KEYS } from "@/utils/sessionStorage";
 import Image from "next/image";
+import { useApiError } from "@/hooks/api/useApiError";
+import Spinner from "@/components/UI/Spinner";
+import ErrorMessage from "@/components/UI/ErrorMessage";
 
 const SignUpScreen = () => {
   const { translations } = useLanguage();
   const router = useRouter();
   const { post, error: apiError, isLoading } = useAPI();
+  const errorMsg = useApiError(apiError);
   const [msg, setMsg] = useState("");
   const [success, setSuccessStatus] = useState(false);
   const [userBirthDay, setUserBirthDay] = useState();
 
   useEffect(() => {
-    if (apiError) {
-      setMsg(
-        typeof apiError === "string"
-          ? apiError
-          : apiError.message || "An unknown error occurred",
-      );
+    if (errorMsg) {
+      setMsg(errorMsg);
       setSuccessStatus(false);
     }
-  }, [apiError]);
+  }, [errorMsg]);
 
   const validationSchema = createSignUpSchema(translations);
 
@@ -259,20 +259,14 @@ const SignUpScreen = () => {
                 {/* Error Message */}
                 {!success && msg && (
                   <div className="mt-3 flex justify-center">
-                    <p
-                      className="text-center text-bodySmall text-others-negative sm:text-bodyMedium"
-                      aria-live="polite"
-                      data-testid="message-status"
-                    >
-                      {msg}
-                    </p>
+                    <ErrorMessage message={msg} />
                   </div>
                 )}
 
                 {/* Loading Indicator */}
                 {(isSubmitting || isLoading) && (
                   <div className="mt-4 flex items-center justify-center">
-                    <div className="h-8 w-8 animate-spin rounded-full border-2 border-solid border-primary-normal border-t-transparent" />
+                    <Spinner size="medium" />
                   </div>
                 )}
               </form>

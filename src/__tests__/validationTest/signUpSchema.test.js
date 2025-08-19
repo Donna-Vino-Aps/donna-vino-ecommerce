@@ -5,12 +5,13 @@ describe("Sign Up Schema Validation", () => {
   // Mock translations
   const mockTranslations = {
     "signUp.validation.required": "This field is required",
-    "signUp.validation.emailFormat": "Please enter a valid email address",
+    "validation.required": "This field is required.",
+    "validation.emailFormat": "Please enter a valid email address",
     "signUp.validation.emailMatch":
       "Emails do not match. Please check and try again",
-    "signUp.validation.passwordFormat":
+    "validation.passwordFormat":
       "Password must be at least 8 characters long, including one uppercase letter, one lowercase letter, one number, and one special character (e.g., !, @, #, $)",
-    "signUp.validation.passwordMatch":
+    "validation.passwordMatch":
       "Passwords do not match. Please check and try again",
     "signUp.validation.birthdate": "Your date of birth in DD/MM/YYYY",
     "signUp.validation.ageRequirement":
@@ -52,16 +53,14 @@ describe("Sign Up Schema Validation", () => {
         expect(
           err.inner.some(
             (error) =>
-              error.message ===
-                mockTranslations["signUp.validation.required"] &&
+              error.message === mockTranslations["validation.required"] &&
               error.path === "email",
           ),
         ).toBe(true);
         expect(
           err.inner.some(
             (error) =>
-              error.message ===
-                mockTranslations["signUp.validation.required"] &&
+              error.message === mockTranslations["validation.required"] &&
               error.path === "password",
           ),
         ).toBe(true);
@@ -122,7 +121,7 @@ describe("Sign Up Schema Validation", () => {
           expect(true).toBe(false);
         } catch (err) {
           expect(err.errors[0]).toEqual(
-            mockTranslations["signUp.validation.emailFormat"],
+            mockTranslations["validation.emailFormat"],
           );
         }
       }
@@ -208,7 +207,7 @@ describe("Sign Up Schema Validation", () => {
           expect(true).toBe(false);
         } catch (err) {
           expect(err.errors[0]).toEqual(
-            mockTranslations["signUp.validation.passwordFormat"],
+            mockTranslations["validation.passwordFormat"],
           );
         }
       }
@@ -232,7 +231,7 @@ describe("Sign Up Schema Validation", () => {
         expect(true).toBe(false);
       } catch (err) {
         expect(err.errors[0]).toEqual(
-          mockTranslations["signUp.validation.passwordMatch"],
+          mockTranslations["validation.passwordMatch"],
         );
       }
     });
