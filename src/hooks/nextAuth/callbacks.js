@@ -59,13 +59,13 @@ async function handleSSORoutine(token, user, account) {
  */
 export async function jwt({ token, user, account }) {
   // Case 1: First-time login using credentials
-  if (!token && user?.accessToken && user?.refreshToken && user?.id) {
-    return handleCredentialsRoutine(token, user);
+  if (user?.accessToken && user?.refreshToken && user?.id) {
+    return handleCredentialsRoutine({}, user);
   }
 
   // Case 2: First-time login using OAuth SSO (Google, etc.)
-  if (!token?.accessToken && !token?.refreshToken && account?.provider) {
-    return await handleSSORoutine(token, user, account);
+  if (account?.provider && user) {
+    return await handleSSORoutine({}, user, account);
   }
 
   // Case 3: Already authenticated — try refreshing the access token if possible
@@ -86,7 +86,7 @@ export async function jwt({ token, user, account }) {
  */
 export async function session({ session, token }) {
   if (token.expired) {
-    return null; // Session invalidated
+    return { user: null, accessToken: null, refreshToken: null }; // Session invalidated
   }
 
   session.user.id = token.id;

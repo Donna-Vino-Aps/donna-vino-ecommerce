@@ -96,12 +96,23 @@ export const APIProvider = ({ children }) => {
    * @returns {Promise<any>} - The parsed JSON response.
    */
   const processResponse = async (response) => {
-    const data = await response.json();
-    if (!response.ok || data.status === "error") {
-      const errorMessage = data.message || translations["api.error.default"];
+    const contentType = response.headers.get("content-type") || "";
+
+    let data;
+    if (contentType.includes("application/json")) {
+      const text = await response.text();
+      data = text ? JSON.parse(text) : {};
+    } else {
+      data = await response.text(); // plain text, HTML, etc.
+    }
+
+    if (!response.ok || (data && data.status === "error")) {
+      const errorMessage =
+        (data && data.message) || translations["api.error.default"];
       setError(errorMessage);
       return null;
     }
+
     setError(null);
     return data;
   };
@@ -127,12 +138,16 @@ export const APIProvider = ({ children }) => {
       const body = options.payload || options.body;
       const headers = options.headers || {};
 
-      updateMandatoryHeaders(headers);
+      if (body instanceof FormData && status === "authenticated") {
+        headers["Authorization"] = `Bearer ${session.accessToken}`;
+      } else {
+        updateMandatoryHeaders(headers);
+      }
 
       try {
         const res = await fetch(makeUrl(apiUrl, path), {
           method: method,
-          body: body ? JSON.stringify(body) : undefined,
+          body: body instanceof FormData ? body : JSON.stringify(body),
           headers: headers,
         });
 

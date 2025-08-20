@@ -70,30 +70,29 @@ export const UserContextProvider = ({ children }) => {
 
   const [menuItems, setMenuItems] = useState([]);
   const [userInfo, setUserInfo] = useState(null);
-  const [userId, setUserId] = useState();
 
   useEffect(() => {
-    if (status !== "authenticated") {
-      setUserId(null);
+    if (status !== "authenticated" || !session?.user?.id) {
       setUserInfo(null);
       return;
     }
-    if (!userId) return;
-
-    setUserId(session?.user?.id);
 
     const fetchUserInfo = async () => {
-      if (!userId) return;
-
+      if (!session?.user?.id) return;
       try {
-        const data = await get(`/user/${userId}`);
-        if (!error) setUserInfo(data);
-      } catch (error) {
-        logError("Failed to fetch user info", error);
+        const data = await get(`/user/${session.user.id}`, {
+          headers: {
+            Authorization: `Bearer ${session.accessToken}`,
+          },
+        });
+        if (data) setUserInfo(data.user ?? data);
+      } catch (err) {
+        logError("Failed to fetch user info", err);
       }
     };
+
     fetchUserInfo();
-  }, [userId, status]);
+  }, [status, session?.user?.id]);
 
   const logout = useCallback(() => {
     signOut({ callbackUrl: "/" });
@@ -106,7 +105,9 @@ export const UserContextProvider = ({ children }) => {
   }, [translations, logout]);
 
   return (
-    <UserContext.Provider value={{ userId, userInfo, setUserInfo, menuItems }}>
+    <UserContext.Provider
+      value={{ userId: session?.user?.id, userInfo, setUserInfo, menuItems }}
+    >
       {children}
     </UserContext.Provider>
   );

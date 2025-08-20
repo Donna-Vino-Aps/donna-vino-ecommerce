@@ -9,7 +9,10 @@ import { logError } from "./logging";
  * @returns {boolean} - Whether sessionStorage is available
  */
 const isSessionStorageAvailable = () => {
-  return typeof window !== "undefined" && window.sessionStorage;
+  return (
+    typeof window !== "undefined" &&
+    typeof window.sessionStorage !== "undefined"
+  );
 };
 
 /**
