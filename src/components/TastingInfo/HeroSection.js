@@ -27,7 +27,7 @@ export default function HeroSection() {
           ></p>
           {events.map((event) => (
             <div key={event.title} className="mt-4 flex items-start">
-              <h2 className="me-2 flex-shrink-0 text-bodyMedium font-bold text-primary-normal sm:text-bodyLarge">
+              <h2 className="me-2 w-[10rem] flex-shrink-0 text-bodyMedium font-bold text-primary-normal sm:text-bodyLarge">
                 {translations["tasting-info." + event.title]}:
               </h2>
               <p
