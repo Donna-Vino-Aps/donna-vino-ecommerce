@@ -8,6 +8,7 @@ import {
 import { fetchPreSaleWines } from "@/lib/shopify/services";
 import { useLanguage } from "@/context/LanguageContext";
 import { logError } from "@/utils/logging";
+import PropTypes from "prop-types";
 
 jest.mock("@/lib/shopify/services");
 jest.mock("@/context/LanguageContext");
@@ -257,6 +258,10 @@ describe("PreSaleWinesContext", () => {
             ))}
           </div>
         );
+      };
+
+      SortTestComponent.propTypes = {
+        sortKey: PropTypes.string.isRequired,
       };
 
       render(
