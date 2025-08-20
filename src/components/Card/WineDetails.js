@@ -8,10 +8,7 @@ const WineDetails = ({ title, bottlePrice, isPreSale }) => {
       <div className="flex items-center justify-between self-stretch">
         <h3
           data-testid="wine-title"
-          className={`
-						flex-1 overflow-hidden text-ellipsis whitespace-nowrap text-start text-headlineSmall
-						text-tertiary1-dark ${isPreSale && "sm:text-headlineLarge"}
-					`}
+          className="flex-1 overflow-hidden text-ellipsis whitespace-nowrap text-start text-headlineSmall text-tertiary1-dark"
         >
           {title}
         </h3>
