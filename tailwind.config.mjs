@@ -124,7 +124,6 @@ export default {
       screens: {
         xxs: "320px",
         xs: "360px",
-        xsm: "400px",
         sm: "640px",
         md: "768px",
         lg: "1024px",
