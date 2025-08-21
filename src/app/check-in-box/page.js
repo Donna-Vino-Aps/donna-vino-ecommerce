@@ -14,28 +14,25 @@ const CheckInbox = () => {
   const [msg, setMsg] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isDisabled, setIsDisabled] = useState(false);
-  const [isSucceeded, setSucceeded] = useState(false);
 
   useEffect(() => {
     setMsg(errorMsg);
     if (typeof window !== "undefined") {
-      setEmail(sessionStorage.getItem("forgotEmail") || "");
+      setEmail(sessionStorage.getItem("userEmail") || "");
     }
   }, [errorMsg]);
 
   const resendResetPassword = async () => {
-    setSucceeded(false);
     setIsDisabled(true);
     setIsSubmitting(true);
 
     const responseData = await post("register/resend-password-reset", {
       payload: { email: email },
     });
+
     setIsSubmitting(false);
-    if (responseData?.success) {
-      setSucceeded(true);
-    }
     setMsg(responseData?.message || msg);
+
     setTimeout(() => {
       setIsDisabled(false);
       setMsg("");
@@ -70,6 +67,7 @@ const CheckInbox = () => {
             {
               <button
                 onClick={resendResetPassword}
+                disabled={isDisabled}
                 className={`ml-2 font-medium underline ${isDisabled ? "cursor-not-allowed text-tertiary2-dark" : ""}`}
               >
                 {translations["forgotPassword.resend2"]}
@@ -77,9 +75,9 @@ const CheckInbox = () => {
             }
           </div>
           {msg && (
-            <div className="mt-3 flex justify-center">
+            <div className="mt-5 flex justify-center">
               <p
-                className={`text-center text-bodySmall ${isSucceeded ? "text-calendar-open" : "text-others-negative"} sm:text-bodyMedium`}
+                className={`text-center ${errorMsg ? "text-others-negative" : "text-gray-800"} text-bodyMedium sm:text-bodyLarge`}
                 aria-live="polite"
                 data-testid="message-status"
               >

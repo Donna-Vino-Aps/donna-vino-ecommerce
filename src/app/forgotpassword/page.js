@@ -11,7 +11,6 @@ import { useAPI } from "@/context/ApiProvider";
 import { useRouter } from "next/navigation";
 import { useApiError } from "@/hooks/api/useApiError";
 import Spinner from "@/components/UI/Spinner";
-import ErrorMessage from "@/components/UI/ErrorMessage";
 
 const ForgotPassword = () => {
   const { translations } = useLanguage();
@@ -34,7 +33,7 @@ const ForgotPassword = () => {
     setSubmitting(false);
     if (responseData?.success) {
       setMsg("");
-      sessionStorage.setItem("forgotEmail", values.email);
+      sessionStorage.setItem("userEmail", values.email);
       router.push(`/check-in-box`);
     } else {
       setMsg(responseData?.message);
@@ -115,7 +114,13 @@ const ForgotPassword = () => {
                 </div>
                 {msg && !isSubmitting && (
                   <div className="mt-3 flex justify-center">
-                    <ErrorMessage message={msg} />
+                    <p
+                      className={`text-center ${errorMsg ? "text-others-negative" : "text-gray-800"} text-bodyMedium sm:text-bodyLarge`}
+                      aria-live="polite"
+                      data-testid="message-status"
+                    >
+                      {msg}
+                    </p>
                   </div>
                 )}
                 {isSubmitting && isLoading && (

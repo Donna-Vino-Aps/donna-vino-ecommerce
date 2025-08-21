@@ -40,7 +40,7 @@ const ChangePassword = () => {
     }
   };
   return (
-    <section className="my-4 bg-primary-light bg-dots-sm bg-dots-size-sm px-4 sm:bg-dots-lg sm:bg-dots-size-lg lg:px-0">
+    <section className="my-4 bg-primary-light bg-dots-sm bg-dots-size-sm px-2 sm:bg-dots-lg sm:bg-dots-size-lg lg:px-0">
       <SEO
         title={translations["changePassword.title"]}
         description={translations["changePassword.description"]}
@@ -119,7 +119,7 @@ const ChangePassword = () => {
                     onClick={handleSubmit}
                     extraStyle="h-[50px] font-medium"
                     testId="submit-button"
-                    ariaLabel="Submit Change password"
+                    ariaLabel={translations["changePassword.button"]}
                   />
                 </div>
                 <div className="mt-4 w-full">
@@ -134,7 +134,7 @@ const ChangePassword = () => {
                     border="primaryNormal"
                     extraStyle="h-[50px] border-[1.5px] font-medium"
                     testId="back-to-login-button"
-                    ariaLabel="Back to login"
+                    ariaLabel={translations["changePassword.back.button"]}
                   />
                 </div>
                 {msg && (
