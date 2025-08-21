@@ -1,58 +1,98 @@
 "use client";
-import React from "react";
-import Button from "@/components/Button/Button";
+import React, { useState, useEffect } from "react";
 import { useLanguage } from "@/context/LanguageContext";
 import SEO from "@/components/SEO/SEO";
-import Link from "next/link";
+import { useAPI } from "@/context/ApiProvider";
+import { useApiError } from "@/hooks/api/useApiError";
+import Spinner from "@/components/UI/Spinner";
 
 const CheckInbox = () => {
   const { translations } = useLanguage();
+  const [email, setEmail] = useState("");
+  const { post, error: apiError, isLoading } = useAPI();
+  const errorMsg = useApiError(apiError);
+  const [msg, setMsg] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isDisabled, setIsDisabled] = useState(false);
+
+  useEffect(() => {
+    setMsg(errorMsg);
+    if (typeof window !== "undefined") {
+      setEmail(sessionStorage.getItem("userEmail") || "");
+    }
+  }, [errorMsg]);
+
+  const resendResetPassword = async () => {
+    setIsDisabled(true);
+    setIsSubmitting(true);
+
+    const responseData = await post("register/resend-password-reset", {
+      payload: { email: email },
+    });
+
+    setIsSubmitting(false);
+    setMsg(responseData?.message || msg);
+
+    setTimeout(() => {
+      setIsDisabled(false);
+      setMsg("");
+    }, 60000);
+  };
+
   return (
-    <div className="relative flex h-screen items-center justify-center bg-[#FDE8E9]">
+    <section className="my-4 bg-primary-light bg-dots-sm bg-dots-size-sm sm:bg-dots-lg sm:bg-dots-size-lg md:py-8">
       <SEO
         title={translations["forgotPassword.check-inbox.title"]}
         description={translations["forgotPassword.check-inbox.description"]}
       />
-      <img
-        src="/vector.svg"
-        alt="Background Vector"
-        className="absolute left-0 top-0 h-full w-full object-cover"
-      />
-      <div className="relative w-[560px] rounded-2xl bg-white pb-10 pl-20 pr-20 pt-10 text-center  shadow-lg">
-        <section className="mb-4  w-full">
-          <img
-            src="/icons/message-check.svg"
-            alt="message check icon"
-            className="m-auto h-[48px] w-[48px] object-cover"
-          />
-        </section>
-        <h1 className="mb-4 text-left text-headlineLarge">
-          {translations["forgotPassword.success-heading"]}
-        </h1>
-        <p className="mb-4 w-[400px] text-left">
-          {translations["forgotPassword.success-text1"]}{" "}
-          {<span className="font-semibold">demo@demo.com</span>}{" "}
-          {translations["forgotPassword.success-text2"]}
-        </p>
-
-        <div className="mb-4 mt-2 w-full">
-          <Button
-            text={translations["forgotPassword.button"]}
-            width="full"
-            data-testid="forgot-password-send-reset-link-button"
-            aria-label="forgot password send reset link button"
-          />
+      <div className="mx-2 flex flex-col items-center justify-center py-8 sm:py-24">
+        <div className="relative mx-3 w-full max-w-[560px] rounded-2xl bg-white px-6 py-10 text-center shadow-lg sm:px-20">
+          <section className="mb-4  w-full">
+            <img
+              src="/icons/cheerswineglass.svg"
+              alt="message check icon"
+              className="m-auto h-[99px] w-[102px] object-cover sm:h-[150px] sm:w-[154px]"
+            />
+          </section>
+          <h1 className="mb-4 text-titleLarge sm:text-headlineMedium">
+            {translations["forgotPassword.success-heading"]}
+          </h1>
+          <p className="mb-4 max-w-[400px] text-bodyMedium sm:text-bodyLarge">
+            {translations["forgotPassword.success-text1"]}
+            {<span className="font-semibold">{` ${email} `}</span>}
+            {translations["forgotPassword.success-text2"]}
+          </p>
+          <div className="text-bodyLarge sm:text-left">
+            {translations["forgotPassword.resend"]}
+            {
+              <button
+                onClick={resendResetPassword}
+                disabled={isDisabled}
+                className={`ml-2 font-medium underline ${isDisabled ? "cursor-not-allowed text-tertiary2-dark" : ""}`}
+              >
+                {translations["forgotPassword.resend2"]}
+              </button>
+            }
+          </div>
+          {msg && (
+            <div className="mt-5 flex justify-center">
+              <p
+                className={`text-center ${errorMsg ? "text-others-negative" : "text-gray-800"} text-bodyMedium sm:text-bodyLarge`}
+                aria-live="polite"
+                data-testid="message-status"
+              >
+                {msg}
+              </p>
+            </div>
+          )}
+          {isSubmitting && isLoading && (
+            <div className="mt-4 flex items-center justify-center">
+              <Spinner size="small" />
+            </div>
+          )}
         </div>
-        <div className="text-left">
-          {translations["forgotPassword.resend"]}{" "}
-          {
-            <Link href="" className="font-semibold underline">
-              {translations["forgotPassword.resend2"]}
-            </Link>
-          }
-        </div>
-      </div>{" "}
-    </div>
+      </div>
+    </section>
   );
 };
 
