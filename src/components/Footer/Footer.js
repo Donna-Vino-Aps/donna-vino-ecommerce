@@ -154,7 +154,7 @@ const Footer = () => {
 
   return (
     <footer
-      className={`flex ${showMore ? "h-[86rem]" : "h-[56.25rem]"} items-center justify-center bg-[#2F2E2E] py-4 text-center text-white md:h-[26.625rem]`}
+      className={`flex ${showMore ? "h-[78.1rem]" : "h-[55.25rem]"} items-center justify-center bg-[#2F2E2E] py-4 text-center text-white md:h-[25.25rem]`}
       data-testid="footer"
       aria-label="Footer"
     >
@@ -162,17 +162,20 @@ const Footer = () => {
         <div className="relative bottom-14 flex flex-col items-center gap-1 md:bottom-3 md:mb-32 md:flex-row md:gap-6 lg:gap-9 xl:gap-12">
           <Link href="/" aria-label="logo">
             <img
-              className="relative mb-4 mt-6 h-[5.351rem] w-[7.75rem] rounded md:right-4 md:top-6 md:mb-0 md:mt-0"
+              className="relative mb-6 mt-20 h-[5.351rem] w-[7.75rem] rounded md:right-6 md:mb-1 md:mt-0 lg:right-6"
               src="/images/donna-vino-logo-transparent.png"
               alt="Donna Vino Logo - Red background, white text saying 'Donna Vino'"
               data-testid="logo-footer"
             />
           </Link>
 
-          <div className="md:relative md:top-6">
-            <div className="flex flex-col md:flex-row md:gap-9 lg:gap-16">
-              {showMore
-                ? links.map((col, colIndex) => (
+          <div
+            className={`md:relative ${showMore ? "" : "mt-2"} ${isMobile ? "" : "top-16"}`}
+          >
+            <div className="flex flex-col md:flex-row md:gap-9 lg:gap-8 xl:gap-12">
+              {!isMobile
+                ? // Desktop: always render 3 columns
+                  links.map((col, colIndex) => (
                     <div
                       key={colIndex}
                       className={`my-4 flex flex-col gap-2 text-center md:text-start ${
@@ -185,7 +188,7 @@ const Footer = () => {
                           key={linkIndex}
                           data-testid={dataTestId}
                           href={href}
-                          className="rounded-md px-3 py-2 lg:px-9"
+                          className="rounded-md px-3 py-1 lg:px-9"
                           role="navigation"
                           aria-label={`Link to ${label}`}
                         >
@@ -194,24 +197,48 @@ const Footer = () => {
                       ))}
                     </div>
                   ))
-                : showLessLinks.map(
-                    ({ href, label, dataTestId }, linkIndex) => (
-                      <Link
-                        scroll={true}
-                        key={linkIndex}
-                        data-testid={dataTestId}
-                        href={href}
-                        className="rounded-md px-3 py-2 lg:px-9"
-                        role="navigation"
-                        aria-label={`Link to ${label}`}
+                : showMore
+                  ? // Mobile + showMore = 3 columns
+                    links.map((col, colIndex) => (
+                      <div
+                        key={colIndex}
+                        className={`my-4 flex flex-col gap-2 text-center md:text-start ${
+                          colIndex !== 2 ? "mb-7" : ""
+                        }`}
                       >
-                        {label}
-                      </Link>
-                    ),
-                  )}
+                        {col.map(({ href, label, dataTestId }, linkIndex) => (
+                          <Link
+                            key={linkIndex}
+                            data-testid={dataTestId}
+                            href={href}
+                            className="rounded-md px-3 py-1 lg:px-9"
+                            role="navigation"
+                            aria-label={`Link to ${label}`}
+                          >
+                            {label}
+                          </Link>
+                        ))}
+                      </div>
+                    ))
+                  : // Mobile + showLess = limited links
+                    showLessLinks.map(
+                      ({ href, label, dataTestId }, linkIndex) => (
+                        <Link
+                          scroll={true}
+                          key={linkIndex}
+                          data-testid={dataTestId}
+                          href={href}
+                          className="rounded-md px-3 py-2 lg:px-9"
+                          role="navigation"
+                          aria-label={`Link to ${label}`}
+                        >
+                          {label}
+                        </Link>
+                      ),
+                    )}
             </div>
             {isMobile && (
-              <div className="mt-8 flex items-center justify-center gap-2">
+              <div className="mt-14 flex items-center justify-center gap-2">
                 <Image
                   src={
                     showMore
@@ -232,7 +259,7 @@ const Footer = () => {
                 </p>
               </div>
             )}
-            <div className="relative top-10 order-1 flex md:left-3 md:top-20 md:order-1 lg:left-12">
+            <div className="relative top-10 order-1 flex md:left-3 md:top-12 md:order-1 lg:left-12">
               <div className="grid grid-cols-2 place-items-center gap-12 md:flex md:gap-9 lg:gap-16">
                 {paymentIcons.map(({ src, alt }, index) => (
                   <div
@@ -249,8 +276,8 @@ const Footer = () => {
               </div>
             </div>
           </div>
-          <div className="relative top-20 order-1 flex flex-col items-center md:top-4 md:order-4 lg:left-16">
-            <h4 className="mb-1 text-bodyLarge font-medium md:mb-3 md:mt-5">
+          <div className="relative top-16 order-1 flex flex-col items-center md:left-8 md:top-0 md:order-4 md:mb-6 lg:left-12">
+            <h4 className="mb-1 text-bodyLarge font-normal md:mb-3 md:mt-5">
               {translations["footer.follow"]}
             </h4>
             <div
@@ -275,7 +302,9 @@ const Footer = () => {
             </div>
           </div>
         </div>
-        <div className="relative top-20 whitespace-nowrap pt-3 text-bodySmall text-tertiary2-hover_dark md:text-bodyMedium">
+        <div
+          className={`relative top-2 mt-8 whitespace-nowrap text-bodySmall text-tertiary2-hover_dark md:top-0 md:mb-2 md:text-bodyMedium`}
+        >
           <p>
             {"© 2025 Donna Vino Aps | CVR-n. 45017567 | "}
             <a
@@ -284,7 +313,7 @@ const Footer = () => {
               role="navigation"
               aria-label="Link to Privacy Policy"
             >
-              Privacy Policy
+              {translations["footer.privacy-policy"]}
             </a>
           </p>
         </div>
