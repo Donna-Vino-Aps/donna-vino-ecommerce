@@ -1,29 +1,115 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { useLanguage } from "@/context/LanguageContext";
+import useIsMobile from "@/hooks/useIsMobile";
 
 const Footer = () => {
   const { translations } = useLanguage();
+  const [showMore, setShowMore] = useState(false);
+  const isMobile = useIsMobile(768);
 
-  const links = [
+  const linksCol1 = [
     {
-      href: "/sales-policy",
-      label: translations["footer.sales-policy"],
-      dataTestId: "sales-policy",
+      href: "/",
+      label: translations["footer.home"],
+      dataTestId: "home",
     },
+    {
+      href: "/wines/pre-sale",
+      label: translations["footer.shop"],
+      dataTestId: "shop",
+    },
+    {
+      href: "/events",
+      label: translations["footer.events"],
+      dataTestId: "events",
+    },
+    {
+      href: "https://www.donnavino.dk/contact",
+      label: translations["footer.company-events"],
+      dataTestId: "company-events",
+    },
+  ];
+
+  const linksCol2 = [
     {
       href: "https://www.donnavino.dk/contact",
       label: translations["footer.contact"],
       dataTestId: "contact",
     },
     {
+      href: "https://www.donnavino.dk/#subscribe",
+      label: translations["footer.newsletter"],
+      dataTestId: "subscribe",
+    },
+    {
+      href: "/sales-policy",
+      label: translations["footer.sales-policy"],
+      dataTestId: "sales-policy",
+    },
+
+    {
+      href: "https://www.donnavino.dk/privacy-policy",
+      label: translations["footer.privacy-policy"],
+      dataTestId: "privacy-policy",
+    },
+  ];
+
+  const linksCol3 = [
+    {
       href: "https://www.donnavino.dk/",
       label: translations["footer.company"],
       dataTestId: "company",
     },
+    {
+      href: "https://www.donnavino.dk/our-values",
+      label: translations["footer.values"],
+      dataTestId: "our-values",
+    },
+    {
+      href: "https://www.donnavino.dk/our-team",
+      label: translations["footer.team"],
+      dataTestId: "our-team",
+    },
+    {
+      href: "/faq",
+      label: translations["footer.faq"],
+      dataTestId: "faq",
+    },
   ];
+
+  const showLessLinks = [
+    {
+      href: "/",
+      label: translations["footer.home"],
+      dataTestId: "home",
+    },
+    {
+      href: "https://www.donnavino.dk/",
+      label: translations["footer.company"],
+      dataTestId: "company",
+    },
+    {
+      href: "/events",
+      label: translations["footer.events"],
+      dataTestId: "events",
+    },
+    {
+      href: "/wines/pre-sale",
+      label: translations["footer.shop"],
+      dataTestId: "shop",
+    },
+    {
+      href: "/faq",
+      label: translations["footer.faq"],
+      dataTestId: "faq",
+    },
+  ];
+
+  let links = [linksCol1, linksCol2, linksCol3];
 
   const socialLinks = [
     {
@@ -68,7 +154,7 @@ const Footer = () => {
 
   return (
     <footer
-      className="flex h-[48.625rem] items-center justify-center bg-[#2F2E2E] py-4 text-center text-white md:h-[26.625rem]"
+      className={`flex ${showMore ? "h-[86rem]" : "h-[56.25rem]"} items-center justify-center bg-[#2F2E2E] py-4 text-center text-white md:h-[26.625rem]`}
       data-testid="footer"
       aria-label="Footer"
     >
@@ -85,19 +171,67 @@ const Footer = () => {
 
           <div className="md:relative md:top-6">
             <div className="flex flex-col md:flex-row md:gap-9 lg:gap-16">
-              {links.map(({ href, label, dataTestId }, index) => (
-                <Link
-                  key={index}
-                  data-testid={dataTestId}
-                  href={href}
-                  className={`rounded-md px-3 py-2 lg:px-9`}
-                  role="navigation"
-                  aria-label={`Link to ${label}`}
-                >
-                  {label}
-                </Link>
-              ))}
+              {showMore
+                ? links.map((col, colIndex) => (
+                    <div
+                      key={colIndex}
+                      className={`my-4 flex flex-col gap-2 text-center md:text-start ${
+                        colIndex !== 2 ? "mb-7" : ""
+                      }`}
+                    >
+                      {col.map(({ href, label, dataTestId }, linkIndex) => (
+                        <Link
+                          scroll={true}
+                          key={linkIndex}
+                          data-testid={dataTestId}
+                          href={href}
+                          className="rounded-md px-3 py-2 lg:px-9"
+                          role="navigation"
+                          aria-label={`Link to ${label}`}
+                        >
+                          {label}
+                        </Link>
+                      ))}
+                    </div>
+                  ))
+                : showLessLinks.map(
+                    ({ href, label, dataTestId }, linkIndex) => (
+                      <Link
+                        scroll={true}
+                        key={linkIndex}
+                        data-testid={dataTestId}
+                        href={href}
+                        className="rounded-md px-3 py-2 lg:px-9"
+                        role="navigation"
+                        aria-label={`Link to ${label}`}
+                      >
+                        {label}
+                      </Link>
+                    ),
+                  )}
             </div>
+            {isMobile && (
+              <div className="mt-8 flex items-center justify-center gap-2">
+                <Image
+                  src={
+                    showMore
+                      ? "/icons/chevron-up-circle.svg"
+                      : "/icons/chevron-down-circle.svg"
+                  }
+                  width={20}
+                  height={20}
+                  alt="Toggle show more or less"
+                />
+                <p
+                  className="mb-[2px] cursor-pointer"
+                  onClick={() => setShowMore(!showMore)}
+                >
+                  {showMore
+                    ? translations["footer.show-less"]
+                    : translations["footer.show-more"]}
+                </p>
+              </div>
+            )}
             <div className="relative top-10 order-1 flex md:left-3 md:top-20 md:order-1 lg:left-12">
               <div className="grid grid-cols-2 place-items-center gap-12 md:flex md:gap-9 lg:gap-16">
                 {paymentIcons.map(({ src, alt }, index) => (
