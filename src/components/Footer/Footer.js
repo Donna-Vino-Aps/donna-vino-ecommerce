@@ -154,7 +154,7 @@ const Footer = () => {
 
   return (
     <footer
-      className={`flex ${showMore ? "h-[78.1rem]" : "h-[55.25rem]"} items-center justify-center bg-[#2F2E2E] py-4 text-center text-white md:h-[25.25rem]`}
+      className={`flex ${showMore ? "h-[78.1rem]" : "h-[55.25rem]"} items-center justify-center bg-[#2F2E2E] py-4 text-center text-white md:h-[25.75rem]`}
       data-testid="footer"
       aria-label="Footer"
     >
@@ -162,16 +162,14 @@ const Footer = () => {
         <div className="relative bottom-14 flex flex-col items-center gap-1 md:bottom-3 md:mb-32 md:flex-row md:gap-6 lg:gap-9 xl:gap-12">
           <Link href="/" aria-label="logo">
             <img
-              className="relative mb-6 mt-20 h-[5.351rem] w-[7.75rem] rounded md:right-6 md:mb-1 md:mt-0 lg:right-6"
+              className="relative mb-6 mt-20 h-[5.351rem] w-[7.75rem] rounded md:right-6 md:mb-1 md:mt-0"
               src="/images/donna-vino-logo-transparent.png"
               alt="Donna Vino Logo - Red background, white text saying 'Donna Vino'"
               data-testid="logo-footer"
             />
           </Link>
 
-          <div
-            className={`md:relative ${showMore ? "" : "mt-2"} ${isMobile ? "" : "top-16"}`}
-          >
+          <div className="md:relative md:top-16">
             <div className="flex flex-col md:flex-row md:gap-9 lg:gap-8 xl:gap-12">
               {!isMobile
                 ? // Desktop: always render 3 columns
@@ -238,7 +236,7 @@ const Footer = () => {
                     )}
             </div>
             {isMobile && (
-              <div className="mt-14 flex items-center justify-center gap-2">
+              <div className="relative top-1 mt-12 flex items-center justify-center gap-2">
                 <Image
                   src={
                     showMore
@@ -266,7 +264,7 @@ const Footer = () => {
                     key={index}
                     className={
                       index == paymentIcons.length - 1
-                        ? "col-span-2"
+                        ? "relative bottom-5 col-span-2 md:bottom-0"
                         : "col-span-1"
                     }
                   >
@@ -276,7 +274,7 @@ const Footer = () => {
               </div>
             </div>
           </div>
-          <div className="relative top-16 order-1 flex flex-col items-center md:left-8 md:top-0 md:order-4 md:mb-6 lg:left-12">
+          <div className="relative top-14 order-1 flex flex-col items-center md:left-8 md:top-[2px] md:order-4 md:mb-6 lg:left-12">
             <h4 className="mb-1 text-bodyLarge font-normal md:mb-3 md:mt-5">
               {translations["footer.follow"]}
             </h4>
@@ -295,7 +293,7 @@ const Footer = () => {
                   <img
                     src={src}
                     alt={alt}
-                    className="h-[1.5rem] w-[1.5rem] brightness-0 invert filter"
+                    className="h-[1.5rem] w-[1.5rem] brightness-0 invert"
                   />
                 </a>
               ))}
