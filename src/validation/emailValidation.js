@@ -7,6 +7,4 @@ export const emailValidation = (translations) =>
       translations["validation.emailFormat"] ||
         "Please enter a valid email address.",
     )
-    .required(
-      translations["validation.required"] || "This field is required.",
-    );
+    .required(translations["validation.required"] || "This field is required.");
