@@ -125,7 +125,7 @@
   "forgotPassword.paragraph": "Ingen bekymring! Indtast blot den e-mailadresse, du brugte ved registrering, så sender vi dig et midlertidigt link til at nulstille din adgangskode.",
   "forgotPassword.button": "Send nulstillingslink",
   "forgotPassword.input": "Indsæt din e-mail",
-  "forgotPassword.success-heading": "Tjek venligst din indbakke.",
+  "forgotPassword.success-heading": "Færdig! Tjek din indbakke",
   "forgotPassword.success-text1": "Tjek venligst din e‑mailadresse. Vi har sendt et link til",
   "forgotPassword.success-text2": "til at nulstille din adgangskode.",
   "forgotPassword.resend": "Modtog du ikke e-mailen?",
