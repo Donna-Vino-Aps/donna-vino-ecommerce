@@ -274,7 +274,7 @@ const Footer = () => {
               </div>
             </div>
           </div>
-          <div className="relative top-14 order-1 flex flex-col items-center md:left-8 md:top-[2px] md:order-4 md:mb-6 lg:left-12">
+          <div className="relative top-14 order-1 flex flex-col items-center md:left-8 md:top-[0px] md:order-4 md:mb-6 lg:left-12">
             <h4 className="mb-1 text-bodyLarge font-normal md:mb-3 md:mt-5">
               {translations["footer.follow"]}
             </h4>
