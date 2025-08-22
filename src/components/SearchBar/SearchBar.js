@@ -38,7 +38,7 @@ const SearchBar = () => {
   };
 
   return (
-    <div className="flex justify-center">
+    <div className="mt-4 flex justify-center">
       <div
         className={`relative flex items-center justify-between rounded-lg border border-tertiary1-light focus:outline-none md:mx-7 ${isMobile ? "h-auto w-[21.50rem]" : "h-[5.625rem] w-full"}`}
       >

@@ -180,7 +180,7 @@ const Navbar = () => {
 
   return (
     <nav
-      className="z-50 flex h-[7.18rem] w-full items-center justify-between gap-2 py-6 lg:h-[14.37rem]"
+      className="z-50 flex h-[7.18rem] w-full items-center justify-between gap-2 py-6 lg:h-[7.5rem]"
       aria-label="Main Navigation"
     >
       <Link

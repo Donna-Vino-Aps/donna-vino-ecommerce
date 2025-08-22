@@ -33,7 +33,7 @@ const PreSaleWinesPage = () => {
         description="Browse our exclusive selection of pre-sale wines."
       />
       {/* Search & Mobile Filter Header */}
-      <div className="mt-4 w-full md:container md:mx-auto md:-mt-4">
+      <div className="mt-4 w-full md:container md:mx-auto">
         <div className="flex flex-col gap-2 rounded-lg border border-tertiary1-light py-6 shadow-sm md:border-none md:py-0 md:shadow-none">
           <SearchBar />
           <div className="mt-3 flex items-center justify-center gap-4 md:hidden">
@@ -52,7 +52,7 @@ const PreSaleWinesPage = () => {
       )}
 
       {/* Main Layout */}
-      <div className="container mx-auto mt-6 flex flex-col gap-4 px-4 md:flex-row">
+      <div className="container mx-auto mt-10 flex flex-col gap-4 px-4 md:flex-row">
         {/* Filter sidebar (hidden on mobile) */}
         {!isFilterModalOpen && (
           <div className="hidden md:block md:min-w-[250px] md:max-w-[300px]">
