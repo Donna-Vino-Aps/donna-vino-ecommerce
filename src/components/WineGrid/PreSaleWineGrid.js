@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import { usePreSaleWines } from "@/context/PreSaleWinesContext";
 import WineCard from "@/components/Card/WineCard";
 import Spinner from "@/components/UI/Spinner";
@@ -8,10 +8,13 @@ import ErrorMessage from "@/components/UI/ErrorMessage";
 import { getWineUrl } from "@/utils/wineUtils";
 import Link from "next/link";
 import { useLanguage } from "@/context/LanguageContext";
+import WineAddedPopup from "../Cart/WineAddedPopup";
 
 const PreSaleWineGrid = () => {
   const { wines, isLoading, error, activeFilters } = usePreSaleWines();
   const { translations } = useLanguage();
+  const [showPopup, setShowPopup] = useState(false);
+  const [popupWine, setPopupWine] = useState();
 
   if (isLoading) {
     return (
@@ -44,21 +47,31 @@ const PreSaleWineGrid = () => {
   return (
     <>
       {wines.map((wine) => {
-        const price = wine.bottlePrice;
-        const primaryImage = wine.imageUrl;
-
         return (
           <Link href={getWineUrl(wine)} key={wine.id}>
             <WineCard
               key={wine.id}
-              title={wine.title}
-              price={price}
-              imageUrl={primaryImage}
-              variant={"pre-sale"}
+              wine={wine}
+              context={"pre-sale"}
+              setShowPopup={setShowPopup}
+              setPopupWine={setPopupWine}
             />
           </Link>
         );
       })}
+      {showPopup && (
+        <WineAddedPopup
+          isOpen={showPopup}
+          wine={{
+            imageUrl: popupWine.imageUrl,
+            title: popupWine.title,
+            vintage: popupWine.vintage,
+            size: "bottle",
+            quantity: 1,
+            totalPrice: popupWine.variantMap.bottle.price.amount,
+          }}
+        />
+      )}
     </>
   );
 };

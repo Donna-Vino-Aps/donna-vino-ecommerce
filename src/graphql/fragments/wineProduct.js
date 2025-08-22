@@ -69,6 +69,15 @@ const wineProductFragment = `
     tasteProfile: metafield(namespace: "wine", key: "taste_profile") {
       value
     }
+    tastesFruits: metafield(namespace: "wine", key: "tastes_fruits") {
+      value
+    }
+    tastesSpices: metafield(namespace: "wine", key: "tastes_spices") {
+      value
+    }
+    tastesNotes: metafield(namespace: "wine", key: "tastes_notes") {
+      value
+    }  
     alcoholContent: metafield(namespace: "wine", key: "alcohol_content") {
       value
     }
