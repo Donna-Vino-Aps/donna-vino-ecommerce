@@ -45,7 +45,7 @@ export default function CardsSection() {
           src={"/icons/chevron-down.svg"}
           height={20}
           width={20}
-          className="visible mx-auto mb-6 sm:invisible"
+          className="visible mx-auto mb-6 xl:invisible"
           alt="chevron-down"
           aria-hidden="true"
         />

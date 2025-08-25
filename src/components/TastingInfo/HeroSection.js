@@ -14,20 +14,20 @@ export default function HeroSection() {
 
   return (
     <section className="flex w-full items-center justify-center pb-4 pt-10">
-      <div className="flex max-w-7xl flex-col-reverse items-center gap-8 lg:flex-row  xl:gap-16">
-        <div className="m-5 max-w-[80%] lg:max-w-[40rem] xl:max-w-[45rem]">
-          <h1 className="text-center font-roboto text-displaySmall text-tertiary1-dark sm:text-start md:text-displayLarge">
+      <div className="flex max-w-7xl flex-col-reverse items-center gap-8 p-6 lg:flex-row xl:gap-16">
+        <div className="lg:max-w-[40rem] xl:max-w-[45rem]">
+          <h1 className="text-center font-roboto text-displaySmall text-tertiary1-dark md:text-displayLarge lg:text-start">
             {translations["tasting-info.heroHeader"]}
           </h1>
           <p
-            className="mt-2 text-center text-bodySmall text-tertiary1-dark sm:text-start md:text-bodyLarge"
+            className="mt-2 text-center text-bodySmall text-tertiary1-dark sm:text-bodyLarge lg:text-start"
             dangerouslySetInnerHTML={{
               __html: translations["tasting-info.heroBody"],
             }}
           ></p>
           {events.map((event) => (
             <div key={event.title} className="mt-4 flex items-start">
-              <h2 className="me-2 w-[10rem] flex-shrink-0 text-bodyMedium font-bold text-primary-normal sm:text-bodyLarge">
+              <h2 className="me-2 w-32 flex-shrink-0 text-bodyMedium font-bold text-primary-normal sm:w-[10rem] sm:text-bodyLarge">
                 {translations["tasting-info." + event.title]}:
               </h2>
               <p
